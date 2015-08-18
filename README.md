@@ -1,8 +1,10 @@
 #LinkBlock
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
-    *这是一个objc链式编程框架，为的是告别换行和[]，我会不断维护，不断更新最好的，让代码更快，更持久...西湖美景三月天嘞
-    *This is objective-c link block , to chain programming. One line code will tell you, how quik KF coding.
+    _这是一个objc链式编程框架，为的是告别换行和[]，我会不断维护，_<br>
+__不断更新最好的，让代码更快，更持久...西湖美景三月天嘞__
+    __This is objective-c link block , to chain programming.__<br>
+__One line code will tell you, how quik KF coding.__
 ##Bye bye CGRectMake(xxxx);
 
 ```Objective-C
