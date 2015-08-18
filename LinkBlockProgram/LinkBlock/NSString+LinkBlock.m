@@ -351,6 +351,7 @@
         return (BOOL)(self.blockIsInteger() || self.blockIsFloating());
     };
 }
+- (void)setBlockIsNumber:(BOOL (^)())blockIsNumber{};
 
 - (NSString *(^)(NSString *))blockDeleteStrLeft
 {

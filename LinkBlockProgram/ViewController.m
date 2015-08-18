@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.blockFrame(20,20,50,50).blockBGColor(@"0xff22cc".blockToColorFromHexStr()).blockAddToView(self.view);
+    btn.blockFrameSet(20,20,50,50).blockBGColor(@"0xff22cc".blockToColorFromHexStr()).blockAddToView(self.view);
 
 //    [btn blockAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock: block];
 //    [btn blockRemoveTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:block];

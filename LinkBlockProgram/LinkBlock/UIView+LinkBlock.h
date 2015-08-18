@@ -8,16 +8,25 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView(LinkBlock)
-@property (nonatomic,copy) UIView*      (^blockFrame)(CGFloat x,CGFloat y, CGFloat width,CGFloat height);
-@property (nonatomic,copy) UIView*      (^blockX)(CGFloat x);
-@property (nonatomic,copy) UIView*      (^blockY)(CGFloat y);
-@property (nonatomic,copy) UIView*      (^blockOrigin)(CGFloat x,CGFloat y);
-@property (nonatomic,copy) UIView*      (^blockCenterX)(CGFloat centerX);
-@property (nonatomic,copy) UIView*      (^blockCenterY)(CGFloat centerY);
-@property (nonatomic,copy) UIView*      (^blockCenter)(CGFloat x,CGFloat y);
-@property (nonatomic,copy) UIView*      (^blockWidth)(CGFloat width);
-@property (nonatomic,copy) UIView*      (^blockHeight)(CGFloat height);
-@property (nonatomic,copy) UIView*      (^blockSize)(CGFloat width, CGFloat height);
+@property (nonatomic,copy) CGFloat      (^blockXGet)();
+@property (nonatomic,copy) CGFloat      (^blockYGet)();
+@property (nonatomic,copy) CGPoint      (^blockOriginGet)();
+@property (nonatomic,copy) CGFloat      (^blockCenterXGet)();
+@property (nonatomic,copy) CGFloat      (^blockCenterYGet)();
+@property (nonatomic,copy) CGFloat      (^blockWidthGet)();
+@property (nonatomic,copy) CGFloat      (^blockHeightGet)();
+@property (nonatomic,copy) CGSize       (^blockSizeGet)();
+
+@property (nonatomic,copy) UIView*      (^blockFrameSet)(CGFloat x,CGFloat y, CGFloat width,CGFloat height);
+@property (nonatomic,copy) UIView*      (^blockXSet)(CGFloat x);
+@property (nonatomic,copy) UIView*      (^blockYSet)(CGFloat y);
+@property (nonatomic,copy) UIView*      (^blockOriginSet)(CGFloat x,CGFloat y);
+@property (nonatomic,copy) UIView*      (^blockCenterXSet)(CGFloat centerX);
+@property (nonatomic,copy) UIView*      (^blockCenterYSet)(CGFloat centerY);
+@property (nonatomic,copy) UIView*      (^blockCenterSet)(CGFloat x,CGFloat y);
+@property (nonatomic,copy) UIView*      (^blockWidthSet)(CGFloat width);
+@property (nonatomic,copy) UIView*      (^blockHeightSet)(CGFloat height);
+@property (nonatomic,copy) UIView*      (^blockSizeSet)(CGFloat width, CGFloat height);
 @property (nonatomic,copy) UIView*      (^blockBGColor)(UIColor* color);
 @property (nonatomic,copy) UIView*      (^blockBorderColor)(UIColor* color);
 @property (nonatomic,copy) UIView*      (^blockBorderWidth)(CGFloat w);

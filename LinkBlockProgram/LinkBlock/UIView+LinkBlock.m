@@ -11,7 +11,7 @@
 @implementation UIView(LinkBlock)
 
 
-- (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrame
+- (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrameSet
 {
     return ^(CGFloat x,CGFloat y, CGFloat width, CGFloat height){
         self.frame= CGRectMake(x, y, width, height);
@@ -19,7 +19,7 @@
     };
 }
 
-- (UIView *(^)(CGFloat))blockX
+- (UIView *(^)(CGFloat))blockXSet
 {
     return ^(CGFloat x){
         CGRect frame = self.frame;
@@ -29,7 +29,7 @@
     };
 }
 
-- (UIView *(^)(CGFloat))blockY
+- (UIView *(^)(CGFloat))blockYSet
 {
     return ^(CGFloat y){
         CGRect frame = self.frame;
@@ -39,7 +39,7 @@
     };
 }
 
-- (UIView *(^)(CGFloat))blockCenterX
+- (UIView *(^)(CGFloat))blockCenterXSet
 {
     return ^(CGFloat centerX){
         CGPoint center = self.center;
@@ -49,7 +49,7 @@
     };
 }
 
-- (UIView *(^)(CGFloat))blockCenterY
+- (UIView *(^)(CGFloat))blockCenterYSet
 {
     return ^(CGFloat centerY){
         CGPoint center = self.center;
@@ -59,7 +59,7 @@
     };
 }
 
-- (UIView *(^)(CGFloat))blockWidth
+- (UIView *(^)(CGFloat))blockWidthSet
 {
     return ^(CGFloat width){
         CGRect frame= self.frame;
@@ -69,7 +69,7 @@
     };
 }
 
-- (UIView *(^)(CGFloat))blockHeight
+- (UIView *(^)(CGFloat))blockHeightSet
 {
     return ^(CGFloat height){
         CGRect frame= self.frame;
@@ -79,7 +79,7 @@
     };
 }
 
-- (UIView *(^)(CGFloat,CGFloat))blockSize
+- (UIView *(^)(CGFloat,CGFloat))blockSizeSet
 {
     return ^(CGFloat width, CGFloat height){
         CGRect frame= self.frame;
@@ -90,7 +90,7 @@
     };
 }
 
-- (UIView *(^)(CGFloat,CGFloat))blockOrigin
+- (UIView *(^)(CGFloat,CGFloat))blockOriginSet
 {
     return ^(CGFloat x,CGFloat y){
         CGRect frame= self.frame;
@@ -108,7 +108,7 @@
         return self;
     };
 }
-- (UIView *(^)(CGFloat x,CGFloat y))blockCenter
+- (UIView *(^)(CGFloat x,CGFloat y))blockCenterSet
 {
     return ^(CGFloat x,CGFloat y){
         self.center = CGPointMake(x, y);
@@ -392,17 +392,82 @@
 }
 - (void)setBlockCornerRadiusSide:(UIView *(^)(UIRectCorner, CGSize))blockCornerRadiusSide{};
 
-- (void)setBlockFrame:(UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrame{};
-- (void)setBlockX:(UIView *(^)(CGFloat))blockX{};
-- (void)setBlockY:(UIView *(^)(CGFloat))blockY{};
-- (void)setBlockCenterX:(UIView *(^)(CGFloat))blockCenterX{};
-- (void)setBlockCenterY:(UIView *(^)(CGFloat))blockCenterY{};
-- (void)setBlockWidth:(UIView *(^)(CGFloat))blockWidth{};
-- (void)setBlockHeight:(UIView *(^)(CGFloat))blockHeight{};
-- (void)setBlockSize:(UIView *(^)(CGFloat, CGFloat))blockSize{};
-- (void)setBlockOrigin:(UIView *(^)(CGFloat,CGFloat))blockOrigin{};
+
+- (CGFloat (^)())blockXGet
+{
+    return ^(){
+        return self.frame.origin.x;
+    };
+}
+- (void)setBlockXGet:(CGFloat (^)())blockXGet{};
+
+- (CGFloat (^)())blockYGet
+{
+    return ^(){
+        return self.frame.origin.y;
+    };
+}
+- (void)setBlockYGet:(CGFloat (^)())blockYGet{};
+
+- (CGFloat (^)())blockCenterXGet
+{
+    return ^(){
+        return self.center.x;
+    };
+}
+- (void)setBlockCenterXGet:(CGFloat (^)())blockCenterXGet{};
+
+- (CGFloat (^)())blockCenterYGet
+{
+    return ^(){
+        return self.center.y;
+    };
+}
+- (void)setBlockCenterYGet:(CGFloat (^)())blockCenterYGet{};
+
+- (CGSize (^)())blockSizeGet
+{
+    return ^(){
+        return self.frame.size;
+    };
+}
+- (void)setBlockSizeGet:(CGSize (^)())blockSizeGet{};
+
+- (CGFloat (^)())blockWidthGet
+{
+    return ^(){
+        return self.frame.size.width;
+    };
+}
+- (void)setBlockWidthGet:(CGFloat (^)())blockWidthGet{};
+
+- (CGFloat (^)())blockHeightGet
+{
+    return ^(){
+        return self.frame.size.height;
+    };
+}
+- (void)setBlockHeightGet:(CGFloat (^)())blockHeightGet{};
+
+- (CGPoint (^)())blockOriginGet
+{
+    return ^(){
+        return self.frame.origin;
+    };
+}
+- (void)setBlockOriginGet:(CGPoint (^)())blockOriginGet{};
+
+- (void)setBlockFrameSet:(UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrame{};
+- (void)setBlockXSet:(UIView *(^)(CGFloat))blockX{};
+- (void)setBlockYSet:(UIView *(^)(CGFloat))blockY{};
+- (void)setBlockCenterXSet:(UIView *(^)(CGFloat))blockCenterX{};
+- (void)setBlockCenterYSet:(UIView *(^)(CGFloat))blockCenterY{};
+- (void)setBlockWidthSet:(UIView *(^)(CGFloat))blockWidth{};
+- (void)setBlockHeightSet:(UIView *(^)(CGFloat))blockHeight{};
+- (void)setBlockSizeSet:(UIView *(^)(CGFloat, CGFloat))blockSize{};
+- (void)setBlockOriginSet:(UIView *(^)(CGFloat,CGFloat))blockOrigin{};
 - (void)setBlockBGColor:(UIView *(^)(UIColor *))blockColor{};
-- (void)setBlockCenter:(UIView *(^)(CGFloat x,CGFloat y))blockCenter{};
+- (void)setBlockCenterSet:(UIView *(^)(CGFloat x,CGFloat y))blockCenter{};
 - (void)setBlockMasksToBounds:(UIView *(^)(BOOL))blockMasksToBounds{};
 - (void)setBlockFirstResponderInputSubView:(UIView *(^)())blockFirstResponderSubView{};
 - (void)setBlockBorderWidth:(UIView *(^)(CGFloat))blockBorderWidth{};
