@@ -145,6 +145,7 @@
 		9FFDA20F1B835E2F0044097D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9FFDA2671B83D2C90044097D /* README.md */,
 				9FFDA2101B835E2F0044097D /* Info.plist */,
 				9FFDA2111B835E2F0044097D /* main.m */,
 			);
@@ -171,7 +172,6 @@
 		9FFDA2351B835E690044097D /* LinkBlock */ = {
 			isa = PBXGroup;
 			children = (
-				9FFDA2671B83D2C90044097D /* README.md */,
 				9FFDA2361B835E690044097D /* LinkBlock.h */,
 				9FFDA2381B835E690044097D /* NSArray+LinkBlock.h */,
 				9FFDA2391B835E690044097D /* NSArray+LinkBlock.m */,
