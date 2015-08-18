@@ -1,9 +1,9 @@
 #LinkBlock
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
-    *这是一个轻量级objc链式编程框架，为的是告别换行
+    *这是一个轻量级objc链式编程框架，为的是告别换行.西湖美景三月天嘞
     *This is objective-c link block. One line code will tell you, how quik KF coding.
-##告别CGRectMake(x,y,w,h);
+##Bye bye CGRectMake(xxxx);
 
 ```Objective-C
 UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -17,18 +17,18 @@ lab.blockNumberOfLines(0).blockAlignment(NSTextAlignmentCenter).blockAlignTop().
 
 
 [lab blockBlockSet:@"Say" executeBlock:^id{
-@"My teacher is MJ.".blockNSLog();
-float r = arc4random_uniform(256)/255.0;
-float g = arc4random_uniform(256)/255.0;
-float b = arc4random_uniform(256)/255.0;
-UIColor* color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
-return color;
+    @"My teacher is MJ.".blockNSLog();
+    float r = arc4random_uniform(256)/255.0;
+    float g = arc4random_uniform(256)/255.0;
+    float b = arc4random_uniform(256)/255.0;
+    UIColor* color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    return color;
 }];
 
 
 [btn blockAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:^(UIControlEvents event) {
-UIColor* color = [lab blockBlockExecute:@"Say"];
-lab.blockTextColor(color);
+    UIColor* color = [lab blockBlockExecute:@"Say"];
+    lab.blockTextColor(color);
 }];
 
 
