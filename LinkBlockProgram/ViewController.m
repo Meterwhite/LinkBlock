@@ -1,12 +1,12 @@
 //
 //  ViewController.m
-//  LinkBlockProgram
 //
 //  Created by NOVO on 15/8/18.
 //  Copyright (c) 2015年 QuXingYi. All rights reserved.
 //
 
 #import "ViewController.h"
+#import "LinkBlock.h"
 
 @interface ViewController ()
 
@@ -16,7 +16,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.blockFrame(20,20,50,50).blockBGColor(@"0xff22cc".blockToColorFromHexStr()).blockAddToView(self.view);
+
+//    [btn blockAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock: block];
+//    [btn blockRemoveTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:block];
+
+    [btn blockBlockSet:nil executeBlock:^id{
+        NSLog(@"im your father");
+        return @"he";
+    }];
+    NSString* re= [btn blockBlockGet:@"log223"]();
+//    NSString* rere= [btn blockBlockExecute:@"log2"];
+    NSLog(@"%@", re);
+    
 }
 
 - (void)didReceiveMemoryWarning {

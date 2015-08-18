@@ -313,7 +313,7 @@
     };
 }
 
-- (NSComparisonResult (^)(NSString *, NSString *))blockCompareStrNumberSuper
+- (NSComparisonResult (^)(NSString *, NSString *))blockCompareStrNumberScan
 {
     return ^(NSString* str1 , NSString* str2){
         return [str1 compare:str2 options: NSNumericSearch | NSWidthInsensitiveSearch ];
@@ -399,9 +399,9 @@
     };
 }
 
-- (UIColor *(^)(NSString *))blockToColorFromHexStr
+- (UIColor *(^)())blockToColorFromHexStr
 {
-    return ^(NSString* hexStr){
+    return ^(){
         NSString *newString = [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
         if ([newString length] < 6)
             return [UIColor whiteColor];
@@ -562,22 +562,14 @@
 }
 - (void)setBlockSplitStrWithStr:(NSArray *(^)(NSString *))blockSplitStrWithStr{};
 
-- (NSArray *(^)(NSArray *))blockSplitStrWithStrs
+- (NSArray *(^)(NSString *))blockSplitStrWithCharsStr
 {
-    return ^(NSArray* splitStrs){
-        __block NSString* charsetIsStr = @"";
-        [splitStrs enumerateObjectsUsingBlock:^(NSString* subStr, NSUInteger idx, BOOL *stop) {
-            if(subStr.length==1){
-                charsetIsStr = [charsetIsStr stringByAppendingString: subStr];
-            }else{
-                charsetIsStr = [charsetIsStr stringByAppendingString: [subStr substringToIndex:1]];
-            }
-        }];
-        NSCharacterSet *charSet= [NSCharacterSet characterSetWithCharactersInString:charsetIsStr];
+    return ^(NSString* splitStrs){
+        NSCharacterSet *charSet= [NSCharacterSet characterSetWithCharactersInString:splitStrs];
         return [self componentsSeparatedByCharactersInSet:charSet];
     };
 }
-- (void)setBlockSplitStrWithStrs:(NSArray *(^)(NSArray *))blockSplitStrWithStrs{};
+- (void)setBlockSplitStrWithCharsStr:(NSArray *(^)(NSString *))blockSplitStrWithCharsStr{};
 
 - (void)setBlockAppendStr:(NSString *(^)(NSString *))blockAppendStr{};
 - (void)setBlockDeleteStr:(NSString *(^)(NSString *))blockDeleteStr{};
@@ -594,7 +586,7 @@
 - (void)setBlockLength:(NSUInteger (^)())blockLength{};
 - (void)setBlockLengthASCII:(NSUInteger (^)())blockLengthASCII{};
 - (void)setBlockLengthUniCode:(NSUInteger (^)())blockLengthUniCode{};
-- (void)setBlockCompareStrNumberSuper:(NSComparisonResult (^)(NSString *, NSString *))blockCompareStrNumberSuper{};
+- (void)setBlockCompareStrNumberScan:(NSComparisonResult (^)(NSString *, NSString *))blockCompareStrNumberSuper{};
 - (void)setBlockCompareStr:(NSComparisonResult (^)(NSString *, NSString *))blockCompareStr{};
 - (void)setBlockIsInteger:(BOOL (^)())blockIsInt{};
 - (void)setBlockIsFloating:(BOOL (^)())blockIsDoubel{};
@@ -617,7 +609,7 @@
 - (void)setBlockToCGAffineTransform:(CGAffineTransform (^)())blockToCGAffineTransform{};
 - (void)setBlockToUIEdgeInsets:(UIEdgeInsets (^)())blockToUIEdgeInsets{};
 - (void)setBlockToUIOffset:(UIOffset (^)())blockToUIOffset{};
-- (void)setBlockToColorFromHexStr:(UIColor *(^)(NSString *))blockToColorFromHexStr{};
+- (void)setBlockToColorFromHexStr:(UIColor *(^)())blockToColorFromHexStr{};
 - (void)setBlockToBOOL:(BOOL (^)())blockToBOOL{};
 - (void)setBlockToUIImage:(UIImage *(^)())blockToUIImage{};
 - (void)setBlockToInteger:(NSInteger (^)())blockToNSInteger{};

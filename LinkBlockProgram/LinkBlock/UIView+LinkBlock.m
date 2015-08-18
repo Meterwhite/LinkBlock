@@ -101,7 +101,7 @@
     };
 }
 
-- (UIView *(^)(UIColor *))blockBgColor
+- (UIView *(^)(UIColor *))blockBGColor
 {
     return ^(UIColor *colore){
         self.backgroundColor= colore;
@@ -150,7 +150,7 @@
     };
 }
 
-- (UIView *(^)())blockFirstResponderSubView
+- (UIView *(^)())blockFirstResponderInputSubView
 {
     return ^(){
         __block UIView *re= nil;
@@ -162,7 +162,7 @@
                     *stop= YES;
                 }
             }else{
-                re= v.blockFirstResponderSubView();
+                re= v.blockFirstResponderInputSubView();
                 if(re) {
                     *stop= YES;
                 }
@@ -401,10 +401,10 @@
 - (void)setBlockHeight:(UIView *(^)(CGFloat))blockHeight{};
 - (void)setBlockSize:(UIView *(^)(CGFloat, CGFloat))blockSize{};
 - (void)setBlockOrigin:(UIView *(^)(CGFloat,CGFloat))blockOrigin{};
-- (void)setBlockBgColor:(UIView *(^)(UIColor *))blockColor{};
+- (void)setBlockBGColor:(UIView *(^)(UIColor *))blockColor{};
 - (void)setBlockCenter:(UIView *(^)(CGFloat x,CGFloat y))blockCenter{};
 - (void)setBlockMasksToBounds:(UIView *(^)(BOOL))blockMasksToBounds{};
-- (void)setBlockFirstResponderSubView:(UIView *(^)())blockFirstResponderSubView{};
+- (void)setBlockFirstResponderInputSubView:(UIView *(^)())blockFirstResponderSubView{};
 - (void)setBlockBorderWidth:(UIView *(^)(CGFloat))blockBorderWidth{};
 - (void)setBlockBorderColor:(UIView *(^)(UIColor *))blockBorderColor{};
 - (void)setBlockCornerRadius:(UIView *(^)(CGFloat))blockCornerRadius{};

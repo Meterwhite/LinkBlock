@@ -109,6 +109,14 @@
         return self;
     };
 }
+- (UILabel *(^)(CGFloat))blockFontSizeSystem
+{
+    return ^(CGFloat size){
+        self.font= [UIFont systemFontOfSize:size];
+        return self;
+    };
+}
+- (void)setBlockFontSizeSystem:(UILabel *(^)(CGFloat))blockFontSize{};
 
 - (void)setBlockAlignBottom:(UILabel *(^)())blockAlignBottom{};
 - (void)setBlockAlignTop:(UILabel *(^)())blockAlignTop{};

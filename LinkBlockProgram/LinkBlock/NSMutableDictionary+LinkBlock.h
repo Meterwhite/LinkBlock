@@ -10,11 +10,14 @@
 
 @interface NSMutableDictionary(LinkBlock)
 /** 安全赋值 */
+/** set value safely */
 @property (nonatomic,copy) NSMutableDictionary*(^blockSetValue)(id<NSCopying> key , id value);
 @property (nonatomic,copy) NSMutableDictionary* (^blockReplaceKey)(id<NSCopying> key , id<NSCopying>  withKey);
 /** 并集，由传入参数覆盖原来数据 */
+/** Union. Adds to the receiving dictionary the entries from another dictionary. */
 @property (nonatomic,copy) NSMutableDictionary* (^blockUnionDict)(NSDictionary* dict);
 /** ********************NSAttributeString设置部分******************** */
+/** ********************NSAttributeString Settings section ******************** */
 @property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrFont)(UIFont* font);
 @property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrTextColor)(UIColor* textColor);
 @property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrBGColor)(UIColor* bgColor);

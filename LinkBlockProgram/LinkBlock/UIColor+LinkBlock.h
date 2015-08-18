@@ -15,6 +15,7 @@
 @property (nonatomic,copy) CGFloat          (^blockGreenValue)();
 @property (nonatomic,copy) CGFloat          (^blockBlueValue)();
 @property (nonatomic,copy) CGFloat          (^blockAlphaValue)();
+/** return new UIColor */
 @property (nonatomic,copy) UIColor*         (^blockSetRedValue)(CGFloat value);
 @property (nonatomic,copy) UIColor*         (^blockSetGreenValue)(CGFloat value);
 @property (nonatomic,copy) UIColor*         (^blockSetBlueValue)(CGFloat value);

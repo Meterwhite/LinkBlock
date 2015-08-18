@@ -88,4 +88,102 @@
     };
 }
 - (void)setBlockContainer:(BOOL (^)(id))blockContainer{};
+
+
+- (id (^)(NSUInteger))blockValue
+{
+    return ^(NSUInteger idx){
+        id re;
+        if(self.blockIsIndexInRange(idx)){
+            re =[self objectAtIndex:idx];
+        }else{
+            re = nil;
+        }
+        return re;
+    };
+}
+- (void)setBlockValue:(id (^)(NSUInteger))blockValue{};
+
+- (id (^)(__unsafe_unretained Class ,NSUInteger))blockValueType
+{
+    return ^( Class typeClass, NSUInteger idx){
+        id re;
+        if(self.blockIsIndexInRange(idx)){
+            re = [self objectAtIndex:idx];
+            if(![re isKindOfClass:typeClass]){
+                re = [typeClass new];
+            }
+        }else{
+            re = [typeClass new];
+        }
+        return re;
+    };
+}
+- (void)setBlockValueType:(id (^)(__unsafe_unretained Class ,NSUInteger))blockValueType{};
+
+- (NSObject *(^)(NSUInteger))blockValueNSObject
+{
+    return ^(NSUInteger idx){
+        return self.blockValueType([NSObject class],idx);
+    };
+}
+- (void)setBlockValueNSObject:(NSObject *(^)(NSUInteger))blockValueNSObject{};
+
+- (NSString *(^)(NSUInteger))blockValueNSString
+{
+    return ^(NSUInteger idx){
+        return self.blockValueType([NSString class],idx);
+    };
+}
+- (void)setBlockValueNSString:(NSString *(^)(NSUInteger))blockValueNSString{};
+
+- (NSNumber *(^)(NSUInteger))blockValueNSNumber
+{
+    return ^(NSUInteger idx){
+        return self.blockValueType([NSNumber class],idx);
+    };
+}
+- (void)setBlockValueNSNumber:(NSNumber *(^)(NSUInteger))blockValueNSNumber{};
+
+- (NSArray *(^)(NSUInteger))blockValueNSArrary
+{
+    return ^(NSUInteger idx){
+        return self.blockValueType([NSArray class],idx);
+    };
+}
+- (void)setBlockValueNSArrary:(NSArray *(^)(NSUInteger))blockValueNSArrary{};
+
+- (NSMutableArray *(^)(NSUInteger))blockValueNSMutableArray
+{
+    return ^(NSUInteger idx){
+        return self.blockValueType([NSMutableArray class],idx);
+    };
+}
+- (void)setBlockValueNSMutableArray:(NSMutableArray *(^)(NSUInteger))blockValueNSMutableArray{};
+
+- (NSDictionary *(^)(NSUInteger))blockValueNSDictionary
+{
+    return ^(NSUInteger idx){
+        return self.blockValueType([NSDictionary class],idx);
+    };
+}
+- (void)setBlockValueNSDictionary:(NSDictionary *(^)(NSUInteger))blockValueNSDictionary{};
+
+- (NSMutableDictionary *(^)(NSUInteger))blockValueNSMutableDictionary
+{
+    return ^(NSUInteger idx){
+        return self.blockValueType([NSMutableDictionary class],idx);
+    };
+}
+- (void)setBlockValueNSMutableDictionary:(NSMutableDictionary *(^)(NSUInteger))blockValueNSMutableDictionary{};
+
+- (UIView *(^)(NSUInteger))blockValueUIVIew
+{
+    return ^(NSUInteger idx){
+        return self.blockValueType([UIView class],idx);
+    };
+}
+- (void)setBlockValueUIVIew:(UIView *(^)(NSUInteger))blockValueUIVIew{};
+
+
 @end

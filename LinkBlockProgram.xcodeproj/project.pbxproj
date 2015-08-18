@@ -28,6 +28,7 @@
 		9FFDA2601B835E690044097D /* UIImage+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA24F1B835E690044097D /* UIImage+LinkBlock.m */; };
 		9FFDA2611B835E690044097D /* UILabel+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2511B835E690044097D /* UILabel+LinkBlock.m */; };
 		9FFDA2621B835E690044097D /* UIView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2531B835E690044097D /* UIView+LinkBlock.m */; };
+		9FFDA2661B83AEE30044097D /* UIButton+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2651B83AEE30044097D /* UIButton+LinkBlock.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,8 @@
 		9FFDA2511B835E690044097D /* UILabel+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LinkBlock.m"; sourceTree = "<group>"; };
 		9FFDA2521B835E690044097D /* UIView+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LinkBlock.h"; sourceTree = "<group>"; };
 		9FFDA2531B835E690044097D /* UIView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LinkBlock.m"; sourceTree = "<group>"; };
+		9FFDA2641B83AEE30044097D /* UIButton+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LinkBlock.h"; sourceTree = "<group>"; };
+		9FFDA2651B83AEE30044097D /* UIButton+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+LinkBlock.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +198,8 @@
 				9FFDA2511B835E690044097D /* UILabel+LinkBlock.m */,
 				9FFDA2521B835E690044097D /* UIView+LinkBlock.h */,
 				9FFDA2531B835E690044097D /* UIView+LinkBlock.m */,
+				9FFDA2641B83AEE30044097D /* UIButton+LinkBlock.h */,
+				9FFDA2651B83AEE30044097D /* UIButton+LinkBlock.m */,
 			);
 			path = LinkBlock;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				9FFDA2571B835E690044097D /* NSDictionary+LinkBlock.m in Sources */,
 				9FFDA25A1B835E690044097D /* NSMutableDictionary+LinkBlock.m in Sources */,
 				9FFDA25B1B835E690044097D /* NSMutableString+LinkBlock.m in Sources */,
+				9FFDA2661B83AEE30044097D /* UIButton+LinkBlock.m in Sources */,
 				9FFDA2611B835E690044097D /* UILabel+LinkBlock.m in Sources */,
 				9FFDA25E1B835E690044097D /* UIColor+LinkBlock.m in Sources */,
 				9FFDA2581B835E690044097D /* NSMutableArray+LinkBlock.m in Sources */,

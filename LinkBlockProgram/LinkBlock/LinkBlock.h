@@ -21,6 +21,7 @@
 #import "UIControl+LinkBlock.h"
 #import "UIColor+LinkBlock.h"
 #import "UIView+LinkBlock.h"
+#import "UIButton+LinkBlock.h"
 
 
 #define linkSafe(type, value) ([value isKindOfClass:[type class]]?value:[type new])

@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+LinkBlock.h"
+#import <objc/runtime.h>
 #import "LinkBlock.h"
 
 @implementation NSObject(LinkBlock)
@@ -102,8 +103,48 @@
 - (void)setBlockClassName:(NSString *(^)())blockClassName{};
 
 
-static const char * privateDictName = "quxingyiBlock";//私有字典名
+static const char* blockName = "quxingyiHandsome";
+- (void)blockBlockSet:(NSString*)name executeBlock:(id(^)())executeBlock
+{
+    if([name isKindOfClass:[NSString class]] && executeBlock)
+        [self novoGetBlocksDict][name]= executeBlock;
+}
+- (id(^)())blockBlockGet:(NSString*)name
+{
+    if(![name isKindOfClass:[NSString class]])
+        return (id)^(){return nil;};
+    
+    id(^block)() = [self novoGetBlocksDict][name];
+    if(!block)
+        return (id)^(){return nil;};
+    
+    return (id)block;
+}
+- (void)blockBlockRemove:(NSString*)name
+{
+    if([name isKindOfClass:[NSString class]])
+        [[self novoGetBlocksDict] removeObjectForKey:name];
+}
+- (id)blockBlockExecute:(NSString *)name
+{
+    if(![name isKindOfClass:[NSString class]])
+        return (id)nil;
+    id(^block)() = [self novoGetBlocksDict][name];
+    if(block)
+        return block();
+    return (id)nil;
+}
 
+- (NSMutableDictionary* )novoGetBlocksDict
+{
+    NSMutableDictionary *privateDict= objc_getAssociatedObject(self, &blockName);
+    if(!privateDict ||
+       ![privateDict isKindOfClass:([NSMutableDictionary class])]){//检查target的私有字典是否存在，不存在则创建
+        privateDict= [NSMutableDictionary dictionary];
+        objc_setAssociatedObject(self, &blockName, privateDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return privateDict;
+}
 
 
 /** 触发扩展字典中的的UIControl的事件，不应直接调用 */
