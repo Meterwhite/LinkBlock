@@ -1,11 +1,11 @@
 #LinkBlock
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
-*这是一个轻量级objc链式编程框架，为的是告别换行。
-*This is objective-c link block. One line code will tell you, how quik KF coding.
+    *这是一个轻量级objc链式编程框架，为的是告别换行
+    *This is objective-c link block. One line code will tell you, how quik KF coding.
 ##告别CGRectMake(x,y,w,h);
 
-```ObjC
+```Objective-C
 UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
 btn.blockFrameSet(20,20,150,80).blockBGColor(@"0xff22cc".blockToColorFromHexStr()).blockAddToView(self.view);
 btn.blockTitleSet(@"no can no bb", UIControlStateNormal);
