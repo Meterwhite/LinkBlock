@@ -37,6 +37,8 @@
     
     
     [btn blockAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:^(UIControlEvents event) {
+        if(event!=UIControlEventTouchUpInside)
+            return ;
         UIColor* color = [lab blockBlockExecute:@"Say"];
         lab.blockTextColor(color);
     }];
