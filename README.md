@@ -2,7 +2,7 @@
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
     *这是一个轻量级objc链式编程框架，为的是告别换行.西湖美景三月天嘞
-    *This is objective-c link block. One line code will tell you, how quik KF coding.
+    *This is objective-c link block , to chain programming. One line code will tell you, how quik KF coding.
 ##Bye bye CGRectMake(xxxx);
 
 ```Objective-C
