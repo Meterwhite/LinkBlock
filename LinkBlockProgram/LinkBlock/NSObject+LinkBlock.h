@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject(LinkBlock)
+@property (nonatomic,copy) NSObject*    (^blockValueTo)(id* toValue);
 @property (nonatomic,copy) NSObject*    (^blockCopy)();
 @property (nonatomic,copy) NSObject*    (^blockMutableCopy)();
 @property (nonatomic,copy) BOOL         (^blockIsEqual)(NSObject* obj);
@@ -21,6 +22,8 @@
 @property (nonatomic,copy) NSString*    (^blockToJsonString)();
 @property (nonatomic,copy) Class        (^blockClass)();
 @property (nonatomic,copy) NSString*    (^blockClassName)();
+@property (nonatomic,copy) NSString*    (^blockToString)();
+@property (nonatomic,copy) NSObject*    (^blockNSLog)();
 
 /** 增加一个block到对象 */
 /** Add a block to the object  */

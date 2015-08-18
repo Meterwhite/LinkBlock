@@ -32,12 +32,16 @@
 - (BOOL (^)( __unsafe_unretained Class))blockIsKindOf
 {
     return ^(Class classKind){
+        if(!classKind)
+            return NO;
         return [self isKindOfClass:classKind];
     };
 }
 - (BOOL (^)(__unsafe_unretained Class))blockIsSubClassOf
 {
     return ^(Class classKind){
+        if(!classKind)
+            return NO;
         return [[self class] isSubclassOfClass:classKind];
     };
 }
@@ -45,7 +49,7 @@
 - (NSObject* (^)(__unsafe_unretained Class))blockTypeKeep
 {
     return ^(Class theClass){
-        if(!self.blockIsKindOf(theClass)){
+        if(!theClass || !self.blockIsKindOf(theClass)){
             return (NSObject*)[theClass new];
         }else{
             return self;
@@ -90,6 +94,32 @@
         return NSStringFromClass([self class]);
     };
 }
+
+- (NSObject *(^)(id*))blockValueTo
+{
+    return ^(id* toValue){
+        *toValue = self;
+        return self;
+    };
+}
+- (void)setBlockValueTo:(NSObject *(^)(id*))blockValueTo{};
+
+- (NSString *(^)())blockToString
+{
+    return ^(){
+        return [self description];
+    };
+}
+- (void)setBlockToString:(NSString *(^)())blockToString{};
+
+- (NSObject *(^)())blockNSLog
+{
+    return ^(){
+        NSLog(@"%@",self);
+        return self;
+    };
+}
+- (void)setBlockNSLog:(NSObject *(^)())blockNSLog{};
 
 - (void)setBlockCopy:(NSObject *(^)())blockCopy{};
 - (void)setBlockMutableCopy:(NSObject *(^)())blockMutableCopy{};
