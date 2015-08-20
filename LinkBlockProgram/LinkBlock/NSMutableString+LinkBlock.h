@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSMutableString(LinkBlock)
-@property (nonatomic,copy) NSString*            (^blockCopy)();
-@property (nonatomic,copy) NSMutableString*     (^blockReplaceStrWithStr)(NSString* replaceStr, NSString* withStr);
+@interface NSObject(NSMutableStringLinkBlock)
+@property (nonatomic,copy) NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr);
 @end

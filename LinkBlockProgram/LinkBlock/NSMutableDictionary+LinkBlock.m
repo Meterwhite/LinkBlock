@@ -10,273 +10,296 @@
 #import "NSObject+LinkBlock.h"
 
 
-@implementation NSMutableDictionary(LinkBlock)
-- (NSMutableDictionary *(^)(id<NSCopying>  , id))blockSetValue
+@implementation NSObject(NSMutableDictionaryLinkBlock)
+- (NSMutableDictionary *(^)(id<NSCopying>  , id))m_dictSetValue
 {
     return ^(id<NSCopying> key  , id value){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if(!value || !key )
-            return self;
-        self[key]= value;
-        return self;
+            return _self;
+        _self[key]= value;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(id<NSCopying> , id<NSCopying> ))blockReplaceKey
+- (NSMutableDictionary *(^)(id<NSCopying> , id<NSCopying> ))m_dictReplaceKey
 {
     return ^(id<NSCopying> key , id<NSCopying> withKey){
-        NSArray* allKeys = [self allKeys];
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        NSArray* allKeys = [_self allKeys];
         if(![allKeys containsObject:key] || [allKeys containsObject:withKey])
-            return self;
+            return _self;
         //替换数据
-        id value = self[key];
-        [self setObject:value forKey:withKey];
-        [self removeObjectForKey:key];
-        return self;
+        id value = _self[key];
+        [_self setObject:value forKey:withKey];
+        [_self removeObjectForKey:key];
+        return _self;
     };
 }
-- (void)setBlockReplaceKey:(NSMutableDictionary *(^)(id<NSCopying> , id<NSCopying>))blockReplaceKey{}
+- (void)setM_dictReplaceKey:(NSMutableDictionary *(^)(id<NSCopying> , id<NSCopying>))m_dictReplaceKey{}
 
-- (NSMutableDictionary *(^)(NSDictionary *))blockUnionDict
+- (NSMutableDictionary *(^)(NSDictionary *))m_dictUnionDict
 {
     return ^(NSDictionary* dict){
-        [self addEntriesFromDictionary:dict];
-        return self;
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        [_self addEntriesFromDictionary:dict];
+        return _self;
     };
 }
-- (void)setBlockUnionDict:(NSMutableDictionary *(^)(NSDictionary *))blockCombineDict{};
+- (void)setM_dictUnionDict:(NSMutableDictionary *(^)(NSDictionary *))m_dictUnionDict{};
 
 /** ********************NSAttributeString部分******************** */
 #pragma mark - NSAttributeString部分
-- (NSMutableDictionary *(^)(UIFont *))blockAttrStrFont
+- (NSMutableDictionary *(^)(UIFont *))m_dictAttrStrFont
 {
     return ^(UIFont *font){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([font isKindOfClass:[UIFont class]]){
-            self[NSFontAttributeName]= font;
+            _self[NSFontAttributeName]= font;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(UIColor *))blockAttrStrTextColor
+- (NSMutableDictionary *(^)(UIColor *))m_dictAttrStrTextColor
 {
     return ^(UIColor *color){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([color isKindOfClass:[UIColor class]]){
-            self[NSForegroundColorAttributeName]= color;
+            _self[NSForegroundColorAttributeName]= color;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(UIColor *))blockAttrStrBGColor
+- (NSMutableDictionary *(^)(UIColor *))m_dictAttrStrBGColor
 {
     return ^(UIColor *color){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([color isKindOfClass:[UIColor class]]){
-            self[NSBackgroundColorAttributeName]= color;
+            _self[NSBackgroundColorAttributeName]= color;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSTextAttachment *))blockAttrStrAttachment
+- (NSMutableDictionary *(^)(NSTextAttachment *))m_dictAttrStrAttachment
 {
     return ^(NSTextAttachment* attachment){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([attachment isKindOfClass:[NSTextAttachment class]]){
-            self[NSAttachmentAttributeName]= attachment;
+            _self[NSAttachmentAttributeName]= attachment;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSParagraphStyle* paragraphStyle))blockAttrStrParagraphStyle
+- (NSMutableDictionary *(^)(NSParagraphStyle* paragraphStyle))m_dictAttrStrParagraphStyle
 {
     return ^(NSParagraphStyle* paragraphStyle){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([paragraphStyle isKindOfClass:[NSParagraphStyle class]]){
-            self[NSParagraphStyleAttributeName]= paragraphStyle;
+            _self[NSParagraphStyleAttributeName]= paragraphStyle;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSNumber*))blockAttrStrLigature
+- (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrLigature
 {
     return ^(NSNumber *num){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]])
-            self[NSLigatureAttributeName]= num;
-        return self;
+            _self[NSLigatureAttributeName]= num;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSNumber*))blockAttrStrKern
+- (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrKern
 {
     return ^(NSNumber *num){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]])
-            self[NSKernAttributeName]= num;
-        return self;
+            _self[NSKernAttributeName]= num;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSNumber*))blockAttrStrStrikethroughStyle
+- (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrStrikethroughStyle
 {
     return ^(NSNumber *num){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]])
-            self[NSStrikethroughStyleAttributeName]= num;
-        return self;
+            _self[NSStrikethroughStyleAttributeName]= num;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSUnderlineStyle))blockAttrStrUnderlineStyle
+- (NSMutableDictionary *(^)(NSUnderlineStyle))m_dictAttrStrUnderlineStyle
 {
     return ^(NSUnderlineStyle underlineStyle){
-        self[NSUnderlineStyleAttributeName]= @(underlineStyle);
-        return self;
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        _self[NSUnderlineStyleAttributeName]= @(underlineStyle);
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(UIColor*))blockAttrStrStrokeColor
+- (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrStrokeColor
 {
     return ^(UIColor* color){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([color isKindOfClass:[UIColor class]]){
-            self[NSStrokeColorAttributeName]= color;
+            _self[NSStrokeColorAttributeName]= color;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSNumber *))blockAttrStrStrokeWidth
+- (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrStrokeWidth
 {
     return ^(NSNumber *num){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
-            self[NSStrokeWidthAttributeName]= num;
+            _self[NSStrokeWidthAttributeName]= num;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSShadow*))blockAttrStrShadow
+- (NSMutableDictionary *(^)(NSShadow*))m_dictAttrStrShadow
 {
     return ^(NSShadow* shadown){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([shadown isKindOfClass:[NSShadow class]]){
-            self[NSShadowAttributeName]= shadown;
+            _self[NSShadowAttributeName]= shadown;
         }
-        return self;
+        return _self;
     };
 }
-- (NSMutableDictionary *(^)(NSString*))blockAttrStrTextEffect
+- (NSMutableDictionary *(^)(NSString*))m_dictAttrStrTextEffect
 {
     return ^(NSString* textEffect){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([textEffect isKindOfClass:[NSString class]]){
-            self[NSTextEffectAttributeName]= textEffect;
+            _self[NSTextEffectAttributeName]= textEffect;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSURL*))blockAttrStrLink
+- (NSMutableDictionary *(^)(NSURL*))m_dictAttrStrLink
 {
     return ^(NSURL* linkURL){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([linkURL isKindOfClass:[NSURL class]]){
-            self[NSLinkAttributeName]= linkURL;
+            _self[NSLinkAttributeName]= linkURL;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSNumber *))blockAttrStrBaselineOffset
+- (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrBaselineOffset
 {
     return ^(NSNumber *num){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
-            self[NSBaselineOffsetAttributeName]= num;
+            _self[NSBaselineOffsetAttributeName]= num;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(UIColor*))blockAttrStrUnderlineColor
+- (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrUnderlineColor
 {
     return ^(UIColor* underlineColor){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([underlineColor isKindOfClass:[UIColor class]]){
-            self[NSUnderlineColorAttributeName]= underlineColor;
+            _self[NSUnderlineColorAttributeName]= underlineColor;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(UIColor*))blockAttrStrStrikethroughColor
+- (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrStrikethroughColor
 {
     return ^(UIColor* bgColor){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([bgColor isKindOfClass:[UIColor class]]){
-            self[NSStrikethroughColorAttributeName]= bgColor;
+            _self[NSStrikethroughColorAttributeName]= bgColor;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSNumber *))blockAttrStrObliquenes
+- (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrObliquenes
 {
     return ^(NSNumber *num){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
-            self[NSObliquenessAttributeName]= num;
+            _self[NSObliquenessAttributeName]= num;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSNumber *n))blockAttrStrExpansion
+- (NSMutableDictionary *(^)(NSNumber *n))m_dictAttrStrExpansion
 {
     return ^(NSNumber *num){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
-            self[NSExpansionAttributeName]= num;
+            _self[NSExpansionAttributeName]= num;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSArray*))blockAttrStrWritingDirection
+- (NSMutableDictionary *(^)(NSArray*))m_dictAttrStrWritingDirection
 {
     return ^(NSArray* writingDirection){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([writingDirection isKindOfClass:[NSArray class]]){
-            self[NSWritingDirectionAttributeName]= writingDirection;
+            _self[NSWritingDirectionAttributeName]= writingDirection;
         }
-        return self;
+        return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(NSNumber *))blockAttrStrVerticalGlyphForm
+- (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrVerticalGlyphForm
 {
     return ^(NSNumber *num){
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
-            self[NSVerticalGlyphFormAttributeName]= num;
+            _self[NSVerticalGlyphFormAttributeName]= num;
         }
-        return self;
+        return _self;
     };
 }
 
-- (void)setBlockSetValue:(NSMutableDictionary *(^)(id<NSCopying> , id))blockSetValue{};
-- (void)setBlockGetValue:(id (^)(NSString *))blockGetValue{};
+- (void)setM_dictSetValue:(NSMutableDictionary *(^)(id<NSCopying> , id))blockSetValue{};
 
-- (void)setBlockAttrStrAttachment:(NSMutableDictionary *(^)(NSTextAttachment *))blockAttrStrAttachment{};
-- (void)setBlockAttrStrBaselineOffset:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrBaselineOffset{};
-- (void)setBlockAttrStrBGColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrBGColor{};
-- (void)setBlockAttrStrExpansion:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrExpansion{};
-- (void)setBlockAttrStrFont:(NSMutableDictionary *(^)(UIFont *))blockAttrStrFont{};
+- (void)setM_dictAttrStrAttachment:(NSMutableDictionary *(^)(NSTextAttachment *))blockAttrStrAttachment{};
+- (void)setM_dictAttrStrBaselineOffset:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrBaselineOffset{};
+- (void)setM_dictAttrStrBGColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrBGColor{};
+- (void)setM_dictAttrStrExpansion:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrExpansion{};
+- (void)setM_dictAttrStrFont:(NSMutableDictionary *(^)(UIFont *))blockAttrStrFont{};
 
-- (void)setBlockAttrStrKern:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrKern{};
-- (void)setBlockAttrStrLigature:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrLigature{};
-- (void)setBlockAttrStrLink:(NSMutableDictionary *(^)(NSURL *))blockAttrStrLink{};
-- (void)setBlockAttrStrObliquenes:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrObliquenes{};
-- (void)setBlockAttrStrParagraphStyle:(NSMutableDictionary *(^)(NSParagraphStyle *))blockAttrStrParagraphStyle{};
+- (void)setM_dictAttrStrKern:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrKern{};
+- (void)setM_dictAttrStrLigature:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrLigature{};
+- (void)setM_dictAttrStrLink:(NSMutableDictionary *(^)(NSURL *))blockAttrStrLink{};
+- (void)setM_dictAttrStrObliquenes:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrObliquenes{};
+- (void)setM_dictAttrStrParagraphStyle:(NSMutableDictionary *(^)(NSParagraphStyle *))blockAttrStrParagraphStyle{};
 
-- (void)setBlockAttrStrShadow:(NSMutableDictionary *(^)(NSShadow *))blockAttrStrShadow{};
-- (void)setBlockAttrStrStrikethroughColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrStrikethroughColor{};
-- (void)setBlockAttrStrStrikethroughStyle:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrStrikethroughStyle{};
-- (void)setBlockAttrStrStrokeColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrStrokeColor{};
-- (void)setBlockAttrStrStrokeWidth:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrStrokeWidth{};
+- (void)setM_dictAttrStrShadow:(NSMutableDictionary *(^)(NSShadow *))blockAttrStrShadow{};
+- (void)setM_dictAttrStrStrikethroughColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrStrikethroughColor{};
+- (void)setM_dictAttrStrStrikethroughStyle:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrStrikethroughStyle{};
+- (void)setM_dictAttrStrStrokeColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrStrokeColor{};
+- (void)setM_dictAttrStrStrokeWidth:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrStrokeWidth{};
 
-- (void)setBlockAttrStrTextColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrTextColor{};
-- (void)setBlockAttrStrTextEffect:(NSMutableDictionary *(^)(NSString *))blockAttrStrTextEffect{};
-- (void)setBlockAttrStrUnderlineColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrUnderlineColor{};
-- (void)setBlockAttrStrUnderlineStyle:(NSMutableDictionary *(^)(NSUnderlineStyle))blockAttrStrUnderlineStyle{};
-- (void)setBlockAttrStrVerticalGlyphForm:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrVerticalGlyphForm{};
+- (void)setM_dictAttrStrTextColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrTextColor{};
+- (void)setM_dictAttrStrTextEffect:(NSMutableDictionary *(^)(NSString *))blockAttrStrTextEffect{};
+- (void)setM_dictAttrStrUnderlineColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrUnderlineColor{};
+- (void)setM_dictAttrStrUnderlineStyle:(NSMutableDictionary *(^)(NSUnderlineStyle))blockAttrStrUnderlineStyle{};
+- (void)setM_dictAttrStrVerticalGlyphForm:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrVerticalGlyphForm{};
 
-- (void)setBlockAttrStrWritingDirection:(NSMutableDictionary *(^)(NSArray *))blockAttrStrWritingDirection{};
+- (void)setM_dictAttrStrWritingDirection:(NSMutableDictionary *(^)(NSArray *))blockAttrStrWritingDirection{};
 @end

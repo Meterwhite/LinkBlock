@@ -8,76 +8,84 @@
 #import "UIButton+LinkBlock.h"
 #import "LinkBlock.h"
 
-@implementation UIButton(LinkBlock)
-- (UIButton *(^)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right))blockTitleEdgeInsets
+@implementation NSObject(UIButtonLinkBlock)
+- (UIButton *(^)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right))btnTitleEdgeInsets
 {
     return ^(CGFloat top, CGFloat left, CGFloat botton, CGFloat right){
-        self.titleEdgeInsets = UIEdgeInsetsMake(top, left, botton, right);
-        return self;
+        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        _self.titleEdgeInsets = UIEdgeInsetsMake(top, left, botton, right);
+        return _self;
     };
 }
-- (void)setBlockTitleEdgeInsets:(UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockTitleEdgeInsets{};
+- (void)setBtnTitleEdgeInsets:(UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockTitleEdgeInsets{};
 
-- (UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockImageEdgeInsets
+- (UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))btnImageEdgeInsets
 {
     return ^(CGFloat top, CGFloat left, CGFloat botton, CGFloat right){
-        self.imageEdgeInsets = UIEdgeInsetsMake(top, left, botton, right);
-        return self;
+        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        _self.imageEdgeInsets = UIEdgeInsetsMake(top, left, botton, right);
+        return _self;
     };
 }
-- (void)setBlockImageEdgeInsets:(UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockImageEdgeInsets{};
+- (void)setBtnImageEdgeInsets:(UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockImageEdgeInsets{};
 
-- (UIButton *(^)(NSString *, UIControlState))blockTitleSet
+- (UIButton *(^)(NSString *, UIControlState))btnTitle
 {
     return ^(NSString* title, UIControlState state){
-        [self setTitle:title forState:state];
-        return self;
+        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        [_self setTitle:title forState:state];
+        return _self;
     };
 }
-- (void)setBlockTitleSet:(UIButton *(^)(NSString *, UIControlState))blockSetTitle{};
+- (void)setBtnTitle:(UIButton *(^)(NSString *, UIControlState))blockSetTitle{};
 
-- (UIButton *(^)(UIImage *, UIControlState))blockImageSet
+- (UIButton *(^)(UIImage *, UIControlState))btnImage
 {
     return ^(UIImage* img, UIControlState state){
-        [self setImage:img forState:state];
-        return self;
+        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        [_self setImage:img forState:state];
+        return _self;
     };
 }
-- (void)setBlockImageSet:(UIButton *(^)(UIImage *, UIControlState))blockSetImage{};
+- (void)setBtnImage:(UIButton *(^)(UIImage *, UIControlState))blockSetImage{};
 
-- (UIButton *(^)(UIImage *, UIControlState))blockBGImageSet
+- (UIButton *(^)(UIImage *, UIControlState))btnBGImage
 {
     return ^(UIImage* img, UIControlState state){
-        [self setBackgroundImage:img forState:state];
-        return self;
+        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        [_self setBackgroundImage:img forState:state];
+        return _self;
     };
 }
-- (void)setBlockBGImageSet:(UIButton *(^)(UIImage *, UIControlState))blockSetBGImage{};
+- (void)setBtnBGImage:(UIButton *(^)(UIImage *, UIControlState))blockSetBGImage{};
 
-- (UIButton *(^)(UIFont *))blockTitleFontSet
+- (UIButton *(^)(UIFont *))btnTitleFont
 {
     return ^(UIFont* font){
-        self.titleLabel.blockFont(font);
-        return self;
+        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        _self.titleLabel.labFont(font);
+        return _self;
     };
 }
-- (void)setBlockTitleFontSet:(UIButton *(^)(UIFont *))blockTitleFontSet{};
+- (void)setBtnTitleFont:(UIButton *(^)(UIFont *))blockTitleFontSet{};
 
-- (UIButton *(^)(CGFloat))blockTitleFontSizeSet
+- (UIButton *(^)(CGFloat))btnTitleFontSize
 {
     return ^(CGFloat size){
-        self.titleLabel.blockFontSizeSystem(size);
-        return self;
+        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        _self.titleLabel.labFontSizeSystem(size);
+        return _self;
     };
 }
-- (void)setBlockTitleFontSizeSet:(UIButton *(^)(CGFloat))blockTitleFontSizeSet{};
+- (void)setBtnTitleFontSize:(UIButton *(^)(CGFloat))blockTitleFontSizeSet{};
 
-- (UIButton *(^)(NSAttributedString *, UIControlState))blockAttributeTitleSet
+- (UIButton *(^)(NSAttributedString *, UIControlState))btnAttributeTitle
 {
     return ^(NSAttributedString* attrStr , UIControlState state){
-        [self setAttributedTitle:attrStr forState:state];
-        return self;
+        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        [_self setAttributedTitle:attrStr forState:state];
+        return _self;
     };
 }
-- (void)setBlockAttributeTitleSet:(UIButton *(^)(NSAttributedString *, UIControlState))blockAttributeTitleSet{};
+- (void)setBtnAttributeTitle:(UIButton *(^)(NSAttributedString *, UIControlState))blockAttributeTitleSet{};
 @end

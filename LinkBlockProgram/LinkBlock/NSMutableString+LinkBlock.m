@@ -9,23 +9,18 @@
 #import "NSMutableString+LinkBlock.h"
 #import "NSObject+LinkBlock.h"
 
-@implementation NSMutableString(LinkBlock)
-- (NSString *(^)())blockCopy
-{
-    return ^(){
-        return [self copy];
-    };
-}
-- (NSMutableString *(^)(NSString *, NSString *))blockReplaceStrWithStr
+@implementation NSObject(NSMutableStringLinkBlock)
+- (NSMutableString *(^)(NSString *, NSString *))m_strReplaceStr
 {
     return ^(NSString* replaceStr, NSString* withStr){
-        if(replaceStr.blockIsKindOf([NSString class])&&
-           withStr.blockIsKindOf([NSString class])){
-            return (NSMutableString*)[[self stringByReplacingOccurrencesOfString:replaceStr withString:withStr] mutableCopy];
+        LinkError_REF_AUTO_IF(NSMutableString, NSMutableString);
+        if(replaceStr.objIsKind([NSString class]) &&
+           withStr.objIsKind([NSString class])){
+            return (NSMutableString*)[[_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr] mutableCopy];
         }
-        return self;
+        return _self;
     };
 }
-- (void)setBlockReplaceStrWithStr:(NSMutableString *(^)(NSString *, NSString *))blockReplaceStrWithStr{};
-- (void)setBlockCopy:(NSString *(^)())blockCopy{};
+- (void)setM_strReplaceStr:(NSMutableString *(^)(NSString *, NSString *))blockReplaceStrWithStr{};
+
 @end

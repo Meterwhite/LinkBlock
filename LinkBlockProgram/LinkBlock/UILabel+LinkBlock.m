@@ -10,119 +10,127 @@
 #import "UILabel+LinkBlock.h"
 #import "NSObject+LinkBlock.h"
 
-@implementation UILabel(LinkBlock)
-- (UILabel *(^)())blockAlignTop
+@implementation NSObject(UILabelLinkBlock)
+- (UILabel *(^)())labAlignTop
 {
     return ^(){
-        CGSize fontSize = self.text.blockSizeWithFont(self.font);
-        double finalHeight = fontSize.height *self.numberOfLines;
+        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        CGSize fontSize = _self.text.strSizeWithFont(_self.font);
+        double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
-            finalHeight= self.bounds.size.height;
+            finalHeight= _self.bounds.size.height;
         }
-        double finalWidth =self.bounds.size.width;//expected width of label
+        double finalWidth =_self.bounds.size.width;//expected width of label
         CGSize theStringSize;
         if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
             NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
             CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
-            attrs.blockAttrStrFont(self.font);
-            theStringSize = [self.text boundingRectWithSize: maxSize
+            attrs.m_dictAttrStrFont(_self.font);
+            theStringSize = [_self.text boundingRectWithSize: maxSize
                                                     options:NSStringDrawingTruncatesLastVisibleLine |
                              NSStringDrawingUsesLineFragmentOrigin |
                              NSStringDrawingUsesFontLeading
                                                  attributes:attrs
                                                     context:nil].size;//NSStringDrawingUsesFontLeading
         }else{
-            theStringSize =[self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:self.lineBreakMode];
+            theStringSize =[_self.text sizeWithFont:_self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:_self.lineBreakMode];
         }
         
         int newLinesToPad =(finalHeight - theStringSize.height)/ fontSize.height;
         for(int i=0; i<newLinesToPad; i++)
-            self.text =[self.text stringByAppendingString:@"\n "];
-        return self;
+            _self.text =[_self.text stringByAppendingString:@"\n "];
+        return _self;
     };
 }
 
-- (UILabel *(^)())blockAlignBottom
+- (UILabel *(^)())labAlignBottom
 {
     return ^(){
-        CGSize fontSize =self.text.blockSizeWithFont(self.font);
-        double finalHeight = fontSize.height *self.numberOfLines;
+        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        CGSize fontSize =_self.text.strSizeWithFont(_self.font);
+        double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
-            finalHeight = self.bounds.size.height;
+            finalHeight = _self.bounds.size.height;
         }
-        double finalWidth =self.bounds.size.width;//expected width of label
+        double finalWidth =_self.bounds.size.width;//expected width of label
         CGSize theStringSize;
         if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
             NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
             CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
-            attrs.blockAttrStrFont(self.font);
-            theStringSize = [self.text boundingRectWithSize: maxSize
+            attrs.m_dictAttrStrFont(_self.font);
+            theStringSize = [_self.text boundingRectWithSize: maxSize
                                                     options:NSStringDrawingTruncatesLastVisibleLine |
                              NSStringDrawingUsesLineFragmentOrigin |
                              NSStringDrawingUsesFontLeading
                                                  attributes:attrs
                                                     context:nil].size;//NSStringDrawingUsesFontLeading
         }else{
-            theStringSize =[self.text sizeWithFont:self.font
+            theStringSize =[_self.text sizeWithFont:_self.font
                                  constrainedToSize:CGSizeMake(finalWidth, finalHeight)
-                                     lineBreakMode:self.lineBreakMode];
+                                     lineBreakMode:_self.lineBreakMode];
         }
         int newLinesToPad =(finalHeight - theStringSize.height) / fontSize.height;
         for(int i=0; i<newLinesToPad; i++)
-            self.text =[NSString stringWithFormat:@" \n%@",self.text];
-        return self;
+            _self.text =[NSString stringWithFormat:@" \n%@",_self.text];
+        return _self;
     };
 }
 
-- (UILabel *(^)(NSInteger))blockNumberOfLines
+- (UILabel *(^)(NSInteger))labNumberOfLines
 {
     return ^(NSInteger lines){
-        self.numberOfLines= lines;
-        return self;
+        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        _self.numberOfLines= lines;
+        return _self;
     };
 }
-- (UILabel *(^)(NSTextAlignment))blockAlignment
+- (UILabel *(^)(NSTextAlignment))labAlignment
 {
     return ^(NSTextAlignment alighment){
-        self.textAlignment = alighment;
-        return self;
+        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        _self.textAlignment = alighment;
+        return _self;
     };
 }
-- (UILabel *(^)(NSString *))blockText
+- (UILabel *(^)(NSString *))labText
 {
     return ^(NSString * txt){
-        self.text= txt;
-        return self;
+        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        _self.text= txt;
+        return _self;
     };
 }
-- (UILabel *(^)(UIColor *))blockTextColor
+- (UILabel *(^)(UIColor *))labTextColor
 {
     return ^(UIColor * color){
-        self.textColor= color;
-        return self;
+        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        _self.textColor= color;
+        return _self;
     };
 }
-- (UILabel *(^)(UIFont *))blockFont
+- (UILabel *(^)(UIFont *))labFont
 {
     return ^(UIFont * font){
-        self.font= font;
-        return self;
+        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        _self.font= font;
+        return _self;
     };
 }
-- (UILabel *(^)(CGFloat))blockFontSizeSystem
+- (UILabel *(^)(CGFloat))labFontSizeSystem
 {
     return ^(CGFloat size){
-        self.font= [UIFont systemFontOfSize:size];
-        return self;
+        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        _self.font= [UIFont systemFontOfSize:size];
+        return _self;
     };
 }
-- (void)setBlockFontSizeSystem:(UILabel *(^)(CGFloat))blockFontSize{};
+- (void)setLabFontSizeSystem:(UILabel *(^)(CGFloat))blockFontSize{};
 
-- (void)setBlockAlignBottom:(UILabel *(^)())blockAlignBottom{};
-- (void)setBlockAlignTop:(UILabel *(^)())blockAlignTop{};
-- (void)setBlockAlignment:(UILabel *(^)(NSTextAlignment))blockAlignment{};
-- (void)setBlockText:(UILabel *(^)(NSString *))blockText{};
-- (void)setBlockTextColor:(UILabel *(^)(UIColor *))blockTextColor{};
-- (void)setBlockFont:(UILabel *(^)(UIFont *))blockFont{};
-- (void)setBlockNumberOfLines:(UILabel *(^)(NSInteger))blockNumberOfLines{};
+- (void)setLabAlignBottom:(UILabel *(^)())blockAlignBottom{};
+- (void)setLabAlignTop:(UILabel *(^)())blockAlignTop{};
+- (void)setLabAlignment:(UILabel *(^)(NSTextAlignment))blockAlignment{};
+- (void)setLabText:(UILabel *(^)(NSString *))blockText{};
+- (void)setLabTextColor:(UILabel *(^)(UIColor *))blockTextColor{};
+- (void)setLabFont:(UILabel *(^)(UIFont *))blockFont{};
+- (void)setLabNumberOfLines:(UILabel *(^)(NSInteger))blockNumberOfLines{};
 @end

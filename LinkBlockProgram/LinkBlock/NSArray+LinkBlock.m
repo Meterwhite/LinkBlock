@@ -9,12 +9,15 @@
 #import "NSObject+LinkBlock.h"
 #import "LinkBlock.h"
 
-@implementation NSArray(LinkBlock)
-- (BOOL (^)(NSString *))blockContainerStr
+@implementation NSObject(NSArraryLinkBlock)
+- (BOOL (^)(NSString *))arrIsContainerStr
 {
     return ^(NSString* str){
+        LinkError_VAL_IF(NSArray){
+            return NO;
+        }
         __block BOOL re= NO;
-        [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if([obj isKindOfClass:[NSString class]] && [obj isEqualToString:str]){
                 re= YES;
                 *stop= YES;
@@ -23,93 +26,101 @@
         return re;
     };
 }
-- (void)setBlockContainerStr:(BOOL (^)(NSString *))blockContainerStr{};
+- (void)setArrIsContainerStr:(BOOL (^)(NSString *))blockContainerStr{};
 
-- (NSMutableArray *(^)())blockMutableCopy
-{
-    return ^(){
-        return [self mutableCopy];
-    };
-}
-- (void)setBlockMutableCopy:(NSMutableArray *(^)())blockMutableCopy{}
-
-- (BOOL (^)(NSUInteger))blockIsIndexInRange
+- (BOOL (^)(NSUInteger))arrIsIndexInRange
 {
     return ^(NSUInteger index){
-        return (BOOL)(index<self.count);
+        LinkError_VAL_IF(NSArray){
+            return NO;
+        }
+        return (BOOL)(index< _self.count);
     };
 }
-- (void)setBlockIsIndexInRange:(BOOL (^)(NSUInteger))blockIsIndexInRange{};
+- (void)setArrIsIndexInRange:(BOOL (^)(NSUInteger))blockIsIndexInRange{};
 
 
-- (NSArray *(^)(NSInteger, NSInteger))blockObjsFromIndexTo
+- (NSArray *(^)(NSInteger, NSInteger))arrObjsFromIndexTo
 {
     return ^(NSInteger index1, NSInteger index2){
-        if(index1>index2 || index1>self.count-1 || index2<0)
+        LinkError_REF_AUTO_IF(NSArray, NSArray);
+        if(index1>index2 || index1> _self.count-1 || index2<0)
             return (NSArray *)(nil);
         if(index1<0)
             index1 = 0;
-        if(index2> self.count-1)
-            index2= self.count - 1;
+        if(index2> _self.count-1)
+            index2= _self.count - 1;
         NSUInteger loc = index1;
         NSUInteger len = index2 - index1 + 1;
-        return [self subarrayWithRange:NSMakeRange(loc, len)];
+        return [_self subarrayWithRange:NSMakeRange(loc, len)];
     };
 }
-- (void)setBlockObjsFromIndexTo:(NSArray *(^)(NSInteger, NSInteger))blockObjsFromIndexTo{};
+- (void)setArrObjsFromIndexTo:(NSArray *(^)(NSInteger, NSInteger))blockObjsFromIndexTo{};
 
-- (NSDictionary *(^)())blockArrToDictByNumberKey
+- (NSDictionary *(^)())arrToDictByKeyNumber
 {
     return ^(){
+        LinkError_REF_AUTO_IF(NSDictionary, NSArray);
         NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
-        [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [reIsDictM setObject:obj forKey:@(idx)];
         }];
-        return [reIsDictM copy];
+        return (NSDictionary*)[reIsDictM copy];
     };
 }
-- (void)setBlockArrToDictByNumberKey:(NSDictionary *(^)())blockArrToDictByNumberKey{};
-- (NSDictionary *(^)())blockArrToDictByStringKey
+- (void)setArrToDictByKeyNumber:(NSDictionary *(^)())blockArrToDictByNumberKey{};
+
+- (NSDictionary *(^)())arrToDictByKeyString
 {
     return ^(){
+        LinkError_REF_AUTO_IF(NSDictionary, NSArray);
         NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
-        [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [reIsDictM setObject:obj forKey:[NSString stringWithFormat:@"%lu", (unsigned long)idx]];
         }];
-        return [reIsDictM copy];
+        return (NSDictionary*)[reIsDictM copy];
     };
 }
-- (void)setBlockArrToDictByStringKey:(NSDictionary *(^)())blockArrToDictByStringKey{};
+- (void)setArrToDictByKeyString:(NSDictionary *(^)())blockArrToDictByStringKey{};
 
-- (BOOL (^)(id))blockContainer
+- (BOOL (^)(id))arrIsContainer
 {
     return ^(id obj){
-        return [self containsObject:obj];
+        LinkError_VAL_IF(NSArray){
+            return NO;
+        }
+        return [_self containsObject:obj];
     };
 }
-- (void)setBlockContainer:(BOOL (^)(id))blockContainer{};
+- (void)setArrIsContainer:(BOOL (^)(id))blockContainer{};
 
 
-- (id (^)(NSUInteger))blockValueAt
+- (id (^)(NSUInteger))arrValueAt
 {
     return ^(NSUInteger idx){
+        LinkError_VAL_IF(NSArray){
+            return (id)nil;
+        }
         id re;
-        if(self.blockIsIndexInRange(idx)){
-            re =[self objectAtIndex:idx];
+        if(_self.arrIsIndexInRange(idx)){
+            re = [_self objectAtIndex:idx];
         }else{
             re = nil;
         }
         return re;
     };
 }
-- (void)setBlockValueAt:(id (^)(NSUInteger))blockValue{};
+- (void)setArrValueAt:(id (^)(NSUInteger))blockValue{};
 
-- (id (^)(__unsafe_unretained Class ,NSUInteger))blockValueTypeAt
+- (id (^)(__unsafe_unretained Class ,NSUInteger))arrValueAtType
 {
     return ^( Class typeClass, NSUInteger idx){
+        LinkError_VAL_IF(NSArray){
+            return (id)nil;
+        }
         id re;
-        if(self.blockIsIndexInRange(idx)){
-            re = [self objectAtIndex:idx];
+        if(_self.arrIsIndexInRange(idx)){
+            re = [_self objectAtIndex:idx];
             if(!typeClass || ![re isKindOfClass:typeClass]){
                 re = [typeClass new];
             }
@@ -119,85 +130,94 @@
         return re;
     };
 }
-- (void)setBlockValueTypeAt:(id (^)(__unsafe_unretained Class ,NSUInteger))blockValueType{};
+- (void)setArrValueAtType:(id (^)(__unsafe_unretained Class ,NSUInteger))blockValueType{};
 
-- (NSObject *(^)(NSUInteger))blockValueNSObjectAt
+- (NSObject *(^)(NSUInteger))arrValueAtNSObject
 {
     return ^(NSUInteger idx){
-        return self.blockValueTypeAt([NSObject class],idx);
+        LinkError_REF_AUTO_IF(NSObject, NSArray);
+        return (NSObject*)_self.arrValueAtType([NSObject class],idx);
     };
 }
-- (void)setBlockValueNSObjectAt:(NSObject *(^)(NSUInteger))blockValueNSObject{};
+- (void)setArrValueAtNSObject:(NSObject *(^)(NSUInteger))blockValueNSObject{};
 
-- (NSString *(^)(NSUInteger))blockValueNSStringAt
+- (NSString *(^)(NSUInteger))arrValueAtNSString
 {
     return ^(NSUInteger idx){
-        return self.blockValueTypeAt([NSString class],idx);
+        LinkError_REF_AUTO_IF(NSString, NSArray);
+        return (NSString*)_self.arrValueAtType([NSString class],idx);
     };
 }
-- (void)setBlockValueNSStringAt:(NSString *(^)(NSUInteger))blockValueNSString{};
+- (void)setArrValueAtNSString:(NSString *(^)(NSUInteger))blockValueNSString{};
 
-- (NSNumber *(^)(NSUInteger))blockValueNSNumberAt
+- (NSNumber *(^)(NSUInteger))arrValueAtNSNumber
 {
     return ^(NSUInteger idx){
-        return self.blockValueTypeAt([NSNumber class],idx);
+        LinkError_REF_AUTO_IF(NSNumber, NSArray);
+        return (NSNumber*)_self.arrValueAtType([NSNumber class],idx);
     };
 }
-- (void)setBlockValueNSNumberAt:(NSNumber *(^)(NSUInteger))blockValueNSNumber{};
+- (void)setArrValueAtNSNumber:(NSNumber *(^)(NSUInteger))blockValueNSNumber{};
 
-- (NSArray *(^)(NSUInteger))blockValueNSArraryAt
+- (NSArray *(^)(NSUInteger))arrValueAtNSArrary
 {
     return ^(NSUInteger idx){
-        return self.blockValueTypeAt([NSArray class],idx);
+        LinkError_REF_AUTO_IF(NSArray, NSArray);
+        return (NSArray*)_self.arrValueAtType([NSArray class],idx);
     };
 }
-- (void)setBlockValueNSArraryAt:(NSArray *(^)(NSUInteger))blockValueNSArrary{};
+- (void)setArrValueAtNSArrary:(NSArray *(^)(NSUInteger))blockValueNSArrary{};
 
-- (NSMutableArray *(^)(NSUInteger))blockValueNSMutableArrayAt
+- (NSMutableArray *(^)(NSUInteger))arrValueAtNSMutableArray
 {
     return ^(NSUInteger idx){
-        return self.blockValueTypeAt([NSMutableArray class],idx);
+        LinkError_REF_AUTO_IF(NSMutableArray, NSArray);
+        return (NSMutableArray*)_self.arrValueAtType([NSMutableArray class],idx);
     };
 }
-- (void)setBlockValueNSMutableArrayAt:(NSMutableArray *(^)(NSUInteger))blockValueNSMutableArray{};
+- (void)setArrValueAtNSMutableArray:(NSMutableArray *(^)(NSUInteger))blockValueNSMutableArray{};
 
-- (NSDictionary *(^)(NSUInteger))blockValueNSDictionaryAt
+- (NSDictionary *(^)(NSUInteger))arrValueAtNSDictionary
 {
     return ^(NSUInteger idx){
-        return self.blockValueTypeAt([NSDictionary class],idx);
+        LinkError_REF_AUTO_IF(NSDictionary, NSArray);
+        return (NSDictionary*)_self.arrValueAtType([NSDictionary class],idx);
     };
 }
-- (void)setBlockValueNSDictionaryAt:(NSDictionary *(^)(NSUInteger))blockValueNSDictionary{};
+- (void)setArrValueAtNSDictionary:(NSDictionary *(^)(NSUInteger))blockValueNSDictionary{};
 
-- (NSMutableDictionary *(^)(NSUInteger))blockValueNSMutableDictionaryAt
+- (NSMutableDictionary *(^)(NSUInteger))arrValueAtNSMutableDictionary
 {
     return ^(NSUInteger idx){
-        return self.blockValueTypeAt([NSMutableDictionary class],idx);
+        LinkError_REF_AUTO_IF(NSMutableDictionary, NSArray);
+        return (NSMutableDictionary*)_self.arrValueAtType([NSMutableDictionary class],idx);
     };
 }
-- (void)setBlockValueNSMutableDictionaryAt:(NSMutableDictionary *(^)(NSUInteger))blockValueNSMutableDictionary{};
+- (void)setArrValueAtNSMutableDictionary:(NSMutableDictionary *(^)(NSUInteger))blockValueNSMutableDictionary{};
 
-- (UIView *(^)(NSUInteger))blockValueUIVIewAt
+- (UIView *(^)(NSUInteger))arrValueAtUIVIew
 {
     return ^(NSUInteger idx){
-        return self.blockValueTypeAt([UIView class],idx);
+        LinkError_REF_AUTO_IF(UIView, NSArray);
+        return (UIView*)_self.arrValueAtType([UIView class],idx);
     };
 }
-- (void)setBlockValueUIVIewAt:(UIView *(^)(NSUInteger))blockValueUIVIew{};
+- (void)setArrValueAtUIVIew:(UIView *(^)(NSUInteger))blockValueUIVIew{};
 
-- (NSArray *(^)(__unsafe_unretained Class))blockValuesOfType
+- (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
 {
     return ^(__unsafe_unretained Class typeClass){
+        LinkError_REF_AUTO_IF(NSArray, NSArray);
         if(!typeClass)
-            return self;
+            return _self;
         NSMutableArray* reIsMArr = [NSMutableArray array];
-        [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if([obj isKindOfClass:typeClass]){
                 [reIsMArr addObject:obj];
             }
         }];
-        return reIsMArr.blockCopy();
+        return (NSArray*)reIsMArr.objCopy();
     };
 }
-- (void)setBlockValuesOfType:(NSArray *(^)(__unsafe_unretained Class))blockValuesOfType{};
+- (void)setArrValuesOfType:(NSArray *(^)(__unsafe_unretained Class))blockValuesOfType{};
 @end

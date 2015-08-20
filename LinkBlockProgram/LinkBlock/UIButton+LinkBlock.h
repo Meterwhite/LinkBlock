@@ -7,13 +7,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIButton(LinkBlock)
-@property (nonatomic,copy) UIButton* (^blockTitleEdgeInsets)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right);
-@property (nonatomic,copy) UIButton* (^blockImageEdgeInsets)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right);
-@property (nonatomic,copy) UIButton* (^blockTitleSet)(NSString* title, UIControlState state);
-@property (nonatomic,copy) UIButton* (^blockAttributeTitleSet)(NSAttributedString* attrStr, UIControlState state);
-@property (nonatomic,copy) UIButton* (^blockImageSet)(UIImage* img, UIControlState state);
-@property (nonatomic,copy) UIButton* (^blockBGImageSet)(UIImage* img, UIControlState state);
-@property (nonatomic,copy) UIButton* (^blockTitleFontSet)(UIFont* font);
-@property (nonatomic,copy) UIButton* (^blockTitleFontSizeSet)(CGFloat size);
+@interface NSObject(UIButtonLinkBlock)
+@property (nonatomic,copy) UIButton* (^btnTitleEdgeInsets)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right);
+@property (nonatomic,copy) UIButton* (^btnImageEdgeInsets)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right);
+@property (nonatomic,copy) UIButton* (^btnTitle)(NSString* title, UIControlState state);
+@property (nonatomic,copy) UIButton* (^btnAttributeTitle)(NSAttributedString* attrStr, UIControlState state);
+@property (nonatomic,copy) UIButton* (^btnImage)(UIImage* img, UIControlState state);
+@property (nonatomic,copy) UIButton* (^btnBGImage)(UIImage* img, UIControlState state);
+@property (nonatomic,copy) UIButton* (^btnTitleFont)(UIFont* font);
+@property (nonatomic,copy) UIButton* (^btnTitleFontSize)(CGFloat size);
 @end

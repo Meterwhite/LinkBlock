@@ -1,5 +1,5 @@
 //
-//  NSMutableDictionary+LinkBlock.h
+//  NSMutableDictionary+Linkm_dict.h
 //
 //  Created by NOVO on 15/8/12.
 //  Copyright (c) 2015年 NOVO. All rights reserved.
@@ -8,36 +8,37 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface NSMutableDictionary(LinkBlock)
+@interface NSObject(NSMutableDictionaryLinkBlock)
 /** 安全赋值 */
 /** set value safely */
-@property (nonatomic,copy) NSMutableDictionary*(^blockSetValue)(id<NSCopying> key , id value);
-@property (nonatomic,copy) NSMutableDictionary* (^blockReplaceKey)(id<NSCopying> key , id<NSCopying>  withKey);
+@property (nonatomic,copy) NSMutableDictionary*(^m_dictSetValue)(id<NSCopying> key , id value);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictReplaceKey)(id<NSCopying> key , id<NSCopying>  withKey);
 /** 并集，由传入参数覆盖原来数据 */
 /** Union. Adds to the receiving dictionary the entries from another dictionary. */
-@property (nonatomic,copy) NSMutableDictionary* (^blockUnionDict)(NSDictionary* dict);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictUnionDict)(NSDictionary* dict);
 /** ********************NSAttributeString设置部分******************** */
 /** ********************NSAttributeString Settings section ******************** */
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrFont)(UIFont* font);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrTextColor)(UIColor* textColor);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrBGColor)(UIColor* bgColor);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrAttachment)(NSTextAttachment* attachment);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrFont)(UIFont* font);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrTextColor)(UIColor* textColor);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrBGColor)(UIColor* bgColor);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrAttachment)(NSTextAttachment* attachment);
 
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrParagraphStyle)(NSParagraphStyle* paragraphStyle);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrLigature)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrKern)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrStrikethroughStyle)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrUnderlineStyle)(NSUnderlineStyle underlineStyle);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrStrokeColor)(UIColor* bgColor);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrStrokeWidth)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrShadow)(NSShadow* shadown);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrTextEffect)(NSString* textEffect);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrLink)(NSURL* linkURL);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrBaselineOffset)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrUnderlineColor)(UIColor* underlineColor);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrStrikethroughColor)(UIColor* bgColor);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrObliquenes)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrExpansion)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrWritingDirection)(NSArray* writingDirection);
-@property (nonatomic,copy) NSMutableDictionary* (^blockAttrStrVerticalGlyphForm)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrParagraphStyle)(NSParagraphStyle* paragraphStyle);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrLigature)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrKern)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrStrikethroughStyle)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrUnderlineStyle)(NSUnderlineStyle underlineStyle);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrStrokeColor)(UIColor* bgColor);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrStrokeWidth)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrShadow)(NSShadow* shadown);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrTextEffect)(NSString* textEffect);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrLink)(NSURL* linkURL);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrBaselineOffset)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrUnderlineColor)(UIColor* underlineColor);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrStrikethroughColor)(UIColor* bgColor);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrObliquenes)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrExpansion)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrWritingDirection)(NSArray* writingDirection);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrVerticalGlyphForm)(NSNumber *num);
 @end
+

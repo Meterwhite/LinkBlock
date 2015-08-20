@@ -9,136 +9,146 @@
 #import "NSMutableArray+LinkBlock.h"
 #import "NSObject+LinkBlock.h"
 
-@implementation NSMutableArray(LinkBlock)
-- (NSArray *(^)())blockCopy
-{
-    return ^(){
-        return [self copy];
-    };
-}
-- (NSMutableArray *(^)(id))blockAddObj
+@implementation NSObject(NSMutableArrayLinkBlock)
+
+- (NSMutableArray *(^)(id))m_arrAddObj
 {
     return ^(id obj){
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
         if(!obj)goto END;
-        [self addObject:obj];
+        [_self addObject:obj];
     END:
-        return self;
+        return _self;
     };
 }
-- (NSMutableArray *(^)(NSArray *))blockAddObjs
+- (void)setM_arrAddObj:(NSMutableArray *(^)(id))m_arrAddObj{};
+
+- (NSMutableArray *(^)(NSArray *))m_arrAddObjs
 {
     return ^(NSArray *arr){
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
         if(!arr || ![arr isKindOfClass:[NSArray class]])goto END;
-        [self addObjectsFromArray:arr];
+        [_self addObjectsFromArray:arr];
     END:
-        return self;
+        return _self;
     };
 }
-- (NSMutableArray *(^)(id, NSUInteger))blockInsertObjAtIndex
+- (void)setM_arrAddObjs:(NSMutableArray *(^)(NSArray *))m_arrAddObjs{};
+
+- (NSMutableArray *(^)(id, NSUInteger))m_arrInsertObjAt
 {
     return ^(id obj, NSUInteger index){
-        if(!obj || index>self.count)goto END;
-        [self insertObject:obj atIndex:index];
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        if(!obj || index>_self.count)goto END;
+        [_self insertObject:obj atIndex:index];
     END:
-        return self;
+        return _self;
     };
 }
-- (NSMutableArray *(^)(NSArray *, NSUInteger))blockInsertArrayAtIndex
+- (void)setM_arrInsertObjAt:(NSMutableArray *(^)(id, NSUInteger))m_arrInsertObjAt{};
+
+- (NSMutableArray *(^)(NSArray *, NSUInteger))m_arrInsertArrayAt
 {
     return ^(NSArray * arr, NSUInteger index){
-        if(!arr || ![arr isKindOfClass:[NSArray class]] || index>self.count)goto END;
-        [self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndex:index]];
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        if(!arr || ![arr isKindOfClass:[NSArray class]] || index>_self.count)goto END;
+        [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndex:index]];
     END:
-        return self;
+        return _self;
     };
 }
+- (void)setM_arrInsertArrayAt:(NSMutableArray *(^)(NSArray *, NSUInteger))m_arrInsertArrayAt{};
 
-- (NSMutableArray *(^)(id, id))blockInsertObjBeforeObj
+- (NSMutableArray *(^)(id, id))m_arrInsertBefore
 {
     return ^(id obj, id beforObj){
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
         if(!obj || !beforObj) goto END;
-        long idx= [self indexOfObject:beforObj];
+        long idx= [_self indexOfObject:beforObj];
         if(idx != NSNotFound){
             idx= idx-1<0 ? 0: idx;
-            [self insertObject:obj atIndex:idx];
+            [_self insertObject:obj atIndex:idx];
         }
     END:
-        return self;
+        return _self;
     };
 }
+- (void)setM_arrInsertBefore:(NSMutableArray *(^)(id, id))m_arrInsertBefore{};
 
-- (NSMutableArray *(^)(id, id))blockInsertObjBehindObj
+- (NSMutableArray *(^)(id, id))m_arrInsertBehind
 {
     return ^(id obj, id behindObj){
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
         if(!obj || !behindObj) goto END;
-        long idx= [self indexOfObject:behindObj];
+        long idx= [_self indexOfObject:behindObj];
         if(idx != NSNotFound){
-            [self insertObject:obj atIndex:idx];
+            [_self insertObject:obj atIndex:idx];
         }
     END:
-        return self;
+        return _self;
     };
 }
+- (void)setM_arrInsertBehind:(NSMutableArray *(^)(id, id))m_arrInsertBehind{};
 
-- (NSMutableArray *(^)(id))blockRemoveObj
+- (NSMutableArray *(^)(id))m_arrRemoveObj
 {
     return ^(id obj){
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
         if(!obj)goto END;
-        [self removeObject:obj];
+        [_self removeObject:obj];
     END:
-        return self;
+        return _self;
     };
 }
-- (NSMutableArray *(^)(NSUInteger))blockRemoveObjAtIndex
+- (void)setM_arrRemoveObj:(NSMutableArray *(^)(id))m_arrRemoveObj{};
+
+- (NSMutableArray *(^)(NSUInteger))m_arrRemoveAt
 {
     return ^(NSUInteger index){
-        if(index>self.count)goto END;
-        [self removeObjectAtIndex:index];
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        if(index>_self.count)goto END;
+        [_self removeObjectAtIndex:index];
     END:
-        return self;
+        return _self;
     };
 }
-- (NSMutableArray *(^)(NSUInteger, NSUInteger))blockRemoveObjsFromIndexToIndex
+- (void)setM_arrRemoveAt:(NSMutableArray *(^)(NSUInteger))m_arrRemoveAt{};
+
+- (NSMutableArray *(^)(NSUInteger, NSUInteger))m_arrRemoveObjsFromTo
 {
     return ^(NSUInteger from, NSUInteger to){
-        if( to>self.count || from>to )goto END;
-        [self removeObjectsInRange:NSMakeRange(from, to - from + 1)];
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        if( to>_self.count || from>to )goto END;
+        [_self removeObjectsInRange:NSMakeRange(from, to - from + 1)];
     END:
-        return self;
+        return _self;
     };
 }
+- (void)setM_arrRemoveObjsFromTo:(NSMutableArray *(^)(NSUInteger, NSUInteger))m_arrRemoveObjsFromTo{};
 
-- (NSMutableArray *(^)())blockRemoveAllObjs
+- (NSMutableArray *(^)())m_arrRemoveAll
 {
     return ^(){
-        [self removeAllObjects];
-        return self;
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        [_self removeAllObjects];
+        return _self;
     };
 }
+- (void)setM_arrRemoveAll:(NSMutableArray *(^)())m_arrRemoveAll{};
 
-- (NSMutableArray *(^)(id, id))blockReplaceObjWithObj
+- (NSMutableArray *(^)(id, id))m_arrReplaceObjWith
 {
     return ^(id obj, id withObj){
+        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
         if(!obj|| !withObj)goto END;
-        NSInteger idx= [self indexOfObject:obj];
+        NSInteger idx= [_self indexOfObject:obj];
         if(idx != NSNotFound){
-            [self replaceObjectAtIndex:idx withObject:withObj];
+            [_self replaceObjectAtIndex:idx withObject:withObj];
         }
     END:
-        return self;
+        return _self;
     };
 }
-- (void)setBlockCopy:(NSArray *(^)())blockCopy{};
-- (void)setBlockAddObj:(NSMutableArray *(^)(id))blockAddObj{};
-- (void)setBlockAddObjs:(NSMutableArray *(^)(NSArray *))blockAddObjs{};
-- (void)blockInsertObjAtIndex:(NSMutableArray *(^)(id, NSUInteger))blockInsertObj_Index{};
-- (void)setBlockInsertArrayAtIndex:(NSMutableArray *(^)(NSArray *, NSUInteger))blockInsertObjs_Index{};
-- (void)setBlockInsertObjBeforeObj:(NSMutableArray *(^)(id, id))blockInsertObjBeforeObj{};
-- (void)setBlockInsertObjBehindObj:(NSMutableArray *(^)(id, id))blockInsertObjBehindObj{};
-- (void)setBlockRemoveObj:(NSMutableArray *(^)(id))blockRemoveObj{};
-- (void)setBlockRemoveObjAtIndex:(NSMutableArray *(^)(NSUInteger))blockRemoveObjAtIndex{};
-- (void)setBlockRemoveObjsFromIndexToIndex:(NSMutableArray *(^)(NSUInteger, NSUInteger))blockRemoveObjsFromIndex_toIndex{};
-- (void)setBlockRemoveAllObjs:(NSMutableArray *(^)())blockRemoveAllObjs{};
-- (void)setBlockReplaceObjWithObj:(NSMutableArray *(^)(id, id))blockReplaceObjWithObj{};
-- (void)setBlockInsertObjAtIndex:(NSMutableArray *(^)(id, NSUInteger))blockInsertObjAtIndex{};
+- (void)setM_arrReplaceObjWith:(NSMutableArray *(^)(id, id))m_arrReplaceObjWith{};
+
 @end

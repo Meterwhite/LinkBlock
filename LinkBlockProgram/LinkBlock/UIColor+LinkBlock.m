@@ -8,10 +8,11 @@
 #import "LinkBlock.h"
 #import "UIColor+LinkBlock.h"
 
-@implementation UIColor(LinkBlock)
-- (NSString *(^)(NSString *))blockToStringWithPrefix
+@implementation NSObject(UIColorLinkBlock)
+- (NSString *(^)(NSString *))colorToStrWithPrefix
 {
     return ^(NSString* prefix){
+        LinkError_REF_AUTO_IF(NSString, UIColor);
         NSMutableString* reIsMStr = [NSMutableString string];
         if([prefix isKindOfClass:[NSString class]])
             [reIsMStr appendString:prefix];
@@ -19,7 +20,7 @@
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             [reIsMStr appendFormat:@"%02x",(int)(r* 255.0)];
             [reIsMStr appendFormat:@"%02x",(int)(g* 255.0)];
             [reIsMStr appendFormat:@"%02x",(int)(g* 255.0)];
@@ -30,137 +31,153 @@
         return (NSString*)[reIsMStr copy];
     };
 }
-- (void)setBlockToStringWithPrefix:(NSString *(^)(NSString *))blockToStringWithPrefix{};
+- (void)setColorToStrWithPrefix:(NSString *(^)(NSString *))blockToStringWithPrefix{};
 
-- (CGFloat (^)())blockRedValue
+- (CGFloat (^)())colorRed
 {
     return ^(){
+        LinkError_VAL_IF(UIColor){
+            return (CGFloat)0.0;
+        }
         CGFloat r;
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return r;
         }else{
             return (CGFloat)0.0;
         }
     };
 }
-- (void)setBlockRedValue:(CGFloat (^)())blockRedValue{};
+- (void)setColorRed:(CGFloat (^)())blockRedValue{};
 
-- (CGFloat (^)())blockGreenValue
+- (CGFloat (^)())colorGreen
 {
     return ^(){
+        LinkError_VAL_IF(UIColor){
+            return (CGFloat)0.0;
+        }
         CGFloat r;
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return g;
         }else{
             return (CGFloat)0.0;
         }
     };
 }
-- (void)setBlockGreenValue:(CGFloat (^)())blockGreenValue{};
+- (void)setColorGreen:(CGFloat (^)())blockGreenValue{};
 
-- (CGFloat (^)())blockBlueValue
+- (CGFloat (^)())colorBlue
 {
     return ^(){
+        LinkError_VAL_IF(UIColor){
+            return (CGFloat)0.0;
+        }
         CGFloat r;
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return b;
         }else{
             return (CGFloat)0.0;
         }
     };
 }
-- (void)setBlockBlueValue:(CGFloat (^)())blockBlueValue{};
+- (void)setColorBlue:(CGFloat (^)())blockBlueValue{};
 
-- (CGFloat (^)())blockAlphaValue
+- (CGFloat (^)())colorAlpha
 {
     return ^(){
+        LinkError_VAL_IF(UIColor){
+            return (CGFloat)0.0;
+        }
         CGFloat r;
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return a;
         }else{
             return (CGFloat)1.0;
         }
     };
 }
-- (void)setBlockAlphaValue:(CGFloat (^)())blockAlphaValue{};
+- (void)setColorAlpha:(CGFloat (^)())blockAlphaValue{};
 
-- (UIColor* (^)(CGFloat))blockSetRedValue
+- (UIColor* (^)(CGFloat))colorRedSet
 {
     return ^(CGFloat value){
+        LinkError_REF_AUTO_IF(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return [UIColor colorWithRed:value green:g blue:b alpha:a];
         }else{
-            return self;
+            return _self;
         }
     };
 }
-- (void)setBlockSetRedValue:(UIColor *(^)(CGFloat))blockSetRedValue{}
+- (void)setColorRedSet:(UIColor *(^)(CGFloat))blockSetRedValue{}
 
-- (UIColor* (^)(CGFloat))blockSetGreenValue
+- (UIColor* (^)(CGFloat))colorGreenSet
 {
     return ^(CGFloat value){
+        LinkError_REF_AUTO_IF(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return [UIColor colorWithRed:r green:value blue:b alpha:a];
         }else{
-            return self;
+            return _self;
         }
     };
 }
-- (void)setBlockSetGreenValue:(UIColor *(^)(CGFloat))blockSetGreenValue{}
+- (void)setColorGreenSet:(UIColor *(^)(CGFloat))blockSetGreenValue{}
 
-- (UIColor* (^)(CGFloat))blockSetBlueValue
+- (UIColor* (^)(CGFloat))colorBlueSet
 {
     return ^(CGFloat value){
+        LinkError_REF_AUTO_IF(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return [UIColor colorWithRed:r green:g blue:value alpha:a];
         }else{
-            return self;
+            return _self;
         }
     };
 }
-- (void)setBlockSetBlueValue:(UIColor *(^)(CGFloat))blockSetBlueValue{}
+- (void)setColorBlueSet:(UIColor *(^)(CGFloat))blockSetBlueValue{}
 
-- (UIColor* (^)(CGFloat))blockSetAlphaValue
+- (UIColor* (^)(CGFloat))colorAlphaSet
 {
     return ^(CGFloat value){
+        LinkError_REF_AUTO_IF(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;
         CGFloat g;
         CGFloat b;
         CGFloat a;
-        if([self getRed:&r green:&g blue:&b alpha:&a]){
+        if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return [UIColor colorWithRed:r green:g blue:b alpha:value];
         }else{
-            return self;
+            return _self;
         }
     };
 }
-- (void)setBlockSetAlphaValue:(UIColor *(^)(CGFloat))blockSetAlphaValue{}
+- (void)setColorAlphaSet:(UIColor *(^)(CGFloat))blockSetAlphaValue{}
 @end

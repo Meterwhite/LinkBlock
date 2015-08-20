@@ -10,24 +10,27 @@
 #import "NSObject+LinkBlock.h"
 #import <Accelerate/Accelerate.h>
 
-@implementation UIImage(LinkBlock)
+@implementation NSObject(UIImageLinkBlockLinkBlock)
 
-- (NSData *(^)(float))blockImageToData
+- (NSData *(^)(float))imgToData
 {
     return ^(float ratio){
-        NSData* reIsData = UIImageJPEGRepresentation(self, ratio);
+        LinkError_REF_AUTO_IF(NSData, UIImage);
+        NSData* reIsData = UIImageJPEGRepresentation(_self, ratio);
         if(!reIsData){
-            reIsData= UIImagePNGRepresentation(self);
+            reIsData= UIImagePNGRepresentation(_self);
         }
         return reIsData;
     };
 }
+- (void)setImgToData:(NSData *(^)(float))imgToData{};
 
-- (UIImage *(^)(CGSize))blockResize
+- (UIImage *(^)(CGSize))imgResize
 {
     return ^(CGSize maxSize){
-        CGFloat originWidth= self.size.width;
-        CGFloat originHeight= self.size.height;
+        LinkError_REF_AUTO_IF(UIImage, UIImage);
+        CGFloat originWidth= _self.size.width;
+        CGFloat originHeight= _self.size.height;
         CGFloat originRatio = originWidth / originHeight;//宽长比
         if(originWidth > maxSize.width || originHeight > maxSize.height)
         {
@@ -44,24 +47,30 @@
         }
         CGRect rect = CGRectMake(0.0, 0.0, originWidth, originHeight);
         UIGraphicsBeginImageContext(rect.size);
-        [self drawInRect:rect];  // scales image to rect
+        [_self drawInRect:rect];  // scales image to rect
         UIImage* re = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return re;
     };
 }
-- (UIImage *(^)(CGRect))blockCut
+- (void)setImgResize:(UIImage *(^)(CGSize))imgResize{};
+
+- (UIImage *(^)(CGRect))imgCut
 {
     return ^(CGRect frame){
-        CGImageRef cgImgRef= CGImageCreateWithImageInRect(self.CGImage, frame);
+        LinkError_REF_AUTO_IF(UIImage, UIImage);
+        CGImageRef cgImgRef= CGImageCreateWithImageInRect(_self.CGImage, frame);
         UIImage* re= [UIImage imageWithCGImage:cgImgRef];
         CGImageRelease(cgImgRef);
         return re;
     };
 }
-- (UIImage *(^)(float))blockBlur
+- (void)setImgCut:(UIImage *(^)(CGRect))imgCut{};
+
+- (UIImage *(^)(float))imgBlur
 {
     return ^(float percent){
+        LinkError_REF_AUTO_IF(UIImage, UIImage);
         if ((percent < 0.0f) || (percent > 1.0f)) {
             percent = 0.5f;
         }
@@ -69,7 +78,7 @@
         int boxSize = (int)(percent * 100);
         boxSize -= (boxSize % 2) + 1;
         
-        CGImageRef img = self.CGImage;
+        CGImageRef img = _self.CGImage;
         
         vImage_Buffer inBuffer, outBuffer;
         vImage_Error error;
@@ -97,7 +106,7 @@
         if (error) {
             NSLog(@"blur error（高斯模糊错误 %ld\r\nCode in:[%@.m line%d >> %s]\r\n",
                   error,
-                  NSStringFromClass([self class]),__LINE__,__FUNCTION__);
+                  NSStringFromClass([_self class]),__LINE__,__FUNCTION__);
         }
         
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -108,7 +117,7 @@
                                                  8,
                                                  outBuffer.rowBytes,
                                                  colorSpace,
-                                                 CGImageGetBitmapInfo(self.CGImage));
+                                                 CGImageGetBitmapInfo(_self.CGImage));
         
         CGImageRef imageRef = CGBitmapContextCreateImage (ctx);
         UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
@@ -126,9 +135,6 @@
         return returnImage;
     };
 }
+- (void)setImgBlur:(UIImage *(^)(float))imgBlur{};
 
-- (void)setBlockImageToData:(NSData *(^)(float))blockImageToData{};
-- (void)setBlockBlur:(UIImage *(^)(float))blockBlur{};
-- (void)setBlockResize:(UIImage *(^)(CGSize))blockResize{};
-- (void)setBlockCut:(UIImage *(^)(CGRect))blockCut{};
 @end

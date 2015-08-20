@@ -9,28 +9,37 @@
 #import "NSAttributedString+LinkBlock.h"
 #import "NSObject+LinkBlock.h"
 
-@implementation NSAttributedString(LinkBlock)
-- (CGRect (^)(CGFloat))blockSize
+@implementation NSObject(NSAttributedStringLinkBlock)
+- (CGRect (^)(CGFloat))attr_strSize
 {
     return ^(CGFloat maxWidth){
-        return [self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
+        LinkError_VAL_IF(NSAttributedString){
+            return CGRectZero;
+        }
+        return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
     };
 }
-- (void)setBlockSize:(CGRect (^)(CGFloat))blockSize{};
+- (void)setAttr_strSize:(CGRect (^)(CGFloat))blockSize{};
 
-- (CGRect (^)(CGFloat, NSStringDrawingOptions))blockSizeWithOptions
+- (CGRect (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptions
 {
     return ^(CGFloat maxWidth,NSStringDrawingOptions options ){
-        return [self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil];
+        LinkError_VAL_IF(NSAttributedString){
+            return CGRectZero;
+        }
+        return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil];
     };
 }
-- (void)setBlockSizeWithOptions:(CGRect (^)(CGFloat, NSStringDrawingOptions))blockSizeWithOptions{};
+- (void)setAttr_strSizeWithOptions:(CGRect (^)(CGFloat, NSStringDrawingOptions))blockSizeWithOptions{};
 
-- (BOOL (^)(NSAttributedString *))blockIsEqualToAttrStr
+- (BOOL (^)(NSAttributedString *))attr_strIsEqualToAttrStr
 {
     return ^(NSAttributedString* attrStr){
-        return [self isEqualToAttributedString:attrStr];
+        LinkError_VAL_IF(NSAttributedString){
+            return NO;
+        }
+        return [_self isEqualToAttributedString:attrStr];
     };
 }
-- (void)setBlockIsEqualToAttrStr:(BOOL (^)(NSAttributedString *))blockIsEqualToAttrStr{};
+- (void)setAttr_strIsEqualToAttrStr:(BOOL (^)(NSAttributedString *))blockIsEqualToAttrStr{};
 @end

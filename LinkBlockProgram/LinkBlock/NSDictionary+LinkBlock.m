@@ -9,104 +9,125 @@
 #import "NSDictionary+LinkBlock.h"
 #import "NSObject+LinkBlock.h"
 
-@implementation NSDictionary(LinkBlock)
+@implementation NSObject(NSDictionaryLinkBlock)
 
 
-- (id (^)(id<NSCopying>))blockGetValue
+- (id (^)(id<NSCopying>))dictGet
 {
     return ^(id<NSCopying> key){
-        return self[key];
-    };
-}
-- (id (^)(id<NSCopying>))blockGetValueNoNSNull
-{
-    return ^(id<NSCopying> key){
-        if(!self[key] || [self[key] isKindOfClass:[NSNull class]] ){
+        LinkError_VAL_IF(NSDictionary){
             return (id)nil;
         }
-        return self[key];
+        return _self[key];
     };
 }
+- (void)setDictGet:(id (^)(id<NSCopying>))dictGet{};
 
-- (NSDictionary *(^)(id<NSCopying>))blockGetDictValueNoNullType
+- (id (^)(id<NSCopying>))dictGetNoNSNull
 {
     return ^(id<NSCopying> key){
-        if(![self[key] isKindOfClass:[NSDictionary class]]){
+        LinkError_VAL_IF(NSDictionary){
+            return (id)nil;
+        }
+        if(!_self[key] || [_self[key] isKindOfClass:[NSNull class]] ){
+            return (id)nil;
+        }
+        return _self[key];
+    };
+}
+- (void)setDictGetNoNSNull:(id (^)(id<NSCopying>))dictGetNoNSNull{};
+
+- (NSDictionary *(^)(id<NSCopying>))dictGetDictNoNullType
+{
+    return ^(id<NSCopying> key){
+        LinkError_REF_AUTO_IF(NSDictionary, NSDictionary);
+        if(![_self[key] isKindOfClass:[NSDictionary class]]){
             return [NSDictionary dictionary];
         }
-        return (NSDictionary*)self[key];
+        return (NSDictionary*)_self[key];
     };
 }
+- (void)setDictGetDictNoNullType:(NSDictionary *(^)(id<NSCopying>))dictGetDictValueNoNullType{}
 
-- (NSArray *(^)(id<NSCopying>))blockGetArrValueNoNullType
+- (NSArray *(^)(id<NSCopying>))dictGetArrNoNullType
 {
     return ^(id<NSCopying> key){
-        if(![self[key] isKindOfClass:[NSArray class]]){
+        LinkError_REF_AUTO_IF(NSArray, NSDictionary);
+        if(![_self[key] isKindOfClass:[NSArray class]])
             return [NSArray array];
-        }
-        return (NSArray*)self[key];
+        return (NSArray*)_self[key];
     };
 }
+- (void)setDictGetArrNoNullType:(NSArray *(^)(id<NSCopying>))dictGetArrValueNoNullType{};
 
-- (BOOL (^)(id<NSCopying>))blockGetBOOLValueNoNullType
+- (BOOL (^)(id<NSCopying>))dictGetBOOLNoNullType
 {
     return ^(id<NSCopying> key){
-        if(self[key] && ![self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",arr,dict,... ...
-            if([self[key] isKindOfClass:[NSNumber class]] || [self[key] isKindOfClass:[NSString class]])
+        LinkError_VAL_IF(NSDictionary){
+            return NO;
+        }
+        if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",arr,dict,... ...
+            if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
             {
-                return [self[key] boolValue];//@(0),@"1"
+                return [_self[key] boolValue];//@(0),@"1"
             }else{//arr,dict,... ...
                 return NO;
             }
         }else{//nil,NSNull
             return NO;
         }
-        return [self[key] boolValue];
+        return [_self[key] boolValue];
     };
 }
-- (BOOL (^)(id<NSCopying>))blockContainerKey
+- (void)setDictGetBOOLNoNullType:(BOOL (^)(id<NSCopying>))dictGetBOOLValueNoNullType{}
+
+- (BOOL (^)(id<NSCopying>))dictContainerKey
 {
     return ^(id<NSCopying> key){
-        return [[self allKeys] containsObject:key];
+        LinkError_VAL_IF(NSDictionary){
+            return NO;
+        }
+        return [[_self allKeys] containsObject:key];
     };
 }
-- (void)setBlockContainerKey:(BOOL (^)(id<NSCopying>))blockContainerKey{};
+- (void)setDictContainerKey:(BOOL (^)(id<NSCopying>))blockContainerKey{};
 
-- (BOOL (^)(id))blockContainerValue
+- (BOOL (^)(id))dictContainerValue
 {
     return ^(id value){
-        return [[self allValues] containsObject:value];
+        LinkError_VAL_IF(NSDictionary){
+            return NO;
+        }
+        return [[_self allValues] containsObject:value];
     };
 }
-- (void)setBlockContainerValue:(BOOL (^)(id))blockContainerValue{};
+- (void)setDictContainerValue:(BOOL (^)(id))blockContainerValue{};
 
-- (NSArray *(^)(id))blockKeysForValue
+- (NSArray *(^)(id))dictKeysForValue
 {
     return ^(id value){
-        return [self allKeysForObject:value];
+        LinkError_REF_AUTO_IF(NSArray, NSDictionary);
+        return [_self allKeysForObject:value];
     };
 }
-- (void)setBlockKeysForValue:(NSArray *(^)(id))blockKeysForValue{};
+- (void)setDictKeysForValue:(NSArray *(^)(id))blockKeysForValue{};
 
-- (NSArray *(^)())blockAllKeys
+- (NSArray *(^)())dictAllKeys
 {
     return ^(){
-        return [self allKeys];
+        LinkError_REF_AUTO_IF(NSArray, NSDictionary);
+        return [_self allKeys];
     };
 }
-- (void)setBlockAllKeys:(NSArray *(^)())blockAllKeys{};
-- (NSArray *(^)())blockAllValues
+- (void)setDictAllKeys:(NSArray *(^)())blockAllKeys{};
+- (NSArray *(^)())dictAllValues
 {
     return ^(){
-        return [self allValues];
+        LinkError_REF_AUTO_IF(NSArray, NSDictionary);
+        return [_self allValues];
     };
 }
-- (void)setBlockAllValues:(NSArray *(^)())blockAllValues{};
+- (void)setDictAllValues:(NSArray *(^)())blockAllValues{};
 
 
-- (void)setBlockGetValue:(id (^)(id<NSCopying>))blockGetValue{};
-- (void)setBlockGetValueNoNSNull:(id (^)(id<NSCopying>))blockGetValueNoNullType{};
-- (void)setBlockGetDictValueNoNullType:(NSDictionary *(^)(id<NSCopying>))blockGetDictValueNoNullType{};
-- (void)setBlockGetArrValueNoNullType:(NSArray *(^)(id<NSCopying>))blockGetArrValueNoNullType{};
-- (void)setBlockGetBOOLValueNoNullType:(BOOL (^)(id<NSCopying>))blockGetBOOLValueNoNullType{};
 @end

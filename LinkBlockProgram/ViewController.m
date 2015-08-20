@@ -17,17 +17,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.blockFrameSet(20,20,150,80).blockBGColor(@"0xff22cc".blockToColorFromHexStr()).blockAddToView(self.view);
-    btn.blockTitleSet(@"no can no bb", UIControlStateNormal);
+    btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr()).viewAddToView(self.view);
+    btn.btnTitle(@"no can no bb", UIControlStateNormal);
     
     UILabel* lab = [UILabel new];
-    lab.blockText(@"2b || !2b").blockTextColor(@"ff2222".blockToColorFromHexStr());
-    lab.blockFrameSet(0,200,80,80).blockBGColor(@"#00ff00".blockToColorFromHexStr());
-    lab.blockNumberOfLines(0).blockAlignment(NSTextAlignmentCenter).blockAlignTop().blockAddToView(self.view);
+    lab.labText(@"2b || !2b").labTextColor(@"ff2222".strToColorFromHexStr());
+    lab.viewSetFrame(0,200,80,80).viewBGColor(@"#00ff00".strToColorFromHexStr());
+    lab.labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view);
     
     
-    [lab blockBlockSet:@"Say" executeBlock:^id{
-        @"My teacher is MJ.".blockNSLog();
+    [lab objBlockSet:@"Say" executeBlock:^id{
+        @"My teacher is MJ.".log();
         float r = arc4random_uniform(256)/255.0;
         float g = arc4random_uniform(256)/255.0;
         float b = arc4random_uniform(256)/255.0;
@@ -36,21 +36,27 @@
     }];
     
     
-    [btn blockAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:^(UIControlEvents event) {
+    [btn controlAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:^(UIControlEvents event) {
         if(event!=UIControlEventTouchUpInside)
             return ;
-        UIColor* color = [lab blockBlockExecute:@"Say"];
-        lab.blockTextColor(color);
+        UIColor* color = [lab objBlockExecute:@"Say"];
+        lab.labTextColor(color);
     }];
     
+    CGPoint point= @"{0,0}".strToCGPoint();
     
-    CGPoint point= @"{0,0}".blockToCGPoint();
+    BOOL b = @"123.3".strIsFloating();
     
-    BOOL b = @"123.3".blockIsFloating();
+    NSString* str;
+    @"".strAppend(@"123").strReplace(@"2",@",").setTo(&str);
     
-    NSMutableArray* arr;
-    @[].blockMutableCopy().blockAddObjs(@[@"1",@"2",@"3"]).blockValueTo(&arr);
-    arr.blockNSLog();
+    
+    NSMutableArray* arr= @[].objMutableCopy().m_arrAddObjs(@[@"1",@"2",@"3"]).end();
+    arr.log();
+    
+    
+//    @{@"fdafda%@%,%@,%@",a,b,c}
+//    a.blockNSLog(@"asdf:%@");
 }
 
 - (void)didReceiveMemoryWarning {

@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LinkError.h"
 #import "NSArray+LinkBlock.h"
 #import "NSAttributedString+LinkBlock.h"
 #import "NSDictionary+LinkBlock.h"
@@ -24,5 +25,14 @@
 #import "UIButton+LinkBlock.h"
 
 
-#define linkSafe(type, value) ([value isKindOfClass:[type class]]?value:[type new])
+#define LinkError_REF_AUTO_IF(returnType , currType)\
+currType* _self = (currType*)self;\
+if([self isKindOfClass:[LinkError class]])\
+    return (returnType *)self;\
+if(![self isKindOfClass:[currType class]])\
+    return (returnType *)[LinkError share]\
+
+#define LinkError_VAL_IF(currType) \
+currType* _self = (currType*)self;\
+if([self isKindOfClass:[LinkError class]] || ![self isKindOfClass:[currType class]])
 

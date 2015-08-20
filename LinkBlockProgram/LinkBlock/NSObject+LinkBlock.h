@@ -9,29 +9,34 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject(LinkBlock)
-@property (nonatomic,copy) NSObject*    (^blockValueTo)(id* toValue);
-@property (nonatomic,copy) NSObject*    (^blockCopy)();
-@property (nonatomic,copy) NSObject*    (^blockMutableCopy)();
-@property (nonatomic,copy) BOOL         (^blockIsEqual)(NSObject* obj);
-@property (nonatomic,copy) BOOL         (^blockIsKindOf)( __unsafe_unretained Class classKind);
-@property (nonatomic,copy) BOOL         (^blockIsSubClassOf)( __unsafe_unretained Class classKind);
-@property (nonatomic,copy) BOOL         (^blockIsResponseSEL)(SEL theSEL);
+@property (nonatomic,copy) NSObject*    (^setTo)(id* toValue);
+@property (nonatomic,copy) id           (^end)();
 /** 强制获取一个类型的值，失败则返回该类型的初始化对象 */
 /** Force an object to get value of the specified type , failure returns the type of new object  */
-@property (nonatomic,copy) NSObject*    (^blockTypeKeep)(Class theCalss);
-@property (nonatomic,copy) NSString*    (^blockToJsonString)();
-@property (nonatomic,copy) Class        (^blockClass)();
-@property (nonatomic,copy) NSString*    (^blockClassName)();
-@property (nonatomic,copy) NSString*    (^blockToString)();
-@property (nonatomic,copy) NSObject*    (^blockNSLog)();
+@property (nonatomic,copy) NSObject*    (^typeForceObj)(Class theCalss);
+@property (nonatomic,copy) NSObject*    (^log)();
+
+
+@property (nonatomic,copy) NSObject*    (^objCopy)();
+@property (nonatomic,copy) NSObject*    (^objMutableCopy)();
+@property (nonatomic,copy) BOOL         (^objIsEqual)(NSObject* obj);
+@property (nonatomic,copy) BOOL         (^objIsKind)( __unsafe_unretained Class classKind);
+@property (nonatomic,copy) BOOL         (^objIsSubClassOf)( __unsafe_unretained Class classKind);
+@property (nonatomic,copy) BOOL         (^objIsResponseSEL)(SEL theSEL);
+
+@property (nonatomic,copy) NSString*    (^objToJsonString)();
+@property (nonatomic,copy) Class        (^objClass)();
+@property (nonatomic,copy) NSString*    (^objClassName)();
+@property (nonatomic,copy) NSString*    (^objToString)();
+
 
 /** 增加一个block到对象 */
 /** Add a block to the object  */
-- (void)blockBlockSet:(NSString*)name executeBlock:(id(^)())executeBlock;
-- (id(^)())blockBlockGet:(NSString*)name;
-- (void)blockBlockRemove:(NSString*)name;
+- (void)objBlockSet:(NSString*)name executeBlock:(id(^)())executeBlock;
+- (id(^)())objBlockGet:(NSString*)name;
+- (void)objBlockRemove:(NSString*)name;
 /**  return value: the block return value */
-- (id)blockBlockExecute:(NSString*)name;
+- (id)objBlockExecute:(NSString*)name;
 
 /** 不能调用 */
 /** unavailable */

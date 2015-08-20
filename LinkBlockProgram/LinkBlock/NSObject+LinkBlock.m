@@ -10,26 +10,26 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(LinkBlock)
-- (NSObject *(^)())blockCopy
+- (NSObject *(^)())objCopy
 {
     return ^(){
-        return [self copy];
+        return (NSObject*)[self copy];
     };
 }
-- (NSObject *(^)())blockMutableCopy
+- (NSObject *(^)())objMutableCopy
 {
     return ^(){
-        return [self mutableCopy];
+        return (NSObject*)[self mutableCopy];
     };
 }
-- (BOOL (^)(NSObject *))blockIsEqual
+- (BOOL (^)(NSObject *))objIsEqual
 {
     return ^(NSObject* obj){
         return [self isEqual:obj];
     };
 }
 
-- (BOOL (^)( __unsafe_unretained Class))blockIsKindOf
+- (BOOL (^)( __unsafe_unretained Class))objIsKind
 {
     return ^(Class classKind){
         if(!classKind)
@@ -37,7 +37,7 @@
         return [self isKindOfClass:classKind];
     };
 }
-- (BOOL (^)(__unsafe_unretained Class))blockIsSubClassOf
+- (BOOL (^)(__unsafe_unretained Class))objIsSubClassOf
 {
     return ^(Class classKind){
         if(!classKind)
@@ -46,10 +46,10 @@
     };
 }
 
-- (NSObject* (^)(__unsafe_unretained Class))blockTypeKeep
+- (NSObject* (^)(__unsafe_unretained Class))typeForceObj
 {
     return ^(Class theClass){
-        if(!theClass || !self.blockIsKindOf(theClass)){
+        if(!theClass || !self.objIsKind(theClass)){
             return (NSObject*)[theClass new];
         }else{
             return self;
@@ -57,7 +57,7 @@
     };
 }
 
-- (BOOL (^)(SEL))blockIsResponseSEL
+- (BOOL (^)(SEL))objIsResponseSEL
 {
     return ^(SEL theSEL){
         if(theSEL){
@@ -69,11 +69,14 @@
 }
 
 
-- (NSString *(^)())blockToJsonString
+- (NSString *(^)())objToJsonString
 {
     return ^(){
+        LinkError_VAL_IF(NSObject){
+            return (NSString*)@"";
+        }
         NSError* error= nil;
-        NSData * JSONData = [NSJSONSerialization dataWithJSONObject:self
+        NSData * JSONData = [NSJSONSerialization dataWithJSONObject:_self
                                                             options:kNilOptions
                                                               error:&error];
         if(error)
@@ -82,64 +85,89 @@
     };
 }
 
-- (Class (^)())blockClass
+- (Class (^)())objClass
 {
     return ^(){
         return [self class];
     };
 }
-- (NSString *(^)())blockClassName
+- (NSString *(^)())objClassName
 {
     return ^(){
         return NSStringFromClass([self class]);
     };
 }
 
-- (NSObject *(^)(id*))blockValueTo
+- (NSObject *(^)(id*))setTo
 {
     return ^(id* toValue){
-        *toValue = self;
-        return self;
+        LinkError_VAL_IF(NSObject){
+            *toValue= nil;
+        }else{
+            *toValue= _self;
+        }
+        return _self;
     };
 }
-- (void)setBlockValueTo:(NSObject *(^)(id*))blockValueTo{};
+- (void)setSetTo:(NSObject *(^)(id*))blockValueTo{};
 
-- (NSString *(^)())blockToString
+- (NSString *(^)())objToString
 {
     return ^(){
         return [self description];
     };
 }
-- (void)setBlockToString:(NSString *(^)())blockToString{};
+- (void)setObjToString:(NSString *(^)())objToString{};
 
-- (NSObject *(^)())blockNSLog
+- (NSObject *(^)())log
 {
     return ^(){
-        NSLog(@"%@",self);
-        return self;
+        LinkError_VAL_IF(NSObject){
+            return (NSObject*)_self;
+        }
+        NSLog(@"%@",_self);
+        return _self;
     };
 }
-- (void)setBlockNSLog:(NSObject *(^)())blockNSLog{};
+- (void)setLog:(NSObject *(^)())nslog{};
 
-- (void)setBlockCopy:(NSObject *(^)())blockCopy{};
-- (void)setBlockMutableCopy:(NSObject *(^)())blockMutableCopy{};
-- (void)setBlockIsEqual:(BOOL (^)(NSObject *))blockIsEqual{};
-- (void)setBlockTypeKeep:(NSObject* (^)(__unsafe_unretained Class))blockTypeKeep{};
-- (void)setBlockIsResponseSEL:(BOOL (^)(SEL))blockIsResponseSEL{};
-- (void)setBlockIsKindOf:(BOOL (^)( __unsafe_unretained Class))blockIsKindOf{}
-- (void)setBlockIsSubClassOf:(BOOL (^)(__unsafe_unretained Class))blockIsSubClass{};
-- (void)setBlockToJsonString:(NSString *(^)())blockToJsonString{};
-- (void)setBlockClass:(Class (^)())blockClass{};
-- (void)setBlockClassName:(NSString *(^)())blockClassName{};
+- (id (^)())end
+{
+    return ^(){
+        LinkError_VAL_IF(NSObject){
+            return (id)nil;
+        }
+        return (id)_self;
+    };
+}
+- (void)setEnd:(id(^)())end{};
+
+- (void)setObjCopy:(NSObject *(^)())blockCopy{};
+- (void)setObjMutableCopy:(NSObject *(^)())blockMutableCopy{};
+- (void)setObjIsEqual:(BOOL (^)(NSObject *))blockIsEqual{};
+- (void)setTypeForceObj:(NSObject* (^)(__unsafe_unretained Class))blockTypeKeep{};
+- (void)setObjIsResponseSEL:(BOOL (^)(SEL))blockIsResponseSEL{};
+- (void)setObjIsKind:(BOOL (^)( __unsafe_unretained Class))blockIsKindOf{}
+- (void)setObjIsSubClassOf:(BOOL (^)(__unsafe_unretained Class))blockIsSubClass{};
+- (void)setObjToJsonString:(NSString *(^)())blockToJsonString{};
+- (void)setObjClass:(Class (^)())blockClass{};
+- (void)setObjClassName:(NSString *(^)())blockClassName{};
+
+
+
+
+
+
+#pragma mark - extension for func
 
 
 static const char* blockName = "quxingyiHandsome";
-- (void)blockBlockSet:(NSString*)name executeBlock:(id(^)())executeBlock
+- (void)objBlockSet:(NSString*)name executeBlock:(id(^)())executeBlock
 {
     if([name isKindOfClass:[NSString class]] && executeBlock)
         [self novoGetBlocksDict][name]= executeBlock;
 }
-- (id(^)())blockBlockGet:(NSString*)name
+- (id(^)())objBlockGet:(NSString*)name
 {
     if(![name isKindOfClass:[NSString class]])
         return (id)^(){return nil;};
@@ -150,12 +178,12 @@ static const char* blockName = "quxingyiHandsome";
     
     return (id)block;
 }
-- (void)blockBlockRemove:(NSString*)name
+- (void)objBlockRemove:(NSString*)name
 {
     if([name isKindOfClass:[NSString class]])
         [[self novoGetBlocksDict] removeObjectForKey:name];
 }
-- (id)blockBlockExecute:(NSString *)name
+- (id)objBlockExecute:(NSString *)name
 {
     if(![name isKindOfClass:[NSString class]])
         return (id)nil;
@@ -176,6 +204,7 @@ static const char* blockName = "quxingyiHandsome";
     return privateDict;
 }
 
+#pragma mark - exteion for uicontrol
 
 /** 触发扩展字典中的的UIControl的事件，不应直接调用 */
 - (void)novoExecuteEventForSender:(id)sender

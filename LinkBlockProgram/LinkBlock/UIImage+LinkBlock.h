@@ -7,9 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage(LinkBlock)
-@property (nonatomic,copy) NSData*          (^blockImageToData)(float ratio);
-@property (nonatomic,copy) UIImage*         (^blockResize)(CGSize maxSize);
-@property (nonatomic,copy) UIImage*         (^blockCut)(CGRect frame);
-@property (nonatomic,copy) UIImage*         (^blockBlur)(float percent);
+@interface NSObject(UIImageLinkBlock)
+@property (nonatomic,copy) NSData*          (^imgToData)(float ratio);
+@property (nonatomic,copy) UIImage*         (^imgResize)(CGSize maxSize);
+@property (nonatomic,copy) UIImage*         (^imgCut)(CGRect frame);
+@property (nonatomic,copy) UIImage*         (^imgBlur)(float percent);
 @end

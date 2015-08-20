@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor(LinkBlock)
+@interface NSObject(UIColorLinkBlock)
 /** 返回如0xc3c3c3 , #c3c3c3 , c3c3c3 */
-@property (nonatomic,copy) NSString*        (^blockToStringWithPrefix)(NSString* prefix);
-@property (nonatomic,copy) CGFloat          (^blockRedValue)();
-@property (nonatomic,copy) CGFloat          (^blockGreenValue)();
-@property (nonatomic,copy) CGFloat          (^blockBlueValue)();
-@property (nonatomic,copy) CGFloat          (^blockAlphaValue)();
+@property (nonatomic,copy) NSString*        (^colorToStrWithPrefix)(NSString* prefix);
+@property (nonatomic,copy) CGFloat          (^colorRed)();
+@property (nonatomic,copy) CGFloat          (^colorGreen)();
+@property (nonatomic,copy) CGFloat          (^colorBlue)();
+@property (nonatomic,copy) CGFloat          (^colorAlpha)();
 /** return new UIColor */
-@property (nonatomic,copy) UIColor*         (^blockSetRedValue)(CGFloat value);
-@property (nonatomic,copy) UIColor*         (^blockSetGreenValue)(CGFloat value);
-@property (nonatomic,copy) UIColor*         (^blockSetBlueValue)(CGFloat value);
-@property (nonatomic,copy) UIColor*         (^blockSetAlphaValue)(CGFloat value);
+@property (nonatomic,copy) UIColor*         (^colorRedSet)(CGFloat value);
+@property (nonatomic,copy) UIColor*         (^colorGreenSet)(CGFloat value);
+@property (nonatomic,copy) UIColor*         (^colorBlueSet)(CGFloat value);
+@property (nonatomic,copy) UIColor*         (^colorAlphaSet)(CGFloat value);
 @end

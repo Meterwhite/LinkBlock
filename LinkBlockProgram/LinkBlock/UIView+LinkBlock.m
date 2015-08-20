@@ -7,162 +7,179 @@
 
 #import "UIView+LinkBlock.h"
 #import "NSObject+LinkBlock.h"
+#import "LinkBlock.h"
 
-@implementation UIView(LinkBlock)
+@implementation NSObject(UIViewLinkBlock)
 
 
-- (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrameSet
+- (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))viewSetFrame
 {
     return ^(CGFloat x,CGFloat y, CGFloat width, CGFloat height){
-        self.frame= CGRectMake(x, y, width, height);
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.frame= CGRectMake(x, y, width, height);
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockXSet
+- (UIView *(^)(CGFloat))viewSetX
 {
     return ^(CGFloat x){
-        CGRect frame = self.frame;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CGRect frame = _self.frame;
         frame.origin.x = x;
-        self.frame = frame;
-        return self;
+        _self.frame = frame;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockYSet
+- (UIView *(^)(CGFloat))viewSetY
 {
     return ^(CGFloat y){
-        CGRect frame = self.frame;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CGRect frame = _self.frame;
         frame.origin.y = y;
-        self.frame = frame;
-        return self;
+        _self.frame = frame;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockCenterXSet
+- (UIView *(^)(CGFloat))viewSetCenterX
 {
     return ^(CGFloat centerX){
-        CGPoint center = self.center;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CGPoint center = _self.center;
         center.x = centerX;
-        self.center = center;
-        return self;
+        _self.center = center;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockCenterYSet
+- (UIView *(^)(CGFloat))viewSetCenterY
 {
     return ^(CGFloat centerY){
-        CGPoint center = self.center;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CGPoint center = _self.center;
         center.y = centerY;
-        self.center = center;
-        return self;
+        _self.center = center;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockWidthSet
+- (UIView *(^)(CGFloat))viewSetWidth
 {
     return ^(CGFloat width){
-        CGRect frame= self.frame;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CGRect frame= _self.frame;
         frame.size.width= width;
-        self.frame= frame;
-        return self;
+        _self.frame= frame;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockHeightSet
+- (UIView *(^)(CGFloat))viewSetHeight
 {
     return ^(CGFloat height){
-        CGRect frame= self.frame;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CGRect frame= _self.frame;
         frame.size.height= height;
-        self.frame= frame;
-        return self;
+        _self.frame= frame;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat,CGFloat))blockSizeSet
+- (UIView *(^)(CGFloat,CGFloat))viewSetSize
 {
     return ^(CGFloat width, CGFloat height){
-        CGRect frame= self.frame;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CGRect frame= _self.frame;
         frame.size.width= width;
         frame.size.height= height;
-        self.frame= frame;
-        return self;
+        _self.frame= frame;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat,CGFloat))blockOriginSet
+- (UIView *(^)(CGFloat,CGFloat))viewSetOrigin
 {
     return ^(CGFloat x,CGFloat y){
-        CGRect frame= self.frame;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CGRect frame= _self.frame;
         frame.origin.x= x;
         frame.origin.y= y;
-        self.frame= frame;
-        return self;
+        _self.frame= frame;
+        return _self;
     };
 }
 
-- (UIView *(^)(UIColor *))blockBGColor
+- (UIView *(^)(UIColor *))viewBGColor
 {
     return ^(UIColor *colore){
-        self.backgroundColor= colore;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.backgroundColor= colore;
+        return _self;
     };
 }
-- (UIView *(^)(CGFloat x,CGFloat y))blockCenterSet
+- (UIView *(^)(CGFloat x,CGFloat y))viewSetCenter
 {
     return ^(CGFloat x,CGFloat y){
-        self.center = CGPointMake(x, y);
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.center = CGPointMake(x, y);
+        return _self;
     };
 }
 
-- (UIView *(^)(UIColor *))blockBorderColor
+- (UIView *(^)(UIColor *))viewBorderColor
 {
     return ^(UIColor* color){
-        if(color.blockIsKindOf([UIColor class])){
-            self.layer.borderColor= color.CGColor;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        if(color.objIsKind([UIColor class])){
+            _self.layer.borderColor= color.CGColor;
         }
-        return self;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockBorderWidth
+- (UIView *(^)(CGFloat))viewBorderWidth
 {
     return ^(CGFloat width){
-        self.layer.borderWidth= width;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.layer.borderWidth= width;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockCornerRadius
+- (UIView *(^)(CGFloat))viewCornerRadius
 {
     return ^(CGFloat cornerRadius){
-        self.layer.cornerRadius= cornerRadius;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.layer.cornerRadius= cornerRadius;
+        return _self;
     };
 }
 
-- (UIView *(^)(BOOL))blockMasksToBounds
+- (UIView *(^)(BOOL))viewMasksToBounds
 {
     return ^(BOOL flag){
-        self.layer.masksToBounds= flag;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.layer.masksToBounds= flag;
+        return _self;
     };
 }
 
-- (UIView *(^)())blockFirstResponderInputSubView
+- (UIView *(^)())viewFirstResponderSubViewForInput
 {
     return ^(){
+        LinkError_REF_AUTO_IF(UIView, UIView);
         __block UIView *re= nil;
-        [self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
+        [_self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
             
-            if(v.blockIsKindOf([UITextView class])|| v.blockIsKindOf([UITextField class])){
+            if(v.objIsKind([UITextView class])|| v.objIsKind([UITextField class])){
                 if(v.isFirstResponder){
                     re= v;
                     *stop= YES;
                 }
             }else{
-                re= v.blockFirstResponderInputSubView();
+                re= v.viewFirstResponderSubViewForInput();
                 if(re) {
                     *stop= YES;
                 }
@@ -172,328 +189,359 @@
     };
 }
 
-- (CGRect (^)())blockConvertRectToWindow
+- (CGRect (^)())viewConvertRectToWindow
 {
     return ^(){
-        return [self.superview convertRect:self.frame toView:nil];
+        LinkError_VAL_IF(UIView){
+            return CGRectZero;
+        }
+        return [_self.superview convertRect:_self.frame toView:nil];
     };
 }
 
-- (BOOL (^)(UIView *))blockIsSubviewTo
+- (BOOL (^)(UIView *))viewIsSubviewTo
 {
     return ^(UIView *theView){
+        LinkError_VAL_IF(UIView){
+            return NO;
+        }
         __block BOOL reIsBool= NO;
-        if([self.superview isEqual:theView]){
+        if([_self.superview isEqual:theView]){
             reIsBool = YES;
         }else{
-            reIsBool = self.superview.blockIsSubviewTo(theView);
+            reIsBool = _self.superview.viewIsSubviewTo(theView);
         }
         return reIsBool;
     };
 }
 
-- (UIView *(^)(BOOL))blockUserInteractionEnabled
+- (UIView *(^)(BOOL))viewUserInteractionEnabled
 {
     return ^(BOOL b){
-        self.userInteractionEnabled = b;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.userInteractionEnabled = b;
+        return _self;
     };
 }
 
-- (UIView *(^)(BOOL))blockMultipleTouchEnabled
+- (UIView *(^)(BOOL))viewMultipleTouchEnabled
 {
     return ^(BOOL b){
-        self.multipleTouchEnabled =b;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.multipleTouchEnabled =b;
+        return _self;
     };
 }
 
-- (UIView *(^)(BOOL))blockExclusiveTouch
+- (UIView *(^)(BOOL))viewExclusiveTouch
 {
     return ^(BOOL b){
-        self.exclusiveTouch = b;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.exclusiveTouch = b;
+        return _self;
     };
 }
 
-- (UIView *(^)(UIViewAutoresizing))blockAutoresizingMask
+- (UIView *(^)(UIViewAutoresizing))viewAutoresizingMask
 {
     return ^(UIViewAutoresizing mask){
-        self.autoresizingMask = mask;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.autoresizingMask = mask;
+        return _self;
     };
 }
 
-- (UIView *(^)(BOOL))blockClipsToBounds
+- (UIView *(^)(BOOL))viewClipsToBounds
 {
     return ^(BOOL b){
-        self.clipsToBounds = YES;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.clipsToBounds = YES;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockAlpha
+- (UIView *(^)(CGFloat))viewAlpha
 {
     return ^(CGFloat alpha){
-        self.alpha= alpha;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.alpha= alpha;
+        return _self;
     };
 }
 
-- (UIView *(^)(CGFloat))blockOpaque
+- (UIView *(^)(CGFloat))viewOpaque
 {
     return ^(CGFloat opaque){
-        self.opaque = opaque;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.opaque = opaque;
+        return _self;
     };
 }
 
-- (UIView *(^)(BOOL))blockHidden
+- (UIView *(^)(BOOL))viewHidden
 {
     return ^(BOOL b){
-        self.hidden= b;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.hidden= b;
+        return _self;
     };
 }
 
-- (UIView *(^)(UIViewContentMode))blockContentMode
+- (UIView *(^)(UIViewContentMode))viewContentMode
 {
     return ^(UIViewContentMode contentMode){
-        self.contentMode = contentMode;
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        _self.contentMode = contentMode;
+        return _self;
     };
 }
 
-- (UIView *(^)())blockSuperview
-{
-    return ^(){
-        return self.superview;
-    };
-}
 
-- (NSArray *(^)())blockSubviews
-{
-    return ^(){
-        return self.subviews;
-    };
-}
-
-- (UIView *(^)(NSUInteger))blockSubviewAtIndex
+- (UIView *(^)(NSUInteger))viewSubviewAt
 {
     return ^(NSUInteger index){
+        LinkError_REF_AUTO_IF(UIView, UIView);
         UIView* re= nil;
-        if(index< self.subviews.count)
-            return (UIView*)(self.subviews[index]);
+        if(index< _self.subviews.count)
+            return (UIView*)(_self.subviews[index]);
         return re;
     };
 }
-- (UIView *(^)())blockRemoveFromSuperview
+- (UIView *(^)())viewRemoveFromSuperview
 {
     return ^(){
-        [self removeFromSuperview];
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        [_self removeFromSuperview];
+        return _self;
     };
 }
-- (UIView *(^)(NSUInteger))blockRemoveSubviewAtIndex
+- (UIView *(^)(NSUInteger))viewRemoveSubviewAt
 {
     return ^(NSUInteger index){
-        return self.blockSubviewAtIndex(index).blockRemoveFromSuperview();
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        return _self.viewSubviewAt(index).viewRemoveFromSuperview();
     };
 }
-- (UIWindow *(^)())blockWindow
-{
-    return ^(){
-        return self.window;
-    };
-}
-- (UIView *(^)(NSUInteger, NSUInteger))blockExchangeSubviewByIndex
+
+- (UIView *(^)(NSUInteger, NSUInteger))viewExchangeSubviewByIndex
 {
     return ^(NSUInteger index1, NSUInteger index2){
-        [self exchangeSubviewAtIndex:index1 withSubviewAtIndex:index2];
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        [_self exchangeSubviewAtIndex:index1 withSubviewAtIndex:index2];
+        return _self;
     };
 }
 
-- (UIView *(^)(UIView *))blockRemoveSubviewTry
+- (UIView *(^)(UIView *))viewRemoveSubviewTry
 {
     return ^(UIView* view){
-        if([view isKindOfClass:[UIView class]] && view.blockIsSubviewTo(self)){
-            view.blockRemoveFromSuperview();
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        if([view isKindOfClass:[UIView class]] && view.viewIsSubviewTo(_self)){
+            view.viewRemoveFromSuperview();
         }
-        return self;
+        return _self;
     };
 }
 
-- (UIView *(^)())blockRemoveAllSubview
+- (UIView *(^)())viewRemoveAll
 {
     return ^(){
-        [self.subviews enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
-            if(v.blockIsKindOf([UIView class])){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        [_self.subviews enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            if(v.objIsKind([UIView class])){
                 [v removeFromSuperview];
             }
         }];
-        return self;
+        return _self;
     };
 }
 
-- (UIView *(^)(UIView *))blockAddSubview
+- (UIView *(^)(UIView *))viewAddSubview
 {
     return ^(UIView* subview){
+        LinkError_REF_AUTO_IF(UIView, UIView);
         if([subview isKindOfClass:[UIView class]]){
-            [self addSubview:subview];
+            [_self addSubview:subview];
         }
-        return self;
+        return _self;
     };
 }
 
-- (UIView *(^)(UIView *))blockAddToView
+- (UIView *(^)(UIView *))viewAddToView
 {
     return ^(UIView* view){
+        LinkError_REF_AUTO_IF(UIView, UIView);
         if([view isKindOfClass:[UIView class]]){
-            [view addSubview:self];
+            [view addSubview:_self];
         }
-        return self;
+        return _self;
     };
 }
 
-- (UIView *(^)(UIView *, NSUInteger))blockInsertSubviewAtIndex
+- (UIView *(^)(UIView *, NSUInteger))viewInsertSubviewAtIndex
 {
     return ^(UIView* view, NSUInteger index){
-        [self insertSubview:view atIndex:index];
-        return self;
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        [_self insertSubview:view atIndex:index];
+        return _self;
     };
 }
-- (void)setBlockInsertSubviewAtIndex:(UIView *(^)(UIView *, NSUInteger))blockInsertSubviewAtIndex{};
+- (void)setViewInsertSubviewAtIndex:(UIView *(^)(UIView *, NSUInteger))blockInsertSubviewAtIndex{};
 
-- (void (^)(BOOL))blockSubiewsExclusiveTouch
+- (UIView* (^)(BOOL))viewSubiewsExclusiveTouch
 {
     return ^(BOOL b){
-        [self.subviews enumerateObjectsUsingBlock:^(UIView* subView, NSUInteger idx, BOOL *stop) {
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        [_self.subviews enumerateObjectsUsingBlock:^(UIView* subView, NSUInteger idx, BOOL *stop) {
             if([subView isKindOfClass:[UIView class]]){
                 subView.exclusiveTouch = b;
             }
         }];
+        return _self;
     };
 }
-- (void)setBlockSubiewsExclusiveTouch:(void (^)(BOOL))blockSubiewsExclusiveTouch{};
+- (void)setViewSubiewsExclusiveTouch:(UIView* (^)(BOOL))blockSubiewsExclusiveTouch{};
 
-- (UIView *(^)(UIRectCorner, CGSize))blockCornerRadiusSide
+- (UIView *(^)(UIRectCorner, CGSize))viewCornerRadiusSide
 {
     return ^(UIRectCorner side , CGSize radius){
-        UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:_self.bounds
                                                    byRoundingCorners:side
                                                          cornerRadii:radius];
         CAShapeLayer* shape = [[CAShapeLayer alloc] init];
-        shape.frame= self.frame;
+        shape.frame= _self.frame;
         shape.path= path.CGPath;
-        self.layer.mask = shape;
-        return self;
+        _self.layer.mask = shape;
+        return _self;
     };
 }
-- (void)setBlockCornerRadiusSide:(UIView *(^)(UIRectCorner, CGSize))blockCornerRadiusSide{};
+- (void)setViewCornerRadiusSide:(UIView *(^)(UIRectCorner, CGSize))blockCornerRadiusSide{};
 
 
-- (CGFloat (^)())blockXGet
+- (CGFloat (^)())viewX
 {
     return ^(){
-        return self.frame.origin.x;
+        LinkError_VAL_IF(UIView){
+            return (CGFloat)0.0;
+        }
+        return _self.frame.origin.x;
     };
 }
-- (void)setBlockXGet:(CGFloat (^)())blockXGet{};
+- (void)setViewX:(CGFloat (^)())blockXGet{};
 
-- (CGFloat (^)())blockYGet
+- (CGFloat (^)())viewY
 {
     return ^(){
-        return self.frame.origin.y;
+        LinkError_VAL_IF(UIView){
+            return (CGFloat)0.0;
+        }
+        return _self.frame.origin.y;
     };
 }
-- (void)setBlockYGet:(CGFloat (^)())blockYGet{};
+- (void)setViewY:(CGFloat (^)())blockYGet{};
 
-- (CGFloat (^)())blockCenterXGet
+- (CGFloat (^)())viewCenterX
 {
     return ^(){
-        return self.center.x;
+        LinkError_VAL_IF(UIView){
+            return (CGFloat)0.0;
+        }
+        return _self.center.x;
     };
 }
-- (void)setBlockCenterXGet:(CGFloat (^)())blockCenterXGet{};
+- (void)setViewCenterX:(CGFloat (^)())blockCenterXGet{};
 
-- (CGFloat (^)())blockCenterYGet
+- (CGFloat (^)())viewCenterY
 {
     return ^(){
-        return self.center.y;
+        LinkError_VAL_IF(UIView){
+            return (CGFloat)0.0;
+        }
+        return _self.center.y;
     };
 }
-- (void)setBlockCenterYGet:(CGFloat (^)())blockCenterYGet{};
+- (void)setViewCenterY:(CGFloat (^)())blockCenterYGet{};
 
-- (CGSize (^)())blockSizeGet
+- (CGSize (^)())viewSize
 {
     return ^(){
-        return self.frame.size;
+        LinkError_VAL_IF(UIView){
+            return CGSizeZero;
+        }
+        return _self.frame.size;
     };
 }
-- (void)setBlockSizeGet:(CGSize (^)())blockSizeGet{};
+- (void)setViewSize:(CGSize (^)())blockSizeGet{};
 
-- (CGFloat (^)())blockWidthGet
+- (CGFloat (^)())viewWidth
 {
     return ^(){
-        return self.frame.size.width;
+        LinkError_VAL_IF(UIView){
+            return (CGFloat)0.0;
+        }
+        return _self.frame.size.width;
     };
 }
-- (void)setBlockWidthGet:(CGFloat (^)())blockWidthGet{};
+- (void)setViewWidth:(CGFloat (^)())blockWidthGet{};
 
-- (CGFloat (^)())blockHeightGet
+- (CGFloat (^)())viewHeight
 {
     return ^(){
-        return self.frame.size.height;
+        LinkError_VAL_IF(UIView){
+            return (CGFloat)0.0;
+        }
+        return _self.frame.size.height;
     };
 }
-- (void)setBlockHeightGet:(CGFloat (^)())blockHeightGet{};
+- (void)setViewHeight:(CGFloat (^)())blockHeightGet{};
 
-- (CGPoint (^)())blockOriginGet
+- (CGPoint (^)())viewOrigin
 {
     return ^(){
-        return self.frame.origin;
+        LinkError_VAL_IF(UIView){
+            return CGPointZero;
+        }
+        return _self.frame.origin;
     };
 }
-- (void)setBlockOriginGet:(CGPoint (^)())blockOriginGet{};
+- (void)setViewOrigin:(CGPoint (^)())blockOriginGet{};
 
-- (void)setBlockFrameSet:(UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrame{};
-- (void)setBlockXSet:(UIView *(^)(CGFloat))blockX{};
-- (void)setBlockYSet:(UIView *(^)(CGFloat))blockY{};
-- (void)setBlockCenterXSet:(UIView *(^)(CGFloat))blockCenterX{};
-- (void)setBlockCenterYSet:(UIView *(^)(CGFloat))blockCenterY{};
-- (void)setBlockWidthSet:(UIView *(^)(CGFloat))blockWidth{};
-- (void)setBlockHeightSet:(UIView *(^)(CGFloat))blockHeight{};
-- (void)setBlockSizeSet:(UIView *(^)(CGFloat, CGFloat))blockSize{};
-- (void)setBlockOriginSet:(UIView *(^)(CGFloat,CGFloat))blockOrigin{};
-- (void)setBlockBGColor:(UIView *(^)(UIColor *))blockColor{};
-- (void)setBlockCenterSet:(UIView *(^)(CGFloat x,CGFloat y))blockCenter{};
-- (void)setBlockMasksToBounds:(UIView *(^)(BOOL))blockMasksToBounds{};
-- (void)setBlockFirstResponderInputSubView:(UIView *(^)())blockFirstResponderSubView{};
-- (void)setBlockBorderWidth:(UIView *(^)(CGFloat))blockBorderWidth{};
-- (void)setBlockBorderColor:(UIView *(^)(UIColor *))blockBorderColor{};
-- (void)setBlockCornerRadius:(UIView *(^)(CGFloat))blockCornerRadius{};
+- (void)setViewSetFrame:(UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrame{};
+- (void)setViewSetX:(UIView *(^)(CGFloat))blockX{};
+- (void)setViewSetY:(UIView *(^)(CGFloat))blockY{};
+- (void)setViewSetCenterX:(UIView *(^)(CGFloat))blockCenterX{};
+- (void)setViewSetCenterY:(UIView *(^)(CGFloat))blockCenterY{};
+- (void)setViewSetWidth:(UIView *(^)(CGFloat))blockWidth{};
+- (void)setViewSetHeight:(UIView *(^)(CGFloat))blockHeight{};
+- (void)setViewSetSize:(UIView *(^)(CGFloat, CGFloat))blockSize{};
+- (void)setViewSetOrigin:(UIView *(^)(CGFloat,CGFloat))blockOrigin{};
+- (void)setViewBGColor:(UIView *(^)(UIColor *))blockColor{};
+- (void)setViewSetCenter:(UIView *(^)(CGFloat x,CGFloat y))blockCenter{};
+- (void)setViewMasksToBounds:(UIView *(^)(BOOL))blockMasksToBounds{};
+- (void)setViewFirstResponderSubViewForInput:(UIView *(^)())blockFirstResponderSubView{};
+- (void)setViewBorderWidth:(UIView *(^)(CGFloat))blockBorderWidth{};
+- (void)setViewBorderColor:(UIView *(^)(UIColor *))blockBorderColor{};
+- (void)setViewCornerRadius:(UIView *(^)(CGFloat))blockCornerRadius{};
 - (void)setBlockConvertRectToView:(CGRect (^)())blockConvertRectToWindow{};
-- (void)setBlockIsSubviewTo:(BOOL (^)(UIView *))blockIsSubviewTo{};
-- (void)setBlockConvertRectToWindow:(CGRect (^)())blockConvertRectToWindow{};
-- (void)setBlockContentMode:(UIView *(^)(UIViewContentMode))blockContentMode{};
-- (void)setBlockRemoveSubviewTry:(UIView *(^)(UIView *))blockRemoveSubviewTry{};
-- (void)setBlockMultipleTouchEnabled:(UIView *(^)(BOOL))blockMultipleTouchEnabled{};
-- (void)setBlockUserInteractionEnabled:(UIView *(^)(BOOL))blockUserInteractionEnabled{};
-- (void)setBlockRemoveSubviewAtIndex:(UIView *(^)(NSUInteger))blockRemoveSubviewAtIndex{};
-- (void)setBlockHidden:(UIView *(^)(BOOL))blockHidden{};
-- (void)setBlockAutoresizingMask:(UIView *(^)(UIViewAutoresizing))blockAutoresizingMask{};
-- (void)setBlockExclusiveTouch:(UIView *(^)(BOOL))blockExclusiveTouch{};
-- (void)setBlockRemoveAllSubview:(UIView *(^)())blockRemoveAllSubview{};
-- (void)setBlockRemoveFromSuperview:(UIView *(^)())blockRemoveFromSuperview{};
-- (void)setBlockExchangeSubviewByIndex:(UIView *(^)(NSUInteger, NSUInteger))blockExchangeSubviewByIndex{};
-- (void)setBlockWindow:(UIWindow *(^)())blockWindow{};
-- (void)setBlockSubviewAtIndex:(UIView *(^)(NSUInteger))blockSubviewAtIndex{};
-- (void)setBlockClipsToBounds:(UIView *(^)(BOOL))blockClipsToBounds{};
-- (void)setBlockOpaque:(UIView *(^)(CGFloat))blockOpaque{};
-- (void)setBlockAlpha:(UIView *(^)(CGFloat))blockAlpha{};
-- (void)setBlockAddToView:(UIView *(^)(UIView *))blockAddToView{};
-- (void)setBlockAddSubview:(UIView *(^)(UIView *))blockAddSubview{};
-- (void)setBlockSuperview:(UIView *(^)())blockSuperview{};
-- (void)setBlockSubviews:(NSArray *(^)())blockSubviews{};
+- (void)setViewIsSubviewTo:(BOOL (^)(UIView *))blockIsSubviewTo{};
+- (void)setViewConvertRectToWindow:(CGRect (^)())blockConvertRectToWindow{};
+- (void)setViewContentMode:(UIView *(^)(UIViewContentMode))blockContentMode{};
+- (void)setViewRemoveSubviewTry:(UIView *(^)(UIView *))blockRemoveSubviewTry{};
+- (void)setViewMultipleTouchEnabled:(UIView *(^)(BOOL))blockMultipleTouchEnabled{};
+- (void)setViewUserInteractionEnabled:(UIView *(^)(BOOL))blockUserInteractionEnabled{};
+- (void)setViewRemoveSubviewAt:(UIView *(^)(NSUInteger))blockRemoveSubviewAtIndex{};
+- (void)setViewHidden:(UIView *(^)(BOOL))blockHidden{};
+- (void)setViewAutoresizingMask:(UIView *(^)(UIViewAutoresizing))blockAutoresizingMask{};
+- (void)setViewExclusiveTouch:(UIView *(^)(BOOL))blockExclusiveTouch{};
+- (void)setViewRemoveAll:(UIView *(^)())blockRemoveAllSubview{};
+- (void)setViewRemoveFromSuperview:(UIView *(^)())blockRemoveFromSuperview{};
+- (void)setViewExchangeSubviewByIndex:(UIView *(^)(NSUInteger, NSUInteger))blockExchangeSubviewByIndex{};
+- (void)setViewSubviewAt:(UIView *(^)(NSUInteger))blockSubviewAtIndex{};
+- (void)setViewClipsToBounds:(UIView *(^)(BOOL))blockClipsToBounds{};
+- (void)setViewOpaque:(UIView *(^)(CGFloat))blockOpaque{};
+- (void)setViewAlpha:(UIView *(^)(CGFloat))blockAlpha{};
+- (void)setViewAddToView:(UIView *(^)(UIView *))blockAddToView{};
+- (void)setViewAddSubview:(UIView *(^)(UIView *))blockAddSubview{};
+
 @end

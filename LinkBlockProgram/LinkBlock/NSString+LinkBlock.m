@@ -10,157 +10,192 @@
 #import "NSObject+LinkBlock.h"
 #import "LinkBlock.h"
 
-@implementation NSString(LinkBlock)
+@implementation NSObject(NSStringLinkBlock)
 
-- (BOOL (^)(NSString *))blockIsEqualStr
+- (NSMutableString *(^)())strMutableCopy
+{
+    return ^(){
+        LinkError_REF_AUTO_IF(NSMutableString, NSString);
+        return (NSMutableString*)_self.mutableCopy;
+    };
+}
+- (void)setStrMutableCopy:(NSMutableString *(^)())strMutableCopy{};
+
+- (BOOL (^)(NSString *))strIsEqualStr
 {
     return ^(NSString* str){
-        return [self isEqualToString:str];
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        return [_self isEqualToString:str];
     };
 }
 
-- (NSString *(^)(NSString *))blockAppendStr
+- (NSString *(^)(NSString *))strAppend
 {
     return ^(NSString *str){
-        if(str.blockIsKindOf([NSString class])){
-            return [self stringByAppendingString:str];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        if(str.objIsKind([NSString class])){
+            return [_self stringByAppendingString:str];
         }else{
-            return self;
+            return _self;
         }
     };
 }
 
-- (NSString *(^)(NSString *, NSString *))blockReplaceStrWithStr
+- (NSString *(^)(NSString *, NSString *))strReplace
 {
     return ^(NSString* replaceStr, NSString* withStr){
-        if(replaceStr.blockIsKindOf([NSString class]) && withStr.blockIsKindOf([NSString class])){
-            return [self stringByReplacingOccurrencesOfString:replaceStr withString:withStr];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        if(replaceStr.objIsKind([NSString class]) && withStr.objIsKind([NSString class])){
+            return [_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr];
         }
         else{
-            return self;
+            return _self;
         }
     };
 }
 
-- (NSString *(^)(NSString *, NSUInteger))blockInsertStrAtIndex
+- (NSString *(^)(NSString *, NSUInteger))strInsertAt
 {
     return ^(NSString* str, NSUInteger index){
-        if(str.blockIsKindOf([NSString class])){
-            NSMutableString *tNewMStr= [NSMutableString stringWithString: self];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        if(str.objIsKind([NSString class])){
+            NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
             [tNewMStr insertString:str atIndex:index];
             return (NSString*)[tNewMStr copy];
         }else{
-            return self;
+            return _self;
         }
     };
 }
 
-- (NSString *(^)(NSRange))blockDeleteStrInRange
+- (NSString *(^)(NSRange))strDeleteInRange
 {
     return ^(NSRange range){
-        NSMutableString *tNewMStr= [NSMutableString stringWithString: self];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
         [tNewMStr deleteCharactersInRange:range];
         return (NSString*)[tNewMStr copy];
     };
 }
-- (NSString *(^)(NSUInteger))blockStrAtIndex
+- (NSString *(^)(NSUInteger))strAt
 {
     return ^(NSUInteger index){
-        if(index > self.length - 1)
-            index = self.length - 1;
-        unichar ch = [self characterAtIndex:index];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        if(index > _self.length - 1)
+            index = _self.length - 1;
+        unichar ch = [_self characterAtIndex:index];
         return [NSString stringWithCharacters:&ch length:1];
     };
 }
 
 
-- (NSString *(^)(NSString *, NSRange))blockReplaceStrInRange
+- (NSString *(^)(NSString *, NSRange))strReplaceInRange
 {
     return ^(NSString* str, NSRange range){
-        if(str.blockIsKindOf([NSString class])){
-            return [self stringByReplacingCharactersInRange:range withString:str];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        if(str.objIsKind([NSString class])){
+            return [_self stringByReplacingCharactersInRange:range withString:str];
         }else{
-            return self;
+            return _self;
         }
     };
 }
-- (NSString *(^)(NSString *))blockDeleteStr
+- (NSString *(^)(NSString *))strDeleteStr
 {
     return ^(NSString *str){
-        if(str.blockIsKindOf([NSString class])){
-            return [self stringByReplacingOccurrencesOfString:str withString:@""];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        if(str.objIsKind([NSString class])){
+            return [_self stringByReplacingOccurrencesOfString:str withString:@""];
         }else{
-            return self;
+            return _self;
         }
     };
 }
-- (BOOL (^)(NSString *))blockIsContainStr
+- (BOOL (^)(NSString *))strIsContain
 {
     return ^(NSString* str){
-        return [self containsString:str];
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        return [_self containsString:str];
     };
 }
-- (NSInteger (^)(NSString *))blockIndexOfStr
+- (NSInteger (^)(NSString *))strIndexOfStr
 {
     return ^(NSString* str){
+        LinkError_VAL_IF(NSString){
+            return (NSInteger)0;
+        }
         if([str isKindOfClass:[NSString class]]){
-            return (NSInteger)([self rangeOfString:str].location);
+            return (NSInteger)([_self rangeOfString:str].location);
         }else{
             return (NSInteger)NSNotFound;
         }
     };
 }
-- (NSInteger (^)(NSString *, NSUInteger))blockIndexOfStrStartIndex
+- (NSInteger (^)(NSString *, NSUInteger))strIndexOfStrStartAt
 {
     return ^(NSString* str, NSUInteger startIndex){
+        LinkError_VAL_IF(NSString){
+            return (NSInteger)0;
+        }
         if([str isKindOfClass:[NSString class]]){
-            return (NSInteger)([self rangeOfString:str options:NSCaseInsensitiveSearch range:NSMakeRange(startIndex, self.length- startIndex)].location);
+            return (NSInteger)([_self rangeOfString:str options:NSCaseInsensitiveSearch range:NSMakeRange(startIndex, _self.length- startIndex)].location);
         }else{
             return (NSInteger)NSNotFound;
         }
     };
 }
-- (NSRange (^)(NSString *))blockRangeOfStr
+- (NSRange (^)(NSString *))strRangeOfStr
 {
     return ^(NSString* str){
+        LinkError_VAL_IF(NSString){
+            return NSMakeRange(NSNotFound, 0);
+        }
         if([str isKindOfClass:[NSString class]]){
-            return [self rangeOfString:str];
+            return [_self rangeOfString:str];
         }else{
             return NSMakeRange(NSNotFound, 0);
         }
     };
 }
-- (NSString *(^)(NSString *, ...))blockAppendFormate
+- (NSString *(^)(NSString *, ...))strAppendFormate
 {
     return ^(NSString *formateStr, ...){
+        LinkError_REF_AUTO_IF(NSString, NSString);
         if([formateStr isKindOfClass:[NSString class]]){
             va_list args;
             va_start(args, formateStr);
-            NSString *re= [self stringByAppendingString:[[NSString alloc] initWithFormat:formateStr arguments:args]];
+            NSString *re= [_self stringByAppendingString:[[NSString alloc] initWithFormat:formateStr arguments:args]];
             va_end(args);
             return re;
         }
-        return self;
+        return _self;
     };
 }
-- (BOOL (^)())blockIsEmoji
+- (BOOL (^)())strIsEmoji
 {
     return ^(){
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
         // 判断是否是 emoji表情
         BOOL returnValue = NO;
         
-        const unichar hs = [self characterAtIndex:0];
+        const unichar hs = [_self characterAtIndex:0];
         // surrogate pair
         if (0xd800 <= hs && hs <= 0xdbff) {
-            if (self.length > 1) {
-                const unichar ls = [self characterAtIndex:1];
+            if (_self.length > 1) {
+                const unichar ls = [_self characterAtIndex:1];
                 const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
                 if (0x1d000 <= uc && uc <= 0x1f77f) {
                     returnValue = YES;
                 }
             }
-        } else if (self.length > 1) {
-            const unichar ls = [self characterAtIndex:1];
+        } else if (_self.length > 1) {
+            const unichar ls = [_self characterAtIndex:1];
             if (ls == 0x20e3) {
                 returnValue = YES;
             }
@@ -182,76 +217,97 @@
     };
 }
 
-- (CGSize (^)(UIFont *))blockSizeWithFont
+- (CGSize (^)(UIFont *))strSizeWithFont
 {
     return ^(UIFont* font){
-        return self.blockSizeWithFontAndMaxWidth(font , MAXFLOAT);
+        LinkError_VAL_IF(NSString){
+            return CGSizeZero;
+        }
+        return _self.strSizeWithFontAndMaxWidth(font , MAXFLOAT);
     };
 }
 
-- (CGSize (^)(UIFont *, CGFloat))blockSizeWithFontAndMaxWidth
+- (CGSize (^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidth
 {
     return ^(UIFont* font, CGFloat maxWidth){
-        return self.blockSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, MAXFLOAT));
+        LinkError_VAL_IF(NSString){
+            return CGSizeZero;
+        }
+        return _self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, MAXFLOAT));
     };
 }
 
-- (CGSize (^)(UIFont *, CGSize))blockSizeWithFontAndMaxSize
+- (CGSize (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize
 {
     return ^(UIFont* font, CGSize maxSize){
+        LinkError_VAL_IF(NSString){
+            return CGSizeZero;
+        }
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSFontAttributeName] = font;
         
         if ([[UIDevice currentDevice].systemVersion floatValue]>= 7.0) {
-            return [self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil].size;
+            return [_self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil].size;
         } else {
-            return [self sizeWithFont:font constrainedToSize:maxSize];
+            return [_self sizeWithFont:font constrainedToSize:maxSize];
         }
     };
 }
 
-- (BOOL (^)())blockIsBlank{
+- (BOOL (^)())strIsBlank{
     return ^(){
-        if ([[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        if ([[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
             return YES;
         }
-        if ([self isEqualToString:@"<null>"]) {
+        if ([_self isEqualToString:@"<null>"]) {
             return YES;
         }
-        if ([self isEqualToString:@"(null)"]) {
+        if ([_self isEqualToString:@"(null)"]) {
             return YES;
         }
         return NO;
     };
 }
 
-- (NSUInteger (^)())blockLength
+- (NSUInteger (^)())strLength
 {
     return ^(){
-        return self.length;
+        LinkError_VAL_IF(NSString){
+            return (NSUInteger)0;
+        }
+        return _self.length;
     };
 }
 
-- (NSUInteger (^)())blockLengthASCII
+- (NSUInteger (^)())strLengthASCII
 {
     return ^(){
+        LinkError_VAL_IF(NSString){
+            return (NSUInteger)0;
+        }
         NSUInteger asciiLength = 0;
-        for (NSUInteger i = 0; i < self.length; i++)
+        for (NSUInteger i = 0; i < _self.length; i++)
         {
-            unichar uc = [self characterAtIndex: i];
+            unichar uc = [_self characterAtIndex: i];
             asciiLength += isascii(uc) ? 1 : 2;
         }
         return asciiLength;
     };
 }
 
-- (NSUInteger (^)())blockLengthUniCode
+- (NSUInteger (^)())strLengthUnicode
 {
     return ^(){
+        LinkError_VAL_IF(NSString){
+            return (NSUInteger)0;
+        }
         NSUInteger asciiLength = 0;
-        for (NSUInteger i = 0; i < self.length; i++)
+        for (NSUInteger i = 0; i < _self.length; i++)
         {
-            unichar uc = [self characterAtIndex: i];
+            unichar uc = [_self characterAtIndex: i];
             asciiLength += isascii(uc) ? 1 : 2;
         }
         NSUInteger unicodeLength = asciiLength / 2;
@@ -263,12 +319,15 @@
     };
 }
 
-- (BOOL (^)())blockIsContainEmoji
+- (BOOL (^)())strIsContainEmoji
 {
     return ^(){
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
         __block BOOL isEomji = NO;
         
-        [self enumerateSubstringsInRange:NSMakeRange(0, self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+        [_self enumerateSubstringsInRange:NSMakeRange(0, _self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
             const unichar hs = [substring characterAtIndex:0];
             // surrogate pair
             if (0xd800 <= hs && hs <= 0xdbff) {
@@ -303,107 +362,128 @@
     };
 }
 
-- (NSString* (^)())blockClearSpaceAndWrap
+- (NSString* (^)())strClearSpaceAndWrap
 {
     return ^(){
-        NSString *noWrap = [self stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        NSString *noWrap = [_self stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         noWrap = [noWrap stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         noWrap = [noWrap stringByReplacingOccurrencesOfString:@" " withString:@""];
         return noWrap;
     };
 }
 
-- (NSComparisonResult (^)(NSString *, NSString *))blockCompareStrNumberScan
+- (NSComparisonResult (^)(NSString *))strCompareNumberSensitive
 {
-    return ^(NSString* str1 , NSString* str2){
-        return [str1 compare:str2 options: NSNumericSearch | NSWidthInsensitiveSearch ];
+    return ^(NSString* str ){
+        LinkError_VAL_IF(NSString){
+            return (NSComparisonResult)NSNotFound;
+        }
+        return [_self compare:str options: NSNumericSearch | NSWidthInsensitiveSearch ];
     };
 }
 
-- (NSComparisonResult (^)(NSString *, NSString *))blockCompareStr
+- (NSComparisonResult (^)(NSString *))strCompare
 {
-    return ^(NSString* str1 , NSString* str2){
-        return [str1 compare:str2 options: NSWidthInsensitiveSearch | NSForcedOrderingSearch];
+    return ^(NSString* str){
+        LinkError_VAL_IF(NSString){
+            return (NSComparisonResult)NSNotFound;
+        }
+        return [_self compare:str options: NSWidthInsensitiveSearch | NSForcedOrderingSearch];
     };;
 }
 
-- (BOOL (^)())blockIsInteger
+- (BOOL (^)())strIsInteger
 {
     return ^(){
-        NSScanner *scaner= [[NSScanner alloc] initWithString:self];
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        NSScanner *scaner= [[NSScanner alloc] initWithString:_self];
         NSInteger intVal;
         return (BOOL)([scaner scanInteger:&intVal] && [scaner isAtEnd]);
     };
 }
 
-- (BOOL (^)())blockIsFloating
+- (BOOL (^)())strIsFloating
 {
     return ^(){
-        NSScanner *scaner= [[NSScanner alloc] initWithString:self];
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        NSScanner *scaner= [[NSScanner alloc] initWithString:_self];
         double doubleVal;
         return (BOOL)([scaner scanDouble:&doubleVal] && [scaner isAtEnd]);
     };
 }
 
-- (BOOL (^)())blockIsNumber
+- (BOOL (^)())strIsNumber
 {
     return ^(){
-        return (BOOL)(self.blockIsInteger() || self.blockIsFloating());
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        return (BOOL)(_self.strIsInteger() || _self.strIsFloating());
     };
 }
-- (void)setBlockIsNumber:(BOOL (^)())blockIsNumber{};
+- (void)setStrIsNumber:(BOOL (^)())blockIsNumber{};
 
-- (NSString *(^)(NSString *))blockDeleteStrLeft
+- (NSString *(^)(NSString *))strDeleteLeft
 {
     return ^(NSString* str){
-        NSMutableString * reIsStrM= [self mutableCopy];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        NSMutableString * reIsStrM= [_self mutableCopy];
         NSRange range = [str rangeOfString:str];
         if(range.location == 0){
             [reIsStrM deleteCharactersInRange:range];
         }
-        return (NSString*)reIsStrM.blockCopy();
+        return (NSString*)reIsStrM.objCopy();
     };
 }
-- (NSString *(^)(NSString *))blockDeleteStrRight
+- (NSString *(^)(NSString *))strDeleteRight
 {
     return ^(NSString* str){
-        NSString* re = self;
-        NSString* lastStr = [re substringWithRange:NSMakeRange(self.length- str.length, str.length)];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        NSString* re = _self;
+        NSString* lastStr = [re substringWithRange:NSMakeRange(_self.length- str.length, str.length)];
         if([str isEqualToString:lastStr]){
-            re= [self substringWithRange:NSMakeRange(0, self.length - str.length)];
+            re= [_self substringWithRange:NSMakeRange(0, _self.length - str.length)];
         }
         return re;
     };
 }
 
-- (NSString *(^)(NSString*))blockTrimCharLeft
+- (NSString *(^)(NSString*))strTrimLeft
 {
     return ^(NSString* str){
-        NSMutableString * reIsStrM= self.blockMutableCopy();
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        NSMutableString * reIsStrM= _self.strMutableCopy();
         [reIsStrM replaceOccurrencesOfString:str
                                   withString:@""
                                      options:NSAnchoredSearch
-                                       range:NSMakeRange(0, self.length)];
-        return (NSString*)reIsStrM.blockCopy();
+                                       range:NSMakeRange(0, _self.length)];
+        return (NSString*)reIsStrM.objCopy();
     };
 }
 
-- (NSString *(^)(NSString*))blockTrimCharRight
+- (NSString *(^)(NSString*))strTrimRight
 {
     return ^(NSString* str){
-        NSMutableString * reIsStrM= [self mutableCopy];
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        NSMutableString * reIsStrM= [_self mutableCopy];
         [reIsStrM replaceOccurrencesOfString:str
                                   withString:@""
                                      options:NSBackwardsSearch|NSAnchoredSearch
-                                       range:NSMakeRange(0, self.length)];
-        return (NSString*)reIsStrM.blockCopy();
+                                       range:NSMakeRange(0, _self.length)];
+        return (NSString*)reIsStrM.objCopy();
     };
 }
 
-- (UIColor *(^)())blockToColorFromHexStr
+- (UIColor *(^)())strToColorFromHexStr
 {
     return ^(){
-        NSString *newString = [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+        LinkError_REF_AUTO_IF(UIColor, NSString);
+        NSString *newString = [[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
         if ([newString length] < 6)
             return [UIColor whiteColor];
         if ([newString hasPrefix:@"0X"])
@@ -429,10 +509,13 @@
     };
 }
 
-- (double (^)())blockToDoubleFromHexStr
+- (double (^)())strToDoubleFromHexStr
 {
     return ^(){
-        NSString *newString = [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+        LinkError_VAL_IF(NSString){
+            return 0.0;
+        }
+        NSString *newString = [[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
         if ([newString hasPrefix:@"0X"])
             newString = [newString substringFromIndex:2];
         if ([newString hasPrefix:@"#"])
@@ -443,10 +526,13 @@
     };
 }
 
-- (unsigned int (^)())blockToIntFromHexStr
+- (unsigned int (^)())strToIntFromHexStr
 {
     return ^(){
-        NSString *newString = [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+        LinkError_VAL_IF(NSString){
+            return (unsigned int)0;
+        }
+        NSString *newString = [[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
         if ([newString hasPrefix:@"0X"])
             newString = [newString substringFromIndex:2];
         if ([newString hasPrefix:@"#"])
@@ -457,167 +543,207 @@
     };
 }
 
-- (CGRect (^)())blockToCGRect
+- (CGRect (^)())strToCGRect
 {
     return ^(){
-        return CGRectFromString(self);
+        LinkError_VAL_IF(NSString){
+            return CGRectZero;
+        }
+        return CGRectFromString(_self);
     };
 }
 
-- (CGPoint (^)())blockToCGPoint
+- (CGPoint (^)())strToCGPoint
 {
     return ^(){
-        return CGPointFromString(self);
+        LinkError_VAL_IF(NSString){
+            return CGPointZero;
+        }
+        return CGPointFromString(_self);
     };
 }
 
-- (CGVector (^)())blockToCGVector
+- (CGVector (^)())strToCGVector
 {
     return ^(){
-        return CGVectorFromString(self);
+        LinkError_VAL_IF(NSString){
+            return CGVectorMake(0, 0);
+        }
+        return CGVectorFromString(_self);
     };
 }
 
-- (CGSize (^)())blockToCGSize
+- (CGSize (^)())strToCGSize
 {
     return ^(){
-        return CGSizeFromString(self);
+        LinkError_VAL_IF(NSString){
+            return CGSizeZero;
+        }
+        return CGSizeFromString(_self);
     };
 }
 
-- (CGAffineTransform (^)())blockToCGAffineTransform
+- (CGAffineTransform (^)())strToCGAffineTransform
 {
     return ^(){
-        return CGAffineTransformFromString(self);
+        LinkError_VAL_IF(NSString){
+            return CGAffineTransformMake(0, 0, 0, 0, 0, 0);
+        }
+        return CGAffineTransformFromString(_self);
     };
 }
 
-- (UIEdgeInsets (^)())blockToUIEdgeInsets
+- (UIEdgeInsets (^)())strToUIEdgeInsets
 {
     return ^(){
-        return UIEdgeInsetsFromString(self);
+        LinkError_VAL_IF(NSString){
+            return UIEdgeInsetsZero;
+        }
+        return UIEdgeInsetsFromString(_self);
     };
 }
 
-- (UIOffset (^)())blockToUIOffset
+- (UIOffset (^)())strToUIOffset
 {
     return ^(){
-        return UIOffsetFromString(self);
+        LinkError_VAL_IF(NSString){
+            return UIOffsetZero;
+        }
+        return UIOffsetFromString(_self);
     };
 }
 
--(NSURL *(^)())blockToNSURL
+-(NSURL *(^)())strToNSURL
 {
     return ^(){
-        return [NSURL URLWithString:self];
+        LinkError_REF_AUTO_IF(NSURL, NSString);
+        return [NSURL URLWithString:_self];
     };
 }
 
-- (UIImage *(^)())blockToUIImage
+- (UIImage *(^)())strToUIImage
 {
     return ^(){
-        return [UIImage imageNamed:self];
+        LinkError_REF_AUTO_IF(UIImage, NSString);
+        return [UIImage imageNamed:_self];
     };
 }
 
-- (NSInteger (^)())blockToInteger
+- (NSInteger (^)())strToInteger
 {
     return ^(){
-        return [self integerValue];
+        LinkError_VAL_IF(NSString){
+            return (NSInteger)0;
+        }
+        return [_self integerValue];
     };
 }
 
-- (long long (^)())blockToLongLong
+- (long long (^)())strToLongLong
 {
     return ^(){
-        return [self longLongValue];
+        LinkError_VAL_IF(NSString){
+            return (long long)0;
+        }
+        return [_self longLongValue];
     };
 }
 
-- (BOOL (^)())blockToBOOL
+- (BOOL (^)())strToBOOL
 {
     return ^(){
-        return [self boolValue];
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        return [_self boolValue];
     };
 }
 
-- (double (^)())blockToDouble
+- (double (^)())strToDouble
 {
     return ^(){
-        return [self doubleValue];
+        LinkError_VAL_IF(NSString){
+            return (double)0.0;
+        }
+        return [_self doubleValue];
     };
 }
 
-- (float (^)())blockToFloat
+- (float (^)())strToFloat
 {
     return ^(){
-        return [self floatValue];
+        LinkError_VAL_IF(NSString){
+            return (float)0.0;
+        }
+        return [_self floatValue];
     };
 }
 
-- (NSArray *(^)(NSString *))blockSplitStrWithStr
+- (NSArray *(^)(NSString *))strSplitWithStr
 {
     return ^(NSString* splitStr){
-        return [splitStr componentsSeparatedByString:splitStr];
+        LinkError_REF_AUTO_IF(NSArray, NSString);
+        return [_self componentsSeparatedByString:splitStr];
     };
 }
-- (void)setBlockSplitStrWithStr:(NSArray *(^)(NSString *))blockSplitStrWithStr{};
+- (void)setStrSplitWithStr:(NSArray *(^)(NSString *))blockSplitStrWithStr{};
 
-- (NSArray *(^)(NSString *))blockSplitStrWithCharsStr
+- (NSArray *(^)(NSString *))strSplitWithCharsStr
 {
     return ^(NSString* splitStrs){
+        LinkError_REF_AUTO_IF(NSArray, NSString);
         NSCharacterSet *charSet= [NSCharacterSet characterSetWithCharactersInString:splitStrs];
-        return [self componentsSeparatedByCharactersInSet:charSet];
+        return [_self componentsSeparatedByCharactersInSet:charSet];
     };
 }
-- (void)setBlockSplitStrWithCharsStr:(NSArray *(^)(NSString *))blockSplitStrWithCharsStr{};
+- (void)setStrSplitWithCharsStr:(NSArray *(^)(NSString *))blockSplitStrWithCharsStr{};
 
-- (void)setBlockAppendStr:(NSString *(^)(NSString *))blockAppendStr{};
-- (void)setBlockDeleteStr:(NSString *(^)(NSString *))blockDeleteStr{};
-- (void)setBlockDeleteStrInRange:(NSString *(^)(NSRange))blockDeleteStrInRange{};
-- (void)setBlockIndexOfStr:(NSInteger (^)(NSString *))blockIndexOfStr{};
-- (void)setBlockIndexOfStrStartIndex:(NSInteger (^)(NSString *, NSUInteger))blockIndexOfStrStartIndex{};
-- (void)setBlockInsertStrAtIndex:(NSString *(^)(NSString *, NSUInteger))blockInsertStrAtIndex{};
-- (void)setBlockIsContainStr:(BOOL (^)(NSString *))blockIsContainStr{};
-- (void)setBlockRangeOfStr:(NSRange (^)(NSString *))blockRangeOfString{};
-- (void)setBlockReplaceStrInRange:(NSString *(^)(NSString *, NSRange))blockReplaceStrInRange{};
-- (void)setBlockReplaceStrWithStr:(NSString *(^)(NSString *, NSString *))blockReplaceStrWithStr{};
-- (void)setBlockAppendFormate:(NSString *(^)(NSString *, ...))blockAppendFormate{};
-- (void)setBlockStrAtIndex:(NSString *(^)(NSUInteger))blockStrAtIndex{};
-- (void)setBlockLength:(NSUInteger (^)())blockLength{};
-- (void)setBlockLengthASCII:(NSUInteger (^)())blockLengthASCII{};
-- (void)setBlockLengthUniCode:(NSUInteger (^)())blockLengthUniCode{};
-- (void)setBlockCompareStrNumberScan:(NSComparisonResult (^)(NSString *, NSString *))blockCompareStrNumberSuper{};
-- (void)setBlockCompareStr:(NSComparisonResult (^)(NSString *, NSString *))blockCompareStr{};
-- (void)setBlockIsInteger:(BOOL (^)())blockIsInt{};
-- (void)setBlockIsFloating:(BOOL (^)())blockIsDoubel{};
-- (void)setBlockIsBlank:(BOOL (^)())blockIsStrBlank{};
-- (void)setBlockTrimCharLeft:(NSString *(^)(NSString *))blockTrimCharLeft{};
-- (void)setBlockSizeWithFont:(CGSize (^)(UIFont *))blockSizeWithFont{};
-- (void)setBlockSizeWithFontAndMaxSize:(CGSize (^)(UIFont *, CGSize))blockSizeWithFontAndMaxSize{};
-- (void)setBlockSizeWithFontAndMaxWidth:(CGSize (^)(UIFont *, CGFloat))blockSizeWithFontAndMaxWidth{};
-- (void)setBlockDeleteStrRight:(NSString *(^)(NSString *))blockDeleteStrRight{};
-- (void)setBlockDeleteStrLeft:(NSString *(^)(NSString *))blockDeleteStrLeft{};
-- (void)setBlockIsContainEmoji:(BOOL (^)())blockIsContainEmoji{};
-- (void)setBlockTrimCharRight:(NSString *(^)(NSString *))blockTrimCharRight{};
-- (void)setBlockIsEmoji:(BOOL (^)())blockIsStrEmoji{};
-- (void)setBlockClearSpaceAndWrap:(NSString *(^)())blockClearSpaceAndWrap{};
-- (void)setBlockIsEqualStr:(BOOL (^)(NSString *))blockIsEqualStr{};
-- (void)setBlockToCGPoint:(CGPoint (^)())blockToCGPoint{};
-- (void)setBlockToCGVector:(CGVector (^)())blockToCGVector{};
-- (void)setBlockToCGSize:(CGSize (^)())blockToCGSize{};
-- (void)setBlockToCGRect:(CGRect (^)())blockToCGRect{};
-- (void)setBlockToCGAffineTransform:(CGAffineTransform (^)())blockToCGAffineTransform{};
-- (void)setBlockToUIEdgeInsets:(UIEdgeInsets (^)())blockToUIEdgeInsets{};
-- (void)setBlockToUIOffset:(UIOffset (^)())blockToUIOffset{};
-- (void)setBlockToColorFromHexStr:(UIColor *(^)())blockToColorFromHexStr{};
-- (void)setBlockToBOOL:(BOOL (^)())blockToBOOL{};
-- (void)setBlockToUIImage:(UIImage *(^)())blockToUIImage{};
-- (void)setBlockToInteger:(NSInteger (^)())blockToNSInteger{};
-- (void)setBlockToDouble:(double (^)())blockToDouble{};
-- (void)setBlockToNSURL:(NSURL *(^)())blockToNSURL{};
-- (void)setBlockToFloat:(float (^)())blockToFloat{};
-- (void)setBlockToLongLong:(long long (^)())blockToLongLong{};
-- (void)setBlockToDoubleFromHexStr:(double (^)())blockToDoubleFromHexStr{};
-- (void)setBlockToIntFromHexStr:(unsigned int (^)())blockToIntFromHexStr{};
+- (void)setStrAppend:(NSString *(^)(NSString *))blockAppendStr{};
+- (void)setStrDeleteStr:(NSString *(^)(NSString *))blockDeleteStr{};
+- (void)setStrDeleteInRange:(NSString *(^)(NSRange))blockDeleteStrInRange{};
+- (void)setStrIndexOfStr:(NSInteger (^)(NSString *))blockIndexOfStr{};
+- (void)setStrIndexOfStrStartAt:(NSInteger (^)(NSString *, NSUInteger))blockIndexOfStrStartIndex{};
+- (void)setStrInsertAt:(NSString *(^)(NSString *, NSUInteger))blockInsertStrAtIndex{};
+- (void)setStrIsContain:(BOOL (^)(NSString *))blockIsContainStr{};
+- (void)setStrRangeOfStr:(NSRange (^)(NSString *))blockRangeOfString{};
+- (void)setStrReplaceInRange:(NSString *(^)(NSString *, NSRange))blockReplaceStrInRange{};
+- (void)setStrReplace:(NSString *(^)(NSString *, NSString *))blockReplaceStrWithStr{};
+- (void)setStrAppendFormate:(NSString *(^)(NSString *, ...))blockAppendFormate{};
+- (void)setStrAt:(NSString *(^)(NSUInteger))blockStrAtIndex{};
+- (void)setStrLength:(NSUInteger (^)())blockLength{};
+- (void)setStrLengthASCII:(NSUInteger (^)())blockLengthASCII{};
+- (void)setStrLengthUnicode:(NSUInteger (^)())blockLengthUniCode{};
+- (void)setStrCompareNumberSensitive:(NSComparisonResult (^)(NSString *))blockCompareStrNumberSuper{};
+- (void)setStrCompare:(NSComparisonResult (^)(NSString *))blockCompareStr{};
+- (void)setStrIsInteger:(BOOL (^)())blockIsInt{};
+- (void)setStrIsFloating:(BOOL (^)())blockIsDoubel{};
+- (void)setStrIsBlank:(BOOL (^)())blockIsStrBlank{};
+- (void)setStrTrimLeft:(NSString *(^)(NSString *))blockTrimCharLeft{};
+- (void)setStrSizeWithFont:(CGSize (^)(UIFont *))blockSizeWithFont{};
+- (void)setStrSizeWithFontAndMaxSize:(CGSize (^)(UIFont *, CGSize))blockSizeWithFontAndMaxSize{};
+- (void)setStrSizeWithFontAndMaxWidth:(CGSize (^)(UIFont *, CGFloat))blockSizeWithFontAndMaxWidth{};
+- (void)setStrDeleteRight:(NSString *(^)(NSString *))blockDeleteStrRight{};
+- (void)setStrDeleteLeft:(NSString *(^)(NSString *))blockDeleteStrLeft{};
+- (void)setStrIsContainEmoji:(BOOL (^)())blockIsContainEmoji{};
+- (void)setStrTrimRight:(NSString *(^)(NSString *))blockTrimCharRight{};
+- (void)setStrIsEmoji:(BOOL (^)())blockIsStrEmoji{};
+- (void)setStrClearSpaceAndWrap:(NSString *(^)())blockClearSpaceAndWrap{};
+- (void)setStrIsEqualStr:(BOOL (^)(NSString *))blockIsEqualStr{};
+- (void)setStrToCGPoint:(CGPoint (^)())blockToCGPoint{};
+- (void)setStrToCGVector:(CGVector (^)())blockToCGVector{};
+- (void)setStrToCGSize:(CGSize (^)())blockToCGSize{};
+- (void)setStrToCGRect:(CGRect (^)())blockToCGRect{};
+- (void)setStrToCGAffineTransform:(CGAffineTransform (^)())blockToCGAffineTransform{};
+- (void)setStrToUIEdgeInsets:(UIEdgeInsets (^)())blockToUIEdgeInsets{};
+- (void)setStrToUIOffset:(UIOffset (^)())blockToUIOffset{};
+- (void)setStrToColorFromHexStr:(UIColor *(^)())blockToColorFromHexStr{};
+- (void)setStrToBOOL:(BOOL (^)())blockToBOOL{};
+- (void)setStrToUIImage:(UIImage *(^)())blockToUIImage{};
+- (void)setStrToInteger:(NSInteger (^)())blockToNSInteger{};
+- (void)setStrToDouble:(double (^)())blockToDouble{};
+- (void)setStrToNSURL:(NSURL *(^)())blockToNSURL{};
+- (void)setStrToFloat:(float (^)())blockToFloat{};
+- (void)setStrToLongLong:(long long (^)())blockToLongLong{};
+- (void)setStrToDoubleFromHexStr:(double (^)())blockToDoubleFromHexStr{};
+- (void)setStrToIntFromHexStr:(unsigned int (^)())blockToIntFromHexStr{};
 @end

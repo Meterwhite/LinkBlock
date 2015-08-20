@@ -7,15 +7,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UILabel(LinkBlock)
+@interface NSObject(UILabelLinkBlock)
 /** Alignment top */
-@property (nonatomic,copy) UILabel*         (^blockAlignTop)();
+@property (nonatomic,copy) UILabel*         (^labAlignTop)();
 /** Alignment bottom */
-@property (nonatomic,copy) UILabel*         (^blockAlignBottom)();
-@property (nonatomic,copy) UILabel*         (^blockAlignment)(NSTextAlignment alighment);
-@property (nonatomic,copy) UILabel*         (^blockNumberOfLines)(NSInteger lines);
-@property (nonatomic,copy) UILabel*         (^blockText)(NSString* txt);
-@property (nonatomic,copy) UILabel*         (^blockTextColor)(UIColor* color);
-@property (nonatomic,copy) UILabel*         (^blockFont)(UIFont* font);
-@property (nonatomic,copy) UILabel*         (^blockFontSizeSystem)(CGFloat fontSize);
+@property (nonatomic,copy) UILabel*         (^labAlignBottom)();
+@property (nonatomic,copy) UILabel*         (^labAlignment)(NSTextAlignment alighment);
+@property (nonatomic,copy) UILabel*         (^labNumberOfLines)(NSInteger lines);
+@property (nonatomic,copy) UILabel*         (^labText)(NSString* txt);
+@property (nonatomic,copy) UILabel*         (^labTextColor)(UIColor* color);
+@property (nonatomic,copy) UILabel*         (^labFont)(UIFont* font);
+@property (nonatomic,copy) UILabel*         (^labFontSizeSystem)(CGFloat fontSize);
 @end

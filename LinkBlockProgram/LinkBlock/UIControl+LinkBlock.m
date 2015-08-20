@@ -8,38 +8,48 @@
 #import "UIControl+LinkBlock.h"
 #import <objc/runtime.h>
 
-@implementation UIControl(LinkBlock)
+@implementation NSObject(UIControlLinkBlock)
 
 
 static const char * privateDictName = "quxingyi";//私有字典名
 
-- (void)blockAddTarget:(NSObject*)target
+- (void)controlAddTarget:(NSObject*)target
       forControlEvents:(UIControlEvents)controlEvents
              withBlock:(void (^)(UIControlEvents event))executeBlock
 {
+    LinkError_VAL_IF(UIControl){
+        return;
+    }
+    
     if(executeBlock){
-        [self private__PrivateDictSetTarget:target event:controlEvents withBlock:executeBlock];
-        [self addTarget:target action:@selector(novoExecuteEventForSender:) forControlEvents:controlEvents];
+        [_self private__PrivateDictSetTarget:target event:controlEvents withBlock:executeBlock];
+        [_self addTarget:target action:@selector(novoExecuteEventForSender:) forControlEvents:controlEvents];
     }
     
 }
 
--(void)blockRemoveTarget:(id)target
+-(void)controlRemoveTarget:(id)target
         forControlEvents:(UIControlEvents)controlEvents
                withBlock:(void (^)(UIControlEvents event))executeBlock
 {
-    [self private__PrivateDictRemoveTarget:target event:controlEvents withBlock:executeBlock];
+    LinkError_VAL_IF(UIControl){
+        return;
+    }
+    [_self private__PrivateDictRemoveTarget:target event:controlEvents withBlock:executeBlock];
 }
 
 
 #pragma mark - 私有方法
 - (NSMutableDictionary *)private__GetPrivateDict
 {
-    NSMutableDictionary *privateDict= objc_getAssociatedObject(self, &privateDictName);
+    LinkError_VAL_IF(UIControl){
+        return (NSMutableDictionary*)nil;
+    }
+    NSMutableDictionary *privateDict= objc_getAssociatedObject(_self, &privateDictName);
     if(!privateDict ||
        ![privateDict isKindOfClass:([NSMutableDictionary class])]){//检查target的私有字典是否存在，不存在则创建
         privateDict= [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, &privateDictName, privateDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(_self, &privateDictName, privateDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return privateDict;
 }
@@ -48,7 +58,10 @@ static const char * privateDictName = "quxingyi";//私有字典名
                                 event:(UIControlEvents)event
                             withBlock:(void(^)(UIControlEvents event))executeBlock
 {
-    NSMutableDictionary* privateDict= [self private__GetPrivateDict];
+    LinkError_VAL_IF(UIControl){
+        return;
+    }
+    NSMutableDictionary* privateDict= [_self private__GetPrivateDict];
     NSMutableDictionary* targetDict = privateDict[target];
     if(![targetDict isKindOfClass:[NSMutableDictionary class]]){
         targetDict = [NSMutableDictionary dictionary];
@@ -73,7 +86,10 @@ static const char * privateDictName = "quxingyi";//私有字典名
                                    event:(UIControlEvents)event
                                withBlock:(void(^)(UIControlEvents event))executeBlock
 {
-    NSMutableDictionary* privateDict= [self private__GetPrivateDict];
+    LinkError_VAL_IF(UIControl){
+        return;
+    }
+    NSMutableDictionary* privateDict= [_self private__GetPrivateDict];
     NSNumber* targetKey = [NSNumber numberWithUnsignedLongLong: [target hash]];
     NSMutableDictionary* targetDict = privateDict[targetKey];
     if(![targetDict isKindOfClass:[NSMutableDictionary class]])
