@@ -275,6 +275,94 @@
     };
 }
 
+- (id (^)(id<NSCopying>))m_dictGet
+{
+    return ^(id<NSCopying> key){
+        return self.dictGet(key);
+    };
+}
+- (void)setM_dictGet:(id (^)(id<NSCopying>))m_dictGet{};
+
+- (id (^)(id<NSCopying>))m_dictGetNoNSNull
+{
+    return ^(id<NSCopying> key){
+        return self.dictGetNoNSNull(key);
+    };
+}
+- (void)setM_dictGetNoNSNull:(id (^)(id<NSCopying>))m_dictGetNoNSNull{};
+
+- (NSArray *(^)(id<NSCopying>))m_dictGetArrNoNullType
+{
+    return ^(id<NSCopying> key){
+        return self.dictGetArrNoNullType(key);
+    };
+}
+- (void)setM_dictGetArrNoNullType:(NSArray *(^)(id<NSCopying>))m_dictGetArrNoNullType{};
+
+- (NSDictionary *(^)(id<NSCopying>))m_dictGetDictNoNullType
+{
+    return ^(id<NSCopying> key){
+        return self.dictGetDictNoNullType(key);
+    };
+}
+- (void)setM_dictGetDictNoNullType:(NSDictionary *(^)(id<NSCopying>))m_dictGetDictNoNullType{};
+
+- (BOOL (^)(id<NSCopying>))m_dictGetBOOLNoNullType
+{
+    return ^(id<NSCopying> key){
+        return self.dictGetBOOLNoNullType(key);
+    };
+}
+- (void)setM_dictGetBOOLNoNullType:(BOOL (^)(id<NSCopying>))m_dictGetBOOLNoNullType{};
+
+- (UIView *(^)(id<NSCopying>))m_dictGetViewNoNullType
+{
+    return ^(id<NSCopying> key){
+        return self.dictGetViewNoNullType(key);
+    };
+}
+- (void)setM_dictGetViewNoNullType:(UIView *(^)(id<NSCopying>))m_dictGetViewNoNullType{};
+
+- (BOOL (^)(id<NSCopying>))m_dictContainerKey
+{
+    return ^(id<NSCopying> key){
+        return self.dictContainerKey(key);
+    };
+}
+- (void)setM_dictContainerKey:(BOOL (^)(id<NSCopying>))m_dictContainerKey{};
+
+- (BOOL (^)(id value))m_dictContainerValue
+{
+    return ^(id value){
+        return self.dictContainerValue(value);
+    };
+}
+- (void)setM_dictContainerValue:(BOOL (^)(id))m_dictContainerValue{};
+
+- (NSArray *(^)())m_dictAllKeys
+{
+    return ^(){
+        return self.dictAllKeys();
+    };
+}
+- (void)setM_dictAllKeys:(NSArray *(^)())m_dictAllKeys{};
+
+- (NSArray *(^)())m_dictAllValues
+{
+    return ^(){
+        return self.dictAllValues();
+    };
+}
+- (void)setM_dictAllValues:(NSArray *(^)())m_dictAllValues{};
+
+- (NSArray *(^)(id))m_dictKeysForValue
+{
+    return ^(id value){
+        return self.dictKeysForValue(value);
+    };
+}
+- (void)setM_dictKeysForValue:(NSArray *(^)(id))m_dictKeysForValue{};
+
 - (void)setM_dictSetValue:(NSMutableDictionary *(^)(id<NSCopying> , id))blockSetValue{};
 
 - (void)setM_dictAttrStrAttachment:(NSMutableDictionary *(^)(NSTextAttachment *))blockAttrStrAttachment{};

@@ -13,6 +13,17 @@
 /** set value safely */
 @property (nonatomic,copy) NSMutableDictionary*(^m_dictSetValue)(id<NSCopying> key , id value);
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictReplaceKey)(id<NSCopying> key , id<NSCopying>  withKey);
+@property (nonatomic,copy) id                   (^m_dictGet)(id<NSCopying> key);
+@property (nonatomic,copy) id                   (^m_dictGetNoNSNull)(id<NSCopying> key);
+@property (nonatomic,copy) NSDictionary*        (^m_dictGetDictNoNullType)(id<NSCopying> key);
+@property (nonatomic,copy) NSArray*             (^m_dictGetArrNoNullType)(id<NSCopying> key);
+@property (nonatomic,copy) BOOL                 (^m_dictGetBOOLNoNullType)(id<NSCopying> key);
+@property (nonatomic,copy) UIView*              (^m_dictGetViewNoNullType)(id<NSCopying> key);
+@property (nonatomic,copy) BOOL                 (^m_dictContainerKey)(id<NSCopying> key);
+@property (nonatomic,copy) BOOL                 (^m_dictContainerValue)(id value);
+@property (nonatomic,copy) NSArray*             (^m_dictAllKeys)();
+@property (nonatomic,copy) NSArray*             (^m_dictAllValues)();
+@property (nonatomic,copy) NSArray*             (^m_dictKeysForValue)(id value);
 /** 并集，由传入参数覆盖原来数据 */
 /** Union. Adds to the receiving dictionary the entries from another dictionary. */
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictUnionDict)(NSDictionary* dict);

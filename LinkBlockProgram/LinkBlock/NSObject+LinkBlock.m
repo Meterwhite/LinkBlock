@@ -119,7 +119,7 @@
 }
 - (void)setObjToString:(NSString *(^)())objToString{};
 
-- (NSObject *(^)())log
+- (NSObject *(^)())nslog
 {
     return ^(){
         LinkError_VAL_IF(NSObject){
@@ -129,7 +129,7 @@
         return _self;
     };
 }
-- (void)setLog:(NSObject *(^)())nslog{};
+- (void)setNslog:(NSObject *(^)())nslog{};
 
 - (id (^)())end
 {

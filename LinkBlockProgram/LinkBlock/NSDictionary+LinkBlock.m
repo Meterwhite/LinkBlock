@@ -60,6 +60,17 @@
 }
 - (void)setDictGetArrNoNullType:(NSArray *(^)(id<NSCopying>))dictGetArrValueNoNullType{};
 
+- (UIView *(^)(id<NSCopying>))dictGetViewNoNullType
+{
+    return ^(id<NSCopying> key){
+        LinkError_REF_AUTO_IF(UIView, NSDictionary);
+        if(![_self[key] isKindOfClass:[UIView class]])
+            return [UIView new];
+        return (UIView*)_self[key];
+    };
+}
+- (void)setDictGetViewNoNullType:(UIView *(^)(id<NSCopying>))dictGetViewNoNullType{};
+
 - (BOOL (^)(id<NSCopying>))dictGetBOOLNoNullType
 {
     return ^(id<NSCopying> key){

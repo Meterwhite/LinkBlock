@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(NSStringLinkBlock)
+@property (nonatomic,copy) NSString*    (^strAt)(NSUInteger index);
 @property (nonatomic,copy) BOOL         (^strIsEqualStr)(NSString* str);
 @property (nonatomic,copy) NSMutableString* (^strMutableCopy)();
 @property (nonatomic,copy) NSString*    (^strAppend)(NSString* str);
@@ -23,8 +24,6 @@
 @property (nonatomic,copy) NSRange      (^strRangeOfStr)(NSString* str);
 @property (nonatomic,copy) NSInteger    (^strIndexOfStr)(NSString* str);
 @property (nonatomic,copy) NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIndex);
-@property (nonatomic,copy) NSString*    (^strAt)(NSUInteger index);
-
 
 /** 是否是表示空的字符串"","<null>","(null)" */
 @property (nonatomic,copy) BOOL         (^strIsBlank)();
@@ -63,6 +62,7 @@
 /** 从右删除所有匹配的字符串，直到第一次不匹配 */
 /** Delete all matching string from the right, until the first don't match  */
 @property (nonatomic,copy) NSString*    (^strTrimRight)(NSString* str);
+@property (nonatomic,copy) NSString*    (^strTrim)(NSString* str);
 /** 分割字符串， 传入 "." ，"0-a.b.c.e-0" 变为  "0-a" "b" "c" "d" "e-0" */
 /** Returns an array containing substrings from the receiver that have been divided by a given separator. */
 @property (nonatomic,copy) NSArray*     (^strSplitWithStr)(NSString* splitStr);

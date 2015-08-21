@@ -507,6 +507,261 @@
 }
 - (void)setViewOrigin:(CGPoint (^)())blockOriginGet{};
 
+- (UIView *(^)(double))viewAnimateShakeHorizental
+{
+    return ^(double duration){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+        
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+        animation.duration = duration;
+        animation.values = @[@(-12), @(12), @(-8), @(8), @(-4), @(4), @(0) ];
+        [_self.layer addAnimation:animation forKey:@"shake"];
+        return _self;
+    };
+}
+- (void)setViewAnimateShakeHorizental:(UIView *(^)(double))viewAnimateShakeHorizental{};
+- (UIView *(^)(double))viewAnimateShakeVertical
+{
+    return ^(double duration){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
+        
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+        animation.duration = duration;
+        animation.values = @[@(-12), @(12), @(-8), @(8), @(-4), @(4), @(0) ];
+        
+        [_self.layer addAnimation:animation forKey:@"shake"];
+        return _self;
+    };
+}
+- (void)setViewAnimateShakeVertical:(UIView *(^)(double))viewAnimateShakeVertical{};
+
+- (UIView *(^)())viewAnimateAppleMotionEffects
+{
+    return ^(){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        // Motion effects are available starting from iOS 7.
+        if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending))
+        {
+            
+            UIInterpolatingMotionEffect *horizontalEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x"
+                                                                                                            type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+            horizontalEffect.minimumRelativeValue = @(-10.0f);
+            horizontalEffect.maximumRelativeValue = @( 10.0f);
+            UIInterpolatingMotionEffect *verticalEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y"
+                                                                                                          type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+            verticalEffect.minimumRelativeValue = @(-10.0f);
+            verticalEffect.maximumRelativeValue = @( 10.0f);
+            UIMotionEffectGroup *motionEffectGroup = [[UIMotionEffectGroup alloc] init];
+            motionEffectGroup.motionEffects = @[horizontalEffect, verticalEffect];
+            
+            [_self addMotionEffect:motionEffectGroup];
+        }
+        return _self;
+    };
+}
+- (void)setViewAnimateAppleMotionEffects:(UIView *(^)())viewAnimateAppleMotionEffects{};
+
+- (UIView *(^)(CGFloat, NSTimeInterval, BOOL))viewAnimatePulse
+{
+    return ^(CGFloat scale,NSTimeInterval duration,BOOL repeat){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        
+        pulseAnimation.duration = duration;
+        pulseAnimation.toValue = [NSNumber numberWithFloat:scale];
+        pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        pulseAnimation.autoreverses = YES;
+        pulseAnimation.repeatCount = repeat ? HUGE_VALF : 0;
+        
+        [_self.layer addAnimation:pulseAnimation
+                          forKey:@"pulse"];
+        return _self;
+    };
+}
+- (void)setViewAnimatePulse:(UIView *(^)(CGFloat, NSTimeInterval, BOOL))viewAnimatePulse{};
+
+- (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromTop
+{
+    return ^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        
+        NSString *subtype = @"fromTop";
+        CATransition *transition = [CATransition animation];
+        
+        transition.startProgress = 0;
+        transition.endProgress = 1.0;
+        transition.type = @"flip";
+        transition.subtype = subtype;
+        transition.duration = duration;
+        transition.repeatCount = repeatCount;
+        transition.autoreverses = shouldAutoreverse;
+        
+        [_self.layer addAnimation:transition
+                          forKey:@"spin"];
+        return _self;
+    };
+}
+- (void)setViewAnimateFlipFromTop:(UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromTop{};
+
+- (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromBotton
+{
+    return ^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        
+        NSString *subtype = @"fromBottom";
+        CATransition *transition = [CATransition animation];
+        
+        transition.startProgress = 0;
+        transition.endProgress = 1.0;
+        transition.type = @"flip";
+        transition.subtype = subtype;
+        transition.duration = duration;
+        transition.repeatCount = repeatCount;
+        transition.autoreverses = shouldAutoreverse;
+        
+        [_self.layer addAnimation:transition
+                           forKey:@"spin"];
+        return _self;
+    };
+}
+- (void)setViewAnimateFlipFromBotton:(UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromBotton{};
+
+- (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromLeft
+{
+    return ^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        
+        NSString *subtype = @"fromLeft";
+        CATransition *transition = [CATransition animation];
+        
+        transition.startProgress = 0;
+        transition.endProgress = 1.0;
+        transition.type = @"flip";
+        transition.subtype = subtype;
+        transition.duration = duration;
+        transition.repeatCount = repeatCount;
+        transition.autoreverses = shouldAutoreverse;
+        
+        [_self.layer addAnimation:transition
+                           forKey:@"spin"];
+        return _self;
+    };
+}
+- (void)setViewAnimateFlipFromLeft:(UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromLeft{};
+
+- (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromRight
+{
+    return ^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        
+        NSString *subtype = @"fromRight";
+        CATransition *transition = [CATransition animation];
+        
+        transition.startProgress = 0;
+        transition.endProgress = 1.0;
+        transition.type = @"flip";
+        transition.subtype = subtype;
+        transition.duration = duration;
+        transition.repeatCount = repeatCount;
+        transition.autoreverses = shouldAutoreverse;
+        
+        [_self.layer addAnimation:transition
+                           forKey:@"spin"];
+        return _self;
+    };
+}
+- (void)setViewAnimateFlipFromRight:(UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromRight{};
+
+- (UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToLeft
+{
+    return ^(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        
+        rotationAnimation.toValue = @(-angle);
+        rotationAnimation.duration = duration;
+        rotationAnimation.autoreverses = shouldAutoreverse;
+        rotationAnimation.repeatCount = repeatCount;
+        rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        
+        [_self.layer addAnimation:rotationAnimation
+                          forKey:@"transform.rotation.z"];
+        return _self;
+    };
+}
+- (void)setViewAnimateRotateToLeft:(UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToLeft{};
+
+- (UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToRight
+{
+    return ^(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        
+        rotationAnimation.toValue = @(angle);
+        rotationAnimation.duration = duration;
+        rotationAnimation.autoreverses = shouldAutoreverse;
+        rotationAnimation.repeatCount = repeatCount;
+        rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        
+        [_self.layer addAnimation:rotationAnimation
+                           forKey:@"transform.rotation.z"];
+        return _self;
+    };
+}
+- (void)setViewAnimateRotateToRight:(UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToRight{};
+
+- (UIView *(^)())viewAnimateRemove
+{
+    return ^(){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        [CATransaction begin];
+        [_self.layer removeAllAnimations];
+        [CATransaction commit];
+        
+        [CATransaction flush];
+        return _self;
+    };
+}
+- (void)setViewAnimateRemove:(UIView *(^)())viewAnimateRemove{}
+
+- (BOOL (^)())viewAnimateIsDoing
+{
+    return ^(){
+        LinkError_VAL_IF(UIView);
+        return (BOOL)[_self.layer.animationKeys count];
+    };
+}
+- (void)setViewAnimateIsDoing:(BOOL (^)())viewAnimateIsDoing{};
+
+- (UIView *(^)())viewAnimatePause
+{
+    return ^(){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CFTimeInterval pausedTime= [_self.layer convertTime:CACurrentMediaTime() fromLayer:nil];
+        _self.layer.speed= 0.0;
+        _self.layer.timeOffset= pausedTime;
+        return _self;
+    };
+}
+- (void)setViewAnimatePause:(UIView *(^)())viewAnimatePause{};
+
+- (UIView *(^)())viewAnimateResume
+{
+    return ^(){
+        LinkError_REF_AUTO_IF(UIView, UIView);
+        CFTimeInterval pausedTime= [_self.layer timeOffset];
+        _self.layer.speed= 1.0;
+        _self.layer.timeOffset= 0.0;
+        _self.layer.beginTime= 0.0;
+        CFTimeInterval timeSincePause= [_self.layer convertTime:CACurrentMediaTime() fromLayer:nil]- pausedTime;
+        _self.layer.beginTime= timeSincePause;
+        return _self;
+    };
+}
+- (void)setViewAnimateResume:(UIView *(^)())viewAnimateResum{};
+
 - (void)setViewSetFrame:(UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrame{};
 - (void)setViewSetX:(UIView *(^)(CGFloat))blockX{};
 - (void)setViewSetY:(UIView *(^)(CGFloat))blockY{};

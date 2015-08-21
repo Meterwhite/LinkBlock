@@ -479,6 +479,23 @@
     };
 }
 
+- (NSString *(^)(NSString *))strTrim
+{
+    return ^(NSString* str){
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        NSMutableString * reIsStrM= _self.strMutableCopy();
+        [reIsStrM replaceOccurrencesOfString:str
+                                  withString:@""
+                                     options:NSAnchoredSearch
+                                       range:NSMakeRange(0, _self.length)];
+        [reIsStrM replaceOccurrencesOfString:str
+                                  withString:@""
+                                     options:NSBackwardsSearch|NSAnchoredSearch
+                                       range:NSMakeRange(0, _self.length)];
+        return (NSString*)reIsStrM.objCopy();
+    };
+}
+
 - (UIColor *(^)())strToColorFromHexStr
 {
     return ^(){

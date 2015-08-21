@@ -72,4 +72,36 @@
 @property (nonatomic,copy) UIView*      (^viewAddSubview)(UIView* subview);
 @property (nonatomic,copy) UIView*      (^viewAddToView)(UIView* view);
 
+#pragma mark - Animation（动画部分
+/** 水平摇晃 */
+@property (nonatomic,copy) UIView*      (^viewAnimateShakeHorizental)(double duration);
+/** 垂直摇晃 */
+@property (nonatomic,copy) UIView*      (^viewAnimateShakeVertical)(double duration);
+/** 苹果桌面视差效果，大于iOS7系统有效 */
+@property (nonatomic,copy) UIView*      (^viewAnimateAppleMotionEffects)();
+/** 脉冲形式的放大缩小 */
+@property (nonatomic,copy) UIView*      (^viewAnimatePulse)(CGFloat scale,NSTimeInterval duration,BOOL repeat);
+/** 翻转动画 */
+@property (nonatomic,copy) UIView*      (^viewAnimateFlipFromTop)(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
+/** 翻转动画 */
+@property (nonatomic,copy) UIView*      (^viewAnimateFlipFromBotton)(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
+/** 翻转动画 */
+@property (nonatomic,copy) UIView*      (^viewAnimateFlipFromRight)(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
+/** 翻转动画 */
+@property (nonatomic,copy) UIView*      (^viewAnimateFlipFromLeft)(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
+/** 
+ *  旋转动画
+ *  angle：end angle of the rotation. Pass M_PI * 2.0 for full circle rotation.
+ */
+@property (nonatomic,copy) UIView*      (^viewAnimateRotateToRight)(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
+/** 旋转动画 */
+@property (nonatomic,copy) UIView*      (^viewAnimateRotateToLeft)(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
+/** 移除所有动画 */
+@property (nonatomic,copy) UIView*      (^viewAnimateRemove)();
+
+@property (nonatomic,copy) BOOL         (^viewAnimateIsDoing)();
+/** 暂停动画 */
+@property (nonatomic,copy) UIView*      (^viewAnimatePause)();
+/** 恢复动画，在暂停动画后使用 */
+@property (nonatomic,copy) UIView*      (^viewAnimateResume)();
 @end

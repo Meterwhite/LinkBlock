@@ -40,14 +40,13 @@
 - (void)setArrIsIndexInRange:(BOOL (^)(NSUInteger))blockIsIndexInRange{};
 
 
-- (NSArray *(^)(NSInteger, NSInteger))arrObjsFromIndexTo
+- (NSArray *(^)(NSUInteger, NSUInteger))arrObjsFromIndexTo
 {
-    return ^(NSInteger index1, NSInteger index2){
+    return ^(NSUInteger index1, NSUInteger index2){
         LinkError_REF_AUTO_IF(NSArray, NSArray);
-        if(index1>index2 || index1> _self.count-1 || index2<0)
+        if(index1>index2 || index1> _self.count-1)
             return (NSArray *)(nil);
-        if(index1<0)
-            index1 = 0;
+
         if(index2> _self.count-1)
             index2= _self.count - 1;
         NSUInteger loc = index1;
@@ -55,7 +54,7 @@
         return [_self subarrayWithRange:NSMakeRange(loc, len)];
     };
 }
-- (void)setArrObjsFromIndexTo:(NSArray *(^)(NSInteger, NSInteger))blockObjsFromIndexTo{};
+- (void)setArrObjsFromIndexTo:(NSArray *(^)(NSUInteger, NSUInteger))blockObjsFromIndexTo{};
 
 - (NSDictionary *(^)())arrToDictByKeyNumber
 {

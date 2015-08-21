@@ -119,7 +119,8 @@
         CGFloat b;
         CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
-            return [UIColor colorWithRed:value green:g blue:b alpha:a];
+            _self = [UIColor colorWithRed:value green:g blue:b alpha:a];
+            return _self;
         }else{
             return _self;
         }
@@ -137,7 +138,8 @@
         CGFloat b;
         CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
-            return [UIColor colorWithRed:r green:value blue:b alpha:a];
+            _self = [UIColor colorWithRed:value green:g blue:b alpha:a];
+            return _self;
         }else{
             return _self;
         }
@@ -155,7 +157,8 @@
         CGFloat b;
         CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
-            return [UIColor colorWithRed:r green:g blue:value alpha:a];
+            _self = [UIColor colorWithRed:value green:g blue:b alpha:a];
+            return _self;
         }else{
             return _self;
         }

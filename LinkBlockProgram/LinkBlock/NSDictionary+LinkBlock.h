@@ -23,6 +23,9 @@
 /** 安全取出布尔值，没有符合的健时返回NO，而不是nil和NSNull */
 /** get value safely. if no value is associated with aKey , return new NO instead of nil and NSNull.. */
 @property (nonatomic,copy) BOOL         (^dictGetBOOLNoNullType)(id<NSCopying> key);
+/** 安全取出布尔值，没有符合的健时返回NO，而不是nil和NSNull */
+/** get value safely. if no value is associated with aKey , return new NO instead of nil and NSNull.. */
+@property (nonatomic,copy) UIView*      (^dictGetViewNoNullType)(id<NSCopying> key);
 
 @property (nonatomic,copy) BOOL         (^dictContainerKey)(id<NSCopying> key);
 @property (nonatomic,copy) BOOL         (^dictContainerValue)(id value);
