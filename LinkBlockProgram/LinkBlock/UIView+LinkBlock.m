@@ -301,10 +301,9 @@
 {
     return ^(NSUInteger index){
         LinkError_REF_AUTO_IF(UIView, UIView);
-        UIView* re= nil;
         if(index< _self.subviews.count)
             return (UIView*)(_self.subviews[index]);
-        return re;
+        return (UIView*)[LinkError share];
     };
 }
 - (UIView *(^)())viewRemoveFromSuperview

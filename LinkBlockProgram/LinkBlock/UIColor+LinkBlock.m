@@ -25,7 +25,7 @@
             [reIsMStr appendFormat:@"%02x",(int)(g* 255.0)];
             [reIsMStr appendFormat:@"%02x",(int)(g* 255.0)];
         }else{
-            return (NSString*)(nil);
+            return @"0xffffff";
         }
         
         return (NSString*)[reIsMStr copy];

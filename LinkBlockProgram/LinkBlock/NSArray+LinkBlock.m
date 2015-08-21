@@ -45,7 +45,7 @@
     return ^(NSUInteger index1, NSUInteger index2){
         LinkError_REF_AUTO_IF(NSArray, NSArray);
         if(index1>index2 || index1> _self.count-1)
-            return (NSArray *)(nil);
+            return (NSArray *)([NSArray new]);
 
         if(index2> _self.count-1)
             index2= _self.count - 1;
