@@ -65,8 +65,8 @@ NSString *str2 = str1.strAppend(str0).strAt(15).end();
 
 ##What is LinkError
 * 由于objc是有弱类型语言特征的语言，block是作为了扩展的属性，才可以被'.'出来。当中间一个链条返回的对象是nil，或者非预期的类型，那么下一根链条就会断裂，报错。为了让链条能够在安全的情况下容错走通，那么引入一个新的单例的类型LinkError
-。这个对象响应所有扩展属性调用，但是仅仅返回自己到下一根链条。
-* LinkError can response all extesion property,but just return self.So the chain can be not break and not throw out exception.
+。这个对象响应所有扩展属性的调用，功能仅仅返回自己到下一根链条以供传递。所以end()方法的使用对于获取链条末尾的返回值至关重要。
+* LinkError can respond to all extension property,it just return self to next chain.And not break,not throw an exception.
 
 ##Bug-mail address，join us address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
 ##欢迎大家支持链式编程这种编程方式
