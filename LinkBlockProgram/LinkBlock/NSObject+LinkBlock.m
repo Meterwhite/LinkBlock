@@ -197,7 +197,7 @@ static const char* blockName = "quxingyiHandsome";
 {
     NSMutableDictionary *privateDict= objc_getAssociatedObject(self, &blockName);
     if(!privateDict ||
-       ![privateDict isKindOfClass:([NSMutableDictionary class])]){//检查target的私有字典是否存在，不存在则创建
+       ![privateDict isKindOfClass:([NSMutableDictionary class])]){
         privateDict= [NSMutableDictionary dictionary];
         objc_setAssociatedObject(self, &blockName, privateDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }

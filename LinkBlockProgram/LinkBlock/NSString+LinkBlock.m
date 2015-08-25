@@ -715,52 +715,99 @@
 }
 - (void)setStrSplitWithCharsStr:(NSArray *(^)(NSString *))blockSplitStrWithCharsStr{};
 
-- (void)setStrAppend:(NSString *(^)(NSString *))blockAppendStr{};
-- (void)setStrDeleteStr:(NSString *(^)(NSString *))blockDeleteStr{};
-- (void)setStrDeleteInRange:(NSString *(^)(NSRange))blockDeleteStrInRange{};
-- (void)setStrIndexOfStr:(NSInteger (^)(NSString *))blockIndexOfStr{};
-- (void)setStrIndexOfStrStartAt:(NSInteger (^)(NSString *, NSUInteger))blockIndexOfStrStartIndex{};
-- (void)setStrInsertAt:(NSString *(^)(NSString *, NSUInteger))blockInsertStrAtIndex{};
-- (void)setStrIsContain:(BOOL (^)(NSString *))blockIsContainStr{};
-- (void)setStrRangeOfStr:(NSRange (^)(NSString *))blockRangeOfString{};
-- (void)setStrReplaceInRange:(NSString *(^)(NSString *, NSRange))blockReplaceStrInRange{};
-- (void)setStrReplace:(NSString *(^)(NSString *, NSString *))blockReplaceStrWithStr{};
-- (void)setStrAppendFormate:(NSString *(^)(NSString *, ...))blockAppendFormate{};
-- (void)setStrAt:(NSString *(^)(NSUInteger))blockStrAtIndex{};
-- (void)setStrLength:(NSUInteger (^)())blockLength{};
-- (void)setStrLengthASCII:(NSUInteger (^)())blockLengthASCII{};
-- (void)setStrLengthUnicode:(NSUInteger (^)())blockLengthUniCode{};
-- (void)setStrCompareNumberSensitive:(NSComparisonResult (^)(NSString *))blockCompareStrNumberSuper{};
-- (void)setStrCompare:(NSComparisonResult (^)(NSString *))blockCompareStr{};
-- (void)setStrIsInteger:(BOOL (^)())blockIsInt{};
-- (void)setStrIsFloating:(BOOL (^)())blockIsDoubel{};
-- (void)setStrIsBlank:(BOOL (^)())blockIsStrBlank{};
-- (void)setStrTrimLeft:(NSString *(^)(NSString *))blockTrimCharLeft{};
-- (void)setStrSizeWithFont:(CGSize (^)(UIFont *))blockSizeWithFont{};
-- (void)setStrSizeWithFontAndMaxSize:(CGSize (^)(UIFont *, CGSize))blockSizeWithFontAndMaxSize{};
-- (void)setStrSizeWithFontAndMaxWidth:(CGSize (^)(UIFont *, CGFloat))blockSizeWithFontAndMaxWidth{};
-- (void)setStrDeleteRight:(NSString *(^)(NSString *))blockDeleteStrRight{};
-- (void)setStrDeleteLeft:(NSString *(^)(NSString *))blockDeleteStrLeft{};
-- (void)setStrIsContainEmoji:(BOOL (^)())blockIsContainEmoji{};
-- (void)setStrTrimRight:(NSString *(^)(NSString *))blockTrimCharRight{};
-- (void)setStrIsEmoji:(BOOL (^)())blockIsStrEmoji{};
-- (void)setStrClearSpaceAndWrap:(NSString *(^)())blockClearSpaceAndWrap{};
-- (void)setStrIsEqualStr:(BOOL (^)(NSString *))blockIsEqualStr{};
-- (void)setStrToCGPoint:(CGPoint (^)())blockToCGPoint{};
-- (void)setStrToCGVector:(CGVector (^)())blockToCGVector{};
-- (void)setStrToCGSize:(CGSize (^)())blockToCGSize{};
-- (void)setStrToCGRect:(CGRect (^)())blockToCGRect{};
-- (void)setStrToCGAffineTransform:(CGAffineTransform (^)())blockToCGAffineTransform{};
-- (void)setStrToUIEdgeInsets:(UIEdgeInsets (^)())blockToUIEdgeInsets{};
-- (void)setStrToUIOffset:(UIOffset (^)())blockToUIOffset{};
-- (void)setStrToColorFromHexStr:(UIColor *(^)())blockToColorFromHexStr{};
-- (void)setStrToBOOL:(BOOL (^)())blockToBOOL{};
-- (void)setStrToUIImage:(UIImage *(^)())blockToUIImage{};
-- (void)setStrToInteger:(NSInteger (^)())blockToNSInteger{};
-- (void)setStrToDouble:(double (^)())blockToDouble{};
-- (void)setStrToNSURL:(NSURL *(^)())blockToNSURL{};
-- (void)setStrToFloat:(float (^)())blockToFloat{};
-- (void)setStrToLongLong:(long long (^)())blockToLongLong{};
-- (void)setStrToDoubleFromHexStr:(double (^)())blockToDoubleFromHexStr{};
-- (void)setStrToIntFromHexStr:(unsigned int (^)())blockToIntFromHexStr{};
+- (BOOL (^)(NSString *))strHasPrefix
+{
+    return ^(NSString* prefix){
+        LinkError_VAL_IF(NSString);
+        return [_self hasPrefix:prefix];
+    };
+}
+- (void)setStrHasPrefix:(BOOL (^)(NSString *))strHasPrefix{};
+
+- (BOOL (^)(NSString *))strHasSuffix
+{
+    return ^(NSString* suffix){
+        LinkError_VAL_IF(NSString);
+        return [_self hasSuffix:suffix];
+    };
+}
+- (void)setStrHasSuffix:(BOOL (^)(NSString *))strHasSuffix{};
+
+- (NSString *(^)(NSUInteger))strSubFrom
+{
+    return ^(NSUInteger idx){
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        return [_self substringFromIndex:idx];
+    };
+}
+- (void)setStrSubFrom:(NSString *(^)(NSUInteger))strSubFrom{};
+
+- (NSString *(^)(NSUInteger))strSubTo
+{
+    return ^(NSUInteger idx){
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        return [_self substringToIndex:idx];
+    };
+}
+- (void)setStrSubTo:(NSString *(^)(NSUInteger))strSubTo{};
+
+- (NSString *(^)(NSUInteger, NSUInteger))strSubFromTo
+{
+    return ^(NSUInteger from, NSUInteger to){
+        LinkError_REF_AUTO_IF(NSString, NSString);
+        if( from> to || to>_self.length)
+            return _self;
+        return [_self substringWithRange:NSMakeRange(from, to- from)];
+    };
+}
+- (void)setStrSubFromTo:(NSString *(^)(NSUInteger, NSUInteger))strSubFromTo{};
+
+- (void)setStrAppend:(NSString *(^)(NSString *))strAppendStr{};
+- (void)setStrDeleteStr:(NSString *(^)(NSString *))strDeleteStr{};
+- (void)setStrDeleteInRange:(NSString *(^)(NSRange))strDeleteStrInRange{};
+- (void)setStrIndexOfStr:(NSInteger (^)(NSString *))strIndexOfStr{};
+- (void)setStrIndexOfStrStartAt:(NSInteger (^)(NSString *, NSUInteger))strIndexOfStrStartIndex{};
+- (void)setStrInsertAt:(NSString *(^)(NSString *, NSUInteger))strInsertStrAtIndex{};
+- (void)setStrIsContain:(BOOL (^)(NSString *))strIsContainStr{};
+- (void)setStrRangeOfStr:(NSRange (^)(NSString *))strRangeOfString{};
+- (void)setStrReplaceInRange:(NSString *(^)(NSString *, NSRange))strReplaceStrInRange{};
+- (void)setStrReplace:(NSString *(^)(NSString *, NSString *))strReplaceStrWithStr{};
+- (void)setStrAppendFormate:(NSString *(^)(NSString *, ...))strAppendFormate{};
+- (void)setStrAt:(NSString *(^)(NSUInteger))strStrAtIndex{};
+- (void)setStrLength:(NSUInteger (^)())strLength{};
+- (void)setStrLengthASCII:(NSUInteger (^)())strLengthASCII{};
+- (void)setStrLengthUnicode:(NSUInteger (^)())strLengthUniCode{};
+- (void)setStrCompareNumberSensitive:(NSComparisonResult (^)(NSString *))strCompareStrNumberSuper{};
+- (void)setStrCompare:(NSComparisonResult (^)(NSString *))strCompareStr{};
+- (void)setStrIsInteger:(BOOL (^)())strIsInt{};
+- (void)setStrIsFloating:(BOOL (^)())strIsDoubel{};
+- (void)setStrIsBlank:(BOOL (^)())strIsStrBlank{};
+- (void)setStrTrimLeft:(NSString *(^)(NSString *))strTrimCharLeft{};
+- (void)setStrSizeWithFont:(CGSize (^)(UIFont *))strSizeWithFont{};
+- (void)setStrSizeWithFontAndMaxSize:(CGSize (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize{};
+- (void)setStrSizeWithFontAndMaxWidth:(CGSize (^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidth{};
+- (void)setStrDeleteRight:(NSString *(^)(NSString *))strDeleteStrRight{};
+- (void)setStrDeleteLeft:(NSString *(^)(NSString *))strDeleteStrLeft{};
+- (void)setStrIsContainEmoji:(BOOL (^)())strIsContainEmoji{};
+- (void)setStrTrimRight:(NSString *(^)(NSString *))strTrimCharRight{};
+- (void)setStrIsEmoji:(BOOL (^)())strIsStrEmoji{};
+- (void)setStrClearSpaceAndWrap:(NSString *(^)())strClearSpaceAndWrap{};
+- (void)setStrIsEqualStr:(BOOL (^)(NSString *))strIsEqualStr{};
+- (void)setStrToCGPoint:(CGPoint (^)())strToCGPoint{};
+- (void)setStrToCGVector:(CGVector (^)())strToCGVector{};
+- (void)setStrToCGSize:(CGSize (^)())strToCGSize{};
+- (void)setStrToCGRect:(CGRect (^)())strToCGRect{};
+- (void)setStrToCGAffineTransform:(CGAffineTransform (^)())strToCGAffineTransform{};
+- (void)setStrToUIEdgeInsets:(UIEdgeInsets (^)())strToUIEdgeInsets{};
+- (void)setStrToUIOffset:(UIOffset (^)())strToUIOffset{};
+- (void)setStrToColorFromHexStr:(UIColor *(^)())strToColorFromHexStr{};
+- (void)setStrToBOOL:(BOOL (^)())strToBOOL{};
+- (void)setStrToUIImage:(UIImage *(^)())strToUIImage{};
+- (void)setStrToInteger:(NSInteger (^)())strToNSInteger{};
+- (void)setStrToDouble:(double (^)())strToDouble{};
+- (void)setStrToNSURL:(NSURL *(^)())strToNSURL{};
+- (void)setStrToFloat:(float (^)())strToFloat{};
+- (void)setStrToLongLong:(long long (^)())strToLongLong{};
+- (void)setStrToDoubleFromHexStr:(double (^)())strToDoubleFromHexStr{};
+- (void)setStrToIntFromHexStr:(unsigned int (^)())strToIntFromHexStr{};
 @end

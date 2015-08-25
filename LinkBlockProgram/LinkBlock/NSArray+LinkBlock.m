@@ -42,15 +42,15 @@
 
 - (NSArray *(^)(NSUInteger, NSUInteger))arrObjsFromIndexTo
 {
-    return ^(NSUInteger index1, NSUInteger index2){
+    return ^(NSUInteger idx1, NSUInteger idx2){
         LinkError_REF_AUTO_IF(NSArray, NSArray);
-        if(index1>index2 || index1> _self.count-1)
+        if(idx1>idx2 || idx1> _self.count-1)
             return (NSArray *)([NSArray new]);
 
-        if(index2> _self.count-1)
-            index2= _self.count - 1;
-        NSUInteger loc = index1;
-        NSUInteger len = index2 - index1 + 1;
+        if(idx2> _self.count-1)
+            idx2= _self.count - 1;
+        NSUInteger loc = idx1;
+        NSUInteger len = idx2 - idx1 + 1;
         return [_self subarrayWithRange:NSMakeRange(loc, len)];
     };
 }

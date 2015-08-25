@@ -1,6 +1,5 @@
 //
 //  NSString+LinkBlock.h
-
 //
 //  Created by NOVO on 15/8/12.
 //  Copyright (c) 2015年 NOVO. All rights reserved.
@@ -69,6 +68,11 @@
 /** Returns an array containing substrings from the receiver that have been divided by characters in a given string. */
 @property (nonatomic,copy) NSArray*     (^strSplitWithCharsStr)(NSString* splitStr);
 
+@property (nonatomic,copy) BOOL         (^strHasPrefix)(NSString* prefix);
+@property (nonatomic,copy) BOOL         (^strHasSuffix)(NSString* suffix);
+@property (nonatomic,copy) NSString*    (^strSubFrom)(NSUInteger from);
+@property (nonatomic,copy) NSString*    (^strSubTo)(NSUInteger to);
+@property (nonatomic,copy) NSString*    (^strSubFromTo)(NSUInteger from , NSUInteger to);
 #pragma mrak - convert（转换
 /** 0xcccccc , #cccccc , cccccc */
 @property (nonatomic,copy) UIColor*             (^strToColorFromHexStr)();

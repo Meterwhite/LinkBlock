@@ -11,13 +11,13 @@
 @interface NSObject(NSArraryLinkBlock)
 
 /** 数组对象中是否包含某个字符串对象 */
-@property (nonatomic,copy) BOOL                     (^arrIsContainerStr)(NSString*);
+@property (nonatomic,copy) BOOL                     (^arrIsContainerStr)(NSString* str);
 /** 是否包含某个对象 */
 @property (nonatomic,copy) BOOL                     (^arrIsContainer)(id obj);
 /** 某个范围内的数据 */
-@property (nonatomic,copy) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger index1, NSUInteger index2);
+@property (nonatomic,copy) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger idx1, NSUInteger idx2);
 /** 某个index是否在范围内 */
-@property (nonatomic,copy) BOOL                     (^arrIsIndexInRange)(NSUInteger index);
+@property (nonatomic,copy) BOOL                     (^arrIsIndexInRange)(NSUInteger idx);
 /** 数组转字典，键为NSNumber类型 */
 /** arr to dict, index becomes key, key type is NSNumber */
 @property (nonatomic,copy) NSDictionary*            (^arrToDictByKeyNumber)();

@@ -12,7 +12,7 @@
 LinkBlock.h
 ```
 
-##Bye CGRectMake(xxxx);
+##Shit CGRectMake()
 ```objc
 //Such written before 
 //手绘UI动不动就要创建4，5个变量，而这明明是可以省略的步骤
@@ -23,9 +23,9 @@ btn.backgroundColor = color;
 [btn setTitle:@"click change color" forState:UIControlStateNormal];
 [self.view addSubview:btn];
 ```
-##Now， just a.b.c...
+##Bye CGRectMake(),just a.b.c...
 ```objc
-//现在只需要一行，大部分工作可以在思路不断的情况下一气呵成
+//如果使用链式编程的方式，大部分工作可以在思路不断的情况下一气呵成
 //now just using one line.Most work can be wrapped up in the idea of ​​ongoing cases
 btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
 .viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
@@ -69,4 +69,5 @@ NSString *str2 = str1.strAppend(str0).strAt(15).end();
 * LinkError can respond to all extension property,it just return self to next chain.And not break,not throw an exception.
 
 ##Bug-mail address，join us address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
-##欢迎大家支持链式编程这种编程方式
+##希望大家都支持链式编程这种编程方式
+* 做天朝良好的程序员
