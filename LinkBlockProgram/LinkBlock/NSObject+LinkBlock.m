@@ -91,6 +91,7 @@
         return [self class];
     };
 }
+
 - (NSString *(^)())objClassName
 {
     return ^(){
@@ -153,13 +154,7 @@
 - (void)setObjClass:(Class (^)())blockClass{};
 - (void)setObjClassName:(NSString *(^)())blockClassName{};
 
-
-
-
-
-
 #pragma mark - extension for func
-
 
 static const char* blockName = "quxingyiHandsome";
 - (void)objBlockSet:(NSString*)name executeBlock:(id(^)())executeBlock

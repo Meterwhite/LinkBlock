@@ -4,9 +4,10 @@
 ## What is this?
 * 这是一个objc扩展集合`链式编程`，为的是告别换行和[]，用最简短的一句话尽可能多的完成功能。
 * 框架封装原生Fundation最基本功能和最常见功能。
+* 持续更新
 * This is objective-c link block , to `chain programming`.
 * Frame encapsulation of native Foundation is the most basic and the most common functions.
-
+* Continuously updated
 ##Simple to use LinkBlock ;
 ```objc
 LinkBlock.h

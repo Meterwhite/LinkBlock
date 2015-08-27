@@ -11,7 +11,7 @@
 @interface NSObject(NSMutableDictionaryLinkBlock)
 /** 安全赋值 */
 /** set value safely */
-@property (nonatomic,copy) NSMutableDictionary*(^m_dictSetValue)(id<NSCopying> key , id value);
+@property (nonatomic,copy) NSMutableDictionary* (^m_dictSetValue)(id<NSCopying> key , id value);
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictReplaceKey)(id<NSCopying> key , id<NSCopying>  withKey);
 @property (nonatomic,copy) id                   (^m_dictGet)(id<NSCopying> key);
 @property (nonatomic,copy) id                   (^m_dictGetNoNSNull)(id<NSCopying> key);
