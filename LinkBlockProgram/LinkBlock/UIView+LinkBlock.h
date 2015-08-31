@@ -10,6 +10,8 @@
 @interface NSObject(UIViewLinkBlock)
 @property (nonatomic,copy) CGFloat      (^viewX)();
 @property (nonatomic,copy) CGFloat      (^viewY)();
+@property (nonatomic,copy) CGFloat      (^viewMaxX)();
+@property (nonatomic,copy) CGFloat      (^viewMaxY)();
 @property (nonatomic,copy) CGPoint      (^viewOrigin)();
 @property (nonatomic,copy) CGFloat      (^viewCenterX)();
 @property (nonatomic,copy) CGFloat      (^viewCenterY)();
@@ -29,6 +31,7 @@
 @property (nonatomic,copy) UIView*      (^viewSetSize)(CGFloat width, CGFloat height);
 
 @property (nonatomic,copy) UIView*      (^viewBGColor)(UIColor* color);
+@property (nonatomic,copy) UIView*      (^viewBGColorRandom)();
 @property (nonatomic,copy) UIView*      (^viewBorderColor)(UIColor* color);
 @property (nonatomic,copy) UIView*      (^viewBorderWidth)(CGFloat w);
 @property (nonatomic,copy) UIView*      (^viewCornerRadius)(CGFloat radius);
@@ -104,4 +107,16 @@
 @property (nonatomic,copy) UIView*      (^viewAnimatePause)();
 /** 恢复动画，在暂停动画后使用 */
 @property (nonatomic,copy) UIView*      (^viewAnimateResume)();
+
+#pragma mark - UI layout（just coding layout）
+@property (nonatomic,copy) UIView*      (^viewUICopyFrame)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewUICopySize)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewUICopyOrigin)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewUICopyCenter)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewUICopyCenterX)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewUICopyCenterY)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewUITopTo)(UIView* toView, CGFloat margin);
+@property (nonatomic,copy) UIView*      (^viewUILeftTo)(UIView* toView, CGFloat margin);
+@property (nonatomic,copy) UIView*      (^viewUIBottonTo)(UIView* toView, CGFloat margin);
+@property (nonatomic,copy) UIView*      (^viewUIRightTo)(UIView* toView, CGFloat margin);
 @end

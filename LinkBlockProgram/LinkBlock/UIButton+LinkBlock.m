@@ -12,7 +12,7 @@
 - (UIButton *(^)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right))btnTitleEdgeInsets
 {
     return ^(CGFloat top, CGFloat left, CGFloat botton, CGFloat right){
-        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        LinkError_REF_AUTO(UIButton, UIButton);
         _self.titleEdgeInsets = UIEdgeInsetsMake(top, left, botton, right);
         return _self;
     };
@@ -22,7 +22,7 @@
 - (UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))btnImageEdgeInsets
 {
     return ^(CGFloat top, CGFloat left, CGFloat botton, CGFloat right){
-        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        LinkError_REF_AUTO(UIButton, UIButton);
         _self.imageEdgeInsets = UIEdgeInsetsMake(top, left, botton, right);
         return _self;
     };
@@ -32,7 +32,7 @@
 - (UIButton *(^)(NSString *, UIControlState))btnTitle
 {
     return ^(NSString* title, UIControlState state){
-        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        LinkError_REF_AUTO(UIButton, UIButton);
         [_self setTitle:title forState:state];
         return _self;
     };
@@ -42,7 +42,7 @@
 - (UIButton *(^)(UIImage *, UIControlState))btnImage
 {
     return ^(UIImage* img, UIControlState state){
-        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        LinkError_REF_AUTO(UIButton, UIButton);
         [_self setImage:img forState:state];
         return _self;
     };
@@ -52,7 +52,7 @@
 - (UIButton *(^)(UIImage *, UIControlState))btnBGImage
 {
     return ^(UIImage* img, UIControlState state){
-        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        LinkError_REF_AUTO(UIButton, UIButton);
         [_self setBackgroundImage:img forState:state];
         return _self;
     };
@@ -62,7 +62,7 @@
 - (UIButton *(^)(UIFont *))btnTitleFont
 {
     return ^(UIFont* font){
-        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        LinkError_REF_AUTO(UIButton, UIButton);
         _self.titleLabel.labFont(font);
         return _self;
     };
@@ -72,7 +72,7 @@
 - (UIButton *(^)(CGFloat))btnTitleFontSize
 {
     return ^(CGFloat size){
-        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        LinkError_REF_AUTO(UIButton, UIButton);
         _self.titleLabel.labFontSizeSystem(size);
         return _self;
     };
@@ -82,7 +82,7 @@
 - (UIButton *(^)(NSAttributedString *, UIControlState))btnAttributeTitle
 {
     return ^(NSAttributedString* attrStr , UIControlState state){
-        LinkError_REF_AUTO_IF(UIButton, UIButton);
+        LinkError_REF_AUTO(UIButton, UIButton);
         [_self setAttributedTitle:attrStr forState:state];
         return _self;
     };

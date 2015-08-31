@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(NSMutableAttributedStringLinkBlock)
-
 @property (nonatomic,copy) NSMutableAttributedString* (^m_attr_strAppendAttrStr)(NSAttributedString* attrStr);
 @property (nonatomic,copy) NSMutableAttributedString* (^m_attr_strAppendStr)(NSString* str);
 @property (nonatomic,copy) NSMutableAttributedString* (^m_attr_strAppendStrAndAttr)(NSString *str,NSString *attrName, id attrValue);
@@ -50,4 +49,10 @@
 @property (nonatomic,copy) NSMutableAttributedString* (^m_attr_strSetAttrDictInRange)(NSDictionary *attrDict, NSRange range);
 @property (nonatomic,copy) NSMutableAttributedString* (^m_attr_strSetAttrDict)(NSDictionary* attrDict);
 
+
+/** 默认情况下计算尺寸，如支持UILable文字排版计算 */
+/** Calculation string size , like UILable*/
+@property (nonatomic,copy) CGRect   (^m_attr_strSize)(CGFloat maxWidth);
+@property (nonatomic,copy) CGRect   (^m_attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
+@property (nonatomic,copy) BOOL     (^m_attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
 @end

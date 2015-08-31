@@ -14,6 +14,7 @@
 @property (nonatomic,copy) NSMutableString* (^strMutableCopy)();
 @property (nonatomic,copy) NSString*    (^strAppend)(NSString* str);
 @property (nonatomic,copy) NSString*    (^strAppendFormate)(NSString* formateStr , ...);
+@property (nonatomic,copy) NSString*    (^strAppendLine)(NSString* str);
 @property (nonatomic,copy) NSString*    (^strInsertAt)(NSString* str, NSUInteger index);
 @property (nonatomic,copy) NSString*    (^strDeleteInRange)(NSRange range);
 @property (nonatomic,copy) NSString*    (^strDeleteStr)(NSString* str);
@@ -92,5 +93,13 @@
 @property (nonatomic,copy) CGAffineTransform    (^strToCGAffineTransform)();
 @property (nonatomic,copy) UIEdgeInsets         (^strToUIEdgeInsets)();
 @property (nonatomic,copy) UIOffset             (^strToUIOffset)();
-
+#pragma mark - regex（正则表达式
+@property (nonatomic,copy) BOOL                 (^strRegexIsMatch)(NSString* regex);
+/** NSTextCheckingResult arrary  */
+@property (nonatomic,copy) NSArray*             (^strRegexMatchs)(NSString* regex);
+/**
+ *  regex : "http://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?".
+ *  replaceTemplate : "<a href=\"$0\">$0</a>".
+ */
+@property (nonatomic,copy) NSString*            (^strRegexReplace)(NSString* regex, NSString* replaceTemplate);
 @end

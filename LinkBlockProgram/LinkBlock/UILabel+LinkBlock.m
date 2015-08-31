@@ -14,7 +14,7 @@
 - (UILabel *(^)())labAlignTop
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        LinkError_REF_AUTO(UILabel, UILabel);
         CGSize fontSize = _self.text.strSizeWithFont(_self.font);
         double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
@@ -46,7 +46,7 @@
 - (UILabel *(^)())labAlignBottom
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        LinkError_REF_AUTO(UILabel, UILabel);
         CGSize fontSize =_self.text.strSizeWithFont(_self.font);
         double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
@@ -79,7 +79,7 @@
 - (UILabel *(^)(NSInteger))labNumberOfLines
 {
     return ^(NSInteger lines){
-        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        LinkError_REF_AUTO(UILabel, UILabel);
         _self.numberOfLines= lines;
         return _self;
     };
@@ -87,7 +87,7 @@
 - (UILabel *(^)(NSTextAlignment))labAlignment
 {
     return ^(NSTextAlignment alighment){
-        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        LinkError_REF_AUTO(UILabel, UILabel);
         _self.textAlignment = alighment;
         return _self;
     };
@@ -95,7 +95,7 @@
 - (UILabel *(^)(NSString *))labText
 {
     return ^(NSString * txt){
-        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        LinkError_REF_AUTO(UILabel, UILabel);
         _self.text= txt;
         return _self;
     };
@@ -103,7 +103,7 @@
 - (UILabel *(^)(UIColor *))labTextColor
 {
     return ^(UIColor * color){
-        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        LinkError_REF_AUTO(UILabel, UILabel);
         _self.textColor= color;
         return _self;
     };
@@ -111,7 +111,7 @@
 - (UILabel *(^)(UIFont *))labFont
 {
     return ^(UIFont * font){
-        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        LinkError_REF_AUTO(UILabel, UILabel);
         _self.font= font;
         return _self;
     };
@@ -119,7 +119,7 @@
 - (UILabel *(^)(CGFloat))labFontSizeSystem
 {
     return ^(CGFloat size){
-        LinkError_REF_AUTO_IF(UILabel, UILabel);
+        LinkError_REF_AUTO(UILabel, UILabel);
         _self.font= [UIFont systemFontOfSize:size];
         return _self;
     };

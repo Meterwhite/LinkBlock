@@ -15,7 +15,7 @@
 - (NSData *(^)(float))imgToData
 {
     return ^(float ratio){
-        LinkError_REF_AUTO_IF(NSData, UIImage);
+        LinkError_REF_AUTO(NSData, UIImage);
         NSData* reIsData = UIImageJPEGRepresentation(_self, ratio);
         if(!reIsData){
             reIsData= UIImagePNGRepresentation(_self);
@@ -28,7 +28,7 @@
 - (UIImage *(^)(CGSize))imgResize
 {
     return ^(CGSize maxSize){
-        LinkError_REF_AUTO_IF(UIImage, UIImage);
+        LinkError_REF_AUTO(UIImage, UIImage);
         CGFloat originWidth= _self.size.width;
         CGFloat originHeight= _self.size.height;
         CGFloat originRatio = originWidth / originHeight;//宽长比
@@ -58,7 +58,7 @@
 - (UIImage *(^)(CGRect))imgCut
 {
     return ^(CGRect frame){
-        LinkError_REF_AUTO_IF(UIImage, UIImage);
+        LinkError_REF_AUTO(UIImage, UIImage);
         CGImageRef cgImgRef= CGImageCreateWithImageInRect(_self.CGImage, frame);
         UIImage* re= [UIImage imageWithCGImage:cgImgRef];
         CGImageRelease(cgImgRef);
@@ -70,7 +70,7 @@
 - (UIImage *(^)(float))imgBlur
 {
     return ^(float percent){
-        LinkError_REF_AUTO_IF(UIImage, UIImage);
+        LinkError_REF_AUTO(UIImage, UIImage);
         if ((percent < 0.0f) || (percent > 1.0f)) {
             percent = 0.5f;
         }
@@ -136,5 +136,14 @@
     };
 }
 - (void)setImgBlur:(UIImage *(^)(float))imgBlur{};
+
+- (UIImage *(^)(UIImageRenderingMode))imgRenderingMode
+{
+    return ^(UIImageRenderingMode mode){
+        LinkError_REF_AUTO(UIImage, UIImage);
+        return [_self imageWithRenderingMode:mode];
+    };
+}
+- (void)setImgRenderingMode:(UIImage *(^)(UIImageRenderingMode))imgRenderingMode{};
 
 @end

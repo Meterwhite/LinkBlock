@@ -6,14 +6,13 @@
 //
 
 #import "LinkBlock.h"
-#import "NSMutableString+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
+
 
 @implementation NSObject(NSMutableStringLinkBlock)
 - (NSMutableString *(^)(NSString *, NSString *))m_strReplaceStr
 {
     return ^(NSString* replaceStr, NSString* withStr){
-        LinkError_REF_AUTO_IF(NSMutableString, NSMutableString);
+        LinkError_REF_AUTO(NSMutableString, NSMutableString);
         if(replaceStr.objIsKind([NSString class]) &&
            withStr.objIsKind([NSString class])){
             return (NSMutableString*)[[_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr] mutableCopy];
@@ -23,4 +22,23 @@
 }
 - (void)setM_strReplaceStr:(NSMutableString *(^)(NSString *, NSString *))blockReplaceStrWithStr{};
 
+- (NSMutableString *(^)(NSString *, NSUInteger))m_strInsertStrAt
+{
+    return ^(NSString* str, NSUInteger idx){
+        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+        [_self insertString:str atIndex:idx];
+        return _self;
+    };
+}
+- (void)setM_strInsertStrAt:(NSMutableString *(^)(NSString *, NSUInteger))m_strInsertStrAt{};
+
+- (NSMutableString *(^)(NSString *))m_strAppenStr
+{
+    return ^(NSString* str){
+        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+        [_self appendString:str];
+        return _self;
+    };
+}
+- (void)setM_strAppenStr:(NSMutableString *(^)(NSString *))m_strAppenStr{};
 @end

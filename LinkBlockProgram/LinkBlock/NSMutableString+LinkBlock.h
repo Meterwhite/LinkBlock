@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject(NSMutableStringLinkBlock)
+@property (nonatomic,copy) NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
+@property (nonatomic,copy) NSMutableString*     (^m_strAppenStr)(NSString* str);
 @property (nonatomic,copy) NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr);
 @end

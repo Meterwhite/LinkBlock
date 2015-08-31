@@ -40,7 +40,7 @@
 - (NSDictionary *(^)(id<NSCopying>))dictGetDictNoNullType
 {
     return ^(id<NSCopying> key){
-        LinkError_REF_AUTO_IF(NSDictionary, NSDictionary);
+        LinkError_REF_AUTO(NSDictionary, NSDictionary);
         if(![_self[key] isKindOfClass:[NSDictionary class]]){
             return [NSDictionary dictionary];
         }
@@ -52,7 +52,7 @@
 - (NSArray *(^)(id<NSCopying>))dictGetArrNoNullType
 {
     return ^(id<NSCopying> key){
-        LinkError_REF_AUTO_IF(NSArray, NSDictionary);
+        LinkError_REF_AUTO(NSArray, NSDictionary);
         if(![_self[key] isKindOfClass:[NSArray class]])
             return [NSArray array];
         return (NSArray*)_self[key];
@@ -63,7 +63,7 @@
 - (UIView *(^)(id<NSCopying>))dictGetViewNoNullType
 {
     return ^(id<NSCopying> key){
-        LinkError_REF_AUTO_IF(UIView, NSDictionary);
+        LinkError_REF_AUTO(UIView, NSDictionary);
         if(![_self[key] isKindOfClass:[UIView class]])
             return [UIView new];
         return (UIView*)_self[key];
@@ -117,7 +117,7 @@
 - (NSArray *(^)(id))dictKeysForValue
 {
     return ^(id value){
-        LinkError_REF_AUTO_IF(NSArray, NSDictionary);
+        LinkError_REF_AUTO(NSArray, NSDictionary);
         return [_self allKeysForObject:value];
     };
 }
@@ -126,7 +126,7 @@
 - (NSArray *(^)())dictAllKeys
 {
     return ^(){
-        LinkError_REF_AUTO_IF(NSArray, NSDictionary);
+        LinkError_REF_AUTO(NSArray, NSDictionary);
         return [_self allKeys];
     };
 }
@@ -134,7 +134,7 @@
 - (NSArray *(^)())dictAllValues
 {
     return ^(){
-        LinkError_REF_AUTO_IF(NSArray, NSDictionary);
+        LinkError_REF_AUTO(NSArray, NSDictionary);
         return [_self allValues];
     };
 }

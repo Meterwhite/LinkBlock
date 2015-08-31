@@ -14,7 +14,7 @@
 - (NSMutableArray *(^)(id))m_arrAddObj
 {
     return ^(id obj){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(!obj)goto END;
         [_self addObject:obj];
     END:
@@ -26,7 +26,7 @@
 - (NSMutableArray *(^)(NSArray *))m_arrAddObjs
 {
     return ^(NSArray *arr){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(!arr || ![arr isKindOfClass:[NSArray class]])goto END;
         [_self addObjectsFromArray:arr];
     END:
@@ -38,7 +38,7 @@
 - (NSMutableArray *(^)(id, NSUInteger))m_arrInsertObjAt
 {
     return ^(id obj, NSUInteger index){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(!obj || index>_self.count)goto END;
         [_self insertObject:obj atIndex:index];
     END:
@@ -50,7 +50,7 @@
 - (NSMutableArray *(^)(NSArray *, NSUInteger))m_arrInsertArrayAt
 {
     return ^(NSArray * arr, NSUInteger index){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(!arr || ![arr isKindOfClass:[NSArray class]] || index>_self.count)goto END;
         [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndex:index]];
     END:
@@ -62,7 +62,7 @@
 - (NSMutableArray *(^)(id, id))m_arrInsertBefore
 {
     return ^(id obj, id beforObj){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(!obj || !beforObj) goto END;
         long idx= [_self indexOfObject:beforObj];
         if(idx != NSNotFound){
@@ -78,7 +78,7 @@
 - (NSMutableArray *(^)(id, id))m_arrInsertBehind
 {
     return ^(id obj, id behindObj){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(!obj || !behindObj) goto END;
         long idx= [_self indexOfObject:behindObj];
         if(idx != NSNotFound){
@@ -93,7 +93,7 @@
 - (NSMutableArray *(^)(id))m_arrRemoveObj
 {
     return ^(id obj){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(!obj)goto END;
         [_self removeObject:obj];
     END:
@@ -105,7 +105,7 @@
 - (NSMutableArray *(^)(NSUInteger))m_arrRemoveAt
 {
     return ^(NSUInteger index){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(index>_self.count)goto END;
         [_self removeObjectAtIndex:index];
     END:
@@ -117,7 +117,7 @@
 - (NSMutableArray *(^)(NSUInteger, NSUInteger))m_arrRemoveObjsFromTo
 {
     return ^(NSUInteger from, NSUInteger to){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if( to>_self.count || from>to )goto END;
         [_self removeObjectsInRange:NSMakeRange(from, to - from + 1)];
     END:
@@ -129,7 +129,7 @@
 - (NSMutableArray *(^)())m_arrRemoveAll
 {
     return ^(){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         [_self removeAllObjects];
         return _self;
     };
@@ -139,7 +139,7 @@
 - (NSMutableArray *(^)(id, id))m_arrReplaceObjWith
 {
     return ^(id obj, id withObj){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSMutableArray);
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         if(!obj|| !withObj)goto END;
         NSInteger idx= [_self indexOfObject:obj];
         if(idx != NSNotFound){

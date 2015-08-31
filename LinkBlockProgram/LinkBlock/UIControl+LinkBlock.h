@@ -19,7 +19,8 @@
         forControlEvents:(UIControlEvents)controlEvents
                withBlock:(void (^)(UIControlEvents event))executeBlock;
 
-/** 私有扩展方法，不应调用 */
-/** unavailable */
+
+
+
 - (NSMutableDictionary *)private__GetPrivateDict;
 @end

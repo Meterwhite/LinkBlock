@@ -99,7 +99,7 @@
     };
 }
 
-- (NSObject *(^)(id*))setTo
+- (NSObject *(^)(id*))set
 {
     return ^(id* toValue){
         LinkError_VAL_IF(NSObject){
@@ -110,7 +110,7 @@
         return _self;
     };
 }
-- (void)setSetTo:(NSObject *(^)(id*))blockValueTo{};
+- (void)setSet:(NSObject *(^)(id*))blockValueTo{};
 
 - (NSString *(^)())objToString
 {
@@ -154,10 +154,175 @@
 - (void)setObjClass:(Class (^)())blockClass{};
 - (void)setObjClassName:(NSString *(^)())blockClassName{};
 
+
+- (id (^)(NSString *))valueGet
+{
+    return ^(NSString* key){
+        return [self valueForKey:key];
+    };
+}
+- (void)setValueSet:(NSObject *(^)(NSString *, id))valueSet{};
+
+- (NSObject *(^)(NSString *, id))valueSet
+{
+    return ^(NSString* key, id value){
+        [self setValue:value forKey:key];
+        return self;
+    };
+}
+- (void)setValueGet:(id (^)(NSString *))valueGet{};
+
+- (id (^)(NSString *))valuePathGet
+{
+    return ^(NSString* key){
+        return [self valueForKeyPath:key];
+    };
+}
+- (void)setValuePathSet:(NSObject *(^)(NSString *, id))valuePathSet{};
+
+- (NSObject *(^)(NSString *, id))valuePathSet
+{
+    return ^(NSString* key, id value){
+        [self setValue:value forKeyPath:key];
+        return self;
+    };
+}
+- (void)setValuePathGet:(id (^)(NSString *))valuePathGet{};
+
+#pragma mark - quick use type
+- (NSString *(^)())typeIsNSString
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSString:(NSString *(^)())typeIsNSString{};
+
+- (NSMutableString *(^)())typeIsNSMutableString
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSMutableString:(NSMutableString *(^)())typeIsNSMutableString{};
+
+- (NSArray *(^)())typeIsNSArray
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSArray:(NSArray *(^)())typeIsNSArray{};
+
+- (NSMutableArray *(^)())typeIsNSMutableArray
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSMutableArray:(NSMutableArray *(^)())typeIsNSMutableArray{};
+
+- (NSDictionary *(^)())typeIsNSDictionary
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSDictionary:(NSDictionary *(^)())typeIsNSDictionary{};
+
+- (NSMutableDictionary *(^)())typeIsNSMutableDictionary
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSMutableDictionary:(NSMutableDictionary *(^)())typeIsNSMutableDictionary{};
+
+- (NSAttributedString *(^)())typeIsNSAttributedString
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSAttributedString:(NSAttributedString *(^)())typeIsNSAttributedString{};
+
+- (NSMutableAttributedString *(^)())typeIsNSMutableAttributedString
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSMutableAttributedString:(NSMutableAttributedString *(^)())typeIsNSMutableAttributedString{};
+
+- (UIView *(^)())typeIsUIView
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUIView:(UIView *(^)())typeIsUIView{};
+
+- (UILabel *(^)())typeIsUILabel
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUILabel:(UILabel *(^)())typeIsUILabel{};
+
+- (UIControl *(^)())typeIsUIControl
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUIControl:(UIControl *(^)())typeIsUIControl{};
+
+- (UIButton *(^)())typeIsUIButton
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUIButton:(UIButton *(^)())typeIsUIButton{};
+
+- (UIScrollView *(^)())typeIsUIScrollView
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUIScrollView:(UIScrollView *(^)())typeIsUIScrollView{};
+
+- (UIImage *(^)())typeIsUIImage
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUIImage:(UIImage *(^)())typeIsUIImage{};
+
+- (UIColor *(^)())typeIsUIColor
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUIColor:(UIColor *(^)())typeIsUIColor{};
+
+- (UIImageView *(^)())typeIsUIImageView
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUIImageView:(UIImageView *(^)())typeIsUIImageView{};
+
+
 #pragma mark - extension for func
 
 static const char* blockName = "quxingyiHandsome";
-- (void)objBlockSet:(NSString*)name executeBlock:(id(^)())executeBlock
+- (void)objBlockSet:(NSString*)name block:(id(^)())executeBlock
 {
     if([name isKindOfClass:[NSString class]] && executeBlock)
         [self novoGetBlocksDict][name]= executeBlock;

@@ -6,8 +6,7 @@
 //
 
 #import "LinkBlock.h"
-#import "NSAttributedString+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
+
 
 @implementation NSObject(NSAttributedStringLinkBlock)
 - (CGRect (^)(CGFloat))attr_strSize

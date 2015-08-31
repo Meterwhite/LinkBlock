@@ -6,15 +6,14 @@
 //
 
 #import "LinkBlock.h"
-#import "NSMutableDictionary+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
+
 
 
 @implementation NSObject(NSMutableDictionaryLinkBlock)
 - (NSMutableDictionary *(^)(id<NSCopying>  , id))m_dictSetValue
 {
     return ^(id<NSCopying> key  , id value){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if(!value || !key )
             return _self;
         _self[key]= value;
@@ -25,7 +24,7 @@
 - (NSMutableDictionary *(^)(id<NSCopying> , id<NSCopying> ))m_dictReplaceKey
 {
     return ^(id<NSCopying> key , id<NSCopying> withKey){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         NSArray* allKeys = [_self allKeys];
         if(![allKeys containsObject:key] || [allKeys containsObject:withKey])
             return _self;
@@ -41,7 +40,7 @@
 - (NSMutableDictionary *(^)(NSDictionary *))m_dictUnionDict
 {
     return ^(NSDictionary* dict){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         [_self addEntriesFromDictionary:dict];
         return _self;
     };
@@ -53,7 +52,7 @@
 - (NSMutableDictionary *(^)(UIFont *))m_dictAttrStrFont
 {
     return ^(UIFont *font){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([font isKindOfClass:[UIFont class]]){
             _self[NSFontAttributeName]= font;
         }
@@ -64,7 +63,7 @@
 - (NSMutableDictionary *(^)(UIColor *))m_dictAttrStrTextColor
 {
     return ^(UIColor *color){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([color isKindOfClass:[UIColor class]]){
             _self[NSForegroundColorAttributeName]= color;
         }
@@ -75,7 +74,7 @@
 - (NSMutableDictionary *(^)(UIColor *))m_dictAttrStrBGColor
 {
     return ^(UIColor *color){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([color isKindOfClass:[UIColor class]]){
             _self[NSBackgroundColorAttributeName]= color;
         }
@@ -86,7 +85,7 @@
 - (NSMutableDictionary *(^)(NSTextAttachment *))m_dictAttrStrAttachment
 {
     return ^(NSTextAttachment* attachment){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([attachment isKindOfClass:[NSTextAttachment class]]){
             _self[NSAttachmentAttributeName]= attachment;
         }
@@ -97,7 +96,7 @@
 - (NSMutableDictionary *(^)(NSParagraphStyle* paragraphStyle))m_dictAttrStrParagraphStyle
 {
     return ^(NSParagraphStyle* paragraphStyle){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([paragraphStyle isKindOfClass:[NSParagraphStyle class]]){
             _self[NSParagraphStyleAttributeName]= paragraphStyle;
         }
@@ -108,7 +107,7 @@
 - (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrLigature
 {
     return ^(NSNumber *num){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]])
             _self[NSLigatureAttributeName]= num;
         return _self;
@@ -118,7 +117,7 @@
 - (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrKern
 {
     return ^(NSNumber *num){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]])
             _self[NSKernAttributeName]= num;
         return _self;
@@ -128,7 +127,7 @@
 - (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrStrikethroughStyle
 {
     return ^(NSNumber *num){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]])
             _self[NSStrikethroughStyleAttributeName]= num;
         return _self;
@@ -138,7 +137,7 @@
 - (NSMutableDictionary *(^)(NSUnderlineStyle))m_dictAttrStrUnderlineStyle
 {
     return ^(NSUnderlineStyle underlineStyle){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         _self[NSUnderlineStyleAttributeName]= @(underlineStyle);
         return _self;
     };
@@ -147,7 +146,7 @@
 - (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrStrokeColor
 {
     return ^(UIColor* color){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([color isKindOfClass:[UIColor class]]){
             _self[NSStrokeColorAttributeName]= color;
         }
@@ -158,7 +157,7 @@
 - (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrStrokeWidth
 {
     return ^(NSNumber *num){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSStrokeWidthAttributeName]= num;
         }
@@ -169,7 +168,7 @@
 - (NSMutableDictionary *(^)(NSShadow*))m_dictAttrStrShadow
 {
     return ^(NSShadow* shadown){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([shadown isKindOfClass:[NSShadow class]]){
             _self[NSShadowAttributeName]= shadown;
         }
@@ -179,7 +178,7 @@
 - (NSMutableDictionary *(^)(NSString*))m_dictAttrStrTextEffect
 {
     return ^(NSString* textEffect){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([textEffect isKindOfClass:[NSString class]]){
             _self[NSTextEffectAttributeName]= textEffect;
         }
@@ -190,7 +189,7 @@
 - (NSMutableDictionary *(^)(NSURL*))m_dictAttrStrLink
 {
     return ^(NSURL* linkURL){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([linkURL isKindOfClass:[NSURL class]]){
             _self[NSLinkAttributeName]= linkURL;
         }
@@ -201,7 +200,7 @@
 - (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrBaselineOffset
 {
     return ^(NSNumber *num){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSBaselineOffsetAttributeName]= num;
         }
@@ -212,7 +211,7 @@
 - (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrUnderlineColor
 {
     return ^(UIColor* underlineColor){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([underlineColor isKindOfClass:[UIColor class]]){
             _self[NSUnderlineColorAttributeName]= underlineColor;
         }
@@ -223,7 +222,7 @@
 - (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrStrikethroughColor
 {
     return ^(UIColor* bgColor){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([bgColor isKindOfClass:[UIColor class]]){
             _self[NSStrikethroughColorAttributeName]= bgColor;
         }
@@ -234,7 +233,7 @@
 - (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrObliquenes
 {
     return ^(NSNumber *num){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSObliquenessAttributeName]= num;
         }
@@ -245,7 +244,7 @@
 - (NSMutableDictionary *(^)(NSNumber *n))m_dictAttrStrExpansion
 {
     return ^(NSNumber *num){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSExpansionAttributeName]= num;
         }
@@ -256,7 +255,7 @@
 - (NSMutableDictionary *(^)(NSArray*))m_dictAttrStrWritingDirection
 {
     return ^(NSArray* writingDirection){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([writingDirection isKindOfClass:[NSArray class]]){
             _self[NSWritingDirectionAttributeName]= writingDirection;
         }
@@ -267,7 +266,7 @@
 - (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrVerticalGlyphForm
 {
     return ^(NSNumber *num){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSMutableDictionary);
+        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSVerticalGlyphFormAttributeName]= num;
         }

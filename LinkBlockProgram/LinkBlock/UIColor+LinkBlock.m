@@ -12,7 +12,7 @@
 - (NSString *(^)(NSString *))colorToStrWithPrefix
 {
     return ^(NSString* prefix){
-        LinkError_REF_AUTO_IF(NSString, UIColor);
+        LinkError_REF_AUTO(NSString, UIColor);
         NSMutableString* reIsMStr = [NSMutableString string];
         if([prefix isKindOfClass:[NSString class]])
             [reIsMStr appendString:prefix];
@@ -112,7 +112,7 @@
 - (UIColor* (^)(CGFloat))colorRedSet
 {
     return ^(CGFloat value){
-        LinkError_REF_AUTO_IF(UIColor, UIColor);
+        LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;
         CGFloat g;
@@ -131,7 +131,7 @@
 - (UIColor* (^)(CGFloat))colorGreenSet
 {
     return ^(CGFloat value){
-        LinkError_REF_AUTO_IF(UIColor, UIColor);
+        LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;
         CGFloat g;
@@ -150,7 +150,7 @@
 - (UIColor* (^)(CGFloat))colorBlueSet
 {
     return ^(CGFloat value){
-        LinkError_REF_AUTO_IF(UIColor, UIColor);
+        LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;
         CGFloat g;
@@ -169,7 +169,7 @@
 - (UIColor* (^)(CGFloat))colorAlphaSet
 {
     return ^(CGFloat value){
-        LinkError_REF_AUTO_IF(UIColor, UIColor);
+        LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;
         CGFloat g;

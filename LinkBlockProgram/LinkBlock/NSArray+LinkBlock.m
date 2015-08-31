@@ -43,7 +43,7 @@
 - (NSArray *(^)(NSUInteger, NSUInteger))arrObjsFromIndexTo
 {
     return ^(NSUInteger idx1, NSUInteger idx2){
-        LinkError_REF_AUTO_IF(NSArray, NSArray);
+        LinkError_REF_AUTO(NSArray, NSArray);
         if(idx1>idx2 || idx1> _self.count-1)
             return (NSArray *)([NSArray new]);
 
@@ -59,7 +59,7 @@
 - (NSDictionary *(^)())arrToDictByKeyNumber
 {
     return ^(){
-        LinkError_REF_AUTO_IF(NSDictionary, NSArray);
+        LinkError_REF_AUTO(NSDictionary, NSArray);
         NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [reIsDictM setObject:obj forKey:@(idx)];
@@ -72,7 +72,7 @@
 - (NSDictionary *(^)())arrToDictByKeyString
 {
     return ^(){
-        LinkError_REF_AUTO_IF(NSDictionary, NSArray);
+        LinkError_REF_AUTO(NSDictionary, NSArray);
         NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [reIsDictM setObject:obj forKey:[NSString stringWithFormat:@"%lu", (unsigned long)idx]];
@@ -134,7 +134,7 @@
 - (NSObject *(^)(NSUInteger))arrValueAtNSObject
 {
     return ^(NSUInteger idx){
-        LinkError_REF_AUTO_IF(NSObject, NSArray);
+        LinkError_REF_AUTO(NSObject, NSArray);
         return (NSObject*)_self.arrValueAtType([NSObject class],idx);
     };
 }
@@ -143,7 +143,7 @@
 - (NSString *(^)(NSUInteger))arrValueAtNSString
 {
     return ^(NSUInteger idx){
-        LinkError_REF_AUTO_IF(NSString, NSArray);
+        LinkError_REF_AUTO(NSString, NSArray);
         return (NSString*)_self.arrValueAtType([NSString class],idx);
     };
 }
@@ -152,7 +152,7 @@
 - (NSNumber *(^)(NSUInteger))arrValueAtNSNumber
 {
     return ^(NSUInteger idx){
-        LinkError_REF_AUTO_IF(NSNumber, NSArray);
+        LinkError_REF_AUTO(NSNumber, NSArray);
         return (NSNumber*)_self.arrValueAtType([NSNumber class],idx);
     };
 }
@@ -161,7 +161,7 @@
 - (NSArray *(^)(NSUInteger))arrValueAtNSArrary
 {
     return ^(NSUInteger idx){
-        LinkError_REF_AUTO_IF(NSArray, NSArray);
+        LinkError_REF_AUTO(NSArray, NSArray);
         return (NSArray*)_self.arrValueAtType([NSArray class],idx);
     };
 }
@@ -170,7 +170,7 @@
 - (NSMutableArray *(^)(NSUInteger))arrValueAtNSMutableArray
 {
     return ^(NSUInteger idx){
-        LinkError_REF_AUTO_IF(NSMutableArray, NSArray);
+        LinkError_REF_AUTO(NSMutableArray, NSArray);
         return (NSMutableArray*)_self.arrValueAtType([NSMutableArray class],idx);
     };
 }
@@ -179,7 +179,7 @@
 - (NSDictionary *(^)(NSUInteger))arrValueAtNSDictionary
 {
     return ^(NSUInteger idx){
-        LinkError_REF_AUTO_IF(NSDictionary, NSArray);
+        LinkError_REF_AUTO(NSDictionary, NSArray);
         return (NSDictionary*)_self.arrValueAtType([NSDictionary class],idx);
     };
 }
@@ -188,7 +188,7 @@
 - (NSMutableDictionary *(^)(NSUInteger))arrValueAtNSMutableDictionary
 {
     return ^(NSUInteger idx){
-        LinkError_REF_AUTO_IF(NSMutableDictionary, NSArray);
+        LinkError_REF_AUTO(NSMutableDictionary, NSArray);
         return (NSMutableDictionary*)_self.arrValueAtType([NSMutableDictionary class],idx);
     };
 }
@@ -197,7 +197,7 @@
 - (UIView *(^)(NSUInteger))arrValueAtUIVIew
 {
     return ^(NSUInteger idx){
-        LinkError_REF_AUTO_IF(UIView, NSArray);
+        LinkError_REF_AUTO(UIView, NSArray);
         return (UIView*)_self.arrValueAtType([UIView class],idx);
     };
 }
@@ -206,7 +206,7 @@
 - (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
 {
     return ^(__unsafe_unretained Class typeClass){
-        LinkError_REF_AUTO_IF(NSArray, NSArray);
+        LinkError_REF_AUTO(NSArray, NSArray);
         if(!typeClass)
             return _self;
         NSMutableArray* reIsMArr = [NSMutableArray array];
@@ -219,4 +219,33 @@
     };
 }
 - (void)setArrValuesOfType:(NSArray *(^)(__unsafe_unretained Class))blockValuesOfType{};
+
+- (NSArray *(^)(NSString *))arrFilter
+{
+    return ^(NSString* predicateFormat){
+        LinkError_REF_AUTO(NSArray, NSArray);
+        return [_self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
+    };
+}
+- (void)setArrFilter:(NSArray *(^)(NSString *))arrFilter{};
+
+
+
+- (void)arrEnumerateWithPredicateFormat:(NSString *)predicateFormat
+                                  usingBlock:(void (^)(id, NSUInteger, BOOL *))block
+{
+    LinkError_VAL_IF(NSArray){
+        return;
+    }
+    NSMutableArray* re= [NSMutableArray new];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat];
+    [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if([predicate evaluateWithObject:obj]){
+            [re addObject:obj];
+            if(block){
+                block(obj, idx, &*stop);
+            }
+        }
+    }];
+}
 @end

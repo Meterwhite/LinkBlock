@@ -56,4 +56,17 @@
 @property (nonatomic,copy) UIView*                  (^arrValueAtUIVIew)(NSUInteger idx);
 
 @property (nonatomic,copy) NSArray*                 (^arrValuesOfType)(Class typeClass);
+/** 组数过滤 */
+@property (nonatomic,copy) NSArray*                 (^arrFilter)(NSString* predicateFormat);
+
+/**
+ *  根据条件过滤并遍历数组
+ *
+ *  @param predicateFormat "engine.horsepower > 150"
+ *
+ *  @return 根据条件过滤后的结果集
+ */
+- (void)arrEnumerateWithPredicateFormat:(NSString*)predicateFormat
+                                 usingBlock:(void(^)(id obj, NSUInteger idx, BOOL *stop))block;
+
 @end

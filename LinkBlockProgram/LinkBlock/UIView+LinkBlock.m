@@ -15,7 +15,7 @@
 - (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))viewSetFrame
 {
     return ^(CGFloat x,CGFloat y, CGFloat width, CGFloat height){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.frame= CGRectMake(x, y, width, height);
         return _self;
     };
@@ -24,7 +24,7 @@
 - (UIView *(^)(CGFloat))viewSetX
 {
     return ^(CGFloat x){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CGRect frame = _self.frame;
         frame.origin.x = x;
         _self.frame = frame;
@@ -35,7 +35,7 @@
 - (UIView *(^)(CGFloat))viewSetY
 {
     return ^(CGFloat y){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CGRect frame = _self.frame;
         frame.origin.y = y;
         _self.frame = frame;
@@ -46,7 +46,7 @@
 - (UIView *(^)(CGFloat))viewSetCenterX
 {
     return ^(CGFloat centerX){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CGPoint center = _self.center;
         center.x = centerX;
         _self.center = center;
@@ -57,7 +57,7 @@
 - (UIView *(^)(CGFloat))viewSetCenterY
 {
     return ^(CGFloat centerY){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CGPoint center = _self.center;
         center.y = centerY;
         _self.center = center;
@@ -68,7 +68,7 @@
 - (UIView *(^)(CGFloat))viewSetWidth
 {
     return ^(CGFloat width){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CGRect frame= _self.frame;
         frame.size.width= width;
         _self.frame= frame;
@@ -79,7 +79,7 @@
 - (UIView *(^)(CGFloat))viewSetHeight
 {
     return ^(CGFloat height){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CGRect frame= _self.frame;
         frame.size.height= height;
         _self.frame= frame;
@@ -90,7 +90,7 @@
 - (UIView *(^)(CGFloat,CGFloat))viewSetSize
 {
     return ^(CGFloat width, CGFloat height){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CGRect frame= _self.frame;
         frame.size.width= width;
         frame.size.height= height;
@@ -102,7 +102,7 @@
 - (UIView *(^)(CGFloat,CGFloat))viewSetOrigin
 {
     return ^(CGFloat x,CGFloat y){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CGRect frame= _self.frame;
         frame.origin.x= x;
         frame.origin.y= y;
@@ -114,15 +114,25 @@
 - (UIView *(^)(UIColor *))viewBGColor
 {
     return ^(UIColor *colore){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.backgroundColor= colore;
         return _self;
     };
 }
+- (UIView *(^)())viewBGColorRandom
+{
+    return ^(){
+        LinkError_REF_AUTO(UIView, UIView);
+        _self.backgroundColor= [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0];
+        return _self;
+    };
+}
+- (void)setViewBGColorRandom:(UIView *(^)())viewBGColorRandom{};
+
 - (UIView *(^)(CGFloat x,CGFloat y))viewSetCenter
 {
     return ^(CGFloat x,CGFloat y){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.center = CGPointMake(x, y);
         return _self;
     };
@@ -131,7 +141,7 @@
 - (UIView *(^)(UIColor *))viewBorderColor
 {
     return ^(UIColor* color){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         if(color.objIsKind([UIColor class])){
             _self.layer.borderColor= color.CGColor;
         }
@@ -142,7 +152,7 @@
 - (UIView *(^)(CGFloat))viewBorderWidth
 {
     return ^(CGFloat width){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.layer.borderWidth= width;
         return _self;
     };
@@ -151,7 +161,7 @@
 - (UIView *(^)(CGFloat))viewCornerRadius
 {
     return ^(CGFloat cornerRadius){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.layer.cornerRadius= cornerRadius;
         return _self;
     };
@@ -160,7 +170,7 @@
 - (UIView *(^)(BOOL))viewMasksToBounds
 {
     return ^(BOOL flag){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.layer.masksToBounds= flag;
         return _self;
     };
@@ -169,7 +179,7 @@
 - (UIView *(^)())viewFirstResponderSubViewForInput
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         __block UIView *re= nil;
         [_self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
             
@@ -218,7 +228,7 @@
 - (UIView *(^)(BOOL))viewUserInteractionEnabled
 {
     return ^(BOOL b){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.userInteractionEnabled = b;
         return _self;
     };
@@ -227,7 +237,7 @@
 - (UIView *(^)(BOOL))viewMultipleTouchEnabled
 {
     return ^(BOOL b){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.multipleTouchEnabled =b;
         return _self;
     };
@@ -236,7 +246,7 @@
 - (UIView *(^)(BOOL))viewExclusiveTouch
 {
     return ^(BOOL b){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.exclusiveTouch = b;
         return _self;
     };
@@ -245,7 +255,7 @@
 - (UIView *(^)(UIViewAutoresizing))viewAutoresizingMask
 {
     return ^(UIViewAutoresizing mask){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.autoresizingMask = mask;
         return _self;
     };
@@ -254,7 +264,7 @@
 - (UIView *(^)(BOOL))viewClipsToBounds
 {
     return ^(BOOL b){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.clipsToBounds = YES;
         return _self;
     };
@@ -263,7 +273,7 @@
 - (UIView *(^)(CGFloat))viewAlpha
 {
     return ^(CGFloat alpha){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.alpha= alpha;
         return _self;
     };
@@ -272,7 +282,7 @@
 - (UIView *(^)(CGFloat))viewOpaque
 {
     return ^(CGFloat opaque){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.opaque = opaque;
         return _self;
     };
@@ -281,7 +291,7 @@
 - (UIView *(^)(BOOL))viewHidden
 {
     return ^(BOOL b){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.hidden= b;
         return _self;
     };
@@ -290,7 +300,7 @@
 - (UIView *(^)(UIViewContentMode))viewContentMode
 {
     return ^(UIViewContentMode contentMode){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         _self.contentMode = contentMode;
         return _self;
     };
@@ -300,7 +310,7 @@
 - (UIView *(^)(NSUInteger))viewSubviewAt
 {
     return ^(NSUInteger index){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         if(index< _self.subviews.count)
             return (UIView*)(_self.subviews[index]);
         return (UIView*)[LinkError share];
@@ -309,7 +319,7 @@
 - (UIView *(^)())viewRemoveFromSuperview
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         [_self removeFromSuperview];
         return _self;
     };
@@ -317,7 +327,7 @@
 - (UIView *(^)(NSUInteger))viewRemoveSubviewAt
 {
     return ^(NSUInteger index){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         return _self.viewSubviewAt(index).viewRemoveFromSuperview();
     };
 }
@@ -325,7 +335,7 @@
 - (UIView *(^)(NSUInteger, NSUInteger))viewExchangeSubviewByIndex
 {
     return ^(NSUInteger index1, NSUInteger index2){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         [_self exchangeSubviewAtIndex:index1 withSubviewAtIndex:index2];
         return _self;
     };
@@ -334,7 +344,7 @@
 - (UIView *(^)(UIView *))viewRemoveSubviewTry
 {
     return ^(UIView* view){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         if([view isKindOfClass:[UIView class]] && view.viewIsSubviewTo(_self)){
             view.viewRemoveFromSuperview();
         }
@@ -345,7 +355,7 @@
 - (UIView *(^)())viewRemoveAll
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         [_self.subviews enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
             if(v.objIsKind([UIView class])){
                 [v removeFromSuperview];
@@ -358,7 +368,7 @@
 - (UIView *(^)(UIView *))viewAddSubview
 {
     return ^(UIView* subview){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         if([subview isKindOfClass:[UIView class]]){
             [_self addSubview:subview];
         }
@@ -369,7 +379,7 @@
 - (UIView *(^)(UIView *))viewAddToView
 {
     return ^(UIView* view){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         if([view isKindOfClass:[UIView class]]){
             [view addSubview:_self];
         }
@@ -380,7 +390,7 @@
 - (UIView *(^)(UIView *, NSUInteger))viewInsertSubviewAtIndex
 {
     return ^(UIView* view, NSUInteger index){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         [_self insertSubview:view atIndex:index];
         return _self;
     };
@@ -390,7 +400,7 @@
 - (UIView* (^)(BOOL))viewSubiewsExclusiveTouch
 {
     return ^(BOOL b){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         [_self.subviews enumerateObjectsUsingBlock:^(UIView* subView, NSUInteger idx, BOOL *stop) {
             if([subView isKindOfClass:[UIView class]]){
                 subView.exclusiveTouch = b;
@@ -404,7 +414,7 @@
 - (UIView *(^)(UIRectCorner, CGSize))viewCornerRadiusSide
 {
     return ^(UIRectCorner side , CGSize radius){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:_self.bounds
                                                    byRoundingCorners:side
                                                          cornerRadii:radius];
@@ -509,7 +519,7 @@
 - (UIView *(^)(double))viewAnimateShakeHorizental
 {
     return ^(double duration){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
         
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -523,7 +533,7 @@
 - (UIView *(^)(double))viewAnimateShakeVertical
 {
     return ^(double duration){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
         
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -539,7 +549,7 @@
 - (UIView *(^)())viewAnimateAppleMotionEffects
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         // Motion effects are available starting from iOS 7.
         if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending))
         {
@@ -565,7 +575,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval, BOOL))viewAnimatePulse
 {
     return ^(CGFloat scale,NSTimeInterval duration,BOOL repeat){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
         
         pulseAnimation.duration = duration;
@@ -584,7 +594,7 @@
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromTop
 {
     return ^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         
         NSString *subtype = @"fromTop";
         CATransition *transition = [CATransition animation];
@@ -607,7 +617,7 @@
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromBotton
 {
     return ^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         
         NSString *subtype = @"fromBottom";
         CATransition *transition = [CATransition animation];
@@ -630,7 +640,7 @@
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromLeft
 {
     return ^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         
         NSString *subtype = @"fromLeft";
         CATransition *transition = [CATransition animation];
@@ -653,7 +663,7 @@
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromRight
 {
     return ^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         
         NSString *subtype = @"fromRight";
         CATransition *transition = [CATransition animation];
@@ -676,7 +686,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToLeft
 {
     return ^(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         
         rotationAnimation.toValue = @(-angle);
@@ -695,7 +705,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToRight
 {
     return ^(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         
         rotationAnimation.toValue = @(angle);
@@ -714,7 +724,7 @@
 - (UIView *(^)())viewAnimateRemove
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         [CATransaction begin];
         [_self.layer removeAllAnimations];
         [CATransaction commit];
@@ -737,7 +747,7 @@
 - (UIView *(^)())viewAnimatePause
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CFTimeInterval pausedTime= [_self.layer convertTime:CACurrentMediaTime() fromLayer:nil];
         _self.layer.speed= 0.0;
         _self.layer.timeOffset= pausedTime;
@@ -749,7 +759,7 @@
 - (UIView *(^)())viewAnimateResume
 {
     return ^(){
-        LinkError_REF_AUTO_IF(UIView, UIView);
+        LinkError_REF_AUTO(UIView, UIView);
         CFTimeInterval pausedTime= [_self.layer timeOffset];
         _self.layer.speed= 1.0;
         _self.layer.timeOffset= 0.0;
@@ -798,4 +808,142 @@
 - (void)setViewAddToView:(UIView *(^)(UIView *))blockAddToView{};
 - (void)setViewAddSubview:(UIView *(^)(UIView *))blockAddSubview{};
 
+- (UIView *(^)(UIView *))viewUICopyFrame
+{
+    return ^(UIView* fromView){
+        LinkError_REF_AUTO(UIView, UIView);
+        _self.frame= fromView.frame;
+        return _self;
+    };
+}
+- (void)setViewUICopyFrame:(UIView *(^)(UIView *))viewUICopyFrame{};
+
+- (UIView *(^)(UIView *))viewUICopySize
+{
+    return ^(UIView* fromView){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGRect frame = _self.frame;
+        frame.size= frame.size;
+        _self.frame = frame;
+        return _self;
+    };
+}
+- (void)setViewUICopySize:(UIView *(^)(UIView *))viewUICopySize{};
+
+- (UIView *(^)(UIView *))viewUICopyOrigin
+{
+    return ^(UIView* fromView){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGRect frame = _self.frame;
+        frame.origin= frame.origin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+- (void)setViewUICopyOrigin:(UIView *(^)(UIView *))viewUICopyOrigin{};
+
+- (UIView *(^)(UIView *))viewUICopyCenter
+{
+    return ^(UIView* fromView){
+        LinkError_REF_AUTO(UIView, UIView);
+        _self.center = fromView.center;
+        return _self;
+    };
+}
+
+- (void)setViewUICopyCenter:(UIView *(^)(UIView *))viewUICopyCenter{};
+
+- (UIView *(^)(UIView *))viewUICopyCenterX
+{
+    return ^(UIView* fromView){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGPoint center = _self.center;
+        center.x= fromView.center.x;
+        _self.center = center;
+        return _self;
+    };
+}
+- (void)setViewUICopyCenterX:(UIView *(^)(UIView *))viewUICopyCenterX{};
+
+- (UIView *(^)(UIView *))viewUICopyCenterY
+{
+    return ^(UIView* fromView){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGPoint center = _self.center;
+        center.y= fromView.center.y;
+        _self.center = center;
+        return _self;
+    };
+}
+- (void)setViewUICopyCenterY:(UIView *(^)(UIView *))viewUICopyCenterY{};
+
+- (UIView *(^)(UIView *, CGFloat))viewUITopTo
+{
+    return ^(UIView* toView, CGFloat margin){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGRect frame = _self.frame;
+        frame.origin.y = toView.viewMaxY()+ margin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+- (void)setViewUITopTo:(UIView *(^)(UIView *, CGFloat))viewUITopTo{};
+
+- (UIView *(^)(UIView *, CGFloat))viewUIBottonTo
+{
+    return ^(UIView* toView, CGFloat margin){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGRect frame = _self.frame;
+        frame.origin.y = toView.frame.origin.y - margin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+- (void)setViewUIBottonTo:(UIView *(^)(UIView *, CGFloat))viewUIBottonTo{};
+
+- (UIView *(^)(UIView *, CGFloat))viewUILeftTo
+{
+    return ^(UIView* toView, CGFloat margin){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGRect frame = _self.frame;
+        frame.origin.x = toView.frame.origin.x - frame.size.width- margin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+- (void)setViewUILeftTo:(UIView *(^)(UIView *, CGFloat))viewUILeftTo{};
+
+- (UIView *(^)(UIView *, CGFloat))viewUIRightTo
+{
+    return ^(UIView* toView, CGFloat margin){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGRect frame = _self.frame;
+        frame.origin.x = toView.viewMaxX() + margin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+- (void)setViewUIRightTo:(UIView *(^)(UIView *, CGFloat))viewUIRightTo{};
+
+- (CGFloat (^)())viewMaxX
+{
+    return ^(){
+        LinkError_VAL_IF(UIView){
+            return 0.0;
+        }
+        return CGRectGetMaxX(_self.frame);
+    };
+}
+- (void)setViewMaxX:(CGFloat (^)())viewMaxX{};
+
+- (CGFloat (^)())viewMaxY
+{
+    return ^(){
+        LinkError_VAL_IF(UIView){
+            return 0.0;
+        }
+        return CGRectGetMaxY(_self.frame);
+    };
+}
+- (void)setViewMaxY:(CGFloat (^)())viewMaxY{};
 @end

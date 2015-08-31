@@ -106,8 +106,4 @@ static const char * privateDictName = "quxingyi";//私有字典名
     }
     
 }
-
-
 @end
-
-

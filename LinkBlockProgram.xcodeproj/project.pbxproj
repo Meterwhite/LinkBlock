@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F7D37DE1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D37DD1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m */; };
+		9FC43B591B92162B00F9C4B2 /* UIImageView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC43B581B92162B00F9C4B2 /* UIImageView+LinkBlock.m */; };
 		9FCC10961B850FE7004A66CA /* LinkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCC10951B850FE7004A66CA /* LinkError.m */; };
 		9FFDA2121B835E2F0044097D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2111B835E2F0044097D /* main.m */; };
 		9FFDA2151B835E2F0044097D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2141B835E2F0044097D /* AppDelegate.m */; };
@@ -44,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F7D37DC1B90CC1D0086DFCC /* UIScrollView+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+LinkBlock.h"; sourceTree = "<group>"; };
+		9F7D37DD1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+LinkBlock.m"; sourceTree = "<group>"; };
+		9FC43B571B92162B00F9C4B2 /* UIImageView+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LinkBlock.h"; sourceTree = "<group>"; };
+		9FC43B581B92162B00F9C4B2 /* UIImageView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LinkBlock.m"; sourceTree = "<group>"; };
 		9FCC10941B850FE7004A66CA /* LinkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkError.h; sourceTree = "<group>"; };
 		9FCC10951B850FE7004A66CA /* LinkError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkError.m; sourceTree = "<group>"; };
 		9FFDA20C1B835E2F0044097D /* LinkBlockProgram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkBlockProgram.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,12 +190,12 @@
 				9FFDA2391B835E690044097D /* NSArray+LinkBlock.m */,
 				9FFDA23E1B835E690044097D /* NSMutableArray+LinkBlock.h */,
 				9FFDA23F1B835E690044097D /* NSMutableArray+LinkBlock.m */,
-				9FFDA23A1B835E690044097D /* NSAttributedString+LinkBlock.h */,
-				9FFDA23B1B835E690044097D /* NSAttributedString+LinkBlock.m */,
 				9FFDA23C1B835E690044097D /* NSDictionary+LinkBlock.h */,
 				9FFDA23D1B835E690044097D /* NSDictionary+LinkBlock.m */,
 				9FFDA2421B835E690044097D /* NSMutableDictionary+LinkBlock.h */,
 				9FFDA2431B835E690044097D /* NSMutableDictionary+LinkBlock.m */,
+				9FFDA23A1B835E690044097D /* NSAttributedString+LinkBlock.h */,
+				9FFDA23B1B835E690044097D /* NSAttributedString+LinkBlock.m */,
 				9FFDA2401B835E690044097D /* NSMutableAttributedString+LinkBlock.h */,
 				9FFDA2411B835E690044097D /* NSMutableAttributedString+LinkBlock.m */,
 				9FFDA2441B835E690044097D /* NSMutableString+LinkBlock.h */,
@@ -200,12 +206,16 @@
 				9FFDA24D1B835E690044097D /* UIControl+LinkBlock.m */,
 				9FFDA24E1B835E690044097D /* UIImage+LinkBlock.h */,
 				9FFDA24F1B835E690044097D /* UIImage+LinkBlock.m */,
-				9FFDA2501B835E690044097D /* UILabel+LinkBlock.h */,
-				9FFDA2511B835E690044097D /* UILabel+LinkBlock.m */,
 				9FFDA2521B835E690044097D /* UIView+LinkBlock.h */,
 				9FFDA2531B835E690044097D /* UIView+LinkBlock.m */,
+				9FFDA2501B835E690044097D /* UILabel+LinkBlock.h */,
+				9FFDA2511B835E690044097D /* UILabel+LinkBlock.m */,
 				9FFDA2641B83AEE30044097D /* UIButton+LinkBlock.h */,
 				9FFDA2651B83AEE30044097D /* UIButton+LinkBlock.m */,
+				9F7D37DC1B90CC1D0086DFCC /* UIScrollView+LinkBlock.h */,
+				9F7D37DD1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m */,
+				9FC43B571B92162B00F9C4B2 /* UIImageView+LinkBlock.h */,
+				9FC43B581B92162B00F9C4B2 /* UIImageView+LinkBlock.m */,
 				9FCC10941B850FE7004A66CA /* LinkError.h */,
 				9FCC10951B850FE7004A66CA /* LinkError.m */,
 			);
@@ -317,10 +327,12 @@
 				9FFDA2181B835E2F0044097D /* ViewController.m in Sources */,
 				9FFDA2551B835E690044097D /* NSArray+LinkBlock.m in Sources */,
 				9FFDA2151B835E2F0044097D /* AppDelegate.m in Sources */,
+				9F7D37DE1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m in Sources */,
 				9FFDA2561B835E690044097D /* NSAttributedString+LinkBlock.m in Sources */,
 				9FFDA25F1B835E690044097D /* UIControl+LinkBlock.m in Sources */,
 				9FFDA2121B835E2F0044097D /* main.m in Sources */,
 				9FFDA2601B835E690044097D /* UIImage+LinkBlock.m in Sources */,
+				9FC43B591B92162B00F9C4B2 /* UIImageView+LinkBlock.m in Sources */,
 				9FFDA25D1B835E690044097D /* NSString+LinkBlock.m in Sources */,
 				9FFDA2571B835E690044097D /* NSDictionary+LinkBlock.m in Sources */,
 				9FFDA25A1B835E690044097D /* NSMutableDictionary+LinkBlock.m in Sources */,

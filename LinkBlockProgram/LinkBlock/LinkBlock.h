@@ -23,15 +23,18 @@
 #import "UIColor+LinkBlock.h"
 #import "UIView+LinkBlock.h"
 #import "UIButton+LinkBlock.h"
+#import "UIScrollView+LinkBlock.h"
+#import "UIImageView+LinkBlock.h"
 
-
-#define LinkError_REF_AUTO_IF(returnType , currType)\
+//引用类型宏定义
+#define LinkError_REF_AUTO(returnType , currType)\
 currType* _self = (currType*)self;\
 if([self isKindOfClass:[LinkError class]])\
     return (returnType *)self;\
 if(![self isKindOfClass:[currType class]])\
     return (returnType *)[LinkError share]\
 
+//值类型宏定义
 #define LinkError_VAL_IF(currType) \
 currType* _self = (currType*)self;\
 if([self isKindOfClass:[LinkError class]] || ![self isKindOfClass:[currType class]])
