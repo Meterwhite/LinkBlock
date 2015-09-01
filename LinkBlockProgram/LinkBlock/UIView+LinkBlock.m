@@ -929,7 +929,7 @@
 {
     return ^(){
         LinkError_VAL_IF(UIView){
-            return 0.0;
+            return (CGFloat)0.0;
         }
         return CGRectGetMaxX(_self.frame);
     };
@@ -940,7 +940,7 @@
 {
     return ^(){
         LinkError_VAL_IF(UIView){
-            return 0.0;
+            return (CGFloat)0.0;
         }
         return CGRectGetMaxY(_self.frame);
     };
