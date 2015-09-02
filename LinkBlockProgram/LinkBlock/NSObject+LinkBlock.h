@@ -74,6 +74,6 @@
 
 
 
-- (void)novoExecuteEventForSender:(id)target;
+- (void)novoExecuteEventForSender:(id)target __deprecated_msg("This method is private");
 @end
 

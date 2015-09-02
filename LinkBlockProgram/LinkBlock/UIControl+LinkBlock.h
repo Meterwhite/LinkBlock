@@ -22,5 +22,5 @@
 
 
 
-- (NSMutableDictionary *)private__GetPrivateDict;
+- (NSMutableDictionary *)private__GetPrivateDict __deprecated_msg("This method is private");
 @end
