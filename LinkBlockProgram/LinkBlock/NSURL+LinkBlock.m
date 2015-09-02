@@ -54,11 +54,12 @@
 }
 - (void)setUrlAssetsToUIImageByFullResolution:(UIImage *(^)())urlAssetsToUIImageByFullResolution{};
 
-- (NSData *(^)())urlToNSDataFromFile
+- (NSData *(^)())urlToNSDataFromContents
 {
     return ^(){
         LinkError_REF_AUTO(NSData, NSURL);
         return [NSData dataWithContentsOfURL:_self];
     };
 }
+- (void)setUrlToNSDataFromContents:(NSData *(^)())urlToNSDataFromContents{};
 @end

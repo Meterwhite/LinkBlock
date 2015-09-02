@@ -93,7 +93,7 @@
 @property (nonatomic,copy) CGAffineTransform    (^strToCGAffineTransform)();
 @property (nonatomic,copy) UIEdgeInsets         (^strToUIEdgeInsets)();
 @property (nonatomic,copy) UIOffset             (^strToUIOffset)();
-@property (nonatomic,copy) NSData*              (^strToNSDataFromFile)();
+@property (nonatomic,copy) NSData*              (^strToNSDataFromContents)();
 #pragma mark - regex（正则表达式
 @property (nonatomic,copy) BOOL                 (^strRegexIsMatch)(NSString* regex);
 /** NSTextCheckingResult arrary  */

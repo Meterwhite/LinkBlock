@@ -17,5 +17,5 @@
 /** 系统照片url转图像，全屏相片 */
 @property (nonatomic,copy) UIImage*         (^urlAssetsToUIImageByFullScreen)();
 
-@property (nonatomic,copy) NSData*          (^urlToNSDataFromFile)();
+@property (nonatomic,copy) NSData*          (^urlToNSDataFromContents)();
 @end

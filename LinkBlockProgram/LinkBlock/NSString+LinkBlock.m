@@ -686,14 +686,14 @@
     };
 }
 - (void)setStrToUIOffset:(UIOffset (^)())strToUIOffset{};
-- (NSData *(^)())strToNSDataFromFile
+- (NSData *(^)())strToNSDataFromContents
 {
     return ^(){
         LinkError_REF_AUTO(NSData, NSString);
         return [NSData dataWithContentsOfFile:_self];
     };
 }
-- (void)setStrToNSDataFromFile:(NSData *(^)())strToNSDataFromFile{};
+- (void)setStrToNSDataFromContents:(NSData *(^)())strToNSDataFromContents{};
 -(NSURL *(^)())strToNSURL
 {
     return ^(){
