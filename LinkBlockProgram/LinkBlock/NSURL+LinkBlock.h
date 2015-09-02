@@ -1,0 +1,21 @@
+//
+//  NSURL+LinkBlock.h
+//  LinkBlockProgram
+//
+//  Created by NOVO on 15/9/3.
+//  Copyright (c) 2015年 QuXingYi. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "LinkBlock.h"
+
+@interface NSObject(NSURLLinkBlock)
+/** 系统照片url转图像，缩略图 */
+@property (nonatomic,copy) UIImage*         (^urlAssetsToUIImageByThumbnail)();
+/** 系统照片url转图像，高清图 */
+@property (nonatomic,copy) UIImage*         (^urlAssetsToUIImageByFullResolution)();
+/** 系统照片url转图像，全屏相片 */
+@property (nonatomic,copy) UIImage*         (^urlAssetsToUIImageByFullScreen)();
+
+@property (nonatomic,copy) NSData*          (^urlToNSDataFromFile)();
+@end
