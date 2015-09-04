@@ -8,14 +8,18 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(UIImageLinkBlock)
+/**
+ *  图片转NSData
+ *  @ ratio: 仅仅针对JPEG格式有效的压缩质量
+ */
 @property (nonatomic,copy) NSData*          (^imgToData)(float ratio);
-
-@property (nonatomic,copy) UIImage*         (^imgResize)(CGSize maxSize);
+/** 保持比例放大或缩小图片 */
+@property (nonatomic,copy) UIImage*         (^imgResizeAspect)(CGSize maxSize);
 /** 剪切 */
 @property (nonatomic,copy) UIImage*         (^imgCut)(CGRect frame);
 /** 高斯模糊 */
 @property (nonatomic,copy) UIImage*         (^imgBlur)(float percent);
-
+/** 渲染模式 */
 @property (nonatomic,copy) UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
 
 @end

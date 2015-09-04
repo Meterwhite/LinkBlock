@@ -18,17 +18,19 @@
     [super viewDidLoad];
     
     //去空格和换行，并打印
-    @" 吴 倩 莲 的 风 和 欲 啊 \r\n 藏 了 多 少 梦 ".strClearSpaceAndWrap().nslog();
+    @" 吴 倩 莲 的 风 和 欲 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
     //字符串比较大小
     @"123".strCompare(@"111");
     //对数字敏感的字符串比较
     @"abc1.txt".strCompareNumberSensitive(@"abc2.txt");
-
     
     
     //添加一个按钮到视图上
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr()).viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
+    btn.viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
+    
+    //安全使用KVC
+    btn.setValueForKeySafe(@"0xff22cc".strToColorFromHexStr() , @"backgroundColor");
     
     //添加一个标签到视图上
     UILabel* lab = [UILabel new];
@@ -55,8 +57,11 @@
     }];
     
     
+    //字符串常量直接转颜色
+    @"0xff22cc".strToColorFromHexStr();
+    @"#ff22cc".strToColorFromHexStr();
+    @"ff22cc".strToColorFromHexStr();
     
-
     
     //正则表达式替换_xxx_为[xxx]
     @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
@@ -71,13 +76,11 @@
                                @{@"name":@"dli", @"age":@(-45)}  ];
     //过滤age<0的数据
     arrForFilter.arrFilter(@"age<0").nslog();
-    //过滤age<0的数据
+    //过滤age<100 并且 age>-1 的数据
     [arrForFilter arrEnumerateWithPredicateFormat:@"age>-1 and age<100"
                                        usingBlock:^(NSObject* obj, NSUInteger idx, BOOL *stop) {
         obj.nslog();
     }];
     
-
 }
-
 @end

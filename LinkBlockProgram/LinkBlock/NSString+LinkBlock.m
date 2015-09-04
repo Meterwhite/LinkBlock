@@ -37,7 +37,7 @@
 {
     return ^(NSString *str){
         LinkError_REF_AUTO(NSString, NSString);
-        if(str.objIsKind([NSString class])){
+        if(str.isKindOf([NSString class])){
             return [_self stringByAppendingString:str];
         }else{
             return _self;
@@ -50,7 +50,7 @@
 {
     return ^(NSString* replaceStr, NSString* withStr){
         LinkError_REF_AUTO(NSString, NSString);
-        if(replaceStr.objIsKind([NSString class]) && withStr.objIsKind([NSString class])){
+        if(replaceStr.isKindOf([NSString class]) && withStr.isKindOf([NSString class])){
             return [_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr];
         }
         else{
@@ -64,7 +64,7 @@
 {
     return ^(NSString* str, NSUInteger index){
         LinkError_REF_AUTO(NSString, NSString);
-        if(str.objIsKind([NSString class])){
+        if(str.isKindOf([NSString class])){
             NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
             [tNewMStr insertString:str atIndex:index];
             return (NSString*)[tNewMStr copy];
@@ -102,7 +102,7 @@
 {
     return ^(NSString* str, NSRange range){
         LinkError_REF_AUTO(NSString, NSString);
-        if(str.objIsKind([NSString class])){
+        if(str.isKindOf([NSString class])){
             return [_self stringByReplacingCharactersInRange:range withString:str];
         }else{
             return _self;
@@ -115,7 +115,7 @@
 {
     return ^(NSString *str){
         LinkError_REF_AUTO(NSString, NSString);
-        if(str.objIsKind([NSString class])){
+        if(str.isKindOf([NSString class])){
             return [_self stringByReplacingOccurrencesOfString:str withString:@""];
         }else{
             return _self;
@@ -694,6 +694,16 @@
     };
 }
 - (void)setStrToNSDataFromContents:(NSData *(^)())strToNSDataFromContents{};
+- (NSDate *(^)(NSString *))strToNSDateWithFormate
+{
+    return ^(NSString* formateStr){
+        LinkError_REF_AUTO(NSDate, NSString);
+        NSDateFormatter* fmt = [NSDateFormatter new];
+        fmt.dateFormat = formateStr;
+        return [fmt dateFromString:_self];
+    };
+}
+- (void)setStrToNSDateWithFormate:(NSDate *(^)(NSString *))strToNSDateWithFormate{};
 -(NSURL *(^)())strToNSURL
 {
     return ^(){

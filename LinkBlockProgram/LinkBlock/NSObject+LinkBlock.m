@@ -10,26 +10,149 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(LinkBlock)
+
+- (id (^)(NSString *))valueForKeySafe
+{
+    return ^(NSString* key){
+        @try {
+            return [self valueForKey:key];
+        }
+        @catch (NSException *exception) {
+#ifdef DEBUG
+            NSLog(@"LinkBlock log:\n%@",exception);
+#endif
+            return (id)nil;
+        }
+    };
+}
+- (void)setValueForKeySafe:(id (^)(NSString *))valueGetSafe{};
+
+- (NSObject *(^)(id ,NSString* ))setValueForKeySafe
+{
+    return ^(id value,NSString* key){
+        @try {
+            [self setValue:value forKey:key];
+        }
+        @catch (NSException *exception) {
+#ifdef DEBUG
+            NSLog(@"LinkBlock log:\n%@",exception);
+#endif
+            return self;
+        }
+        @finally {
+            return self;
+        }
+    };
+}
+- (void)setSetValueForKeySafe:(NSObject *(^)(id value,NSString* key))valueSetSafe{};
+
+- (id (^)(NSString *))valueForKeyPathSafe
+{
+    return ^(NSString* key){
+        @try {
+            return [self valueForKeyPath:key];
+        }
+        @catch (NSException *exception) {
+#ifdef DEBUG
+            NSLog(@"LinkBlock log:\n%@",exception);
+#endif
+            return (id)nil;
+        }
+    };
+}
+- (void)setValueForKeyPathSafe:(id (^)(NSString *))valuePathGetSafe{};
+
+- (NSObject *(^)(id ,NSString* ))setValueForKeyPathSafe
+{
+    return ^(id value,NSString* key){
+        @try {
+            [self setValue:value forKeyPath:key];
+        }
+        @catch (NSException *exception) {
+#ifdef DEBUG
+            NSLog(@"LinkBlock log:\n%@",exception);
+#endif
+            return self;
+        }
+        @finally {
+            return self;
+        }
+    };
+}
+- (void)setSetValueForKeyPathSafe:(NSObject *(^)(id value,NSString* key))valuePathSetSafe{};
+
++ (BOOL)currentClassContainProperty:(NSString*)property
+{
+    unsigned int outCount, i;
+    objc_property_t* properties = class_copyPropertyList([self class], &outCount);
+    for(i=0 ; i< outCount; i++)
+        if([property isEqualToString:[NSString stringWithUTF8String:property_getName(properties[i])]])
+            return YES;
+    
+    return NO;
+}
++ (BOOL)currentClassContainIvar:(NSString*)ivarName
+{
+    unsigned int outCout ,i ;
+    Ivar* ivarList = class_copyIvarList([self class], &outCout);
+    for(i=0;i< outCout;i++)
+        if([ivarName isEqualToString:[NSString stringWithUTF8String:ivar_getName(ivarList[i])]])
+            return YES;
+    
+    return NO;
+}
+
+
++ (NSArray*)classGetIvarList
+{
+    unsigned int outCount , i;
+    Ivar* ivarList = class_copyIvarList([self class], &outCount);
+    NSMutableArray* reMArr = [NSMutableArray new];
+    for(i=0 ; i< outCount; i++)
+        [reMArr addObject:[NSString stringWithUTF8String:ivar_getName(ivarList[i])]];
+    
+    return (NSArray*)[reMArr copy];
+}
++ (NSArray*)classGetPropertyList
+{
+    unsigned int outCount, i;
+    objc_property_t* properties = class_copyPropertyList([self class], &outCount);
+    
+    NSMutableArray* reMArr = [NSMutableArray new];
+    
+    for(i=0 ; i< outCount; i++)
+        [reMArr addObject:[NSString stringWithUTF8String:property_getName(properties[i])]];
+    
+    return (NSArray*)[reMArr copy];
+}
+
+
+
 - (NSObject *(^)())objCopy
 {
     return ^(){
         return (NSObject*)[self copy];
     };
 }
+- (void)setObjCopy:(NSObject *(^)())objCopy{};
+
 - (NSObject *(^)())objMutableCopy
 {
     return ^(){
         return (NSObject*)[self mutableCopy];
     };
 }
+- (void)setObjMutableCopy:(NSObject *(^)())objMutableCopy{};
+
 - (BOOL (^)(NSObject *))objIsEqual
 {
     return ^(NSObject* obj){
         return [self isEqual:obj];
     };
 }
+- (void)setObjIsEqual:(BOOL (^)(NSObject *))objIsEqual{};
 
-- (BOOL (^)( __unsafe_unretained Class))objIsKind
+- (BOOL (^)( __unsafe_unretained Class))isKindOf
 {
     return ^(Class classKind){
         if(!classKind)
@@ -37,7 +160,9 @@
         return [self isKindOfClass:classKind];
     };
 }
-- (BOOL (^)(__unsafe_unretained Class))objIsSubClassOf
+- (void)setIsKindOf:(BOOL (^)(__unsafe_unretained Class))objIsKind{};
+
+- (BOOL (^)(__unsafe_unretained Class))isSubClassOf
 {
     return ^(Class classKind){
         if(!classKind)
@@ -45,19 +170,21 @@
         return [[self class] isSubclassOfClass:classKind];
     };
 }
+- (void)setIsSubClassOf:(BOOL (^)(__unsafe_unretained Class))isSubClassOf{};
 
 - (NSObject* (^)(__unsafe_unretained Class))typeForceObj
 {
     return ^(Class theClass){
-        if(!theClass || !self.objIsKind(theClass)){
+        if(!theClass || !self.isKindOf(theClass)){
             return (NSObject*)[theClass new];
         }else{
             return self;
         }
     };
 }
+- (void)setTypeForceObj:(NSObject *(^)(__unsafe_unretained Class))typeForceObj{};
 
-- (BOOL (^)(SEL))objIsResponseSEL
+- (BOOL (^)(SEL))isRespondsSEL
 {
     return ^(SEL theSEL){
         if(theSEL){
@@ -67,6 +194,7 @@
         return NO;
     };
 }
+- (void)setIsRespondsSEL:(BOOL (^)(SEL))isResponseSEL{};
 
 
 - (NSString *(^)())objToJsonString
@@ -84,6 +212,7 @@
         return [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
     };
 }
+- (void)setObjToJsonString:(NSString *(^)())objToJsonString{};
 
 - (Class (^)())objClass
 {
@@ -91,13 +220,23 @@
         return [self class];
     };
 }
+- (void)setObjClass:(Class (^)())objClass{};
 
-- (NSString *(^)())objClassName
+- (NSString *(^)())className
 {
     return ^(){
-        return NSStringFromClass([self class]);
+        return NSStringFromClass(self.class);
     };
 }
+- (void)setClassName:(NSString *(^)())objClassName{};
+
+- (NSString *(^)())superclassName
+{
+    return ^(){
+        return NSStringFromClass(self.superclass);
+    };
+}
+- (void)setSuperclassName:(NSString *(^)())superclassName{};
 
 - (NSObject *(^)(id*))set
 {
@@ -112,21 +251,16 @@
 }
 - (void)setSet:(NSObject *(^)(id*))blockValueTo{};
 
-- (NSString *(^)())objToString
-{
-    return ^(){
-        return [self description];
-    };
-}
-- (void)setObjToString:(NSString *(^)())objToString{};
 
 - (NSObject *(^)())nslog
 {
     return ^(){
+#ifdef DEBUG
         LinkError_VAL_IF(NSObject){
             return (NSObject*)_self;
         }
         NSLog(@"%@",_self);
+#endif
         return _self;
     };
 }
@@ -143,51 +277,40 @@
 }
 - (void)setEnd:(id(^)())end{};
 
-- (void)setObjCopy:(NSObject *(^)())blockCopy{};
-- (void)setObjMutableCopy:(NSObject *(^)())blockMutableCopy{};
-- (void)setObjIsEqual:(BOOL (^)(NSObject *))blockIsEqual{};
-- (void)setTypeForceObj:(NSObject* (^)(__unsafe_unretained Class))blockTypeKeep{};
-- (void)setObjIsResponseSEL:(BOOL (^)(SEL))blockIsResponseSEL{};
-- (void)setObjIsKind:(BOOL (^)( __unsafe_unretained Class))blockIsKindOf{}
-- (void)setObjIsSubClassOf:(BOOL (^)(__unsafe_unretained Class))blockIsSubClass{};
-- (void)setObjToJsonString:(NSString *(^)())blockToJsonString{};
-- (void)setObjClass:(Class (^)())blockClass{};
-- (void)setObjClassName:(NSString *(^)())blockClassName{};
 
-
-- (id (^)(NSString *))valueGet
+- (id (^)(NSString *))valueForKey
 {
     return ^(NSString* key){
         return [self valueForKey:key];
     };
 }
-- (void)setValueSet:(NSObject *(^)(NSString *, id))valueSet{};
+- (void)setValueForKey:(id (^)(NSString *))valueForKey{};
 
-- (NSObject *(^)(NSString *, id))valueSet
+- (NSObject *(^)(id, NSString* ))setValueForKey
 {
-    return ^(NSString* key, id value){
+    return ^(id value, NSString* key){
         [self setValue:value forKey:key];
         return self;
     };
 }
-- (void)setValueGet:(id (^)(NSString *))valueGet{};
+- (void)setSetValueForKey:(NSObject *(^)(id, NSString *))setValueForKey{};
 
-- (id (^)(NSString *))valuePathGet
+- (id (^)(NSString *))valueForKeyPath
 {
     return ^(NSString* key){
         return [self valueForKeyPath:key];
     };
 }
-- (void)setValuePathSet:(NSObject *(^)(NSString *, id))valuePathSet{};
+- (void)setValueForKeyPath:(id (^)(NSString *))valueForKeyPath{};
 
-- (NSObject *(^)(NSString *, id))valuePathSet
+- (NSObject *(^)(id , NSString* ))setValueForKeyPath
 {
-    return ^(NSString* key, id value){
+    return ^(id value, NSString* key){
         [self setValue:value forKeyPath:key];
         return self;
     };
 }
-- (void)setValuePathGet:(id (^)(NSString *))valuePathGet{};
+- (void)setSetValueForKeyPath:(NSObject *(^)(id, NSString *))setValueForKeyPath{};
 
 #pragma mark - quick use type
 - (NSString *(^)())typeIsNSString
@@ -254,6 +377,22 @@
 }
 - (void)setTypeIsNSMutableAttributedString:(NSMutableAttributedString *(^)())typeIsNSMutableAttributedString{};
 
+- (NSURL *(^)())typeIsNSURL
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSURL:(NSURL *(^)())typeIsNSURL{};
+
+- (NSUserDefaults *(^)())typeIsNSUserDefaults
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsNSUserDefaults:(NSUserDefaults *(^)())typeIsNSUserDefaults{};
+
 - (UIView *(^)())typeIsUIView
 {
     return ^(){
@@ -310,6 +449,14 @@
 }
 - (void)setTypeIsUIColor:(UIColor *(^)())typeIsUIColor{};
 
+- (UIViewController *(^)())typeIsUIViewController
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUIViewController:(UIViewController *(^)())typeIsUIViewController{};
+
 - (UIImageView *(^)())typeIsUIImageView
 {
     return ^(){
@@ -318,6 +465,13 @@
 }
 - (void)setTypeIsUIImageView:(UIImageView *(^)())typeIsUIImageView{};
 
+- (UITableView *(^)())typeIsUITableView
+{
+    return ^(){
+        return (id)self;
+    };
+}
+- (void)setTypeIsUITableView:(UITableView *(^)())typeIsUITableView{};
 
 #pragma mark - extension for func
 

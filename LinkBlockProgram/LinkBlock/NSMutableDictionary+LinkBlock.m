@@ -20,6 +20,7 @@
         return _self;
     };
 }
+- (void)setM_dictSetValue:(NSMutableDictionary *(^)(id<NSCopying>, id))m_dictSetValue{};
 
 - (NSMutableDictionary *(^)(id<NSCopying> , id<NSCopying> ))m_dictReplaceKey
 {
@@ -59,6 +60,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrFont:(NSMutableDictionary *(^)(UIFont *))m_dictAttrStrFont{};
 
 - (NSMutableDictionary *(^)(UIColor *))m_dictAttrStrTextColor
 {
@@ -70,6 +72,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrTextColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrTextColor{};
 
 - (NSMutableDictionary *(^)(UIColor *))m_dictAttrStrBGColor
 {
@@ -81,6 +84,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrBGColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrBGColor{};
 
 - (NSMutableDictionary *(^)(NSTextAttachment *))m_dictAttrStrAttachment
 {
@@ -92,6 +96,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrAttachment:(NSMutableDictionary *(^)(NSTextAttachment *))m_dictAttrStrAttachment{};
 
 - (NSMutableDictionary *(^)(NSParagraphStyle* paragraphStyle))m_dictAttrStrParagraphStyle
 {
@@ -103,6 +108,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrParagraphStyle:(NSMutableDictionary *(^)(NSParagraphStyle *))m_dictAttrStrParagraphStyle{};
 
 - (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrLigature
 {
@@ -113,6 +119,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrLigature:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrLigature{};
 
 - (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrKern
 {
@@ -123,6 +130,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrKern:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrKern{};
 
 - (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrStrikethroughStyle
 {
@@ -133,6 +141,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrStrikethroughStyle:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrStrikethroughStyle{};
 
 - (NSMutableDictionary *(^)(NSUnderlineStyle))m_dictAttrStrUnderlineStyle
 {
@@ -142,6 +151,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrUnderlineStyle:(NSMutableDictionary *(^)(NSUnderlineStyle))m_dictAttrStrUnderlineStyle{};
 
 - (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrStrokeColor
 {
@@ -153,6 +163,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrStrokeColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrStrokeColor{};
 
 - (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrStrokeWidth
 {
@@ -164,6 +175,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrStrokeWidth:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrStrokeWidth{};
 
 - (NSMutableDictionary *(^)(NSShadow*))m_dictAttrStrShadow
 {
@@ -175,6 +187,8 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrShadow:(NSMutableDictionary *(^)(NSShadow *))m_dictAttrStrShadow{};
+
 - (NSMutableDictionary *(^)(NSString*))m_dictAttrStrTextEffect
 {
     return ^(NSString* textEffect){
@@ -185,6 +199,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrTextEffect:(NSMutableDictionary *(^)(NSString *))m_dictAttrStrTextEffect{};
 
 - (NSMutableDictionary *(^)(NSURL*))m_dictAttrStrLink
 {
@@ -196,6 +211,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrLink:(NSMutableDictionary *(^)(NSURL *))m_dictAttrStrLink{};
 
 - (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrBaselineOffset
 {
@@ -207,6 +223,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrBaselineOffset:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrBaselineOffset{};
 
 - (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrUnderlineColor
 {
@@ -218,6 +235,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrUnderlineColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrUnderlineColor{};
 
 - (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrStrikethroughColor
 {
@@ -229,6 +247,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrStrikethroughColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrStrikethroughColor{};
 
 - (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrObliquenes
 {
@@ -240,6 +259,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrObliquenes:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrObliquenes{};
 
 - (NSMutableDictionary *(^)(NSNumber *n))m_dictAttrStrExpansion
 {
@@ -251,6 +271,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrExpansion:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrExpansion{};
 
 - (NSMutableDictionary *(^)(NSArray*))m_dictAttrStrWritingDirection
 {
@@ -262,6 +283,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrWritingDirection:(NSMutableDictionary *(^)(NSArray *))m_dictAttrStrWritingDirection{};
 
 - (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrVerticalGlyphForm
 {
@@ -273,6 +295,7 @@
         return _self;
     };
 }
+- (void)setM_dictAttrStrVerticalGlyphForm:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrVerticalGlyphForm{};
 
 - (id (^)(id<NSCopying>))m_dictGet
 {
@@ -362,31 +385,5 @@
 }
 - (void)setM_dictKeysForValue:(NSArray *(^)(id))m_dictKeysForValue{};
 
-- (void)setM_dictSetValue:(NSMutableDictionary *(^)(id<NSCopying> , id))blockSetValue{};
 
-- (void)setM_dictAttrStrAttachment:(NSMutableDictionary *(^)(NSTextAttachment *))blockAttrStrAttachment{};
-- (void)setM_dictAttrStrBaselineOffset:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrBaselineOffset{};
-- (void)setM_dictAttrStrBGColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrBGColor{};
-- (void)setM_dictAttrStrExpansion:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrExpansion{};
-- (void)setM_dictAttrStrFont:(NSMutableDictionary *(^)(UIFont *))blockAttrStrFont{};
-
-- (void)setM_dictAttrStrKern:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrKern{};
-- (void)setM_dictAttrStrLigature:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrLigature{};
-- (void)setM_dictAttrStrLink:(NSMutableDictionary *(^)(NSURL *))blockAttrStrLink{};
-- (void)setM_dictAttrStrObliquenes:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrObliquenes{};
-- (void)setM_dictAttrStrParagraphStyle:(NSMutableDictionary *(^)(NSParagraphStyle *))blockAttrStrParagraphStyle{};
-
-- (void)setM_dictAttrStrShadow:(NSMutableDictionary *(^)(NSShadow *))blockAttrStrShadow{};
-- (void)setM_dictAttrStrStrikethroughColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrStrikethroughColor{};
-- (void)setM_dictAttrStrStrikethroughStyle:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrStrikethroughStyle{};
-- (void)setM_dictAttrStrStrokeColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrStrokeColor{};
-- (void)setM_dictAttrStrStrokeWidth:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrStrokeWidth{};
-
-- (void)setM_dictAttrStrTextColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrTextColor{};
-- (void)setM_dictAttrStrTextEffect:(NSMutableDictionary *(^)(NSString *))blockAttrStrTextEffect{};
-- (void)setM_dictAttrStrUnderlineColor:(NSMutableDictionary *(^)(UIColor *))blockAttrStrUnderlineColor{};
-- (void)setM_dictAttrStrUnderlineStyle:(NSMutableDictionary *(^)(NSUnderlineStyle))blockAttrStrUnderlineStyle{};
-- (void)setM_dictAttrStrVerticalGlyphForm:(NSMutableDictionary *(^)(NSNumber *))blockAttrStrVerticalGlyphForm{};
-
-- (void)setM_dictAttrStrWritingDirection:(NSMutableDictionary *(^)(NSArray *))blockAttrStrWritingDirection{};
 @end

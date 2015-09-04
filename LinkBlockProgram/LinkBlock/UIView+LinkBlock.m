@@ -10,8 +10,6 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(UIViewLinkBlock)
-
-
 - (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))viewSetFrame
 {
     return ^(CGFloat x,CGFloat y, CGFloat width, CGFloat height){
@@ -20,6 +18,7 @@
         return _self;
     };
 }
+- (void)setViewSetFrame:(UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))viewSetFrame{};
 
 - (UIView *(^)(CGFloat))viewSetX
 {
@@ -31,6 +30,7 @@
         return _self;
     };
 }
+- (void)setViewSetX:(UIView *(^)(CGFloat))viewSetX{};
 
 - (UIView *(^)(CGFloat))viewSetY
 {
@@ -42,6 +42,7 @@
         return _self;
     };
 }
+- (void)setViewSetY:(UIView *(^)(CGFloat))viewSetY{};
 
 - (UIView *(^)(CGFloat))viewSetCenterX
 {
@@ -53,6 +54,7 @@
         return _self;
     };
 }
+- (void)setViewSetCenterX:(UIView *(^)(CGFloat))viewSetCenterX{};
 
 - (UIView *(^)(CGFloat))viewSetCenterY
 {
@@ -64,6 +66,7 @@
         return _self;
     };
 }
+- (void)setViewSetCenterY:(UIView *(^)(CGFloat))viewSetCenterY{};
 
 - (UIView *(^)(CGFloat))viewSetWidth
 {
@@ -75,6 +78,7 @@
         return _self;
     };
 }
+- (void)setViewSetWidth:(UIView *(^)(CGFloat))viewSetWidth{};
 
 - (UIView *(^)(CGFloat))viewSetHeight
 {
@@ -86,6 +90,7 @@
         return _self;
     };
 }
+- (void)setViewSetHeight:(UIView *(^)(CGFloat))viewSetHeight{};
 
 - (UIView *(^)(CGFloat,CGFloat))viewSetSize
 {
@@ -98,6 +103,7 @@
         return _self;
     };
 }
+- (void)setViewSetSize:(UIView *(^)(CGFloat, CGFloat))viewSetSize{};
 
 - (UIView *(^)(CGFloat,CGFloat))viewSetOrigin
 {
@@ -110,6 +116,7 @@
         return _self;
     };
 }
+- (void)setViewSetOrigin:(UIView *(^)(CGFloat, CGFloat))viewSetOrigin{};
 
 - (UIView *(^)(UIColor *))viewBGColor
 {
@@ -119,6 +126,8 @@
         return _self;
     };
 }
+- (void)setViewBGColor:(UIView *(^)(UIColor *))viewBGColor{};
+
 - (UIView *(^)())viewBGColorRandom
 {
     return ^(){
@@ -137,17 +146,19 @@
         return _self;
     };
 }
+- (void)setViewSetCenter:(UIView *(^)(CGFloat, CGFloat))viewSetCenter{};
 
 - (UIView *(^)(UIColor *))viewBorderColor
 {
     return ^(UIColor* color){
         LinkError_REF_AUTO(UIView, UIView);
-        if(color.objIsKind([UIColor class])){
+        if(color.isKindOf([UIColor class])){
             _self.layer.borderColor= color.CGColor;
         }
         return _self;
     };
 }
+- (void)setViewBorderColor:(UIView *(^)(UIColor *))viewBorderColor{};
 
 - (UIView *(^)(CGFloat))viewBorderWidth
 {
@@ -157,6 +168,7 @@
         return _self;
     };
 }
+- (void)setViewBorderWidth:(UIView *(^)(CGFloat))viewBorderWidth{};
 
 - (UIView *(^)(CGFloat))viewCornerRadius
 {
@@ -166,6 +178,7 @@
         return _self;
     };
 }
+- (void)setViewCornerRadius:(UIView *(^)(CGFloat))viewCornerRadius{};
 
 - (UIView *(^)(BOOL))viewMasksToBounds
 {
@@ -175,6 +188,7 @@
         return _self;
     };
 }
+- (void)setViewMasksToBounds:(UIView *(^)(BOOL))viewMasksToBounds{};
 
 - (UIView *(^)())viewFirstResponderSubViewForInput
 {
@@ -183,7 +197,7 @@
         __block UIView *re= nil;
         [_self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
             
-            if(v.objIsKind([UITextView class])|| v.objIsKind([UITextField class])){
+            if(v.isKindOf([UITextView class])|| v.isKindOf([UITextField class])){
                 if(v.isFirstResponder){
                     re= v;
                     *stop= YES;
@@ -198,6 +212,7 @@
         return re;
     };
 }
+- (void)setViewFirstResponderSubViewForInput:(UIView *(^)())viewFirstResponderSubViewForInput{};
 
 - (CGRect (^)())viewConvertRectToWindow
 {
@@ -208,6 +223,7 @@
         return [_self.superview convertRect:_self.frame toView:nil];
     };
 }
+- (void)setViewConvertRectToWindow:(CGRect (^)())viewConvertRectToWindow{};
 
 - (BOOL (^)(UIView *))viewIsSubviewTo
 {
@@ -224,6 +240,7 @@
         return reIsBool;
     };
 }
+- (void)setViewIsSubviewTo:(BOOL (^)(UIView *))viewIsSubviewTo{};
 
 - (UIView *(^)(BOOL))viewUserInteractionEnabled
 {
@@ -233,6 +250,7 @@
         return _self;
     };
 }
+- (void)setViewUserInteractionEnabled:(UIView *(^)(BOOL))viewUserInteractionEnabled{};
 
 - (UIView *(^)(BOOL))viewMultipleTouchEnabled
 {
@@ -242,6 +260,7 @@
         return _self;
     };
 }
+- (void)setViewMultipleTouchEnabled:(UIView *(^)(BOOL))viewMultipleTouchEnabled{};
 
 - (UIView *(^)(BOOL))viewExclusiveTouch
 {
@@ -251,6 +270,7 @@
         return _self;
     };
 }
+- (void)setViewExclusiveTouch:(UIView *(^)(BOOL))viewExclusiveTouch{};
 
 - (UIView *(^)(UIViewAutoresizing))viewAutoresizingMask
 {
@@ -260,6 +280,7 @@
         return _self;
     };
 }
+- (void)setViewAutoresizingMask:(UIView *(^)(UIViewAutoresizing))viewAutoresizingMask{};
 
 - (UIView *(^)(BOOL))viewClipsToBounds
 {
@@ -269,6 +290,7 @@
         return _self;
     };
 }
+- (void)setViewClipsToBounds:(UIView *(^)(BOOL))viewClipsToBounds{};
 
 - (UIView *(^)(CGFloat))viewAlpha
 {
@@ -278,6 +300,7 @@
         return _self;
     };
 }
+- (void)setViewAlpha:(UIView *(^)(CGFloat))viewAlpha{};
 
 - (UIView *(^)(CGFloat))viewOpaque
 {
@@ -287,6 +310,7 @@
         return _self;
     };
 }
+- (void)setViewOpaque:(UIView *(^)(CGFloat))viewOpaque{};
 
 - (UIView *(^)(BOOL))viewHidden
 {
@@ -296,6 +320,7 @@
         return _self;
     };
 }
+- (void)setViewHidden:(UIView *(^)(BOOL))viewHidden{};
 
 - (UIView *(^)(UIViewContentMode))viewContentMode
 {
@@ -305,7 +330,7 @@
         return _self;
     };
 }
-
+- (void)setViewContentMode:(UIView *(^)(UIViewContentMode))viewContentMode{};
 
 - (UIView *(^)(NSUInteger))viewSubviewAt
 {
@@ -316,6 +341,8 @@
         return (UIView*)[LinkError share];
     };
 }
+- (void)setViewSubviewAt:(UIView *(^)(NSUInteger))viewSubviewAt{};
+
 - (UIView *(^)())viewRemoveFromSuperview
 {
     return ^(){
@@ -324,6 +351,8 @@
         return _self;
     };
 }
+- (void)setViewRemoveFromSuperview:(UIView *(^)())viewRemoveFromSuperview{};
+
 - (UIView *(^)(NSUInteger))viewRemoveSubviewAt
 {
     return ^(NSUInteger index){
@@ -331,6 +360,7 @@
         return _self.viewSubviewAt(index).viewRemoveFromSuperview();
     };
 }
+- (void)setViewRemoveSubviewAt:(UIView *(^)(NSUInteger))viewRemoveSubviewAt{};
 
 - (UIView *(^)(NSUInteger, NSUInteger))viewExchangeSubviewByIndex
 {
@@ -340,6 +370,7 @@
         return _self;
     };
 }
+- (void)setViewExchangeSubviewByIndex:(UIView *(^)(NSUInteger, NSUInteger))viewExchangeSubviewByIndex{};
 
 - (UIView *(^)(UIView *))viewRemoveSubviewTry
 {
@@ -351,19 +382,21 @@
         return _self;
     };
 }
+- (void)setViewRemoveSubviewTry:(UIView *(^)(UIView *))viewRemoveSubviewTry{};
 
 - (UIView *(^)())viewRemoveAll
 {
     return ^(){
         LinkError_REF_AUTO(UIView, UIView);
         [_self.subviews enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
-            if(v.objIsKind([UIView class])){
+            if(v.isKindOf([UIView class])){
                 [v removeFromSuperview];
             }
         }];
         return _self;
     };
 }
+- (void)setViewRemoveAll:(UIView *(^)())viewRemoveAll{};
 
 - (UIView *(^)(UIView *))viewAddSubview
 {
@@ -375,6 +408,7 @@
         return _self;
     };
 }
+- (void)setViewAddSubview:(UIView *(^)(UIView *))viewAddSubview{};
 
 - (UIView *(^)(UIView *))viewAddToView
 {
@@ -386,6 +420,7 @@
         return _self;
     };
 }
+- (void)setViewAddToView:(UIView *(^)(UIView *))viewAddToView{};
 
 - (UIView *(^)(UIView *, NSUInteger))viewInsertSubviewAtIndex
 {
@@ -530,6 +565,7 @@
     };
 }
 - (void)setViewAnimateShakeHorizental:(UIView *(^)(double))viewAnimateShakeHorizental{};
+
 - (UIView *(^)(double))viewAnimateShakeVertical
 {
     return ^(double duration){
@@ -770,43 +806,6 @@
     };
 }
 - (void)setViewAnimateResume:(UIView *(^)())viewAnimateResum{};
-
-- (void)setViewSetFrame:(UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))blockFrame{};
-- (void)setViewSetX:(UIView *(^)(CGFloat))blockX{};
-- (void)setViewSetY:(UIView *(^)(CGFloat))blockY{};
-- (void)setViewSetCenterX:(UIView *(^)(CGFloat))blockCenterX{};
-- (void)setViewSetCenterY:(UIView *(^)(CGFloat))blockCenterY{};
-- (void)setViewSetWidth:(UIView *(^)(CGFloat))blockWidth{};
-- (void)setViewSetHeight:(UIView *(^)(CGFloat))blockHeight{};
-- (void)setViewSetSize:(UIView *(^)(CGFloat, CGFloat))blockSize{};
-- (void)setViewSetOrigin:(UIView *(^)(CGFloat,CGFloat))blockOrigin{};
-- (void)setViewBGColor:(UIView *(^)(UIColor *))blockColor{};
-- (void)setViewSetCenter:(UIView *(^)(CGFloat x,CGFloat y))blockCenter{};
-- (void)setViewMasksToBounds:(UIView *(^)(BOOL))blockMasksToBounds{};
-- (void)setViewFirstResponderSubViewForInput:(UIView *(^)())blockFirstResponderSubView{};
-- (void)setViewBorderWidth:(UIView *(^)(CGFloat))blockBorderWidth{};
-- (void)setViewBorderColor:(UIView *(^)(UIColor *))blockBorderColor{};
-- (void)setViewCornerRadius:(UIView *(^)(CGFloat))blockCornerRadius{};
-- (void)setBlockConvertRectToView:(CGRect (^)())blockConvertRectToWindow{};
-- (void)setViewIsSubviewTo:(BOOL (^)(UIView *))blockIsSubviewTo{};
-- (void)setViewConvertRectToWindow:(CGRect (^)())blockConvertRectToWindow{};
-- (void)setViewContentMode:(UIView *(^)(UIViewContentMode))blockContentMode{};
-- (void)setViewRemoveSubviewTry:(UIView *(^)(UIView *))blockRemoveSubviewTry{};
-- (void)setViewMultipleTouchEnabled:(UIView *(^)(BOOL))blockMultipleTouchEnabled{};
-- (void)setViewUserInteractionEnabled:(UIView *(^)(BOOL))blockUserInteractionEnabled{};
-- (void)setViewRemoveSubviewAt:(UIView *(^)(NSUInteger))blockRemoveSubviewAtIndex{};
-- (void)setViewHidden:(UIView *(^)(BOOL))blockHidden{};
-- (void)setViewAutoresizingMask:(UIView *(^)(UIViewAutoresizing))blockAutoresizingMask{};
-- (void)setViewExclusiveTouch:(UIView *(^)(BOOL))blockExclusiveTouch{};
-- (void)setViewRemoveAll:(UIView *(^)())blockRemoveAllSubview{};
-- (void)setViewRemoveFromSuperview:(UIView *(^)())blockRemoveFromSuperview{};
-- (void)setViewExchangeSubviewByIndex:(UIView *(^)(NSUInteger, NSUInteger))blockExchangeSubviewByIndex{};
-- (void)setViewSubviewAt:(UIView *(^)(NSUInteger))blockSubviewAtIndex{};
-- (void)setViewClipsToBounds:(UIView *(^)(BOOL))blockClipsToBounds{};
-- (void)setViewOpaque:(UIView *(^)(CGFloat))blockOpaque{};
-- (void)setViewAlpha:(UIView *(^)(CGFloat))blockAlpha{};
-- (void)setViewAddToView:(UIView *(^)(UIView *))blockAddToView{};
-- (void)setViewAddSubview:(UIView *(^)(UIView *))blockAddSubview{};
 
 - (UIView *(^)(UIView *))viewUICopyFrame
 {

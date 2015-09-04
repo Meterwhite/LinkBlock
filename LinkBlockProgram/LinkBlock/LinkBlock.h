@@ -128,7 +128,7 @@
 #import "UIScrollView+LinkBlock.h"
 #import "UIImageView+LinkBlock.h"
 
-//引用类型宏定义
+//引用类型返回值宏定义
 #define LinkError_REF_AUTO(returnType , currType)\
 currType* _self = (currType*)self;\
 if([self isKindOfClass:[LinkError class]])\
@@ -136,7 +136,7 @@ if([self isKindOfClass:[LinkError class]])\
 if(![self isKindOfClass:[currType class]])\
     return (returnType *)[LinkError share]\
 
-//值类型宏定义
+//值类型返回值宏定义
 #define LinkError_VAL_IF(currType) \
 currType* _self = (currType*)self;\
 if([self isKindOfClass:[LinkError class]] || ![self isKindOfClass:[currType class]])

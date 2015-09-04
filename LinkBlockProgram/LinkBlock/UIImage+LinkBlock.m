@@ -25,7 +25,7 @@
 }
 - (void)setImgToData:(NSData *(^)(float))imgToData{};
 
-- (UIImage *(^)(CGSize))imgResize
+- (UIImage *(^)(CGSize))imgResizeAspect
 {
     return ^(CGSize maxSize){
         LinkError_REF_AUTO(UIImage, UIImage);
@@ -53,7 +53,7 @@
         return re;
     };
 }
-- (void)setImgResize:(UIImage *(^)(CGSize))imgResize{};
+- (void)imgResizeAspect:(UIImage *(^)(CGSize))imgResize{};
 
 - (UIImage *(^)(CGRect))imgCut
 {

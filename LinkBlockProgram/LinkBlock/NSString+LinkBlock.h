@@ -29,7 +29,7 @@
 @property (nonatomic,copy) BOOL         (^strIsBlank)();
 @property (nonatomic,copy) BOOL         (^strIsEmoji)();
 @property (nonatomic,copy) BOOL         (^strIsContainEmoji)();
-
+/** 计算尺寸 */
 @property (nonatomic,copy) CGSize       (^strSizeWithFont)(UIFont* font);
 @property (nonatomic,copy) CGSize       (^strSizeWithFontAndMaxWidth)(UIFont* font , CGFloat maxWidth);
 @property (nonatomic,copy) CGSize       (^strSizeWithFontAndMaxSize)(UIFont* font, CGSize maxSize);
@@ -94,6 +94,7 @@
 @property (nonatomic,copy) UIEdgeInsets         (^strToUIEdgeInsets)();
 @property (nonatomic,copy) UIOffset             (^strToUIOffset)();
 @property (nonatomic,copy) NSData*              (^strToNSDataFromContents)();
+@property (nonatomic,copy) NSDate*              (^strToNSDateWithFormate)(NSString* formateStr);
 #pragma mark - regex（正则表达式
 @property (nonatomic,copy) BOOL                 (^strRegexIsMatch)(NSString* regex);
 /** NSTextCheckingResult arrary  */
