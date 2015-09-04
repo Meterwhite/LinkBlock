@@ -60,7 +60,9 @@ lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
      @"log()".nslog();
 
      UIColor* color = [UIColor redColor];
-     color = color.colorRedSet(arc4random_uniform(256)/255.0).colorGreenSet(arc4random_uniform(256)/255.0).colorBlueSet(arc4random_uniform(256)/255.0).end();
+     color = color.colorRedSet(arc4random_uniform(256)/255.0)
+.colorGreenSet(arc4random_uniform(256)/255.0)
+.colorBlueSet(arc4random_uniform(256)/255.0).end();
      return color;
 }];
 
