@@ -31,7 +31,7 @@ btn.backgroundColor = color;
 btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
 .viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
 ```
-##Very good string functions
+##Example
 ```objc
 //去空格和换行，并打印
 @" 吴 倩 莲 的 风 和 欲 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
@@ -55,21 +55,21 @@ lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).la
 
 //给标签添加一个block
 [lab objBlockSet:@"Say" block:^id{
-@"log()".nslog();
+     @"log()".nslog();
 
-UIColor* color = [UIColor redColor];
-color = color.colorRedSet(arc4random_uniform(256)/255.0).colorGreenSet(arc4random_uniform(256)/255.0).colorBlueSet(arc4random_uniform(256)/255.0).end();
-return color;
+     UIColor* color = [UIColor redColor];
+     color = color.colorRedSet(arc4random_uniform(256)/255.0).colorGreenSet(arc4random_uniform(256)/255.0).colorBlueSet(arc4random_uniform(256)/255.0).end();
+     return color;
 }];
 
 //添加按钮点击事件
 [btn controlAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:^(UIControlEvents event) {
-if(event!=UIControlEventTouchUpInside)
-return ;
-UIColor* color = [lab objBlockExecute:@"Say"];
-lab.labTextColor(color);
-lab.viewAnimateShakeHorizental(0.5);  // animation
-btn.viewAnimateFlipFromTop(0.5,1,YES);// animation
+     if(event!=UIControlEventTouchUpInside)
+         return ;
+     UIColor* color = [lab objBlockExecute:@"Say"];
+     lab.labTextColor(color);
+     lab.viewAnimateShakeHorizental(0.5);  // animation
+     btn.viewAnimateFlipFromTop(0.5,1,YES);// animation
 }];
 
 
