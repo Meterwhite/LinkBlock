@@ -43,7 +43,8 @@ btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
 
 //添加一个按钮到视图上
 UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-btn.viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
+btn.viewSetFrame(20,20,150,80).viewAddToView(self.view)
+.btnTitle(@"click change color", UIControlStateNormal);
 
 //安全使用KVC
 btn.setValueForKeySafe(@"0xff22cc".strToColorFromHexStr() , @"backgroundColor");
@@ -51,7 +52,8 @@ btn.setValueForKeySafe(@"0xff22cc".strToColorFromHexStr() , @"backgroundColor");
 //添加一个标签到视图上
 UILabel* lab = [UILabel new];
 lab.frame = @"{{20,150},{150,30}}".strToCGRect();
-lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view);
+lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
+.labAlignTop().viewAddToView(self.view);
 
 //给标签添加一个block
 [lab objBlockSet:@"Say" block:^id{
@@ -63,7 +65,8 @@ lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).la
 }];
 
 //添加按钮点击事件
-[btn controlAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:^(UIControlEvents event) {
+[btn controlAddTarget:self forControlEvents:UIControlEventTouchUpInside 
+ withBlock:^(UIControlEvents event) {
      if(event!=UIControlEventTouchUpInside)
          return ;
      UIColor* color = [lab objBlockExecute:@"Say"];//执行设置的block代码段
@@ -82,7 +85,8 @@ lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).la
 //正则表达式替换_xxx_为[xxx]
 @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
 //正则表达式验证是否为邮箱
-@"quxingyi@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
+@"quxingyi@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*
+[a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
 
 
 //数组过滤
