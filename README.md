@@ -66,7 +66,7 @@ lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).la
 [btn controlAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:^(UIControlEvents event) {
      if(event!=UIControlEventTouchUpInside)
          return ;
-     UIColor* color = [lab objBlockExecute:@"Say"];
+     UIColor* color = [lab objBlockExecute:@"Say"];//执行设置的block代码段
      lab.labTextColor(color);
      lab.viewAnimateShakeHorizental(0.5);  // animation
      btn.viewAnimateFlipFromTop(0.5,1,YES);// animation
