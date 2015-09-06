@@ -203,6 +203,8 @@
         LinkError_VAL_IF(NSObject){
             return (NSString*)@"";
         }
+        if(![NSJSONSerialization isValidJSONObject:_self])
+            return @"\"\"";
         NSError* error= nil;
         NSData * JSONData = [NSJSONSerialization dataWithJSONObject:_self
                                                             options:kNilOptions
@@ -266,6 +268,19 @@
 }
 - (void)setNslog:(NSObject *(^)())nslog{};
 
+- (NSObject *(^)(NSString *))nslogTitle
+{
+    return ^(NSString* title){
+#ifdef DEBUG
+        LinkError_VAL_IF(NSObject){
+            return (NSObject*)_self;
+        }
+        NSLog(@"%@%@",title,_self);
+#endif
+        return _self;
+    };
+}
+- (void)setNslogTitle:(NSObject *(^)(NSString *))nslogTitle{};
 - (id (^)())end
 {
     return ^(){

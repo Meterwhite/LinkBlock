@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>A24D76AA-98CC-4262-9CE3-6103B35915B5</string>
 	<key>IDESourceControlProjectName</key>
-	<string>LinkBlockProgram</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>0477E9C1123698E6DBFB869FCE5ADFB24A60D4A7</key>
 		<string>https://github.com/qddnovo/LinkBlock.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>LinkBlockProgram.xcodeproj</string>
+	<string>LinkBlockProgram.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0477E9C1123698E6DBFB869FCE5ADFB24A60D4A7</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>0477E9C1123698E6DBFB869FCE5ADFB24A60D4A7</string>
 			<key>IDESourceControlWCCName</key>
-			<string>LinkBlockProgram</string>
+			<string>LinkBlock</string>
 		</dict>
 	</array>
 </dict>

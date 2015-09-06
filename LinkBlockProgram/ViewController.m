@@ -24,7 +24,6 @@
     //对数字敏感的字符串比较
     @"abc1.txt".strCompareNumberSensitive(@"abc2.txt");
     
-    
     //添加一个按钮到视图上
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
@@ -68,7 +67,6 @@
     //正则表达式验证是否为邮箱
     @"quxingyi@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
     
-    
     //数组过滤
     NSArray* arrForFilter = @[ @{@"name":@"ali", @"age":@(123)} ,
                                @{@"name":@"bli", @"age":@(0)}   ,
@@ -82,5 +80,8 @@
         obj.nslog();
     }];
     
+    //查找最大数
+    @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumberFind().nslogTitle(@"最大数是:\n");
+
 }
 @end

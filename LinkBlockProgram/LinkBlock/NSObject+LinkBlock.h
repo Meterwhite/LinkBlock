@@ -19,6 +19,8 @@
 /** Force an object to get value of the specified type , failure returns the type of new object  */
 @property (nonatomic,copy) NSObject*    (^typeForceObj)(Class theCalss);
 @property (nonatomic,copy) NSObject*    (^nslog)();
+/** 控制台输出对象前增加标识话语 */
+@property (nonatomic,copy) NSObject*    (^nslogTitle)(NSString* title);
 
 #pragma mark - Runtime
 @property (nonatomic,copy) id           (^valueForKey)(NSString* key);

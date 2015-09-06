@@ -93,8 +93,15 @@
 @property (nonatomic,copy) CGAffineTransform    (^strToCGAffineTransform)();
 @property (nonatomic,copy) UIEdgeInsets         (^strToUIEdgeInsets)();
 @property (nonatomic,copy) UIOffset             (^strToUIOffset)();
-@property (nonatomic,copy) NSData*              (^strToNSDataFromContents)();
+/** 路径转NSData */
+@property (nonatomic,copy) NSData*              (^strToNSDataWithContentsOfFile)();
+/** 转NSData */
+@property (nonatomic,copy) NSData*              (^strToNSDataUseEncoding)(NSStringEncoding);
+/** 转日期 */
 @property (nonatomic,copy) NSDate*              (^strToNSDateWithFormate)(NSString* formateStr);
+/** 转字典 */
+@property (nonatomic,copy) NSDictionary*        (^strToNSDictionary)(NSStringEncoding encoding);
+@property (nonatomic,copy) NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
 #pragma mark - regex（正则表达式
 @property (nonatomic,copy) BOOL                 (^strRegexIsMatch)(NSString* regex);
 /** NSTextCheckingResult arrary  */

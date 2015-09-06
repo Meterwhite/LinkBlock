@@ -686,14 +686,22 @@
     };
 }
 - (void)setStrToUIOffset:(UIOffset (^)())strToUIOffset{};
-- (NSData *(^)())strToNSDataFromContents
+- (NSData *(^)())strToNSDataWithContentsOfFile
 {
     return ^(){
         LinkError_REF_AUTO(NSData, NSString);
         return [NSData dataWithContentsOfFile:_self];
     };
 }
-- (void)setStrToNSDataFromContents:(NSData *(^)())strToNSDataFromContents{};
+- (void)setStrToNSDataWithContentsOfFile:(NSData *(^)())strToNSDataFromContents{};
+- (NSData *(^)(NSStringEncoding))strToNSDataUseEncoding
+{
+    return ^(NSStringEncoding encoding){
+        LinkError_REF_AUTO(NSData, NSString);
+        return [_self dataUsingEncoding:encoding];
+    };
+}
+- (void)setStrToNSDataUseEncoding:(NSData *(^)(NSStringEncoding))strToNSDataUseEncoding{};
 - (NSDate *(^)(NSString *))strToNSDateWithFormate
 {
     return ^(NSString* formateStr){
@@ -704,6 +712,62 @@
     };
 }
 - (void)setStrToNSDateWithFormate:(NSDate *(^)(NSString *))strToNSDateWithFormate{};
+- (NSDictionary *(^)(NSStringEncoding))strToNSDictionary
+{
+    return ^(NSStringEncoding encoding){
+        LinkError_REF_AUTO(NSDictionary, NSString);
+        
+        NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
+                                                            withString:@""];
+        
+        newStr = [_self stringByReplacingOccurrencesOfString:@"\n"
+                                                  withString:@""];
+        
+        newStr = [_self stringByReplacingOccurrencesOfString:@"\r"
+                                                  withString:@""];
+
+        NSData* strIsData = [_self dataUsingEncoding:encoding];
+
+        
+        NSDictionary* re = [NSJSONSerialization JSONObjectWithData:strIsData
+                                        options:NSJSONReadingMutableContainers
+                                        error:nil];
+        if([re isKindOfClass:[NSDictionary class]]){
+            return re;
+        }
+        return @{};
+    };
+}
+- (void)setStrToNSDictionary:(NSDictionary *(^)(NSStringEncoding))strToNSDictionary{};
+
+- (NSArray *(^)(NSStringEncoding))strToNSArrary
+{
+    return ^(NSStringEncoding encoding){
+        LinkError_REF_AUTO(NSArray, NSString);
+        
+        NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
+                                                            withString:@""];
+        
+        newStr = [_self stringByReplacingOccurrencesOfString:@"\n"
+                                                  withString:@""];
+        
+        newStr = [_self stringByReplacingOccurrencesOfString:@"\r"
+                                                  withString:@""];
+        
+        NSData* strIsData = [_self dataUsingEncoding:encoding];
+        
+        
+        NSArray* re = [NSJSONSerialization JSONObjectWithData:strIsData
+                                                           options:NSJSONReadingMutableContainers
+                                                             error:nil];
+        if([re isKindOfClass:[NSArray class]]){
+            return re;
+        }
+        return @[];
+    };
+}
+- (void)setStrToNSArrary:(NSArray *(^)(NSStringEncoding))strToNSArrary{};
+
 -(NSURL *(^)())strToNSURL
 {
     return ^(){

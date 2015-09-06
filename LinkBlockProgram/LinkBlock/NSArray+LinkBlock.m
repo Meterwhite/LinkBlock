@@ -229,7 +229,23 @@
 }
 - (void)setArrFilter:(NSArray *(^)(NSString *))arrFilter{};
 
-
+- (NSNumber *(^)())arrMaxNumberFind
+{
+    return ^(){
+        LinkError_REF_AUTO(NSNumber, NSArray);
+        __block NSNumber* max = _self[0];
+        [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
+            if([num isKindOfClass:[NSNumber class]]){
+                if(max.doubleValue < num.doubleValue){
+                    max = num;
+                }
+            }
+            
+        }];
+        return max;
+    };
+}
+- (void)setArrMaxNumberFind:(NSNumber *(^)())arrValueNumberMax{};
 
 - (void)arrEnumerateWithPredicateFormat:(NSString *)predicateFormat
                                   usingBlock:(void (^)(id, NSUInteger, BOOL *))block

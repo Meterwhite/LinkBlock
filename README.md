@@ -40,6 +40,9 @@ btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
 //对数字敏感的字符串比较
 @"abc1.txt".strCompareNumberSensitive(@"abc2.txt");
 
+//查找最大数
+@"[12,43,534]".strToNSArrary(NSUTF8StringEncoding)
+.arrMaxNumberFind().nslogTitle(@"最大数是:\n");
 
 //添加一个按钮到视图上
 UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
