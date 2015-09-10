@@ -462,6 +462,18 @@
 }
 - (void)setViewCornerRadiusSide:(UIView *(^)(UIRectCorner, CGSize))blockCornerRadiusSide{};
 
+- (BOOL (^)())viewIsZeroSize
+{
+    return ^(){
+        LinkError_VAL_IF(UIView){
+            return YES;
+        }
+        if(CGRectEqualToRect(_self.frame, CGRectZero))
+            return NO;
+        return YES;
+    };
+}
+- (void)setViewIsZeroSize:(BOOL (^)())viewIsZero{};
 
 - (CGFloat (^)())viewX
 {

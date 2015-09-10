@@ -74,9 +74,14 @@
 @property (nonatomic,copy) NSString*    (^strSubFrom)(NSUInteger from);
 @property (nonatomic,copy) NSString*    (^strSubTo)(NSUInteger to);
 @property (nonatomic,copy) NSString*    (^strSubFromTo)(NSUInteger from , NSUInteger to);
+#pragma mark - create（创建
+/** 根据字符串创建对象，使用new */
+@property (nonatomic,copy) NSObject*            (^strCreateObj)();
+@property (nonatomic,copy) UIImageView*         (^strCreateImgView)(CGFloat x, CGFloat y, CGFloat w, CGFloat h);
+@property (nonatomic,copy) UILabel*             (^strCreateLab)(CGRect frame);
 #pragma mrak - convert（转换
 /** 0xcccccc , #cccccc , cccccc */
-@property (nonatomic,copy) UIColor*             (^strToColorFromHexStr)();
+@property (nonatomic,copy) UIColor*             (^strToUIColorFromHexStr)();
 @property (nonatomic,copy) NSURL*               (^strToNSURL)();
 @property (nonatomic,copy) UIImage*             (^strToUIImage)();
 @property (nonatomic,copy) NSInteger            (^strToInteger)();
@@ -111,4 +116,15 @@
  *  replaceTemplate : "<a href=\"$0\">$0</a>".
  */
 @property (nonatomic,copy) NSString*            (^strRegexReplace)(NSString* regex, NSString* replaceTemplate);
+
+#pragma mark - super（高级
+/** 十六进制字符串颜色设置到控件 */
+@property (nonatomic,copy) NSString*            (^strSetBgColorToViews)(NSArray* views);
+/** 主要针对主要控件设置文本 */
+@property (nonatomic,copy) NSString*            (^strSetTextToControls)(NSArray* controls);
+@property (nonatomic,copy) NSString*            (^strSetTextColorToControls)(NSArray* controls);
+/** 查找字符串中的第一个数字 */
+@property (nonatomic,copy) double               (^strNumberFind)();
+
+- (void)strEnumerateScanNumberUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block;
 @end

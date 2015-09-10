@@ -48,9 +48,9 @@
 + (BOOL)currentClassContainProperty:(NSString*)property;
 /** 当前类型是否包含成员变量（_value）不包括父类 */
 + (BOOL)currentClassContainIvar:(NSString*)ivarName;
-/** 获取当前类型属性名列表（@property value） */
+/** 获取当前类型的属性名列表（@property value） */
 + (NSArray*)classGetIvarList;
-/** 获取当前类型成员变量名列表 */
+/** 获取当前类型的成员变量名列表 */
 + (NSArray*)classGetPropertyList;
 
 #pragma mark - NSObject

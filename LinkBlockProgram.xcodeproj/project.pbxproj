@@ -12,7 +12,9 @@
 		9F5A83651B98BCB40006CC24 /* NSNumber+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A83641B98BCB40006CC24 /* NSNumber+LinkBlock.m */; };
 		9F7D37DE1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D37DD1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m */; };
 		9FC43B591B92162B00F9C4B2 /* UIImageView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC43B581B92162B00F9C4B2 /* UIImageView+LinkBlock.m */; };
+		9FC4B6D81B9E202A00433EAC /* UIViewController+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4B6D71B9E202A00433EAC /* UIViewController+LinkBlock.m */; };
 		9FCC10961B850FE7004A66CA /* LinkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCC10951B850FE7004A66CA /* LinkError.m */; };
+		9FE90AF01B9CF15600F1594D /* NSValue+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE90AEF1B9CF15600F1594D /* NSValue+LinkBlock.m */; };
 		9FFDA2121B835E2F0044097D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2111B835E2F0044097D /* main.m */; };
 		9FFDA2151B835E2F0044097D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2141B835E2F0044097D /* AppDelegate.m */; };
 		9FFDA2181B835E2F0044097D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2171B835E2F0044097D /* ViewController.m */; };
@@ -59,8 +61,12 @@
 		9F7D37DD1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+LinkBlock.m"; sourceTree = "<group>"; };
 		9FC43B571B92162B00F9C4B2 /* UIImageView+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LinkBlock.h"; sourceTree = "<group>"; };
 		9FC43B581B92162B00F9C4B2 /* UIImageView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LinkBlock.m"; sourceTree = "<group>"; };
+		9FC4B6D61B9E202A00433EAC /* UIViewController+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LinkBlock.h"; sourceTree = "<group>"; };
+		9FC4B6D71B9E202A00433EAC /* UIViewController+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LinkBlock.m"; sourceTree = "<group>"; };
 		9FCC10941B850FE7004A66CA /* LinkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkError.h; sourceTree = "<group>"; };
 		9FCC10951B850FE7004A66CA /* LinkError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkError.m; sourceTree = "<group>"; };
+		9FE90AEE1B9CF15600F1594D /* NSValue+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+LinkBlock.h"; sourceTree = "<group>"; };
+		9FE90AEF1B9CF15600F1594D /* NSValue+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+LinkBlock.m"; sourceTree = "<group>"; };
 		9FFDA20C1B835E2F0044097D /* LinkBlockProgram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkBlockProgram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFDA2101B835E2F0044097D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FFDA2111B835E2F0044097D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -213,6 +219,8 @@
 				9F5A833E1B9837090006CC24 /* NSDate+LinkBlock.m */,
 				9F219DE51B977D980070CF79 /* NSURL+LinkBlock.h */,
 				9F219DE61B977D980070CF79 /* NSURL+LinkBlock.m */,
+				9FE90AEE1B9CF15600F1594D /* NSValue+LinkBlock.h */,
+				9FE90AEF1B9CF15600F1594D /* NSValue+LinkBlock.m */,
 				9F5A83631B98BCB40006CC24 /* NSNumber+LinkBlock.h */,
 				9F5A83641B98BCB40006CC24 /* NSNumber+LinkBlock.m */,
 				9FFDA2521B835E690044097D /* UIView+LinkBlock.h */,
@@ -231,6 +239,8 @@
 				9FFDA24B1B835E690044097D /* UIColor+LinkBlock.m */,
 				9FFDA24E1B835E690044097D /* UIImage+LinkBlock.h */,
 				9FFDA24F1B835E690044097D /* UIImage+LinkBlock.m */,
+				9FC4B6D61B9E202A00433EAC /* UIViewController+LinkBlock.h */,
+				9FC4B6D71B9E202A00433EAC /* UIViewController+LinkBlock.m */,
 				9FCC10941B850FE7004A66CA /* LinkError.h */,
 				9FCC10951B850FE7004A66CA /* LinkError.m */,
 			);
@@ -338,11 +348,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FFDA2621B835E690044097D /* UIView+LinkBlock.m in Sources */,
+				9FC4B6D81B9E202A00433EAC /* UIViewController+LinkBlock.m in Sources */,
 				9FFDA2591B835E690044097D /* NSMutableAttributedString+LinkBlock.m in Sources */,
 				9FFDA2181B835E2F0044097D /* ViewController.m in Sources */,
 				9FFDA2551B835E690044097D /* NSArray+LinkBlock.m in Sources */,
 				9FFDA2151B835E2F0044097D /* AppDelegate.m in Sources */,
 				9F7D37DE1B90CC1D0086DFCC /* UIScrollView+LinkBlock.m in Sources */,
+				9FE90AF01B9CF15600F1594D /* NSValue+LinkBlock.m in Sources */,
 				9FFDA2561B835E690044097D /* NSAttributedString+LinkBlock.m in Sources */,
 				9FFDA25F1B835E690044097D /* UIControl+LinkBlock.m in Sources */,
 				9F5A833F1B9837090006CC24 /* NSDate+LinkBlock.m in Sources */,

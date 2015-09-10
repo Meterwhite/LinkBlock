@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LinkBlock.h"
 
 @interface NSObject(NSNumberLinkBlock)
+@property (nonatomic,copy) void*        (^numValue)();
+
 @property (nonatomic,copy) BOOL         (^numIsInteger)();
 @property (nonatomic,copy) BOOL         (^numIsFloating)();
 @property (nonatomic,copy) BOOL         (^numIsChar)();
@@ -26,4 +29,9 @@
 /** 除法 */
 @property (nonatomic,copy) NSNumber*    (^numDivideByIntegerType)(NSNumber* num);
 @property (nonatomic,copy) NSNumber*    (^numDivideByFloatingType)(NSNumber* num);
+
+@property (nonatomic,copy) NSNumber*    (^numSetHeightToViews)(NSArray* views);
+@property (nonatomic,copy) NSNumber*    (^numSetWidthToViews)(NSArray* views);
+@property (nonatomic,copy) NSNumber*    (^numSetXToViews)(NSArray* views);
+@property (nonatomic,copy) NSNumber*    (^numSetYToViews)(NSArray* views);
 @end

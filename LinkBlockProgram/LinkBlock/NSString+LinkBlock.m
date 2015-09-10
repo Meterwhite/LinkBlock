@@ -546,7 +546,7 @@
 }
 - (void)setStrTrim:(NSString *(^)(NSString *))strTrim{};
 
-- (UIColor *(^)())strToColorFromHexStr
+- (UIColor *(^)())strToUIColorFromHexStr
 {
     return ^(){
         LinkError_REF_AUTO(UIColor, NSString);
@@ -575,7 +575,7 @@
         return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:1.0f];
     };
 }
-- (void)setStrToColorFromHexStr:(UIColor *(^)())strToColorFromHexStr{};
+- (void)setStrToUIColorFromHexStr:(UIColor *(^)())strToColorFromHexStr{};
 
 - (double (^)())strToDoubleFromHexStr
 {
@@ -907,6 +907,42 @@
 }
 - (void)setStrSubFromTo:(NSString *(^)(NSUInteger, NSUInteger))strSubFromTo{};
 
+- (NSObject *(^)())strCreateObj
+{
+    return ^(){
+        LinkError_REF_AUTO(NSObject, NSString);
+        Class class= NSClassFromString(_self);
+        if(class){
+            return (NSObject*)[class new];
+        }else{
+            return (NSObject*)[LinkError share];
+        }
+    };
+}
+- (void)setStrCreateObj:(NSObject *(^)())strCreateObj{};
+
+- (UILabel *(^)(CGRect))strCreateLab
+{
+    return ^(CGRect frame){
+        LinkError_REF_AUTO(UILabel, NSString);
+        UILabel* re= [[UILabel alloc] initWithFrame:frame];
+        re.text= _self;
+        return re;
+    };
+}
+- (void)setStrCreateLab:(UILabel *(^)(CGRect))strCreateLab{};
+
+- (UIImageView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))strCreateImgView
+{
+    return ^(CGFloat x, CGFloat y, CGFloat w, CGFloat h){
+        LinkError_REF_AUTO(UIImageView, NSString);
+        UIImageView* re = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+        re.image = [UIImage imageNamed:_self];
+        return re;
+    };
+}
+- (void)setStrCreateImgView:(UIImageView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))strCreateImgView{};
+
 - (BOOL (^)(NSString *))strRegexIsMatch
 {
     return ^(NSString* regex){
@@ -953,5 +989,89 @@
 }
 - (void)setStrRegexReplace:(NSString *(^)(NSString *, NSString *))strRegexReplace{};
 
+- (NSString *(^)(NSArray *))strSetTextToControls
+{
+    return ^(NSArray* controls){
+        LinkError_REF_AUTO(NSString, NSString);
+        [controls enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+            if([view isKindOfClass:[UIView class]]){
+                if([view isKindOfClass:[UIButton class]]){
+                    [((UIButton*)view) setTitle:_self forState:UIControlStateNormal];
+                }else if([view isKindOfClass:[UILabel class]] ||
+                         [view isKindOfClass:[UITextField class]] ||
+                         [view isKindOfClass:[UITextView class]]){
+                    [view setValue:_self forKey:@"text"];
+                }
+            }
+        }];
+        return _self;
+    };
+}
+- (void)setStrSetTextToControls:(NSString *(^)(NSArray *))strSetTextToControls{};
 
+- (NSString *(^)(NSArray *))strSetTextColorToControls
+{
+    return ^(NSArray* controls){
+        LinkError_REF_AUTO(NSString, NSString);
+        UIColor* color = _self.strToUIColorFromHexStr();
+        [controls enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
+            if([v isKindOfClass:[UIButton class]]){
+                [((UIButton*)v) setTitleColor:color forState:UIControlStateNormal];
+            }else if ([v isKindOfClass:[UILabel class]] ||
+                      [v isKindOfClass:[UITextField class]] ||
+                      [v isKindOfClass:[UITextView class]]
+                      ){
+                [v setValue:color forKey:@"textColor"];
+            }
+           
+        }];
+        return _self;
+    };
+}
+- (void)setStrSetTextColorToControls:(NSString *(^)(NSArray *))strSetTextColorToControls{};
+
+- (NSString *(^)(NSArray *))strSetBgColorToViews
+{
+    return ^(NSArray* views){
+        LinkError_REF_AUTO(NSString, NSString);
+        UIColor* color = _self.strToUIColorFromHexStr();
+        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            if([v isKindOfClass:[UIView class]])
+                v.backgroundColor = color;
+        }];
+        return _self;
+    };
+}
+- (void)setStrSetBgColorToViews:(NSString *(^)(NSArray *))strSetBgColorToViews{};
+
+- (double (^)())strNumberFind
+{
+    return ^(){
+        double re = 0.0;
+        LinkError_VAL_IF(NSString){
+            return re;
+        }
+        NSScanner* scaner= [[NSScanner alloc] initWithString:_self];
+        [scaner scanDouble:&re];
+        return re;
+    };
+}
+- (void)setStrNumberFind:(double (^)())strNumberFind{};
+
+- (void)strEnumerateScanNumberUsingBlock:(void (^)(double, NSUInteger, BOOL *))block
+{
+    if(block){
+        LinkError_VAL_IF(NSString){
+            return;
+        }
+        double d= 0.0;
+        BOOL stop= NO;
+        NSScanner* scaner = [[NSScanner alloc] initWithString:_self];
+        while (![scaner isAtEnd] && !stop) {
+            if([scaner scanDouble:&d]){
+                block(d, scaner.scanLocation , &stop);
+            }
+        }
+    }
+}
 @end

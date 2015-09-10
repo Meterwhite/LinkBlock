@@ -247,6 +247,41 @@
 }
 - (void)setArrMaxNumberFind:(NSNumber *(^)())arrValueNumberMax{};
 
+- (NSNumber *(^)())arrMinNumberFind
+{
+    return ^(){
+        LinkError_REF_AUTO(NSNumber, NSArray);
+        __block NSNumber* min = _self[0];
+        [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
+            if([num isKindOfClass:[NSNumber class]])
+                if(min.doubleValue > num.doubleValue)
+                    min = num;
+        }];
+        return min;
+    };
+}
+- (void)setArrMinNumberFind:(NSNumber *(^)())arrMinNumberFind{};
+
+- (NSObject *(^)())arrLastObj
+{
+    return ^(){
+        LinkError_REF_AUTO(NSObject, NSArray);
+        return (NSObject*)[_self lastObject];
+    };
+}
+- (void)setArrLastObj:(NSObject *(^)())arrLastObj{};
+
+- (NSObject *(^)())arrFirstObj
+{
+    return ^(){
+        LinkError_REF_AUTO(NSObject, NSArray);
+        return (NSObject*)[_self firstObject];
+    };
+}
+- (void)setArrFirstObj:(NSObject *(^)())arrFirstObj{};
+
+
+
 - (void)arrEnumerateWithPredicateFormat:(NSString *)predicateFormat
                                   usingBlock:(void (^)(id, NSUInteger, BOOL *))block
 {

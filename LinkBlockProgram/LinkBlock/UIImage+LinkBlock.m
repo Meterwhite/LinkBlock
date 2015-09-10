@@ -146,4 +146,45 @@
 }
 - (void)setImgRenderingMode:(UIImage *(^)(UIImageRenderingMode))imgRenderingMode{};
 
+
+
+
+- (UIImage *(^)(NSArray *, UIControlState))imgSetBgImgToBtns
+{
+    return ^(NSArray* views,UIControlState state){
+        LinkError_REF_AUTO(UIImage, UIImage);
+        [views enumerateObjectsUsingBlock:^(UIButton *btn, NSUInteger idx, BOOL *stop) {
+            if([btn isKindOfClass:[UIButton class]])
+                [btn setBackgroundImage:_self forState:state];
+        }];
+        return _self;
+    };
+}
+- (void)setImgSetBgImgToBtns:(UIImage *(^)(NSArray *, UIControlState))imgSetBgImgToBtns{};
+
+- (UIImage *(^)(NSArray *))imgSetImgToImageViews
+{
+    return ^(NSArray* views){
+        LinkError_REF_AUTO(UIImage, UIImage);
+        [views enumerateObjectsUsingBlock:^(UIImageView *imgView, NSUInteger idx, BOOL *stop) {
+            if([imgView isKindOfClass:[UIImageView class]])
+                ((UIImageView*)imgView).image = _self;
+        }];
+        return _self;
+    };
+}
+- (void)setImgSetImgToImageViews:(UIImage *(^)(NSArray *))imgSetImgToImageViews{};
+
+- (UIImage *(^)(NSArray *, UIControlState))imgSetImgToBtns
+{
+    return ^(NSArray* btns, UIControlState state){
+        LinkError_REF_AUTO(UIImage, UIImage);
+        [btns enumerateObjectsUsingBlock:^(UIButton* btn, NSUInteger idx, BOOL *stop) {
+            if([btn isKindOfClass:[UIButton class]])
+                [btn setImage:_self forState:state];
+        }];
+        return _self;
+    };
+}
+- (void)setImgSetImgToBtns:(UIImage *(^)(NSArray *, UIControlState))imgSetImgToBtns{};
 @end

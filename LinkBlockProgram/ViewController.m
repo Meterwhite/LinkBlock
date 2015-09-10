@@ -24,12 +24,15 @@
     //对数字敏感的字符串比较
     @"abc1.txt".strCompareNumberSensitive(@"abc2.txt");
     
+    //查找最大数
+    @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumberFind().nslogTitle(@"最大数是:\n");
+    
     //添加一个按钮到视图上
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
     
     //安全使用KVC
-    btn.setValueForKeySafe(@"0xff22cc".strToColorFromHexStr() , @"backgroundColor");
+    btn.setValueForKeySafe(@"0xff22cc".strToUIColorFromHexStr() , @"backgroundColor");
     
     //添加一个标签到视图上
     UILabel* lab = [UILabel new];
@@ -57,9 +60,9 @@
     
     
     //字符串常量直接转颜色
-    @"0xff22cc".strToColorFromHexStr();
-    @"#ff22cc".strToColorFromHexStr();
-    @"ff22cc".strToColorFromHexStr();
+    @"0xff22cc".strToUIColorFromHexStr();
+    @"#ff22cc".strToUIColorFromHexStr();
+    @"ff22cc".strToUIColorFromHexStr();
     
     
     //正则表达式替换_xxx_为[xxx]
@@ -80,8 +83,7 @@
         obj.nslog();
     }];
     
-    //查找最大数
-    @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumberFind().nslogTitle(@"最大数是:\n");
+    
 
 }
 @end

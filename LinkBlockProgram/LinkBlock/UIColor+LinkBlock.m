@@ -183,4 +183,53 @@
     };
 }
 - (void)setColorAlphaSet:(UIColor *(^)(CGFloat))blockSetAlphaValue{}
+
+- (UIColor *(^)(NSArray *))colorSetBackgroundToViews
+{
+    return ^(NSArray* views){
+        LinkError_REF_AUTO(UIColor, UIColor);
+        [views enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL *stop) {
+            if([view isKindOfClass:[UIView class]])
+                view.backgroundColor = _self;
+        }];
+        return _self;
+    };
+}
+- (void)setColorSetBackgroundToViews:(UIColor *(^)(NSArray *))colorSetBackgroundToViews{};
+
+- (UIColor *(^)(UIView *))colorSetTextColorToViewSubviews
+{
+    return ^(UIView* view){
+        LinkError_REF_AUTO(UIColor, UIColor);
+        if(![view isKindOfClass:[UIView class]])
+            return _self;
+        if([view isKindOfClass:[UILabel class]]     ||
+           [view isKindOfClass:[UITextView class]]  ||
+           [view isKindOfClass:[UITextField class]]
+           )
+        {
+            [view setValue:_self forKey:@"textColor"];
+        }
+        else if ([view isKindOfClass:[UIButton class]])
+        {
+            [((UIButton*)view) setTitleColor:_self forState:UIControlStateNormal];
+        }
+        //子视图
+        [view.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+            if([obj isKindOfClass:[UILabel class]]     ||
+               [obj isKindOfClass:[UITextView class]]  ||
+               [obj isKindOfClass:[UITextField class]]
+               )
+            {
+                [obj setValue:_self forKey:@"textColor"];
+            }
+            else if ([obj isKindOfClass:[UIButton class]])
+            {
+                [((UIButton*)obj) setTitleColor:_self forState:UIControlStateNormal];
+            }
+        }];
+        
+        return _self;
+    };
+}
 @end

@@ -68,7 +68,9 @@
  */
 - (void)arrEnumerateWithPredicateFormat:(NSString*)predicateFormat
                                  usingBlock:(void(^)(id obj, NSUInteger idx, BOOL *stop))block;
-/** 存放数字的数组中最大值 */
+/** 找到数组中最大值的数字类型 */
 @property (nonatomic,copy) NSNumber*               (^arrMaxNumberFind)();
-
+@property (nonatomic,copy) NSNumber*               (^arrMinNumberFind)();
+@property (nonatomic,copy) NSObject*               (^arrLastObj)();
+@property (nonatomic,copy) NSObject*               (^arrFirstObj)();
 @end

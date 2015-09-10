@@ -22,4 +22,8 @@
 /** 渲染模式 */
 @property (nonatomic,copy) UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
 
+#pragma super（高级
+@property (nonatomic,copy) UIImage*         (^imgSetBgImgToBtns)(NSArray* views, UIControlState state);
+@property (nonatomic,copy) UIImage*         (^imgSetImgToImageViews)(NSArray* imgViews);
+@property (nonatomic,copy) UIImage*         (^imgSetImgToBtns)(NSArray* views, UIControlState state);
 @end

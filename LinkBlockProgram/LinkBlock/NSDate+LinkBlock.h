@@ -22,7 +22,9 @@
 
 #pragma mark - The date object increased time （计算日期差值
 @property (nonatomic,copy) NSDate*          (^dateAddTimeInterval)(NSTimeInterval timeInterval);
+/** 365 */
 @property (nonatomic,copy) NSDate*          (^dateAddYear)(NSInteger year);
+/** 30 */
 @property (nonatomic,copy) NSDate*          (^dateAddMonth)(NSInteger month);
 @property (nonatomic,copy) NSDate*          (^dateAddDay)(NSInteger day);
 @property (nonatomic,copy) NSDate*          (^dateAddHour)(NSInteger hour);

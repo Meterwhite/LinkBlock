@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(UIViewLinkBlock)
+@property (nonatomic,copy) BOOL         (^viewIsZeroSize)();
 @property (nonatomic,copy) CGFloat      (^viewX)();
 @property (nonatomic,copy) CGFloat      (^viewY)();
 @property (nonatomic,copy) CGFloat      (^viewMaxX)();
@@ -81,7 +82,7 @@
 /** 垂直摇晃 */
 @property (nonatomic,copy) UIView*      (^viewAnimateShakeVertical)(double duration);
 /** 苹果桌面视差效果，大于iOS7系统有效 */
-@property (nonatomic,copy) UIView*      (^viewAnimateAppleMotionEffects)();
+@property (nonatomic,copy) UIView*      (^viewAnimateAppleMotionEffects)() NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective"); //
 /** 脉冲形式的放大缩小 */
 @property (nonatomic,copy) UIView*      (^viewAnimatePulse)(CGFloat scale,NSTimeInterval duration,BOOL repeat);
 /** 翻转动画 */
@@ -107,6 +108,7 @@
 @property (nonatomic,copy) UIView*      (^viewAnimatePause)();
 /** 恢复动画，在暂停动画后使用 */
 @property (nonatomic,copy) UIView*      (^viewAnimateResume)();
+
 
 #pragma mark - UI layout（just coding layout）
 @property (nonatomic,copy) UIView*      (^viewUICopyFrame)(UIView* fromView);

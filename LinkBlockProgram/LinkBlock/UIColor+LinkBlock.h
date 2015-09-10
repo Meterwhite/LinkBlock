@@ -20,4 +20,9 @@
 @property (nonatomic,copy) UIColor*         (^colorGreenSet)(CGFloat value);
 @property (nonatomic,copy) UIColor*         (^colorBlueSet)(CGFloat value);
 @property (nonatomic,copy) UIColor*         (^colorAlphaSet)(CGFloat value);
+
+#pragma mark - super（高级
+@property (nonatomic,copy) UIColor*         (^colorSetBackgroundToViews)(NSArray* views);
+/** 尝试设置控件及其子控件的文本颜色 */
+@property (nonatomic,copy) UIColor*         (^colorSetTextColorToViewSubviews)(UIView* view);
 @end

@@ -7,9 +7,22 @@
 //
 
 #import "NSNumber+LinkBlock.h"
-#import "LinkBlock.h"
+
 
 @implementation NSObject(NSNumberLinkBlock)
+
+- (void *(^)())numValue
+{
+    return ^(){
+        LinkError_VAL_IF(NSNumber){
+            return (void*)nil;
+        }
+        void* re;
+        [_self getValue:&re];
+        return re;
+    };
+}
+- (void)setNumValue:(void *(^)())numValue{};
 
 static NSArray* _integerCTypeArr;
 - (BOOL (^)())numIsInteger
@@ -174,4 +187,61 @@ static NSArray* _charCTypeArr;
     };
 }
 - (void)setNumDivideByIntegerType:(NSNumber *(^)(NSNumber *))numDividdByIntegerType{};
+
+- (NSNumber *(^)(NSArray *))numSetHeightToViews
+{
+    return ^(NSArray* views){
+        LinkError_REF_AUTO(NSNumber, NSNumber);
+        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            CGRect frame = v.frame;
+            frame.size.height = _self.doubleValue;
+            v.frame= frame;
+        }];
+        return _self;
+    };
+}
+- (void)setNumSetHeightToViews:(NSNumber *(^)(NSArray *))numSetHeightToViews{};
+
+- (NSNumber *(^)(NSArray *))numSetWidthToViews
+{
+    return ^(NSArray* views){
+        LinkError_REF_AUTO(NSNumber, NSNumber);
+        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            CGRect frame = v.frame;
+            frame.size.width = _self.doubleValue;
+            v.frame= frame;
+        }];
+        return _self;
+    };
+}
+- (void)setNumSetWidthToViews:(NSNumber *(^)(NSArray *))numSetWidthToViews{};
+
+- (NSNumber *(^)(NSArray *))numSetXToViews
+{
+    return ^(NSArray* views){
+        LinkError_REF_AUTO(NSNumber, NSNumber);
+        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            CGRect frame = v.frame;
+            frame.origin.x = _self.doubleValue;
+            v.frame= frame;
+        }];
+        return _self;
+    };
+}
+- (void)setNumSetXToViews:(NSNumber *(^)(NSArray *))numSetXToViews{};
+
+- (NSNumber *(^)(NSArray *))numSetYToViews
+{
+    return ^(NSArray* views){
+        LinkError_REF_AUTO(NSNumber, NSNumber);
+        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            CGRect frame = v.frame;
+            frame.origin.y = _self.doubleValue;
+            v.frame= frame;
+        }];
+        return _self;
+    };
+}
+- (void)setNumSetYToViews:(NSNumber *(^)(NSArray *))numSetYToViews{};
+
 @end
