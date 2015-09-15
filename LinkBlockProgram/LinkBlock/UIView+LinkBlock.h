@@ -77,6 +77,10 @@
 @property (nonatomic,copy) UIView*      (^viewAddToView)(UIView* view);
 
 #pragma mark - Animation（动画部分
+@property (nonatomic,copy) UIView*      (^viewAnimateMoveUp)(CGFloat distance, NSTimeInterval time);
+@property (nonatomic,copy) UIView*      (^viewAnimateMoveDown)(CGFloat distance, NSTimeInterval time);
+@property (nonatomic,copy) UIView*      (^viewAnimateMoveRight)(CGFloat distance, NSTimeInterval time);
+@property (nonatomic,copy) UIView*      (^viewAnimateMoveLeft)(CGFloat distance, NSTimeInterval time);
 /** 水平摇晃 */
 @property (nonatomic,copy) UIView*      (^viewAnimateShakeHorizental)(double duration);
 /** 垂直摇晃 */

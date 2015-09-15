@@ -184,8 +184,7 @@
 {
     return ^(BOOL flag){
         LinkError_REF_AUTO(UIView, UIView);
-        _self.layer.masksToBounds= flag;
-        return _self;
+        _self.layer.masksToBounds= flag;        return _self;
     };
 }
 - (void)setViewMasksToBounds:(UIView *(^)(BOOL))viewMasksToBounds{};
@@ -577,6 +576,55 @@
     };
 }
 - (void)setViewAnimateShakeHorizental:(UIView *(^)(double))viewAnimateShakeHorizental{};
+
+- (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveUp
+{
+    return ^(CGFloat distance, NSTimeInterval time){
+        LinkError_REF_AUTO(UIView, UIView);
+        [UIView animateWithDuration:time animations:^{
+            _self.transform = CGAffineTransformTranslate(_self.transform,0 , distance);
+        }];
+        return _self;
+    };
+}
+- (void)setViewAnimateMoveUp:(UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveUp{};
+
+- (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveDown
+{
+    return ^(CGFloat distance, NSTimeInterval time){
+        LinkError_REF_AUTO(UIView, UIView);
+        [UIView animateWithDuration:time animations:^{
+            _self.transform = CGAffineTransformTranslate(_self.transform,0 , -distance);
+        }];
+        return _self;
+    };
+}
+- (void)setViewAnimateMoveDown:(UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveDown{};
+
+- (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveRight
+{
+    return ^(CGFloat distance, NSTimeInterval time){
+        LinkError_REF_AUTO(UIView, UIView);
+        [UIView animateWithDuration:time animations:^{
+            _self.transform = CGAffineTransformTranslate(_self.transform,distance, 0);
+        }];
+        return _self;
+    };
+}
+- (void)setViewAnimateMoveRight:(UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveRight{};
+
+- (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveLeft
+{
+    return ^(CGFloat distance, NSTimeInterval time){
+        LinkError_REF_AUTO(UIView, UIView);
+        [UIView animateWithDuration:time animations:^{
+            _self.transform = CGAffineTransformTranslate(_self.transform, -distance, 0);
+        }];
+        
+        return _self;
+    };
+}
+- (void)setViewAnimateMoveLeft:(UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveLeft{};
 
 - (UIView *(^)(double))viewAnimateShakeVertical
 {

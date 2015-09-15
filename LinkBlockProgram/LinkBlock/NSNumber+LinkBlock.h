@@ -34,4 +34,9 @@
 @property (nonatomic,copy) NSNumber*    (^numSetWidthToViews)(NSArray* views);
 @property (nonatomic,copy) NSNumber*    (^numSetXToViews)(NSArray* views);
 @property (nonatomic,copy) NSNumber*    (^numSetYToViews)(NSArray* views);
+
+/** a for loop . index is from 0 to the (nsnumber - 1) */
+- (void)numForLoopASC:(void(^)(int idx))forBlock;
+/** a for loop . index is from (nsnumber - 1) to the 0 */
+- (void)numForLoopDESC:(void(^)(int idx))forBlock;
 @end

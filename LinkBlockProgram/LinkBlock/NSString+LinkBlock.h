@@ -126,5 +126,7 @@
 /** 查找字符串中的第一个数字 */
 @property (nonatomic,copy) double               (^strNumberFind)();
 
+
+
 - (void)strEnumerateScanNumberUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block;
 @end

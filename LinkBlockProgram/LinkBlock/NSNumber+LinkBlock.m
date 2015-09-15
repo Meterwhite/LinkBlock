@@ -244,4 +244,28 @@ static NSArray* _charCTypeArr;
 }
 - (void)setNumSetYToViews:(NSNumber *(^)(NSArray *))numSetYToViews{};
 
+- (void)numForLoopASC:(void (^)(int))forBlock
+{
+    LinkError_VAL_IF(NSNumber)
+        return;
+    if(forBlock){
+        int x = _self.intValue;
+        for(int i=0 ; i< x; i++ ){
+            forBlock(i);
+        }
+    }
+}
+
+- (void)numForLoopDESC:(void (^)(int))forBlock
+{
+    LinkError_VAL_IF(NSNumber)
+    return;
+    if(forBlock){
+        int x = _self.intValue;
+        for(int i=x-1 ; i > -1; i-- ){
+            forBlock(i);
+        }
+    }
+}
+
 @end
