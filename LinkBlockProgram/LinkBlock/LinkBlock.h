@@ -109,6 +109,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LinkError.h"
+
 #import "NSArray+LinkBlock.h"
 #import "NSAttributedString+LinkBlock.h"
 #import "NSDictionary+LinkBlock.h"
@@ -118,15 +119,21 @@
 #import "NSMutableString+LinkBlock.h"
 #import "NSObject+LinkBlock.h"
 #import "NSString+LinkBlock.h"
+#import "NSNumber+LinkBlock.h"
+#import "NSObject+LinkBlock.h"
+#import "NSDate+LinkBlock.h"
+#import "NSURL+LinkBlock.h"
+#import "NSValue+LinkBlock.h"
+
 #import "UIImage+LinkBlock.h"
 #import "UILabel+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 #import "UIControl+LinkBlock.h"
 #import "UIColor+LinkBlock.h"
 #import "UIView+LinkBlock.h"
 #import "UIButton+LinkBlock.h"
 #import "UIScrollView+LinkBlock.h"
 #import "UIImageView+LinkBlock.h"
+#import "UIViewController+LinkBlock.h"
 
 //引用类型返回值宏定义
 #define LinkError_REF_AUTO(returnType , currType)\

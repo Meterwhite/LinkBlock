@@ -39,6 +39,16 @@
 }
 - (void)setBtnTitle:(UIButton *(^)(NSString *, UIControlState))blockSetTitle{};
 
+- (UIButton *(^)(UIColor *, UIControlState))btnTitleColor
+{
+    return ^(UIColor* color, UIControlState state){
+        LinkError_REF_AUTO(UIButton, UIButton);
+        [_self setTitleColor:color forState:state];
+        return _self;
+    };
+}
+- (void)setBtnTitleColor:(UIButton *(^)(UIColor *, UIControlState))btnTitleColor{};
+
 - (UIButton *(^)(UIImage *, UIControlState))btnImage
 {
     return ^(UIImage* img, UIControlState state){
