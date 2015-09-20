@@ -93,6 +93,14 @@
 }
 - (void)setArrIsContainer:(BOOL (^)(id))blockContainer{};
 
+- (NSObject *(^)())arrValueAny
+{
+    return ^(){
+        LinkError_REF_AUTO(NSObject, NSArray);
+        return (NSObject*)_self[arc4random_uniform((u_int32_t)_self.count)];
+    };
+}
+- (void)setArrValueAny:(NSObject *(^)())arrValueAny{}
 
 - (id (^)(NSUInteger))arrValueAt
 {

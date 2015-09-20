@@ -841,24 +841,24 @@
 }
 - (void)setStrToFloat:(float (^)())strToFloat{};
 
-- (NSArray *(^)(NSString *))strSplitWithStr
-{
-    return ^(NSString* splitStr){
-        LinkError_REF_AUTO(NSArray, NSString);
-        return [_self componentsSeparatedByString:splitStr];
-    };
-}
-- (void)setStrSplitWithStr:(NSArray *(^)(NSString *))blockSplitStrWithStr{};
-
-- (NSArray *(^)(NSString *))strSplitWithCharsStr
-{
-    return ^(NSString* splitStrs){
-        LinkError_REF_AUTO(NSArray, NSString);
-        NSCharacterSet *charSet= [NSCharacterSet characterSetWithCharactersInString:splitStrs];
-        return [_self componentsSeparatedByCharactersInSet:charSet];
-    };
-}
-- (void)setStrSplitWithCharsStr:(NSArray *(^)(NSString *))blockSplitStrWithCharsStr{};
+//- (NSArray *(^)(NSString *))strSplitWithStr
+//{
+//    return ^(NSString* splitStr){
+//        LinkError_REF_AUTO(NSArray, NSString);
+//        return [_self componentsSeparatedByString:splitStr];
+//    };
+//}
+//- (void)setStrSplitWithStr:(NSArray *(^)(NSString *))blockSplitStrWithStr{};
+//
+//- (NSArray *(^)(NSString *))strSplitWithCharsStr
+//{
+//    return ^(NSString* splitStrs){
+//        LinkError_REF_AUTO(NSArray, NSString);
+//        NSCharacterSet *charSet= [NSCharacterSet characterSetWithCharactersInString:splitStrs];
+//        return [_self componentsSeparatedByCharactersInSet:charSet];
+//    };
+//}
+//- (void)setStrSplitWithCharsStr:(NSArray *(^)(NSString *))blockSplitStrWithCharsStr{};
 
 - (BOOL (^)(NSString *))strHasPrefix
 {
@@ -958,20 +958,20 @@
 }
 - (void)setStrRegexIsMatch:(BOOL (^)(NSString *))strRegexIsMatch{};
 
-- (NSArray *(^)(NSString *))strRegexMatchs
-{
-    return ^(NSString* regexStr){
-        LinkError_REF_AUTO(NSArray, NSString);
-        NSRegularExpression* regex = [[NSRegularExpression alloc]
-                                      initWithPattern:regexStr
-                                      options:0
-                                      error:nil];
-        return [regex matchesInString:_self
-                              options:0
-                                range:NSMakeRange(0, _self.length)];
-    };
-}
-- (void)setStrRegexMatchs:(NSArray *(^)(NSString *))strRegexMatchs{};
+//- (NSArray *(^)(NSString *))strRegexMatchs
+//{
+//    return ^(NSString* regexStr){
+//        LinkError_REF_AUTO(NSArray, NSString);
+//        NSRegularExpression* regex = [[NSRegularExpression alloc]
+//                                      initWithPattern:regexStr
+//                                      options:0
+//                                      error:nil];
+//        return [regex matchesInString:_self
+//                              options:0
+//                                range:NSMakeRange(0, _self.length)];
+//    };
+//}
+//- (void)setStrRegexMatchs:(NSArray *(^)(NSString *))strRegexMatchs{};
 
 - (NSString *(^)(NSString *, NSString*))strRegexReplace
 {

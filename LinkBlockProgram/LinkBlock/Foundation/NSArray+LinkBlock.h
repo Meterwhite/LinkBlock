@@ -26,6 +26,7 @@
 @property (nonatomic,copy) NSDictionary*            (^arrToDictByKeyString)();
 
 
+@property (nonatomic,copy) NSObject*                (^arrValueAny)();
 @property (nonatomic,copy) id                       (^arrValueAt)(NSUInteger idx);
 /** 如果类型不匹配，则返回创建一个该类型的对象 */
 /** if return types not match, then retrun an new object of return type */
