@@ -720,13 +720,13 @@
         NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
                                                             withString:@""];
         
-        newStr = [_self stringByReplacingOccurrencesOfString:@"\n"
+        newStr = [newStr stringByReplacingOccurrencesOfString:@"\n"
                                                   withString:@""];
         
-        newStr = [_self stringByReplacingOccurrencesOfString:@"\r"
+        newStr = [newStr stringByReplacingOccurrencesOfString:@"\r"
                                                   withString:@""];
 
-        NSData* strIsData = [_self dataUsingEncoding:encoding];
+        NSData* strIsData = [newStr dataUsingEncoding:encoding];
 
         
         NSDictionary* re = [NSJSONSerialization JSONObjectWithData:strIsData
@@ -748,13 +748,13 @@
         NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
                                                             withString:@""];
         
-        newStr = [_self stringByReplacingOccurrencesOfString:@"\n"
+        newStr = [newStr stringByReplacingOccurrencesOfString:@"\n"
                                                   withString:@""];
         
-        newStr = [_self stringByReplacingOccurrencesOfString:@"\r"
+        newStr = [newStr stringByReplacingOccurrencesOfString:@"\r"
                                                   withString:@""];
         
-        NSData* strIsData = [_self dataUsingEncoding:encoding];
+        NSData* strIsData = [newStr dataUsingEncoding:encoding];
         
         
         NSArray* re = [NSJSONSerialization JSONObjectWithData:strIsData

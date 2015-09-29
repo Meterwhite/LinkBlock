@@ -409,17 +409,23 @@
 }
 - (void)setViewAddSubview:(UIView *(^)(UIView *))viewAddSubview{};
 
-- (UIView *(^)(UIView *))viewAddToView
+- (UIView *(^)(__weak UIView *))viewAddToView
 {
-    return ^(UIView* view){
-        LinkError_REF_AUTO(UIView, UIView);
+    return ^(__weak UIView* view){
+//        LinkError_REF_AUTO(UIView, UIView);
+        UIView* _self = (UIView*)self;
+        if([self isKindOfClass:[LinkError class]])
+            return (UIView *)self;
+        if(![self isKindOfClass:[UIView class]])
+            return (UIView *)[LinkError share];
+        
         if([view isKindOfClass:[UIView class]]){
             [view addSubview:_self];
         }
         return _self;
     };
 }
-- (void)setViewAddToView:(UIView *(^)(UIView *))viewAddToView{};
+- (void)setViewAddToView:(UIView *(^)(__weak UIView *))viewAddToView{};
 
 - (UIView *(^)(UIView *, NSUInteger))viewInsertSubviewAtIndex
 {

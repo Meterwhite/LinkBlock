@@ -257,10 +257,10 @@
 - (NSObject *(^)())nslog
 {
     return ^(){
-#ifdef DEBUG
         LinkError_VAL_IF(NSObject){
             return (NSObject*)_self;
         }
+#ifdef DEBUG
         NSLog(@"%@",_self);
 #endif
         return _self;
@@ -271,10 +271,10 @@
 - (NSObject *(^)(NSString *))nslogTitle
 {
     return ^(NSString* title){
-#ifdef DEBUG
         LinkError_VAL_IF(NSObject){
             return (NSObject*)_self;
         }
+#ifdef DEBUG
         NSLog(@"%@%@",title,_self);
 #endif
         return _self;

@@ -183,10 +183,12 @@
            [attrDict isKindOfClass:[NSDictionary class]]){
             NSUInteger tCurrentIndex= range.location;
             for(;;){
-                NSRange range= [_self.string rangeOfString:forStr options:NSLiteralSearch range:NSMakeRange(tCurrentIndex, (range.location+ range.length)- tCurrentIndex)];
-                if(range.location!= NSNotFound){
-                    [_self setAttributes:attrDict range:range];
-                    tCurrentIndex= range.location + range.length;
+                NSRange range2= [_self.string rangeOfString:forStr
+                                                   options:NSLiteralSearch
+                                                     range:NSMakeRange(tCurrentIndex, (range.location + range.length) - tCurrentIndex)];
+                if(range2.location!= NSNotFound){
+                    [_self setAttributes:attrDict range:range2];
+                    tCurrentIndex= range.location + range2.length;
                 }else{
                     break;
                 }

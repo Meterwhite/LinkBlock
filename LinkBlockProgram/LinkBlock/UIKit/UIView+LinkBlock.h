@@ -74,7 +74,7 @@
 @property (nonatomic,copy) UIView*      (^viewInsertSubviewAtIndex)(UIView* subView, NSUInteger index);
 @property (nonatomic,copy) UIView*      (^viewExchangeSubviewByIndex)(NSUInteger index1, NSUInteger index2);
 @property (nonatomic,copy) UIView*      (^viewAddSubview)(UIView* subview);
-@property (nonatomic,copy) UIView*      (^viewAddToView)(UIView* view);
+@property (nonatomic,copy) UIView*      (^viewAddToView)(__weak UIView* view);
 
 #pragma mark - Animation（动画部分
 @property (nonatomic,copy) UIView*      (^viewAnimateMoveUp)(CGFloat distance, NSTimeInterval time);
