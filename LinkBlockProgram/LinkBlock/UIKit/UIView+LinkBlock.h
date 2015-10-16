@@ -115,14 +115,16 @@
 
 
 #pragma mark - UI layout（just coding layout）
-@property (nonatomic,copy) UIView*      (^viewUICopyFrame)(UIView* fromView);
-@property (nonatomic,copy) UIView*      (^viewUICopySize)(UIView* fromView);
-@property (nonatomic,copy) UIView*      (^viewUICopyOrigin)(UIView* fromView);
-@property (nonatomic,copy) UIView*      (^viewUICopyCenter)(UIView* fromView);
-@property (nonatomic,copy) UIView*      (^viewUICopyCenterX)(UIView* fromView);
-@property (nonatomic,copy) UIView*      (^viewUICopyCenterY)(UIView* fromView);
-@property (nonatomic,copy) UIView*      (^viewUITopTo)(UIView* toView, CGFloat margin);
-@property (nonatomic,copy) UIView*      (^viewUILeftTo)(UIView* toView, CGFloat margin);
-@property (nonatomic,copy) UIView*      (^viewUIBottonTo)(UIView* toView, CGFloat margin);
-@property (nonatomic,copy) UIView*      (^viewUIRightTo)(UIView* toView, CGFloat margin);
+@property (nonatomic,copy) UIView*      (^viewCopyX)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewCopyY)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewCopyFrame)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewCopySize)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewCopyOrigin)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewCopyCenter)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewCopyCenterX)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewCopyCenterY)(UIView* fromView);
+@property (nonatomic,copy) UIView*      (^viewTopTo)(UIView* toView, CGFloat margin);
+@property (nonatomic,copy) UIView*      (^viewLeftTo)(UIView* toView, CGFloat margin);
+@property (nonatomic,copy) UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin);
+@property (nonatomic,copy) UIView*      (^viewRightTo)(UIView* toView, CGFloat margin);
 @end

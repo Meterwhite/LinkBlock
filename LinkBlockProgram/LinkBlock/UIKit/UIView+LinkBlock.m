@@ -873,7 +873,31 @@
 }
 - (void)setViewAnimateResume:(UIView *(^)())viewAnimateResum{};
 
-- (UIView *(^)(UIView *))viewUICopyFrame
+- (UIView *(^)(UIView *))viewCopyX
+{
+    return ^(UIView* fromView){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGRect frame = _self.frame;
+        frame.origin.x = fromView.frame.origin.x;
+        _self.frame= fromView.frame;
+        return _self;
+    };
+}
+- (void)setViewCopyX:(UIView *(^)(UIView *))viewUICopyX{};
+
+- (UIView *(^)(UIView *))viewCopyY
+{
+    return ^(UIView* fromView){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGRect frame = _self.frame;
+        frame.origin.y = fromView.frame.origin.y;
+        _self.frame= fromView.frame;
+        return _self;
+    };
+}
+- (void)setViewCopyY:(UIView *(^)(UIView *))viewUICopyY{};
+
+- (UIView *(^)(UIView *))viewCopyFrame
 {
     return ^(UIView* fromView){
         LinkError_REF_AUTO(UIView, UIView);
@@ -881,33 +905,33 @@
         return _self;
     };
 }
-- (void)setViewUICopyFrame:(UIView *(^)(UIView *))viewUICopyFrame{};
+- (void)setViewCopyFrame:(UIView *(^)(UIView *))viewUICopyFrame{};
 
-- (UIView *(^)(UIView *))viewUICopySize
+- (UIView *(^)(UIView *))viewCopySize
 {
     return ^(UIView* fromView){
         LinkError_REF_AUTO(UIView, UIView);
         CGRect frame = _self.frame;
-        frame.size= frame.size;
+        frame.size= fromView.frame.size;
         _self.frame = frame;
         return _self;
     };
 }
-- (void)setViewUICopySize:(UIView *(^)(UIView *))viewUICopySize{};
+- (void)setViewCopySize:(UIView *(^)(UIView *))viewUICopySize{};
 
-- (UIView *(^)(UIView *))viewUICopyOrigin
+- (UIView *(^)(UIView *))viewCopyOrigin
 {
     return ^(UIView* fromView){
         LinkError_REF_AUTO(UIView, UIView);
         CGRect frame = _self.frame;
-        frame.origin= frame.origin;
+        frame.origin= fromView.frame.origin;
         _self.frame = frame;
         return _self;
     };
 }
-- (void)setViewUICopyOrigin:(UIView *(^)(UIView *))viewUICopyOrigin{};
+- (void)setViewCopyOrigin:(UIView *(^)(UIView *))viewUICopyOrigin{};
 
-- (UIView *(^)(UIView *))viewUICopyCenter
+- (UIView *(^)(UIView *))viewCopyCenter
 {
     return ^(UIView* fromView){
         LinkError_REF_AUTO(UIView, UIView);
@@ -916,9 +940,9 @@
     };
 }
 
-- (void)setViewUICopyCenter:(UIView *(^)(UIView *))viewUICopyCenter{};
+- (void)setViewCopyCenter:(UIView *(^)(UIView *))viewUICopyCenter{};
 
-- (UIView *(^)(UIView *))viewUICopyCenterX
+- (UIView *(^)(UIView *))viewCopyCenterX
 {
     return ^(UIView* fromView){
         LinkError_REF_AUTO(UIView, UIView);
@@ -928,9 +952,9 @@
         return _self;
     };
 }
-- (void)setViewUICopyCenterX:(UIView *(^)(UIView *))viewUICopyCenterX{};
+- (void)setViewCopyCenterX:(UIView *(^)(UIView *))viewUICopyCenterX{};
 
-- (UIView *(^)(UIView *))viewUICopyCenterY
+- (UIView *(^)(UIView *))viewCopyCenterY
 {
     return ^(UIView* fromView){
         LinkError_REF_AUTO(UIView, UIView);
@@ -940,9 +964,9 @@
         return _self;
     };
 }
-- (void)setViewUICopyCenterY:(UIView *(^)(UIView *))viewUICopyCenterY{};
+- (void)setViewCopyCenterY:(UIView *(^)(UIView *))viewUICopyCenterY{};
 
-- (UIView *(^)(UIView *, CGFloat))viewUITopTo
+- (UIView *(^)(UIView *, CGFloat))viewTopTo
 {
     return ^(UIView* toView, CGFloat margin){
         LinkError_REF_AUTO(UIView, UIView);
@@ -952,9 +976,9 @@
         return _self;
     };
 }
-- (void)setViewUITopTo:(UIView *(^)(UIView *, CGFloat))viewUITopTo{};
+- (void)setViewTopTo:(UIView *(^)(UIView *, CGFloat))viewUITopTo{};
 
-- (UIView *(^)(UIView *, CGFloat))viewUIBottonTo
+- (UIView *(^)(UIView *, CGFloat))viewBottomTo
 {
     return ^(UIView* toView, CGFloat margin){
         LinkError_REF_AUTO(UIView, UIView);
@@ -964,9 +988,9 @@
         return _self;
     };
 }
-- (void)setViewUIBottonTo:(UIView *(^)(UIView *, CGFloat))viewUIBottonTo{};
+- (void)setViewBottomTo:(UIView *(^)(UIView *, CGFloat))viewUIBottonTo{};
 
-- (UIView *(^)(UIView *, CGFloat))viewUILeftTo
+- (UIView *(^)(UIView *, CGFloat))viewLeftTo
 {
     return ^(UIView* toView, CGFloat margin){
         LinkError_REF_AUTO(UIView, UIView);
@@ -976,9 +1000,9 @@
         return _self;
     };
 }
-- (void)setViewUILeftTo:(UIView *(^)(UIView *, CGFloat))viewUILeftTo{};
+- (void)setViewLeftTo:(UIView *(^)(UIView *, CGFloat))viewUILeftTo{};
 
-- (UIView *(^)(UIView *, CGFloat))viewUIRightTo
+- (UIView *(^)(UIView *, CGFloat))viewRightTo
 {
     return ^(UIView* toView, CGFloat margin){
         LinkError_REF_AUTO(UIView, UIView);
@@ -988,7 +1012,7 @@
         return _self;
     };
 }
-- (void)setViewUIRightTo:(UIView *(^)(UIView *, CGFloat))viewUIRightTo{};
+- (void)setViewRightTo:(UIView *(^)(UIView *, CGFloat))viewUIRightTo{};
 
 - (CGFloat (^)())viewMaxX
 {

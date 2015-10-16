@@ -123,7 +123,7 @@
 /** 主要针对主要控件设置文本 */
 @property (nonatomic,copy) NSString*            (^strSetTextToControls)(NSArray* controls);
 @property (nonatomic,copy) NSString*            (^strSetTextColorToControls)(NSArray* controls);
-/** 查找字符串中的第一个数字 */
+/** 查找字符串中的第一组数字 */
 @property (nonatomic,copy) double               (^strNumberFind)();
 
 
