@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "LinkBlock"
   s.version      = "0.0.1"
-  s.summary      = "LinkBlock(objective-c ) , to chain programming. Like \"viewFrame(10,10,30,30).viewAddTo(self.view).nslog()... \".Just for coding quickly!（这是objc的链式编程框架，为的是一气呵成的写代码）"
+  s.summary      = "LinkBlock(objective-c ) , to chain programming. Like （这是objc的链式编程框架，为的是一气呵成的写代码）"
 
   # s.description  = <<-DESC
   #                 A longer description of LinkBlock in Markdown format.
@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT" "LICENSE"
+  s.license      ={ :type => "MIT", :file => "LICENSE" }
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
