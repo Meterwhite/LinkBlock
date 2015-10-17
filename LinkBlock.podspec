@@ -64,14 +64,14 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
+   s.platform     = :ios, "7.0"
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
-
+   s.requires_arc = true
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "LinkBlockProgram", "LinkBlockProgram/LinkBlock/*.{h,m}"
+  s.source_files  = "LinkBlockProgram/LinkBlock/*"
   #s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -116,7 +116,7 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  # s.framework  = "SomeFramework"
+  s.frameworks = 'Foundation', 'CoreGraphics', 'UIKit'
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
   # s.library   = "iconv"
