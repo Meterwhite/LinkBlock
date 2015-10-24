@@ -30,7 +30,11 @@
 @property (nonatomic,copy) NSDate*          (^dateAddHour)(NSInteger hour);
 @property (nonatomic,copy) NSDate*          (^dateAddMinut)(NSInteger minut);
 @property (nonatomic,copy) NSDate*          (^dateAddSec)(NSInteger sec);
-
-
-
+#pragma mark - 获取日期的值，整数的字符串
+@property (nonatomic,copy) NSString*        (^dateYear)();
+@property (nonatomic,copy) NSString*        (^dateMonth)();
+@property (nonatomic,copy) NSString*        (^dateDay)();
+@property (nonatomic,copy) NSString*        (^dateHour)();
+@property (nonatomic,copy) NSString*        (^dateMinut)();
+@property (nonatomic,copy) NSString*        (^dateSec)();
 @end

@@ -175,4 +175,65 @@
     };
 }
 - (void)setDateAddYear:(NSDate *(^)(NSInteger))dateAddYear{};
+
+- (NSString *(^)())dateYear
+{
+    return ^(){
+        LinkError_REF_AUTO(NSString, NSDate);
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];  
+        NSDateComponents *comps  = [calendar components:NSYearCalendarUnit fromDate:_self];
+        return [NSString stringWithFormat:@"%ld" , (long)[comps year]];
+    };
+}
+- (void)setDateYear:(NSString *(^)())dateYear{};
+- (NSString *(^)())dateMonth
+{
+    return ^(){
+        LinkError_REF_AUTO(NSString, NSDate);
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps  = [calendar components:NSMonthCalendarUnit fromDate:_self];
+        return [NSString stringWithFormat:@"%ld" , (long)[comps month]];
+    };
+}
+- (void)setDateMonth:(NSString *(^)())dateMonth{};
+- (NSString *(^)())dateDay
+{
+    return ^(){
+        LinkError_REF_AUTO(NSString, NSDate);
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps  = [calendar components:NSDayCalendarUnit fromDate:_self];
+        return [NSString stringWithFormat:@"%ld" , (long)[comps day]];
+    };
+}
+- (void)setDateDay:(NSString *(^)())dateDay{};
+- (NSString *(^)())dateHour
+{
+    return ^(){
+        LinkError_REF_AUTO(NSString, NSDate);
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps  = [calendar components:NSHourCalendarUnit fromDate:_self];
+        return [NSString stringWithFormat:@"%ld" , (long)[comps hour]];
+    };
+}
+- (void)setDateHour:(NSString *(^)())dateHour{};
+- (NSString *(^)())dateMinut
+{
+    return ^(){
+        LinkError_REF_AUTO(NSString, NSDate);
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps  = [calendar components:NSMinuteCalendarUnit fromDate:_self];
+        return [NSString stringWithFormat:@"%ld" , (long)[comps minute]];
+    };
+}
+- (void)setDateMinut:(NSString *(^)())dateMinut{};
+- (NSString *(^)())dateSec
+{
+    return ^(){
+        LinkError_REF_AUTO(NSString, NSDate);
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps  = [calendar components:NSSecondCalendarUnit fromDate:_self];
+        return [NSString stringWithFormat:@"%ld" , (long)[comps second]];
+    };
+}
+- (void)setDateSec:(NSString *(^)())dateSec{};
 @end
