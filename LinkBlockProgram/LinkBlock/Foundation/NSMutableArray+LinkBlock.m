@@ -39,9 +39,12 @@
 {
     return ^(id obj, NSUInteger index){
         LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
-        if(!obj || index>_self.count)goto END;
+        if(!obj || index>_self.count)
+            return _self;
+        if(!_self.count){
+           [_self addObject:obj];
+        }
         [_self insertObject:obj atIndex:index];
-    END:
         return _self;
     };
 }
@@ -51,8 +54,8 @@
 {
     return ^(NSArray * arr, NSUInteger index){
         LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
-        if(!arr || ![arr isKindOfClass:[NSArray class]] || index>_self.count)goto END;
-        [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndex:index]];
+        if(!arr || ![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto END;
+        [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, arr.count)]];
     END:
         return _self;
     };
@@ -287,5 +290,58 @@
     };
 }
 - (void)setM_arrToDictByKeyString:(NSDictionary *(^)())m_arrToDictByKeyString{};
+
+
+- (NSMutableArray *(^)(NSString *, BOOL))m_arrSortByKey
+{
+    return ^(NSString* key , BOOL ascending){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key
+                                                               ascending:ascending];
+        [_self sortUsingDescriptors:@[sort]];
+        return _self;
+    };
+}
+- (void)setM_arrSortByKey:(NSMutableArray *(^)(NSString *, BOOL))m_arrSortByKey{};
+
+- (NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceObjByKey
+{
+    return ^(id obj , NSString* key){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        id uniqueValue = [obj valueForKey:key];
+        if([uniqueValue isKindOfClass:[NSNull class]])
+            return _self;
+        NSArray* values = [_self valueForKey:key];
+        NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([val isEqual:uniqueValue])
+                return YES;
+            return NO;
+        }];
+        if(idxSet.count){
+            
+            __block Class objClass = [obj class];
+            [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                if([_self[idx] isKindOfClass:objClass])
+                    _self[idx] = obj;
+            }];
+            return _self;
+        }
+        
+        [_self addObject:obj];
+        return _self;
+    };
+}
+- (void)setM_arrAddOrReplaceObjByKey:(NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceObjByKey{};
+
+- (NSMutableArray *(^)(NSString *))m_arrFilter
+{
+    return ^(NSString* predicateFormat){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        [_self filterUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
+        return _self;
+    };
+}
+- (void)setM_arrFilter:(NSMutableArray *(^)(NSString *))m_arrFilter{};
 
 @end

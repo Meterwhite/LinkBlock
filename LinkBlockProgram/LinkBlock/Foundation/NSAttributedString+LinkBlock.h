@@ -10,7 +10,6 @@
 
 @interface NSObject(NSAttributedStringLinkBlock)
 /** 默认情况下计算尺寸，如支持UILable文字排版计算 */
-/** Calculation string size , like UILable*/
 @property (nonatomic,copy) CGRect   (^attr_strSize)(CGFloat maxWidth);
 @property (nonatomic,copy) CGRect   (^attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
 @property (nonatomic,copy) BOOL     (^attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);

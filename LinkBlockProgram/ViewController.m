@@ -25,7 +25,7 @@
     @"abc1.txt".strCompareNumberSensitive(@"abc2.txt");
     
     //查找最大数
-    @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumberFind().nslogTitle(@"最大数是:\n");
+    @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
     
     //添加一个按钮到视图上
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -39,24 +39,7 @@
     lab.frame = @"{{20,150},{150,30}}".strToCGRect();
     lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view);
     
-    //给标签添加一个block
-    [lab objBlockSet:@"Say" block:^id{
-        @"log()".nslog();
 
-        UIColor* color = [UIColor redColor];
-        color = color.colorRedSet(arc4random_uniform(256)/255.0).colorGreenSet(arc4random_uniform(256)/255.0).colorBlueSet(arc4random_uniform(256)/255.0).end();
-        return color;
-    }];
-    
-    //添加按钮点击事件
-    [btn controlAddTarget:self forControlEvents:UIControlEventTouchUpInside withBlock:^(UIControlEvents event) {
-        if(event!=UIControlEventTouchUpInside)
-            return ;
-        UIColor* color = [lab objBlockExecute:@"Say"];
-        lab.labTextColor(color);
-        lab.viewAnimateShakeHorizental(0.5);  // animation
-        btn.viewAnimateFlipFromTop(0.5,1,YES);// animation
-    }];
     
     
     //字符串常量直接转颜色

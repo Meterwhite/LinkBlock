@@ -8,19 +8,4 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(UIControlLinkBlock)
-
-- (void)controlAddTarget:(NSObject*)target
-      forControlEvents:(UIControlEvents)controlEvents
-             withBlock:(void (^)(UIControlEvents event))executeBlock;
-
-/** 如果传入nil,所有事件将会被移除 */
-/** If executeBlock is nil, all events will be removed  */
--(void)controlRemoveTarget:(id)target
-        forControlEvents:(UIControlEvents)controlEvents
-               withBlock:(void (^)(UIControlEvents event))executeBlock;
-
-
-
-
-- (NSMutableDictionary *)private__GetPrivateDict __deprecated_msg("This method is private");
 @end

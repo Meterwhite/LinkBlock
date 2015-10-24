@@ -11,12 +11,10 @@
 
 @interface NSObject(LinkBlock)
 #pragma mark - Coding ways
-/** Do not give LinkError for you */
+
 @property (nonatomic,copy) NSObject*    (^set)(id* toValue);
-/** Using at the end of chain to get value of real type. */
 @property (nonatomic,copy) id           (^end)();
 /** 强制获取一个类型的值，失败则返回该类型的初始化对象 */
-/** Force an object to get value of the specified type , failure returns the type of new object  */
 @property (nonatomic,copy) NSObject*    (^typeForceObj)(Class theCalss);
 @property (nonatomic,copy) NSObject*    (^nslog)();
 /** 控制台输出对象前增加标识话语 */
@@ -45,9 +43,9 @@
  *  使用得到的IvarList是带'_'的名称
  */
 /** 当前类型是否包含属性（@property value），不包括父类 */
-+ (BOOL)currentClassContainProperty:(NSString*)property;
++ (BOOL)classContainProperty:(NSString*)property;
 /** 当前类型是否包含成员变量（_value）不包括父类 */
-+ (BOOL)currentClassContainIvar:(NSString*)ivarName;
++ (BOOL)classContainIvar:(NSString*)ivarName;
 /** 获取当前类型的属性名列表（@property value） */
 + (NSArray*)classGetIvarList;
 /** 获取当前类型的成员变量名列表 */
@@ -71,7 +69,7 @@
 
 
 
-#pragma mark - Appoint type quickly（快速指定类型
+#pragma mark - 快速指定类型
 @property (nonatomic,copy) NSString*                    (^typeIsNSString)();
 @property (nonatomic,copy) NSMutableString*             (^typeIsNSMutableString)();
 @property (nonatomic,copy) NSArray*                     (^typeIsNSArray)();
@@ -97,5 +95,4 @@
 
 
 
-- (void)novoExecuteEventForSender:(id)target __deprecated_msg("This method is private");
 @end

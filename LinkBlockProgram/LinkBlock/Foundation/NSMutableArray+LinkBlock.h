@@ -41,40 +41,27 @@
 /** 某个index是否在范围内 */
 @property (nonatomic,copy) BOOL                     (^m_arrIsIndexInRange)(NSUInteger index);
 /** 数组转字典，键为NSNumber类型 */
-/** arr to dict, index becomes key, key type is NSNumber */
 @property (nonatomic,copy) NSDictionary*            (^m_arrToDictByKeyNumber)();
 /** 数组转字典，键为NSString类型 */
-/** arr to dict, index becomes key, key type is NSString */
 @property (nonatomic,copy) NSDictionary*            (^m_arrToDictByKeyString)();
 
 @property (nonatomic,copy) id                       (^m_arrValueAt)(NSUInteger idx);
 /** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) id                       (^m_arrValueAtType)(Class typeClass, NSUInteger idx);
-/** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) NSObject*                (^m_arrValueAtNSObject)(NSUInteger idx);
-/** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) NSString*                (^m_arrValueAtNSString)(NSUInteger idx);
-/** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) NSNumber*                (^m_arrValueAtNSNumber)(NSUInteger idx);
-/** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) NSDictionary*            (^m_arrValueAtNSDictionary)(NSUInteger idx);
-/** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) NSMutableDictionary*     (^m_arrValueAtNSMutableDictionary)(NSUInteger idx);
-/** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) NSArray*                 (^m_arrValueAtNSArrary)(NSUInteger idx);
-/** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) NSMutableArray*          (^m_arrValueAtNSMutableArray)(NSUInteger idx);
-/** 如果类型不匹配，则返回创建一个该类型的对象 */
-/** if return types not match, then retrun an new object of return type */
 @property (nonatomic,copy) UIView*                  (^m_arrValueAtUIVIew)(NSUInteger idx);
 
 @property (nonatomic,copy) NSArray*                 (^m_arrValuesOfType)(Class typeClass);
+/** 以数组中对象的Key的值进行排序 */
+@property (nonatomic,copy) NSMutableArray*          (^m_arrSortByKey)(NSString* key, BOOL ascending);
+/** 插入对象如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后 */
+@property (nonatomic,copy) NSMutableArray*          (^m_arrAddOrReplaceObjByKey)(id obj , NSString* key);
+/** 数组过滤 */
+@property (nonatomic,copy) NSMutableArray*          (^m_arrFilter)(NSString* predicateFormat);
 @end

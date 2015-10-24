@@ -1058,20 +1058,43 @@
 }
 - (void)setStrNumberFind:(double (^)())strNumberFind{};
 
-- (void)strEnumerateScanNumberUsingBlock:(void (^)(double, NSUInteger, BOOL *))block
+
+- (void)strEnumerateScanNumberUsingBlock:(void (^)(NSInteger , NSUInteger, BOOL *))block
 {
     if(block){
         LinkError_VAL_IF(NSString){
             return;
         }
-        double d= 0.0;
-        BOOL stop= NO;
-        NSScanner* scaner = [[NSScanner alloc] initWithString:_self];
-        while (![scaner isAtEnd] && !stop) {
-            if([scaner scanDouble:&d]){
-                block(d, scaner.scanLocation , &stop);
-            }
+        NSError* error = nil;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[+\\-]?[0-9]+" options:NSRegularExpressionCaseInsensitive error:&error];
+        if(error)
+            return;
+        NSArray* reArr = [regex matchesInString:_self
+                                        options:0
+                                          range:NSMakeRange(0, _self.length)];
+        [reArr enumerateObjectsUsingBlock:^(NSTextCheckingResult*  _Nonnull result, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString* numStr = [_self substringWithRange: result.range];
+            block(numStr.integerValue , idx, stop);
+        }];
+    }
+}
+- (void)strEnumerateScanFloatingUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block
+{
+    if(block){
+        LinkError_VAL_IF(NSString){
+            return;
         }
+        NSError* error = nil;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[+\\-]?(?:[0-9]*\\.[0-9]+|[0-9]+\\.)" options:NSRegularExpressionCaseInsensitive error:&error];
+        if(error)
+            return;
+        NSArray* reArr = [regex matchesInString:_self
+                                        options:0
+                                          range:NSMakeRange(0, _self.length)];
+        [reArr enumerateObjectsUsingBlock:^(NSTextCheckingResult*  _Nonnull result, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString* numStr = [_self substringWithRange: result.range];
+            block(numStr.doubleValue , idx, stop);
+        }];
     }
 }
 @end

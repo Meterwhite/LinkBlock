@@ -10,7 +10,6 @@
 
 @interface NSObject(NSMutableDictionaryLinkBlock)
 /** 安全赋值 */
-/** set value safely */
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictSetValue)(id<NSCopying> key , id value);
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictReplaceKey)(id<NSCopying> key , id<NSCopying>  withKey);
 @property (nonatomic,copy) id                   (^m_dictGet)(id<NSCopying> key);
@@ -25,10 +24,8 @@
 @property (nonatomic,copy) NSArray*             (^m_dictAllValues)();
 @property (nonatomic,copy) NSArray*             (^m_dictKeysForValue)(id value);
 /** 并集，由传入参数覆盖原来数据 */
-/** Union. Adds to the receiving dictionary the entries from another dictionary. */
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictUnionDict)(NSDictionary* dict);
 /** ********************NSAttributeString设置部分******************** */
-/** ********************NSAttributeString Settings section ******************** */
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrFont)(UIFont* font);
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrTextColor)(UIColor* textColor);
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrBGColor)(UIColor* bgColor);

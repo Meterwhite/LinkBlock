@@ -81,7 +81,7 @@
 }
 - (void)setSetValueForKeyPathSafe:(NSObject *(^)(id value,NSString* key))valuePathSetSafe{};
 
-+ (BOOL)currentClassContainProperty:(NSString*)property
++ (BOOL)classContainProperty:(NSString*)property
 {
     unsigned int outCount, i;
     objc_property_t* properties = class_copyPropertyList([self class], &outCount);
@@ -91,7 +91,7 @@
     
     return NO;
 }
-+ (BOOL)currentClassContainIvar:(NSString*)ivarName
++ (BOOL)classContainIvar:(NSString*)ivarName
 {
     unsigned int outCout ,i ;
     Ivar* ivarList = class_copyIvarList([self class], &outCout);
@@ -488,73 +488,5 @@
 }
 - (void)setTypeIsUITableView:(UITableView *(^)())typeIsUITableView{};
 
-#pragma mark - extension for func
 
-static const char* blockName = "quxingyiHandsome";
-- (void)objBlockSet:(NSString*)name block:(id(^)())executeBlock
-{
-    if([name isKindOfClass:[NSString class]] && executeBlock)
-        [self novoGetBlocksDict][name]= executeBlock;
-}
-- (id(^)())objBlockGet:(NSString*)name
-{
-    if(![name isKindOfClass:[NSString class]])
-        return (id)^(){return nil;};
-    
-    id(^block)() = [self novoGetBlocksDict][name];
-    if(!block)
-        return (id)^(){return nil;};
-    
-    return (id)block;
-}
-- (void)objBlockRemove:(NSString*)name
-{
-    if([name isKindOfClass:[NSString class]])
-        [[self novoGetBlocksDict] removeObjectForKey:name];
-}
-- (id)objBlockExecute:(NSString *)name
-{
-    if(![name isKindOfClass:[NSString class]])
-        return (id)nil;
-    id(^block)() = [self novoGetBlocksDict][name];
-    if(block)
-        return block();
-    return (id)nil;
-}
-
-- (NSMutableDictionary* )novoGetBlocksDict
-{
-    NSMutableDictionary *privateDict= objc_getAssociatedObject(self, &blockName);
-    if(!privateDict ||
-       ![privateDict isKindOfClass:([NSMutableDictionary class])]){
-        privateDict= [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, &blockName, privateDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return privateDict;
-}
-
-#pragma mark - exteion for uicontrol
-
-/** 触发扩展字典中的的UIControl的事件，不应直接调用 */
-- (void)novoExecuteEventForSender:(id)sender
-{
-    if(![((NSObject*)sender) isKindOfClass:[UIControl class]])
-        return;
-    
-    NSMutableDictionary *privateDict= [(UIControl *)(sender) private__GetPrivateDict];
-    if(![privateDict isKindOfClass:[NSMutableDictionary class]])
-        return;
-    
-    NSNumber* targetKey = [NSNumber numberWithUnsignedLongLong: [self hash]];
-    NSMutableDictionary *targetDict= privateDict[targetKey];
-    if(![targetDict isKindOfClass: [NSMutableDictionary class]])
-        return;
-
-    [targetDict enumerateKeysAndObjectsUsingBlock:^(NSNumber* eventName, NSMutableArray* blocks , BOOL *stop) {
-        UIControlEvents event= [eventName unsignedIntValue];
-        [blocks enumerateObjectsUsingBlock:^(void(^block)(UIControlEvents), NSUInteger idx, BOOL *stop) {
-            block(event);
-        }];
-    }];
-}
 @end

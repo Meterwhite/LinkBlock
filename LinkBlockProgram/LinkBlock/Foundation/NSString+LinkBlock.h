@@ -51,22 +51,17 @@
 /** 是否是数字类型 */
 @property (nonatomic,copy) BOOL         (^strIsNumber)();
 /** 从左删除第一次匹配的字符串 */
-/** Removed from the left of the matched string for the first time */
 @property (nonatomic,copy) NSString*    (^strDeleteLeft)(NSString* str);
 /** 从右删除第一次匹配的字符串 */
-/** Removed from the right of the matched string for the first time */
 @property (nonatomic,copy) NSString*    (^strDeleteRight)(NSString* str);
 /** 从左删除所有匹配的字符串，直到第一次不匹配 */
-/** Delete all matching string from the left, until the first don't match  */
 @property (nonatomic,copy) NSString*    (^strTrimLeft)(NSString* str);
 /** 从右删除所有匹配的字符串，直到第一次不匹配 */
-/** Delete all matching string from the right, until the first don't match  */
 @property (nonatomic,copy) NSString*    (^strTrimRight)(NSString* str);
 @property (nonatomic,copy) NSString*    (^strTrim)(NSString* str);
 /** 分割字符串， 传入 "." ，"0-a.b.c.e-0" 变为  "0-a" "b" "c" "d" "e-0" */
-/** Returns an array containing substrings from the receiver that have been divided by a given separator. */
 @property (nonatomic,copy) NSArray*     (^strSplitWithStr)(NSString* splitStr);
-/** Returns an array containing substrings from the receiver that have been divided by characters in a given string. */
+/** 去除空白和换行 */
 @property (nonatomic,copy) NSArray*     (^strSplitWithCharsStr)(NSString* splitStr);
 
 @property (nonatomic,copy) BOOL         (^strHasPrefix)(NSString* prefix);
@@ -80,7 +75,7 @@
 @property (nonatomic,copy) UIImageView*         (^strCreateImgView)(CGFloat x, CGFloat y, CGFloat w, CGFloat h);
 @property (nonatomic,copy) UILabel*             (^strCreateLab)(CGRect frame);
 #pragma mrak - convert（转换
-/** 0xcccccc , #cccccc , cccccc */
+/** 支持0xcccccc , #cccccc , cccccc */
 @property (nonatomic,copy) UIColor*             (^strToUIColorFromHexStr)();
 @property (nonatomic,copy) NSURL*               (^strToNSURL)();
 @property (nonatomic,copy) UIImage*             (^strToUIImage)();
@@ -112,6 +107,7 @@
 /** NSTextCheckingResult arrary  */
 @property (nonatomic,copy) NSArray*             (^strRegexMatchs)(NSString* regex);
 /**
+ *  正则表达式替换字符串子串
  *  regex : "http://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?".
  *  replaceTemplate : "<a href=\"$0\">$0</a>".
  */
@@ -128,5 +124,11 @@
 
 
 
-- (void)strEnumerateScanNumberUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block;
+/** 遍历字符串中的整型数据 */
+- (void)strEnumerateScanIntegerUsingBlock:(void(^)(NSInteger num, NSUInteger idx, BOOL *stop))block;
+/** 遍历字符串中的小数数据
+ *  例如: "price: .32 , price: 432. , price 32.32"
+ *  => 0.3200 432.000 32.320
+ */
+- (void)strEnumerateScanFloatingUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block;
 @end

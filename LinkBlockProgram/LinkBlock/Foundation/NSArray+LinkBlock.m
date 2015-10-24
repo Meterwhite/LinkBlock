@@ -44,11 +44,12 @@
 {
     return ^(NSUInteger idx1, NSUInteger idx2){
         LinkError_REF_AUTO(NSArray, NSArray);
-        if(idx1>idx2 || idx1> _self.count-1)
-            return (NSArray *)([NSArray new]);
+        if(!_self.count ||idx1>idx2 || idx1> _self.count-1)
+            return @[];
 
         if(idx2> _self.count-1)
             idx2= _self.count - 1;
+
         NSUInteger loc = idx1;
         NSUInteger len = idx2 - idx1 + 1;
         return [_self subarrayWithRange:NSMakeRange(loc, len)];
@@ -237,7 +238,20 @@
 }
 - (void)setArrFilter:(NSArray *(^)(NSString *))arrFilter{};
 
-- (NSNumber *(^)())arrMaxNumberFind
+- (NSIndexSet *(^)(id))arrIndexSetOfValue
+{
+    return ^(id value){
+        LinkError_REF_AUTO(NSIndexSet, NSArray);
+        return  [_self indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if([obj isEqual:value])
+                return YES;
+            return NO;
+        }];
+    };
+}
+- (void)setArrIndexSetOfValue:(NSIndexSet *(^)(id))arrIndexSetOfValue{};
+
+- (NSNumber *(^)())arrMaxNumber
 {
     return ^(){
         LinkError_REF_AUTO(NSNumber, NSArray);
@@ -253,9 +267,9 @@
         return max;
     };
 }
-- (void)setArrMaxNumberFind:(NSNumber *(^)())arrValueNumberMax{};
+- (void)setArrMaxNumber:(NSNumber *(^)())arrValueNumberMax{};
 
-- (NSNumber *(^)())arrMinNumberFind
+- (NSNumber *(^)())arrMinNumber
 {
     return ^(){
         LinkError_REF_AUTO(NSNumber, NSArray);
@@ -268,7 +282,7 @@
         return min;
     };
 }
-- (void)setArrMinNumberFind:(NSNumber *(^)())arrMinNumberFind{};
+- (void)setArrMinNumber:(NSNumber *(^)())arrMinNumberFind{};
 
 - (NSObject *(^)())arrLastObj
 {
