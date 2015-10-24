@@ -54,7 +54,7 @@
 {
     return ^(NSArray * arr, NSUInteger index){
         LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
-        if(!arr || ![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto END;
+        if(!_self.count || ![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto END;
         [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, arr.count)]];
     END:
         return _self;
@@ -344,4 +344,73 @@
 }
 - (void)setM_arrFilter:(NSMutableArray *(^)(NSString *))m_arrFilter{};
 
+- (NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceObjByKeyAt
+{
+    return ^(id obj , NSString* key , NSUInteger idx){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        id uniqueValue = [obj valueForKey:key];
+        if([uniqueValue isKindOfClass:[NSNull class]])
+            return _self;
+        NSArray* values = [_self valueForKey:key];
+        NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([val isEqual:uniqueValue])
+                return YES;
+            return NO;
+        }];
+        if(idxSet.count){
+            
+            __block Class objClass = [obj class];
+            [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                if([_self[idx] isKindOfClass:objClass])
+                    _self[idx] = obj;
+            }];
+            return _self;
+        }
+        
+        [_self insertObject:obj atIndex:idx];
+        return _self;
+    };
+}
+- (void)setM_arrInsertOrReplaceObjByKeyAt:(NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceObjByKeyAt{};
+
+- (NSMutableArray *(^)(id, NSString *))m_arrTryReplaceObjByKey
+{
+    return ^(id obj , NSString* key){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        
+        id uniqueValue = [obj valueForKey:key];
+        if([uniqueValue isKindOfClass:[NSNull class]])
+            return _self;
+        NSArray* values = [_self valueForKey:key];
+        NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([val isEqual:uniqueValue])
+                return YES;
+            return NO;
+        }];
+        if(idxSet.count){
+            
+            __block Class objClass = [obj class];
+            [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                if([_self[idx] isKindOfClass:objClass])
+                    _self[idx] = obj;
+            }];
+        }
+        return _self;
+    };
+}
+- (void)setM_arrTryReplaceObjByKey:(NSMutableArray *(^)(id, NSString *))m_arrTryReplaceObjByKey{};
+
+- (NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey
+{
+    return ^(NSArray* objs , NSString* key){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        [objs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            _self.m_arrTryReplaceObjByKey(obj, key);
+        }];
+        return _self;
+    };
+}
+- (void)setM_arrTryReplaceObjsByKey:(NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey{};
 @end

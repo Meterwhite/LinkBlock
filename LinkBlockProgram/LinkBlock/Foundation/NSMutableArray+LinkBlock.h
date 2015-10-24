@@ -62,6 +62,11 @@
 @property (nonatomic,copy) NSMutableArray*          (^m_arrSortByKey)(NSString* key, BOOL ascending);
 /** 插入对象如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后 */
 @property (nonatomic,copy) NSMutableArray*          (^m_arrAddOrReplaceObjByKey)(id obj , NSString* key);
+/** 在指定索引处插入对象，如果数组中存在对象的Key对应的value比较相等则全部替换， */
+@property (nonatomic,copy) NSMutableArray*          (^m_arrInsertOrReplaceObjByKeyAt)(id obj , NSString* key, NSUInteger idx);
+/** 如果数组中对象与obj参数的key的值相等的对象 */
+@property (nonatomic,copy) NSMutableArray*          (^m_arrTryReplaceObjByKey)(id obj , NSString* key);
+@property (nonatomic,copy) NSMutableArray*          (^m_arrTryReplaceObjsByKey)(NSArray* objs , NSString* key);
 /** 数组过滤 */
 @property (nonatomic,copy) NSMutableArray*          (^m_arrFilter)(NSString* predicateFormat);
 @end
