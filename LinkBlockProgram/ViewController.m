@@ -27,26 +27,21 @@
     //查找最大数
     @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
     
+    
     //添加一个按钮到视图上
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
+    link_start(btn).viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
     
     //安全使用KVC
-    btn.setValueForKeySafe(@"0xff22cc".strToUIColorFromHexStr() , @"backgroundColor");
+    link_start(btn).setValueForKeySafe(@"0xff22cc".strToUIColorFromHexStr() , @"backgroundColor");
     
     //添加一个标签到视图上
     UILabel* lab = [UILabel new];
     lab.frame = @"{{20,150},{150,30}}".strToCGRect();
-    lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view);
-    
-
-    
+    link_start(lab).labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view);
     
     //字符串常量直接转颜色
-    @"0xff22cc".strToUIColorFromHexStr();
-    @"#ff22cc".strToUIColorFromHexStr();
-    @"ff22cc".strToUIColorFromHexStr();
-    
+    @"0xff22cc".strToUIColorFromHexStr();//0x.. ，#..，..
     
     //正则表达式替换_xxx_为[xxx]
     @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
@@ -66,7 +61,7 @@
         obj.nslog();
     }];
     
-    
-
+    //对象转json
+    arrForFilter.objToJsonString();
 }
 @end
