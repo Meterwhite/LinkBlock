@@ -34,6 +34,11 @@
 #import "UIImageView+LinkBlock.h"
 #import "UIViewController+LinkBlock.h"
 
+//起手写宏
+#ifndef link_start
+#define link_start(object) (object?object:[LinkError share])
+#endif
+
 //引用类型返回值宏定义
 #define LinkError_REF_AUTO(returnType , currType)\
 currType* _self = (currType*)self;\
