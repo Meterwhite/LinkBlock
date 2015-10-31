@@ -12,7 +12,7 @@
 
 @property (nonatomic,copy) NSString*        (^dateToStrWithFormate)(NSString* formateStr);
 
-#pragma mark - Calculating the difference the two dates（计算日期差值
+#pragma mark - 计算日期差值
 @property (nonatomic,copy) NSInteger        (^dateMinusYear)(NSDate* date);
 @property (nonatomic,copy) NSInteger        (^dateMinusMonth)(NSDate* date);
 @property (nonatomic,copy) NSInteger        (^dateMinusDay)(NSDate* date);
@@ -20,7 +20,7 @@
 @property (nonatomic,copy) NSInteger        (^dateMinusMinut)(NSDate* date);
 @property (nonatomic,copy) NSInteger        (^dateMinusSec)(NSDate* date);
 
-#pragma mark - The date object increased time （计算日期差值
+#pragma mark - 日期相加
 @property (nonatomic,copy) NSDate*          (^dateAddTimeInterval)(NSTimeInterval timeInterval);
 /** 365 */
 @property (nonatomic,copy) NSDate*          (^dateAddYear)(NSInteger year);
