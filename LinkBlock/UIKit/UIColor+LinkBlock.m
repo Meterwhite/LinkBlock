@@ -232,4 +232,5 @@
         return _self;
     };
 }
+- (void)setColorSetTextColorToViewSubviews:(UIColor *(^)(UIView *))colorSetTextColorToViewSubviews{};
 @end

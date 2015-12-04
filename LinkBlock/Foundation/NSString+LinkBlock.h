@@ -25,7 +25,7 @@
 @property (nonatomic,copy) NSInteger    (^strIndexOfStr)(NSString* str);
 @property (nonatomic,copy) NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIndex);
 
-/** 是否是表示空的字符串"","<null>","(null)" */
+/** 是否是表示空的字符串@"",@"<null>",@"(null)" */
 @property (nonatomic,copy) BOOL         (^strIsBlank)();
 @property (nonatomic,copy) BOOL         (^strIsEmoji)();
 @property (nonatomic,copy) BOOL         (^strIsContainEmoji)();
@@ -60,9 +60,9 @@
 @property (nonatomic,copy) NSString*    (^strTrimRight)(NSString* str);
 @property (nonatomic,copy) NSString*    (^strTrim)(NSString* str);
 /** 分割字符串， 传入 "." ，"0-a.b.c.e-0" 变为  "0-a" "b" "c" "d" "e-0" */
-@property (nonatomic,copy) NSArray*     (^strSplitWithStr)(NSString* splitStr);
+@property (nonatomic,copy) NSArray<NSString*>*     (^strSplitWithStr)(NSString* splitStr);
 /** 去除空白和换行 */
-@property (nonatomic,copy) NSArray*     (^strSplitWithCharsStr)(NSString* splitStr);
+@property (nonatomic,copy) NSArray<NSString*>*     (^strSplitWithCharsStr)(NSString* splitStr);
 
 @property (nonatomic,copy) BOOL         (^strHasPrefix)(NSString* prefix);
 @property (nonatomic,copy) BOOL         (^strHasSuffix)(NSString* suffix);
@@ -104,8 +104,6 @@
 @property (nonatomic,copy) NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
 #pragma mark - regex（正则表达式
 @property (nonatomic,copy) BOOL                 (^strRegexIsMatch)(NSString* regex);
-/** NSTextCheckingResult arrary  */
-@property (nonatomic,copy) NSArray*             (^strRegexMatchs)(NSString* regex);
 /**
  *  正则表达式替换字符串子串
  *  regex : "http://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?".
@@ -115,7 +113,7 @@
 
 #pragma mark - super（高级
 /** 十六进制字符串颜色设置到控件 */
-@property (nonatomic,copy) NSString*            (^strSetBgColorToViews)(NSArray* views);
+@property (nonatomic,copy) NSString*            (^strSetBGColorToViews)(NSArray* views);
 /** 主要针对主要控件设置文本 */
 @property (nonatomic,copy) NSString*            (^strSetTextToControls)(NSArray* controls);
 @property (nonatomic,copy) NSString*            (^strSetTextColorToControls)(NSArray* controls);
@@ -125,10 +123,12 @@
 
 
 /** 遍历字符串中的整型数据 */
-- (void)strEnumerateScanIntegerUsingBlock:(void(^)(NSInteger num, NSUInteger idx, BOOL *stop))block;
+- (void)strEnumerateScanIntegerUsingBlock:(void (^)(NSInteger num, NSUInteger idx, BOOL * stop))block;
 /** 遍历字符串中的小数数据
  *  例如: "price: .32 , price: 432. , price 32.32"
  *  => 0.3200 432.000 32.320
  */
 - (void)strEnumerateScanFloatingUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block;
+/** 遍历字符串中的所有数值类型，统一返回double类型 */
+- (void)strEnumerateScanNumberUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block;
 @end

@@ -135,11 +135,11 @@
 		9FBD17051BDB91D500C2F402 /* LinkBlock */ = {
 			isa = PBXGroup;
 			children = (
+				9FBD17241BDB91D500C2F402 /* UIKit */,
 				9FBD17061BDB91D500C2F402 /* Foundation */,
 				9FBD17211BDB91D500C2F402 /* LinkBlock.h */,
 				9FBD17221BDB91D500C2F402 /* LinkError.h */,
 				9FBD17231BDB91D500C2F402 /* LinkError.m */,
-				9FBD17241BDB91D500C2F402 /* UIKit */,
 			);
 			path = LinkBlock;
 			sourceTree = "<group>";

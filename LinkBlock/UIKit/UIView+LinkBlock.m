@@ -8,6 +8,7 @@
 #import "UIView+LinkBlock.h"
 #import "NSObject+LinkBlock.h"
 #import "LinkBlock.h"
+#import <objc/runtime.h>
 
 @implementation NSObject(UIViewLinkBlock)
 - (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))viewSetFrame
@@ -196,7 +197,7 @@
         __block UIView *re= nil;
         [_self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
             
-            if(v.isKindOf([UITextView class])|| v.isKindOf([UITextField class])){
+            if(v.isKindOf([UITextView class]) || v.isKindOf([UITextField class])){
                 if(v.isFirstResponder){
                     re= v;
                     *stop= YES;
@@ -1035,4 +1036,7 @@
     };
 }
 - (void)setViewMaxY:(CGFloat (^)())viewMaxY{};
+
 @end
+
+

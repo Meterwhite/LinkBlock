@@ -9,11 +9,11 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(UIButtonLinkBlock)
-- (UIButton *(^)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right))btnTitleEdgeInsets
+- (UIButton *(^)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right))btnTitleEdgeInsets
 {
-    return ^(CGFloat top, CGFloat left, CGFloat botton, CGFloat right){
+    return ^(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right){
         LinkError_REF_AUTO(UIButton, UIButton);
-        _self.titleEdgeInsets = UIEdgeInsetsMake(top, left, botton, right);
+        _self.titleEdgeInsets = UIEdgeInsetsMake(top, left, bottom, right);
         return _self;
     };
 }
@@ -21,9 +21,9 @@
 
 - (UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))btnImageEdgeInsets
 {
-    return ^(CGFloat top, CGFloat left, CGFloat botton, CGFloat right){
+    return ^(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right){
         LinkError_REF_AUTO(UIButton, UIButton);
-        _self.imageEdgeInsets = UIEdgeInsetsMake(top, left, botton, right);
+        _self.imageEdgeInsets = UIEdgeInsetsMake(top, left, bottom, right);
         return _self;
     };
 }

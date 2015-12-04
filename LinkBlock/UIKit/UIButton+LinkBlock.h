@@ -8,8 +8,8 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(UIButtonLinkBlock)
-@property (nonatomic,copy) UIButton* (^btnTitleEdgeInsets)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right);
-@property (nonatomic,copy) UIButton* (^btnImageEdgeInsets)(CGFloat top, CGFloat left, CGFloat botton, CGFloat right);
+@property (nonatomic,copy) UIButton* (^btnTitleEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
+@property (nonatomic,copy) UIButton* (^btnImageEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
 @property (nonatomic,copy) UIButton* (^btnTitle)(NSString* title, UIControlState state);
 @property (nonatomic,copy) UIButton* (^btnTitleColor)(UIColor* color , UIControlState state);
 @property (nonatomic,copy) UIButton* (^btnAttributeTitle)(NSAttributedString* attrStr, UIControlState state);

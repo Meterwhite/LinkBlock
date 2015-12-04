@@ -841,29 +841,31 @@
 }
 - (void)setStrToFloat:(float (^)())strToFloat{};
 
-//- (NSArray *(^)(NSString *))strSplitWithStr
-//{
-//    return ^(NSString* splitStr){
-//        LinkError_REF_AUTO(NSArray, NSString);
-//        return [_self componentsSeparatedByString:splitStr];
-//    };
-//}
-//- (void)setStrSplitWithStr:(NSArray *(^)(NSString *))blockSplitStrWithStr{};
-//
-//- (NSArray *(^)(NSString *))strSplitWithCharsStr
-//{
-//    return ^(NSString* splitStrs){
-//        LinkError_REF_AUTO(NSArray, NSString);
-//        NSCharacterSet *charSet= [NSCharacterSet characterSetWithCharactersInString:splitStrs];
-//        return [_self componentsSeparatedByCharactersInSet:charSet];
-//    };
-//}
-//- (void)setStrSplitWithCharsStr:(NSArray *(^)(NSString *))blockSplitStrWithCharsStr{};
+- (NSArray<NSString*> *(^)(NSString *))strSplitWithStr
+{
+    return ^(NSString* splitStr){
+        LinkError_REF_AUTO(NSArray<NSString*>, NSString);
+        return [_self componentsSeparatedByString:splitStr];
+    };
+}
+- (void)setStrSplitWithStr:(NSArray<NSString*> *(^)(NSString *))blockSplitStrWithStr{};
+
+- (NSArray<NSString*> *(^)(NSString *))strSplitWithCharsStr
+{
+    return ^(NSString* splitStrs){
+        LinkError_REF_AUTO(NSArray<NSString*>, NSString);
+        NSCharacterSet *charSet= [NSCharacterSet characterSetWithCharactersInString:splitStrs];
+        return [_self componentsSeparatedByCharactersInSet:charSet];
+    };
+}
+- (void)setStrSplitWithCharsStr:(NSArray<NSString*> *(^)(NSString *))blockSplitStrWithCharsStr{};
 
 - (BOOL (^)(NSString *))strHasPrefix
 {
     return ^(NSString* prefix){
-        LinkError_VAL_IF(NSString);
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
         return [_self hasPrefix:prefix];
     };
 }
@@ -872,7 +874,9 @@
 - (BOOL (^)(NSString *))strHasSuffix
 {
     return ^(NSString* suffix){
-        LinkError_VAL_IF(NSString);
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
         return [_self hasSuffix:suffix];
     };
 }
@@ -958,20 +962,6 @@
 }
 - (void)setStrRegexIsMatch:(BOOL (^)(NSString *))strRegexIsMatch{};
 
-//- (NSArray *(^)(NSString *))strRegexMatchs
-//{
-//    return ^(NSString* regexStr){
-//        LinkError_REF_AUTO(NSArray, NSString);
-//        NSRegularExpression* regex = [[NSRegularExpression alloc]
-//                                      initWithPattern:regexStr
-//                                      options:0
-//                                      error:nil];
-//        return [regex matchesInString:_self
-//                              options:0
-//                                range:NSMakeRange(0, _self.length)];
-//    };
-//}
-//- (void)setStrRegexMatchs:(NSArray *(^)(NSString *))strRegexMatchs{};
 
 - (NSString *(^)(NSString *, NSString*))strRegexReplace
 {
@@ -1030,7 +1020,7 @@
 }
 - (void)setStrSetTextColorToControls:(NSString *(^)(NSArray *))strSetTextColorToControls{};
 
-- (NSString *(^)(NSArray *))strSetBgColorToViews
+- (NSString *(^)(NSArray *))strSetBGColorToViews
 {
     return ^(NSArray* views){
         LinkError_REF_AUTO(NSString, NSString);
@@ -1042,7 +1032,7 @@
         return _self;
     };
 }
-- (void)setStrSetBgColorToViews:(NSString *(^)(NSArray *))strSetBgColorToViews{};
+- (void)setStrSetBGColorToViews:(NSString *(^)(NSArray *))strSetBgColorToViews{};
 
 - (double (^)())strNumberFind
 {
@@ -1058,8 +1048,7 @@
 }
 - (void)setStrNumberFind:(double (^)())strNumberFind{};
 
-
-- (void)strEnumerateScanNumberUsingBlock:(void (^)(NSInteger , NSUInteger, BOOL *))block
+- (void)strEnumerateScanIntegerUsingBlock:(void (^)(NSInteger num, NSUInteger idx, BOOL *stop))block
 {
     if(block){
         LinkError_VAL_IF(NSString){
@@ -1078,6 +1067,7 @@
         }];
     }
 }
+
 - (void)strEnumerateScanFloatingUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block
 {
     if(block){
@@ -1086,6 +1076,26 @@
         }
         NSError* error = nil;
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[+\\-]?(?:[0-9]*\\.[0-9]+|[0-9]+\\.)" options:NSRegularExpressionCaseInsensitive error:&error];
+        if(error)
+            return;
+        NSArray* reArr = [regex matchesInString:_self
+                                        options:0
+                                          range:NSMakeRange(0, _self.length)];
+        [reArr enumerateObjectsUsingBlock:^(NSTextCheckingResult*  _Nonnull result, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString* numStr = [_self substringWithRange: result.range];
+            block(numStr.doubleValue , idx, stop);
+        }];
+    }
+}
+
+- (void)strEnumerateScanNumberUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block
+{
+    if(block){
+        LinkError_VAL_IF(NSString){
+            return;
+        }
+        NSError* error = nil;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[+\\-]?\\d+(\\.\\d+)?" options:NSRegularExpressionCaseInsensitive error:&error];
         if(error)
             return;
         NSArray* reArr = [regex matchesInString:_self

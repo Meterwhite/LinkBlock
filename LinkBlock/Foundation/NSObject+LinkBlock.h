@@ -59,15 +59,6 @@
 
 
 
-/** 增加一个block到对象 */
-/** Add a block to the object  */
-- (void)objBlockSet:(NSString*)name block:(id(^)())executeBlock;
-- (id(^)())objBlockGet:(NSString*)name;
-- (void)objBlockRemove:(NSString*)name;
-/**  return value: the block return value */
-- (id)objBlockExecute:(NSString*)name;
-
-
 
 #pragma mark - 快速指定类型
 @property (nonatomic,copy) NSString*                    (^typeIsNSString)();

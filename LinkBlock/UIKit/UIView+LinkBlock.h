@@ -113,7 +113,6 @@
 /** 恢复动画，在暂停动画后使用 */
 @property (nonatomic,copy) UIView*      (^viewAnimateResume)();
 
-
 #pragma mark - UI layout（just coding layout）
 @property (nonatomic,copy) UIView*      (^viewCopyX)(UIView* fromView);
 @property (nonatomic,copy) UIView*      (^viewCopyY)(UIView* fromView);
@@ -127,4 +126,7 @@
 @property (nonatomic,copy) UIView*      (^viewLeftTo)(UIView* toView, CGFloat margin);
 @property (nonatomic,copy) UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin);
 @property (nonatomic,copy) UIView*      (^viewRightTo)(UIView* toView, CGFloat margin);
+
+
 @end
+

@@ -30,7 +30,7 @@
     
     //添加一个按钮到视图上
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    link_start(btn).viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
+    link_start(btn).viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"Button", UIControlStateNormal);
     
     //安全使用KVC
     link_start(btn).setValueForKeySafe(@"0xff22cc".strToUIColorFromHexStr() , @"backgroundColor");
@@ -38,7 +38,7 @@
     //添加一个标签到视图上
     UILabel* lab = [UILabel new];
     lab.frame = @"{{20,150},{150,30}}".strToCGRect();
-    link_start(lab).labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view);
+    link_start(lab).labText(@"Label").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view);
     
     //字符串常量直接转颜色
     @"0xff22cc".strToUIColorFromHexStr();//0x.. ，#..，..
@@ -63,5 +63,13 @@
     
     //对象转json
     arrForFilter.objToJsonString();
+    
+    UIView* newView = [[UIView alloc] initWithFrame:CGRectMake(80, 280, 80, 80)].viewBGColor([UIColor grayColor]);
+    newView.viewAddToView(self.view);
+
+    NSString* strHaveNumbers = @"我有5元，用了-20.67元";
+    [strHaveNumbers strEnumerateScanNumberUsingBlock:^(double num, NSUInteger idx, BOOL *stop) {
+        NSLog(@"%f",num);
+    }];
 }
 @end
