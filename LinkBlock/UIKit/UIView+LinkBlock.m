@@ -460,7 +460,7 @@
                                                    byRoundingCorners:side
                                                          cornerRadii:radius];
         CAShapeLayer* shape = [[CAShapeLayer alloc] init];
-        shape.frame= _self.frame;
+        shape.frame= _self.bounds;
         shape.path= path.CGPath;
         _self.layer.mask = shape;
         return _self;
