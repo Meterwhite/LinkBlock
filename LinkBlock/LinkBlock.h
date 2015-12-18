@@ -35,8 +35,8 @@
 #import "UIViewController+LinkBlock.h"
 
 //起手写宏
-#ifndef link_start
-#define link_start(object) (object?object:[LinkError share])
+#ifndef linkObj
+#define linkObj(object) (object?object:[LinkError share])
 #endif
 
 //引用类型返回值宏定义
