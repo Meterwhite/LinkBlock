@@ -309,8 +309,6 @@
     return ^(id obj , NSString* key){
         LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         id uniqueValue = [obj valueForKey:key];
-        if([uniqueValue isKindOfClass:[NSNull class]])
-            return _self;
         NSArray* values = [_self valueForKey:key];
         NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -320,10 +318,8 @@
         }];
         if(idxSet.count){
             
-            __block Class objClass = [obj class];
             [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                if([_self[idx] isKindOfClass:objClass])
-                    _self[idx] = obj;
+                _self[idx] = obj;
             }];
             return _self;
         }
@@ -349,8 +345,6 @@
     return ^(id obj , NSString* key , NSUInteger idx){
         LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         id uniqueValue = [obj valueForKey:key];
-        if([uniqueValue isKindOfClass:[NSNull class]])
-            return _self;
         NSArray* values = [_self valueForKey:key];
         NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -360,10 +354,8 @@
         }];
         if(idxSet.count){
             
-            __block Class objClass = [obj class];
             [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                if([_self[idx] isKindOfClass:objClass])
-                    _self[idx] = obj;
+                _self[idx] = obj;
             }];
             return _self;
         }
@@ -380,8 +372,6 @@
         LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
         
         id uniqueValue = [obj valueForKey:key];
-        if([uniqueValue isKindOfClass:[NSNull class]])
-            return _self;
         NSArray* values = [_self valueForKey:key];
         NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -391,10 +381,8 @@
         }];
         if(idxSet.count){
             
-            __block Class objClass = [obj class];
             [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                if([_self[idx] isKindOfClass:objClass])
-                    _self[idx] = obj;
+                _self[idx] = obj;
             }];
         }
         return _self;
