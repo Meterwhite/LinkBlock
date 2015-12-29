@@ -42,3 +42,8 @@
 }
 - (void)setM_strAppenStr:(NSMutableString *(^)(NSString *))m_strAppenStr{};
 @end
+
+
+@implementation NSMutableArray(NSMutableStringLinkBlock)
+
+@end

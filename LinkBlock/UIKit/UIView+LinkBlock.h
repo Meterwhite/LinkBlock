@@ -37,7 +37,6 @@
 @property (nonatomic,copy) UIView*      (^viewBorderWidth)(CGFloat w);
 @property (nonatomic,copy) UIView*      (^viewCornerRadius)(CGFloat radius);
 /** 不同方位的圆角 */
-/** The rounded corners of different orientation  */
 @property (nonatomic,copy) UIView*      (^viewCornerRadiusSide)(UIRectCorner side , CGSize radius);
 @property (nonatomic,copy) UIView*      (^viewMasksToBounds)(BOOL b);
 
@@ -45,13 +44,10 @@
 
 @property (nonatomic,copy) BOOL         (^viewIsSubviewTo)(UIView* theView);
 /** 递归此视图，找到第一响应者的的输入类型控件 */
-/** Recursive this view ，find first responder input type control */
 @property (nonatomic,copy) UIView*      (^viewFirstResponderSubViewForInput)();
 /** 控制子控件的并发触控 */
-/** Concurrent touch control subviews  */
 @property (nonatomic,copy) UIView*      (^viewSubiewsExclusiveTouch)(BOOL b);
 /** 控件相对window的位置 */
-/** The location of the control relative to the window  */
 @property (nonatomic,copy) CGRect       (^viewConvertRectToWindow)();
 @property (nonatomic,copy) UIView*      (^viewUserInteractionEnabled)(BOOL b);
 @property (nonatomic,copy) UIView*      (^viewMultipleTouchEnabled)(BOOL b);
@@ -68,7 +64,6 @@
 @property (nonatomic,copy) UIView*      (^viewRemoveFromSuperview)();
 @property (nonatomic,copy) UIView*      (^viewRemoveSubviewAt)(NSUInteger index);
 /** 尝试移除一个子控件 */
-/** Try to remove a subview  */
 @property (nonatomic,copy) UIView*      (^viewRemoveSubviewTry)(UIView* view);
 @property (nonatomic,copy) UIView*      (^viewRemoveAll)();
 @property (nonatomic,copy) UIView*      (^viewInsertSubviewAtIndex)(UIView* subView, NSUInteger index);
@@ -113,7 +108,7 @@
 /** 恢复动画，在暂停动画后使用 */
 @property (nonatomic,copy) UIView*      (^viewAnimateResume)();
 
-#pragma mark - UI layout（just coding layout）
+#pragma mark - frame 布局
 @property (nonatomic,copy) UIView*      (^viewCopyX)(UIView* fromView);
 @property (nonatomic,copy) UIView*      (^viewCopyY)(UIView* fromView);
 @property (nonatomic,copy) UIView*      (^viewCopyFrame)(UIView* fromView);

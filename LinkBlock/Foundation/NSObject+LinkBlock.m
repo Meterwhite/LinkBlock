@@ -242,11 +242,11 @@
 
 - (NSObject *(^)(id*))set
 {
-    return ^(id* toValue){
+    return ^(id* toObject){
         LinkError_VAL_IF(NSObject){
-            *toValue= nil;
+            *toObject= nil;
         }else{
-            *toValue= _self;
+            *toObject= _self;
         }
         return _self;
     };

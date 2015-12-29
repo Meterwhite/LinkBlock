@@ -46,6 +46,8 @@
 @property (nonatomic,copy) NSDictionary*            (^m_arrToDictByKeyString)();
 
 @property (nonatomic,copy) id                       (^m_arrValueAt)(NSUInteger idx);
+@property (nonatomic,copy) NSMutableArray*          (^m_arrValuesFrom)(NSUInteger idx);
+@property (nonatomic,copy) NSMutableArray*          (^m_arrValuesTo)(NSUInteger idx);
 /** 如果类型不匹配，则返回创建一个该类型的对象 */
 @property (nonatomic,copy) id                       (^m_arrValueAtType)(Class typeClass, NSUInteger idx);
 @property (nonatomic,copy) NSObject*                (^m_arrValueAtNSObject)(NSUInteger idx);
@@ -56,6 +58,7 @@
 @property (nonatomic,copy) NSArray*                 (^m_arrValueAtNSArrary)(NSUInteger idx);
 @property (nonatomic,copy) NSMutableArray*          (^m_arrValueAtNSMutableArray)(NSUInteger idx);
 @property (nonatomic,copy) UIView*                  (^m_arrValueAtUIVIew)(NSUInteger idx);
+
 
 @property (nonatomic,copy) NSArray*                 (^m_arrValuesOfType)(Class typeClass);
 /** 以数组中对象的Key的值进行排序 */

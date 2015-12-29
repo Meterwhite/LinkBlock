@@ -12,7 +12,7 @@
 @interface NSObject(LinkBlock)
 #pragma mark - Coding ways
 
-@property (nonatomic,copy) NSObject*    (^set)(id* toValue);
+@property (nonatomic,copy) NSObject*    (^set)(id* toObject);
 @property (nonatomic,copy) id           (^end)();
 /** 强制获取一个类型的值，失败则返回该类型的初始化对象 */
 @property (nonatomic,copy) NSObject*    (^typeForceObj)(Class theCalss);
@@ -55,12 +55,13 @@
 @property (nonatomic,copy) NSObject*    (^objCopy)();
 @property (nonatomic,copy) NSObject*    (^objMutableCopy)();
 @property (nonatomic,copy) BOOL         (^objIsEqual)(NSObject* obj);
+/** 数组，字典等对象转成json的字符串 */
 @property (nonatomic,copy) NSString*    (^objToJsonString)();
 
 
 
 
-#pragma mark - 快速指定类型
+#pragma mark - 快速指定类型，减少类型强制转换代码步骤
 @property (nonatomic,copy) NSString*                    (^typeIsNSString)();
 @property (nonatomic,copy) NSMutableString*             (^typeIsNSMutableString)();
 @property (nonatomic,copy) NSArray*                     (^typeIsNSArray)();

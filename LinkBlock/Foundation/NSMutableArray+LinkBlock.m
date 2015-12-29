@@ -401,4 +401,30 @@
     };
 }
 - (void)setM_arrTryReplaceObjsByKey:(NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey{};
+
+- (NSMutableArray *(^)(NSUInteger))m_arrValuesFrom
+{
+    return ^(NSUInteger idx){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        NSUInteger count = _self.count;
+        if(idx >= count ) return _self;
+        NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(idx, count - idx)];
+        [_self objectsAtIndexes:idxSet];
+        return _self;
+    };
+}
+- (void)setM_arrValuesFrom:(NSMutableArray *(^)(NSUInteger))m_arrValuesFrom{};
+
+- (NSMutableArray *(^)(NSUInteger))m_arrValuesTo
+{
+    return ^(NSUInteger idx){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        NSUInteger count = _self.count;
+        if(idx >= count ) return _self;
+        NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, idx)];
+        [_self objectsAtIndexes:idxSet];
+        return _self;
+    };
+}
+- (void)setM_arrValuesTo:(NSMutableArray *(^)(NSUInteger))m_arrValuesTo{};
 @end
