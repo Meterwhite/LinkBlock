@@ -1020,7 +1020,7 @@
 }
 - (void)setStrSetTextColorToControls:(NSString *(^)(NSArray *))strSetTextColorToControls{};
 
-- (NSString *(^)(NSArray *))strSetBGColorToViews
+- (NSString *(^)(NSArray *))strSetBGColorHexToViews
 {
     return ^(NSArray* views){
         LinkError_REF_AUTO(NSString, NSString);
@@ -1032,7 +1032,7 @@
         return _self;
     };
 }
-- (void)setStrSetBGColorToViews:(NSString *(^)(NSArray *))strSetBgColorToViews{};
+- (void)setStrSetBGColorHexToViews:(NSString *(^)(NSArray *))strSetBgColorToViews{};
 
 - (double (^)())strNumberFind
 {

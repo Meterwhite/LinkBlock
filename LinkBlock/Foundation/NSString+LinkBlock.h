@@ -113,7 +113,7 @@
 
 #pragma mark - super（高级
 /** 十六进制字符串颜色设置到控件 */
-@property (nonatomic,copy) NSString*            (^strSetBGColorToViews)(NSArray* views);
+@property (nonatomic,copy) NSString*            (^strSetBGColorHexToViews)(NSArray* views);
 /** 主要针对主要控件设置文本 */
 @property (nonatomic,copy) NSString*            (^strSetTextToControls)(NSArray* controls);
 @property (nonatomic,copy) NSString*            (^strSetTextColorToControls)(NSArray* controls);

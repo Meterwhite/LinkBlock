@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(UILabelLinkBlock)
-/** Alignment top */
+/** 文本顶部对齐 */
 @property (nonatomic,copy) UILabel*         (^labAlignTop)();
 /** Alignment bottom */
 @property (nonatomic,copy) UILabel*         (^labAlignBottom)();
