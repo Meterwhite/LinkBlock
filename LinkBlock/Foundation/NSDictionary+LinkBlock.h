@@ -26,4 +26,8 @@
 @property (nonatomic,copy) NSArray*     (^dictAllKeys)();
 @property (nonatomic,copy) NSArray*     (^dictAllValues)();
 @property (nonatomic,copy) NSArray*     (^dictKeysForValue)(id value);
+/** 字典转模型：替换字典中的key，层次遍历字典和数组 */
+@property (nonatomic,copy) NSMutableDictionary* (^dictReplaceKey)(id<NSCopying> replaceKey, id<NSCopying> withKey);
+/** 字典转模型：替换字典中的key，非遍历的 */
+@property (nonatomic,copy) NSMutableDictionary* (^dictReplaceKeyWithoutDeep)(id<NSCopying> replaceKey, id<NSCopying> withKey);
 @end

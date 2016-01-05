@@ -16,7 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    //并不推荐大量链下去写，合适的地方使用链式可以帮助我们集中注意力编码
+    
     //去空格和换行，并打印
     @" 吴 倩 莲 的 风 和 欲 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
     //字符串比较大小
@@ -71,5 +73,26 @@
     [strHaveNumbers strEnumerateScanNumberUsingBlock:^(double num, NSUInteger idx, BOOL *stop) {
         NSLog(@"%f",num);
     }];
+    
+    //替换字典中的键
+    NSDictionary* 需要替换的字典 = @{
+                              @"description":@"123",
+                              @"dict":@{
+                                      @"description":@"123",
+                                      @"arr":@[
+                                              @{
+                                                  @"dict2":@{
+                                                          @"description":@"123"
+                                                          }
+                                                  },
+                                              @{
+                                                  @"description":@"123123"
+                                                  },
+                                              @"adf"
+                                              ]
+                                      }
+                              };
+    需要替换的字典 = 需要替换的字典.dictReplaceKey(@"description", @"DESCRIPTION");
+    NSLog(@"%@",需要替换的字典);
 }
 @end

@@ -140,5 +140,57 @@
 }
 - (void)setDictAllValues:(NSArray *(^)())blockAllValues{};
 
+- (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKey
+{
+    return ^(id<NSCopying> replaceKey, id<NSCopying> withKey){
+        LinkError_REF_AUTO(NSMutableDictionary, NSDictionary);
+        NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:_self];
+        
+        [[result allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            id value = result[key];
+            if([value isKindOfClass:[NSDictionary class]]){//层次遍历字典
+                
+                result[key] = ((NSDictionary*)value).dictReplaceKey(replaceKey , withKey);
+            }
+            if([value isKindOfClass:[NSArray class]]){//层次遍历数组
+                
+                NSMutableArray* newArr = [NSMutableArray arrayWithArray:value];
+                [value enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull objInArr, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if([objInArr isKindOfClass:[NSDictionary class]]){
+                        newArr[idx] = objInArr.dictReplaceKey(replaceKey , withKey);
+                    }
+                }];
+                result[key] = newArr;
+            }
+            
+            if([[result allKeys] containsObject:replaceKey]){//替换键
+                
+                result[withKey] = result[replaceKey];
+                [result removeObjectForKey:replaceKey];
+            }
+        }];
+        
+        return result;
+    };
+}
+- (void)setDictReplaceKey:(NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKey{};
+
+- (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKeyWithoutDeep
+{
+    return ^(id<NSCopying> replaceKey, id<NSCopying> withKey){
+        LinkError_REF_AUTO(NSMutableDictionary, NSDictionary);
+        NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:_self];
+        [[result allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([[result allKeys] containsObject:replaceKey]){
+                result[withKey] = result[replaceKey];
+                [result removeObjectForKey:replaceKey];
+            }
+        }];
+        return result;
+    };
+}
+- (void)setDictReplaceKeyWithoutDeep:(NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKeyWithoutDeep{};
 
 @end

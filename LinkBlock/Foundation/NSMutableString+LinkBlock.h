@@ -34,12 +34,7 @@
 @property (nonatomic,copy) NSMutableString*     (^SQLIntInStr)(NSInteger intVal);
 /** 单引号包围的值 '...' */
 @property (nonatomic,copy) NSMutableString*     (^SQLDoubleInStr)(double doubleVal);
-/** 单引号包围的值 '...' */
-@property (nonatomic,copy) NSMutableString*     (^SQLArrInStr)(NSArray* arr);
-/** 单引号包围的值 '...' */
-@property (nonatomic,copy) NSMutableString*     (^SQLDictKeysInStr)(NSDictionary* dict);
-/** 单引号包围的值 '...' */
-@property (nonatomic,copy) NSMutableString*     (^SQLDictValuesInStr)(NSDictionary* dict);
+
 
 @property (nonatomic,copy) NSMutableString*     (^SQL_Select)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_Where)();
@@ -48,28 +43,45 @@
 @property (nonatomic,copy) NSMutableString*     (^SQL_Update)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_InsertInto)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_ReplaceInto)();
-/** ... = val，字符串类型会自动加单引号包围 */
-@property (nonatomic,copy) NSMutableString*     (^SQL_EqualeVal)(id val);
-/** ... <> val，字符串类型会自动加单引号包围 */
-@property (nonatomic,copy) NSMutableString*     (^SQL_NotEqualeVal)(id val);
-/** ... > val，字符串类型会自动加单引号包围 */
-@property (nonatomic,copy) NSMutableString*     (^SQL_MoreThanVal)(id val);
-/** ... < val，字符串类型会自动加单引号包围 */
-@property (nonatomic,copy) NSMutableString*     (^SQL_LessThanVal)(id val);
+
 @property (nonatomic,copy) NSMutableString*     (^SQL_And)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_Or)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_In)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_Distinct)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_As)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_Like)();
-
-@property (nonatomic,copy) NSMutableString*     (^SQL_InPair)();
-/** 单引号 */
+/** 逗号 */
+@property (nonatomic,copy) NSMutableString*     (^SQL_Comma)();
+/** 括号包围 */
+@property (nonatomic,copy) NSMutableString*     (^SQL_InPair)(id val);
+/** 单引号包围 */
 @property (nonatomic,copy) NSMutableString*     (^SQL_InvertedComma)(id val);
+
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueEqualStr)(NSString* key, NSString* str);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueEqualStrInStr)(NSString* key, NSString* str);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueEqualInt)(NSString* key, NSInteger num);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueEqualDouble)(NSString* key, double num);
+//
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueNotEqualStr)(NSString* key, NSString* str);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueNotEqualStrInStr)(NSString* key, NSString* str);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueNotEqualInt)(NSString* key, NSInteger num);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueNotEqualDouble)(NSString* key, double num);
+//
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueMoreThanStr)(NSString* key, NSString* str);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueMoreThanStrInStr)(NSString* key, NSString* str);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueMoreThanInt)(NSString* key, NSInteger num);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueMoreThanDouble)(NSString* key, double num);
+//
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueLessThanStr)(NSString* key, NSString* str);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueLessThanStrInStr)(NSString* key, NSString* str);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueLessThanInt)(NSString* key, NSInteger num);
+//@property (nonatomic,copy) NSMutableString*     (^SQLValueLessThanDouble)(NSString* key, double num);
 @end
 
 
-@interface NSMutableArray (NSMutableStringLinkBlock)
+@interface NSMutableString (NSMutableStringLinkBlock)
+/** 方便阅读 */
+- (NSMutableString*)SQLUsing:(void(^)(NSMutableString* _self))block;
 #pragma mark - SQL拼接部分
 - (NSMutableString*)SQLSelect:(NSString*(^)(NSMutableString* _self))block;
 - (NSMutableString*)SQLWhere:(NSString*(^)(NSMutableString* _self))block;
@@ -88,6 +100,7 @@
 - (NSMutableString*)SQLIf:(BOOL(^)())ifBlock
                     using:(NSString*(^)(NSMutableString* _self))block;
 
-- (NSMutableString*)SQLIfNot:(BOOL(^)())ifNotBlock
-                       using:(NSString*(^)(NSMutableString* _self))block;
+- (NSMutableString*)SQLIf:(BOOL(^)())ifBlock
+                    using:(NSString*(^)(NSMutableString* _self))usingBlock
+                    elseUsing:(NSString*(^)(NSMutableString* _self))elseUsingBlock;
 @end

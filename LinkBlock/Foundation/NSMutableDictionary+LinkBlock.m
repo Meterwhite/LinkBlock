@@ -22,21 +22,21 @@
 }
 - (void)setM_dictSetValue:(NSMutableDictionary *(^)(id<NSCopying>, id))m_dictSetValue{};
 
-- (NSMutableDictionary *(^)(id<NSCopying> , id<NSCopying> ))m_dictReplaceKey
+- (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))m_dictReplaceKey
 {
-    return ^(id<NSCopying> key , id<NSCopying> withKey){
-        LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
-        NSArray* allKeys = [_self allKeys];
-        if(![allKeys containsObject:key] || [allKeys containsObject:withKey])
-            return _self;
-        //替换数据
-        id value = _self[key];
-        [_self setObject:value forKey:withKey];
-        [_self removeObjectForKey:key];
-        return _self;
+    return ^(id<NSCopying> replaceKey, id<NSCopying> withKey){
+        return self.dictReplaceKey(replaceKey, withKey);
     };
 }
-- (void)setM_dictReplaceKey:(NSMutableDictionary *(^)(id<NSCopying> , id<NSCopying>))m_dictReplaceKey{}
+- (void)setM_dictReplaceKey:(NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))m_dictReplaceKey{};
+
+- (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))m_dictReplaceKeyWithoutDeep
+{
+    return ^(id<NSCopying> replaceKey, id<NSCopying> withKey){
+        return self.m_dictReplaceKeyWithoutDeep(replaceKey, withKey);
+    };
+}
+- (void)setM_dictReplaceKeyWithoutDeep:(NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))m_dictReplaceKeyWithoutDeep{};
 
 - (NSMutableDictionary *(^)(NSDictionary *))m_dictUnionDict
 {
