@@ -96,7 +96,7 @@
             [_self appendString:@","];
         }];
         if([arr count])
-            [_self substringToIndex:_self.length];
+            _self = [[_self substringToIndex:_self.length-1] mutableCopy];
         [_self appendString:@" "];
         return _self;
     };
@@ -113,7 +113,7 @@
             [_self appendString:@","];
         }];
         if([[dic allKeys] count])
-            [_self substringToIndex:_self.length];
+            _self = [[_self substringToIndex:_self.length-1] mutableCopy];
         [_self appendString:@" "];
         return _self;
     };
@@ -130,7 +130,7 @@
             [_self appendString:@","];
         }];
         if([[dic allValues] count])
-            [_self substringToIndex:_self.length];
+            _self = [[_self substringToIndex:_self.length-1] mutableCopy];
         [_self appendString:@" "];
         return _self;
     };
@@ -365,7 +365,7 @@
 {
     return ^(){
         LinkError_REF_AUTO(NSMutableString, NSMutableString);
-        [_self appendString:@" comma "];
+        [_self appendString:@" , "];
         return _self;
     };
 }
@@ -395,132 +395,136 @@
 }
 - (void)setSQL_InvertedComma:(NSMutableString *(^)(id))SQL_InvertedComma{};
 
-
++ (NSMutableString* )SQLInit
+{
+    return [NSMutableString new];
+}
 @end
 
 
 @implementation NSMutableString(NSMutableStringLinkBlock)
-- (NSMutableString*)SQLUsing:(void(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLUsing:(void(^)(NSMutableString* makeSQL))block
 {
     if(block){
         block(self);
     }
     return self;
 }
-- (NSMutableString*)SQLSelect:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLSelect:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" select "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
-- (NSMutableString*)SQLWhere:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLWhere:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" where "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
-- (NSMutableString*)SQLFrom:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLFrom:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" from "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
-- (NSMutableString*)SQLValues:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLValues:(void(^)(NSMutableString* makeSQL))block
 {
-    [self appendString:@" values "];
+    [self appendString:@" values ("];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
+    [self appendString:@") "];
     return self;
 }
 /** 括号里的变量 */
-- (NSMutableString*)SQLInPair:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLInPair:(void(^)(NSMutableString* makeSQL))block
 {
-    [self appendString:@" ( "];
+    [self appendString:@"( "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
-    [self appendString:@" ) "];
+    [self appendString:@") "];
     return self;
 }
-- (NSMutableString*)SQLCreate:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLCreate:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" create "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
-- (NSMutableString*)SQLDelete:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLDelete:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" delete "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
-- (NSMutableString*)SQLUpdate:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLUpdate:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" update "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
-- (NSMutableString*)SQLReplaceInto:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLReplaceInto:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" replace into "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
-- (NSMutableString*)SQLInsertInto:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLInsertInto:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" insert into "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
 
-- (NSMutableString*)SQLLike:(NSString*(^)(NSMutableString* _self))block
+- (NSMutableString*)SQLLike:(void(^)(NSMutableString* makeSQL))block
 {
     [self appendString:@" like "];
     if(block){
-        [self appendString:block(self)];
+        block(self);
     }
     return self;
 }
 
-- (NSMutableString*)SQLIf:(BOOL(^)())ifBlock
-                    using:(NSString*(^)(NSMutableString* _self))usingBlock
+- (NSMutableString*)SQLIf:(BOOL)b
+                    using:(void(^)(NSMutableString* makeSQL))usingBlock
 {
-    if(!ifBlock)   return self;
-    if(ifBlock()){
+    if(b){
         if(usingBlock){
-            [self appendString:usingBlock(self)];
+            usingBlock(self);
         }
     }
     return self;
 }
 
-- (NSMutableString *)SQLIf:(BOOL (^)())ifBlock using:(NSString *(^)(NSMutableString *))usingBlock elseUsing:(NSString *(^)(NSMutableString *))elseUsingBlock
+- (NSMutableString *)SQLIf:(BOOL)b
+                     using:(void(^)(NSMutableString *))usingBlock
+                 elseUsing:(void(^)(NSMutableString *))elseUsingBlock
 {
-    if(!ifBlock)   return self;
-    if(ifBlock()){
+    if(b){
         if(usingBlock){
-            [self appendString:usingBlock(self)];
+            usingBlock(self);
         }
     }else{
         if(elseUsingBlock){
-            [self appendString:elseUsingBlock(self)];
+            elseUsingBlock(self);
         }
     }
     return self;

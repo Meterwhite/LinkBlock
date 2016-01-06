@@ -155,13 +155,7 @@
             }
             if([value isKindOfClass:[NSArray class]]){//层次遍历数组
                 
-                NSMutableArray* newArr = [NSMutableArray arrayWithArray:value];
-                [value enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull objInArr, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if([objInArr isKindOfClass:[NSDictionary class]]){
-                        newArr[idx] = objInArr.dictReplaceKey(replaceKey , withKey);
-                    }
-                }];
-                result[key] = newArr;
+                result[key] = ((NSArray*)value).arrReplaceKeyInDict(replaceKey, withKey);
             }
             
             if([[result allKeys] containsObject:replaceKey]){//替换键

@@ -25,7 +25,7 @@
         if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
             NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
             CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
-            attrs.m_dictAttrStrFont(_self.font);
+            attrs.makeAttrDictFont(_self.font);
             theStringSize = [_self.text boundingRectWithSize: maxSize
                                                     options:NSStringDrawingTruncatesLastVisibleLine |
                              NSStringDrawingUsesLineFragmentOrigin |
@@ -58,7 +58,7 @@
         if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
             NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
             CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
-            attrs.m_dictAttrStrFont(_self.font);
+            attrs.makeAttrDictFont(_self.font);
             theStringSize = [_self.text boundingRectWithSize: maxSize
                                                     options:NSStringDrawingTruncatesLastVisibleLine |
                              NSStringDrawingUsesLineFragmentOrigin |

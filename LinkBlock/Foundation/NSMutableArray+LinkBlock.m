@@ -154,93 +154,13 @@
 }
 - (void)setM_arrReplaceObjWith:(NSMutableArray *(^)(id, id))m_arrReplaceObjWith{};
 
-- (id (^)(NSUInteger))m_arrValueAt
+- (id (^)(NSUInteger))m_arrAt
 {
     return ^(NSUInteger idx){
-        return self.arrValueAt(idx);
+        return self.arrAt(idx);
     };
 }
-- (void)setM_arrValueAt:(id (^)(NSUInteger))m_arrValueAt{};
-
-- (id (^)(__unsafe_unretained Class, NSUInteger))m_arrValueAtType
-{
-    return ^(Class theClass, NSUInteger idx){
-        return self.arrValueAtType(theClass , idx);
-    };
-}
-- (void)setM_arrValueAtType:(id (^)(__unsafe_unretained Class, NSUInteger))m_arrValueAtType{};
-
-- (NSObject *(^)(NSUInteger))m_arrValueAtNSObject
-{
-    return ^(NSUInteger idx){
-        return self.arrValueAtNSObject(idx);
-    };
-}
-- (void)setM_arrValueAtNSObject:(NSObject *(^)(NSUInteger))m_arrValueAtNSObject{};
-
-- (NSArray *(^)(NSUInteger))m_arrValueAtNSArrary
-{
-    return ^(NSUInteger idx){
-        return self.arrValueAtNSArrary(idx);
-    };
-}
-- (void)setM_arrValueAtNSArrary:(NSArray *(^)(NSUInteger))m_arrValueAtNSArrary{};
-
-- (NSDictionary *(^)(NSUInteger))m_arrValueAtNSDictionary
-{
-    return ^(NSUInteger idx){
-        return self.arrValueAtNSDictionary(idx);
-    };
-}
-- (void)setM_arrValueAtNSDictionary:(NSDictionary *(^)(NSUInteger))m_arrValueAtNSDictionary{};
-
-- (UIView *(^)(NSUInteger))m_arrValueAtUIVIew
-{
-    return ^(NSUInteger idx){
-        return self.arrValueAtUIVIew(idx);
-    };
-}
-- (void)setM_arrValueAtUIVIew:(UIView *(^)(NSUInteger))m_arrValueAtUIVIew{};
-
-- (NSNumber *(^)(NSUInteger))m_arrValueAtNSNumber
-{
-    return ^(NSUInteger idx){
-        return self.arrValueAtNSNumber(idx);
-    };
-}
-- (void)setM_arrValueAtNSNumber:(NSNumber *(^)(NSUInteger))m_arrValueAtNSNumber{};
-
-- (NSMutableArray *(^)(NSUInteger))m_arrValueAtNSMutableArray
-{
-    return ^(NSUInteger idx){
-        return self.arrValueAtNSMutableArray(idx);
-    };
-}
-- (void)setM_arrValueAtNSMutableArray:(NSMutableArray *(^)(NSUInteger))m_arrValueAtNSMutableArray{};
-
-- (NSMutableDictionary *(^)(NSUInteger))m_arrValueAtNSMutableDictionary
-{
-    return ^(NSUInteger idx){
-        return self.arrValueAtNSMutableDictionary(idx);
-    };
-}
-- (void)setM_arrValueAtNSMutableDictionary:(NSMutableDictionary *(^)(NSUInteger))m_arrValueAtNSMutableDictionary{};
-
-- (NSString *(^)(NSUInteger))m_arrValueAtNSString
-{
-    return ^(NSUInteger idx){
-        return self.arrValueAtNSString(idx);
-    };
-}
-- (void)setM_arrValueAtNSString:(NSString *(^)(NSUInteger))m_arrValueAtNSString{};
-
-- (NSArray *(^)(__unsafe_unretained Class))m_arrValuesOfType
-{
-    return ^(__unsafe_unretained Class theClass){
-        return self.arrValuesOfType(theClass);
-    };
-}
-- (void)setM_arrValuesOfType:(NSArray *(^)(__unsafe_unretained Class))m_arrValuesOfType{};
+- (void)setM_arrAt:(id (^)(NSUInteger))m_arrValueAt{};
 
 - (BOOL (^)(NSString *))m_arrIsContainerStr
 {
@@ -250,13 +170,13 @@
 }
 - (void)setM_arrIsContainerStr:(BOOL (^)(NSString *))m_arrIsContainerStr{};
 
-- (BOOL (^)(id))m_arrIsContainer
+- (BOOL (^)(id))m_arrContain
 {
     return ^(id obj){
         return self.arrIsContainer(obj);
     };
 }
-- (void)setM_arrIsContainer:(BOOL (^)(id))m_arrIsContainer{};
+- (void)setM_arrContain:(BOOL (^)(id))m_arrContain{};
 
 - (NSArray *(^)(NSUInteger, NSUInteger))m_arrObjsFromIndexTo
 {
@@ -267,13 +187,13 @@
 - (void)setM_arrObjsFromIndexTo:(NSArray *(^)(NSUInteger, NSUInteger))m_arrObjsFromIndexTo
 {};
 
-- (BOOL (^)(NSUInteger))m_arrIsIndexInRange
+- (BOOL (^)(NSUInteger))m_arrContainIndex
 {
     return ^(NSUInteger idx){
-        return self.arrIsIndexInRange(idx);
+        return self.arrcontainIndex(idx);
     };
 }
-- (void)setM_arrIsIndexInRange:(BOOL (^)(NSUInteger))m_arrIsIndexInRange{};
+- (void)setM_arrContainIndex:(BOOL (^)(NSUInteger))m_arrContainIndex{};
 
 - (NSDictionary *(^)())m_arrToDictByKeyNumber
 {
@@ -402,7 +322,7 @@
 }
 - (void)setM_arrTryReplaceObjsByKey:(NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey{};
 
-- (NSMutableArray *(^)(NSUInteger))m_arrValuesFrom
+- (NSMutableArray *(^)(NSUInteger))m_arrSubFrom
 {
     return ^(NSUInteger idx){
         LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
@@ -413,9 +333,9 @@
         return _self;
     };
 }
-- (void)setM_arrValuesFrom:(NSMutableArray *(^)(NSUInteger))m_arrValuesFrom{};
+- (void)setM_arrSubFrom:(NSMutableArray *(^)(NSUInteger))m_arrSubFrom{};
 
-- (NSMutableArray *(^)(NSUInteger))m_arrValuesTo
+- (NSMutableArray *(^)(NSUInteger))m_arrSubTo
 {
     return ^(NSUInteger idx){
         LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
@@ -426,5 +346,38 @@
         return _self;
     };
 }
-- (void)setM_arrValuesTo:(NSMutableArray *(^)(NSUInteger))m_arrValuesTo{};
+- (void)setM_arrSubTo:(NSMutableArray *(^)(NSUInteger))m_arrSubTo{};
+
+- (NSMutableArray *(^)(__unsafe_unretained Class))m_arrObjsOfType
+{
+    return ^(__unsafe_unretained Class typeClass){
+        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+        if(!typeClass)
+            return _self;
+        NSMutableArray* re = [NSMutableArray array];
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if([obj isKindOfClass:typeClass]){
+                [re addObject:obj];
+            }
+        }];
+        return re;
+    };
+}
+- (void)setM_arrObjsOfType:(NSArray *(^)(__unsafe_unretained Class))m_arrObjsOfType{};
+
+- (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict
+{
+    return ^(id<NSCopying> replaceKey,id<NSCopying> withKey){
+        return self.arrReplaceKeyInDict(replaceKey, withKey);
+    };
+}
+- (void)setM_arrReplaceKeyInDict:(NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict{};
+
+- (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDictWithoutDeep
+{
+    return ^(id<NSCopying> replaceKey,id<NSCopying> withKey){
+        return self.arrReplaceKeyInDictWithoutDeep(replaceKey, withKey);
+    };
+}
+- (void)setM_arrReplaceKeyInDictWithoutDeep:(NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDictWithoutDeep{};
 @end

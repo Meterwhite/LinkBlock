@@ -31,16 +31,13 @@
     
     
     //添加一个按钮到视图上
-    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    linkObj(btn).viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"Button", UIControlStateNormal);
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    linkObj(btn).viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"Button", UIControlStateNormal).btnTitleColor([UIColor lightGrayColor],UIControlStateNormal).viewBGColor(@"f0f0f0".strToUIColorFromHexStr());
     
-    //安全使用KVC
-    linkObj(btn).setValueForKeySafe(@"0xff22cc".strToUIColorFromHexStr() , @"backgroundColor");
-    
-    //添加一个标签到视图上
+    //添加一个标签到视图上，并且文本顶部对齐，中间对齐
     UILabel* lab = [UILabel new];
-    lab.frame = @"{{20,150},{150,30}}".strToCGRect();
-    linkObj(lab).labText(@"Label").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view);
+    lab.frame = @"{{20,150},{150,100}}".strToCGRect();
+    linkObj(lab).labText(@"中间对齐顶部对齐").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view).viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
     
     //字符串常量直接转颜色
     @"0xff22cc".strToUIColorFromHexStr();//0x.. ，#..，..
@@ -66,15 +63,15 @@
     //对象转json
     arrForFilter.objToJsonString();
     
-    UIView* newView = [[UIView alloc] initWithFrame:CGRectMake(80, 280, 80, 80)].viewBGColor([UIColor grayColor]);
-    newView.viewAddToView(self.view);
 
+
+    //遍历字符串中的所有数字
     NSString* strHaveNumbers = @"我有5元，用了-20.67元";
     [strHaveNumbers strEnumerateScanNumberUsingBlock:^(double num, NSUInteger idx, BOOL *stop) {
         NSLog(@"%f",num);
     }];
     
-    //替换字典中的键
+    
     NSDictionary* 需要替换的字典 = @{
                               @"description":@"123",
                               @"dict":@{
@@ -92,7 +89,41 @@
                                               ]
                                       }
                               };
+    //替换字典中的键
     需要替换的字典 = 需要替换的字典.dictReplaceKey(@"description", @"DESCRIPTION");
     NSLog(@"%@",需要替换的字典);
+    
+    //高效阅读的sql编码方式，易查错，易修改
+    BOOL sex = NO;
+    NSString* sql0 =[[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
+        
+        [makeSQL SQLIf:sex==0 using:^(NSMutableString *makeSQL) {
+            makeSQL.SQLStr(@"*");
+        } elseUsing:^(NSMutableString *makeSQL) {
+            makeSQL.SQLArr(@[@"id",@"name",@"age",@"sex",@"nickName",@"address",@"point"]);
+        }];
+    }] SQLFrom:^(NSMutableString *makeSQL) {
+        
+        makeSQL.SQLArr(@[@"Student" , @"Teacher", @"Foods"]);
+    }] SQLWhere:^(NSMutableString *makeSQL) {
+        
+        makeSQL.SQLStr( @"id >").SQLIntInStr(1000);
+    }];
+    NSLog(@"%@", sql0);
+    //2
+    NSString* sql1 = [[SQLNew SQLCreate:^(NSMutableString *makeSQL) {
+        
+        makeSQL.SQLStr(@"table if not exists");
+    }].SQLStr(@"Person") SQLValues:^(NSMutableString *makeSQL) {
+        
+        makeSQL.SQLStr(@"id integer primary key").SQL_Comma();
+        makeSQL.SQLStr(@"name text").SQL_Comma();
+        makeSQL.SQLStr(@"sex integer").SQL_Comma();
+        makeSQL.SQLStr(@"address text");
+    }];
+    NSLog(@"%@", sql1);
+    
+    //高效无烦恼创建属性字典
+    NSMutableDictionary* attrDict = AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
 }
 @end

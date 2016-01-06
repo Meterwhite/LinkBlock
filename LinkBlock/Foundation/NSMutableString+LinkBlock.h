@@ -57,50 +57,31 @@
 /** 单引号包围 */
 @property (nonatomic,copy) NSMutableString*     (^SQL_InvertedComma)(id val);
 
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueEqualStr)(NSString* key, NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueEqualStrInStr)(NSString* key, NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueEqualInt)(NSString* key, NSInteger num);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueEqualDouble)(NSString* key, double num);
-//
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueNotEqualStr)(NSString* key, NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueNotEqualStrInStr)(NSString* key, NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueNotEqualInt)(NSString* key, NSInteger num);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueNotEqualDouble)(NSString* key, double num);
-//
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueMoreThanStr)(NSString* key, NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueMoreThanStrInStr)(NSString* key, NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueMoreThanInt)(NSString* key, NSInteger num);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueMoreThanDouble)(NSString* key, double num);
-//
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueLessThanStr)(NSString* key, NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueLessThanStrInStr)(NSString* key, NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueLessThanInt)(NSString* key, NSInteger num);
-//@property (nonatomic,copy) NSMutableString*     (^SQLValueLessThanDouble)(NSString* key, double num);
 @end
 
 
 @interface NSMutableString (NSMutableStringLinkBlock)
 /** 方便阅读 */
-- (NSMutableString*)SQLUsing:(void(^)(NSMutableString* _self))block;
+- (NSMutableString*)SQLUsing:(void(^)(NSMutableString* makeSQL))block;
 #pragma mark - SQL拼接部分
-- (NSMutableString*)SQLSelect:(NSString*(^)(NSMutableString* _self))block;
-- (NSMutableString*)SQLWhere:(NSString*(^)(NSMutableString* _self))block;
-- (NSMutableString*)SQLFrom:(NSString*(^)(NSMutableString* _self))block;
-- (NSMutableString*)SQLValues:(NSString*(^)(NSMutableString* _self))block;
+- (NSMutableString*)SQLSelect:(void(^)(NSMutableString* makeSQL))block;
+- (NSMutableString*)SQLWhere:(void(^)(NSMutableString* makeSQL))block;
+- (NSMutableString*)SQLFrom:(void(^)(NSMutableString* makeSQL))block;
+- (NSMutableString*)SQLValues:(void(^)(NSMutableString* makeSQL))block;
 /** 括号里的变量 */
-- (NSMutableString*)SQLInPair:(NSString*(^)(NSMutableString* _self))block;
-- (NSMutableString*)SQLCreate:(NSString*(^)(NSMutableString* _self))block;
-- (NSMutableString*)SQLDelete:(NSString*(^)(NSMutableString* _self))block;
-- (NSMutableString*)SQLUpdate:(NSString*(^)(NSMutableString* _self))block;
-- (NSMutableString*)SQLReplaceInto:(NSString*(^)(NSMutableString* _self))block;
-- (NSMutableString*)SQLInsertInto:(NSString*(^)(NSMutableString* _self))block;
+- (NSMutableString*)SQLInPair:(void(^)(NSMutableString* makeSQL))block;
+- (NSMutableString*)SQLCreate:(void(^)(NSMutableString* makeSQL))block;
+- (NSMutableString*)SQLDelete:(void(^)(NSMutableString* makeSQL))block;
+- (NSMutableString*)SQLUpdate:(void(^)(NSMutableString* makeSQL))block;
+- (NSMutableString*)SQLReplaceInto:(void(^)(NSMutableString* makeSQL))block;
+- (NSMutableString*)SQLInsertInto:(void(^)(NSMutableString* makeSQL))block;
 
-- (NSMutableString*)SQLLike:(NSString*(^)(NSMutableString* _self))block;
+- (NSMutableString*)SQLLike:(void(^)(NSMutableString* makeSQL))block;
 
-- (NSMutableString*)SQLIf:(BOOL(^)())ifBlock
-                    using:(NSString*(^)(NSMutableString* _self))block;
+- (NSMutableString*)SQLIf:(BOOL)b
+                    using:(void(^)(NSMutableString* makeSQL))block;
 
-- (NSMutableString*)SQLIf:(BOOL(^)())ifBlock
-                    using:(NSString*(^)(NSMutableString* _self))usingBlock
-                    elseUsing:(NSString*(^)(NSMutableString* _self))elseUsingBlock;
+- (NSMutableString*)SQLIf:(BOOL)b
+                    using:(void(^)(NSMutableString* makeSQL))usingBlock
+                    elseUsing:(void(^)(NSMutableString* makeSQL))elseUsingBlock;
 @end

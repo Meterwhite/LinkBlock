@@ -20,11 +20,13 @@
 @property (nonatomic,copy) BOOL         (^dictGetBOOLNoNullType)(id<NSCopying> key);
 /** 安全取出布尔值，没有符合的健时返回NO，而不是nil和NSNull */
 @property (nonatomic,copy) UIView*      (^dictGetViewNoNullType)(id<NSCopying> key);
-
+/** 是否包含key */
 @property (nonatomic,copy) BOOL         (^dictContainerKey)(id<NSCopying> key);
+/** 是否包含value */
 @property (nonatomic,copy) BOOL         (^dictContainerValue)(id value);
 @property (nonatomic,copy) NSArray*     (^dictAllKeys)();
 @property (nonatomic,copy) NSArray*     (^dictAllValues)();
+/** 根据值返取所有键的集合 */
 @property (nonatomic,copy) NSArray*     (^dictKeysForValue)(id value);
 /** 字典转模型：替换字典中的key，层次遍历字典和数组 */
 @property (nonatomic,copy) NSMutableDictionary* (^dictReplaceKey)(id<NSCopying> replaceKey, id<NSCopying> withKey);

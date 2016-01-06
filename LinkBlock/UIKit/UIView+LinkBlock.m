@@ -1037,6 +1037,23 @@
 }
 - (void)setViewMaxY:(CGFloat (^)())viewMaxY{};
 
+- (UIView *(^)(UIView *))viewBringFrontInView
+{
+    return ^(UIView* superView){
+        LinkError_REF_AUTO(UIView, UIView);
+        [superView bringSubviewToFront:_self];
+        return _self;
+    };
+}
+- (void)setViewBringFrontInView:(UIView *(^)(UIView *))viewBringFrontInView{};
+
+- (UIView *(^)(UIView *))viewSendBackInView
+{
+    return ^(UIView* superView){
+        LinkError_REF_AUTO(UIView, UIView);
+        [superView sendSubviewToBack:_self];
+        return _self;
+    };
+}
+- (void)setViewSendBackInView:(UIView *(^)(UIView *))viewSendBackInView{};
 @end
-
-

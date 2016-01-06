@@ -30,27 +30,30 @@
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictUnionDict)(NSDictionary* dict);
 
 /** ********************NSAttributeString设置部分******************** */
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrFont)(UIFont* font);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrTextColor)(UIColor* textColor);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrBGColor)(UIColor* bgColor);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrAttachment)(NSTextAttachment* attachment);
 
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrParagraphStyle)(NSParagraphStyle* paragraphStyle);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrLigature)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrKern)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrStrikethroughStyle)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrUnderlineStyle)(NSUnderlineStyle underlineStyle);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrStrokeColor)(UIColor* bgColor);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrStrokeWidth)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrShadow)(NSShadow* shadown);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrTextEffect)(NSString* textEffect);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrLink)(NSURL* linkURL);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrBaselineOffset)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrUnderlineColor)(UIColor* underlineColor);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrStrikethroughColor)(UIColor* bgColor);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrObliquenes)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrExpansion)(NSNumber *num);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrWritingDirection)(NSArray* writingDirection);
-@property (nonatomic,copy) NSMutableDictionary* (^m_dictAttrStrVerticalGlyphForm)(NSNumber *num);
+#define AttrDictNew ([NSMutableDictionary new])
+
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictFont)(UIFont* font);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictTextColor)(UIColor* textColor);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictBGColor)(UIColor* bgColor);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictAttachment)(NSTextAttachment* attachment);
+
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictParagraphStyle)(NSParagraphStyle* paragraphStyle);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictLigature)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictKern)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictStrikethroughStyle)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictUnderlineStyle)(NSUnderlineStyle underlineStyle);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictStrokeColor)(UIColor* bgColor);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictStrokeWidth)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictShadow)(NSShadow* shadown);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictTextEffect)(NSString* textEffect);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictLink)(NSURL* linkURL);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictBaselineOffset)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictUnderlineColor)(UIColor* underlineColor);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictStrikethroughColor)(UIColor* bgColor);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictObliquenes)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictExpansion)(NSNumber *num);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictWritingDirection)(NSArray* writingDirection);
+@property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictVerticalGlyphForm)(NSNumber *num);
 @end
 

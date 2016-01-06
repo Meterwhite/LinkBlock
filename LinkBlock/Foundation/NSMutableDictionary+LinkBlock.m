@@ -50,7 +50,7 @@
 
 /** ********************NSAttributeString部分******************** */
 #pragma mark - NSAttributeString部分
-- (NSMutableDictionary *(^)(UIFont *))m_dictAttrStrFont
+- (NSMutableDictionary *(^)(UIFont *))makeAttrDictFont
 {
     return ^(UIFont *font){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -60,9 +60,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrFont:(NSMutableDictionary *(^)(UIFont *))m_dictAttrStrFont{};
+- (void)setMakeAttrDictFont:(NSMutableDictionary *(^)(UIFont *))makeAttrDictFont{};
 
-- (NSMutableDictionary *(^)(UIColor *))m_dictAttrStrTextColor
+- (NSMutableDictionary *(^)(UIColor *))makeAttrDictTextColor
 {
     return ^(UIColor *color){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -72,9 +72,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrTextColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrTextColor{};
+- (void)setMakeAttrDictTextColor:(NSMutableDictionary *(^)(UIColor *))makeAttrDictTextColor{};
 
-- (NSMutableDictionary *(^)(UIColor *))m_dictAttrStrBGColor
+- (NSMutableDictionary *(^)(UIColor *))makeAttrDictBGColor
 {
     return ^(UIColor *color){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -84,9 +84,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrBGColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrBGColor{};
+- (void)setMakeAttrDictBGColor:(NSMutableDictionary *(^)(UIColor *))makeAttrDictBGColor{};
 
-- (NSMutableDictionary *(^)(NSTextAttachment *))m_dictAttrStrAttachment
+- (NSMutableDictionary *(^)(NSTextAttachment *))makeAttrDictAttachment
 {
     return ^(NSTextAttachment* attachment){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -96,9 +96,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrAttachment:(NSMutableDictionary *(^)(NSTextAttachment *))m_dictAttrStrAttachment{};
+- (void)setMakeAttrDictAttachment:(NSMutableDictionary *(^)(NSTextAttachment *))makeAttrDictAttachment{};
 
-- (NSMutableDictionary *(^)(NSParagraphStyle* paragraphStyle))m_dictAttrStrParagraphStyle
+- (NSMutableDictionary *(^)(NSParagraphStyle* paragraphStyle))makeAttrDictParagraphStyle
 {
     return ^(NSParagraphStyle* paragraphStyle){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -108,9 +108,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrParagraphStyle:(NSMutableDictionary *(^)(NSParagraphStyle *))m_dictAttrStrParagraphStyle{};
+- (void)setMakeAttrDictParagraphStyle:(NSMutableDictionary *(^)(NSParagraphStyle *))makeAttrDictParagraphStyle{};
 
-- (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrLigature
+- (NSMutableDictionary *(^)(NSNumber*))makeAttrDictLigature
 {
     return ^(NSNumber *num){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -119,9 +119,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrLigature:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrLigature{};
+- (void)setMakeAttrDictLigature:(NSMutableDictionary *(^)(NSNumber *))makeAttrDictLigature{};
 
-- (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrKern
+- (NSMutableDictionary *(^)(NSNumber*))makeAttrDictKern
 {
     return ^(NSNumber *num){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -130,9 +130,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrKern:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrKern{};
+- (void)setMakeAttrDictKern:(NSMutableDictionary *(^)(NSNumber *))makeAttrDictKern{};
 
-- (NSMutableDictionary *(^)(NSNumber*))m_dictAttrStrStrikethroughStyle
+- (NSMutableDictionary *(^)(NSNumber*))makeAttrDictStrikethroughStyle
 {
     return ^(NSNumber *num){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -141,9 +141,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrStrikethroughStyle:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrStrikethroughStyle{};
+- (void)setMakeAttrDictStrikethroughStyle:(NSMutableDictionary *(^)(NSNumber *))makeAttrDictStrikethroughStyle{};
 
-- (NSMutableDictionary *(^)(NSUnderlineStyle))m_dictAttrStrUnderlineStyle
+- (NSMutableDictionary *(^)(NSUnderlineStyle))makeAttrDictUnderlineStyle
 {
     return ^(NSUnderlineStyle underlineStyle){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -151,9 +151,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrUnderlineStyle:(NSMutableDictionary *(^)(NSUnderlineStyle))m_dictAttrStrUnderlineStyle{};
+- (void)setMakeAttrDictUnderlineStyle:(NSMutableDictionary *(^)(NSUnderlineStyle))makeAttrDictUnderlineStyle{};
 
-- (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrStrokeColor
+- (NSMutableDictionary *(^)(UIColor*))makeAttrDictStrokeColor
 {
     return ^(UIColor* color){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -163,9 +163,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrStrokeColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrStrokeColor{};
+- (void)setMakeAttrDictStrokeColor:(NSMutableDictionary *(^)(UIColor *))makeAttrDictStrokeColor{};
 
-- (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrStrokeWidth
+- (NSMutableDictionary *(^)(NSNumber *))makeAttrDictStrokeWidth
 {
     return ^(NSNumber *num){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -175,9 +175,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrStrokeWidth:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrStrokeWidth{};
+- (void)setMakeAttrDictStrokeWidth:(NSMutableDictionary *(^)(NSNumber *))makeAttrDictStrokeWidth{};
 
-- (NSMutableDictionary *(^)(NSShadow*))m_dictAttrStrShadow
+- (NSMutableDictionary *(^)(NSShadow*))makeAttrDictShadow
 {
     return ^(NSShadow* shadown){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -187,9 +187,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrShadow:(NSMutableDictionary *(^)(NSShadow *))m_dictAttrStrShadow{};
+- (void)setMakeAttrDictShadow:(NSMutableDictionary *(^)(NSShadow *))makeAttrDictShadow{};
 
-- (NSMutableDictionary *(^)(NSString*))m_dictAttrStrTextEffect
+- (NSMutableDictionary *(^)(NSString*))makeAttrDictTextEffect
 {
     return ^(NSString* textEffect){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -199,9 +199,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrTextEffect:(NSMutableDictionary *(^)(NSString *))m_dictAttrStrTextEffect{};
+- (void)setMakeAttrDictTextEffect:(NSMutableDictionary *(^)(NSString *))makeAttrDictTextEffect{};
 
-- (NSMutableDictionary *(^)(NSURL*))m_dictAttrStrLink
+- (NSMutableDictionary *(^)(NSURL*))makeAttrDictLink
 {
     return ^(NSURL* linkURL){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -211,9 +211,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrLink:(NSMutableDictionary *(^)(NSURL *))m_dictAttrStrLink{};
+- (void)setMakeAttrDictLink:(NSMutableDictionary *(^)(NSURL *))makeAttrDictLink{};
 
-- (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrBaselineOffset
+- (NSMutableDictionary *(^)(NSNumber *))makeAttrDictBaselineOffset
 {
     return ^(NSNumber *num){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -223,9 +223,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrBaselineOffset:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrBaselineOffset{};
+- (void)setMakeAttrDictBaselineOffset:(NSMutableDictionary *(^)(NSNumber *))makeAttrDictBaselineOffset{};
 
-- (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrUnderlineColor
+- (NSMutableDictionary *(^)(UIColor*))makeAttrDictUnderlineColor
 {
     return ^(UIColor* underlineColor){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -235,9 +235,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrUnderlineColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrUnderlineColor{};
+- (void)setMakeAttrDictUnderlineColor:(NSMutableDictionary *(^)(UIColor *))makeAttrDictUnderlineColor{};
 
-- (NSMutableDictionary *(^)(UIColor*))m_dictAttrStrStrikethroughColor
+- (NSMutableDictionary *(^)(UIColor*))makeAttrDictStrikethroughColor
 {
     return ^(UIColor* bgColor){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -247,9 +247,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrStrikethroughColor:(NSMutableDictionary *(^)(UIColor *))m_dictAttrStrStrikethroughColor{};
+- (void)setMakeAttrDictStrikethroughColor:(NSMutableDictionary *(^)(UIColor *))makeAttrDictStrikethroughColor{};
 
-- (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrObliquenes
+- (NSMutableDictionary *(^)(NSNumber *))makeAttrDictObliquenes
 {
     return ^(NSNumber *num){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -259,9 +259,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrObliquenes:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrObliquenes{};
+- (void)setMakeAttrDictObliquenes:(NSMutableDictionary *(^)(NSNumber *))makeAttrDictObliquenes{};
 
-- (NSMutableDictionary *(^)(NSNumber *n))m_dictAttrStrExpansion
+- (NSMutableDictionary *(^)(NSNumber *n))makeAttrDictExpansion
 {
     return ^(NSNumber *num){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -271,9 +271,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrExpansion:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrExpansion{};
+- (void)setMakeAttrDictExpansion:(NSMutableDictionary *(^)(NSNumber *))makeAttrDictExpansion{};
 
-- (NSMutableDictionary *(^)(NSArray*))m_dictAttrStrWritingDirection
+- (NSMutableDictionary *(^)(NSArray*))makeAttrDictWritingDirection
 {
     return ^(NSArray* writingDirection){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -283,9 +283,9 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrWritingDirection:(NSMutableDictionary *(^)(NSArray *))m_dictAttrStrWritingDirection{};
+- (void)setMakeAttrDictWritingDirection:(NSMutableDictionary *(^)(NSArray *))makeAttrDictWritingDirection{};
 
-- (NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrVerticalGlyphForm
+- (NSMutableDictionary *(^)(NSNumber *))makeAttrDictVerticalGlyphForm
 {
     return ^(NSNumber *num){
         LinkError_REF_AUTO(NSMutableDictionary, NSMutableDictionary);
@@ -295,7 +295,7 @@
         return _self;
     };
 }
-- (void)setM_dictAttrStrVerticalGlyphForm:(NSMutableDictionary *(^)(NSNumber *))m_dictAttrStrVerticalGlyphForm{};
+- (void)setMakeAttrDictVerticalGlyphForm:(NSMutableDictionary *(^)(NSNumber *))makeAttrDictVerticalGlyphForm{};
 
 - (id (^)(id<NSCopying>))m_dictGet
 {

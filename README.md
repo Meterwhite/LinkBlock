@@ -2,21 +2,21 @@
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
 ## What is this?
-* 这是一个objc扩展集合`链式编程`，为的是告别换行和[]，用最简短的一句话尽可能多的完成功能。
-* 框架封装原生Fundation最基本功能和最常见功能。
+* 这是一个objc扩展集合`链式编程`，为的是告别换行和中括号，避免多余的干扰，让我们可以专注于编码的逻辑。
+* 提炼Fundation最基本功能和最常见功能的写法。
 * 持续更新
 * This is objective-c link block , to `chain programming`.
-* Frame encapsulation of native Foundation is the most basic and the most common functions.
+* Frame encapsulation of native Foundation is the most basic and the most common functions...
 * Continuously updated
 ##Simple to use LinkBlock ;
 ```objc
 LinkBlock.h
 ```
 
-##Shit CGRectMake()
+##不友好的 CGRectMake()和一件事情换多行
 ```objc
 //Such written before 
-//手绘UI动不动就要创建4，5个变量，而这明明是可以省略的步骤
+//手绘UI常要创建4，5个变量，而这却会耗费我们一些时间去停止思考逻辑上的问题
 UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
 btn.frame= CGRectMake(20, 20, 150, 80);
 UIColor *color = [UIColor colorWithRed:255/255.0 green:22/255.0 blue:150/255.0 alpha:1.0];
@@ -24,9 +24,9 @@ btn.backgroundColor = color;
 [btn setTitle:@"click change color" forState:UIControlStateNormal];
 [self.view addSubview:btn];
 ```
-##Bye CGRectMake(),just a.b.c...
+##使用链式的方式完成一件事情
 ```objc
-//如果使用链式编程的方式，大部分工作可以在思路不断的情况下一气呵成
+//如果使用链式编程的方式，大部分工作可以在思路连续的情况下进行
 //now just using one line.Most work can be wrapped up in the idea of ​​ongoing cases
 btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
 .viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
@@ -44,12 +44,11 @@ btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
 @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding)
 .arrMaxNumberFind().nslogTitle(@"最大数是:\n");
 
-
-//添加一个标签到视图上
+//添加一个标签到视图上，并且文本顶部对齐，中间对齐
 UILabel* lab = [UILabel new];
-lab.frame = @"{{20,150},{150,30}}".strToCGRect();
-lab.labText(@"color").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
-.labAlignTop().viewAddToView(self.view);
+lab.frame = @"{{20,150},{150,100}}".strToCGRect();
+linkObj(lab).labText(@"中间对齐顶部对齐").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
+.labAlignTop().viewAddToView(self.view).viewBGColor(@"f0f0f0".strToUIColorFromHexStr());
 
 //字符串常量直接转颜色
 @"0xff22cc".strToColorFromHexStr();
@@ -76,27 +75,85 @@ arrForFilter.arrFilter(@"age<0").nslog();
     obj.nslog();
 }];
 ```
-##NSDictionary get value safely
+##对字典的操作
 ```objc
-dict.dictGetNoNSNull(@"key");
-dict.dictGetBOOLNoNullType(@"key");
-dict.dictGetArrNoNullType(@"key");
-dict.dictGetViewNoNullType(@"key");
+//替换字典中的键
+NSDictionary* 需要替换的字典 = @{
+                                @"description":@"123",
+                                @"dict":@{
+                                            @"description":@"123",
+                                            @"arr":@[
+                                                        @{
+                                                            @"dict2":@{
+                                                                @"description":@"123"
+                                                            }
+                                                        },
+                                                    @{
+                                                        @"description":@"123123"
+                                                    },
+                                                    @"adf"
+                                                    ]
+                                        }
+                            };
+需要替换的字典 = 需要替换的字典.dictReplaceKey(@"description", @"DESCRIPTION");
+NSLog(@"%@",需要替换的字典);
+
+//高效无烦恼创建属性字典
+NSMutableDictionary* attrDict = AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
+```
+
+##SQL拼接的易读和易查错
+```objc
+//高效阅读的sql编码方式，易查错，易修改
+BOOL sex = NO;
+NSString* sql0 =[[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
+
+[makeSQL SQLIf:sex==0 using:^(NSMutableString *makeSQL) {
+    makeSQL.SQLStr(@"*");
+} elseUsing:^(NSMutableString *makeSQL) {
+    makeSQL.SQLArr(@[@"id",@"name",@"age",@"sex",@"nickName",@"address",@"point"]);
+}];
+}] SQLFrom:^(NSMutableString *makeSQL) {
+
+    makeSQL.SQLArr(@[@"Student" , @"Teacher", @"Foods"]);
+}] SQLWhere:^(NSMutableString *makeSQL) {
+
+    makeSQL.SQLStr( @"id >").SQLIntInStr(1000);
+}];
+NSLog(@"%@", sql0);
+
+NSString* sql1 = [[SQLNew SQLCreate:^(NSMutableString *makeSQL) {
+
+    makeSQL.SQLStr(@"table if not exists");
+}].SQLStr(@"Person") SQLValues:^(NSMutableString *makeSQL) {
+
+    makeSQL.SQLStr(@"id integer primary key").SQL_Comma();
+    makeSQL.SQLStr(@"name text").SQL_Comma();
+    makeSQL.SQLStr(@"sex integer").SQL_Comma();
+    makeSQL.SQLStr(@"address text");
+}];
+NSLog(@"%@", sql1);
 ```
 
 ##end()
 ```objc
-//如果你想在链条结尾获取绝对真实的对象值(继承NSObject)你需要在最后使用end()
-//因为你可能得到的是LinkError对象
+//想在链条结尾获取绝对真实的对象值(继承NSObject)需要在最后使用end()
+//因为可能得到的是LinkError对象
 //If you want get real type of vale.you should using 'end()' at chain end.
 //Because you may get LinkError
 NSString *str2 = str1.strAppend(str0).strAt(15).end();
 ```
 
-##What is LinkError
+##LinkError
 * 由于objc是有弱类型语言特征的语言，block是作为了扩展的属性，才可以被'.'出来。当中间一个链条返回的对象是nil，或者非预期的类型，那么下一根链条就会断裂，报错。为了让链条能够在安全的情况下容错走通，那么引入一个新的单例的类型LinkError
 。这个对象响应所有扩展属性的调用，功能仅仅返回自己到下一根链条以供传递。所以end()方法的使用对于获取链条末尾的返回值至关重要。
 * LinkError can respond to all extension property,it just return self to next chain.And not break,not throw an exception.
+
+##关于
+*这并不是一个功能型框架，控件框架，没有整体架构。完成它仅仅是作者为了偷懒又考虑到和自己一样的人，将考虑过的功能加入其中，而不是任何API都塞进去。初衷维护编码时集中的注意力不被分散。
+*并不推荐大量使用链式的编码方式，因为这样也会影响阅读。希望的方式是画龙点睛，例如在写了很多行后一组缜密的逻辑中，突然要创建一堆变量和判断要不然就要新写方法的时候。如上所述假如这种功能很常见，那么作者就会将其抽出。
+*目前xcode还没能给block有尚好的参数提示，所以使用起来还是略微不便，需要去头文件查看参数。作者也将参数名赋予准确的意义。
+```
 
 ##Bug-mail address，join us address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
 ##希望大家都支持链式编程这种编程方式

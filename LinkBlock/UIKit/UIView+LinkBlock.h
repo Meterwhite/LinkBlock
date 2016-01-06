@@ -39,8 +39,10 @@
 /** 不同方位的圆角 */
 @property (nonatomic,copy) UIView*      (^viewCornerRadiusSide)(UIRectCorner side , CGSize radius);
 @property (nonatomic,copy) UIView*      (^viewMasksToBounds)(BOOL b);
-
-
+/** 前置视图 */
+@property (nonatomic,copy) UIView*      (^viewBringFrontInView)(UIView* superView);
+/** 下沉视图 */
+@property (nonatomic,copy) UIView*      (^viewSendBackInView)(UIView* superView);
 
 @property (nonatomic,copy) BOOL         (^viewIsSubviewTo)(UIView* theView);
 /** 递归此视图，找到第一响应者的的输入类型控件 */
@@ -71,10 +73,14 @@
 @property (nonatomic,copy) UIView*      (^viewAddSubview)(UIView* subview);
 @property (nonatomic,copy) UIView*      (^viewAddToView)(__weak UIView* view);
 
-#pragma mark - Animation（动画部分
+#pragma mark - 常见动画部分
+/** 注意：真实移动了视图的位置 */
 @property (nonatomic,copy) UIView*      (^viewAnimateMoveUp)(CGFloat distance, NSTimeInterval time);
+/** 注意：真实移动了视图的位置 */
 @property (nonatomic,copy) UIView*      (^viewAnimateMoveDown)(CGFloat distance, NSTimeInterval time);
+/** 注意：真实移动了视图的位置 */
 @property (nonatomic,copy) UIView*      (^viewAnimateMoveRight)(CGFloat distance, NSTimeInterval time);
+/** 注意：真实移动了视图的位置 */
 @property (nonatomic,copy) UIView*      (^viewAnimateMoveLeft)(CGFloat distance, NSTimeInterval time);
 /** 水平摇晃 */
 @property (nonatomic,copy) UIView*      (^viewAnimateShakeHorizental)(double duration);
@@ -108,7 +114,7 @@
 /** 恢复动画，在暂停动画后使用 */
 @property (nonatomic,copy) UIView*      (^viewAnimateResume)();
 
-#pragma mark - frame 布局
+#pragma mark - 辅助手动布局
 @property (nonatomic,copy) UIView*      (^viewCopyX)(UIView* fromView);
 @property (nonatomic,copy) UIView*      (^viewCopyY)(UIView* fromView);
 @property (nonatomic,copy) UIView*      (^viewCopyFrame)(UIView* fromView);
