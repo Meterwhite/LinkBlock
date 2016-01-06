@@ -31,7 +31,7 @@ btn.backgroundColor = color;
 btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
 .viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
 ```
-##Example
+##一些样例
 ```objc
 //去空格和换行，并打印
 @" 吴 倩 莲 的 风 和 欲 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
@@ -106,23 +106,27 @@ NSMutableDictionary* attrDict = AttrDictNew.makeAttrDictFont([UIFont systemFontO
 ```objc
 //高效阅读的sql编码方式，易查错，易修改
 BOOL sex = NO;
-NSString* sql0 =[[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
+NSString* sql0 =
+[[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
 
-[makeSQL SQLIf:sex==0 using:^(NSMutableString *makeSQL) {
-    makeSQL.SQLStr(@"*");
-} elseUsing:^(NSMutableString *makeSQL) {
-    makeSQL.SQLArr(@[@"id",@"name",@"age",@"sex",@"nickName",@"address",@"point"]);
-}];
+    [makeSQL SQLIf:sex==0 using:^(NSMutableString *makeSQL) {
+
+        makeSQL.SQLStr(@"*");
+    } elseUsing:^(NSMutableString *makeSQL) {
+
+        makeSQL.SQLArr(@[@"id",@"name",@"age",@"sex",@"nickName",@"address",@"point"]);
+    }];
 }] SQLFrom:^(NSMutableString *makeSQL) {
 
     makeSQL.SQLArr(@[@"Student" , @"Teacher", @"Foods"]);
 }] SQLWhere:^(NSMutableString *makeSQL) {
-
+    
     makeSQL.SQLStr( @"id >").SQLIntInStr(1000);
 }];
 NSLog(@"%@", sql0);
 
-NSString* sql1 = [[SQLNew SQLCreate:^(NSMutableString *makeSQL) {
+NSString* sql1 = 
+[[SQLNew SQLCreate:^(NSMutableString *makeSQL) {
 
     makeSQL.SQLStr(@"table if not exists");
 }].SQLStr(@"Person") SQLValues:^(NSMutableString *makeSQL) {
