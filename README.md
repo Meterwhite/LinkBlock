@@ -121,7 +121,7 @@ NSString* sql0 =
     makeSQL.SQLArr(@[@"Student" , @"Teacher", @"Foods"]);
 }] SQLWhere:^(NSMutableString *makeSQL) {
     
-    makeSQL.SQLStr( @"id >").SQLIntInStr(1000);
+    makeSQL.SQLStr( @"id =").SQLIntInStr(1000);
 }];
 NSLog(@"%@", sql0);
 
