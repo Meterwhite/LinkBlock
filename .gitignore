@@ -8,3 +8,7 @@ LinkBlockProgram.xcodeproj/project.xcworkspace/xcuserdata/madrock.xcuserdatad/Us
 LinkBlockProgram.xcodeproj/project.xcworkspace/xcuserdata/madrock.xcuserdatad/UserInterfaceState.xcuserstate
 
 LinkBlockProgram.xcodeproj/project.xcworkspace/xcuserdata/novo.xcuserdatad/UserInterfaceState.xcuserstate
+
+*.hmap
+
+*.LinkFileList
