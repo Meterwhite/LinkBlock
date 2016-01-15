@@ -17,26 +17,24 @@
 @property (nonatomic,copy) BOOL         (^numIsChar)();
 @property (nonatomic,copy) BOOL         (^numIsBool)();
 
-/** 加法 */
-@property (nonatomic,copy) NSNumber*    (^numAddByIntegerType)(NSNumber* num);
-@property (nonatomic,copy) NSNumber*    (^numAddByFloatingType)(NSNumber* num);
-/** 减法 */
-@property (nonatomic,copy) NSNumber*    (^numMinusByIntegerType)(NSNumber* num);
-@property (nonatomic,copy) NSNumber*    (^numMinusByFloatingType)(NSNumber* num);
-/** 乘法 */
-@property (nonatomic,copy) NSNumber*    (^numMultipByIntegerType)(NSNumber* num);
-@property (nonatomic,copy) NSNumber*    (^numMultipByFloatingType)(NSNumber* num);
-/** 除法 */
-@property (nonatomic,copy) NSNumber*    (^numDivideByIntegerType)(NSNumber* num);
-@property (nonatomic,copy) NSNumber*    (^numDivideByFloatingType)(NSNumber* num);
+/**
+ *  小数转字符串：digit：小数位数
+ */
+@property (nonatomic,copy) NSString*    (^numDoubleToStr)(NSUInteger digit);
+/** 小数转百分比:0.231>>23.1%，digit：小数位数 */
+@property (nonatomic,copy) NSMutableString*    (^numDoubleToPercentStr)(NSUInteger digit);
 
 @property (nonatomic,copy) NSNumber*    (^numSetHeightToViews)(NSArray* views);
 @property (nonatomic,copy) NSNumber*    (^numSetWidthToViews)(NSArray* views);
 @property (nonatomic,copy) NSNumber*    (^numSetXToViews)(NSArray* views);
 @property (nonatomic,copy) NSNumber*    (^numSetYToViews)(NSArray* views);
 
-/** a for loop . index is from 0 to the (nsnumber - 1) */
+@end
+
+@interface NSNumber (NSNumberLinkBlock)
+
+/** for循环，从 0到idx */
 - (void)numForLoopASC:(void(^)(int idx))forBlock;
-/** a for loop . index is from (nsnumber - 1) to the 0 */
+/** for循环，从 idx到0 */
 - (void)numForLoopDESC:(void(^)(int idx))forBlock;
 @end

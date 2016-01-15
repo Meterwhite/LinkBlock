@@ -98,110 +98,6 @@ static NSArray* _charCTypeArr;
 - (void)setNumIsBool:(BOOL (^)())numIsBool{};
 
 
-- (NSNumber *(^)(NSNumber *))numAddByFloatingType
-{
-    
-    return ^(NSNumber* num){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        if(![num isKindOfClass:[NSNumber class]])
-            return _self;
-        return @(_self.doubleValue+ num.doubleValue);
-    };
-    
-}
-- (void)setNumAddByFloatingType:(NSNumber *(^)(NSNumber *))numAddByFloatingType{};
-
-- (NSNumber *(^)(NSNumber *))numAddByIntegerType
-{
-    return ^(NSNumber* num){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        if(![num isKindOfClass:[NSNumber class]])
-            return _self;
-        return @(_self.longLongValue+ num.longLongValue);
-    };
-}
-- (void)setNumAddByIntegerType:(NSNumber *(^)(NSNumber *))numAddByIntegerType{};
-
-- (NSNumber *(^)(NSNumber *))numMinusByFloatingType
-{
-    return ^(NSNumber* num){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        if(![num isKindOfClass:[NSNumber class]])
-            return _self;
-        return @(_self.doubleValue - num.doubleValue);
-    };
-}
-- (void)setNumMinusByFloatingType:(NSNumber *(^)(NSNumber *))numMinusByFloatingType{};
-
-- (NSNumber *(^)(NSNumber *))numMinusByIntegerType
-{
-    return ^(NSNumber* num){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        if(![num isKindOfClass:[NSNumber class]])
-            return _self;
-        return @(_self.longLongValue - num.longLongValue);
-    };
-}
-- (void)setNumMinusByIntegerType:(NSNumber *(^)(NSNumber *))numMinusByIntegerType{};
-
-- (NSNumber *(^)(NSNumber *))numMultipByFloatingType
-{
-    return ^(NSNumber* num){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        if(![num isKindOfClass:[NSNumber class]])
-            return _self;
-        return @(_self.doubleValue * num.doubleValue);
-    };
-}
-- (void)setNumMultipByFloatingType:(NSNumber *(^)(NSNumber *))numMultipByFloatingType{};
-
-- (NSNumber *(^)(NSNumber *))numMultipByIntegerType
-{
-    return ^(NSNumber* num){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        if(![num isKindOfClass:[NSNumber class]])
-            return _self;
-        return @(_self.longLongValue * num.longLongValue);
-    };
-}
-- (void)setNumMultipByIntegerType:(NSNumber *(^)(NSNumber *))numMultipByIntegerType{};
-
-- (NSNumber *(^)(NSNumber *))numDivideByFloatingType
-{
-    return ^(NSNumber* num){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        if(![num isKindOfClass:[NSNumber class]])
-            return _self;
-        return @(_self.doubleValue / num.doubleValue);
-    };
-}
-- (void)setNumDivideByFloatingType:(NSNumber *(^)(NSNumber *))numDivideByFloatingType{};
-
-- (NSNumber *(^)(NSNumber *))numDivideByIntegerType
-{
-    return ^(NSNumber* num){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        if(![num isKindOfClass:[NSNumber class]])
-            return _self;
-        return @(_self.longLongValue / num.longLongValue);
-    };
-}
-- (void)setNumDivideByIntegerType:(NSNumber *(^)(NSNumber *))numDividdByIntegerType{};
-
-- (NSNumber *(^)(NSArray *))numSetHeightToViews
-{
-    return ^(NSArray* views){
-        LinkError_REF_AUTO(NSNumber, NSNumber);
-        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
-            CGRect frame = v.frame;
-            frame.size.height = _self.doubleValue;
-            v.frame= frame;
-        }];
-        return _self;
-    };
-}
-- (void)setNumSetHeightToViews:(NSNumber *(^)(NSArray *))numSetHeightToViews{};
-
 - (NSNumber *(^)(NSArray *))numSetWidthToViews
 {
     return ^(NSArray* views){
@@ -244,10 +140,48 @@ static NSArray* _charCTypeArr;
 }
 - (void)setNumSetYToViews:(NSNumber *(^)(NSArray *))numSetYToViews{};
 
+- (NSString *(^)(NSUInteger))numDoubleToStr
+{
+    return ^(NSUInteger digit){
+        LinkError_REF_AUTO(NSString, NSNumber);
+        
+        if(!digit){
+            
+            return [NSString stringWithFormat:@"%ld", (long)[_self integerValue]];
+        }else{
+            
+            NSMutableString* formateStr = [NSMutableString new];
+            [formateStr appendString:@"%"];
+            [formateStr appendString:[NSString stringWithFormat:@"%lu", (unsigned long)digit]];
+            [formateStr appendString:@".f"];
+            
+            return  [NSString stringWithFormat:formateStr , [_self doubleValue]];
+        }
+    };
+}
+- (void)setNumDoubleToStr:(NSString *(^)(NSUInteger))numDoubleToStr{};
+
+- (NSMutableString *(^)(NSUInteger))numDoubleToPercentStr
+{
+    return ^(NSUInteger digit){
+        LinkError_REF_AUTO(NSMutableString, NSNumber);
+        
+        double newDouble = [_self doubleValue]*100.0;
+        NSMutableString* re = [NSMutableString stringWithString:@"%"];
+        [re appendString:@(newDouble).numDoubleToStr(digit)];
+        return re;
+    };
+}
+- (void)setNumDoubleToPercentStr:(NSMutableString *(^)(NSUInteger))numDoubleToPercentStr{};
+
+@end
+
+@implementation NSNumber (NSNumberLinkBlock)
+
 - (void)numForLoopASC:(void (^)(int))forBlock
 {
     LinkError_VAL_IF(NSNumber)
-        return;
+    return;
     if(forBlock){
         int x = _self.intValue;
         for(int i=0 ; i< x; i++ ){
@@ -267,5 +201,6 @@ static NSArray* _charCTypeArr;
         }
     }
 }
+
 
 @end

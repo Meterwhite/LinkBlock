@@ -102,6 +102,7 @@
 /** 转字典 */
 @property (nonatomic,copy) NSDictionary*        (^strToNSDictionary)(NSStringEncoding encoding);
 @property (nonatomic,copy) NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
+
 #pragma mark - regex（正则表达式
 @property (nonatomic,copy) BOOL                 (^strRegexIsMatch)(NSString* regex);
 /**

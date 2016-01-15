@@ -768,6 +768,7 @@
 }
 - (void)setStrToNSArrary:(NSArray *(^)(NSStringEncoding))strToNSArrary{};
 
+
 -(NSURL *(^)())strToNSURL
 {
     return ^(){
