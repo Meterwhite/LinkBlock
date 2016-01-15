@@ -11,7 +11,7 @@
 
 @interface NSObject(LinkBlock)
 #pragma mark - Coding ways
-
+/** 将对象赋值到变量 */
 @property (nonatomic,copy) NSObject*    (^set)(id* toObject);
 @property (nonatomic,copy) id           (^end)();
 /** 强制获取一个类型的值，失败则返回该类型的初始化对象 */
@@ -26,7 +26,6 @@
 @property (nonatomic,copy) id           (^valueForKeyPath)(NSString* key);
 @property (nonatomic,copy) NSObject*    (^setValueForKeyPath)(id value,NSString* key);
 /** 安全的使用KVC，非高效率的 */
-/** KVC safely. Non- efficient */
 @property (nonatomic,copy) id           (^valueForKeySafe)(NSString* key);
 @property (nonatomic,copy) NSObject*    (^setValueForKeySafe)(id value,NSString* key);
 @property (nonatomic,copy) id           (^valueForKeyPathSafe)(NSString* key);
