@@ -7,6 +7,7 @@
 //
 
 #import "UIViewController+LinkBlock.h"
+#import "LinkBlock.h"
 
 @implementation NSObject(UIViewControllerLinkBlock)
 

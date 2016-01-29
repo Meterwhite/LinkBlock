@@ -38,6 +38,7 @@
 		9FFDA2201B835E2F0044097D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDA21E1B835E2F0044097D /* LaunchScreen.xib */; };
 		9FFDA22C1B835E2F0044097D /* LinkBlockProgramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA22B1B835E2F0044097D /* LinkBlockProgramTests.m */; };
 		9FFDA2681B83D2C90044097D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA2671B83D2C90044097D /* README.md */; };
+		EEEF93381C5B5C0900A9ADBF /* UITextField+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEF93371C5B5C0900A9ADBF /* UITextField+LinkBlock.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,8 @@
 		9FFDA22A1B835E2F0044097D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FFDA22B1B835E2F0044097D /* LinkBlockProgramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinkBlockProgramTests.m; sourceTree = "<group>"; };
 		9FFDA2671B83D2C90044097D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		EEEF93361C5B5C0900A9ADBF /* UITextField+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+LinkBlock.h"; sourceTree = "<group>"; };
+		EEEF93371C5B5C0900A9ADBF /* UITextField+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+LinkBlock.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +138,6 @@
 		9FBD17051BDB91D500C2F402 /* LinkBlock */ = {
 			isa = PBXGroup;
 			children = (
-				9FBD17241BDB91D500C2F402 /* UIKit */,
 				9FBD17061BDB91D500C2F402 /* Foundation */,
 				9FBD17241BDB91D500C2F402 /* UIKit */,
 				9FBD17211BDB91D500C2F402 /* LinkBlock.h */,
@@ -199,6 +201,8 @@
 				9FBD17341BDB91D500C2F402 /* UIView+LinkBlock.m */,
 				9FBD17351BDB91D500C2F402 /* UIViewController+LinkBlock.h */,
 				9FBD17361BDB91D500C2F402 /* UIViewController+LinkBlock.m */,
+				EEEF93361C5B5C0900A9ADBF /* UITextField+LinkBlock.h */,
+				EEEF93371C5B5C0900A9ADBF /* UITextField+LinkBlock.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -389,6 +393,7 @@
 				9FBD173C1BDB91D500C2F402 /* NSMutableAttributedString+LinkBlock.m in Sources */,
 				9FFDA2121B835E2F0044097D /* main.m in Sources */,
 				9FBD17431BDB91D500C2F402 /* NSValue+LinkBlock.m in Sources */,
+				EEEF93381C5B5C0900A9ADBF /* UITextField+LinkBlock.m in Sources */,
 				9FBD173A1BDB91D500C2F402 /* NSDictionary+LinkBlock.m in Sources */,
 				9FFDA2681B83D2C90044097D /* README.md in Sources */,
 			);

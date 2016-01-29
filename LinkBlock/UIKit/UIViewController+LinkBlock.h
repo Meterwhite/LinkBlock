@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LinkBlock.h"
+
 
 @interface NSObject(UIViewControllerLinkBlock)
 
