@@ -11,7 +11,7 @@
 
 @implementation NSObject(UIViewControllerLinkBlock)
 
-- (UITextField* (^)(UIColor *))txtFieldPlaceHoldColor
+- (UITextField* (^)(UIColor *))txtFieldPlaceholdColor
 {
     return ^(UIColor* color){
         LinkError_REF_AUTO(UITextField, UITextField);
@@ -19,5 +19,5 @@
         return _self;
     };
 }
-- (void)setTxtFieldPlaceHoldColor:(UITextField *(^)(UIColor *))txtFieldPlaceHoldColor{};
+- (void)setTxtFieldPlaceholdColor:(UITextField *(^)(UIColor *))txtFieldPlaceholdColor{};
 @end

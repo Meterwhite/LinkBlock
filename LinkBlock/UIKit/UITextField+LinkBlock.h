@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(UIViewControllerLinkBlock)
-@property (nonatomic,copy) UITextField*     (^txtFieldPlaceHoldColor)(UIColor* color);
+@property (nonatomic,copy) UITextField*     (^txtFieldPlaceholdColor)(UIColor* color);
 
 @end
