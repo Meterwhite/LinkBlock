@@ -161,4 +161,4 @@ NSString *str2 = str1.strAppend(str0).strAt(15).end();
 
 ##Bug-mail address，join us address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
 ##希望大家都支持链式编程这种编程方式
-* 做天朝良好的程序员
+* 一朝做鸟程序员，十年相伴是飞机。没有八哥猛如虎，谁喂东西谁是主。
