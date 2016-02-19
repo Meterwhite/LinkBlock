@@ -33,6 +33,7 @@
 #import "UIScrollView+LinkBlock.h"
 #import "UIImageView+LinkBlock.h"
 #import "UIViewController+LinkBlock.h"
+#import "UITextField+LinkBlock.h"
 
 //起手写宏
 #ifndef linkObj
