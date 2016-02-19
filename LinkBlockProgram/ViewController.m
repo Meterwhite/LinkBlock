@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSDate* date=[NSDate date].dateAtZero();
+    
+    
     //并不推荐大量链下去写，合适的地方使用链式可以帮助我们集中注意力编码
     
     //去空格和换行，并打印

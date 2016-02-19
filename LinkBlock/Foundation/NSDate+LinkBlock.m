@@ -180,7 +180,7 @@
 {
     return ^(){
         LinkError_REF_AUTO(NSString, NSDate);
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];  
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSYearCalendarUnit fromDate:_self];
         return [NSString stringWithFormat:@"%ld" , (long)[comps year]];
     };
@@ -190,7 +190,7 @@
 {
     return ^(){
         LinkError_REF_AUTO(NSString, NSDate);
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSMonthCalendarUnit fromDate:_self];
         return [NSString stringWithFormat:@"%ld" , (long)[comps month]];
     };
@@ -200,7 +200,7 @@
 {
     return ^(){
         LinkError_REF_AUTO(NSString, NSDate);
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSDayCalendarUnit fromDate:_self];
         return [NSString stringWithFormat:@"%ld" , (long)[comps day]];
     };
@@ -210,7 +210,7 @@
 {
     return ^(){
         LinkError_REF_AUTO(NSString, NSDate);
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSHourCalendarUnit fromDate:_self];
         return [NSString stringWithFormat:@"%ld" , (long)[comps hour]];
     };
@@ -220,7 +220,7 @@
 {
     return ^(){
         LinkError_REF_AUTO(NSString, NSDate);
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSMinuteCalendarUnit fromDate:_self];
         return [NSString stringWithFormat:@"%ld" , (long)[comps minute]];
     };
@@ -230,10 +230,31 @@
 {
     return ^(){
         LinkError_REF_AUTO(NSString, NSDate);
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSSecondCalendarUnit fromDate:_self];
         return [NSString stringWithFormat:@"%ld" , (long)[comps second]];
     };
 }
 - (void)setDateSec:(NSString *(^)())dateSec{};
+
+- (NSDate *(^)())dateAtZero
+{
+    return ^(){
+        LinkError_REF_AUTO(NSDate, NSDate);
+        NSTimeInterval timeInterval = [_self timeIntervalSince1970];
+        
+        
+    };
+}
+- (void)setDateAtZero:(NSDate *(^)())dateAtZero{};
+
+- (NSDate *(^)())dateCurrentZone
+{
+    return ^(){
+        LinkError_REF_AUTO(NSDate, NSDate);
+        NSTimeZone* zone = [NSTimeZone systemTimeZone];
+        NSInteger offset = [zone secondsFromGMTForDate:_self];
+        return [_self dateByAddingTimeInterval:offset];
+    };
+}
 @end
