@@ -158,7 +158,7 @@
         }
         for(int i=0; i<_self.length; i++){
             int charS = [_self characterAtIndex:i];
-            if(charS > 0x4e00 && charS < 0x9fff){
+            if(charS >= 0x4e00 && charS <= 0x9fff){
                 return YES;
             }
         }
@@ -173,12 +173,12 @@
         LinkError_VAL_IF(NSString){
             return NO;
         }
-        if( range.location>_self.length-1 || range.location+range.length>_self.length-1 )
+        if( range.location>_self.length-1 || range.location+range.length>_self.length )
             return NO;
         
         for(NSUInteger i=range.location; i<range.location+range.length; i++){
             int charS = [_self characterAtIndex:i];
-            if(charS <= 0x4e00 && charS >= 0x9fff){//不是汉字
+            if(charS < 0x4e00 || charS > 0x9fff){//不是汉字
                 return NO;
             }
         }
