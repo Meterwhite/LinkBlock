@@ -21,6 +21,10 @@
 @property (nonatomic,copy) NSString*    (^strReplaceInRange)(NSString* str, NSRange range);
 @property (nonatomic,copy) NSString*    (^strReplace)(NSString* replaceStr, NSString* withStr);
 @property (nonatomic,copy) BOOL         (^strIsContain)(NSString* str);
+/** 字符串是否含有汉字 */
+@property (nonatomic,copy) BOOL         (^strIsContainzh_CN)();
+/** 范围内是否都是汉字 */
+@property (nonatomic,copy) BOOL         (^strIszh_CNInRange)(NSRange range);
 @property (nonatomic,copy) NSRange      (^strRangeOfStr)(NSString* str);
 @property (nonatomic,copy) NSInteger    (^strIndexOfStr)(NSString* str);
 @property (nonatomic,copy) NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIndex);

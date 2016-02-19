@@ -150,6 +150,43 @@
 }
 - (void)setStrIndexOfStr:(NSInteger (^)(NSString *))strIndexOfStr{};
 
+- (BOOL (^)())strIsContainzh_CN
+{
+    return ^(){
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        for(int i=0; i<_self.length; i++){
+            int charS = [_self characterAtIndex:i];
+            if(charS > 0x4e00 && charS < 0x9fff){
+                return YES;
+            }
+        }
+        return NO;
+    };
+}
+- (void)setStrIsContainzh_CN:(BOOL (^)())strIsContainzh_CN{};
+
+- (BOOL (^)(NSRange))strIszh_CNInRange
+{
+    return ^(NSRange range){
+        LinkError_VAL_IF(NSString){
+            return NO;
+        }
+        if( range.location>_self.length-1 || range.location+range.length>_self.length-1 )
+            return NO;
+        
+        for(NSUInteger i=range.location; i<range.location+range.length; i++){
+            int charS = [_self characterAtIndex:i];
+            if(charS <= 0x4e00 && charS >= 0x9fff){//不是汉字
+                return NO;
+            }
+        }
+        return YES;
+    };
+}
+- (void)setStrIszh_CNInRange:(BOOL (^)(NSRange))strIszh_CNInRange{};
+
 - (NSInteger (^)(NSString *, NSUInteger))strIndexOfStrStartAt
 {
     return ^(NSString* str, NSUInteger startIndex){
