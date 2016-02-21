@@ -37,8 +37,8 @@
 @property (nonatomic,copy) NSString*        (^dateHour)();
 @property (nonatomic,copy) NSString*        (^dateMinut)();
 @property (nonatomic,copy) NSString*        (^dateSec)();
-/** 获取日期的当天0点时间 */
+/** 获取日期的当天0点时间，相对GMT（格林威尼） */
 @property (nonatomic,copy) NSDate*          (^dateAtZero)();
-/** 获取补充了于格林威尼时差后的对象 */
+/** 获取当前时区，补充了于GTM（格林威尼）时差后的对象 */
 @property (nonatomic,copy) NSDate*          (^dateCurrentZone)();
 @end

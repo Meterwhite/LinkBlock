@@ -241,9 +241,14 @@
 {
     return ^(){
         LinkError_REF_AUTO(NSDate, NSDate);
-        NSTimeInterval timeInterval = [_self timeIntervalSince1970];
-        
-        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        calendar.timeZone=[NSTimeZone systemTimeZone];
+        NSDateComponents *comps  = [calendar components:NSUIntegerMax fromDate:_self];
+        comps.hour=0;
+        comps.minute=0;
+        comps.second=0;
+        NSTimeInterval timeNum = (double)(int)[[calendar dateFromComponents:comps] timeIntervalSince1970];
+        return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
 - (void)setDateAtZero:(NSDate *(^)())dateAtZero{};
