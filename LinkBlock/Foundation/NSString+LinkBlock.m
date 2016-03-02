@@ -316,11 +316,12 @@
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSFontAttributeName] = font;
         
-        if ([[UIDevice currentDevice].systemVersion floatValue]>= 7.0) {
+//        if ([[UIDevice currentDevice].systemVersion floatValue]>= 7.0) {
             return [_self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil].size;
-        } else {
-            return [_self sizeWithFont:font constrainedToSize:maxSize];
-        }
+//        }
+//        else {
+//            return [_self sizeWithFont:font constrainedToSize:maxSize];
+//        }
     };
 }
 - (void)setStrSizeWithFontAndMaxSize:(CGSize (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize{};

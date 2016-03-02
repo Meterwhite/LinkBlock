@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NSObject(UIViewControllerLinkBlock)
+@interface NSObject(UITextFieldLinkBlock)
 @property (nonatomic,copy) UITextField*     (^txtFieldPlaceholdColor)(UIColor* color);
 
 @end

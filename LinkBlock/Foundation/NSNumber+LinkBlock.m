@@ -112,6 +112,20 @@ static NSArray* _charCTypeArr;
 }
 - (void)setNumSetWidthToViews:(NSNumber *(^)(NSArray *))numSetWidthToViews{};
 
+- (NSNumber *(^)(NSArray *))numSetHeightToViews
+{
+    return ^(NSArray* views){
+        LinkError_REF_AUTO(NSNumber, NSNumber);
+        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            CGRect frame = v.frame;
+            frame.size.height = _self.doubleValue;
+            v.frame= frame;
+        }];
+        return _self;
+    };
+}
+- (void)setNumSetHeightToViews:(NSNumber *(^)(NSArray *))numSetHeightToViews{};
+
 - (NSNumber *(^)(NSArray *))numSetXToViews
 {
     return ^(NSArray* views){

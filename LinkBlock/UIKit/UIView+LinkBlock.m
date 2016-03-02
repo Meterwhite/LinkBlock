@@ -841,7 +841,9 @@
 - (BOOL (^)())viewAnimateIsDoing
 {
     return ^(){
-        LinkError_VAL_IF(UIView);
+        LinkError_VAL_IF(UIView){
+            return NO;
+        }
         return (BOOL)[_self.layer.animationKeys count];
     };
 }

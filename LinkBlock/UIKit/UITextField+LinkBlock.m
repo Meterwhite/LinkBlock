@@ -9,7 +9,7 @@
 #import "UITextField+LinkBlock.h"
 #import "LinkBlock.h"
 
-@implementation NSObject(UIViewControllerLinkBlock)
+@implementation NSObject(UITextFieldLinkBlock)
 
 - (UITextField* (^)(UIColor *))txtFieldPlaceholdColor
 {

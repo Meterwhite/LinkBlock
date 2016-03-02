@@ -363,7 +363,7 @@
         return re;
     };
 }
-- (void)setM_arrObjsOfType:(NSArray *(^)(__unsafe_unretained Class))m_arrObjsOfType{};
+- (void)setM_arrObjsOfType:(NSMutableArray *(^)(__unsafe_unretained Class))m_arrObjsOfType{};
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict
 {

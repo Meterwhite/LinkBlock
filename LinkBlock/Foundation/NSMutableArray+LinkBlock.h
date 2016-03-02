@@ -48,7 +48,7 @@
 @property (nonatomic,copy) NSDictionary*            (^m_arrToDictByKeyString)();
 
 /** 获取数组中所有该类型的对象 */
-@property (nonatomic,copy) NSArray*                 (^m_arrObjsOfType)(Class typeClass);
+@property (nonatomic,copy) NSMutableArray*          (^m_arrObjsOfType)(Class typeClass);
 /** 以数组中对象的Key的值进行排序 */
 @property (nonatomic,copy) NSMutableArray*          (^m_arrSortByKey)(NSString* key, BOOL ascending);
 /** 插入对象如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后 */

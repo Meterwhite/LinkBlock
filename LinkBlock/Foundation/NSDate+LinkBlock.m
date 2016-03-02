@@ -262,4 +262,5 @@
         return [_self dateByAddingTimeInterval:offset];
     };
 }
+- (void)setDateCurrentZone:(NSDate *(^)())dateCurrentZone{};
 @end

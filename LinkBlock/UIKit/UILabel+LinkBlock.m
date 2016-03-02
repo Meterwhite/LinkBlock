@@ -22,7 +22,7 @@
         }
         double finalWidth =_self.bounds.size.width;//expected width of label
         CGSize theStringSize;
-        if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
+//        if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
             NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
             CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
             attrs.makeAttrDictFont(_self.font);
@@ -32,9 +32,10 @@
                              NSStringDrawingUsesFontLeading
                                                  attributes:attrs
                                                     context:nil].size;//NSStringDrawingUsesFontLeading
-        }else{
-            theStringSize =[_self.text sizeWithFont:_self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:_self.lineBreakMode];
-        }
+//        }
+//        else{
+//            theStringSize =[_self.text sizeWithFont:_self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:_self.lineBreakMode];
+//        }
         
         int newLinesToPad =(finalHeight - theStringSize.height)/ fontSize.height;
         for(int i=0; i<newLinesToPad; i++)
@@ -55,7 +56,7 @@
         }
         double finalWidth =_self.bounds.size.width;//expected width of label
         CGSize theStringSize;
-        if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
+//        if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
             NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
             CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
             attrs.makeAttrDictFont(_self.font);
@@ -65,11 +66,12 @@
                              NSStringDrawingUsesFontLeading
                                                  attributes:attrs
                                                     context:nil].size;//NSStringDrawingUsesFontLeading
-        }else{
-            theStringSize =[_self.text sizeWithFont:_self.font
-                                 constrainedToSize:CGSizeMake(finalWidth, finalHeight)
-                                     lineBreakMode:_self.lineBreakMode];
-        }
+//        }
+//        else{
+//            theStringSize =[_self.text sizeWithFont:_self.font
+//                                 constrainedToSize:CGSizeMake(finalWidth, finalHeight)
+//                                     lineBreakMode:_self.lineBreakMode];
+//        }
         int newLinesToPad =(finalHeight - theStringSize.height) / fontSize.height;
         for(int i=0; i<newLinesToPad; i++)
             _self.text =[NSString stringWithFormat:@" \n%@",_self.text];
