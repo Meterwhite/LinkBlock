@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "LinkBlock"
   s.version      = "1.0.0"
-  s.summary      = 'objc的链式编程框架，简化多行无用代码写法'
+  s.summary      = 'objc chain programming.'
   s.homepage     = 'https://github.com/qddnovo/LinkBlock'
   s.license      = 'MIT'
   s.author       = { "Novo" => "quxingyi@outlook.com" }
