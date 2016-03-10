@@ -29,7 +29,7 @@
 @property (nonatomic,copy) NSInteger    (^strIndexOfStr)(NSString* str);
 @property (nonatomic,copy) NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIndex);
 
-/** 是否是表示空的字符串@"",@"<null>",@"(null)" */
+/** 是否是表示空的字符串@"",@"<null>",@"(null)"，或者全部是空白符号 */
 @property (nonatomic,copy) BOOL         (^strIsBlank)();
 @property (nonatomic,copy) BOOL         (^strIsEmoji)();
 @property (nonatomic,copy) BOOL         (^strIsContainEmoji)();

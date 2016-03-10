@@ -331,7 +331,7 @@
         LinkError_VAL_IF(NSString){
             return NO;
         }
-        if ([[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        if ([[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0) {
             return YES;
         }
         if ([_self isEqualToString:@"<null>"]) {
