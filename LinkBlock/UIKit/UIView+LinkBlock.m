@@ -1039,23 +1039,25 @@
 }
 - (void)setViewMaxY:(CGFloat (^)())viewMaxY{};
 
-- (UIView *(^)(UIView *))viewBringFrontInView
+- (UIView *(^)())viewBringFrontInView
 {
-    return ^(UIView* superView){
+    return ^(){
         LinkError_REF_AUTO(UIView, UIView);
-        [superView bringSubviewToFront:_self];
+        if(_self.superview)
+            [_self.superview bringSubviewToFront:_self];
         return _self;
     };
 }
-- (void)setViewBringFrontInView:(UIView *(^)(UIView *))viewBringFrontInView{};
+- (void)setViewBringFrontInView:(UIView *(^)())viewBringFrontInView{};
 
-- (UIView *(^)(UIView *))viewSendBackInView
+- (UIView *(^)())viewSendBackInView
 {
-    return ^(UIView* superView){
+    return ^(){
         LinkError_REF_AUTO(UIView, UIView);
-        [superView sendSubviewToBack:_self];
+        if(_self.superview)
+            [_self.superview sendSubviewToBack:_self];
         return _self;
     };
 }
-- (void)setViewSendBackInView:(UIView *(^)(UIView *))viewSendBackInView{};
+- (void)setViewSendBackInView:(UIView *(^)())viewSendBackInView{};
 @end

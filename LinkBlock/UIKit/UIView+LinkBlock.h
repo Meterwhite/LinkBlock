@@ -40,9 +40,9 @@
 @property (nonatomic,copy) UIView*      (^viewCornerRadiusSide)(UIRectCorner side , CGSize radius);
 @property (nonatomic,copy) UIView*      (^viewMasksToBounds)(BOOL b);
 /** 前置视图 */
-@property (nonatomic,copy) UIView*      (^viewBringFrontInView)(UIView* superView);
+@property (nonatomic,copy) UIView*      (^viewBringFrontInView)();
 /** 下沉视图 */
-@property (nonatomic,copy) UIView*      (^viewSendBackInView)(UIView* superView);
+@property (nonatomic,copy) UIView*      (^viewSendBackInView)();
 
 @property (nonatomic,copy) BOOL         (^viewIsSubviewTo)(UIView* theView);
 /** 递归此视图，找到第一响应者的的输入类型控件 */
