@@ -13,7 +13,7 @@
 LinkBlock.h
 ```
 
-##不友好的 CGRectMake()和一件事情换多行
+##CGRectMake()不友好
 ```objc
 //Such written before 
 //手绘UI常要创建4，5个变量，而这却会耗费我们一些时间去停止思考逻辑上的问题
@@ -161,4 +161,4 @@ NSString *str2 = str1.strAppend(str0).strAt(15).end();
 
 ##Bug-mail address，join us address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
 ##希望大家都支持链式编程这种编程方式
-* 一朝做鸟程序员，十年相伴是飞机。没有八哥猛如虎，谁喂东西谁是主。
+* 一朝做鸟程序员

@@ -316,15 +316,99 @@
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSFontAttributeName] = font;
         
-//        if ([[UIDevice currentDevice].systemVersion floatValue]>= 7.0) {
-            return [_self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil].size;
-//        }
-//        else {
-//            return [_self sizeWithFont:font constrainedToSize:maxSize];
-//        }
+        //        if ([[UIDevice currentDevice].systemVersion floatValue]>= 7.0) {
+        return [_self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil].size;
+        //        }
+        //        else {
+        //            return [_self sizeWithFont:font constrainedToSize:maxSize];
+        //        }
     };
 }
 - (void)setStrSizeWithFontAndMaxSize:(CGSize (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize{};
+
+//@property (nonatomic,copy) float        (^strHeight)(NSDictionary* attrDict);
+//@property (nonatomic,copy) float        (^strLineHeight)(NSDictionary* attrDict);
+- (double (^)(NSDictionary *))strHeight
+{
+    return ^(NSDictionary* attrDict){
+        
+        LinkError_VAL_IF(NSString){
+            return 0.0;
+        }
+        CGRect rect = [_self boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+                                          options:NSStringDrawingUsesDeviceMetrics
+                                       attributes:attrDict
+                                          context:nil];
+        return (double)rect.size.height;
+    };
+}
+- (void)setStrHeight:(double (^)(NSDictionary *))strHeight{};
+
+- (double (^)(NSDictionary *))strLineHeight
+{
+    return ^(NSDictionary* attrDict){
+        
+        LinkError_VAL_IF(NSString){
+            return 0.0;
+        }
+        CGRect rect = [_self boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+                                          options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                                       attributes:attrDict
+                                          context:nil];
+        return (double)rect.size.height;
+    };
+}
+- (void)setStrLineHeight:(double (^)(NSDictionary *))strLineHeight{};
+
+- (NSInteger (^)(CGFloat, NSDictionary *))strLineCount
+{
+    return ^(CGFloat maxWidth,NSDictionary* attrDict){
+        LinkError_VAL_IF(NSString){
+            return (NSInteger)0;
+        }
+        
+        NSString* originStr= _self;
+        
+        NSInteger enterCount=0;
+        for(int i=0;i<originStr.length;i++)
+            if([originStr characterAtIndex:i] == '\n')
+                enterCount++;
+        
+        originStr = [originStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];//去换行符
+        originStr = [originStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        CGFloat lineHeight = [originStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+                                                     options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                                                  attributes:attrDict
+                                                     context:nil].size.height;
+        //无换行符
+        CGFloat allHeight = [originStr boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT)
+                                                    options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                                                 attributes:attrDict
+                                                    context:nil].size.height;
+        
+        return (NSInteger)(allHeight/lineHeight + enterCount);
+    };
+}
+- (void)setStrLineCount:(NSInteger (^)(CGFloat, NSDictionary *))strLineCount{};
+
+- (NSString* (^)(NSInteger, CGFloat,NSDictionary*))strSubToLine
+{
+    return ^(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict){
+        
+        LinkError_REF_AUTO(NSString, NSString);
+        
+        NSString* re=_self;
+        for (int i=_self.length; i>0; i--) {//倒序
+            NSString* forStr = [_self substringToIndex:i];
+            if( forStr.strLineCount(maxWidth,attrDict) == toLine){
+                re = forStr;
+                break;
+            }
+        }
+        return re;
+    };
+}
+- (void)setStrSubToLine:(NSString *(^)(NSInteger, CGFloat, NSDictionary *))strSubToLine{};
 
 - (BOOL (^)())strIsBlank{
     return ^(){
@@ -759,17 +843,17 @@
                                                             withString:@""];
         
         newStr = [newStr stringByReplacingOccurrencesOfString:@"\n"
-                                                  withString:@""];
+                                                   withString:@""];
         
         newStr = [newStr stringByReplacingOccurrencesOfString:@"\r"
-                                                  withString:@""];
-
+                                                   withString:@""];
+        
         NSData* strIsData = [newStr dataUsingEncoding:encoding];
-
+        
         
         NSDictionary* re = [NSJSONSerialization JSONObjectWithData:strIsData
-                                        options:NSJSONReadingMutableContainers
-                                        error:nil];
+                                                           options:NSJSONReadingMutableContainers
+                                                             error:nil];
         if([re isKindOfClass:[NSDictionary class]]){
             return re;
         }
@@ -787,17 +871,17 @@
                                                             withString:@""];
         
         newStr = [newStr stringByReplacingOccurrencesOfString:@"\n"
-                                                  withString:@""];
+                                                   withString:@""];
         
         newStr = [newStr stringByReplacingOccurrencesOfString:@"\r"
-                                                  withString:@""];
+                                                   withString:@""];
         
         NSData* strIsData = [newStr dataUsingEncoding:encoding];
         
         
         NSArray* re = [NSJSONSerialization JSONObjectWithData:strIsData
-                                                           options:NSJSONReadingMutableContainers
-                                                             error:nil];
+                                                      options:NSJSONReadingMutableContainers
+                                                        error:nil];
         if([re isKindOfClass:[NSArray class]]){
             return re;
         }
@@ -1052,7 +1136,7 @@
                       ){
                 [v setValue:color forKey:@"textColor"];
             }
-           
+            
         }];
         return _self;
     };

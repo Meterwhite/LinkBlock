@@ -17,8 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //合适的地方使用链式可以帮助我们集中注意力编码
-    
     //去空格和换行，并打印
     @" 吴 倩 莲 的 风 和 欲 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
     //字符串比较大小

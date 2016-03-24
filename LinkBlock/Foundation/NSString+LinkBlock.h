@@ -37,7 +37,14 @@
 @property (nonatomic,copy) CGSize       (^strSizeWithFont)(UIFont* font);
 @property (nonatomic,copy) CGSize       (^strSizeWithFontAndMaxWidth)(UIFont* font , CGFloat maxWidth);
 @property (nonatomic,copy) CGSize       (^strSizeWithFontAndMaxSize)(UIFont* font, CGSize maxSize);
-
+/** 计算字符串的高度，参数：属性字典 */
+@property (nonatomic,copy) double       (^strHeight)(NSDictionary* attrDict);
+/** 计算字符串的行高，参数：属性字典 */
+@property (nonatomic,copy) double       (^strLineHeight)(NSDictionary* attrDict);
+/** 计算字符串行数 */
+@property (nonatomic,copy) NSInteger    (^strLineCount)(CGFloat maxWidth,NSDictionary* attrDict);
+/** 截取到某行，参数：目标行数，最大宽度，属性字典 */
+@property (nonatomic,copy) NSString*    (^strSubToLine)(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict);
 @property (nonatomic,copy) NSUInteger   (^strLength)();
 @property (nonatomic,copy) NSUInteger   (^strLengthASCII)();
 @property (nonatomic,copy) NSUInteger   (^strLengthUnicode)();
