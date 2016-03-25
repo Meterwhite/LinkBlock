@@ -876,6 +876,19 @@
 }
 - (void)setViewAnimateResume:(UIView *(^)())viewAnimateResum{};
 
+- (UIImage *(^)())viewSnapshot
+{
+    return ^(){
+        LinkError_REF_AUTO(UIImage, UIView);
+        UIGraphicsBeginImageContextWithOptions(_self.bounds.size, YES, 0);
+        [_self drawViewHierarchyInRect:_self.bounds afterScreenUpdates:YES];
+        UIImage *re = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return re;
+    };
+}
+- (void)setViewSnapshot:(UIImage *(^)())viewSnapshot{};
+
 - (UIView *(^)(UIView *))viewCopyX
 {
     return ^(UIView* fromView){
@@ -1060,4 +1073,21 @@
     };
 }
 - (void)setViewSendBackInView:(UIView *(^)())viewSendBackInView{};
+@end
+
+
+@implementation UIView (UIViewLinkBlock)
+
+- (UIButton*)viewAddTestBtn:(CGRect)frame block:(NSString*(^)(NSInteger idx))block
+{
+    UIButton* btn=UIButtonNew.viewBGColor([UIColor redColor]).end();
+    
+    return btn;
+}
+
+- (void)linkBlockClickTestBtnAction
+{
+    
+}
+
 @end

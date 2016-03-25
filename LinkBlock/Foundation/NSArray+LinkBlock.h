@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define NSArrayNew ([NSArray new])
 @interface NSObject(NSArraryLinkBlock)
 
 @property (nonatomic,copy) id                       (^arrAt)(NSUInteger idx);

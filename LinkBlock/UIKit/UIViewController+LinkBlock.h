@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-
+#define UIViewControllerNew ([UIViewController new])
 @interface NSObject(UIViewControllerLinkBlock)
 
 @end

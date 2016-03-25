@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
+#define UIButtonNew ([UIButton buttonWithType:UIButtonTypeCustom])
 @interface NSObject(UIButtonLinkBlock)
 @property (nonatomic,copy) UIButton* (^btnTitleEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
 @property (nonatomic,copy) UIButton* (^btnImageEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);

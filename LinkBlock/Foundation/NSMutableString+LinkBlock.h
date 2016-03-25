@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-
+#define NSMutableStringNew ([NSMutableString new])
 @interface NSObject(NSMutableStringLinkBlock)
 @property (nonatomic,copy) NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
 @property (nonatomic,copy) NSMutableString*     (^m_strAppenStr)(NSString* str);

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define NSMutableAttributedStringNew ([NSMutableAttributedString new])
 @interface NSObject(NSMutableAttributedStringLinkBlock)
 @property (nonatomic,copy) NSMutableAttributedString* (^m_attr_strAppendAttrStr)(NSAttributedString* attrStr);
 @property (nonatomic,copy) NSMutableAttributedString* (^m_attr_strAppendStr)(NSString* str);

@@ -240,7 +240,7 @@
 }
 - (void)setSuperclassName:(NSString *(^)())superclassName{};
 
-- (NSObject *(^)(id*))set
+- (NSObject *(^)(id*))setTo
 {
     return ^(id* toObject){
         LinkError_VAL_IF(NSObject){
@@ -251,7 +251,7 @@
         return _self;
     };
 }
-- (void)setSet:(NSObject *(^)(id*))blockValueTo{};
+- (void)setSetTo:(NSObject *(^)(id*))setTo{};
 
 
 - (NSObject *(^)())nslog
@@ -260,9 +260,7 @@
         LinkError_VAL_IF(NSObject){
             return (NSObject*)_self;
         }
-#ifdef DEBUG
         NSLog(@"%@",_self);
-#endif
         return _self;
     };
 }
@@ -274,9 +272,7 @@
         LinkError_VAL_IF(NSObject){
             return (NSObject*)_self;
         }
-#ifdef DEBUG
         NSLog(@"%@%@",title,_self);
-#endif
         return _self;
     };
 }

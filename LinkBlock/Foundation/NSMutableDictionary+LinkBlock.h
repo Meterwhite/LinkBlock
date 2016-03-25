@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define NSMutableDictionaryNew ([NSMutableDictionary new])
 @interface NSObject(NSMutableDictionaryLinkBlock)
 /** 安全赋值 */
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictSetValue)(id<NSCopying> key , id value);
@@ -31,7 +32,7 @@
 
 /** ********************NSAttributeString设置部分******************** */
 
-#define AttrDictNew ([NSMutableDictionary new])
+#define AttrDictNew NSMutableDictionaryNew
 
 @property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictFont)(UIFont* font);
 @property (nonatomic,copy) NSMutableDictionary* (^makeAttrDictTextColor)(UIColor* textColor);

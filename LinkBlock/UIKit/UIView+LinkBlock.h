@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
+#define UIViewNew ([UIViewNew new])
 @interface NSObject(UIViewLinkBlock)
 @property (nonatomic,copy) BOOL         (^viewIsZeroSize)();
 @property (nonatomic,copy) CGFloat      (^viewX)();
@@ -30,8 +31,9 @@
 @property (nonatomic,copy) UIView*      (^viewSetWidth)(CGFloat width);
 @property (nonatomic,copy) UIView*      (^viewSetHeight)(CGFloat height);
 @property (nonatomic,copy) UIView*      (^viewSetSize)(CGFloat width, CGFloat height);
-
+/** 背景色 */
 @property (nonatomic,copy) UIView*      (^viewBGColor)(UIColor* color);
+/** 随机背景色 */
 @property (nonatomic,copy) UIView*      (^viewBGColorRandom)();
 @property (nonatomic,copy) UIView*      (^viewBorderColor)(UIColor* color);
 @property (nonatomic,copy) UIView*      (^viewBorderWidth)(CGFloat w);
@@ -107,12 +109,14 @@
 @property (nonatomic,copy) UIView*      (^viewAnimateRotateToLeft)(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
 /** 移除所有动画 */
 @property (nonatomic,copy) UIView*      (^viewAnimateRemove)();
-
+/** 是否正在动画 */
 @property (nonatomic,copy) BOOL         (^viewAnimateIsDoing)();
 /** 暂停动画 */
 @property (nonatomic,copy) UIView*      (^viewAnimatePause)();
 /** 恢复动画，在暂停动画后使用 */
 @property (nonatomic,copy) UIView*      (^viewAnimateResume)();
+/** 截屏当前视图 */
+@property (nonatomic,copy) UIImage*     (^viewSnapshot)();
 
 #pragma mark - 辅助手动布局
 @property (nonatomic,copy) UIView*      (^viewCopyX)(UIView* fromView);
@@ -128,6 +132,10 @@
 @property (nonatomic,copy) UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin);
 @property (nonatomic,copy) UIView*      (^viewRightTo)(UIView* toView, CGFloat margin);
 
-
 @end
 
+@interface UIView (UIViewLinkBlock)
+#pragma mark - 测试
+- (UIButton*)viewAddTestBtn:(CGRect)frame block:(NSString*(^)(NSInteger idx))block;
+
+@end

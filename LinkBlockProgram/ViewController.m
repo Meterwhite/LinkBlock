@@ -27,15 +27,24 @@
     //查找最大数
     @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
     
+    //创建属性字典
+    AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
     
     //添加一个按钮到视图上
-    UIButton* btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    linkObj(btn).viewSetFrame(20,20,150,80).viewAddToView(self.view).btnTitle(@"Button", UIControlStateNormal).btnTitleColor([UIColor lightGrayColor],UIControlStateNormal).viewBGColor(@"f0f0f0".strToUIColorFromHexStr());
+    UIButtonNew
+    .viewAddToView(self.view)
+    .btnTitle(@"Button", UIControlStateNormal)
+    .btnTitleColor([UIColor lightGrayColor],UIControlStateNormal)
+    .viewBGColor(@"f0f0f0".strToUIColorFromHexStr())
+    .frame= @"{{20,20},{150,80}}".strToCGRect();
     
     //添加一个标签到视图上，并且文本顶部对齐，中间对齐
-    UILabel* lab = [UILabel new];
-    lab.frame = @"{{20,150},{150,100}}".strToCGRect();
-    linkObj(lab).labText(@"中间对齐顶部对齐").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop().viewAddToView(self.view).viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
+    UILabelNew
+    .labText(@"中间对齐顶部对齐")
+    .viewSetFrame(20,200,150,80)
+    .labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop()
+    .viewAddToView(self.view)
+    .viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
     
     //字符串常量直接转颜色
     @"0xff22cc".strToUIColorFromHexStr();//0x.. ，#..，..
@@ -59,8 +68,7 @@
     }];
     
     //对象转json
-    arrForFilter.objToJsonString();
-    
+    arrForFilter.objToJsonString().nslog();
 
 
     //遍历字符串中的所有数字
@@ -70,7 +78,7 @@
     }];
     
     
-    NSDictionary* 需要替换的字典 = @{
+    NSDictionary* dictNeesReplaceKey = @{
                               @"description":@"123",
                               @"dict":@{
                                       @"description":@"123",
@@ -87,13 +95,12 @@
                                               ]
                                       }
                               };
-    //替换字典中的键
-    需要替换的字典 = 需要替换的字典.dictReplaceKey(@"description", @"DESCRIPTION");
-    NSLog(@"%@",需要替换的字典);
+    //替换字典中的键，重新赋值，再打印
+    dictNeesReplaceKey.dictReplaceKey(@"description", @"DESCRIPTION").setTo(&dictNeesReplaceKey).nslog();
     
     //高效阅读的sql编码方式，易查错，易修改
     BOOL sex = NO;
-    NSString* sql0 =[[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
+    [[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
         
         [makeSQL SQLIf:sex==0 using:^(NSMutableString *makeSQL) {
             makeSQL.SQLStr(@"*");
@@ -106,10 +113,10 @@
     }] SQLWhere:^(NSMutableString *makeSQL) {
         
         makeSQL.SQLStr( @"id >").SQLIntInStr(1000);
-    }];
-    NSLog(@"%@", sql0);
+    }].nslog();
+
     //2
-    NSString* sql1 = [[SQLNew SQLCreate:^(NSMutableString *makeSQL) {
+    [[SQLNew SQLCreate:^(NSMutableString *makeSQL) {
         
         makeSQL.SQLStr(@"table if not exists");
     }].SQLStr(@"Person") SQLValues:^(NSMutableString *makeSQL) {
@@ -118,10 +125,6 @@
         makeSQL.SQLStr(@"name text").SQL_Comma();
         makeSQL.SQLStr(@"sex integer").SQL_Comma();
         makeSQL.SQLStr(@"address text");
-    }];
-    NSLog(@"%@", sql1);
-    
-    //高效无烦恼创建属性字典
-    NSMutableDictionary* attrDict = AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
+    }].nslog();
 }
 @end

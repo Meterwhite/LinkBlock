@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
+#define UILabelNew ([UILabel new])
 @interface NSObject(UILabelLinkBlock)
 /** 文本顶部对齐 */
 @property (nonatomic,copy) UILabel*         (^labAlignTop)();

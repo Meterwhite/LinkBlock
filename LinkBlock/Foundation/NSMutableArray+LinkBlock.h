@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
+#define NSMutableArrayNew ([NSMutableArray new])
 @interface NSObject(NSMutableArrayLinkBlock)
 @property (nonatomic,copy) id                       (^m_arrAt)(NSUInteger idx);
 @property (nonatomic,copy) NSMutableArray*          (^m_arrSubFrom)(NSUInteger idx);

@@ -27,9 +27,7 @@
             CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
             attrs.makeAttrDictFont(_self.font);
             theStringSize = [_self.text boundingRectWithSize: maxSize
-                                                    options:NSStringDrawingTruncatesLastVisibleLine |
-                             NSStringDrawingUsesLineFragmentOrigin |
-                             NSStringDrawingUsesFontLeading
+                                                    options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                                  attributes:attrs
                                                     context:nil].size;//NSStringDrawingUsesFontLeading
 //        }
