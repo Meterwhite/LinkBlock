@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     //去空格和换行，并打印
-    @" 吴 倩 莲 的 风 和 欲 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
+    @" 五 千 年 的 风 和 雨 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
     //字符串比较大小
     @"123".strCompare(@"111");
     //对数字敏感的字符串比较

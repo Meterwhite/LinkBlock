@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define UIViewNew ([UIViewNew new])
+#define UIViewNew ([UIView new])
 @interface NSObject(UIViewLinkBlock)
 @property (nonatomic,copy) BOOL         (^viewIsZeroSize)();
 @property (nonatomic,copy) CGFloat      (^viewX)();
@@ -53,6 +53,9 @@
 @property (nonatomic,copy) UIView*      (^viewSubiewsExclusiveTouch)(BOOL b);
 /** 控件相对window的位置 */
 @property (nonatomic,copy) CGRect       (^viewConvertRectToWindow)();
+/** 更换父视图，即移动视图到另一个视图中作为子视图，参数：aView目标视图 ，isKeep是否保持当前相对屏幕位置不变。
+ 注意：不考虑Autolayou */
+@property (nonatomic,copy) UIView*      (^viewConvertSuperverTo)(UIView* aView , BOOL isKeep);
 @property (nonatomic,copy) UIView*      (^viewUserInteractionEnabled)(BOOL b);
 @property (nonatomic,copy) UIView*      (^viewMultipleTouchEnabled)(BOOL b);
 @property (nonatomic,copy) UIView*      (^viewExclusiveTouch)(BOOL b);

@@ -225,6 +225,28 @@
 }
 - (void)setViewConvertRectToWindow:(CGRect (^)())viewConvertRectToWindow{};
 
+- (UIView *(^)(UIView *, BOOL))viewConvertSuperverTo
+{
+    return ^(UIView* aView, BOOL isKeep){
+        
+        LinkError_REF_AUTO(UIView, UIView);
+        
+        if(isKeep){
+            
+            CGRect toAViewRect = [_self.superview convertRect:_self.frame toView:aView];
+            [_self removeFromSuperview];
+            [aView addSubview:_self];
+            _self.frame=toAViewRect;
+        }else{
+            [_self removeFromSuperview];
+            [aView addSubview:_self];
+        }
+        
+        return _self;
+    };
+}
+- (void)setViewConvertSuperverTo:(UIView *(^)(UIView *, BOOL))viewConvertSuperverTo{};
+
 - (BOOL (^)(UIView *))viewIsSubviewTo
 {
     return ^(UIView *theView){

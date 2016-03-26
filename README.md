@@ -16,13 +16,13 @@ LinkBlock.h
 ##CGRectMake()不友好
 ```objc
 //Such written before 
-//手绘UI常要创建4，5个变量，而这却会耗费我们一些时间去停止思考逻辑上的问题
-UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-btn.frame= CGRectMake(20, 20, 150, 80);
-UIColor *color = [UIColor colorWithRed:255/255.0 green:22/255.0 blue:150/255.0 alpha:1.0];
-btn.backgroundColor = color;
-[btn setTitle:@"click change color" forState:UIControlStateNormal];
-[self.view addSubview:btn];
+//手绘UI常要创建4，5个变量
+UIButtonNew
+.viewAddToView(self.view)
+.btnTitle(@"Button", UIControlStateNormal)
+.btnTitleColor([UIColor lightGrayColor],UIControlStateNormal)
+.viewBGColor(@"f0f0f0".strToUIColorFromHexStr())
+.frame= @"{{20,20},{150,80}}".strToCGRect();
 ```
 ##使用链式的方式完成一件事情
 ```objc
@@ -34,21 +34,26 @@ btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
 ##一些样例
 ```objc
 //去空格和换行，并打印
-@" 吴 倩 莲 的 风 和 欲 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
+//去空格和换行，并打印
+@" 五 千 年 的 风 和 雨 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
 //字符串比较大小
 @"123".strCompare(@"111");
 //对数字敏感的字符串比较
 @"abc1.txt".strCompareNumberSensitive(@"abc2.txt");
 
 //查找最大数
-@"[12,43,534]".strToNSArrary(NSUTF8StringEncoding)
-.arrMaxNumberFind().nslogTitle(@"最大数是:\n");
+@"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
+
+//创建属性字典
+AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
 
 //添加一个标签到视图上，并且文本顶部对齐，中间对齐
-UILabel* lab = [UILabel new];
-lab.frame = @"{{20,150},{150,100}}".strToCGRect();
-linkObj(lab).labText(@"中间对齐顶部对齐").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
-.labAlignTop().viewAddToView(self.view).viewBGColor(@"f0f0f0".strToUIColorFromHexStr());
+UILabelNew
+.labText(@"中间对齐顶部对齐")
+.viewSetFrame(20,200,150,80)
+.labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop()
+.viewAddToView(self.view)
+.viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
 
 //字符串常量直接转颜色
 @"0xff22cc".strToColorFromHexStr();
@@ -98,8 +103,6 @@ NSDictionary* 需要替换的字典 = @{
 需要替换的字典 = 需要替换的字典.dictReplaceKey(@"description", @"DESCRIPTION");
 NSLog(@"%@",需要替换的字典);
 
-//高效无烦恼创建属性字典
-NSMutableDictionary* attrDict = AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
 ```
 
 ##SQL拼接的易读和易查错
