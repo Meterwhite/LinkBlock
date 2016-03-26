@@ -134,7 +134,15 @@
 @property (nonatomic,copy) UIView*      (^viewLeftTo)(UIView* toView, CGFloat margin);
 @property (nonatomic,copy) UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin);
 @property (nonatomic,copy) UIView*      (^viewRightTo)(UIView* toView, CGFloat margin);
-
+#pragma mark - Autolayout
+/** 移除所有约束以及父视图中相关约束 */
+@property (nonatomic,copy) UIView*      (^viewRemoveConstraints)();
+/** 是否使用Autolayout */
+@property (nonatomic,copy) BOOL         (^viewIsUsingAutolayout)();
+#pragma mark - Autoresizing
+/** 是否使用Autoresizing */
+@property (nonatomic,copy) BOOL         (^viewIsUsingAutoresizing)();
+@property (nonatomic,copy) UIView*      (^viewRemoveAutoresizing)();
 @end
 
 @interface UIView (UIViewLinkBlock)

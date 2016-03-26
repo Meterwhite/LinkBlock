@@ -1095,6 +1095,56 @@
     };
 }
 - (void)setViewSendBackInView:(UIView *(^)())viewSendBackInView{};
+
+- (UIView *(^)())viewRemoveConstraints
+{
+    return ^(){
+        LinkError_REF_AUTO(UIView, UIView);
+        [_self removeConstraints:_self.constraints];
+        if(_self.superview){
+            [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+                if([constraint.firstItem isEqual:_self])
+                    [_self.superview removeConstraint:constraint];
+            }];
+        }
+        return _self;
+    };
+}
+- (void)setViewRemoveConstraints:(UIView *(^)())viewRemoveConstraints{};
+
+- (BOOL (^)())viewIsUsingAutolayout
+{
+    return ^(){
+        LinkError_VAL_IF(UIView){
+            return NO;
+        }
+        if([_self.constraints count]>1)
+            return YES;
+        return NO;
+    };
+}
+- (void)setViewIsUsingAutolayout:(BOOL (^)())viewIsUsingAutolayout{};
+
+- (BOOL (^)())viewIsUsingAutoresizing
+{
+    return ^(){
+        LinkError_VAL_IF(UIView){
+            return NO;
+        }
+        return (BOOL)_self.autoresizingMask;
+    };
+}
+- (void)setViewIsUsingAutoresizing:(BOOL (^)())viewIsUsingAutoresizing{};
+
+- (UIView *(^)())viewRemoveAutoresizing
+{
+    return ^(){
+        LinkError_REF_AUTO(UIView, UIView);
+        _self.autoresizingMask=UIViewAutoresizingNone;
+        return _self;
+    };
+}
+- (void)setViewRemoveAutoresizing:(UIView *(^)())viewRemoveAutoresizing{};
 @end
 
 
