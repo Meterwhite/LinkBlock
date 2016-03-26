@@ -1078,16 +1078,48 @@
 
 @implementation UIView (UIViewLinkBlock)
 
-- (UIButton*)viewAddTestBtn:(CGRect)frame block:(NSString*(^)(NSInteger idx))block
+- (UIButton*)viewAddTestBtn:(CGRect)frame block:(void(^)(NSInteger idx, UIButton* testButton))block
 {
-    UIButton* btn=UIButtonNew.viewBGColor([UIColor redColor]).end();
-    
+    UIButton* btn=UIButtonNew.viewBGColor([UIColor redColor])
+    .viewAddToView(self).btnTitleFont([UIFont systemFontOfSize:12]);
+    btn.frame=frame;;
+    [btn addTarget:btn action:@selector(lb_ClickTestBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [btn lb_SetBlock_ClickTestBtnBlock:block];
+    [btn lb_SetBlock_ClickTestBtnNumFlag:0];
     return btn;
 }
 
-- (void)linkBlockClickTestBtnAction
+- (void)lb_ClickTestBtnAction
 {
+    if(![self isKindOfClass:[UIButton class]])
+        return;
+    UIButton* _self= (UIButton*)self;
     
+    void(^block)(NSInteger idx, UIButton* testButton) = [self lb_GetBlock_ClickTestBtnBlock];
+    if(block){
+        NSInteger num=[self lb_GetBlock_ClickTestBtnNumFlag];
+        block(num,_self);
+        [self lb_SetBlock_ClickTestBtnNumFlag:++num];
+    }
 }
-
+/** 回调block */
+static char _lb_ClickTestBtnBlock_Key;
+- (void)lb_SetBlock_ClickTestBtnBlock:(id)block
+{
+    objc_setAssociatedObject(self, &_lb_ClickTestBtnBlock_Key, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+- (id)lb_GetBlock_ClickTestBtnBlock
+{
+    return objc_getAssociatedObject(self, &_lb_ClickTestBtnBlock_Key);
+}
+/** 点击次数 */
+static char _lb_ClickTestBtnNumFlag_Key;
+- (void)lb_SetBlock_ClickTestBtnNumFlag:(NSInteger)num
+{
+    objc_setAssociatedObject(self, &_lb_ClickTestBtnNumFlag_Key, @(num), OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+- (NSInteger)lb_GetBlock_ClickTestBtnNumFlag
+{
+    return [objc_getAssociatedObject(self, &_lb_ClickTestBtnNumFlag_Key) integerValue];
+}
 @end

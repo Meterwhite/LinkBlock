@@ -136,6 +136,6 @@
 
 @interface UIView (UIViewLinkBlock)
 #pragma mark - 测试
-- (UIButton*)viewAddTestBtn:(CGRect)frame block:(NSString*(^)(NSInteger idx))block;
+- (UIButton*)viewAddTestBtn:(CGRect)frame block:(void(^)(NSInteger idx, UIButton* testButton))block;
 
 @end

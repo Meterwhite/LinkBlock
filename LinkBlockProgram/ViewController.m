@@ -126,5 +126,25 @@
         makeSQL.SQLStr(@"sex integer").SQL_Comma();
         makeSQL.SQLStr(@"address text");
     }].nslog();
+    
+    //便捷测试按钮
+    [self.view viewAddTestBtn:CGRectMake(20,370,150,80) block:^void (NSInteger idx , UIButton* testButton) {
+        
+        testButton.titleLabel.numberOfLines=2;
+        testButton.titleLabel.font=[UIFont systemFontOfSize:16];
+        testButton.titleLabel.textAlignment=NSTextAlignmentCenter;
+        if(idx%2==0){//偶数
+            
+            testButton.viewBGColor([UIColor redColor])
+            .btnTitleColor([UIColor greenColor],UIControlStateNormal);
+            [testButton setTitle:[NSString stringWithFormat:@"添加测试按钮\n%d",idx] forState:UIControlStateNormal];
+        }else{//奇数
+            
+            testButton.viewBGColor([UIColor greenColor])
+            .btnTitleColor([UIColor redColor],UIControlStateNormal);;
+            [testButton setTitle:[NSString stringWithFormat:@"添加测试按钮\n%d",idx] forState:UIControlStateNormal];
+        }
+    }];
+    
 }
 @end
