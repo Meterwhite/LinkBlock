@@ -1141,6 +1141,7 @@
     return ^(){
         LinkError_REF_AUTO(UIView, UIView);
         _self.autoresizingMask=UIViewAutoresizingNone;
+        _self.translatesAutoresizingMaskIntoConstraints=NO;
         return _self;
     };
 }
