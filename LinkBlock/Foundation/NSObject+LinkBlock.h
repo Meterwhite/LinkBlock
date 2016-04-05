@@ -49,6 +49,14 @@
 + (NSArray*)classGetIvarList;
 /** 获取当前类型的成员变量名列表 */
 + (NSArray*)classGetPropertyList;
+/** 获取实例和类方法名列表 */
+- (NSArray*)objGetAllMethodList;
+/** 获取实例方法名列表 */
+- (NSArray*)objGetInstanceMethodList;
+/** 获取类方法名列表 */
++ (NSArray*)classGetClassMethodList;
+/** 获取协议名列表 */
++ (NSArray*)classGetProtocolList;
 
 #pragma mark - NSObject
 @property (nonatomic,copy) NSObject*    (^objCopy)();

@@ -126,7 +126,64 @@
     return (NSArray*)[reMArr copy];
 }
 
++ (NSArray*)classGetClassMethodList
+{
+    unsigned int outCount;
+    Method* methods = class_copyMethodList(object_getClass(self), &outCount);
+    NSMutableArray* reMArr = [NSMutableArray new];
+    for (int i = 0; i < outCount; i++) {
+        SEL name = method_getName(methods[i]);
+        NSString* methodName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
+        [reMArr addObject:methodName];
+    }
+    return (NSArray*)[reMArr copy];
+}
 
+- (NSArray*)objGetInstanceMethodList
+{
+    unsigned int outCount;
+    Method* methods = class_copyMethodList([self class], &outCount);
+    NSMutableArray* reMArr = [NSMutableArray new];
+    for (int i = 0; i < outCount; i++) {
+        SEL name = method_getName(methods[i]);
+        NSString* methodName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
+        [reMArr addObject:methodName];
+    }
+    return (NSArray*)[reMArr copy];
+}
+
++ (NSArray*)classGetProtocolList
+{
+    unsigned int outCount;
+    NSMutableArray* reMArr = [NSMutableArray new];
+    
+    __unsafe_unretained Protocol **protocols = class_copyProtocolList(self, &outCount);
+    
+    for (int i = 0; i < outCount; i++) {
+        
+        NSString* protocolName= [NSString stringWithCString:protocol_getName(protocols[i]) encoding:NSUTF8StringEncoding];
+        [reMArr addObject:protocolName];
+    }
+    
+    return (NSArray*)[reMArr copy];
+}
+
+- (NSArray*)objGetAllMethodList
+{
+    NSMutableArray* reMArr = [NSMutableArray new];
+    
+    NSArray<NSString*>* classMethod = [[self class] classGetClassMethodList];
+    [classMethod enumerateObjectsUsingBlock:^(NSString * _Nonnull classMethodName, NSUInteger idx, BOOL * _Nonnull stop) {
+        [reMArr addObject: [NSString stringWithFormat:@"+ %@",classMethodName]];
+    }];
+    
+    NSArray<NSString*>* instanceMehod = [self objGetInstanceMethodList];
+    [instanceMehod enumerateObjectsUsingBlock:^(NSString * _Nonnull instanceMethodName, NSUInteger idx, BOOL * _Nonnull stop) {
+        [reMArr addObject: [NSString stringWithFormat:@"- %@",instanceMethodName]];
+    }];
+    
+    return (NSArray*)[reMArr copy];
+}
 
 - (NSObject *(^)())objCopy
 {
