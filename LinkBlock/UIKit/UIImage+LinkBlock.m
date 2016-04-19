@@ -124,7 +124,6 @@
         
         //clean up
         CGContextRelease(ctx);
-        CGColorSpaceRelease(colorSpace);
         
         free(pixelBuffer);
         CFRelease(inBitmapData);
