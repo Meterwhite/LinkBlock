@@ -80,9 +80,9 @@
         
         CGImageRef img = _self.CGImage;
         
-        vImage_Buffer inBuffer, outBuffer;
+        vImage_Buffer inBuffer, outBuffer;//图像缓存,输入缓存，输出缓存
         vImage_Error error;
-        void *pixelBuffer;
+        void *pixelBuffer;//像素缓存
         
         CGDataProviderRef inProvider = CGImageGetDataProvider(img);
         CFDataRef inBitmapData = CGDataProviderCopyData(inProvider);
@@ -92,16 +92,25 @@
         inBuffer.rowBytes = CGImageGetBytesPerRow(img);
         inBuffer.data = (void*)CFDataGetBytePtr(inBitmapData);
         
-        pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
+        pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));//像数缓存，字节行*图片高
         
         outBuffer.data = pixelBuffer;
         outBuffer.width = CGImageGetWidth(img);
         outBuffer.height = CGImageGetHeight(img);
         outBuffer.rowBytes = CGImageGetBytesPerRow(img);
         
-        error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL,
-                                           0, 0, boxSize, boxSize, NULL,
-                                           kvImageEdgeExtend);
+        //第三个中间的缓存区,抗锯齿的效果
+        void *pixelBuffer2 = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
+        vImage_Buffer outBuffer2;
+        outBuffer2.data = pixelBuffer2;
+        outBuffer2.width = CGImageGetWidth(img);
+        outBuffer2.height = CGImageGetHeight(img);
+        outBuffer2.rowBytes = CGImageGetBytesPerRow(img);
+        
+        //Convolves a region of interest within an ARGB8888 source image by an implicit M x N kernel that has the effect of a box filter.
+        error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer2, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
+        error = vImageBoxConvolve_ARGB8888(&outBuffer2, &inBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
+        error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
         
         if (error) {
             NSLog(@"blur error（高斯模糊错误 %ld\r\nCode in:[%@.m line%d >> %s]\r\n",
@@ -122,15 +131,12 @@
         CGImageRef imageRef = CGBitmapContextCreateImage (ctx);
         UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
         
-        //clean up
         CGContextRelease(ctx);
-        
-        free(pixelBuffer);
-        CFRelease(inBitmapData);
-        
         CGColorSpaceRelease(colorSpace);
+        free(pixelBuffer);
+        free(pixelBuffer2);
+        CFRelease(inBitmapData);
         CGImageRelease(imageRef);
-        CGImageRelease(img);
         return returnImage;
     };
 }

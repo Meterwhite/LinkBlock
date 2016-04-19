@@ -17,7 +17,7 @@
 @property (nonatomic,copy) UIImage*         (^imgResizeAspect)(CGSize maxSize);
 /** 剪切 */
 @property (nonatomic,copy) UIImage*         (^imgCut)(CGRect frame);
-/** 高斯模糊 */
+/** 高斯模糊 #import <Accelerate/Accelerate.h> */
 @property (nonatomic,copy) UIImage*         (^imgBlur)(float percent);
 /** 渲染模式 */
 @property (nonatomic,copy) UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
