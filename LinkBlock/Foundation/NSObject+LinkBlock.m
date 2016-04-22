@@ -232,7 +232,7 @@
 - (NSObject* (^)(__unsafe_unretained Class))typeForceObj
 {
     return ^(Class theClass){
-        if(!theClass || !self.isKindOf(theClass)){
+        if(!theClass || ![self isKindOfClass:theClass]){
             return (NSObject*)[theClass new];
         }else{
             return self;

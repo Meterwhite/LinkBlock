@@ -13,8 +13,8 @@
 {
     return ^(NSString* replaceStr, NSString* withStr){
         LinkError_REF_AUTO(NSMutableString, NSMutableString);
-        if(replaceStr.isKindOf([NSString class]) &&
-           withStr.isKindOf([NSString class])){
+        if([replaceStr isKindOfClass:[NSString class]] &&
+           [withStr isKindOfClass:[NSString class]] ){
             return (NSMutableString*)[[_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr] mutableCopy];
         }
         return _self;

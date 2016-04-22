@@ -153,7 +153,7 @@
 {
     return ^(UIColor* color){
         LinkError_REF_AUTO(UIView, UIView);
-        if(color.isKindOf([UIColor class])){
+        if([color isKindOfClass:[UIColor class]]){
             _self.layer.borderColor= color.CGColor;
         }
         return _self;
@@ -197,7 +197,8 @@
         __block UIView *re= nil;
         [_self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
             
-            if(v.isKindOf([UITextView class]) || v.isKindOf([UITextField class])){
+            if([v isKindOfClass:[UITextView class]] ||
+               [v isKindOfClass:[UITextField class]]){
                 if(v.isFirstResponder){
                     re= v;
                     *stop= YES;
@@ -411,7 +412,7 @@
     return ^(){
         LinkError_REF_AUTO(UIView, UIView);
         [_self.subviews enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
-            if(v.isKindOf([UIView class])){
+            if([v isKindOfClass:[UIView class]]){
                 [v removeFromSuperview];
             }
         }];

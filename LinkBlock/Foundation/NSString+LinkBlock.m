@@ -37,7 +37,7 @@
 {
     return ^(NSString *str){
         LinkError_REF_AUTO(NSString, NSString);
-        if(str.isKindOf([NSString class])){
+        if([str isKindOfClass:[NSString class]]){
             return [_self stringByAppendingString:str];
         }else{
             return _self;
@@ -50,7 +50,8 @@
 {
     return ^(NSString* replaceStr, NSString* withStr){
         LinkError_REF_AUTO(NSString, NSString);
-        if(replaceStr.isKindOf([NSString class]) && withStr.isKindOf([NSString class])){
+        if([replaceStr isKindOfClass:[NSString class]] &&
+           [withStr isKindOfClass:[NSString class]] ){
             return [_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr];
         }
         else{
@@ -64,7 +65,7 @@
 {
     return ^(NSString* str, NSUInteger index){
         LinkError_REF_AUTO(NSString, NSString);
-        if(str.isKindOf([NSString class])){
+        if([str isKindOfClass:[NSString class]]){
             NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
             [tNewMStr insertString:str atIndex:index];
             return (NSString*)[tNewMStr copy];
@@ -102,7 +103,7 @@
 {
     return ^(NSString* str, NSRange range){
         LinkError_REF_AUTO(NSString, NSString);
-        if(str.isKindOf([NSString class])){
+        if([str isKindOfClass:[NSString class]]){
             return [_self stringByReplacingCharactersInRange:range withString:str];
         }else{
             return _self;
@@ -115,7 +116,7 @@
 {
     return ^(NSString *str){
         LinkError_REF_AUTO(NSString, NSString);
-        if(str.isKindOf([NSString class])){
+        if([str isKindOfClass:[NSString class]]){
             return [_self stringByReplacingOccurrencesOfString:str withString:@""];
         }else{
             return _self;
