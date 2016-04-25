@@ -126,16 +126,22 @@
 {
     return ^(NSInteger sec){
         LinkError_REF_AUTO(NSDate, NSDate);
-        return [_self dateByAddingTimeInterval:(NSTimeInterval)sec];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        comps.second=sec;
+        NSCalendar *calender = [NSCalendar currentCalendar];
+        return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
 - (void)setDateAddSec:(NSDate *(^)(NSInteger))dateAddSec{};
 
 - (NSDate *(^)(NSInteger))dateAddMinut
 {
-    return ^(NSInteger minut){
+    return ^(NSInteger minute){
         LinkError_REF_AUTO(NSDate, NSDate);
-        return [_self dateByAddingTimeInterval: minut*60.0];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        comps.minute=minute;
+        NSCalendar *calender = [NSCalendar currentCalendar];
+        return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
 - (void)setDateAddMinut:(NSDate *(^)(NSInteger))dateAddMinut{};
@@ -144,16 +150,22 @@
 {
     return ^(NSInteger hour){
         LinkError_REF_AUTO(NSDate, NSDate);
-        return [_self dateByAddingTimeInterval: hour*3600.0];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        comps.hour=hour;
+        NSCalendar *calender = [NSCalendar currentCalendar];
+        return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
 - (void)setDateAddHour:(NSDate *(^)(NSInteger))dateAddHour{};
 
 - (NSDate *(^)(NSInteger))dateAddDay
 {
-    return ^(NSInteger dat){
+    return ^(NSInteger day){
         LinkError_REF_AUTO(NSDate, NSDate);
-        return [_self dateByAddingTimeInterval: dat*86400.0];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        comps.day=day;
+        NSCalendar *calender = [NSCalendar currentCalendar];
+        return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
 - (void)setDateAddDay:(NSDate *(^)(NSInteger))dateAddDay{};
@@ -162,7 +174,10 @@
 {
     return ^(NSInteger month){
         LinkError_REF_AUTO(NSDate, NSDate);
-        return [_self dateByAddingTimeInterval: month*2592000.0];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        comps.month=month;
+        NSCalendar *calender = [NSCalendar currentCalendar];
+        return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
 - (void)setDateAddMonth:(NSDate *(^)(NSInteger))dateAddMonth{};
@@ -171,7 +186,10 @@
 {
     return ^(NSInteger year){
         LinkError_REF_AUTO(NSDate, NSDate);
-        return [_self dateByAddingTimeInterval: year*31536000.0];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        comps.year=year;
+        NSCalendar *calender = [NSCalendar currentCalendar];
+        return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
 - (void)setDateAddYear:(NSDate *(^)(NSInteger))dateAddYear{};
@@ -263,4 +281,105 @@
     };
 }
 - (void)setDateCurrentZone:(NSDate *(^)())dateCurrentZone{};
+
+- (NSDate *(^)(NSInteger))dateSetYear
+{
+    return ^(NSInteger year){
+        LinkError_REF_AUTO(NSDate, NSDate);
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        calendar.timeZone=[NSTimeZone systemTimeZone];
+        NSDateComponents *comps  = [calendar components:NSCalendarUnitYear fromDate:_self];
+        comps.year=year;
+        NSTimeInterval timeNum = (double)(int)[[calendar dateFromComponents:comps] timeIntervalSince1970];
+        return [NSDate dateWithTimeIntervalSince1970:timeNum];
+    };
+}
+- (void)setDateSetYear:(NSDate *(^)(NSInteger))dateSetYear{};
+
+- (NSDate *(^)(NSInteger))dateSetMonth
+{
+    return ^(NSInteger month){
+        LinkError_REF_AUTO(NSDate, NSDate);
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        calendar.timeZone=[NSTimeZone systemTimeZone];
+        NSDateComponents *comps  = [calendar components:NSCalendarUnitMonth fromDate:_self];
+        comps.month=month;
+        NSTimeInterval timeNum = (double)(int)[[calendar dateFromComponents:comps] timeIntervalSince1970];
+        return [NSDate dateWithTimeIntervalSince1970:timeNum];
+    };
+}
+- (void)setDateSetMonth:(NSDate *(^)(NSInteger))dateSetMonth{};
+
+- (NSDate *(^)(NSInteger))dateSetDay
+{
+    return ^(NSInteger day){
+        LinkError_REF_AUTO(NSDate, NSDate);
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        calendar.timeZone=[NSTimeZone systemTimeZone];
+        NSDateComponents *comps  = [calendar components:NSCalendarUnitDay fromDate:_self];
+        comps.day=day;
+        NSTimeInterval timeNum = (double)(int)[[calendar dateFromComponents:comps] timeIntervalSince1970];
+        return [NSDate dateWithTimeIntervalSince1970:timeNum];
+    };
+}
+- (void)setDateSetDay:(NSDate *(^)(NSInteger))dateSetDay{};
+
+- (NSDate *(^)(NSInteger))dateSetHour
+{
+    return ^(NSInteger hour){
+        LinkError_REF_AUTO(NSDate, NSDate);
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        calendar.timeZone=[NSTimeZone systemTimeZone];
+        NSDateComponents *comps  = [calendar components:NSCalendarUnitHour fromDate:_self];
+        comps.hour=hour;
+        NSTimeInterval timeNum = (double)(int)[[calendar dateFromComponents:comps] timeIntervalSince1970];
+        return [NSDate dateWithTimeIntervalSince1970:timeNum];
+    };
+}
+- (void)setDateSetHour:(NSDate *(^)(NSInteger))dateSetHour{};
+
+- (NSDate *(^)(NSInteger))dateSetMinut
+{
+    return ^(NSInteger minute){
+        LinkError_REF_AUTO(NSDate, NSDate);
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        calendar.timeZone=[NSTimeZone systemTimeZone];
+        NSDateComponents *comps  = [calendar components:NSCalendarUnitHour fromDate:_self];
+        comps.minute=minute;
+        NSTimeInterval timeNum = (double)(int)[[calendar dateFromComponents:comps] timeIntervalSince1970];
+        return [NSDate dateWithTimeIntervalSince1970:timeNum];
+    };
+}
+- (void)setDateSetMinut:(NSDate *(^)(NSInteger))dateSetMinut{};
+
+- (NSDate *(^)(NSInteger))dateSetSec
+{
+    return ^(NSInteger sec){
+        LinkError_REF_AUTO(NSDate, NSDate);
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        calendar.timeZone=[NSTimeZone systemTimeZone];
+        NSDateComponents *comps  = [calendar components:NSCalendarUnitHour fromDate:_self];
+        comps.second=sec;
+        NSTimeInterval timeNum = (double)(int)[[calendar dateFromComponents:comps] timeIntervalSince1970];
+        return [NSDate dateWithTimeIntervalSince1970:timeNum];
+    };
+}
+- (void)setDateSetSec:(NSDate *(^)(NSInteger))dateSetSec{};
+
+- (BOOL (^)())dateIsLeapYear
+{
+    return ^(){
+        LinkError_VAL_IF(NSDate){
+            return NO;
+        }
+        NSInteger year = [_self.dateYear() intValue];
+        if ((year%4==0 && year %100 !=0) || year%400==0) {
+            return YES;
+        }else {
+            return NO;
+        }
+        return NO;
+    };
+}
+- (void)setDateIsLeapYear:(BOOL (^)())dateIsLeapYear{};
 @end
