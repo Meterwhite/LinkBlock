@@ -2,9 +2,9 @@
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
 ## What is this?
-* 这是一个objc扩展集合`链式编程`，为的是告别换行和中括号，避免多余的干扰，让我们可以专注于编码的逻辑。
-* 提炼Fundation最基本功能和最常见功能的写法。
-* 持续更新
+* 这是一个objc扩展集合`链式编程`，为了减少换行和中括号的干扰，让我们可以专注于编码的逻辑。
+* 提炼Fundation最基本功能和最常见功能。
+* 持续维护。
 * This is objective-c link block , to `chain programming`.
 * Frame encapsulation of native Foundation is the most basic and the most common functions...
 * Continuously updated
@@ -28,12 +28,13 @@ UIButtonNew
 ```objc
 //如果使用链式编程的方式，大部分工作可以在思路连续的情况下进行
 //now just using one line.Most work can be wrapped up in the idea of ​​ongoing cases
-btn.viewSetFrame(20,20,150,80).viewBGColor(@"0xff22cc".strToColorFromHexStr())
-.viewAddToView(self.view).btnTitle(@"click change color", UIControlStateNormal);
+btn.viewSetFrame(20,20,150,80)
+.viewBGColor(@"0xff22cc".strToColorFromHexStr())
+.viewAddToView(self.view)
+.btnTitle(@"click change color", UIControlStateNormal);
 ```
 ##一些样例
 ```objc
-//去空格和换行，并打印
 //去空格和换行，并打印
 @" 五 千 年 的 风 和 雨 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
 //字符串比较大小
@@ -153,15 +154,12 @@ NSString *str2 = str1.strAppend(str0).strAt(15).end();
 
 ##LinkError
 * 由于objc是有弱类型语言特征的语言，block是作为了扩展的属性，才可以被'.'出来。当中间一个链条返回的对象是nil，或者非预期的类型，那么下一根链条就会断裂，报错。为了让链条能够在安全的情况下容错走通，那么引入一个新的单例的类型LinkError
-。这个对象响应所有扩展属性的调用，功能仅仅返回自己到下一根链条以供传递。所以end()方法的使用对于获取链条末尾的返回值至关重要。
-* LinkError can respond to all extension property,it just return self to next chain.And not break,not throw an exception.
+。这个对象响应所有扩展属性的调用，功能仅仅返回自己到下一根链条以供传递。所以end()方法的使用对于获取链条末尾的返回值很关键。
 
 ##关于
-* 这并不是一个功能型框架，控件框架，没有整体架构。完成它仅仅是作者为了偷懒又考虑到和自己一样的人，将考虑过的功能加入其中，而不是任何API都塞进去。初衷维护编码时集中的注意力不被分散。
-* 并不推荐大量使用链式的编码方式，因为这样也会影响阅读。希望的方式是画龙点睛，例如在写了很多行后一组缜密的逻辑中，突然要创建一堆变量和判断要不然就要新写方法的时候。如上所述假如这种功能很常见，那么作者就会将其抽出。
 * 目前xcode还没能给block有尚好的参数提示，所以使用起来还是略微不便，需要去头文件查看参数。作者也将参数名赋予准确的意义。
 ```
 
-##Bug-mail address，join us address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
+##Mail address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
 ##希望大家都支持链式编程这种编程方式
 * 一朝做鸟程序员
