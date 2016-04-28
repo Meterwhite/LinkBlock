@@ -98,4 +98,5 @@
     };
 }
 - (void)setBtnAttributeTitle:(UIButton *(^)(NSAttributedString *, UIControlState))blockAttributeTitleSet{};
+
 @end
