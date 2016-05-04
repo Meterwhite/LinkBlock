@@ -51,4 +51,6 @@
 @property (nonatomic,copy) CGRect   (^m_attr_strSize)(CGFloat maxWidth);
 @property (nonatomic,copy) CGRect   (^m_attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
 @property (nonatomic,copy) BOOL     (^m_attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
+/** 加水印 */
+@property (nonatomic,copy) UIImage* (^m_attr_strDrawImgRect)(UIImage* image, CGRect rect);
 @end

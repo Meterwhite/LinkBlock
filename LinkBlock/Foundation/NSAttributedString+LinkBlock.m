@@ -41,4 +41,18 @@
     };
 }
 - (void)setAttr_strIsEqualToAttrStr:(BOOL (^)(NSAttributedString *))blockIsEqualToAttrStr{};
+
+- (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
+{
+    return ^(UIImage* image, CGRect rect){
+        LinkError_REF_AUTO(UIImage , NSAttributedString);
+        UIGraphicsBeginImageContext(image.size);
+        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [_self drawInRect:rect];
+        UIImage *newImg = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return newImg;
+    };
+}
+- (void)setAttr_strDrawImgRect:(UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect{};
 @end

@@ -399,7 +399,7 @@
         LinkError_REF_AUTO(NSString, NSString);
         
         NSString* re=_self;
-        for (int i=_self.length; i>0; i--) {//倒序
+        for (int i= (int)_self.length; i>0; i--) {//倒序
             NSString* forStr = [_self substringToIndex:i];
             if( forStr.strLineCount(maxWidth,attrDict) == toLine){
                 re = forStr;

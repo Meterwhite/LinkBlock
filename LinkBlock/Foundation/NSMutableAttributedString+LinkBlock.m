@@ -20,6 +20,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strAppendAttrStr:(NSMutableAttributedString *(^)(NSAttributedString *))blockAppendAttrStr{};
+
 - (NSMutableAttributedString *(^)(NSString *))m_attr_strAppendStr
 {
     return ^(NSString *str){
@@ -31,6 +33,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strAppendStr:(NSMutableAttributedString *(^)(NSString *))blockAppendStr{};
+
 - (NSMutableAttributedString *(^)(NSString *, NSString *, id))m_attr_strAppendStrAndAttr
 {
     return ^(NSString *str, NSString* attrName, id attrValue){
@@ -42,6 +46,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strAppendStrAndAttr:(NSMutableAttributedString *(^)(NSString *, NSString *, id))blockAppendStrWithAttr{};
+
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *))m_attr_strAppendStrWithAttrDict
 {
     return ^(NSString *str, NSDictionary *attrDic){
@@ -53,6 +59,7 @@
         return _self;
     };
 }
+- (void)setM_attr_strAppendStrWithAttrDict:(NSMutableAttributedString *(^)(NSString *, NSDictionary *))blockAppendStrWithAttrDict{};
 
 - (NSMutableAttributedString *(^)(NSAttributedString *, NSUInteger))m_attr_strInsertAttrStrAtIndex
 {
@@ -64,6 +71,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strInsertAttrStrAtIndex:(NSMutableAttributedString *(^)(NSAttributedString *, NSUInteger))blockInsertAttrStrAtIndex{}
+;
 
 - (NSMutableAttributedString *(^)(NSString *, NSUInteger))m_attr_strInsertStrAtIndex
 {
@@ -76,6 +85,7 @@
         return _self;
     };
 }
+- (void)setM_attr_strInsertStrAtIndex:(NSMutableAttributedString *(^)(NSString *, NSUInteger))blockInsertStrAtIndex{};
 
 - (NSMutableAttributedString *(^)(NSString *, NSString *, id, NSUInteger idx))m_attr_strInsertStrWithAttrAtIndex
 {
@@ -91,6 +101,7 @@
         return _self;
     };
 }
+- (void)setM_attr_strInsertStrWithAttrAtIndex:(NSMutableAttributedString *(^)(NSString *, NSString *, id, NSUInteger))blockInsertStrWithAttrAtIndex{};
 
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSUInteger))m_attr_strInsertStrWithAttrDict
 {
@@ -103,6 +114,7 @@
         return _self;
     };
 }
+- (void)setM_attr_strInsertStrWithAttrDict:(NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSUInteger))blockInsertStrWithAttrDict{};
 
 - (NSMutableAttributedString *(^)(NSString *, id, NSRange))m_attr_strAddAttrInRange
 {
@@ -113,6 +125,7 @@
         return _self;
     };
 }
+- (void)setM_attr_strAddAttrInRange:(NSMutableAttributedString *(^)(NSString *, id, NSRange))blockAddAttrInRange{};
 
 - (NSMutableAttributedString *(^)(NSString *, id))m_attr_strAddAttr
 {
@@ -123,6 +136,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strAddAttr:(NSMutableAttributedString *(^)(NSString *, id))blockAddAttr{};
+
 - (NSMutableAttributedString *(^)(UIFont *))m_attr_strAddAttrFont
 {
     return ^(UIFont *font){
@@ -133,6 +148,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strAddAttrFont:(NSMutableAttributedString *(^)(UIFont *))blockAddAttrFont{};
+
 - (NSMutableAttributedString *(^)(UIColor *))m_attr_strAddAttrTextColor
 {
     return ^(UIColor *textColor){
@@ -143,6 +160,7 @@
         return _self;
     };
 }
+- (void)setM_attr_strAddAttrTextColor:(NSMutableAttributedString *(^)(UIColor *))blockAddAttrTextColor{};
 
 - (NSMutableAttributedString *(^)(UIColor *))m_attr_strAddAttrBGColor
 {
@@ -154,6 +172,7 @@
         return _self;
     };
 }
+- (void)setM_attr_strAddAttrBGColor:(NSMutableAttributedString *(^)(UIColor *))blockAddAttrBGColor{};
 
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *))m_attr_strSetAttrForStr
 {
@@ -175,6 +194,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strSetAttrForStr:(NSMutableAttributedString *(^)(NSString *, NSDictionary *))blockAddAttrForStr{};
+
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSRange))m_attr_strSetAttrForStrInRange
 {
     return ^(NSString *forStr,NSDictionary* attrDict, NSRange range){
@@ -197,6 +218,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strSetAttrForStrInRange:(NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSRange))blockAddAttrForStrInRange{};
+
 - (NSMutableAttributedString *(^)(NSString *))m_attr_strRemoveAttr
 {
     return ^(NSString* attrName){
@@ -207,6 +230,7 @@
         return _self;
     };
 }
+- (void)setM_attr_strRemoveAttr:(NSMutableAttributedString *(^)(NSString *))blockRemoveAttr{};
 
 - (NSMutableAttributedString *(^)(NSString *, NSRange))m_attr_strRemoveAttrInRange
 {
@@ -218,6 +242,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strRemoveAttrInRange:(NSMutableAttributedString *(^)(NSString *, NSRange))blockRemoveAttrInRange{};
+
 - (NSMutableAttributedString *(^)(NSRange))m_attr_strDeleteStrInRange
 {
     return ^(NSRange range){
@@ -226,6 +252,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strDeleteStrInRange:(NSMutableAttributedString *(^)(NSRange))blockDeleteStrInRange{};
+
 - (NSMutableAttributedString *(^)(NSString *, NSRange))m_attr_strReplaceStrWithStrInRange
 {
     return ^(NSString *str,NSRange range){
@@ -236,6 +264,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strReplaceStrWithStrInRange:(NSMutableAttributedString *(^)(NSString *, NSRange))blockReplaceStrWithStrInRange{};
+
 - (NSMutableAttributedString *(^)(NSDictionary *))m_attr_strAddAttrDict
 {
     return ^(NSDictionary* attrDict){
@@ -246,6 +276,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strAddAttrDict:(NSMutableAttributedString *(^)(NSDictionary *))blockAddAttrDict{};
+
 - (NSMutableAttributedString *(^)(NSDictionary *))m_attr_strSetAttrDict
 {
     return ^(NSDictionary *attrDict){
@@ -256,6 +288,8 @@
         return _self;
     };
 }
+- (void)setM_attr_strSetAttrDict:(NSMutableAttributedString *(^)(NSDictionary *))blockSetAttrDict{};
+
 - (NSMutableAttributedString *(^)(NSDictionary *, NSRange))m_attr_strSetAttrDictInRange
 {
     return ^(NSDictionary *attrDict, NSRange range){
@@ -266,32 +300,9 @@
         return _self;
     };
 }
-
-- (void)setM_attr_strAddAttr:(NSMutableAttributedString *(^)(NSString *, id))blockAddAttr{};
-- (void)setM_attr_strAddAttrBGColor:(NSMutableAttributedString *(^)(UIColor *))blockAddAttrBGColor{};
-- (void)setM_attr_strAddAttrDict:(NSMutableAttributedString *(^)(NSDictionary *))blockAddAttrDict{};
-- (void)setM_attr_strAddAttrFont:(NSMutableAttributedString *(^)(UIFont *))blockAddAttrFont{};
-- (void)setM_attr_strAddAttrInRange:(NSMutableAttributedString *(^)(NSString *, id, NSRange))blockAddAttrInRange{};
-- (void)setM_attr_strAddAttrTextColor:(NSMutableAttributedString *(^)(UIColor *))blockAddAttrTextColor{};
-- (void)setM_attr_strAppendAttrStr:(NSMutableAttributedString *(^)(NSAttributedString *))blockAppendAttrStr{};
-- (void)setM_attr_strAppendStr:(NSMutableAttributedString *(^)(NSString *))blockAppendStr{};
-- (void)setM_attr_strAppendStrAndAttr:(NSMutableAttributedString *(^)(NSString *, NSString *, id))blockAppendStrWithAttr{};
-- (void)setM_attr_strAppendStrWithAttrDict:(NSMutableAttributedString *(^)(NSString *, NSDictionary *))blockAppendStrWithAttrDict{};
-- (void)setM_attr_strDeleteStrInRange:(NSMutableAttributedString *(^)(NSRange))blockDeleteStrInRange{};
-- (void)setM_attr_strInsertAttrStrAtIndex:(NSMutableAttributedString *(^)(NSAttributedString *, NSUInteger))blockInsertAttrStrAtIndex{}
-;
-- (void)setM_attr_strInsertStrAtIndex:(NSMutableAttributedString *(^)(NSString *, NSUInteger))blockInsertStrAtIndex{};
-- (void)setM_attr_strInsertStrWithAttrAtIndex:(NSMutableAttributedString *(^)(NSString *, NSString *, id, NSUInteger))blockInsertStrWithAttrAtIndex{};
-- (void)setM_attr_strInsertStrWithAttrDict:(NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSUInteger))blockInsertStrWithAttrDict{};
-- (void)setM_attr_strRemoveAttr:(NSMutableAttributedString *(^)(NSString *))blockRemoveAttr{};
-- (void)setM_attr_strRemoveAttrInRange:(NSMutableAttributedString *(^)(NSString *, NSRange))blockRemoveAttrInRange{};
-- (void)setM_attr_strReplaceStrWithStrInRange:(NSMutableAttributedString *(^)(NSString *, NSRange))blockReplaceStrWithStrInRange{};
-- (void)setAttr_strSize:(CGRect (^)(CGFloat))blockSize{};
-- (void)setAttr_strSizeWithOptions:(CGRect (^)(CGFloat, NSStringDrawingOptions))blockSizeWithOptions{};
-- (void)setM_attr_strSetAttrForStr:(NSMutableAttributedString *(^)(NSString *, NSDictionary *))blockAddAttrForStr{};
-- (void)setM_attr_strSetAttrForStrInRange:(NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSRange))blockAddAttrForStrInRange{};
-- (void)setM_attr_strSetAttrDict:(NSMutableAttributedString *(^)(NSDictionary *))blockSetAttrDict{};
 - (void)setM_attr_strSetAttrDictInRange:(NSMutableAttributedString *(^)(NSDictionary *, NSRange))blockSetAttrDictInRange{};
+
+
 
 - (CGRect (^)(CGFloat))m_attr_strSize
 {
@@ -325,4 +336,18 @@
     };
 }
 - (void)setM_attr_strIsEqualToAttrStr:(BOOL (^)(NSAttributedString *))blockIsEqualToAttrStr{};
+
+- (UIImage *(^)(UIImage *, CGRect))m_attr_strDrawImgRect
+{
+    return ^(UIImage* image, CGRect rect){
+        LinkError_REF_AUTO(UIImage , NSMutableAttributedString);
+        UIGraphicsBeginImageContext(image.size);
+        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [_self drawInRect:rect];
+        UIImage *newImg = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return newImg;
+    };
+}
+- (void)setM_attr_strDrawImgRect:(UIImage *(^)(UIImage *, CGRect))m_attr_strDrawImgRect{};
 @end
