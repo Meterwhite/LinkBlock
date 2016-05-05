@@ -21,8 +21,10 @@
 @property (nonatomic,copy) UIImage*         (^imgBlur)(float percent);
 /** 渲染模式 */
 @property (nonatomic,copy) UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
+/** 水印；图片合并到图片； */
+@property (nonatomic,copy) UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
 
-#pragma super（高级
+#pragma 操作
 @property (nonatomic,copy) UIImage*         (^imgSetBgImgToBtns)(NSArray* views, UIControlState state);
 @property (nonatomic,copy) UIImage*         (^imgSetImgToImageViews)(NSArray* imgViews);
 @property (nonatomic,copy) UIImage*         (^imgSetImgToBtns)(NSArray* views, UIControlState state);

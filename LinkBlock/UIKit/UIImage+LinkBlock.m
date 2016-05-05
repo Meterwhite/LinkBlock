@@ -192,4 +192,19 @@
     };
 }
 - (void)setImgSetImgToBtns:(UIImage *(^)(NSArray *, UIControlState))imgSetImgToBtns{};
+
+- (UIImage *(^)(UIImage *, CGRect))imgAddImg
+{
+    return ^(UIImage* aImg , CGRect rect){
+        LinkError_REF_AUTO(UIImage, UIImage);
+        
+        UIGraphicsBeginImageContext(_self.size);
+        [_self drawInRect:CGRectMake(0, 0, _self.size.width, _self.size.height)];
+        [aImg drawInRect:rect];
+        UIImage* reImg = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return reImg;
+    };
+}
+- (void)setImgAddImg:(UIImage *(^)(UIImage *, CGRect))imgAddImg{};
 @end
