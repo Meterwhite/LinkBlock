@@ -2,8 +2,8 @@
 //  UITextField+LinkBlock.h
 //  LinkBlockProgram
 //
-//  Created by madrock-iOS-苏北 on 16/1/29.
-//  Copyright © 2016年 QuXingYi. All rights reserved.
+//  Created by NOVO on 16/1/29.
+//  Copyright © 2016年 NOVO. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

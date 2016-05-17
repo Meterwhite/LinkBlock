@@ -37,9 +37,9 @@
 @property (nonatomic,copy) NSArray*                 (^arrFilter)(NSString* predicateFormat);
 /** 获取数组中某个值的所有索引 */
 @property (nonatomic,copy) NSIndexSet*              (^arrIndexSetOfValue)(id value);
-/** 替换数组中字典的key，层次遍历的 */
+/** 替换数组中字典的key，深度遍历的 */
 @property (nonatomic,copy) NSMutableArray*          (^arrReplaceKeyInDict)(id<NSCopying> replaceKey,id<NSCopying> withKey);
-/** 替换数组中字典的key，非层次遍历的 */
+/** 替换数组中字典的key，非深度遍历的 */
 @property (nonatomic,copy) NSMutableArray*          (^arrReplaceKeyInDictWithoutDeep)(id<NSCopying> replaceKey,id<NSCopying> withKey);
 
 

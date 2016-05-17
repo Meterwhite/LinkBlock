@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */; };
 		9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */; };
 		9FBD17381BDB91D500C2F402 /* NSAttributedString+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD170A1BDB91D500C2F402 /* NSAttributedString+LinkBlock.m */; };
 		9FBD17391BDB91D500C2F402 /* NSDate+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD170C1BDB91D500C2F402 /* NSDate+LinkBlock.m */; };
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45DEF2C31CEB0B950000E453 /* UIBezierPath+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+LinkBlock.h"; sourceTree = "<group>"; };
+		45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+LinkBlock.m"; sourceTree = "<group>"; };
 		9FBD17071BDB91D500C2F402 /* NSArray+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+LinkBlock.h"; sourceTree = "<group>"; };
 		9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+LinkBlock.m"; sourceTree = "<group>"; };
 		9FBD17091BDB91D500C2F402 /* NSAttributedString+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+LinkBlock.h"; sourceTree = "<group>"; };
@@ -203,6 +206,8 @@
 				9FBD17361BDB91D500C2F402 /* UIViewController+LinkBlock.m */,
 				EEEF93361C5B5C0900A9ADBF /* UITextField+LinkBlock.h */,
 				EEEF93371C5B5C0900A9ADBF /* UITextField+LinkBlock.m */,
+				45DEF2C31CEB0B950000E453 /* UIBezierPath+LinkBlock.h */,
+				45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -369,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FBD174B1BDB91D500C2F402 /* UIScrollView+LinkBlock.m in Sources */,
+				45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */,
 				9FBD174D1BDB91D500C2F402 /* UIViewController+LinkBlock.m in Sources */,
 				9FBD173E1BDB91D500C2F402 /* NSMutableString+LinkBlock.m in Sources */,
 				9FBD17401BDB91D500C2F402 /* NSObject+LinkBlock.m in Sources */,

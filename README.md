@@ -62,7 +62,7 @@ UILabelNew
 //正则表达式替换_xxx_为[xxx]
 @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
 //正则表达式验证是否为邮箱
-@"quxingyi@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*
+@"NOVO@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*
 [a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
 
 
@@ -160,6 +160,6 @@ NSString *str2 = str1.strAppend(str0).strAt(15).end();
 * 目前xcode还没能给block有尚好的参数提示，所以使用起来还是略微不便，需要去头文件查看参数。作者也将参数名赋予准确的意义。
 ```
 
-##Mail address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
+##Mail address  *[NOVO@outlook.com](NOVO@outlook.com)*
 ##希望大家都支持链式编程这种编程方式
 * 一朝做鸟程序员

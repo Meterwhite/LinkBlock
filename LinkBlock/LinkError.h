@@ -2,7 +2,7 @@
 //  LinkError.h
 //
 //  Created by NOVO on 15/8/20.
-//  Copyright (c) 2015年 QuXingYi. All rights reserved.
+//  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

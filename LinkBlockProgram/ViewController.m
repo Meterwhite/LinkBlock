@@ -2,7 +2,7 @@
 //  ViewController.m
 //
 //  Created by NOVO on 15/8/18.
-//  Copyright (c) 2015年 QuXingYi. All rights reserved.
+//  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -52,7 +52,7 @@
     //正则表达式替换_xxx_为[xxx]
     @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
     //正则表达式验证是否为邮箱
-    @"quxingyi@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
+    @"NOVO@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
     
     //数组过滤
     NSArray* arrForFilter = @[ @{@"name":@"ali", @"age":@(123)} ,
