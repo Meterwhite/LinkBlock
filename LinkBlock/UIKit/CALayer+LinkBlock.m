@@ -6,7 +6,6 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import "CALayer+LinkBlock.h"
 #import "LinkBlock.h"
 
 @implementation NSObject(CALayerLinkBlock)

@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import "UIViewController+LinkBlock.h"
 #import "LinkBlock.h"
 
 @implementation NSObject(UIViewControllerLinkBlock)

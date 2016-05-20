@@ -6,8 +6,6 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import "NSString+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 #import "LinkBlock.h"
 
 @implementation NSObject(NSStringLinkBlock)

@@ -6,8 +6,6 @@
 //
 
 #import "LinkBlock.h"
-#import "NSMutableArray+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 
 @implementation NSObject(NSMutableArrayLinkBlock)
 

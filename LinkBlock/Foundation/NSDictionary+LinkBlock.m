@@ -6,8 +6,6 @@
 //
 
 #import "LinkBlock.h"
-#import "NSDictionary+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 
 @implementation NSObject(NSDictionaryLinkBlock)
 

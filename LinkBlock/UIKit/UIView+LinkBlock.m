@@ -5,8 +5,6 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import "UIView+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 #import "LinkBlock.h"
 #import <objc/runtime.h>
 
@@ -460,6 +458,26 @@
     };
 }
 - (void)setViewInsertSubviewAtIndex:(UIView *(^)(UIView *, NSUInteger))blockInsertSubviewAtIndex{};
+
+- (UIView *(^)(UIView *, UIView *))viewInsertSubviewBelow
+{
+    return ^(UIView* view, UIView* belowView){
+        LinkError_REF_AUTO(UIView, UIView);
+        [_self insertSubview:view belowSubview:belowView];
+        return _self;
+    };
+}
+- (void)setViewInsertSubviewBelow:(UIView *(^)(UIView *, UIView *))viewInsertSubviewBelow{};
+
+- (UIView *(^)(UIView *, UIView *))viewInsertSubviewAbouve
+{
+    return ^(UIView* view, UIView* belowView){
+        LinkError_REF_AUTO(UIView, UIView);
+        [_self insertSubview:view aboveSubview:belowView];
+        return _self;
+    };
+}
+- (void)setViewInsertSubviewAbouve:(UIView *(^)(UIView *, UIView *))viewInsertSubviewAbouve{};
 
 - (UIView* (^)(BOOL))viewSubiewsExclusiveTouch
 {

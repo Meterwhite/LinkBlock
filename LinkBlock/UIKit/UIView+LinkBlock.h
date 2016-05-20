@@ -45,7 +45,7 @@
 @property (nonatomic,copy) UIView*      (^viewBringFrontInView)();
 /** 下沉视图 */
 @property (nonatomic,copy) UIView*      (^viewSendBackInView)();
-
+/** 是否为子视图 */
 @property (nonatomic,copy) BOOL         (^viewIsSubviewTo)(UIView* theView);
 /** 递归此视图，找到第一响应者的的输入类型控件 */
 @property (nonatomic,copy) UIView*      (^viewFirstResponderSubViewForInput)();
@@ -53,8 +53,8 @@
 @property (nonatomic,copy) UIView*      (^viewSubiewsExclusiveTouch)(BOOL b);
 /** 控件相对window的位置 */
 @property (nonatomic,copy) CGRect       (^viewConvertRectToWindow)();
-/** 更换父视图，即移动视图到另一个视图中作为子视图，参数：aView目标视图 ，isKeep是否保持当前相对屏幕位置不变。
- 注意：不考虑Autolayou */
+/** 更换父视图：即移动视图到另一个视图中作为子视图，参数：aView目标视图 ，isKeep是否保持当前视觉位置不变。
+ PS：不考虑Autolayou */
 @property (nonatomic,copy) UIView*      (^viewConvertSuperverTo)(UIView* aView , BOOL isKeep);
 @property (nonatomic,copy) UIView*      (^viewUserInteractionEnabled)(BOOL b);
 @property (nonatomic,copy) UIView*      (^viewMultipleTouchEnabled)(BOOL b);
@@ -74,6 +74,8 @@
 @property (nonatomic,copy) UIView*      (^viewRemoveSubviewTry)(UIView* view);
 @property (nonatomic,copy) UIView*      (^viewRemoveAll)();
 @property (nonatomic,copy) UIView*      (^viewInsertSubviewAtIndex)(UIView* subView, NSUInteger index);
+@property (nonatomic,copy) UIView*      (^viewInsertSubviewAbouve)(UIView* subView, UIView* abouveView);
+@property (nonatomic,copy) UIView*      (^viewInsertSubviewBelow)(UIView* subView, UIView* belowView);
 @property (nonatomic,copy) UIView*      (^viewExchangeSubviewByIndex)(NSUInteger index1, NSUInteger index2);
 @property (nonatomic,copy) UIView*      (^viewAddSubview)(UIView* subview);
 @property (nonatomic,copy) UIView*      (^viewAddToView)(__weak UIView* view);
@@ -147,6 +149,7 @@
 
 @interface UIView (UIViewLinkBlock)
 #pragma mark - 测试
+/** 添加一个测试按钮，每次点击idx自增 */
 - (UIButton*)viewAddTestBtn:(CGRect)frame block:(void(^)(NSInteger idx, UIButton* testButton))block;
 
 @end

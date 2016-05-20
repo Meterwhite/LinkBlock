@@ -7,8 +7,6 @@
 //
 
 #import "LinkBlock.h"
-#import "NSMutableAttributedString+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 
 @implementation NSObject(NSMutableAttributedStringLinkBlock)
 - (NSMutableAttributedString *(^)(NSAttributedString *))m_attr_strAppendAttrStr

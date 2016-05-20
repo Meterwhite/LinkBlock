@@ -5,8 +5,6 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import "NSArray+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 #import "LinkBlock.h"
 
 @implementation NSObject(NSArraryLinkBlock)

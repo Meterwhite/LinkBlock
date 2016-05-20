@@ -143,13 +143,12 @@ NSString* sql1 =
 NSLog(@"%@", sql1);
 ```
 
-##end()
+##安全写法linkObj(obj)和end()
 ```objc
-//想在链条结尾获取绝对真实的对象值(继承NSObject)需要在最后使用end()
-//因为可能得到的是LinkError对象
-//If you want get real type of vale.you should using 'end()' at chain end.
-//Because you may get LinkError
-NSString *str2 = str1.strAppend(str0).strAt(15).end();
+//起手写宏linkObj(obj)，确保对象为nil时不报错。若不使用则不能像享受nil调用方法时不报错的待遇。
+//end()取值时过滤掉链接错误(LinkError)并返回nil或者正确的对象。
+id value = linkObj(nil).end();
+NSString *str2 = linkObj(str1).strAppend(str0).strAt(15).end();
 ```
 
 ##LinkError
@@ -157,9 +156,9 @@ NSString *str2 = str1.strAppend(str0).strAt(15).end();
 。这个对象响应所有扩展属性的调用，功能仅仅返回自己到下一根链条以供传递。所以end()方法的使用对于获取链条末尾的返回值很关键。
 
 ##关于
-* 目前xcode还没能给block有尚好的参数提示，所以使用起来还是略微不便，需要去头文件查看参数。作者也将参数名赋予准确的意义。
+* 目前xcode还没能给block有尚好的参数提示，所以使用起来还是略微不便，需要去头文件查看参数。提供者也将参数名赋予准确的意义。
 ```
 
-##Mail address  *[NOVO@outlook.com](NOVO@outlook.com)*
+##Mail address  *[quxingyi@outlook.com](quxingyi@outlook.com)*
 ##希望大家都支持链式编程这种编程方式
 * 一朝做鸟程序员

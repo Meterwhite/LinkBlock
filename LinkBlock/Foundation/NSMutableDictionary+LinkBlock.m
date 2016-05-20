@@ -7,8 +7,6 @@
 
 #import "LinkBlock.h"
 
-
-
 @implementation NSObject(NSMutableDictionaryLinkBlock)
 - (NSMutableDictionary *(^)(id<NSCopying>  , id))m_dictSetValue
 {

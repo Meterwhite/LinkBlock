@@ -6,8 +6,6 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 #import "LinkBlock.h"
-#import "UIImage+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 #import <Accelerate/Accelerate.h>
 
 @implementation NSObject(UIImageLinkBlockLinkBlock)
@@ -207,4 +205,13 @@
     };
 }
 - (void)setImgAddImg:(UIImage *(^)(UIImage *, CGRect))imgAddImg{};
+
+- (UIColor *(^)())imgGetPatternColor
+{
+    return ^(){
+        LinkError_REF_AUTO(UIColor, UIImage);
+        return [UIColor colorWithPatternImage:_self];
+    };
+}
+- (void)setImgGetPatternColor:(UIColor *(^)())imgGetPatternColor{};
 @end

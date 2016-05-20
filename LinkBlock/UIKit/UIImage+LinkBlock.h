@@ -23,7 +23,8 @@
 @property (nonatomic,copy) UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
 /** 水印；图片合并到图片； */
 @property (nonatomic,copy) UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
-
+/** 图片取色 */
+@property (nonatomic,copy) UIColor*         (^imgGetPatternColor)();
 #pragma 操作
 @property (nonatomic,copy) UIImage*         (^imgSetBgImgToBtns)(NSArray* views, UIControlState state);
 @property (nonatomic,copy) UIImage*         (^imgSetImgToImageViews)(NSArray* imgViews);

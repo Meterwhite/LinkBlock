@@ -7,8 +7,6 @@
 //
 
 #import "LinkBlock.h"
-#import "UILabel+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 
 @implementation NSObject(UILabelLinkBlock)
 - (UILabel *(^)())labAlignTop

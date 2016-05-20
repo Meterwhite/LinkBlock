@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import "NSURL+LinkBlock.h"
+#import "LinkBlock.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation NSObject(NSURLLinkBlock)

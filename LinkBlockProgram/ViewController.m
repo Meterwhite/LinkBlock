@@ -137,14 +137,18 @@
             
             testButton.viewBGColor([UIColor redColor])
             .btnTitleColor([UIColor greenColor],UIControlStateNormal);
-            [testButton setTitle:[NSString stringWithFormat:@"添加测试按钮\n%d",idx] forState:UIControlStateNormal];
+            [testButton setTitle:[NSString stringWithFormat:@"添加测试按钮\n%ld",(long)idx] forState:UIControlStateNormal];
         }else{//奇数
             
             testButton.viewBGColor([UIColor greenColor])
             .btnTitleColor([UIColor redColor],UIControlStateNormal);;
-            [testButton setTitle:[NSString stringWithFormat:@"添加测试按钮\n%d",idx] forState:UIControlStateNormal];
+            [testButton setTitle:[NSString stringWithFormat:@"添加测试按钮\n%ld",(long)idx] forState:UIControlStateNormal];
         }
     }];
     
+#warning PS
+    //起手写宏linkObj(obj)，确保对象为nil时不报错
+    //end()取值时过滤掉链接错误并返回nil或者正确的对象
+    id value = linkObj(nil).end();
 }
 @end

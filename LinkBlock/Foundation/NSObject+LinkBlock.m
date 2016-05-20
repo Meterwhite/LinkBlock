@@ -5,7 +5,6 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import "NSObject+LinkBlock.h"
 #import <objc/runtime.h>
 #import "LinkBlock.h"
 

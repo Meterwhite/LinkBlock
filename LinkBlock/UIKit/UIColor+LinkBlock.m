@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 #import "LinkBlock.h"
-#import "UIColor+LinkBlock.h"
 
 @implementation NSObject(UIColorLinkBlock)
 - (NSString *(^)(NSString *))colorToStrWithPrefix
@@ -109,6 +108,63 @@
 }
 - (void)setColorAlpha:(CGFloat (^)())blockAlphaValue{};
 
+- (CGFloat (^)())colorHue
+{
+    return ^(){
+        LinkError_VAL_IF(UIColor){
+            return (CGFloat)0.0;
+        }
+        CGFloat hue;
+        CGFloat saturation;
+        CGFloat brightness;
+        CGFloat a;
+        if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
+            return hue;
+        }else{
+            return (CGFloat)1.0;
+        }
+    };
+}
+- (void)setColorHue:(CGFloat (^)())colorHue{};
+
+- (CGFloat (^)())colorSaturation
+{
+    return ^(){
+        LinkError_VAL_IF(UIColor){
+            return (CGFloat)0.0;
+        }
+        CGFloat hue;
+        CGFloat saturation;
+        CGFloat brightness;
+        CGFloat a;
+        if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
+            return saturation;
+        }else{
+            return (CGFloat)1.0;
+        }
+    };
+}
+- (void)setColorSaturation:(CGFloat (^)())colorSaturation{};
+
+- (CGFloat (^)())colorBrightness
+{
+    return ^(){
+        LinkError_VAL_IF(UIColor){
+            return (CGFloat)0.0;
+        }
+        CGFloat hue;
+        CGFloat saturation;
+        CGFloat brightness;
+        CGFloat a;
+        if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
+            return brightness;
+        }else{
+            return (CGFloat)1.0;
+        }
+    };
+}
+- (void)setColorBrightness:(CGFloat (^)())colorBrightness{};
+
 - (UIColor* (^)(CGFloat))colorRedSet
 {
     return ^(CGFloat value){
@@ -184,6 +240,60 @@
 }
 - (void)setColorAlphaSet:(UIColor *(^)(CGFloat))blockSetAlphaValue{}
 
+- (UIColor *(^)(CGFloat))colorHueSet
+{
+    return ^(CGFloat value){
+        LinkError_REF_AUTO(UIColor, UIColor);
+        value = (value<0||value>1) ? 0.0 : value;
+        CGFloat hue;
+        CGFloat saturation;
+        CGFloat brightness;
+        CGFloat a;
+        if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
+            return [UIColor colorWithHue:value saturation:saturation brightness:brightness alpha:a];
+        }else{
+            return _self;
+        }
+    };
+}
+- (void)setColorHueSet:(UIColor *(^)(CGFloat))colorHueSet{};
+
+- (UIColor *(^)(CGFloat))colorSaturationSet
+{
+    return ^(CGFloat value){
+        LinkError_REF_AUTO(UIColor, UIColor);
+        value = (value<0||value>1) ? 0.0 : value;
+        CGFloat hue;
+        CGFloat saturation;
+        CGFloat brightness;
+        CGFloat a;
+        if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
+            return [UIColor colorWithHue:hue saturation:saturation brightness:value alpha:a];
+        }else{
+            return _self;
+        }
+    };
+}
+- (void)setColorSaturationSet:(UIColor *(^)(CGFloat))colorSaturationSet{};
+
+- (UIColor *(^)(CGFloat))colorBrightnessSet
+{
+    return ^(CGFloat value){
+        LinkError_REF_AUTO(UIColor, UIColor);
+        value = (value<0||value>1) ? 0.0 : value;
+        CGFloat hue;
+        CGFloat saturation;
+        CGFloat brightness;
+        CGFloat a;
+        if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
+            return [UIColor colorWithHue:hue saturation:saturation brightness:value alpha:a];
+        }else{
+            return _self;
+        }
+    };
+}
+- (void)setColorBrightnessSet:(UIColor *(^)(CGFloat))colorBrightnessSet{};
+
 - (UIColor *(^)(NSArray *))colorSetBackgroundToViews
 {
     return ^(NSArray* views){
@@ -233,4 +343,52 @@
     };
 }
 - (void)setColorSetTextColorToViewSubviews:(UIColor *(^)(UIView *))colorSetTextColorToViewSubviews{};
+
+- (UIColor *(^)(double))colorBrightnessPercent
+{
+    return ^(double percent){
+        LinkError_REF_AUTO(UIColor, UIColor);
+        CGFloat hue;
+        CGFloat saturation;
+        CGFloat brightness;
+        CGFloat alpha;
+        if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha]){
+            
+            brightness *= (1.0+percent);
+            if(percent>0.0){//变亮
+                
+                brightness = brightness>1 ? 1.0 : brightness;
+            }else if(percent <0.0){//变暗
+                
+                brightness = brightness<0.0 ? 0.0 : brightness;
+            }else{
+                
+                return _self;
+            }
+            return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+        }else{
+            
+            return _self;
+        }
+    };
+}
+- (void)setColorBrightnessPercent:(UIColor *(^)(double))colorBrightnessPercent{};
+
+- (UIColor *(^)())colorHighlightDarkColor
+{
+    return ^(){
+        LinkError_REF_AUTO(UIColor, UIColor);
+        return _self.colorBrightnessPercent(-0.382);
+    };
+}
+- (void)setColorHighlightDarkColor:(UIColor *(^)())colorHighlightDarkColor{};
+
+- (UIColor *(^)())colorHighlightLightColor
+{
+    return ^(){
+        LinkError_REF_AUTO(UIColor, UIColor);
+        return _self.colorBrightnessPercent(0.382);
+    };
+}
+- (void)setColorHighlightLightColor:(UIColor *(^)())colorHighlightLightColor{};
 @end

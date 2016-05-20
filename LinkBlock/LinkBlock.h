@@ -34,6 +34,7 @@
 #import "UITextField+LinkBlock.h"
 #import "CALayer+LinkBlock.h"
 #import "CAShapeLayer+LinkBlock.h"
+#import "UIBezierPath+LinkBlock.h"
 
 //起手写宏
 #ifndef linkObj
