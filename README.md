@@ -157,8 +157,7 @@ NSString *str2 = linkObj(str1).strAppend(str0).strAt(15).end();
 
 ##关于
 * 目前xcode还没能给block有尚好的参数提示，所以使用起来还是略微不便，需要去头文件查看参数。提供者也将参数名赋予准确的意义。
-```
 
-##Mail address [quxingyi@outlook.com](quxingyi@outlook.com)
+##Mail address quxingyi@outlook.com
 ##希望大家都支持链式编程这种编程方式
 * 一朝做鸟程序员
