@@ -188,6 +188,97 @@ static NSArray* _charCTypeArr;
 }
 - (void)setNumDoubleToPercentStr:(NSMutableString *(^)(NSUInteger))numDoubleToPercentStr{};
 
+- (BOOL (^)())numHasDecimalValue
+{
+    return ^(){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        if([_self doubleValue] - [_self integerValue])
+            return YES;
+        return NO;
+    };
+}
+- (void)setNumHasDecimalValue:(BOOL (^)())numHasDecimalValue{};
+
+- (BOOL (^)(double))numIsEqualToValue
+{
+    return ^(double value){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        if([_self doubleValue] == value)
+            return YES;
+        return NO;
+    };
+}
+- (void)setNumIsEqualToValue:(BOOL (^)(double))numIsEqualToValue{};
+
+- (BOOL (^)(double))numIsMoreThanValue
+{
+    return ^(double value){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        if([_self doubleValue] > value)
+            return YES;
+        return NO;
+    };
+}
+- (void)setNumIsMoreThanValue:(BOOL (^)(double))numIsMoreThanValue{};
+
+- (BOOL (^)(double))numIsMoreThanOrEqualValue
+{
+    return ^(double value){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        if([_self doubleValue] >= value)
+            return YES;
+        return NO;
+    };
+}
+- (void)setNumIsMoreThanOrEqualValue:(BOOL (^)(double))numIsMoreThanOrEqualValue{};
+
+- (BOOL (^)(double))numIsLessThanValue
+{
+    return ^(double value){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        if([_self doubleValue] < value)
+            return YES;
+        return NO;
+    };
+}
+- (void)setNumIsLessThanValue:(BOOL (^)(double))numIsLessThanValue{};
+
+- (BOOL (^)(double))numIsLessThanOrEqualValue
+{
+    return ^(double value){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        if([_self doubleValue] <= value)
+            return YES;
+        return NO;
+    };
+}
+- (void)setNumIsLessThanOrEqualValue:(BOOL (^)(double))numIsLessThanOrEqualValue{};
+
+- (BOOL (^)(NSNumber *))numIsEqualToNum
+{
+    return ^(NSNumber* aNum){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        if([_self isEqualToNumber:aNum]){
+            return YES;
+        }
+        return NO;
+    };
+}
+- (void)setNumIsEqualToNum:(BOOL (^)(NSNumber *))numIsEqualToNum{};
 @end
 
 @implementation NSNumber (NSNumberLinkBlock)

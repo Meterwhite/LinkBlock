@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		452047671CED65310092ED18 /* CAShapeLayer+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 452047661CED65310092ED18 /* CAShapeLayer+LinkBlock.m */; };
+		4520476A1CEDB8D30092ED18 /* CALayer+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 452047691CEDB8D30092ED18 /* CALayer+LinkBlock.m */; };
 		45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */; };
 		9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */; };
 		9FBD17381BDB91D500C2F402 /* NSAttributedString+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD170A1BDB91D500C2F402 /* NSAttributedString+LinkBlock.m */; };
@@ -53,6 +55,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		452047651CED65310092ED18 /* CAShapeLayer+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAShapeLayer+LinkBlock.h"; sourceTree = "<group>"; };
+		452047661CED65310092ED18 /* CAShapeLayer+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAShapeLayer+LinkBlock.m"; sourceTree = "<group>"; };
+		452047681CEDB8D30092ED18 /* CALayer+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+LinkBlock.h"; sourceTree = "<group>"; };
+		452047691CEDB8D30092ED18 /* CALayer+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+LinkBlock.m"; sourceTree = "<group>"; };
 		45DEF2C31CEB0B950000E453 /* UIBezierPath+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+LinkBlock.h"; sourceTree = "<group>"; };
 		45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+LinkBlock.m"; sourceTree = "<group>"; };
 		9FBD17071BDB91D500C2F402 /* NSArray+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+LinkBlock.h"; sourceTree = "<group>"; };
@@ -208,6 +214,10 @@
 				EEEF93371C5B5C0900A9ADBF /* UITextField+LinkBlock.m */,
 				45DEF2C31CEB0B950000E453 /* UIBezierPath+LinkBlock.h */,
 				45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */,
+				452047651CED65310092ED18 /* CAShapeLayer+LinkBlock.h */,
+				452047661CED65310092ED18 /* CAShapeLayer+LinkBlock.m */,
+				452047681CEDB8D30092ED18 /* CALayer+LinkBlock.h */,
+				452047691CEDB8D30092ED18 /* CALayer+LinkBlock.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -382,6 +392,7 @@
 				9FFDA2181B835E2F0044097D /* ViewController.m in Sources */,
 				9FBD17421BDB91D500C2F402 /* NSURL+LinkBlock.m in Sources */,
 				9FBD173D1BDB91D500C2F402 /* NSMutableDictionary+LinkBlock.m in Sources */,
+				452047671CED65310092ED18 /* CAShapeLayer+LinkBlock.m in Sources */,
 				9FBD17391BDB91D500C2F402 /* NSDate+LinkBlock.m in Sources */,
 				9FBD17491BDB91D500C2F402 /* UIImageView+LinkBlock.m in Sources */,
 				9FBD17461BDB91D500C2F402 /* UIColor+LinkBlock.m in Sources */,
@@ -396,6 +407,7 @@
 				9FBD174A1BDB91D500C2F402 /* UILabel+LinkBlock.m in Sources */,
 				9FBD17471BDB91D500C2F402 /* UIControl+LinkBlock.m in Sources */,
 				9FBD17441BDB91D500C2F402 /* LinkError.m in Sources */,
+				4520476A1CEDB8D30092ED18 /* CALayer+LinkBlock.m in Sources */,
 				9FBD173C1BDB91D500C2F402 /* NSMutableAttributedString+LinkBlock.m in Sources */,
 				9FFDA2121B835E2F0044097D /* main.m in Sources */,
 				9FBD17431BDB91D500C2F402 /* NSValue+LinkBlock.m in Sources */,

@@ -5,8 +5,6 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-
-#import <Foundation/Foundation.h>
 #import "LinkError.h"
 
 #import "NSArray+LinkBlock.h"
@@ -34,6 +32,8 @@
 #import "UIImageView+LinkBlock.h"
 #import "UIViewController+LinkBlock.h"
 #import "UITextField+LinkBlock.h"
+#import "CALayer+LinkBlock.h"
+#import "CAShapeLayer+LinkBlock.h"
 
 //起手写宏
 #ifndef linkObj

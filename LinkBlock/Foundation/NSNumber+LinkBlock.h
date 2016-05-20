@@ -23,6 +23,16 @@
 @property (nonatomic,copy) NSString*    (^numDoubleToStr)(NSUInteger digit);
 /** 小数转百分比:0.231>>23.1%，digit：小数位数 */
 @property (nonatomic,copy) NSMutableString*    (^numDoubleToPercentStr)(NSUInteger digit);
+/** YES：小数位为0，NO：小数位有值， */
+@property (nonatomic,copy) BOOL         (^numHasDecimalValue)();
+
+@property (nonatomic,copy) BOOL         (^numIsEqualToValue)(double value);
+@property (nonatomic,copy) BOOL         (^numIsMoreThanValue)(double value);
+@property (nonatomic,copy) BOOL         (^numIsMoreThanOrEqualValue)(double value);
+@property (nonatomic,copy) BOOL         (^numIsLessThanValue)(double value);
+@property (nonatomic,copy) BOOL         (^numIsLessThanOrEqualValue)(double value);
+
+@property (nonatomic,copy) BOOL         (^numIsEqualToNum)(NSNumber* aNum);
 
 @property (nonatomic,copy) NSNumber*    (^numSetHeightToViews)(NSArray* views);
 @property (nonatomic,copy) NSNumber*    (^numSetWidthToViews)(NSArray* views);
