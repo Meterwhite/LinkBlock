@@ -395,10 +395,6 @@
 }
 - (void)setSQL_InvertedComma:(NSMutableString *(^)(id))SQL_InvertedComma{};
 
-+ (NSMutableString* )SQLInit
-{
-    return [NSMutableString new];
-}
 @end
 
 

@@ -101,8 +101,16 @@ static NSArray* _charCTypeArr;
 - (NSNumber *(^)(NSArray *))numSetWidthToViews
 {
     return ^(NSArray* views){
+        
         LinkError_REF_AUTO(NSNumber, NSNumber);
+        if(![views isKindOfClass:[NSArray class]])
+            return _self;
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            
+            if(![v isKindOfClass:[UIView class]]){
+                *stop = YES;
+                return;
+            }
             CGRect frame = v.frame;
             frame.size.width = _self.doubleValue;
             v.frame= frame;
@@ -115,8 +123,16 @@ static NSArray* _charCTypeArr;
 - (NSNumber *(^)(NSArray *))numSetHeightToViews
 {
     return ^(NSArray* views){
+        
         LinkError_REF_AUTO(NSNumber, NSNumber);
+        if(![views isKindOfClass:[NSArray class]])
+            return _self;
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            
+            if(![v isKindOfClass:[UIView class]]){
+                *stop = YES;
+                return;
+            }
             CGRect frame = v.frame;
             frame.size.height = _self.doubleValue;
             v.frame= frame;
@@ -129,8 +145,16 @@ static NSArray* _charCTypeArr;
 - (NSNumber *(^)(NSArray *))numSetXToViews
 {
     return ^(NSArray* views){
+        
         LinkError_REF_AUTO(NSNumber, NSNumber);
+        if(![views isKindOfClass:[NSArray class]])
+            return _self;
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            
+            if(![v isKindOfClass:[UIView class]]){
+                *stop = YES;
+                return;
+            }
             CGRect frame = v.frame;
             frame.origin.x = _self.doubleValue;
             v.frame= frame;
@@ -143,8 +167,16 @@ static NSArray* _charCTypeArr;
 - (NSNumber *(^)(NSArray *))numSetYToViews
 {
     return ^(NSArray* views){
+        
         LinkError_REF_AUTO(NSNumber, NSNumber);
+        if(![views isKindOfClass:[NSArray class]])
+            return _self;
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            
+            if(![v isKindOfClass:[UIView class]]){
+                *stop = YES;
+                return;
+            }
             CGRect frame = v.frame;
             frame.origin.y = _self.doubleValue;
             v.frame= frame;
@@ -154,39 +186,38 @@ static NSArray* _charCTypeArr;
 }
 - (void)setNumSetYToViews:(NSNumber *(^)(NSArray *))numSetYToViews{};
 
-- (NSString *(^)(NSUInteger))numDoubleToStr
+- (NSString *(^)(NSUInteger))numFloatingToStr
 {
     return ^(NSUInteger digit){
         LinkError_REF_AUTO(NSString, NSNumber);
         
-        if(!digit){
+        if(digit<=0){
             
             return [NSString stringWithFormat:@"%ld", (long)[_self integerValue]];
         }else{
             
-            NSMutableString* formateStr = [NSMutableString new];
-            [formateStr appendString:@"%"];
-            [formateStr appendString:[NSString stringWithFormat:@"%lu", (unsigned long)digit]];
-            [formateStr appendString:@".f"];
-            
-            return  [NSString stringWithFormat:formateStr , [_self doubleValue]];
+            NSMutableString* formatStr = [NSMutableString new];
+            [formatStr appendString:@"%."];
+            [formatStr appendString:[NSString stringWithFormat:@"%lu", (unsigned long)digit]];
+            [formatStr appendString:@"f"];
+            return  [NSString stringWithFormat:formatStr , [_self doubleValue]];
         }
     };
 }
-- (void)setNumDoubleToStr:(NSString *(^)(NSUInteger))numDoubleToStr{};
+- (void)setNumFloatingToStr:(NSString *(^)(NSUInteger))numFloatingToStr{}
 
-- (NSMutableString *(^)(NSUInteger))numDoubleToPercentStr
+- (NSMutableString *(^)(NSUInteger))numFloatingToPercentStr
 {
     return ^(NSUInteger digit){
         LinkError_REF_AUTO(NSMutableString, NSNumber);
         
-        double newDouble = [_self doubleValue]*100.0;
-        NSMutableString* re = [NSMutableString stringWithString:@"%"];
-        [re appendString:@(newDouble).numDoubleToStr(digit)];
+        NSMutableString* re = [NSMutableString new];
+        [re appendString:@([_self doubleValue]*100.0).numFloatingToStr(digit)];
+        [re appendString:@"%"];
         return re;
     };
 }
-- (void)setNumDoubleToPercentStr:(NSMutableString *(^)(NSUInteger))numDoubleToPercentStr{};
+- (void)setNumFloatingToPercentStr:(NSMutableString *(^)(NSUInteger))numFloatingToPercentStr{};
 
 - (BOOL (^)())numHasDecimalValue
 {
@@ -272,6 +303,8 @@ static NSArray* _charCTypeArr;
         LinkError_VAL_IF(NSNumber){
             return NO;
         }
+        if(![aNum isKindOfClass:[NSNumber class]])
+            return NO;
         if([_self isEqualToNumber:aNum]){
             return YES;
         }
@@ -279,6 +312,81 @@ static NSArray* _charCTypeArr;
     };
 }
 - (void)setNumIsEqualToNum:(BOOL (^)(NSNumber *))numIsEqualToNum{};
+
+- (NSDate *(^)())numToNSDateSince1970
+{
+    return ^(){
+        LinkError_REF_AUTO(NSDate, NSNumber);
+        return [NSDate dateWithTimeIntervalSince1970:[_self doubleValue]];
+    };
+}
+- (void)setNumToNSDateSince1970:(NSDate *(^)())numToNSDateSince1970{};
+
+- (BOOL (^)())numIsOdd
+{
+    return ^(){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        
+        if(_self.numIsInteger() && ([_self integerValue]%2 == 1)){
+            
+            return YES;
+        }
+        return NO;
+    };
+}
+- (void)setNumIsOdd:(BOOL (^)())numIsOdd{};
+
+- (BOOL (^)())numIsEven
+{
+    return ^(){
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        }
+        
+        if(_self.numIsInteger() && ([_self integerValue]%2 == 0)){
+            
+            return YES;
+        }
+        return NO;
+    };
+}
+- (void)setNumIsEven:(BOOL (^)())numIsEven{};
+
+- (BOOL (^)(NSArray *))numIndexIsInArrRange
+{
+    return ^(NSArray* arr){
+        
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        };
+        if(![arr isKindOfClass:[NSArray class]])
+            return NO;
+        NSInteger idx = [_self integerValue];
+        if(idx>=0 && idx<arr.count)
+            return YES;
+        return NO;
+    };
+}
+- (void)setNumIndexIsInArrRange:(BOOL (^)(NSArray *))numIndexIsInArrRange{};
+
+- (BOOL (^)(NSString *))numIndexIsInStringRange
+{
+    return ^(NSString* str){
+        
+        LinkError_VAL_IF(NSNumber){
+            return NO;
+        };
+        if(![str isKindOfClass:[NSString class]])
+            return NO;
+        NSInteger idx = [_self integerValue];
+        if(idx>=0 && idx<str.length)
+            return YES;
+        return NO;
+    };
+}
+- (void)setNumIndexIsInStringRange:(BOOL (^)(NSString *))numIndexIsInStringRange{};
 @end
 
 @implementation NSNumber (NSNumberLinkBlock)

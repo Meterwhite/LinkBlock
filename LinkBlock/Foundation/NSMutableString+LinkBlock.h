@@ -8,19 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-
 #define NSMutableStringNew ([NSMutableString new])
 @interface NSObject(NSMutableStringLinkBlock)
 @property (nonatomic,copy) NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
 @property (nonatomic,copy) NSMutableString*     (^m_strAppenStr)(NSString* str);
 @property (nonatomic,copy) NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr);
 
-
 #pragma mark - SQL拼接部分
-
-#define SQLNew ([NSMutableString SQLInit])
-
-+ (NSMutableString* )SQLInit;
+#define SQLNew ([NSMutableString new])
 @property (nonatomic,copy) NSMutableString*     (^SQLStr)(NSString* str);
 @property (nonatomic,copy) NSMutableString*     (^SQLInt)(NSInteger intVal);
 @property (nonatomic,copy) NSMutableString*     (^SQLDouble)(double doubleVal);
@@ -34,7 +29,6 @@
 @property (nonatomic,copy) NSMutableString*     (^SQLIntInStr)(NSInteger intVal);
 /** 单引号包围的值 '...' */
 @property (nonatomic,copy) NSMutableString*     (^SQLDoubleInStr)(double doubleVal);
-
 
 @property (nonatomic,copy) NSMutableString*     (^SQL_Select)();
 @property (nonatomic,copy) NSMutableString*     (^SQL_Where)();
@@ -75,12 +69,9 @@
 - (NSMutableString*)SQLUpdate:(void(^)(NSMutableString* makeSQL))block;
 - (NSMutableString*)SQLReplaceInto:(void(^)(NSMutableString* makeSQL))block;
 - (NSMutableString*)SQLInsertInto:(void(^)(NSMutableString* makeSQL))block;
-
 - (NSMutableString*)SQLLike:(void(^)(NSMutableString* makeSQL))block;
-
 - (NSMutableString*)SQLIf:(BOOL)b
                     using:(void(^)(NSMutableString* makeSQL))block;
-
 - (NSMutableString*)SQLIf:(BOOL)b
                     using:(void(^)(NSMutableString* makeSQL))usingBlock
                     elseUsing:(void(^)(NSMutableString* makeSQL))elseUsingBlock;

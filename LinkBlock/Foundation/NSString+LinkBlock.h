@@ -13,7 +13,7 @@
 @property (nonatomic,copy) BOOL         (^strIsEqualStr)(NSString* str);
 @property (nonatomic,copy) NSMutableString* (^strMutableCopy)();
 @property (nonatomic,copy) NSString*    (^strAppend)(NSString* str);
-@property (nonatomic,copy) NSString*    (^strAppendFormate)(NSString* formateStr , ...);
+@property (nonatomic,copy) NSString*    (^strAppendFormat)(NSString* formatStr , ...);
 @property (nonatomic,copy) NSString*    (^strAppendLine)(NSString* str);
 @property (nonatomic,copy) NSString*    (^strInsertAt)(NSString* str, NSUInteger index);
 @property (nonatomic,copy) NSString*    (^strDeleteInRange)(NSRange range);
@@ -43,7 +43,7 @@
 @property (nonatomic,copy) double       (^strLineHeight)(NSDictionary* attrDict);
 /** 计算字符串行数 */
 @property (nonatomic,copy) NSInteger    (^strLineCount)(CGFloat maxWidth,NSDictionary* attrDict);
-/** 截取到某行，参数：目标行数，最大宽度，属性字典 */
+/** 截一定行的字符串，参数：目标行数，最大宽度，属性字典 */
 @property (nonatomic,copy) NSString*    (^strSubToLine)(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict);
 @property (nonatomic,copy) NSUInteger   (^strLength)();
 @property (nonatomic,copy) NSUInteger   (^strLengthASCII)();
@@ -61,6 +61,8 @@
 @property (nonatomic,copy) BOOL         (^strIsFloating)();
 /** 是否是数字类型 */
 @property (nonatomic,copy) BOOL         (^strIsNumber)();
+/** 反转字符串 */
+@property (nonatomic,copy) NSString*    (^strReversed)();
 /** 从左删除第一次匹配的字符串 */
 @property (nonatomic,copy) NSString*    (^strDeleteLeft)(NSString* str);
 /** 从右删除第一次匹配的字符串 */
@@ -108,10 +110,13 @@
 @property (nonatomic,copy) NSData*              (^strToNSDataWithContentsOfFile)();
 /** 转NSData */
 @property (nonatomic,copy) NSData*              (^strToNSDataUseEncoding)(NSStringEncoding);
-/** 转日期 */
-@property (nonatomic,copy) NSDate*              (^strToNSDateWithFormate)(NSString* formateStr);
+/** 日期字符串转日期 */
+@property (nonatomic,copy) NSDate*              (^strToNSDateWithFormat)(NSString* formatStr);
+/** 数字字符串转日期 */
+@property (nonatomic,copy) NSDate*              (^strToNSDateSince1970)();
 /** 转字典 */
 @property (nonatomic,copy) NSDictionary*        (^strToNSDictionary)(NSStringEncoding encoding);
+/** json形式字符串转数组 */
 @property (nonatomic,copy) NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
 
 #pragma mark - regex（正则表达式
@@ -130,9 +135,7 @@
 @property (nonatomic,copy) NSString*            (^strSetTextToControls)(NSArray* controls);
 @property (nonatomic,copy) NSString*            (^strSetTextColorToControls)(NSArray* controls);
 /** 查找字符串中的第一组数字 */
-@property (nonatomic,copy) double               (^strNumberFind)();
-
-
+@property (nonatomic,copy) double               (^strFindNumber)();
 
 /** 遍历字符串中的整型数据 */
 - (void)strEnumerateScanIntegerUsingBlock:(void (^)(NSInteger num, NSUInteger idx, BOOL * stop))block;
@@ -141,6 +144,6 @@
  *  => 0.3200 432.000 32.320
  */
 - (void)strEnumerateScanFloatingUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block;
-/** 遍历字符串中的所有数值类型，统一返回double类型 */
+/** 遍历字符串中的所有数值类型，统一遍历为double类型 */
 - (void)strEnumerateScanNumberUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block;
 @end

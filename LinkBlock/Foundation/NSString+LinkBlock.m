@@ -216,21 +216,21 @@
 }
 - (void)setStrRangeOfStr:(NSRange (^)(NSString *))strRangeOfStr{};
 
-- (NSString *(^)(NSString *, ...))strAppendFormate
+- (NSString *(^)(NSString *, ...))strAppendFormat
 {
-    return ^(NSString *formateStr, ...){
+    return ^(NSString *formatStr, ...){
         LinkError_REF_AUTO(NSString, NSString);
-        if([formateStr isKindOfClass:[NSString class]]){
+        if([formatStr isKindOfClass:[NSString class]]){
             va_list args;
-            va_start(args, formateStr);
-            NSString *re= [_self stringByAppendingString:[[NSString alloc] initWithFormat:formateStr arguments:args]];
+            va_start(args, formatStr);
+            NSString *re= [_self stringByAppendingString:[[NSString alloc] initWithFormat:formatStr arguments:args]];
             va_end(args);
             return re;
         }
         return _self;
     };
 }
-- (void)setStrAppendFormate:(NSString *(^)(NSString *, ...))strAppendFormate{};
+- (void)setStrAppendFormat:(NSString *(^)(NSString *, ...))strAppendFormat{};
 
 - (NSString *(^)(NSString *))strAppendLine
 {
@@ -325,8 +325,6 @@
 }
 - (void)setStrSizeWithFontAndMaxSize:(CGSize (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize{};
 
-//@property (nonatomic,copy) float        (^strHeight)(NSDictionary* attrDict);
-//@property (nonatomic,copy) float        (^strLineHeight)(NSDictionary* attrDict);
 - (double (^)(NSDictionary *))strHeight
 {
     return ^(NSDictionary* attrDict){
@@ -602,7 +600,7 @@
         if(range.location == 0){
             [reIsStrM deleteCharactersInRange:range];
         }
-        return (NSString*)reIsStrM.objCopy();
+        return (NSString*)[reIsStrM copy];
     };
 }
 - (void)setStrDeleteLeft:(NSString *(^)(NSString *))strDeleteLeft{};
@@ -630,7 +628,7 @@
                                   withString:@""
                                      options:NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
-        return (NSString*)reIsStrM.objCopy();
+        return (NSString*)[reIsStrM copy];
     };
 }
 - (void)setStrTrimLeft:(NSString *(^)(NSString *))strTrimLeft{};
@@ -823,16 +821,26 @@
     };
 }
 - (void)setStrToNSDataUseEncoding:(NSData *(^)(NSStringEncoding))strToNSDataUseEncoding{};
-- (NSDate *(^)(NSString *))strToNSDateWithFormate
+- (NSDate *(^)(NSString *))strToNSDateWithFormat
 {
-    return ^(NSString* formateStr){
+    return ^(NSString* formatStr){
         LinkError_REF_AUTO(NSDate, NSString);
         NSDateFormatter* fmt = [NSDateFormatter new];
-        fmt.dateFormat = formateStr;
+        fmt.dateFormat = formatStr;
         return [fmt dateFromString:_self];
     };
 }
-- (void)setStrToNSDateWithFormate:(NSDate *(^)(NSString *))strToNSDateWithFormate{};
+- (void)setStrToNSDateWithFormat:(NSDate *(^)(NSString *))strToNSDateWithFormat{};
+
+- (NSDate *(^)())strToNSDateSince1970
+{
+    return ^(){
+        LinkError_REF_AUTO(NSDate, NSString);
+        return [NSDate dateWithTimeIntervalSince1970:[_self doubleValue]];
+    };
+}
+- (void)setStrToNSDateSince1970:(NSDate *(^)())strToNSDateSince1970{};
+
 - (NSDictionary *(^)(NSStringEncoding))strToNSDictionary
 {
     return ^(NSStringEncoding encoding){
@@ -868,16 +876,12 @@
         
         NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
                                                             withString:@""];
-        
         newStr = [newStr stringByReplacingOccurrencesOfString:@"\n"
                                                    withString:@""];
-        
         newStr = [newStr stringByReplacingOccurrencesOfString:@"\r"
                                                    withString:@""];
         
         NSData* strIsData = [newStr dataUsingEncoding:encoding];
-        
-        
         NSArray* re = [NSJSONSerialization JSONObjectWithData:strIsData
                                                       options:NSJSONReadingMutableContainers
                                                         error:nil];
@@ -1156,7 +1160,7 @@
 }
 - (void)setStrSetBGColorHexToViews:(NSString *(^)(NSArray *))strSetBgColorToViews{};
 
-- (double (^)())strNumberFind
+- (double (^)())strFindNumber
 {
     return ^(){
         double re = 0.0;
@@ -1168,7 +1172,29 @@
         return re;
     };
 }
-- (void)setStrNumberFind:(double (^)())strNumberFind{};
+- (void)setStrFindNumber:(double (^)())strFindNumber{};
+
+- (NSString *(^)())strReversed
+{
+    return ^(){
+        LinkError_REF_AUTO(NSString, NSString);
+        
+        NSUInteger i = 0;
+        NSUInteger j = _self.length - 1;
+        NSString *temp;
+        NSString *re = _self;
+        NSLog(@"%@", self);
+        while (i < j) {
+            temp = [re substringWithRange:NSMakeRange(i, 1)];
+            re = [re stringByReplacingCharactersInRange:NSMakeRange(i, 1) withString:[_self substringWithRange:NSMakeRange(j, 1)]];
+            re = [re stringByReplacingCharactersInRange:NSMakeRange(j, 1) withString:temp];
+            i++;
+            j--;
+        }
+        return re;
+    };
+}
+- (void)setStrReversed:(NSString *(^)())strReversed{};
 
 - (void)strEnumerateScanIntegerUsingBlock:(void (^)(NSInteger num, NSUInteger idx, BOOL *stop))block
 {

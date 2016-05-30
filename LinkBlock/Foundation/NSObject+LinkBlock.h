@@ -11,11 +11,15 @@
 
 @interface NSObject(LinkBlock)
 #pragma mark - Coding ways
+/** 末尾取值时调用过滤掉错误对象（LinkError），若中途发生类型错误结果返回nil */
+@property (nonatomic,copy) id           (^end)();
 /** 将对象赋值到变量 */
 @property (nonatomic,copy) NSObject*    (^setTo)(id* toObject);
-@property (nonatomic,copy) id           (^end)();
-/** 强制获取一个类型的值，失败则返回该类型的初始化对象 */
+
+
+/** 强制类型转换当前对象，失败则返回该类型的初始化对象 */
 @property (nonatomic,copy) NSObject*    (^typeForceObj)(Class theCalss);
+/** NSLog() */
 @property (nonatomic,copy) NSObject*    (^nslog)();
 /** 控制台输出对象前增加标识话语 */
 @property (nonatomic,copy) NSObject*    (^nslogTitle)(NSString* title);
@@ -66,7 +70,7 @@
 @property (nonatomic,copy) NSString*    (^objToJsonString)();
 
 
-#pragma mark - 快速指定类型，减少类型强制转换代码步骤
+#pragma mark - 指定类型，减少类型强制转换代码步骤
 @property (nonatomic,copy) NSString*                    (^typeIsNSString)();
 @property (nonatomic,copy) NSMutableString*             (^typeIsNSMutableString)();
 @property (nonatomic,copy) NSArray*                     (^typeIsNSArray)();
