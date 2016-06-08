@@ -18,5 +18,6 @@
 @property (nonatomic,copy) UILabel*         (^labText)(NSString* txt);
 @property (nonatomic,copy) UILabel*         (^labTextColor)(UIColor* color);
 @property (nonatomic,copy) UILabel*         (^labFont)(UIFont* font);
-@property (nonatomic,copy) UILabel*         (^labFontSizeSystem)(CGFloat fontSize);
+@property (nonatomic,copy) CGFloat          (^labFontSystemSizeGet)();
+@property (nonatomic,copy) UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
 @end

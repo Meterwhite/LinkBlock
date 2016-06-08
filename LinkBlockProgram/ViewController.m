@@ -26,6 +26,11 @@
     
     //查找最大数
     @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
+    //遍历元字符和自定义规则元字符
+    NSString* strForEnumerateComposed = @"[海贼王]になる男だ[微笑]\n😈😴ABC";
+    [strForEnumerateComposed strEnumerateComposedAndCustom:@"\\[[\u4E00-\u9FA5]+\\]" usingBlock:^(NSString *string, NSRange range, BOOL isCustom, BOOL *stop) {
+        //...
+    }];
     
     //创建属性字典
     AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
@@ -34,14 +39,16 @@
     UIButtonNew
     .viewAddToView(self.view)
     .btnTitle(@"Button", UIControlStateNormal)
-    .btnTitleColor([UIColor lightGrayColor],UIControlStateNormal)
+    .btnTitleColor([UIColor brownColor],UIControlStateNormal)
+    .btnTitleColor([UIColor brownColor].colorHighlightDarkColor(),UIControlStateHighlighted)
     .viewBGColor(@"f0f0f0".strToUIColorFromHexStr())
     .frame= @"{{20,20},{150,80}}".strToCGRect();
     
+    
     //添加一个标签到视图上，并且文本顶部对齐，中间对齐
     UILabelNew
-    .labText(@"中间对齐顶部对齐")
     .viewSetFrame(20,200,150,80)
+    .labText(@"中间对齐顶部对齐")
     .labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop()
     .viewAddToView(self.view)
     .viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
@@ -50,9 +57,9 @@
     @"0xff22cc".strToUIColorFromHexStr();//0x.. ，#..，..
     
     //正则表达式替换_xxx_为[xxx]
-    @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
+    @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]");
     //正则表达式验证是否为邮箱
-    @"NOVO@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
+    @"quxingyi@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$") ? @"is email".nslog() : @"not email".nslog();
     
     //数组过滤
     NSArray* arrForFilter = @[ @{@"name":@"ali", @"age":@(123)} ,
@@ -60,11 +67,11 @@
                                @{@"name":@"cli", @"age":@(12)}  ,
                                @{@"name":@"dli", @"age":@(-45)}  ];
     //过滤age<0的数据
-    arrForFilter.arrFilter(@"age<0").nslog();
+    arrForFilter.arrFilter(@"age<0").setTo(&arrForFilter);
     //过滤age<100 并且 age>-1 的数据
     [arrForFilter arrEnumerateWithPredicateFormat:@"age>-1 and age<100"
                                        usingBlock:^(NSObject* obj, NSUInteger idx, BOOL *stop) {
-        obj.nslog();
+        //...
     }];
     
     //对象转json
@@ -72,12 +79,13 @@
 
 
     //遍历字符串中的所有数字
-    NSString* strHaveNumbers = @"我有5元，用了-20.67元";
+    NSString* strHaveNumbers = @"有5元，用了-20.67元";
     [strHaveNumbers strEnumerateScanNumberUsingBlock:^(double num, NSUInteger idx, BOOL *stop) {
-        NSLog(@"%f",num);
+        //...
     }];
     
     
+    //替换字典中的键，再赋值
     NSDictionary* dictNeesReplaceKey = @{
                               @"description":@"123",
                               @"dict":@{
@@ -95,17 +103,24 @@
                                               ]
                                       }
                               };
-    //替换字典中的键，重新赋值，再打印
     dictNeesReplaceKey.dictReplaceKey(@"description", @"DESCRIPTION").setTo(&dictNeesReplaceKey).nslog();
     
     //高效阅读的sql编码方式，易查错，易修改
+    /** 
+        if(sex == 0){
+            select * from Student,Teacher,Foods where id > 1000
+        }else{
+            select id,name,age,sex from Student,Teacher,Foods where id > 1000
+        }
+        如下：
+     */
     BOOL sex = NO;
     [[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
         
         [makeSQL SQLIf:sex==0 using:^(NSMutableString *makeSQL) {
             makeSQL.SQLStr(@"*");
         } elseUsing:^(NSMutableString *makeSQL) {
-            makeSQL.SQLArr(@[@"id",@"name",@"age",@"sex",@"nickName",@"address",@"point"]);
+            makeSQL.SQLArr(@[@"id",@"name",@"age",@"sex"]);
         }];
     }] SQLFrom:^(NSMutableString *makeSQL) {
         
@@ -114,35 +129,26 @@
         
         makeSQL.SQLStr( @"id >").SQLIntInStr(1000);
     }].nslog();
-
-    //2
-    [[SQLNew SQLCreate:^(NSMutableString *makeSQL) {
-        
-        makeSQL.SQLStr(@"table if not exists");
-    }].SQLStr(@"Person") SQLValues:^(NSMutableString *makeSQL) {
-        
-        makeSQL.SQLStr(@"id integer primary key").SQL_Comma();
-        makeSQL.SQLStr(@"name text").SQL_Comma();
-        makeSQL.SQLStr(@"sex integer").SQL_Comma();
-        makeSQL.SQLStr(@"address text");
-    }].nslog();
     
     //便捷测试按钮
-    [self.view viewAddTestBtn:CGRectMake(20,370,150,80) block:^void (NSInteger idx , UIButton* testButton) {
+    UIButton* testButtont = [self.view viewAddTestBtn:CGRectMake(20,370,150,80) block:^void (NSInteger idx , UIButton* testButton) {
         
         testButton.titleLabel.numberOfLines=2;
         testButton.titleLabel.font=[UIFont systemFontOfSize:16];
         testButton.titleLabel.textAlignment=NSTextAlignmentCenter;
-        if(idx%2==0){//偶数
+        if(idx%2==0){
             
-            testButton.viewBGColor([UIColor redColor])
-            .btnTitleColor([UIColor greenColor],UIControlStateNormal);
-            [testButton setTitle:[NSString stringWithFormat:@"添加测试按钮\n%ld",(long)idx] forState:UIControlStateNormal];
-        }else{//奇数
+            testButton
+            .btnTitleColor(@"42a7f4".strToUIColorFromHexStr(),UIControlStateNormal)
+            //设置按钮字体高亮色为系统高亮色
+            .btnTitleColor(@"42a7f4".strToUIColorFromHexStr().colorHighlightDarkColor(),UIControlStateHighlighted)
+            .btnTitle([NSString stringWithFormat:@"添加测试按钮\n%ld",(long)idx],UIControlStateNormal);
+        }else{
             
-            testButton.viewBGColor([UIColor greenColor])
-            .btnTitleColor([UIColor redColor],UIControlStateNormal);;
-            [testButton setTitle:[NSString stringWithFormat:@"添加测试按钮\n%ld",(long)idx] forState:UIControlStateNormal];
+            testButton
+            .btnTitleColor([UIColor orangeColor],UIControlStateNormal)
+            .btnTitleColor([UIColor orangeColor].colorHighlightDarkColor(),UIControlStateHighlighted)
+            .btnTitle([NSString stringWithFormat:@"添加测试按钮\n%ld",(long)idx],UIControlStateNormal);
         }
     }];
     

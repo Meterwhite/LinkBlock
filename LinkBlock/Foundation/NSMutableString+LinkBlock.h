@@ -13,6 +13,8 @@
 @property (nonatomic,copy) NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
 @property (nonatomic,copy) NSMutableString*     (^m_strAppenStr)(NSString* str);
 @property (nonatomic,copy) NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr);
+@property (nonatomic,copy) NSMutableString*     (^m_strDeleteInRange)(NSRange range);
+@property (nonatomic,copy) NSMutableString*     (^m_strClear)();
 
 #pragma mark - SQL拼接部分
 #define SQLNew ([NSMutableString new])
@@ -55,6 +57,9 @@
 
 
 @interface NSMutableString (NSMutableStringLinkBlock)
+/** 遍历同时可修改字符串，遍历按元字符组成的序列，即汉字，emoji，都作为一个字符。返回修改后结果 */
+- (void)m_strEnumerateComposedModifiedUsingBlock:(void(^)(NSString** string,NSRange range,BOOL *stop))block;
+
 /** 方便阅读 */
 - (NSMutableString*)SQLUsing:(void(^)(NSMutableString* makeSQL))block;
 #pragma mark - SQL拼接部分

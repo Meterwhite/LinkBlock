@@ -378,4 +378,59 @@
     };
 }
 - (void)setM_arrReplaceKeyInDictWithoutDeep:(NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDictWithoutDeep{};
+
+- (id (^)())m_arrAny
+{
+    return ^(){
+        LinkError_VAL_IF(NSArray){
+            return (id)nil;
+        }
+        return _self[arc4random_uniform((u_int32_t)_self.count)];
+    };
+}
+- (void)setM_arrAny:(id (^)())m_arrAny{};
+
+- (NSMutableArray<NSValue *> *(^)(BOOL, BOOL))m_arrSortRange
+{
+    return ^(BOOL ascending, BOOL isCombine){
+        LinkError_REF_AUTO(NSMutableArray<NSValue *>, NSMutableArray<NSValue *>);
+        
+        NSMutableSet<NSValue*>* combineArr = [NSMutableSet new];
+        NSInteger flagDirection = ascending?1:-1;
+        [_self sortUsingComparator:^NSComparisonResult(NSValue*  _Nonnull obj1, NSValue*  _Nonnull obj2) {
+            
+            if([obj1 rangeValue].location < [obj2 rangeValue].location){
+                
+                return NSOrderedAscending*flagDirection;
+            }else if ([obj1 rangeValue].location > [obj2 rangeValue].location){
+                
+                return NSOrderedDescending*flagDirection;
+            }else{
+                //location相同
+                if([obj1 rangeValue].length < [obj2 rangeValue].length){
+                    
+                    if(isCombine)[combineArr addObject:obj1];
+                    return NSOrderedAscending*flagDirection;
+                }else if ([obj1 rangeValue].length > [obj2 rangeValue].length){
+                    
+                    if(isCombine)[combineArr addObject:obj2];
+                    return NSOrderedDescending*flagDirection;
+                }else{
+                    
+                    if(isCombine)[combineArr addObject:obj1];
+                    return NSOrderedSame;
+                }
+            }
+        }];
+        if(isCombine){
+            
+            [combineArr enumerateObjectsUsingBlock:^(NSValue * _Nonnull combindItem, BOOL * _Nonnull stop) {
+                
+                [_self removeObjectAtIndex:[_self indexOfObject:combindItem]];
+            }];
+        }
+        return _self;
+    };
+}
+- (void)setM_arrSortRange:(NSMutableArray<NSValue *> *(^)(BOOL, BOOL))m_arrSortRange{};
 @end

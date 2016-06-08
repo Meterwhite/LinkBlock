@@ -92,14 +92,16 @@
 }
 - (void)setArrIsContainer:(BOOL (^)(id))blockContainer{};
 
-- (NSObject *(^)())arrValueAny
+- (id (^)())arrAny
 {
     return ^(){
-        LinkError_REF_AUTO(NSObject, NSArray);
-        return (NSObject*)_self[arc4random_uniform((u_int32_t)_self.count)];
+        LinkError_VAL_IF(NSArray){
+            return (id)nil;
+        }
+        return _self[arc4random_uniform((u_int32_t)_self.count)];
     };
 }
-- (void)setArrValueAny:(NSObject *(^)())arrValueAny{}
+- (void)setArrAny:(id(^)())arrAny{};
 
 - (id (^)(NSUInteger))arrAt
 {
@@ -164,12 +166,9 @@
         LinkError_REF_AUTO(NSNumber, NSArray);
         __block NSNumber* max = _self[0];
         [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
-            if([num isKindOfClass:[NSNumber class]]){
-                if(max.doubleValue < num.doubleValue){
+            if([num isKindOfClass:[NSNumber class]])
+                if(max.doubleValue < num.doubleValue)
                     max = num;
-                }
-            }
-            
         }];
         return max;
     };
@@ -256,11 +255,44 @@
     [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if([predicate evaluateWithObject:obj]){
             [re addObject:obj];
-            if(block){
-                block(obj, idx, &*stop);
-            }
+            if(block) block(obj, idx, &*stop);
         }
     }];
 }
 
+- (void)arrStringEnumerateComposedInString:(NSString *)string usingBlock:(void (^)(NSString *, NSRange,BOOL , BOOL *))block
+{
+    if(block){
+        
+        NSMutableArray<NSValue*>* rangeRules = [NSMutableArray new];
+        [self enumerateObjectsUsingBlock:^(NSString*  _Nonnull ruleString, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if(![ruleString isKindOfClass:[NSString class]]){*stop = YES;return;}
+            NSRange range;
+            for (int i =0 ; i<string.length; i+=(range.location + range.length)) {
+                
+                range = [string rangeOfString:ruleString options:0 range:NSMakeRange(i, string.length-i)];
+                if(range.length==0) break;
+                [rangeRules addObject:[NSValue valueWithRange:range]];
+            }
+        }];
+        rangeRules.m_arrSortRange(YES,YES);
+        
+        NSRange range; BOOL isCustom = NO; BOOL stop = NO;
+        for(int i=0; (i<string.length && !stop); i+=range.length){
+            
+            if(rangeRules.count && [rangeRules firstObject].rangeValue.location == i){
+                //当前起始点是一个规则起点
+                range = [rangeRules firstObject].rangeValue;
+                [rangeRules removeObjectAtIndex:0];
+                isCustom = YES;
+            }else{
+                //普通元字符
+                range = [string rangeOfComposedCharacterSequenceAtIndex:i];
+                isCustom = NO;
+            }
+            block([string substringWithRange:range], range, isCustom , &stop);
+        }
+    }
+}
 @end

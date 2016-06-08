@@ -357,7 +357,7 @@
 }
 - (void)setStrLineHeight:(double (^)(NSDictionary *))strLineHeight{};
 
-- (NSInteger (^)(CGFloat, NSDictionary *))strLineCount
+- (NSInteger (^)(CGFloat, NSDictionary *))strLinesCountAboutView
 {
     return ^(CGFloat maxWidth,NSDictionary* attrDict){
         LinkError_VAL_IF(NSString){
@@ -386,9 +386,9 @@
         return (NSInteger)(allHeight/lineHeight + enterCount);
     };
 }
-- (void)setStrLineCount:(NSInteger (^)(CGFloat, NSDictionary *))strLineCount{};
+- (void)setStrLinesCountAboutView:(NSInteger (^)(CGFloat, NSDictionary *))strLinesCountAboutView{};
 
-- (NSString* (^)(NSInteger, CGFloat,NSDictionary*))strSubToLine
+- (NSString* (^)(NSInteger, CGFloat,NSDictionary*))strSubToLineAboutView
 {
     return ^(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict){
         
@@ -397,7 +397,7 @@
         NSString* re=_self;
         for (int i= (int)_self.length; i>0; i--) {//倒序
             NSString* forStr = [_self substringToIndex:i];
-            if( forStr.strLineCount(maxWidth,attrDict) == toLine){
+            if( forStr.strLinesCountAboutView(maxWidth,attrDict) == toLine){
                 re = forStr;
                 break;
             }
@@ -405,7 +405,7 @@
         return re;
     };
 }
-- (void)setStrSubToLine:(NSString *(^)(NSInteger, CGFloat, NSDictionary *))strSubToLine{};
+- (void)setStrSubToLineAboutView:(NSString *(^)(NSInteger, CGFloat, NSDictionary *))strSubToLineAboutView{};
 
 - (BOOL (^)())strIsBlank{
     return ^(){
@@ -476,13 +476,53 @@
 }
 - (void)setStrLengthUnicode:(NSUInteger (^)())strLengthUnicode{};
 
+- (NSUInteger (^)())strLengthComposed
+{
+    return ^(){
+        LinkError_VAL_IF(NSString){
+            return (NSUInteger)0;
+        }
+        NSUInteger re=0; NSRange range;
+        for(int i=0; i<_self.length; i+=range.length){
+            range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
+            re++;
+        }
+        return re;
+    };
+}
+- (void)setStrLengthComposed:(NSUInteger (^)())strLengthComposed{};
+
+- (NSUInteger (^)(NSString *))strLengthComposedAndCustom
+{
+    return ^(NSString* reg){
+        LinkError_VAL_IF(NSString){
+            return (NSUInteger)0;
+        }
+        NSError* error = nil;
+        NSUInteger re = 0;
+        NSMutableString* tempString = [_self mutableCopy];
+        NSRegularExpression* regExp = [[NSRegularExpression alloc] initWithPattern:reg options:0 error:&error];
+        if(!error){
+            
+            re += [regExp replaceMatchesInString:tempString options:0 range:NSMakeRange(0, tempString.length) withTemplate:@""];
+            NSRange range;
+            for(int i=0; i<tempString.length; i+=range.length){
+                range = [tempString rangeOfComposedCharacterSequenceAtIndex:i];
+                re++;
+            }
+        }
+        return re;
+    };
+}
+- (void)setStrLengthComposedAndCustom:(NSUInteger (^)(NSString *))strLengthComposedAndCustom{};
+
 - (BOOL (^)())strIsContainEmoji
 {
     return ^(){
         LinkError_VAL_IF(NSString){
             return NO;
         }
-        __block BOOL isEomji = NO;
+        __block BOOL hasEomji = NO;
         
         [_self enumerateSubstringsInRange:NSMakeRange(0, _self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
             const unichar hs = [substring characterAtIndex:0];
@@ -492,30 +532,31 @@
                     const unichar ls = [substring characterAtIndex:1];
                     const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
                     if (0x1d000 <= uc && uc <= 0x1f77f) {
-                        isEomji = YES;
+                        hasEomji = YES;
                     }
                 }
             } else if (substring.length > 1) {
                 const unichar ls = [substring characterAtIndex:1];
                 if (ls == 0x20e3) {
-                    isEomji = YES;
+                    hasEomji = YES;
                 }
             } else {
                 // non surrogate
                 if (0x2100 <= hs && hs <= 0x27ff && hs != 0x263b) {
-                    isEomji = YES;
+                    hasEomji = YES;
                 } else if (0x2B05 <= hs && hs <= 0x2b07) {
-                    isEomji = YES;
+                    hasEomji = YES;
                 } else if (0x2934 <= hs && hs <= 0x2935) {
-                    isEomji = YES;
+                    hasEomji = YES;
                 } else if (0x3297 <= hs && hs <= 0x3299) {
-                    isEomji = YES;
+                    hasEomji = YES;
                 } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50|| hs == 0x231a ) {
-                    isEomji = YES;
+                    hasEomji = YES;
                 }
             }
+            if(hasEomji){*stop = YES;}
         }];
-        return isEomji;
+        return hasEomji;
     };
 }
 - (void)setStrIsContainEmoji:(BOOL (^)())strIsContainEmoji{};
@@ -1093,10 +1134,13 @@
 {
     return ^(NSString* regexStr, NSString* replaceTemplate){
         LinkError_REF_AUTO(NSString, NSString);
+        NSError* error = nil;
         NSRegularExpression* regex = [[NSRegularExpression alloc]
                                       initWithPattern:regexStr
                                       options:0
-                                      error:nil];
+                                      error:&error];
+        if(error)
+            return _self;
         return [regex stringByReplacingMatchesInString:[_self mutableCopy]
                                                options:0
                                                  range:NSMakeRange(0, _self.length)
@@ -1196,21 +1240,53 @@
 }
 - (void)setStrReversed:(NSString *(^)())strReversed{};
 
+
+
+- (NSUInteger (^)())strLinesCount
+{
+    return ^(){
+        LinkError_VAL_IF(NSString){
+            return (NSUInteger)0;
+        }
+        __block NSUInteger re=0;
+        
+        [[_self componentsSeparatedByString:@"\n"] count];
+        return re;
+    };
+}
+- (void)setStrLinesCount:(NSUInteger (^)())strLinesCount{};
+
+- (NSString *(^)(NSUInteger))strSubToLine
+{
+    return ^(NSUInteger toLine){
+        LinkError_REF_AUTO(NSString, NSString);
+        NSMutableString* re = [NSMutableString new];
+        NSArray<NSString*>* linesArr = [_self componentsSeparatedByString:@"\n"];
+        [linesArr enumerateObjectsUsingBlock:^(NSString * _Nonnull str, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(idx < toLine){
+                [re appendString:str];
+                [re appendString:@"\n"];
+            }
+        }];
+        return (NSString*)[re copy];
+    };
+}
+- (void)setStrSubToLine:(NSString *(^)(NSUInteger))strSubToLine{};
+@end
+
+@implementation NSString (NSStringLinkBlock)
+
 - (void)strEnumerateScanIntegerUsingBlock:(void (^)(NSInteger num, NSUInteger idx, BOOL *stop))block
 {
     if(block){
-        LinkError_VAL_IF(NSString){
-            return;
-        }
+
         NSError* error = nil;
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[+\\-]?[0-9]+" options:NSRegularExpressionCaseInsensitive error:&error];
         if(error)
             return;
-        NSArray* reArr = [regex matchesInString:_self
-                                        options:0
-                                          range:NSMakeRange(0, _self.length)];
+        NSArray* reArr = [regex matchesInString:self options:0 range:NSMakeRange(0, self.length)];
         [reArr enumerateObjectsUsingBlock:^(NSTextCheckingResult*  _Nonnull result, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString* numStr = [_self substringWithRange: result.range];
+            NSString* numStr = [self substringWithRange: result.range];
             block(numStr.integerValue , idx, stop);
         }];
     }
@@ -1219,18 +1295,14 @@
 - (void)strEnumerateScanFloatingUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block
 {
     if(block){
-        LinkError_VAL_IF(NSString){
-            return;
-        }
+
         NSError* error = nil;
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[+\\-]?(?:[0-9]*\\.[0-9]+|[0-9]+\\.)" options:NSRegularExpressionCaseInsensitive error:&error];
         if(error)
             return;
-        NSArray* reArr = [regex matchesInString:_self
-                                        options:0
-                                          range:NSMakeRange(0, _self.length)];
+        NSArray* reArr = [regex matchesInString:self options:0 range:NSMakeRange(0, self.length)];
         [reArr enumerateObjectsUsingBlock:^(NSTextCheckingResult*  _Nonnull result, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString* numStr = [_self substringWithRange: result.range];
+            NSString* numStr = [self substringWithRange: result.range];
             block(numStr.doubleValue , idx, stop);
         }];
     }
@@ -1239,20 +1311,66 @@
 - (void)strEnumerateScanNumberUsingBlock:(void(^)(double num, NSUInteger idx, BOOL *stop))block
 {
     if(block){
-        LinkError_VAL_IF(NSString){
-            return;
-        }
+
         NSError* error = nil;
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[+\\-]?\\d+(\\.\\d+)?" options:NSRegularExpressionCaseInsensitive error:&error];
         if(error)
             return;
-        NSArray* reArr = [regex matchesInString:_self
-                                        options:0
-                                          range:NSMakeRange(0, _self.length)];
+        NSArray* reArr = [regex matchesInString:self options:0 range:NSMakeRange(0, self.length)];
         [reArr enumerateObjectsUsingBlock:^(NSTextCheckingResult*  _Nonnull result, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString* numStr = [_self substringWithRange: result.range];
+            NSString* numStr = [self substringWithRange: result.range];
             block(numStr.doubleValue , idx, stop);
         }];
+    }
+}
+
+- (void)strEnumerateComposedUsingBlock:(void (^)(NSString *, NSRange, BOOL *))block
+{
+    if(block){
+
+        [self enumerateSubstringsInRange:NSMakeRange(0, self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
+            block(substring,enclosingRange,stop);
+        }];
+    }
+}
+
+- (NSMutableString*)strEnumerateComposedModifiedUsingBlock:(void (^)(NSString *__autoreleasing *, NSRange, BOOL *))block
+{
+    if(block){
+        NSMutableString* newStr = [NSMutableString new];
+        [self enumerateSubstringsInRange:NSMakeRange(0, self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
+            block(&substring,enclosingRange,stop);
+            [newStr appendString:substring];
+        }];
+        return newStr;
+    }
+    return [self mutableCopy];
+}
+
+- (void)strEnumerateComposedAndCustom:(NSString *)regx usingBlock:(void (^)(NSString *__autoreleasing, NSRange, BOOL, BOOL *))block
+{
+    if(!block) return;
+    
+    NSError* error = nil;
+    NSRegularExpression* regExp = [[NSRegularExpression alloc] initWithPattern:regx options:0 error:&error];
+    if(!error){
+        
+        NSRange range; BOOL isCustom = NO; BOOL stop = NO;
+        NSMutableArray<NSTextCheckingResult*>* matchs = [[regExp matchesInString:self options:0 range:NSMakeRange(0, self.length)] mutableCopy];//获得匹配集
+        for(int i=0; (i<self.length && !stop); i+=range.length){
+            
+            if(matchs.count && [matchs firstObject].range.location == i){
+                //当前起始点是一个规则起点
+                range = [matchs firstObject].range;
+                [matchs removeObjectAtIndex:0];
+                isCustom = YES;
+            }else{
+                //普通元字符
+                range = [self rangeOfComposedCharacterSequenceAtIndex:i];
+                isCustom = NO;
+            }
+            block([self substringWithRange:range] , range , isCustom , &stop);
+        }
     }
 }
 @end

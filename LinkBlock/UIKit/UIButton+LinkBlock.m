@@ -78,15 +78,15 @@
 }
 - (void)setBtnTitleFont:(UIButton *(^)(UIFont *))blockTitleFontSet{};
 
-- (UIButton *(^)(CGFloat))btnTitleFontSize
+- (UIButton *(^)(CGFloat))btnTitleFontSystemSizeSet
 {
     return ^(CGFloat size){
         LinkError_REF_AUTO(UIButton, UIButton);
-        _self.titleLabel.labFontSizeSystem(size);
+        _self.titleLabel.labFontSystemSizeSet(size);
         return _self;
     };
 }
-- (void)setBtnTitleFontSize:(UIButton *(^)(CGFloat))blockTitleFontSizeSet{};
+- (void)setBtnTitleFontSystemSizeSet:(UIButton *(^)(CGFloat))btnTitleFontSystemSizeSet{};
 
 - (UIButton *(^)(NSAttributedString *, UIControlState))btnAttributeTitle
 {
@@ -98,4 +98,14 @@
 }
 - (void)setBtnAttributeTitle:(UIButton *(^)(NSAttributedString *, UIControlState))blockAttributeTitleSet{};
 
+- (CGFloat (^)())btnTitleFontSystemSizeGet
+{
+    return ^(){
+        LinkError_VAL_IF(UIButton){
+            return 0.0;
+        }
+        return _self.titleLabel.font.pointSize;
+    };
+}
+- (void)setBtnTitleFontSystemSizeGet:(CGFloat (^)())btnTitleFontSystemSizeGet{};
 @end

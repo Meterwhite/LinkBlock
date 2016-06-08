@@ -24,14 +24,12 @@
 @property (nonatomic,copy) NSDictionary*            (^arrToDictByKeyNumber)();
 /** 数组转字典，键为NSString类型 */
 @property (nonatomic,copy) NSDictionary*            (^arrToDictByKeyString)();
-
 /** 获取任意一个对象 */
-@property (nonatomic,copy) NSObject*                (^arrValueAny)();
+@property (nonatomic,copy) id                       (^arrAny)();
 /** 最后一个对象 */
 @property (nonatomic,copy) NSObject*                (^arrLast)();
 /** 第一个对象 */
 @property (nonatomic,copy) NSObject*                (^arrFirst)();
-
 @property (nonatomic,copy) NSArray*                 (^arrValuesOfType)(Class typeClass);
 /** 组数过滤，如age>20 */
 @property (nonatomic,copy) NSArray*                 (^arrFilter)(NSString* predicateFormat);
@@ -41,11 +39,9 @@
 @property (nonatomic,copy) NSMutableArray*          (^arrReplaceKeyInDict)(id<NSCopying> replaceKey,id<NSCopying> withKey);
 /** 替换数组中字典的key，非深度遍历的 */
 @property (nonatomic,copy) NSMutableArray*          (^arrReplaceKeyInDictWithoutDeep)(id<NSCopying> replaceKey,id<NSCopying> withKey);
-
-
-/** 找到数组中最大的数字类型 */
+/** 找到数组中最大的数字类型，可容纳其他类型对象 */
 @property (nonatomic,copy) NSNumber*                (^arrMaxNumber)();
-/** 找到数组中最小的数字类型 */
+/** 找到数组中最小的数字类型，可容纳其他类型对象 */
 @property (nonatomic,copy) NSNumber*                (^arrMinNumber)();
 
 @end
@@ -58,6 +54,14 @@
  *
  *  @return 根据条件过滤后的结果集
  */
-- (void)arrEnumerateWithPredicateFormat:(NSString*)predicateFormat
-                             usingBlock:(void(^)(id obj, NSUInteger idx, BOOL *stop))block;
+- (void)arrEnumerateWithPredicateFormat:(NSString*)predicateFormat usingBlock:(void(^)(id obj, NSUInteger idx, BOOL *stop))block;
+
+/**
+ *  使用数组中的字符为元字符规则去遍历字符串，遍历以元字符为单位，如：emoji，一个规则
+ *
+ *  [@[@"[微笑]",@"[挖鼻屎]"] arrStringEnumerateComposedInString:@"我是[微笑]还要[挖鼻屎]😈😴"  usingBlock:^(NSString *subString, NSRange range, BOOL isCustom, BOOL *stop) {
+ *      //...
+ *  }];
+ */
+- (void)arrStringEnumerateComposedInString:(NSString *)string usingBlock:(void (^)(NSString *subString, NSRange range, BOOL isCustom, BOOL *stop))block;
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define CAShapeLayerNew ([CAShapeLayer layer])
 @interface  NSObject(CAShapeLayerLinkBlock)
 @property (nonatomic,copy) CAShapeLayer*    (^sharpLayerSetPath)(UIBezierPath* path);
 @property (nonatomic,copy) CAShapeLayer*    (^sharpLayerSetFillColor)(UIColor* color);

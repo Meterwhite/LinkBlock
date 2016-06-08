@@ -196,7 +196,8 @@
         [_self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
             
             if([v isKindOfClass:[UITextView class]] ||
-               [v isKindOfClass:[UITextField class]]){
+               [v isKindOfClass:[UITextField class]]||
+               [v isKindOfClass:[UISearchBar class]]){
                 if(v.isFirstResponder){
                     re= v;
                     *stop= YES;
@@ -497,11 +498,21 @@
 {
     return ^(UIRectCorner side , CGSize radius){
         LinkError_REF_AUTO(UIView, UIView);
-        UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:_self.bounds
+        __block CGRect bounds = _self.bounds;
+        if(_self.constraints.count){
+            [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+                if(constraint.firstAttribute==NSLayoutAttributeWidth){
+                    bounds.size.width = constraint.constant;
+                }else if (constraint.firstAttribute==NSLayoutAttributeHeight){
+                    bounds.size.height = constraint.constant;
+                }
+            }];
+        }
+        UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:bounds
                                                    byRoundingCorners:side
                                                          cornerRadii:radius];
         CAShapeLayer* shape = [[CAShapeLayer alloc] init];
-        shape.frame= _self.bounds;
+        shape.frame= bounds;
         shape.path= path.CGPath;
         _self.layer.mask = shape;
         return _self;
@@ -1165,6 +1176,39 @@
     };
 }
 - (void)setViewRemoveAutoresizing:(UIView *(^)())viewRemoveAutoresizing{};
+
+- (UIView *(^)())viewBeforeIndexView
+{
+    return ^(){
+        LinkError_REF_AUTO(UIView, UIView);
+        return (UIView*)_self.objBeforeInArr(_self.subviews);
+    };
+}
+- (void)setViewBeforeIndexView:(UIView *(^)())viewBeforeIndexView{};
+
+- (UIView *(^)())viewNextIndexView
+{
+    return ^(){
+        LinkError_REF_AUTO(UIView, UIView);
+        return (UIView*)_self.objNextInArr(_self.subviews);
+    };
+}
+- (void)setViewNextIndexView:(UIView *(^)())viewNextIndexView{};
+
+- (BOOL (^)(UIView *))viewIsSuperviewTo
+{
+    return ^(UIView* aView){
+        LinkError_VAL_IF(UIView){
+            return NO;
+        }
+        __block BOOL re = NO;
+        [aView viewEnumerateSuperviewUsingBlock:^(UIView *superview, BOOL *stop) {
+            if(superview==_self) re = YES;*stop = re;
+        }];
+        return re;
+    };
+}
+- (void)setViewIsSuperviewTo:(BOOL (^)(UIView *))viewIsSuperviewTo{};
 @end
 
 
@@ -1172,13 +1216,49 @@
 
 - (UIButton*)viewAddTestBtn:(CGRect)frame block:(void(^)(NSInteger idx, UIButton* testButton))block
 {
-    UIButton* btn=UIButtonNew.viewBGColor([UIColor redColor])
+    UIButton* btn=UIButtonNew.viewBGColor([UIColor lightGrayColor])
     .viewAddToView(self).btnTitleFont([UIFont systemFontOfSize:12]);
     btn.frame=frame;;
     [btn addTarget:btn action:@selector(lb_ClickTestBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [btn lb_SetBlock_ClickTestBtnBlock:block];
     [btn lb_SetBlock_ClickTestBtnNumFlag:0];
     return btn;
+}
+
+- (void)viewEnumerateSuperviewUsingBlock:(void (^)(UIView *, BOOL *))block
+{
+    BOOL stop=NO;
+    [self viewEnumerateSuperview:&stop blcok:block];
+}
+//private
+- (void)viewEnumerateSuperview:(BOOL*)stop blcok:(void (^)(UIView *, BOOL *))block
+{
+    if(*stop)return;
+    if(self.superview){
+        block(self.superview , stop);
+        [self.superview viewEnumerateSuperview:stop blcok:block];
+    }
+}
+
+- (void)viewEnumerateSubviewsUsingBlock:(void (^)(UIView *, NSUInteger,NSUInteger, BOOL *))block
+{
+    [self viewEnumerateSubviewsFromDeep:0 usingBlock:block];
+}
+
+//private
+- (void)viewEnumerateSubviewsFromDeep:(NSUInteger)deep usingBlock:(void (^)(UIView *subview, NSUInteger deep,NSUInteger idx, BOOL *stop))block
+{
+    if(self.subviews.count){
+        
+        deep++;
+        [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subview, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            block(subview,deep,idx,stop);
+            if(subview.subviews.count){
+                [subview viewEnumerateSubviewsFromDeep:deep usingBlock:block];
+            }
+        }];
+    }
 }
 
 - (void)lb_ClickTestBtnAction
@@ -1194,6 +1274,7 @@
         [self lb_SetBlock_ClickTestBtnNumFlag:++num];
     }
 }
+
 /** 回调block */
 static char _lb_ClickTestBtnBlock_Key;
 - (void)lb_SetBlock_ClickTestBtnBlock:(id)block

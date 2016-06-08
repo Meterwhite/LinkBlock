@@ -12,6 +12,7 @@
 @property (nonatomic,copy) id                       (^m_arrAt)(NSUInteger idx);
 @property (nonatomic,copy) NSMutableArray*          (^m_arrSubFrom)(NSUInteger idx);
 @property (nonatomic,copy) NSMutableArray*          (^m_arrSubTo)(NSUInteger idx);
+@property (nonatomic,copy) id                       (^m_arrAny)();
 /** 插入一个元素,安全的 */
 @property (nonatomic,copy) NSMutableArray*  (^m_arrAddObj)(id obj);
 /** 插入一个数组,安全的 */
@@ -24,7 +25,7 @@
 @property (nonatomic,copy) NSMutableArray*  (^m_arrInsertBefore)(id obj, id beforeObj);
 /** 插入一个对象在另一个对象之后 */
 @property (nonatomic,copy) NSMutableArray*  (^m_arrInsertBehind)(id obj, id behindObj);
-/** 移除一个元素,安全的不会溢出的 */
+/** 移除一个元素,安全的不会溢出 */
 @property (nonatomic,copy) NSMutableArray*  (^m_arrRemoveObj)(id obj);
 /** 移除指定Index处的元素,安全的不会溢出的 */
 @property (nonatomic,copy) NSMutableArray*  (^m_arrRemoveAt)(NSUInteger index);
@@ -50,8 +51,10 @@
 
 /** 获取数组中所有该类型的对象 */
 @property (nonatomic,copy) NSMutableArray*          (^m_arrObjsOfType)(Class typeClass);
-/** 以数组中对象的Key的值进行排序 */
+/** 以数组中对象的Key的值进行排序,ascending：升序 */
 @property (nonatomic,copy) NSMutableArray*          (^m_arrSortByKey)(NSString* key, BOOL ascending);
+/** 对数组子项为NSRange型的NSValue进行排序，isCombine：NSRange(0,2)会合并NSRange(0,1) */
+@property (nonatomic,copy) NSMutableArray<NSValue*>* (^m_arrSortRange)(BOOL ascending, BOOL isCombine);
 /** 插入对象如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后 */
 @property (nonatomic,copy) NSMutableArray*          (^m_arrAddOrReplaceObjByKey)(id obj , NSString* key);
 /** 在指定索引处插入对象，如果数组中存在对象的Key对应的value比较相等则全部替换， */

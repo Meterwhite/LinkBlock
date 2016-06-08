@@ -126,7 +126,7 @@
 }
 - (void)setLabFont:(UILabel *(^)(UIFont *))labFont{};
 
-- (UILabel *(^)(CGFloat))labFontSizeSystem
+- (UILabel *(^)(CGFloat))labFontSystemSizeSet
 {
     return ^(CGFloat size){
         LinkError_REF_AUTO(UILabel, UILabel);
@@ -134,7 +134,16 @@
         return _self;
     };
 }
-- (void)setLabFontSizeSystem:(UILabel *(^)(CGFloat))blockFontSize{};
+- (void)setLabFontSystemSizeSet:(UILabel *(^)(CGFloat))labFontSystemSizeSet{};
 
-
+- (CGFloat (^)())labFontSystemSizeGet
+{
+    return ^(){
+        LinkError_VAL_IF(UILabel){
+            return 0.0;
+        }
+        return _self.font.pointSize;
+    };
+}
+- (void)setLabFontSystemSizeGet:(CGFloat (^)())labFontSystemSizeGet{};
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define UIBezierPathNew ([UIBezierPath bezierPath])
 @interface UIBezierPath(UIBezierPathLinkBlock)
 
 @property (nonatomic,copy) UIBezierPath*    (^bezierPathSetLineWidth)(CGFloat lineWidth);

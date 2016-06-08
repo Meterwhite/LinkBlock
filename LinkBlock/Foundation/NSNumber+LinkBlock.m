@@ -387,6 +387,15 @@ static NSArray* _charCTypeArr;
     };
 }
 - (void)setNumIndexIsInStringRange:(BOOL (^)(NSString *))numIndexIsInStringRange{};
+
+- (UIFont *(^)())numToUIFontSystemSize
+{
+    return ^(){
+        LinkError_REF_AUTO(UIFont, NSNumber);
+        return [UIFont systemFontOfSize:[_self doubleValue]];
+    };
+}
+- (void)setNumToUIFontSystemSize:(UIFont *(^)())numToUIFontSystemSize{};
 @end
 
 @implementation NSNumber (NSNumberLinkBlock)

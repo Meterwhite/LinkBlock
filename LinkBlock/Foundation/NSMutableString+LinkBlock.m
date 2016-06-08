@@ -42,12 +42,26 @@
 }
 - (void)setM_strAppenStr:(NSMutableString *(^)(NSString *))m_strAppenStr{};
 
-//@property (nonatomic,copy) NSMutableString*     (^SQLStr)(NSString* str);
-//@property (nonatomic,copy) NSMutableString*     (^SQLInt)(NSInteger intVal);
-//@property (nonatomic,copy) NSMutableString*     (^SQLDouble)(double doubleVal);
-//@property (nonatomic,copy) NSMutableString*     (^SQLArr)(NSArray* arr);
-//@property (nonatomic,copy) NSMutableString*     (^SQLDictKeys)(NSDictionary* dict);
-//@property (nonatomic,copy) NSMutableString*     (^SQLDictValues)(NSDictionary* dict);
+- (NSMutableString *(^)())m_strClear
+{
+    return ^(){
+        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+        [_self setString:@""];
+        return _self;
+    };
+}
+- (void)setM_strClear:(NSMutableString *(^)())m_strClear{};
+
+- (NSMutableString *(^)(NSRange))m_strDeleteInRange
+{
+    return ^(NSRange range){
+        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+        [_self deleteCharactersInRange:range];
+        return _self;
+    };
+}
+- (void)setM_strDeleteInRange:(NSMutableString *(^)(NSRange))m_strDeleteInRange{};
+
 - (NSMutableString *(^)(NSString *))SQLStr
 {
     return ^(NSString* str){
@@ -524,5 +538,17 @@
         }
     }
     return self;
+}
+
+- (void)m_strEnumerateComposedModifiedUsingBlock:(void (^)(NSString *__autoreleasing *, NSRange, BOOL *))block
+{
+    if(block){
+        NSMutableString* newStr = [NSMutableString new];
+        [self enumerateSubstringsInRange:NSMakeRange(0, self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
+            block(&substring,enclosingRange,stop);
+            [newStr appendString:substring];
+        }];
+        [self setString:newStr];
+    }
 }
 @end

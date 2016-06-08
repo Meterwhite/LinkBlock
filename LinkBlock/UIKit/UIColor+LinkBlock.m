@@ -13,20 +13,16 @@
     return ^(NSString* prefix){
         LinkError_REF_AUTO(NSString, UIColor);
         NSMutableString* reIsMStr = [NSMutableString string];
-        if([prefix isKindOfClass:[NSString class]])
-            [reIsMStr appendString:prefix];
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        if([prefix isKindOfClass:[NSString class]]) [reIsMStr appendString:prefix];
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
-            [reIsMStr appendFormat:@"%02x",(int)(r* 255.0)];
-            [reIsMStr appendFormat:@"%02x",(int)(g* 255.0)];
-            [reIsMStr appendFormat:@"%02x",(int)(g* 255.0)];
+            
+            [reIsMStr appendFormat:@"%02x",(int)(r*255.0)];
+            [reIsMStr appendFormat:@"%02x",(int)(g*255.0)];
+            [reIsMStr appendFormat:@"%02x",(int)(g*255.0)];
         }else{
-            return @"0xffffff";
+            return (NSString*)nil;
         }
-        
         return (NSString*)[reIsMStr copy];
     };
 }
@@ -38,10 +34,7 @@
         LinkError_VAL_IF(UIColor){
             return (CGFloat)0.0;
         }
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return r;
         }else{
@@ -57,10 +50,7 @@
         LinkError_VAL_IF(UIColor){
             return (CGFloat)0.0;
         }
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return g;
         }else{
@@ -76,10 +66,7 @@
         LinkError_VAL_IF(UIColor){
             return (CGFloat)0.0;
         }
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return b;
         }else{
@@ -95,10 +82,7 @@
         LinkError_VAL_IF(UIColor){
             return (CGFloat)0.0;
         }
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return a;
         }else{
@@ -114,10 +98,7 @@
         LinkError_VAL_IF(UIColor){
             return (CGFloat)0.0;
         }
-        CGFloat hue;
-        CGFloat saturation;
-        CGFloat brightness;
-        CGFloat a;
+        CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return hue;
         }else{
@@ -133,10 +114,7 @@
         LinkError_VAL_IF(UIColor){
             return (CGFloat)0.0;
         }
-        CGFloat hue;
-        CGFloat saturation;
-        CGFloat brightness;
-        CGFloat a;
+        CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return saturation;
         }else{
@@ -152,10 +130,7 @@
         LinkError_VAL_IF(UIColor){
             return (CGFloat)0.0;
         }
-        CGFloat hue;
-        CGFloat saturation;
-        CGFloat brightness;
-        CGFloat a;
+        CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return brightness;
         }else{
@@ -170,10 +145,7 @@
     return ^(CGFloat value){
         LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             _self = [UIColor colorWithRed:value green:g blue:b alpha:a];
             return _self;
@@ -189,10 +161,7 @@
     return ^(CGFloat value){
         LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             _self = [UIColor colorWithRed:r green:value blue:b alpha:a];
             return _self;
@@ -208,10 +177,7 @@
     return ^(CGFloat value){
         LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             _self = [UIColor colorWithRed:r green:g blue:value alpha:a];
             return _self;
@@ -227,10 +193,7 @@
     return ^(CGFloat value){
         LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
-        CGFloat r;
-        CGFloat g;
-        CGFloat b;
-        CGFloat a;
+        CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return [UIColor colorWithRed:r green:g blue:b alpha:value];
         }else{
@@ -245,10 +208,7 @@
     return ^(CGFloat value){
         LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
-        CGFloat hue;
-        CGFloat saturation;
-        CGFloat brightness;
-        CGFloat a;
+        CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return [UIColor colorWithHue:value saturation:saturation brightness:brightness alpha:a];
         }else{
@@ -263,10 +223,7 @@
     return ^(CGFloat value){
         LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
-        CGFloat hue;
-        CGFloat saturation;
-        CGFloat brightness;
-        CGFloat a;
+        CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return [UIColor colorWithHue:hue saturation:saturation brightness:value alpha:a];
         }else{
@@ -281,10 +238,7 @@
     return ^(CGFloat value){
         LinkError_REF_AUTO(UIColor, UIColor);
         value = (value<0||value>1) ? 0.0 : value;
-        CGFloat hue;
-        CGFloat saturation;
-        CGFloat brightness;
-        CGFloat a;
+        CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return [UIColor colorWithHue:hue saturation:saturation brightness:value alpha:a];
         }else{
@@ -348,10 +302,7 @@
 {
     return ^(double percent){
         LinkError_REF_AUTO(UIColor, UIColor);
-        CGFloat hue;
-        CGFloat saturation;
-        CGFloat brightness;
-        CGFloat alpha;
+        CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat alpha;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha]){
             
             brightness *= (1.0+percent);

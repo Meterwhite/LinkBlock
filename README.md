@@ -2,36 +2,33 @@
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
 ## What is this?
-* 这是一个objc扩展集合`链式编程`，为了减少换行和中括号的干扰，让我们可以专注于编码的逻辑。
+* 这是一个objc扩展集合`链式编程`，为了减少换行和中括号的干扰，让我们尽量专注于编码的逻辑。
 * 提炼Fundation最基本功能和最常见功能。
 * 持续维护。
 * This is objective-c link block , to `chain programming`.
 * Frame encapsulation of native Foundation is the most basic and the most common functions...
 * Continuously updated
-##Simple to use LinkBlock ;
+##Simple to use LinkBlock;
 ```objc
-LinkBlock.h
+#import "LinkBlock.h"
 ```
 
-##CGRectMake()不友好
+##麻烦的CGRectMake()
 ```objc
-//Such written before 
-//手绘UI常要创建4，5个变量
-UIButtonNew
-.viewAddToView(self.view)
-.btnTitle(@"Button", UIControlStateNormal)
-.btnTitleColor([UIColor lightGrayColor],UIControlStateNormal)
-.viewBGColor(@"f0f0f0".strToUIColorFromHexStr())
-.frame= @"{{20,20},{150,80}}".strToCGRect();
+//绘制UI常创建多个变量
+UIButton* btn;
+UIImageView* img;
+CGRect rect1;
+CGRect rect2;
+[btn addSubview:img];
 ```
 ##使用链式的方式完成一件事情
 ```objc
 //如果使用链式编程的方式，大部分工作可以在思路连续的情况下进行
-//now just using one line.Most work can be wrapped up in the idea of ​​ongoing cases
-btn.viewSetFrame(20,20,150,80)
+UIButtonNew.viewSetFrame(20,20,150,80)
 .viewBGColor(@"0xff22cc".strToColorFromHexStr())
 .viewAddToView(self.view)
-.btnTitle(@"click change color", UIControlStateNormal);
+.btnTitle(@"Button", UIControlStateNormal);
 ```
 ##一些样例
 ```objc
@@ -44,6 +41,11 @@ btn.viewSetFrame(20,20,150,80)
 
 //查找最大数
 @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
+//遍历元字符和自定义规则元字符
+NSString* strForEnumerateComposed = @"[海贼王]になる男だ[微笑]\n😈😴ABC";
+[strForEnumerateComposed strEnumerateComposedAndCustom:@"\\[[\u4E00-\u9FA5]+\\]" usingBlock:^(NSString *string, NSRange range, BOOL isCustom, BOOL *stop) {
+    //...
+}];
 
 //创建属性字典
 AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
@@ -62,7 +64,7 @@ UILabelNew
 //正则表达式替换_xxx_为[xxx]
 @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
 //正则表达式验证是否为邮箱
-@"NOVO@outlook.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*
+@"abc@abc.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*
 [a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
 
 
@@ -73,18 +75,18 @@ NSArray* arrForFilter = @[ @{@"name":@"ali", @"age":@(123)} ,
                             @{@"name":@"dli", @"age":@(-45)}  ];
 
 //过滤age<0的数据
-arrForFilter.arrFilter(@"age<0").nslog();
+arrForFilter.arrFilter(@"age<0").setTo(&arrForFilter);
 
-//过滤age<100 并且 age>-1 的数据
+//遍历age<100 并且 age>-1 的数据
 [arrForFilter arrEnumerateWithPredicateFormat:@"age>-1 and age<100"
     usingBlock:^(NSObject* obj, NSUInteger idx, BOOL *stop) {
-    obj.nslog();
+    //...
 }];
 ```
 ##对字典的操作
 ```objc
 //替换字典中的键
-NSDictionary* 需要替换的字典 = @{
+NSDictionary* dictToReplace = @{
                                 @"description":@"123",
                                 @"dict":@{
                                             @"description":@"123",
@@ -101,19 +103,25 @@ NSDictionary* 需要替换的字典 = @{
                                                     ]
                                         }
                             };
-需要替换的字典 = 需要替换的字典.dictReplaceKey(@"description", @"DESCRIPTION");
-NSLog(@"%@",需要替换的字典);
-
+dictToReplace.dictReplaceKey(@"description", @"DESCRIPTION").setTo(&dictToReplace);
 ```
 
 ##SQL拼接的易读和易查错
 ```objc
 //高效阅读的sql编码方式，易查错，易修改
-BOOL sex = NO;
-NSString* sql0 =
+/** 
+if(sex == 0){
+    select * from Student,Teacher,Foods where id > 1000
+}else{
+    select id,name,age,sex from Student,Teacher,Foods where id > 1000
+}
+如下：
+*/
+BOOL sex;
+NSString* sqlString =
 [[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
 
-    [makeSQL SQLIf:sex==0 using:^(NSMutableString *makeSQL) {
+    [makeSQL SQLIf:sex using:^(NSMutableString *makeSQL) {
 
         makeSQL.SQLStr(@"*");
     } elseUsing:^(NSMutableString *makeSQL) {
@@ -127,20 +135,6 @@ NSString* sql0 =
     
     makeSQL.SQLStr( @"id =").SQLIntInStr(1000);
 }];
-NSLog(@"%@", sql0);
-
-NSString* sql1 = 
-[[SQLNew SQLCreate:^(NSMutableString *makeSQL) {
-
-    makeSQL.SQLStr(@"table if not exists");
-}].SQLStr(@"Person") SQLValues:^(NSMutableString *makeSQL) {
-
-    makeSQL.SQLStr(@"id integer primary key").SQL_Comma();
-    makeSQL.SQLStr(@"name text").SQL_Comma();
-    makeSQL.SQLStr(@"sex integer").SQL_Comma();
-    makeSQL.SQLStr(@"address text");
-}];
-NSLog(@"%@", sql1);
 ```
 
 ##安全写法linkObj(obj)和end()

@@ -41,6 +41,7 @@
 @property (nonatomic,copy) NSMutableString*    (^numFloatingToPercentStr)(NSUInteger digit);
 /** 数字转日期 */
 @property (nonatomic,copy) NSDate*      (^numToNSDateSince1970)();
+@property (nonatomic,copy) UIFont*      (^numToUIFontSystemSize)();
 
 /** 当前数字是否在数组长度范围内 */
 @property (nonatomic,copy) BOOL         (^numIndexIsInArrRange)(NSArray* arr);

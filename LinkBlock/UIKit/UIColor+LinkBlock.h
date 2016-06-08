@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(UIColorLinkBlock)
-/** 颜色转16进制字符串，返回为'前缀字符串'+ */
+/** 颜色转16进制字符串，返回为：prefix+颜色 */
 @property (nonatomic,copy) NSString*        (^colorToStrWithPrefix)(NSString* prefix);
 @property (nonatomic,copy) CGFloat          (^colorRed)();
 @property (nonatomic,copy) CGFloat          (^colorGreen)();
@@ -33,7 +33,7 @@
 @property (nonatomic,copy) UIColor*         (^colorSetBackgroundToViews)(NSArray* views);
 /** 尝试设置控件及其子控件的文本颜色 */
 @property (nonatomic,copy) UIColor*         (^colorSetTextColorToViewSubviews)(UIView* view);
-/** 调节亮度,percent = [-1,1] */
+/** 调节亮度,percent ∈ [-1,1] */
 @property (nonatomic,copy) UIColor*         (^colorBrightnessPercent)(double percent);
 /** 变暗38.2%，接近系统变暗效果 */
 @property (nonatomic,copy) UIColor*         (^colorHighlightDarkColor)();

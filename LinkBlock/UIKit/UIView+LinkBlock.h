@@ -47,6 +47,12 @@
 @property (nonatomic,copy) UIView*      (^viewSendBackInView)();
 /** 是否为子视图 */
 @property (nonatomic,copy) BOOL         (^viewIsSubviewTo)(UIView* theView);
+/** 当前视图位于同一层的前一个视图，注意没有返回nil */
+@property (nonatomic,copy) UIView*      (^viewBeforeIndexView)();
+/** 当前视图位于同一层的后一个视图，注意没有返回nil */
+@property (nonatomic,copy) UIView*      (^viewNextIndexView)();
+/** 当前视图是否是父级别的视图 */
+@property (nonatomic,copy) BOOL         (^viewIsSuperviewTo)(UIView* aView);
 /** 递归此视图，找到第一响应者的的输入类型控件 */
 @property (nonatomic,copy) UIView*      (^viewFirstResponderSubViewForInput)();
 /** 控制子控件的并发触控 */
@@ -72,6 +78,7 @@
 @property (nonatomic,copy) UIView*      (^viewRemoveSubviewAt)(NSUInteger index);
 /** 尝试移除一个子控件 */
 @property (nonatomic,copy) UIView*      (^viewRemoveSubviewTry)(UIView* view);
+/** 移除所有子控件 */
 @property (nonatomic,copy) UIView*      (^viewRemoveAll)();
 @property (nonatomic,copy) UIView*      (^viewInsertSubviewAtIndex)(UIView* subView, NSUInteger index);
 @property (nonatomic,copy) UIView*      (^viewInsertSubviewAbouve)(UIView* subView, UIView* abouveView);
@@ -151,5 +158,8 @@
 #pragma mark - 测试
 /** 添加一个测试按钮，每次点击idx自增 */
 - (UIButton*)viewAddTestBtn:(CGRect)frame block:(void(^)(NSInteger idx, UIButton* testButton))block;
-
+/** 遍历子视图，当前视图deep=0 */
+- (void)viewEnumerateSubviewsUsingBlock:(void(^)(UIView* subview , NSUInteger deep , NSUInteger idx , BOOL* stop))block;
+/** 遍历父视图 */
+- (void)viewEnumerateSuperviewUsingBlock:(void(^)(UIView* superview,BOOL* stop))block;
 @end

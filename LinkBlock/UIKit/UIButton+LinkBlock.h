@@ -17,5 +17,6 @@
 @property (nonatomic,copy) UIButton* (^btnImage)(UIImage* img, UIControlState state);
 @property (nonatomic,copy) UIButton* (^btnBGImage)(UIImage* img, UIControlState state);
 @property (nonatomic,copy) UIButton* (^btnTitleFont)(UIFont* font);
-@property (nonatomic,copy) UIButton* (^btnTitleFontSize)(CGFloat size);
+@property (nonatomic,copy) UIButton* (^btnTitleFontSystemSizeSet)(CGFloat size);
+@property (nonatomic,copy) CGFloat   (^btnTitleFontSystemSizeGet)();
 @end

@@ -25,7 +25,7 @@
 @property (nonatomic,copy) UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
 /** 图片取色 */
 @property (nonatomic,copy) UIColor*         (^imgGetPatternColor)();
-#pragma 操作
+
 @property (nonatomic,copy) UIImage*         (^imgSetBgImgToBtns)(NSArray* views, UIControlState state);
 @property (nonatomic,copy) UIImage*         (^imgSetImgToImageViews)(NSArray* imgViews);
 @property (nonatomic,copy) UIImage*         (^imgSetImgToBtns)(NSArray* views, UIControlState state);
