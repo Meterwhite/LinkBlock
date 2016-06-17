@@ -1209,6 +1209,101 @@
     };
 }
 - (void)setViewIsSuperviewTo:(BOOL (^)(UIView *))viewIsSuperviewTo{};
+
+- (UIView *(^)(CGFloat))viewSetWidthAspect
+{
+    return ^(CGFloat newWidth){
+        LinkError_REF_AUTO(UIView, UIView);
+        
+        __block CGFloat w = 0;
+        __block CGFloat h = 0;
+        CGFloat k;
+        CGFloat newHeight;
+        if(_self.constraints.count){
+            [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if(constraint.firstAttribute == NSLayoutAttributeWidth){
+                    w = constraint.constant;
+                }else if (constraint.firstAttribute == NSLayoutAttributeHeight){
+                    h = constraint.constant;
+                }
+            }];
+        }
+        
+        if(w && h){//使用autolayout时
+            if(!w)  return _self;
+            k =  newWidth/w;
+            newHeight = k*h;
+            [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if(constraint.firstAttribute == NSLayoutAttributeWidth){
+                    constraint.constant = newWidth;
+                }else if (constraint.firstAttribute == NSLayoutAttributeHeight){
+                    constraint.constant = newHeight;
+                }
+            }];
+        }else{
+            w = _self.frame.size.width;
+            h = _self.frame.size.height;
+            k =  newWidth/w;
+            if(!w)  return _self;
+            newHeight = k*h;
+            CGRect frame = _self.frame;
+            frame.size.width = newWidth;
+            frame.size.height = newHeight;
+            _self.frame = frame;
+        }
+        return _self;
+    };
+}
+- (void)setViewSetWidthAspect:(UIView *(^)(CGFloat))viewSetWidthAspect{};
+
+- (UIView *(^)(CGFloat))viewSetHeightAspect
+{
+    return ^(CGFloat newHeight){
+        LinkError_REF_AUTO(UIView, UIView);
+        CGFloat k;
+        CGFloat newWidth;
+        __block CGFloat w = 0;
+        __block CGFloat h = 0;
+        if(_self.constraints.count){
+            [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if(constraint.firstAttribute == NSLayoutAttributeWidth){
+                    w = constraint.constant;
+                }else if (constraint.firstAttribute == NSLayoutAttributeHeight){
+                    h = constraint.constant;
+                }
+            }];
+        }
+        
+        if(w && h){//使用autolayout时
+            if(!h)  return _self;
+            k =  newHeight/h;
+            newWidth = k*w;
+            [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if(constraint.firstAttribute == NSLayoutAttributeWidth){
+                    constraint.constant = newWidth;
+                }else if (constraint.firstAttribute == NSLayoutAttributeHeight){
+                    constraint.constant = newHeight;
+                }
+            }];
+        }else{
+            w = _self.frame.size.width;
+            h = _self.frame.size.height;
+            k =  newHeight/h;
+            if(!h)  return _self;
+            newWidth = k*w;
+            CGRect frame = _self.frame;
+            frame.size.width =  newWidth;
+            frame.size.height = newHeight;
+            _self.frame = frame;
+        }
+        return _self;
+    };
+}
+- (void)setViewSetHeightAspect:(UIView *(^)(CGFloat))viewSetHeightAspect{};
 @end
 
 

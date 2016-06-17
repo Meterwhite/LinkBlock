@@ -30,6 +30,10 @@
 @property (nonatomic,copy) UIView*      (^viewSetCenter)(CGFloat x,CGFloat y);
 @property (nonatomic,copy) UIView*      (^viewSetWidth)(CGFloat width);
 @property (nonatomic,copy) UIView*      (^viewSetHeight)(CGFloat height);
+/** 保持比例设置宽,autolayout（需要宽高约束）优先 */
+@property (nonatomic,copy) UIView*      (^viewSetWidthAspect)(CGFloat width);
+/** 保持比例设置高,autolayout（需要宽高约束）优先 */
+@property (nonatomic,copy) UIView*      (^viewSetHeightAspect)(CGFloat height);
 @property (nonatomic,copy) UIView*      (^viewSetSize)(CGFloat width, CGFloat height);
 /** 背景色 */
 @property (nonatomic,copy) UIView*      (^viewBGColor)(UIColor* color);
