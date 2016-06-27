@@ -21,6 +21,7 @@
 #import "NSDate+LinkBlock.h"
 #import "NSURL+LinkBlock.h"
 #import "NSValue+LinkBlock.h"
+#import "JavaScriptCore+LinkBlock.h"
 
 #import "UIImage+LinkBlock.h"
 #import "UILabel+LinkBlock.h"
@@ -35,6 +36,8 @@
 #import "CALayer+LinkBlock.h"
 #import "CAShapeLayer+LinkBlock.h"
 #import "UIBezierPath+LinkBlock.h"
+#import "UIWebView+LinkBlock.h"
+
 
 //起手写宏
 #ifndef linkObj
