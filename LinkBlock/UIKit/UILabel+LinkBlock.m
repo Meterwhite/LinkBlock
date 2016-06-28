@@ -140,7 +140,7 @@
 {
     return ^(){
         LinkError_VAL_IF(UILabel){
-            return 0.0;
+            return (CGFloat)0.0;
         }
         return _self.font.pointSize;
     };

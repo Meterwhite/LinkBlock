@@ -102,7 +102,7 @@
 {
     return ^(){
         LinkError_VAL_IF(UIButton){
-            return 0.0;
+            return (CGFloat)0.0;
         }
         return _self.titleLabel.font.pointSize;
     };
