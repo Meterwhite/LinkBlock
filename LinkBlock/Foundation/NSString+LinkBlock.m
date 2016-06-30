@@ -394,15 +394,49 @@
         
         LinkError_REF_AUTO(NSString, NSString);
         
-        NSString* re=_self;
-        for (int i= (int)_self.length; i>0; i--) {//倒序
-            NSString* forStr = [_self substringToIndex:i];
-            if( forStr.strLinesCountAboutView(maxWidth,attrDict) == toLine){
-                re = forStr;
-                break;
+        //折半查找
+        NSRange forRange = NSMakeRange(0 , _self.length);
+        NSInteger start,mid,end,midLineCount;
+        
+        if(!forRange.length||toLine<1){
+            
+            return @"";
+        }else if (forRange.length==1){
+            
+            if(_self.strLinesCountAboutView(maxWidth,attrDict) > toLine){//1 123
+                return @"";
+            }
+        }else{
+            
+            while (forRange.length>1) {//范围缩小至1前
+                
+                start=forRange.location;
+                end=start+forRange.length-1;
+                mid=(start+end)/2;
+                midLineCount = [_self substringToIndex:mid+1].strLinesCountAboutView(maxWidth,attrDict);
+                if(midLineCount<toLine){//不包含当前，向右区间
+                    
+                    forRange=NSMakeRange(mid+1, end-mid);
+                    continue;
+                }else if (midLineCount>toLine){//不包含当前，向左区间
+                    
+                    forRange=NSMakeRange(start, mid-start);
+                    continue;
+                }else{//==
+                    
+                    if(midLineCount<[_self substringToIndex:mid+2].strLinesCountAboutView(maxWidth,attrDict)){//临界
+                        
+                        forRange=NSMakeRange(mid, 1);
+                        break;
+                    }else{//不包含当前，向右区间
+                        
+                        forRange=NSMakeRange(mid+1, end-mid);
+                        continue;
+                    }
+                }
             }
         }
-        return re;
+        return [_self substringToIndex:forRange.location+1];
     };
 }
 - (void)setStrSubToLineAboutView:(NSString *(^)(NSInteger, CGFloat, NSDictionary *))strSubToLineAboutView{};
@@ -1223,17 +1257,17 @@
     return ^(){
         LinkError_REF_AUTO(NSString, NSString);
         
-        NSUInteger i = 0;
-        NSUInteger j = _self.length - 1;
-        NSString *temp;
+        NSUInteger start = 0;
+        NSUInteger end = _self.length - 1;
+        NSString *tempStr;
         NSString *re = _self;
         NSLog(@"%@", self);
-        while (i < j) {
-            temp = [re substringWithRange:NSMakeRange(i, 1)];
-            re = [re stringByReplacingCharactersInRange:NSMakeRange(i, 1) withString:[_self substringWithRange:NSMakeRange(j, 1)]];
-            re = [re stringByReplacingCharactersInRange:NSMakeRange(j, 1) withString:temp];
-            i++;
-            j--;
+        while (start < end) {
+            tempStr = [re substringWithRange:NSMakeRange(start, 1)];
+            re = [re stringByReplacingCharactersInRange:NSMakeRange(start, 1) withString:[_self substringWithRange:NSMakeRange(end, 1)]];
+            re = [re stringByReplacingCharactersInRange:NSMakeRange(end, 1) withString:tempStr];
+            start++;
+            end--;
         }
         return re;
     };
@@ -1248,10 +1282,7 @@
         LinkError_VAL_IF(NSString){
             return (NSUInteger)0;
         }
-        __block NSUInteger re=0;
-        
-        [[_self componentsSeparatedByString:@"\n"] count];
-        return re;
+        return [[_self componentsSeparatedByString:@"\n"] count];
     };
 }
 - (void)setStrLinesCount:(NSUInteger (^)())strLinesCount{};
