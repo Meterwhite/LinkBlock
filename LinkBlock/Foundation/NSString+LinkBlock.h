@@ -146,6 +146,23 @@
 @property (nonatomic,copy) NSString*            (^strSetTextColorToControls)(NSArray* controls);
 /** 查找字符串中的第一组数字 */
 @property (nonatomic,copy) double               (^strFindNumber)();
+#pragma mark - URL操作
+///** 可用于获取BaseURL，获取参数前的URL（即?前部分），但不对内容做验证 */
+//@property (nonatomic,copy) NSString*            (^strURLBeforeKeyValues)();
+//@property (nonatomic,copy) NSString*            (^strURLValueForKey)(NSString* key);
+//@property (nonatomic,copy) NSString*            (^strURLSetValueForKey)(NSString* value,NSString* key);
+//@property (nonatomic,copy) NSDictionary*        (^strURLKeyValues)();
+//@property (nonatomic,copy) NSArray*             (^strURLAllKeys)();
+//@property (nonatomic,copy) NSArray*             (^strURLAllValues)();
+///** 移除相关键及参数 */
+//@property (nonatomic,copy) NSString*            (^strURLRemoveValueForKey)(NSString* key);
+///** 替换键 */
+//@property (nonatomic,copy) NSString*            (^strURLReplaceKeyWithKey)(NSString* replaceKey,NSString* withKey);
+//
+//@property (nonatomic,copy) NSString*            (^strURLEncodeUTF8)();
+//@property (nonatomic,copy) NSString*            (^strURLDecodeUTF8)();
+//@property (nonatomic,copy) NSString*            (^strURLEncode)(NSStringEncoding encode);
+//@property (nonatomic,copy) NSString*            (^strURLDecode)(NSStringEncoding encode);
 
 @end
 
@@ -166,4 +183,6 @@
 - (NSMutableString*)strEnumerateComposedModifiedUsingBlock:(void(^)(NSString** string,NSRange range,BOOL *stop))block;
 /** 遍历字符串按元字符组成的序列和自定义字符串如表情规则，regx：正则表达式 */
 - (void)strEnumerateComposedAndCustom:(NSString*)regx usingBlock:(void(^)(NSString* string,NSRange range,BOOL isCustom,BOOL *stop))block;
+///** 遍历URL字符串 */
+//- (void)strEnumerateURLUsingBlock:(void(^)(NSString** baseURL , NSString** key , NSString** value , BOOL* stop))bloc;
 @end
