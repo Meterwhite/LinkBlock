@@ -13,6 +13,8 @@
 {
     return ^(){
         LinkError_REF_AUTO(UILabel, UILabel);
+        if(!_self.text)
+            return _self;
         CGSize fontSize = _self.text.strSizeWithFont(_self.font);
         double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
@@ -45,6 +47,8 @@
 {
     return ^(){
         LinkError_REF_AUTO(UILabel, UILabel);
+        if(!_self.text)
+            return _self;
         CGSize fontSize =_self.text.strSizeWithFont(_self.font);
         double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
