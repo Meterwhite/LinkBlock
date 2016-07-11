@@ -1620,4 +1620,51 @@
         }
     }
 }
+
+- (NSString *)strEnumerateURLUsingBlock:(void (^)(NSString *__autoreleasing *urlBeforeKeyValue, NSString *__autoreleasing * key , NSString *__autoreleasing * value , BOOL * stop))block
+{
+    BOOL* isStop; *isStop = NO;
+    NSArray<NSString*>* base_KVArr = [self componentsSeparatedByString:@"?"];
+    NSString* baseURL = [base_KVArr firstObject];
+    NSMutableArray<NSArray*>* kvArrM = [NSMutableArray new];
+    if(base_KVArr.count==2){
+        
+        NSArray<NSString*>* kvStrArr = [base_KVArr[1] componentsSeparatedByString:@"&"];
+        for (int i=0; i<kvStrArr.count; i++) {
+            
+            if(*isStop)
+                break;
+            NSArray* kvArr = [kvStrArr[i] componentsSeparatedByString:@"="];
+            if(kvArr.count == 2){
+                
+                NSString* k = kvArr[0];
+                NSString* v = kvArr[1];
+                block(&baseURL , &k , &v , isStop);
+                if(baseURL && k && v){
+                    
+                    [kvArrM addObject:@[k,v]];
+                }
+            }
+        }
+        
+        NSMutableString* reStr = [NSMutableString new];
+        [reStr appendString:baseURL];
+        [reStr appendString:@"?"];
+        [kvArrM enumerateObjectsUsingBlock:^(NSArray * _Nonnull kvArr, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if(![kvArr[0] isEqualToString:@""] || ![kvArr[1] isEqualToString:@""]){
+                
+                [reStr appendString:[[kvArr[0] stringByAppendingString:@"="] stringByAppendingString:kvArr[1]]];
+                if(idx!=kvArrM.count-1)
+                    [reStr appendString:@"&"];
+            }
+        }];
+        return [reStr copy];
+    }else if (base_KVArr.count==1){
+        
+        block(&baseURL , nil , nil , isStop);
+        return baseURL;
+    }
+    return self;
+}
 @end

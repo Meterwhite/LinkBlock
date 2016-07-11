@@ -183,6 +183,13 @@
 - (NSMutableString*)strEnumerateComposedModifiedUsingBlock:(void(^)(NSString** string,NSRange range,BOOL *stop))block;
 /** 遍历字符串按元字符组成的序列和自定义字符串如表情规则，regx：正则表达式 */
 - (void)strEnumerateComposedAndCustom:(NSString*)regx usingBlock:(void(^)(NSString* string,NSRange range,BOOL isCustom,BOOL *stop))block;
-///** 遍历URL字符串 */
-//- (void)strEnumerateURLUsingBlock:(void(^)(NSString** baseURL , NSString** key , NSString** value , BOOL* stop))bloc;
+
+/**
+ *  遍历URL字符串参数
+ *
+ *  @param block 可以使用空字符串抹去一个值，而不要使用nil
+ *
+ *  @return 结果
+ */
+//- (NSString *)strEnumerateURLUsingBlock:(void(^)(NSString** urlBeforeKeyValue , NSString** key , NSString** value , BOOL* stop))block;
 @end
