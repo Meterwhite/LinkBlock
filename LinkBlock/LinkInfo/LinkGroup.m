@@ -25,18 +25,4 @@
     [re.linkObjects addObjectsFromArray:objs];
     return re;
 }
-
-- (LinkGroup *)groupLinkName:(NSString *)blockName, ...
-{
-    LinkGroup* group = self;
-    NSMutableArray* returnObjs = [NSMutableArray new];
-    for (int i=0; i<group.linkObjects.count; i++) {
-        id re = group.linkObjects[i].arrLast();
-        [returnObjs addObject:re];
-    }
-    [group.linkObjects removeAllObjects];
-    [group.linkObjects addObjectsFromArray:returnObjs];
-    return group;
-    return nil;
-}
 @end

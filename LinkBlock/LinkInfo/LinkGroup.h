@@ -12,6 +12,4 @@
 @property (nonatomic,strong) NSMutableArray<NSObject*>* linkObjects;
 
 + (LinkGroup*)groupWithObjs:(NSArray*)objs;
-
-- (LinkGroup*)groupLinkName:(NSString*)name ,...;
 @end
