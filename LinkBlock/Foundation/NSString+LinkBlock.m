@@ -1126,7 +1126,7 @@
         if(class){
             return (NSObject*)[class new];
         }else{
-            return (NSObject*)[LinkError share];
+            return (NSObject*)[LinkError new];
         }
     };
 }

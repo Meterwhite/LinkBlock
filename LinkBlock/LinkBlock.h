@@ -41,7 +41,7 @@
 
 //起手写宏
 #ifndef linkObj
-#define linkObj(object) (object?object:[LinkError share])
+#define linkObj(object) (object?object:[LinkError new])
 #endif
 
 //引用类型返回值宏定义
@@ -50,7 +50,7 @@ currType* _self = (currType*)self;\
 if([self isKindOfClass:[LinkError class]])\
     return (returnType *)self;\
 if(![self isKindOfClass:[currType class]])\
-    return (returnType *)[LinkError share]\
+    return (returnType *)[LinkError new]\
 
 //值类型返回值宏定义
 #define LinkError_VAL_IF(currType) \

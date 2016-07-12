@@ -360,7 +360,7 @@
         LinkError_REF_AUTO(UIView, UIView);
         if(index< _self.subviews.count)
             return (UIView*)(_self.subviews[index]);
-        return (UIView*)[LinkError share];
+        return (UIView*)[LinkError new];
     };
 }
 - (void)setViewSubviewAt:(UIView *(^)(NSUInteger))viewSubviewAt{};
@@ -440,7 +440,7 @@
         if([self isKindOfClass:[LinkError class]])
             return (UIView *)self;
         if(![self isKindOfClass:[UIView class]])
-            return (UIView *)[LinkError share];
+            return (UIView *)[LinkError new];
         
         if([view isKindOfClass:[UIView class]]){
             [view addSubview:_self];
