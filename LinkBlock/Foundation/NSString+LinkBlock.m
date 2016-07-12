@@ -888,6 +888,7 @@
     };
 }
 - (void)setStrToNSDataWithContentsOfFile:(NSData *(^)())strToNSDataFromContents{};
+
 - (NSData *(^)(NSStringEncoding))strToNSDataUseEncoding
 {
     return ^(NSStringEncoding encoding){
@@ -982,7 +983,12 @@
 {
     return ^(){
         LinkError_REF_AUTO(UIImage, NSString);
-        return [UIImage imageNamed:_self];
+        UIImage* reImg = [UIImage imageNamed:_self];
+        if(!reImg){
+            
+            reImg = [UIImage imageWithContentsOfFile:_self.strPathWithName(nil)];
+        }
+        return reImg;
     };
 }
 - (void)setStrToUIImage:(UIImage *(^)())strToUIImage{};
@@ -1142,7 +1148,7 @@
     return ^(CGFloat x, CGFloat y, CGFloat w, CGFloat h){
         LinkError_REF_AUTO(UIImageView, NSString);
         UIImageView* re = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
-        re.image = [UIImage imageNamed:_self];
+        re.image = _self.strToUIImage();
         return re;
     };
 }
@@ -1355,16 +1361,16 @@
         LinkError_REF_AUTO(NSDictionary, NSString);
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
         if(splitedArr.count!=2)
-            return (NSDictionary*)nil;
+            return @{};
         NSArray<NSString*>* kvStrArr = [splitedArr[1] componentsSeparatedByString:@"&"];
-        NSMutableDictionary* re = [NSMutableDictionary new];
+        NSMutableDictionary* kvDict = [NSMutableDictionary new];
         [kvStrArr enumerateObjectsUsingBlock:^(NSString * _Nonnull kvStr, NSUInteger idx, BOOL * _Nonnull stop) {
             
             NSArray<NSString*>* kvArr = [kvStr componentsSeparatedByString:@"="];
             if(kvArr.count==2)
-                re[kvArr[0]] = kvArr[1];
+                kvDict[kvArr[0]] = kvArr[1];
         }];
-        return (NSDictionary*)[re copy];
+        return (NSDictionary*)[kvDict copy];
     };
 }
 - (void)setStrURLKeyValues:(NSDictionary *(^)())strURLKeyValues{};
@@ -1375,7 +1381,7 @@
         LinkError_REF_AUTO(NSString, NSString);
         NSDictionary* kvs = _self.strURLKeyValues();
         if(!kvs)
-            return (NSString *)nil;
+            return _self;
         return (NSString*)[kvs objectForKey:key];
     };
 }
@@ -1386,8 +1392,11 @@
     return ^(NSString* value , NSString* key){
         LinkError_REF_AUTO(NSString, NSString);
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
-        if(splitedArr.count!=2)
-            return (NSString*)nil;
+        if(splitedArr.count==1 && ![_self isEqualToString:@""]){
+            return [NSString stringWithFormat:@"%@?%@=%@",splitedArr[0],key,value];
+        }else if(splitedArr.count!=2){//0,3..
+            return _self;
+        }
         
         NSArray<NSString*>* kvStrArr = [splitedArr[1] componentsSeparatedByString:@"&"];//abc=abc
         
@@ -1422,6 +1431,67 @@
     };
 }
 - (void)setStrURLSetValueForKey:(NSString *(^)(NSString *, NSString *))strURLSetValueForKey{};
+
+- (NSString *(^)(NSDictionary<NSString*,NSString*> *))strURLSetKeyValueWithDict
+{
+    return ^(NSDictionary<NSString*,NSString*>* keyValues){
+        LinkError_REF_AUTO(NSString, NSString);
+        NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
+        if(splitedArr.count==1 && ![_self isEqualToString:@""]){
+            
+            NSMutableString* re = [NSMutableString stringWithFormat:@"%@?",splitedArr[0]];
+            __block NSInteger idx = 0;
+            [keyValues enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull value, BOOL * _Nonnull stop) {
+                
+                [re appendString:key];
+                [re appendString:@"="];
+                [re appendString:value];
+                if(idx!=keyValues.count-1)
+                    [re appendString:@"&"];
+                idx++;
+            }];
+            return (NSString*)[re copy];
+        }else if(splitedArr.count!=2){//0,3..
+            return _self;
+        }
+        
+        NSArray<NSString*>* kvStrArr = [splitedArr[1] componentsSeparatedByString:@"&"];//abc=abc,...
+        NSMutableArray<NSString*>* kvStrArrM = [kvStrArr mutableCopy];
+        
+        [keyValues enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull value, BOOL * _Nonnull stop) {
+            
+            __block BOOL hasKey = NO;
+            [kvStrArr enumerateObjectsUsingBlock:^(NSString * _Nonnull kvStr, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSArray<NSString*>* kvArr = [kvStr componentsSeparatedByString:@"="];
+                if(kvArr.count==2){
+                    if([kvArr[0] isEqualToString:key]){
+                        
+                        hasKey = YES;
+                        kvStrArrM[idx] = [[kvArr[0] stringByAppendingString:@"="] stringByAppendingString:value];
+                    }
+                }
+            }];
+            if(!hasKey){
+                [kvStrArrM addObject:[[key stringByAppendingString:@"="] stringByAppendingString:value]];
+            }
+        }];
+        
+        //合
+        NSMutableString* reURL = [NSMutableString new];
+        [reURL appendString:splitedArr[0]];
+        [reURL appendString:@"?"];//http//:www.abc.com/abc?
+        [kvStrArrM enumerateObjectsUsingBlock:^(NSString * _Nonnull kvStr, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            [reURL appendString:kvStr];
+            if(idx!=kvStrArrM.count-1)
+                [reURL appendString:@"&"];//http//:www.abc.com/abc?abc=abc&...
+        }];
+        
+        return (NSString*)[reURL copy];
+    };
+}
+- (void)setStrURLSetKeyValueWithDict:(NSString *(^)(NSDictionary<NSString *,NSString *> *))strURLSetKeyValueWithDict{};
 
 - (NSArray *(^)())strURLAllKeys
 {
@@ -1489,8 +1559,7 @@
     return ^(NSString* replaceKey , NSString* withKey){
         LinkError_REF_AUTO(NSString, NSString);
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
-        if(splitedArr.count!=2)
-            return (NSString*)nil;
+        if(splitedArr.count!=2) return _self;
         
         NSArray<NSString*>* kvStrArr = [splitedArr[1] componentsSeparatedByString:@"&"];//abc=abc
         
@@ -1519,6 +1588,64 @@
         return (NSString*)[reURL copy];
     };
 }
+- (void)setStrURLReplaceKeyWithKey:(NSString *(^)(NSString *, NSString *))strURLReplaceKeyWithKey{};
+
+- (NSString *(^)(NSDictionary<NSString *,NSString *> *))strURLReplaceKeyWithDict
+{
+    return ^(NSDictionary<NSString*,NSString*>* replaceKey_withKey){
+        LinkError_REF_AUTO(NSString, NSString);
+        NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
+        if(splitedArr.count!=2) return _self;
+        
+        NSArray<NSString*>* kvStrArr = [splitedArr[1] componentsSeparatedByString:@"&"];//abc=abc
+        
+        NSMutableArray<NSString*>* kvStrArrM = [kvStrArr mutableCopy];
+        [replaceKey_withKey enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull replaceKey, NSString * _Nonnull withKey, BOOL * _Nonnull stop) {
+            
+            [kvStrArr enumerateObjectsUsingBlock:^(NSString * _Nonnull kvStr, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSArray<NSString*>* kvArr = [kvStr componentsSeparatedByString:@"="];
+                if(kvArr.count==2){
+                    if([kvArr[0] isEqualToString:replaceKey]){
+                        kvStrArrM[idx] = [[withKey stringByAppendingString:@"="] stringByAppendingString:kvArr[1]];
+                    }
+                }
+            }];
+        }];
+        
+        //合
+        NSMutableString* reURL = [NSMutableString new];
+        [reURL appendString:splitedArr[0]];
+        [reURL appendString:@"?"];//http//:www.abc.com/abc?
+        [kvStrArrM enumerateObjectsUsingBlock:^(NSString * _Nonnull kvStr, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            [reURL appendString:kvStr];
+            if(idx!=kvStrArrM.count-1)
+                [reURL appendString:@"&"];//http//:www.abc.com/abc?abc=abc&...
+        }];
+        
+        return (NSString*)[reURL copy];
+    };
+}
+- (void)setStrURLReplaceKeyWithDict:(NSString *(^)(NSDictionary<NSString *,NSString *> *))strURLReplaceKeyWithDict{};
+
+- (NSString *(^)(NSString *))strPathWithName
+{
+    return ^(NSString* type){
+        LinkError_REF_AUTO(NSString, NSString);
+        return [[NSBundle mainBundle] pathForResource:_self ofType:type];
+    };
+}
+- (void)setStrPathWithName:(NSString *(^)(NSString *))strPathWithName{};
+
+- (NSString *(^)(NSString *))strPathAppendingComponent
+{
+    return ^(NSString* component){
+        LinkError_REF_AUTO(NSString, NSString);
+        return [_self stringByAppendingPathComponent:component];
+    };
+}
+- (void)setStrPathAppendingComponent:(NSString *(^)(NSString *))strPathAppendingComponent{};
 @end
 
 @implementation NSString (NSStringLinkBlock)
@@ -1623,27 +1750,23 @@
 
 - (NSString *)strEnumerateURLUsingBlock:(void (^)(NSString *__autoreleasing *urlBeforeKeyValue, NSString *__autoreleasing * key , NSString *__autoreleasing * value , BOOL * stop))block
 {
-    BOOL* isStop; *isStop = NO;
+    BOOL isStop = NO;
     NSArray<NSString*>* base_KVArr = [self componentsSeparatedByString:@"?"];
     NSString* baseURL = [base_KVArr firstObject];
-    NSMutableArray<NSArray*>* kvArrM = [NSMutableArray new];
+    NSMutableArray<NSArray*>* kvArrM = [NSMutableArray new];//存储
     if(base_KVArr.count==2){
         
         NSArray<NSString*>* kvStrArr = [base_KVArr[1] componentsSeparatedByString:@"&"];
         for (int i=0; i<kvStrArr.count; i++) {
             
-            if(*isStop)
-                break;
             NSArray* kvArr = [kvStrArr[i] componentsSeparatedByString:@"="];
             if(kvArr.count == 2){
                 
-                NSString* k = kvArr[0];
-                NSString* v = kvArr[1];
-                block(&baseURL , &k , &v , isStop);
-                if(baseURL && k && v){
-                    
+                NSString* k = kvArr[0]; NSString* v = kvArr[1];
+                if(!isStop)
+                    block(&baseURL , &k , &v , &isStop);
+                if(baseURL && k && v)
                     [kvArrM addObject:@[k,v]];
-                }
             }
         }
         
@@ -1662,7 +1785,8 @@
         return [reStr copy];
     }else if (base_KVArr.count==1){
         
-        block(&baseURL , nil , nil , isStop);
+        NSString* k; NSString* v;
+        block(&baseURL , &k , &v , &isStop);
         return baseURL;
     }
     return self;

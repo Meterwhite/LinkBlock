@@ -13,9 +13,7 @@
 {
     return ^(){
         LinkError_REF_AUTO(UILabel, UILabel);
-        if(!_self.text)
-            return _self;
-        CGSize fontSize = _self.text.strSizeWithFont(_self.font);
+        CGSize fontSize = linkObj(_self.text).strSizeWithFont(_self.font);
         double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
             finalHeight= _self.bounds.size.height;
@@ -49,7 +47,7 @@
         LinkError_REF_AUTO(UILabel, UILabel);
         if(!_self.text)
             return _self;
-        CGSize fontSize =_self.text.strSizeWithFont(_self.font);
+        CGSize fontSize =linkObj(_self.text).strSizeWithFont(_self.font);
         double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
             finalHeight = _self.bounds.size.height;

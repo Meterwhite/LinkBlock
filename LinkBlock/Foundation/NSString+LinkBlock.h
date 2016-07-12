@@ -93,6 +93,9 @@
 @property (nonatomic,copy) NSString*    (^strSubFrom)(NSUInteger from);
 @property (nonatomic,copy) NSString*    (^strSubTo)(NSUInteger to);
 @property (nonatomic,copy) NSString*    (^strSubFromTo)(NSUInteger from , NSUInteger to);
+
+@property (nonatomic,copy) NSString*    (^strPathWithName)(NSString* type);
+@property (nonatomic,copy) NSString*    (^strPathAppendingComponent)(NSString* component);
 #pragma mark - 创建
 /** 根据字符串类名调用new方法创建对象 */
 @property (nonatomic,copy) NSObject*            (^strCreateObj)();
@@ -148,21 +151,24 @@
 @property (nonatomic,copy) double               (^strFindNumber)();
 #pragma mark - URL操作
 ///** 可用于获取BaseURL，获取参数前的URL（即?前部分），但不对内容做验证 */
-//@property (nonatomic,copy) NSString*            (^strURLBeforeKeyValues)();
-//@property (nonatomic,copy) NSString*            (^strURLValueForKey)(NSString* key);
-//@property (nonatomic,copy) NSString*            (^strURLSetValueForKey)(NSString* value,NSString* key);
-//@property (nonatomic,copy) NSDictionary*        (^strURLKeyValues)();
-//@property (nonatomic,copy) NSArray*             (^strURLAllKeys)();
-//@property (nonatomic,copy) NSArray*             (^strURLAllValues)();
-///** 移除相关键及参数 */
-//@property (nonatomic,copy) NSString*            (^strURLRemoveValueForKey)(NSString* key);
-///** 替换键 */
-//@property (nonatomic,copy) NSString*            (^strURLReplaceKeyWithKey)(NSString* replaceKey,NSString* withKey);
-//
-//@property (nonatomic,copy) NSString*            (^strURLEncodeUTF8)();
-//@property (nonatomic,copy) NSString*            (^strURLDecodeUTF8)();
-//@property (nonatomic,copy) NSString*            (^strURLEncode)(NSStringEncoding encode);
-//@property (nonatomic,copy) NSString*            (^strURLDecode)(NSStringEncoding encode);
+@property (nonatomic,copy) NSString*            (^strURLBeforeKeyValues)();
+@property (nonatomic,copy) NSString*            (^strURLValueForKey)(NSString* key);
+@property (nonatomic,copy) NSString*            (^strURLSetValueForKey)(NSString* value,NSString* key);
+@property (nonatomic,copy) NSString*            (^strURLSetKeyValueWithDict)(NSDictionary<NSString*,NSString*>* keyValues);
+@property (nonatomic,copy) NSDictionary*        (^strURLKeyValues)();
+@property (nonatomic,copy) NSArray*             (^strURLAllKeys)();
+@property (nonatomic,copy) NSArray*             (^strURLAllValues)();
+/** 移除相关键及参数 */
+@property (nonatomic,copy) NSString*            (^strURLRemoveValueForKey)(NSString* key);
+/** 替换键 */
+@property (nonatomic,copy) NSString*            (^strURLReplaceKeyWithKey)(NSString* replaceKey,NSString* withKey);
+/** 替换键，字典结构为:key = replacedKey ;value = newKey */
+@property (nonatomic,copy) NSString*            (^strURLReplaceKeyWithDict)(NSDictionary<NSString*,NSString*>* replaceKey_withKey);
+
+@property (nonatomic,copy) NSString*            (^strURLEncodeUTF8)();
+@property (nonatomic,copy) NSString*            (^strURLDecodeUTF8)();
+@property (nonatomic,copy) NSString*            (^strURLEncode)(NSStringEncoding encode);
+@property (nonatomic,copy) NSString*            (^strURLDecode)(NSStringEncoding encode);
 
 @end
 
@@ -187,9 +193,9 @@
 /**
  *  遍历URL字符串参数
  *
- *  @param block 可以使用空字符串抹去一个值，而不要使用nil
+ *  @param block 可以使用空字符串抹去一个值，而非nil
  *
  *  @return 结果
  */
-//- (NSString *)strEnumerateURLUsingBlock:(void(^)(NSString** urlBeforeKeyValue , NSString** key , NSString** value , BOOL* stop))block;
+- (NSString *)strEnumerateURLUsingBlock:(void(^)(NSString** urlBeforeKeyValue , NSString** key , NSString** value , BOOL* stop))block;
 @end
