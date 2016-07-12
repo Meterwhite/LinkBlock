@@ -12,8 +12,8 @@
 
 - (UIViewController *(^)(UIViewController *))vcAddChildVC
 {
-    return ^(UIViewController* childVC){
-        LinkError_REF_AUTO(UIViewController, UIViewController);
+    return ^id(UIViewController* childVC){
+        LinkHandle_REF(UIViewController, UIViewController)
         [_self addChildViewController:childVC];
         return _self;
     };
@@ -22,8 +22,8 @@
 
 - (UIViewController *(^)(NSString *))vcTitle
 {
-    return ^(NSString* title){
-        LinkError_REF_AUTO(UIViewController, UIViewController);
+    return ^id(NSString* title){
+        LinkHandle_REF(UIViewController, UIViewController)
         _self.title = title;
         return _self;
     };

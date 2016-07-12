@@ -10,8 +10,8 @@
 @implementation NSObject(UIScrollViewLinkBlock)
 - (UIScrollView *(^)(CGFloat, CGFloat))scroll_viewContentSize
 {
-    return ^(CGFloat w, CGFloat h){
-        LinkError_REF_AUTO(UIScrollView, UIScrollView);
+    return ^id(CGFloat w, CGFloat h){
+        LinkHandle_REF(UIScrollView, UIScrollView)
         _self.contentSize= CGSizeMake(w, h);
         return _self;
     };
@@ -20,8 +20,8 @@
 
 - (UIScrollView *(^)(CGFloat, CGFloat))scroll_viewContentOffset
 {
-    return ^(CGFloat x, CGFloat y){
-        LinkError_REF_AUTO(UIScrollView, UIScrollView);
+    return ^id(CGFloat x, CGFloat y){
+        LinkHandle_REF(UIScrollView, UIScrollView)
         _self.contentOffset= CGPointMake(x, y);
         return _self;
     };
@@ -30,8 +30,8 @@
 
 - (UIScrollView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))scroll_viewContentInserts
 {
-    return ^(CGFloat top , CGFloat left , CGFloat bottom , CGFloat right){
-        LinkError_REF_AUTO(UIScrollView, UIScrollView);
+    return ^id(CGFloat top , CGFloat left , CGFloat bottom , CGFloat right){
+        LinkHandle_REF(UIScrollView, UIScrollView)
         _self.contentInset= UIEdgeInsetsMake(top, left, bottom, right);
         return _self;
     };
@@ -40,8 +40,8 @@
 
 - (UIScrollView *(^)(id<UIScrollViewDelegate>))scroll_viewDelegate
 {
-    return ^(id<UIScrollViewDelegate> delegate){
-        LinkError_REF_AUTO(UIScrollView, UIScrollView);
+    return ^id(id<UIScrollViewDelegate> delegate){
+        LinkHandle_REF(UIScrollView, UIScrollView)
         _self.delegate= delegate;
         return _self;
     };
@@ -50,8 +50,8 @@
 
 - (UIScrollView *(^)(BOOL))scroll_viewShowsHorizontal
 {
-    return ^(BOOL b){
-        LinkError_REF_AUTO(UIScrollView, UIScrollView);
+    return ^id(BOOL b){
+        LinkHandle_REF(UIScrollView, UIScrollView)
         _self.showsHorizontalScrollIndicator= b;
         return _self;
     };
@@ -60,8 +60,8 @@
 
 - (UIScrollView *(^)(BOOL))scroll_viewShowsVertical
 {
-    return ^(BOOL b){
-        LinkError_REF_AUTO(UIScrollView, UIScrollView);
+    return ^id(BOOL b){
+        LinkHandle_REF(UIScrollView, UIScrollView)
         _self.showsVerticalScrollIndicator= b;
         return _self;
     };
@@ -70,8 +70,8 @@
 
 - (UIScrollView *(^)(BOOL))scroll_viewBounce
 {
-    return ^(BOOL b){
-        LinkError_REF_AUTO(UIScrollView, UIScrollView);
+    return ^id(BOOL b){
+        LinkHandle_REF(UIScrollView, UIScrollView)
         _self.bounces= b;
         return _self;
     };
@@ -80,8 +80,8 @@
 
 - (UIScrollView *(^)(BOOL))scroll_viewScrollEnabled
 {
-    return ^(BOOL b){
-        LinkError_REF_AUTO(UIScrollView, UIScrollView);
+    return ^id(BOOL b){
+        LinkHandle_REF(UIScrollView, UIScrollView)
         _self.scrollEnabled = b;
         return _self;
     };

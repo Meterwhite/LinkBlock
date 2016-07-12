@@ -11,8 +11,8 @@
 @implementation JSManagedValue(JSManagedValueLinkBlock)
 - (JSManagedValue *(^)(JSVirtualMachine *,id))jsManagedValueAddToManagedRef
 {
-    return ^(JSVirtualMachine* virtualMachine,id owner){
-        LinkError_REF_AUTO(JSManagedValue, JSManagedValue);
+    return ^id(JSVirtualMachine* virtualMachine,id owner){
+        LinkHandle_REF(JSManagedValue, JSManagedValue)
         [virtualMachine addManagedReference:_self withOwner:owner];
         return _self;
     };

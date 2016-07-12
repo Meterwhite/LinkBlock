@@ -14,7 +14,7 @@
 - (void *(^)())numValue
 {
     return ^(){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return (void*)nil;
         }
         void* re;
@@ -28,7 +28,7 @@ static NSArray* _integerCTypeArr;
 - (BOOL (^)())numIsInteger
 {
     return ^(){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         };
         if(![NSStringFromClass(_self.class) isEqualToString:@"__NSCFNumber"])
@@ -47,7 +47,7 @@ static NSArray* _floatingCTypeArr;
 - (BOOL (^)())numIsFloating
 {
     return ^(){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         };
         if(![NSStringFromClass(_self.class) isEqualToString:@"__NSCFNumber"])
@@ -66,7 +66,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)())numIsChar
 {
     return ^(){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         };
         if(![NSStringFromClass(_self.class) isEqualToString:@"__NSCFNumber"])
@@ -85,7 +85,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)())numIsBool
 {
     return ^(){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         };
         if(![NSStringFromClass(_self.class) isEqualToString:@"__NSCFBoolean"])
@@ -100,9 +100,9 @@ static NSArray* _charCTypeArr;
 
 - (NSNumber *(^)(NSArray *))numSetWidthToViews
 {
-    return ^(NSArray* views){
+    return ^id(NSArray* views){
         
-        LinkError_REF_AUTO(NSNumber, NSNumber);
+        LinkHandle_REF(NSNumber, NSNumber)
         if(![views isKindOfClass:[NSArray class]])
             return _self;
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
@@ -122,9 +122,9 @@ static NSArray* _charCTypeArr;
 
 - (NSNumber *(^)(NSArray *))numSetHeightToViews
 {
-    return ^(NSArray* views){
+    return ^id(NSArray* views){
         
-        LinkError_REF_AUTO(NSNumber, NSNumber);
+        LinkHandle_REF(NSNumber, NSNumber)
         if(![views isKindOfClass:[NSArray class]])
             return _self;
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
@@ -144,9 +144,9 @@ static NSArray* _charCTypeArr;
 
 - (NSNumber *(^)(NSArray *))numSetXToViews
 {
-    return ^(NSArray* views){
+    return ^id(NSArray* views){
         
-        LinkError_REF_AUTO(NSNumber, NSNumber);
+        LinkHandle_REF(NSNumber, NSNumber)
         if(![views isKindOfClass:[NSArray class]])
             return _self;
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
@@ -166,9 +166,9 @@ static NSArray* _charCTypeArr;
 
 - (NSNumber *(^)(NSArray *))numSetYToViews
 {
-    return ^(NSArray* views){
+    return ^id(NSArray* views){
         
-        LinkError_REF_AUTO(NSNumber, NSNumber);
+        LinkHandle_REF(NSNumber, NSNumber)
         if(![views isKindOfClass:[NSArray class]])
             return _self;
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
@@ -188,8 +188,8 @@ static NSArray* _charCTypeArr;
 
 - (NSString *(^)(NSUInteger))numFloatingToStr
 {
-    return ^(NSUInteger digit){
-        LinkError_REF_AUTO(NSString, NSNumber);
+    return ^id(NSUInteger digit){
+        LinkHandle_REF(NSString, NSNumber)
         
         if(digit<=0){
             
@@ -208,8 +208,8 @@ static NSArray* _charCTypeArr;
 
 - (NSMutableString *(^)(NSUInteger))numFloatingToPercentStr
 {
-    return ^(NSUInteger digit){
-        LinkError_REF_AUTO(NSMutableString, NSNumber);
+    return ^id(NSUInteger digit){
+        LinkHandle_REF(NSMutableString, NSNumber)
         
         NSMutableString* re = [NSMutableString new];
         [re appendString:@([_self doubleValue]*100.0).numFloatingToStr(digit)];
@@ -222,7 +222,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)())numHasDecimalValue
 {
     return ^(){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         if([_self doubleValue] - [_self integerValue])
@@ -235,7 +235,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)(double))numIsEqualToValue
 {
     return ^(double value){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         if([_self doubleValue] == value)
@@ -248,7 +248,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)(double))numIsMoreThanValue
 {
     return ^(double value){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         if([_self doubleValue] > value)
@@ -261,7 +261,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)(double))numIsMoreThanOrEqualValue
 {
     return ^(double value){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         if([_self doubleValue] >= value)
@@ -274,7 +274,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)(double))numIsLessThanValue
 {
     return ^(double value){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         if([_self doubleValue] < value)
@@ -287,7 +287,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)(double))numIsLessThanOrEqualValue
 {
     return ^(double value){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         if([_self doubleValue] <= value)
@@ -300,7 +300,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)(NSNumber *))numIsEqualToNum
 {
     return ^(NSNumber* aNum){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         if(![aNum isKindOfClass:[NSNumber class]])
@@ -315,8 +315,8 @@ static NSArray* _charCTypeArr;
 
 - (NSDate *(^)())numToNSDateSince1970
 {
-    return ^(){
-        LinkError_REF_AUTO(NSDate, NSNumber);
+    return ^id(){
+        LinkHandle_REF(NSDate, NSNumber)
         return [NSDate dateWithTimeIntervalSince1970:[_self doubleValue]];
     };
 }
@@ -325,7 +325,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)())numIsOdd
 {
     return ^(){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         
@@ -341,7 +341,7 @@ static NSArray* _charCTypeArr;
 - (BOOL (^)())numIsEven
 {
     return ^(){
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         }
         
@@ -358,7 +358,7 @@ static NSArray* _charCTypeArr;
 {
     return ^(NSArray* arr){
         
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         };
         if(![arr isKindOfClass:[NSArray class]])
@@ -375,7 +375,7 @@ static NSArray* _charCTypeArr;
 {
     return ^(NSString* str){
         
-        LinkError_VAL_IF(NSNumber){
+        LinkHandle_VAL_IF(NSNumber){
             return NO;
         };
         if(![str isKindOfClass:[NSString class]])
@@ -390,8 +390,8 @@ static NSArray* _charCTypeArr;
 
 - (UIFont *(^)())numToUIFontSystemSize
 {
-    return ^(){
-        LinkError_REF_AUTO(UIFont, NSNumber);
+    return ^id(){
+        LinkHandle_REF(UIFont, NSNumber)
         return [UIFont systemFontOfSize:[_self doubleValue]];
     };
 }
@@ -402,7 +402,7 @@ static NSArray* _charCTypeArr;
 
 - (void)numForLoopASC:(void (^)(int))forBlock
 {
-    LinkError_VAL_IF(NSNumber)
+    LinkHandle_VAL_IF(NSNumber)
     return;
     if(forBlock){
         int x = _self.intValue;
@@ -414,7 +414,7 @@ static NSArray* _charCTypeArr;
 
 - (void)numForLoopDESC:(void (^)(int))forBlock
 {
-    LinkError_VAL_IF(NSNumber)
+    LinkHandle_VAL_IF(NSNumber)
     return;
     if(forBlock){
         int x = _self.intValue;

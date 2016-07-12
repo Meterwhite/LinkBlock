@@ -11,8 +11,8 @@
 @implementation NSObject(NSMutableAttributedStringLinkBlock)
 - (NSMutableAttributedString *(^)(NSAttributedString *))m_attr_strAppendAttrStr
 {
-    return ^(NSAttributedString* attrStr){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSAttributedString* attrStr){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrStr isKindOfClass:[NSAttributedString class]])
             [_self appendAttributedString:attrStr];
         return _self;
@@ -22,8 +22,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *))m_attr_strAppendStr
 {
-    return ^(NSString *str){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *str){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if(([str isKindOfClass:[NSString class]])){
             NSAttributedString *attStr= [[NSAttributedString alloc] initWithString:str];
             [_self appendAttributedString:attStr];
@@ -35,8 +35,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSString *, id))m_attr_strAppendStrAndAttr
 {
-    return ^(NSString *str, NSString* attrName, id attrValue){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *str, NSString* attrName, id attrValue){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([str isKindOfClass:[NSString class]] && [attrName isKindOfClass:[NSString class]] && attrValue){
             NSAttributedString *tNewAttrStr= [[NSAttributedString alloc] initWithString:str attributes:@{attrName:attrValue}];
             [_self appendAttributedString:tNewAttrStr];
@@ -48,8 +48,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *))m_attr_strAppendStrWithAttrDict
 {
-    return ^(NSString *str, NSDictionary *attrDic){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *str, NSDictionary *attrDic){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([str isKindOfClass:[NSString class]] && [attrDic isKindOfClass:[NSDictionary class]]){
             NSAttributedString *tNewAttrStr= [[NSAttributedString alloc] initWithString:str attributes:attrDic];
             [_self appendAttributedString:tNewAttrStr];
@@ -61,8 +61,8 @@
 
 - (NSMutableAttributedString *(^)(NSAttributedString *, NSUInteger))m_attr_strInsertAttrStrAtIndex
 {
-    return ^(NSAttributedString* attrStr, NSUInteger index){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSAttributedString* attrStr, NSUInteger index){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrStr isKindOfClass:[NSAttributedString class]]){
             [_self insertAttributedString:attrStr atIndex:index];
         }
@@ -74,8 +74,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSUInteger))m_attr_strInsertStrAtIndex
 {
-    return ^(NSString* str , NSUInteger index){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString* str , NSUInteger index){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([str isKindOfClass:[NSString class]]){
             NSAttributedString *tNewAttrStr= [[NSAttributedString alloc] initWithString:str];
             [_self insertAttributedString:tNewAttrStr atIndex:index];
@@ -87,8 +87,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSString *, id, NSUInteger idx))m_attr_strInsertStrWithAttrAtIndex
 {
-    return ^(NSString *str,NSString *attrName, id attrValue, NSUInteger idx){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *str,NSString *attrName, id attrValue, NSUInteger idx){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([str isKindOfClass:[NSString class]] &&
            [attrName isKindOfClass:[NSString class]]&&
            attrValue){
@@ -103,8 +103,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSUInteger))m_attr_strInsertStrWithAttrDict
 {
-    return ^(NSString *str, NSDictionary *attrDic, NSUInteger index){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *str, NSDictionary *attrDic, NSUInteger index){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([str isKindOfClass:[NSString class]] && [attrDic isKindOfClass:[NSDictionary class]]){
             NSAttributedString *tNewAttrStr= [[NSAttributedString alloc] initWithString:str attributes:attrDic];
             [_self insertAttributedString:tNewAttrStr atIndex:index];
@@ -116,8 +116,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, id, NSRange))m_attr_strAddAttrInRange
 {
-    return ^(NSString *attrName, id attrValue, NSRange range){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *attrName, id attrValue, NSRange range){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrName isKindOfClass:[NSString class]]&& attrValue)
             [_self addAttribute:attrName value:attrValue range:range];
         return _self;
@@ -127,8 +127,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, id))m_attr_strAddAttr
 {
-    return ^(NSString *attrName, id attrValue){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *attrName, id attrValue){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrName isKindOfClass:[NSString class]]&& attrValue)
             [_self addAttribute:attrName value:attrValue range:NSMakeRange(0, _self.length)];
         return _self;
@@ -138,8 +138,8 @@
 
 - (NSMutableAttributedString *(^)(UIFont *))m_attr_strAddAttrFont
 {
-    return ^(UIFont *font){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(UIFont *font){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([font isKindOfClass:[UIFont class]]){
             [_self addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, _self.length)];
         }
@@ -150,8 +150,8 @@
 
 - (NSMutableAttributedString *(^)(UIColor *))m_attr_strAddAttrTextColor
 {
-    return ^(UIColor *textColor){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(UIColor *textColor){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([textColor isKindOfClass:[UIColor class]]){
             [_self addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0, _self.length)];
         }
@@ -162,8 +162,8 @@
 
 - (NSMutableAttributedString *(^)(UIColor *))m_attr_strAddAttrBGColor
 {
-    return ^(UIColor *bgColor){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(UIColor *bgColor){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([bgColor isKindOfClass:[UIColor class]]){
             [_self addAttribute:NSBackgroundColorAttributeName value:bgColor range:NSMakeRange(0, _self.length)];
         }
@@ -174,8 +174,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *))m_attr_strSetAttrForStr
 {
-    return ^(NSString *forStr,NSDictionary* attrDict){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *forStr,NSDictionary* attrDict){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([forStr isKindOfClass:[NSString class]] &&
            [attrDict isKindOfClass:[NSDictionary class]]){
             NSUInteger tCurrentIndex= 0;
@@ -196,8 +196,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSRange))m_attr_strSetAttrForStrInRange
 {
-    return ^(NSString *forStr,NSDictionary* attrDict, NSRange range){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *forStr,NSDictionary* attrDict, NSRange range){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([forStr isKindOfClass:[NSString class]]&&
            [attrDict isKindOfClass:[NSDictionary class]]){
             NSUInteger tCurrentIndex= range.location;
@@ -220,8 +220,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *))m_attr_strRemoveAttr
 {
-    return ^(NSString* attrName){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString* attrName){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrName isKindOfClass:[NSString class]]){
             [_self removeAttribute:attrName range:NSMakeRange(0, _self.length)];
         }
@@ -232,8 +232,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSRange))m_attr_strRemoveAttrInRange
 {
-    return ^(NSString* attrName,NSRange range){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString* attrName,NSRange range){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrName isKindOfClass:[NSString class]]){
             [_self removeAttribute:attrName range:range];
         }
@@ -244,8 +244,8 @@
 
 - (NSMutableAttributedString *(^)(NSRange))m_attr_strDeleteStrInRange
 {
-    return ^(NSRange range){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSRange range){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         [_self deleteCharactersInRange:range];
         return _self;
     };
@@ -254,8 +254,8 @@
 
 - (NSMutableAttributedString *(^)(NSString *, NSRange))m_attr_strReplaceStrWithStrInRange
 {
-    return ^(NSString *str,NSRange range){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSString *str,NSRange range){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([str isKindOfClass:[NSString class]]){
             [_self replaceCharactersInRange:range withString:str];
         }
@@ -266,8 +266,8 @@
 
 - (NSMutableAttributedString *(^)(NSDictionary *))m_attr_strAddAttrDict
 {
-    return ^(NSDictionary* attrDict){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSDictionary* attrDict){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrDict isKindOfClass:[NSDictionary class]]){
             [_self addAttributes:attrDict range:NSMakeRange(0, _self.length)];
         }
@@ -278,8 +278,8 @@
 
 - (NSMutableAttributedString *(^)(NSDictionary *))m_attr_strSetAttrDict
 {
-    return ^(NSDictionary *attrDict){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSDictionary *attrDict){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrDict isKindOfClass:[NSDictionary class]]){
             [_self setAttributes:attrDict range:NSMakeRange(0, _self.length)];
         }
@@ -290,8 +290,8 @@
 
 - (NSMutableAttributedString *(^)(NSDictionary *, NSRange))m_attr_strSetAttrDictInRange
 {
-    return ^(NSDictionary *attrDict, NSRange range){
-        LinkError_REF_AUTO(NSMutableAttributedString, NSMutableAttributedString);
+    return ^id(NSDictionary *attrDict, NSRange range){
+        LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
         if([attrDict isKindOfClass:[NSDictionary class]]){
             [_self setAttributes:attrDict range: range];
         }
@@ -305,7 +305,7 @@
 - (CGRect (^)(CGFloat))m_attr_strSize
 {
     return ^(CGFloat maxWidth){
-        LinkError_VAL_IF(NSAttributedString){
+        LinkHandle_VAL_IF(NSAttributedString){
             return CGRectZero;
         }
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
@@ -316,7 +316,7 @@
 - (CGRect (^)(CGFloat, NSStringDrawingOptions))m_attr_strSizeWithOptions
 {
     return ^(CGFloat maxWidth,NSStringDrawingOptions options ){
-        LinkError_VAL_IF(NSAttributedString){
+        LinkHandle_VAL_IF(NSAttributedString){
             return CGRectZero;
         }
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil];
@@ -327,7 +327,7 @@
 - (BOOL (^)(NSAttributedString *))m_attr_strIsEqualToAttrStr
 {
     return ^(NSAttributedString* attrStr){
-        LinkError_VAL_IF(NSAttributedString){
+        LinkHandle_VAL_IF(NSAttributedString){
             return NO;
         }
         return [_self isEqualToAttributedString:attrStr];
@@ -337,8 +337,8 @@
 
 - (UIImage *(^)(UIImage *, CGRect))m_attr_strDrawImgRect
 {
-    return ^(UIImage* image, CGRect rect){
-        LinkError_REF_AUTO(UIImage , NSMutableAttributedString);
+    return ^id(UIImage* image, CGRect rect){
+        LinkHandle_REF(UIImage , NSMutableAttributedString)
         UIGraphicsBeginImageContext(image.size);
         [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
         [_self drawInRect:rect];

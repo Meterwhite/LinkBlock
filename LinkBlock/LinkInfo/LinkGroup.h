@@ -6,12 +6,12 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "LinkInfo.h"
+#import "LinkBlock.h"
 
 @interface LinkGroup : LinkInfo
-@property (nonatomic,strong) NSMutableArray* linkObjs;
-@property (nonatomic,strong) NSMutableArray* linkReturns;
+@property (nonatomic,strong) NSMutableArray<NSObject*>* linkObjects;
 
-+ (LinkGroup*)group;
++ (LinkGroup*)groupWithObjs:(NSArray*)objs;
+
+- (LinkGroup*)groupLinkName:(NSString*)name ,...;
 @end

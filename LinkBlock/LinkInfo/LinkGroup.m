@@ -7,28 +7,36 @@
 //
 
 #import "LinkGroup.h"
+#import <objc/runtime.h>
 
 @implementation LinkGroup
 
-- (NSMutableArray *)linkObjs
+- (NSMutableArray<NSObject*> *)linkObjects
 {
-    if(!_linkObjs){
-        _linkObjs = [NSMutableArray new];
+    if(!_linkObjects){
+        _linkObjects = [NSMutableArray new];
     }
-    return _linkObjs;
+    return _linkObjects;
 }
 
-- (NSMutableArray *)linkReturns
++ (LinkGroup *)groupWithObjs:(NSArray *)objs
 {
-    if(!_linkReturns){
-        _linkReturns = [NSMutableArray new];
+    LinkGroup* re = [LinkGroup new];
+    [re.linkObjects addObjectsFromArray:objs];
+    return re;
+}
+
+- (LinkGroup *)groupLinkName:(NSString *)blockName, ...
+{
+    LinkGroup* group = self;
+    NSMutableArray* returnObjs = [NSMutableArray new];
+    for (int i=0; i<group.linkObjects.count; i++) {
+        id re = group.linkObjects[i].arrLast();
+        [returnObjs addObject:re];
     }
-    return _linkReturns;
+    [group.linkObjects removeAllObjects];
+    [group.linkObjects addObjectsFromArray:returnObjs];
+    return group;
+    return nil;
 }
-
-+ (LinkGroup *)group
-{
-    return [LinkGroup new];
-}
-
 @end

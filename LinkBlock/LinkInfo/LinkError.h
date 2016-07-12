@@ -10,7 +10,8 @@
 
 @interface LinkError : LinkInfo
 @property (nonatomic,copy) NSString* needClass;
-@property (nonatomic,assign) char* inFunc;
+@property (nonatomic,copy) NSString* errorClass;
+@property (nonatomic,copy)NSString* inFunc;
 
 - (NSString *)description;
 - (NSString *)debugDescription;

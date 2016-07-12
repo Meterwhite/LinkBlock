@@ -11,8 +11,8 @@
 @implementation NSObject(JSContextLinkBlock)
 - (JSValue *(^)(id))jsContextValue
 {
-    return ^(id key){
-        LinkError_REF_AUTO(JSValue, JSContext);
+    return ^id(id key){
+        LinkHandle_REF(JSValue, JSContext)
         return [_self objectForKeyedSubscript:key];
     };
 }
@@ -20,8 +20,8 @@
 
 - (JSContext *(^)(NSObject <NSCopying> *, id))jsContextSetValue
 {
-    return ^(NSObject <NSCopying> * key , id value){
-        LinkError_REF_AUTO(JSContext, JSContext);
+    return ^id(NSObject <NSCopying> * key , id value){
+        LinkHandle_REF(JSContext, JSContext)
         [_self setObject:value forKeyedSubscript:key];
         return _self;
     };
@@ -30,8 +30,8 @@
 
 - (JSValue *(^)(NSString *))jsContextEval
 {
-    return ^(NSString* script){
-        LinkError_REF_AUTO(JSValue, JSContext);
+    return ^id(NSString* script){
+        LinkHandle_REF(JSValue, JSContext)
         return [_self evaluateScript:script];
     };
 }
@@ -39,8 +39,8 @@
 
 - (JSValue *(^)(NSString *, NSArray *))jsContextCallFunc
 {
-    return ^(NSString* func , NSArray* args){
-        LinkError_REF_AUTO(JSValue, JSContext);
+    return ^id(NSString* func , NSArray* args){
+        LinkHandle_REF(JSValue, JSContext)
         return [[_self objectForKeyedSubscript:func] callWithArguments:args];
     };
 }
@@ -48,8 +48,8 @@
 
 - (JSValue *(^)(NSString *,NSString* ))jsContextGetElementById
 {
-    return ^(NSString* elementId,NSString* appendScript){
-        LinkError_REF_AUTO(JSValue, JSContext);
+    return ^id(NSString* elementId,NSString* appendScript){
+        LinkHandle_REF(JSValue, JSContext)
         if([appendScript isKindOfClass:[NSString class]]){
             return [_self evaluateScript:[NSString stringWithFormat:@"document.getElementById(%@)%@",elementId,appendScript]];
         }else{
@@ -61,8 +61,8 @@
 
 - (JSValue *(^)(NSString *, NSString *))jsContextGetElementsByName
 {
-    return ^(NSString* elementId,NSString* appendScript){
-        LinkError_REF_AUTO(JSValue, JSContext);
+    return ^id(NSString* elementId,NSString* appendScript){
+        LinkHandle_REF(JSValue, JSContext)
         if([appendScript isKindOfClass:[NSString class]]){
             return [_self evaluateScript:[NSString stringWithFormat:@"document.getElementsByName(%@)%@",elementId,appendScript]];
         }else{
@@ -74,8 +74,8 @@
 
 - (JSValue *(^)(NSString *, NSString *))jsContextGetElementsByTagName
 {
-    return ^(NSString* elementId,NSString* appendScript){
-        LinkError_REF_AUTO(JSValue, JSContext);
+    return ^id(NSString* elementId,NSString* appendScript){
+        LinkHandle_REF(JSValue, JSContext)
         if([appendScript isKindOfClass:[NSString class]]){
             return [_self evaluateScript:[NSString stringWithFormat:@"document.getElementsByTagName(%@)%@",elementId,appendScript]];
         }else{
@@ -87,8 +87,8 @@
 
 - (JSContext *(^)(NSString *))jsContextWrite
 {
-    return ^(NSString* str){
-        LinkError_REF_AUTO(JSContext, JSContext);
+    return ^id(NSString* str){
+        LinkHandle_REF(JSContext, JSContext)
         [_self evaluateScript:[NSString stringWithFormat:@"document.write(%@)",str]];
         return _self;
     };
@@ -97,8 +97,8 @@
 
 - (JSContext *(^)(NSString *))jsContextAlert
 {
-    return ^(NSString* str){
-        LinkError_REF_AUTO(JSContext, JSContext);
+    return ^id(NSString* str){
+        LinkHandle_REF(JSContext, JSContext)
         [_self evaluateScript:[NSString stringWithFormat:@"document.alert(%@)",str]];
         return _self;
     };
@@ -107,8 +107,8 @@
 
 - (JSContext *(^)())jsContextHistoryBack
 {
-    return ^(NSString* str){
-        LinkError_REF_AUTO(JSContext, JSContext);
+    return ^id(NSString* str){
+        LinkHandle_REF(JSContext, JSContext)
         [_self evaluateScript:@"document.history.back()"];
         return _self;
     };
@@ -117,8 +117,8 @@
 
 - (JSContext *(^)())jsContextHistoryForward
 {
-    return ^(NSString* str){
-        LinkError_REF_AUTO(JSContext, JSContext);
+    return ^id(NSString* str){
+        LinkHandle_REF(JSContext, JSContext)
         [_self evaluateScript:@"document.history.forward()"];
         return _self;
     };
@@ -127,8 +127,8 @@
 
 - (JSContext *(^)(NSString* page))jsContextHistoryGo
 {
-    return ^(NSString* page){
-        LinkError_REF_AUTO(JSContext, JSContext);
+    return ^id(NSString* page){
+        LinkHandle_REF(JSContext, JSContext)
         if(![page isKindOfClass:[NSString class]])  return _self;
         [_self evaluateScript:[NSString stringWithFormat:@"document.history.go(%@)",page]];
         return _self;
@@ -138,8 +138,8 @@
 
 - (NSString *(^)())jsContextTitle
 {
-    return ^(){
-        LinkError_REF_AUTO(NSString, JSContext);
+    return ^id(){
+        LinkHandle_REF(NSString, JSContext)
         return [[_self evaluateScript:@"document.title"] toString];
     };
 }
@@ -147,8 +147,8 @@
 
 - (NSString *(^)())jsContextHTML
 {
-    return ^(){
-        LinkError_REF_AUTO(NSString, JSContext);
+    return ^id(){
+        LinkHandle_REF(NSString, JSContext)
         return [[_self evaluateScript:@"document.documentElement.innerHTML"] toString];
     };
 }
@@ -156,8 +156,8 @@
 
 - (NSString *(^)())jsContextLocationHref
 {
-    return ^(){
-        LinkError_REF_AUTO(NSString, JSContext);
+    return ^id(){
+        LinkHandle_REF(NSString, JSContext)
         return [[_self evaluateScript:@"window.location.href"] toString];
     };
 }
@@ -165,8 +165,8 @@
 
 - (JSContext *(^)())jsContextLocationReload
 {
-    return ^(){
-        LinkError_REF_AUTO(JSContext, JSContext);
+    return ^id(){
+        LinkHandle_REF(JSContext, JSContext)
         [_self evaluateScript:@"window.location.reload()"];
         return _self;
     };

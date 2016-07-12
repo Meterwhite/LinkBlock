@@ -11,8 +11,8 @@
 @implementation NSObject(UIWebViewLinkBlock)
 - (JSContext *(^)())webViewContext
 {
-    return ^(){
-        LinkError_REF_AUTO(JSContext, UIWebView);
+    return ^id(){
+        LinkHandle_REF(JSContext, UIWebView)
         return (JSContext*)[_self valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     };
 }
@@ -20,8 +20,8 @@
 
 - (NSString *(^)())webViewTitle
 {
-    return ^(){
-        LinkError_REF_AUTO(NSString, UIWebView);
+    return ^id(){
+        LinkHandle_REF(NSString, UIWebView)
         return [_self stringByEvaluatingJavaScriptFromString:@"document.title"];
     };
 }
@@ -29,8 +29,8 @@
 
 - (NSString *(^)())webViewLocationHref
 {
-    return ^(){
-        LinkError_REF_AUTO(NSString, UIWebView);
+    return ^id(){
+        LinkHandle_REF(NSString, UIWebView)
         return [_self stringByEvaluatingJavaScriptFromString:@"window.location.href"];
     };
 }
@@ -38,8 +38,8 @@
 
 - (NSString *(^)(NSString* ))webViewEvalScript
 {
-    return ^(NSString* script){
-        LinkError_REF_AUTO(NSString, UIWebView);
+    return ^id(NSString* script){
+        LinkHandle_REF(NSString, UIWebView)
         return [_self stringByEvaluatingJavaScriptFromString:script];
     };
 }
@@ -47,8 +47,8 @@
 
 - (NSString *(^)())webViewHTML
 {
-    return ^(){
-        LinkError_REF_AUTO(NSString, UIWebView);
+    return ^id(){
+        LinkHandle_REF(NSString, UIWebView)
         return [_self stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
     };
 }

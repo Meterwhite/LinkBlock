@@ -13,6 +13,7 @@
 #pragma mark - 方式
 /** 末尾取值时调用过滤掉错误对象（LinkError），若中途发生类型错误结果返回nil */
 @property (nonatomic,copy) id           (^end)();
+@property (nonatomic,copy) NSArray*     (^ends)();
 /** 将当前对象赋值到其他变量， */
 @property (nonatomic,copy) NSObject*    (^setTo)(id* toObject);
 /** 链条分支，返回源对象，在链条内处理新分支 */

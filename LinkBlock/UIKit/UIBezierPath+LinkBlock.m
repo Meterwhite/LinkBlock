@@ -11,8 +11,8 @@
 @implementation UIBezierPath(UIBezierPathLinkBlock)
 - (UIBezierPath *(^)(CGFloat))bezierPathSetLineWidth
 {
-    return ^(CGFloat lineWidth){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGFloat lineWidth){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         _self.lineWidth = lineWidth;
         return _self;
     };
@@ -21,8 +21,8 @@
 
 - (UIBezierPath *(^)(CGLineCap))bezierPathSetLineCapStyle
 {
-    return ^(CGLineCap lineCapStyle){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGLineCap lineCapStyle){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         _self.lineCapStyle = lineCapStyle;
         return _self;
     };
@@ -31,8 +31,8 @@
 
 - (UIBezierPath *(^)(CGLineJoin))bezierPathSetLineJoinStyle
 {
-    return ^(CGLineJoin lineJoinStyle){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGLineJoin lineJoinStyle){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         _self.lineJoinStyle = lineJoinStyle;
         return _self;
     };
@@ -41,8 +41,8 @@
 
 - (UIBezierPath *(^)(CGFloat))bezierPathSetMiterLimit
 {
-    return ^(CGFloat miterLimit){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGFloat miterLimit){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         _self.miterLimit = miterLimit;
         return _self;
     };
@@ -51,8 +51,8 @@
 
 - (UIBezierPath *(^)(CGFloat))bezierPathSetFlatness
 {
-    return ^(CGFloat flatness){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGFloat flatness){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         _self.flatness = flatness;
         return _self;
     };
@@ -61,8 +61,8 @@
 
 - (UIBezierPath *(^)(CGPoint))bezierPathMoveToPoint
 {
-    return ^(CGPoint point){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGPoint point){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self moveToPoint:point];
         return _self;
     };
@@ -71,8 +71,8 @@
 
 - (UIBezierPath *(^)(CGPoint))bezierPathAddLineToPoint
 {
-    return ^(CGPoint point){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGPoint point){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self addLineToPoint:point];
         return _self;
     };
@@ -81,8 +81,8 @@
 
 - (UIBezierPath *(^)(CGPoint, CGPoint, CGPoint))bezierPathAddCurveToPoint
 {
-    return ^(CGPoint endPoint,CGPoint controlPoint1,CGPoint controlPoint2){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGPoint endPoint,CGPoint controlPoint1,CGPoint controlPoint2){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self addCurveToPoint:endPoint controlPoint1:controlPoint1 controlPoint2:controlPoint2];
         return _self;
     };
@@ -91,8 +91,8 @@
 
 - (UIBezierPath *(^)(CGPoint, CGPoint))bezierPathAddQuadCurveToPoint
 {
-    return ^(CGPoint endPoint,CGPoint controlPoint){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGPoint endPoint,CGPoint controlPoint){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self addQuadCurveToPoint:endPoint controlPoint:controlPoint];
         return _self;
     };
@@ -101,8 +101,8 @@
 
 - (UIBezierPath *(^)(CGPoint, CGFloat, CGFloat, CGFloat, BOOL))bezierPathAddArcWithCenter
 {
-    return ^(CGPoint center,CGFloat radius,CGFloat startAngle,CGFloat endAngle,BOOL clockwise){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(CGPoint center,CGFloat radius,CGFloat startAngle,CGFloat endAngle,BOOL clockwise){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
         return _self;
     };
@@ -111,8 +111,8 @@
 
 - (UIBezierPath *(^)())bezierPathClosePath
 {
-    return ^(){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self closePath];
         return _self;
     };
@@ -121,8 +121,8 @@
 
 - (UIBezierPath *(^)())bezierPathRemoveAllPoints
 {
-    return ^(){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self removeAllPoints];
         return _self;
     };
@@ -131,8 +131,8 @@
 
 - (UIBezierPath *(^)(UIBezierPath *))bezierPathAppendPath
 {
-    return ^(UIBezierPath* aPath){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(UIBezierPath* aPath){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self appendPath:aPath];
         return _self;
     };
@@ -141,8 +141,8 @@
 
 - (UIBezierPath *(^)())bezierPathByReversingPath
 {
-    return ^(){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         return [_self bezierPathByReversingPath];
     };
 }
@@ -151,7 +151,7 @@
 - (BOOL (^)(CGPoint))bezierPathContainsPoint
 {
     return ^(CGPoint point){
-        LinkError_VAL_IF(UIBezierPath){
+        LinkHandle_VAL_IF(UIBezierPath){
             return NO;
         }
         return [_self containsPoint:point];
@@ -161,8 +161,8 @@
 
 - (UIBezierPath *(^)())bezierPathFill
 {
-    return ^(){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self fill];
         return _self;
     };
@@ -171,8 +171,8 @@
 
 - (UIBezierPath *(^)())bezierPathStroke
 {
-    return ^(){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self stroke];
         return _self;
     };
@@ -181,8 +181,8 @@
 
 - (UIBezierPath *(^)())bezierPathAddClip
 {
-    return ^(){
-        LinkError_REF_AUTO(UIBezierPath, UIBezierPath);
+    return ^id(){
+        LinkHandle_REF(UIBezierPath, UIBezierPath)
         [_self addClip];
         return _self;
     };

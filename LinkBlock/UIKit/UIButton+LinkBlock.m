@@ -10,8 +10,8 @@
 @implementation NSObject(UIButtonLinkBlock)
 - (UIButton *(^)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right))btnTitleEdgeInsets
 {
-    return ^(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right){
+        LinkHandle_REF(UIButton, UIButton)
         _self.titleEdgeInsets = UIEdgeInsetsMake(top, left, bottom, right);
         return _self;
     };
@@ -20,8 +20,8 @@
 
 - (UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))btnImageEdgeInsets
 {
-    return ^(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right){
+        LinkHandle_REF(UIButton, UIButton)
         _self.imageEdgeInsets = UIEdgeInsetsMake(top, left, bottom, right);
         return _self;
     };
@@ -30,8 +30,8 @@
 
 - (UIButton *(^)(NSString *, UIControlState))btnTitle
 {
-    return ^(NSString* title, UIControlState state){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(NSString* title, UIControlState state){
+        LinkHandle_REF(UIButton, UIButton)
         [_self setTitle:title forState:state];
         return _self;
     };
@@ -40,8 +40,8 @@
 
 - (UIButton *(^)(UIColor *, UIControlState))btnTitleColor
 {
-    return ^(UIColor* color, UIControlState state){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(UIColor* color, UIControlState state){
+        LinkHandle_REF(UIButton, UIButton)
         [_self setTitleColor:color forState:state];
         return _self;
     };
@@ -50,8 +50,8 @@
 
 - (UIButton *(^)(UIImage *, UIControlState))btnImage
 {
-    return ^(UIImage* img, UIControlState state){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(UIImage* img, UIControlState state){
+        LinkHandle_REF(UIButton, UIButton)
         [_self setImage:img forState:state];
         return _self;
     };
@@ -60,8 +60,8 @@
 
 - (UIButton *(^)(UIImage *, UIControlState))btnBGImage
 {
-    return ^(UIImage* img, UIControlState state){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(UIImage* img, UIControlState state){
+        LinkHandle_REF(UIButton, UIButton)
         [_self setBackgroundImage:img forState:state];
         return _self;
     };
@@ -70,8 +70,8 @@
 
 - (UIButton *(^)(UIFont *))btnTitleFont
 {
-    return ^(UIFont* font){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(UIFont* font){
+        LinkHandle_REF(UIButton, UIButton)
         _self.titleLabel.labFont(font);
         return _self;
     };
@@ -80,8 +80,8 @@
 
 - (UIButton *(^)(CGFloat))btnTitleFontSystemSizeSet
 {
-    return ^(CGFloat size){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(CGFloat size){
+        LinkHandle_REF(UIButton, UIButton)
         _self.titleLabel.labFontSystemSizeSet(size);
         return _self;
     };
@@ -90,8 +90,8 @@
 
 - (UIButton *(^)(NSAttributedString *, UIControlState))btnAttributeTitle
 {
-    return ^(NSAttributedString* attrStr , UIControlState state){
-        LinkError_REF_AUTO(UIButton, UIButton);
+    return ^id(NSAttributedString* attrStr , UIControlState state){
+        LinkHandle_REF(UIButton, UIButton)
         [_self setAttributedTitle:attrStr forState:state];
         return _self;
     };
@@ -101,7 +101,7 @@
 - (CGFloat (^)())btnTitleFontSystemSizeGet
 {
     return ^(){
-        LinkError_VAL_IF(UIButton){
+        LinkHandle_VAL_IF(UIButton){
             return (CGFloat)0.0;
         }
         return _self.titleLabel.font.pointSize;

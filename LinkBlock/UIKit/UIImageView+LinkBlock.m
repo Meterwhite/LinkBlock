@@ -11,8 +11,8 @@
 @implementation NSObject(UIImageViewLinkBlock)
 - (UIImageView *(^)(UIImage *))img_viewImage
 {
-    return ^(UIImage * img){
-        LinkError_REF_AUTO(UIImageView, UIImageView);
+    return ^id(UIImage * img){
+        LinkHandle_REF(UIImageView, UIImageView)
         _self.image= img;
         return _self;
     };
@@ -21,8 +21,8 @@
 
 - (UIImageView *(^)(UIImage *))img_viewImageHighlight
 {
-    return ^(UIImage * img){
-        LinkError_REF_AUTO(UIImageView, UIImageView);
+    return ^id(UIImage * img){
+        LinkHandle_REF(UIImageView, UIImageView)
         _self.highlightedImage= img;
         return _self;
     };
@@ -31,8 +31,8 @@
 
 - (UIImageView *(^)(NSString *))img_viewImageStr
 {
-    return ^(NSString * imgStr){
-        LinkError_REF_AUTO(UIImageView, UIImageView);
+    return ^id(NSString * imgStr){
+        LinkHandle_REF(UIImageView, UIImageView)
         _self.image = [UIImage imageNamed:imgStr];
         return _self;
     };
@@ -41,8 +41,8 @@
 
 - (UIImageView *(^)(NSString *))img_viewImageStrHighlight
 {
-    return ^(NSString * imgStr){
-        LinkError_REF_AUTO(UIImageView, UIImageView);
+    return ^id(NSString * imgStr){
+        LinkHandle_REF(UIImageView, UIImageView)
         _self.highlightedImage = [UIImage imageNamed:imgStr];
         return _self;
     };
@@ -51,8 +51,8 @@
 
 - (UIImageView *(^)(BOOL))img_viewHighlight
 {
-    return ^(BOOL b){
-        LinkError_REF_AUTO(UIImageView, UIImageView);
+    return ^id(BOOL b){
+        LinkHandle_REF(UIImageView, UIImageView)
         _self.highlighted = b;
         return _self;
     };

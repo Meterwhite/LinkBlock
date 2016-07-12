@@ -11,8 +11,9 @@
 
 - (NSMutableArray *(^)(id))m_arrAddObj
 {
-    return ^(id obj){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkGroupHandle(m_arrAddObj , obj)
         if(!obj)goto END;
         [_self addObject:obj];
     END:
@@ -23,8 +24,8 @@
 
 - (NSMutableArray *(^)(NSArray *))m_arrAddObjs
 {
-    return ^(NSArray *arr){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSArray *arr){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(!arr || ![arr isKindOfClass:[NSArray class]])goto END;
         [_self addObjectsFromArray:arr];
     END:
@@ -35,8 +36,8 @@
 
 - (NSMutableArray *(^)(id, NSUInteger))m_arrInsertObjAt
 {
-    return ^(id obj, NSUInteger index){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj, NSUInteger index){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(!obj || index>_self.count)
             return _self;
         if(!_self.count){
@@ -50,8 +51,8 @@
 
 - (NSMutableArray *(^)(NSArray *, NSUInteger))m_arrInsertArrayAt
 {
-    return ^(NSArray * arr, NSUInteger index){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSArray * arr, NSUInteger index){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(!_self.count || ![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto END;
         [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, arr.count)]];
     END:
@@ -62,8 +63,8 @@
 
 - (NSMutableArray *(^)(id, id))m_arrInsertBefore
 {
-    return ^(id obj, id beforObj){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj, id beforObj){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(!obj || !beforObj) goto END;
         long idx= [_self indexOfObject:beforObj];
         if(idx != NSNotFound){
@@ -78,8 +79,8 @@
 
 - (NSMutableArray *(^)(id, id))m_arrInsertBehind
 {
-    return ^(id obj, id behindObj){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj, id behindObj){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(!obj || !behindObj) goto END;
         long idx= [_self indexOfObject:behindObj];
         if(idx != NSNotFound){
@@ -93,8 +94,8 @@
 
 - (NSMutableArray *(^)(id))m_arrRemoveObj
 {
-    return ^(id obj){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(!obj)goto END;
         [_self removeObject:obj];
     END:
@@ -105,8 +106,8 @@
 
 - (NSMutableArray *(^)(NSUInteger))m_arrRemoveAt
 {
-    return ^(NSUInteger index){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSUInteger index){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(index>_self.count)goto END;
         [_self removeObjectAtIndex:index];
     END:
@@ -117,8 +118,8 @@
 
 - (NSMutableArray *(^)(NSUInteger, NSUInteger))m_arrRemoveObjsFromTo
 {
-    return ^(NSUInteger from, NSUInteger to){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSUInteger from, NSUInteger to){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if( to>_self.count || from>to )goto END;
         [_self removeObjectsInRange:NSMakeRange(from, to - from + 1)];
     END:
@@ -129,8 +130,8 @@
 
 - (NSMutableArray *(^)())m_arrRemoveAll
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         [_self removeAllObjects];
         return _self;
     };
@@ -139,8 +140,8 @@
 
 - (NSMutableArray *(^)(id, id))m_arrReplaceObjWith
 {
-    return ^(id obj, id withObj){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj, id withObj){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(!obj|| !withObj)goto END;
         NSInteger idx= [_self indexOfObject:obj];
         if(idx != NSNotFound){
@@ -154,7 +155,7 @@
 
 - (id (^)(NSUInteger))m_arrAt
 {
-    return ^(NSUInteger idx){
+    return ^id(NSUInteger idx){
         return self.arrAt(idx);
     };
 }
@@ -178,7 +179,7 @@
 
 - (NSArray *(^)(NSUInteger, NSUInteger))m_arrObjsFromIndexTo
 {
-    return ^(NSUInteger from, NSUInteger to){
+    return ^id(NSUInteger from, NSUInteger to){
         return self.arrObjsFromIndexTo(from , to);
     };
 }
@@ -195,7 +196,7 @@
 
 - (NSDictionary *(^)())m_arrToDictByKeyNumber
 {
-    return ^(){
+    return ^id(){
         return self.arrToDictByKeyNumber();
     };
 }
@@ -203,7 +204,7 @@
 
 - (NSDictionary *(^)())m_arrToDictByKeyString
 {
-    return ^(){
+    return ^id(){
         return self.arrToDictByKeyString();
     };
 }
@@ -212,8 +213,8 @@
 
 - (NSMutableArray *(^)(NSString *, BOOL))m_arrSortByKey
 {
-    return ^(NSString* key , BOOL ascending){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSString* key , BOOL ascending){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key
                                                                ascending:ascending];
         [_self sortUsingDescriptors:@[sort]];
@@ -224,8 +225,8 @@
 
 - (NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceObjByKey
 {
-    return ^(id obj , NSString* key){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj , NSString* key){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
         NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -250,8 +251,8 @@
 
 - (NSMutableArray *(^)(NSString *))m_arrFilter
 {
-    return ^(NSString* predicateFormat){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSString* predicateFormat){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         [_self filterUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
         return _self;
     };
@@ -260,8 +261,8 @@
 
 - (NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceObjByKeyAt
 {
-    return ^(id obj , NSString* key , NSUInteger idx){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj , NSString* key , NSUInteger idx){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
         NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -286,8 +287,8 @@
 
 - (NSMutableArray *(^)(id, NSString *))m_arrTryReplaceObjByKey
 {
-    return ^(id obj , NSString* key){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(id obj , NSString* key){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
@@ -310,8 +311,8 @@
 
 - (NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey
 {
-    return ^(NSArray* objs , NSString* key){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSArray* objs , NSString* key){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         [objs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             _self.m_arrTryReplaceObjByKey(obj, key);
         }];
@@ -322,8 +323,8 @@
 
 - (NSMutableArray *(^)(NSUInteger))m_arrSubFrom
 {
-    return ^(NSUInteger idx){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         NSUInteger count = _self.count;
         if(idx >= count ) return _self;
         NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(idx, count - idx)];
@@ -335,8 +336,8 @@
 
 - (NSMutableArray *(^)(NSUInteger))m_arrSubTo
 {
-    return ^(NSUInteger idx){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         NSUInteger count = _self.count;
         if(idx >= count ) return _self;
         NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, idx)];
@@ -348,8 +349,8 @@
 
 - (NSMutableArray *(^)(__unsafe_unretained Class))m_arrObjsOfType
 {
-    return ^(__unsafe_unretained Class typeClass){
-        LinkError_REF_AUTO(NSMutableArray, NSMutableArray);
+    return ^id(__unsafe_unretained Class typeClass){
+        LinkHandle_REF(NSMutableArray, NSMutableArray)
         if(!typeClass)
             return _self;
         NSMutableArray* re = [NSMutableArray array];
@@ -365,7 +366,7 @@
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict
 {
-    return ^(id<NSCopying> replaceKey,id<NSCopying> withKey){
+    return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
         return self.arrReplaceKeyInDict(replaceKey, withKey);
     };
 }
@@ -373,7 +374,7 @@
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDictWithoutDeep
 {
-    return ^(id<NSCopying> replaceKey,id<NSCopying> withKey){
+    return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
         return self.arrReplaceKeyInDictWithoutDeep(replaceKey, withKey);
     };
 }
@@ -381,8 +382,8 @@
 
 - (id (^)())m_arrAny
 {
-    return ^(){
-        LinkError_VAL_IF(NSArray){
+    return ^id(){
+        LinkHandle_VAL_IF(NSArray){
             return (id)nil;
         }
         return _self[arc4random_uniform((u_int32_t)_self.count)];
@@ -392,8 +393,8 @@
 
 - (NSMutableArray<NSValue *> *(^)(BOOL, BOOL))m_arrSortRange
 {
-    return ^(BOOL ascending, BOOL isCombine){
-        LinkError_REF_AUTO(NSMutableArray<NSValue *>, NSMutableArray<NSValue *>);
+    return ^id(BOOL ascending, BOOL isCombine){
+        LinkHandle_REF(NSMutableArray<NSValue *>, NSMutableArray<NSValue *>)
         
         NSMutableSet<NSValue*>* combineArr = [NSMutableSet new];
         NSInteger flagDirection = ascending?1:-1;

@@ -11,8 +11,8 @@
 @implementation NSObject(NSMutableStringLinkBlock)
 - (NSMutableString *(^)(NSString *, NSString *))m_strReplaceStr
 {
-    return ^(NSString* replaceStr, NSString* withStr){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* replaceStr, NSString* withStr){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         if([replaceStr isKindOfClass:[NSString class]] &&
            [withStr isKindOfClass:[NSString class]] ){
             return (NSMutableString*)[[_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr] mutableCopy];
@@ -24,8 +24,8 @@
 
 - (NSMutableString *(^)(NSString *, NSUInteger))m_strInsertStrAt
 {
-    return ^(NSString* str, NSUInteger idx){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* str, NSUInteger idx){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self insertString:str atIndex:idx];
         return _self;
     };
@@ -34,8 +34,8 @@
 
 - (NSMutableString *(^)(NSString *))m_strAppenStr
 {
-    return ^(NSString* str){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* str){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:str];
         return _self;
     };
@@ -44,8 +44,8 @@
 
 - (NSMutableString *(^)())m_strClear
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self setString:@""];
         return _self;
     };
@@ -54,8 +54,8 @@
 
 - (NSMutableString *(^)(NSRange))m_strDeleteInRange
 {
-    return ^(NSRange range){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSRange range){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self deleteCharactersInRange:range];
         return _self;
     };
@@ -64,8 +64,8 @@
 
 - (NSMutableString *(^)(NSString *))SQLStr
 {
-    return ^(NSString* str){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* str){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" "];
         [_self appendString:str];
         [_self appendString:@" "];
@@ -76,8 +76,8 @@
 
 - (NSMutableString *(^)(NSInteger))SQLInt
 {
-    return ^(NSInteger num){
-        LinkError_VAL_IF(NSMutableString)
+    return ^id(NSInteger num){
+        LinkHandle_VAL_IF(NSMutableString)
             return _self;
         [_self appendString:@" "];
         [_self appendString:[NSString stringWithFormat:@"%ld" ,(long)num]];
@@ -89,8 +89,8 @@
 
 -(NSMutableString *(^)(double))SQLDouble
 {
-    return ^(double num){
-        LinkError_VAL_IF(NSMutableString)
+    return ^id(double num){
+        LinkHandle_VAL_IF(NSMutableString)
         return _self;
         [_self appendString:@" "];
         [_self appendString:[NSString stringWithFormat:@"%f" ,num]];
@@ -102,8 +102,8 @@
 
 - (NSMutableString *(^)(NSArray *))SQLArr
 {
-    return ^(NSArray* arr){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSArray* arr){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" "];
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [_self appendString:[obj description]];
@@ -119,8 +119,8 @@
 
 -(NSMutableString *(^)(NSDictionary *))SQLDictKeys
 {
-    return ^(NSDictionary* dic){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSDictionary* dic){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" "];
         [[dic allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [_self appendString:[obj description]];
@@ -136,8 +136,8 @@
 
 - (NSMutableString *(^)(NSDictionary *))SQLDictValues
 {
-    return ^(NSDictionary* dic){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSDictionary* dic){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" "];
         [[dic allValues] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [_self appendString:[obj description]];
@@ -153,8 +153,8 @@
 
 - (NSMutableString *(^)(NSString *))SQLStrInStr
 {
-    return ^(NSString* str){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* str){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" '"];
         [_self appendString:str];
         [_self appendString:@"' "];
@@ -165,8 +165,8 @@
 
 - (NSMutableString *(^)(NSInteger))SQLIntInStr
 {
-    return ^(NSInteger num){
-        LinkError_VAL_IF(NSMutableString)
+    return ^id(NSInteger num){
+        LinkHandle_VAL_IF(NSMutableString)
         return _self;
         [_self appendString:@" "];
         [_self appendString:[NSString stringWithFormat:@"'%ld'" ,(long)num]];
@@ -178,8 +178,8 @@
 
 - (NSMutableString *(^)(double))SQLDoubleInStr
 {
-    return ^(double num){
-        LinkError_VAL_IF(NSMutableString)
+    return ^id(double num){
+        LinkHandle_VAL_IF(NSMutableString)
         return _self;
         [_self appendString:@" "];
         [_self appendString:[NSString stringWithFormat:@"'%f'" ,num]];
@@ -191,8 +191,8 @@
 
 - (NSMutableString *(^)(NSString *, NSString *))SQLKeyValueEqualStr
 {
-    return ^(NSString* key , NSString* str){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* key , NSString* str){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" "];
         [_self appendString:key];
         [_self appendString:@" = "];
@@ -205,8 +205,8 @@
 
 - (NSMutableString *(^)(NSString *, NSString *))SQLKeyValueEqualStrInStr
 {
-    return ^(NSString* key , NSString* str){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* key , NSString* str){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" "];
         [_self appendString:key];
         [_self appendString:@" = '"];
@@ -219,8 +219,8 @@
 
 - (NSMutableString *(^)(NSString *, NSInteger))SQLKeyValueEqualInt
 {
-    return ^(NSString* key , NSInteger num){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* key , NSInteger num){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" "];
         [_self appendString:key];
         [_self appendString:@" = "];
@@ -233,8 +233,8 @@
 
 - (NSMutableString *(^)(NSString *, double))SQLKeyValueEqualDouble
 {
-    return ^(NSString* key , double num){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(NSString* key , double num){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" "];
         [_self appendString:key];
         [_self appendString:@" = "];
@@ -247,8 +247,8 @@
 
 - (NSMutableString *(^)())SQL_Select
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" select "];
         return _self;
     };
@@ -257,8 +257,8 @@
 
 - (NSMutableString *(^)())SQL_Where
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" where "];
         return _self;
     };
@@ -267,8 +267,8 @@
 
 - (NSMutableString *(^)())SQL_From
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" from "];
         return _self;
     };
@@ -277,8 +277,8 @@
 
 - (NSMutableString *(^)())SQL_Create
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" create "];
         return _self;
     };
@@ -287,8 +287,8 @@
 
 - (NSMutableString *(^)())SQL_Update
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" update "];
         return _self;
     };
@@ -297,8 +297,8 @@
 
 - (NSMutableString *(^)())SQL_InsertInto
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" insert into "];
         return _self;
     };
@@ -307,8 +307,8 @@
 
 - (NSMutableString *(^)())SQL_ReplaceInto
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" replace into "];
         return _self;
     };
@@ -317,8 +317,8 @@
 
 - (NSMutableString *(^)())SQL_And
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" and "];
         return _self;
     };
@@ -327,8 +327,8 @@
 
 - (NSMutableString *(^)())SQL_Or
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" or "];
         return _self;
     };
@@ -337,8 +337,8 @@
 
 - (NSMutableString *(^)())SQL_In
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" in "];
         return _self;
     };
@@ -347,8 +347,8 @@
 
 - (NSMutableString *(^)())SQL_Distinct
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" distinct "];
         return _self;
     };
@@ -357,8 +357,8 @@
 
 - (NSMutableString *(^)())SQL_As
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" as "];
         return _self;
     };
@@ -367,8 +367,8 @@
 
 - (NSMutableString *(^)())SQL_Like
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" like "];
         return _self;
     };
@@ -377,8 +377,8 @@
 
 - (NSMutableString *(^)())SQL_Comma
 {
-    return ^(){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" , "];
         return _self;
     };
@@ -387,8 +387,8 @@
 
 - (NSMutableString *(^)(id))SQL_InPair
 {
-    return ^(id val){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(id val){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" ("];
         [_self appendString:[val description]];
         [_self appendString:@") "];
@@ -399,8 +399,8 @@
 
 - (NSMutableString *(^)(id))SQL_InvertedComma
 {
-    return ^(id val){
-        LinkError_REF_AUTO(NSMutableString, NSMutableString);
+    return ^id(id val){
+        LinkHandle_REF(NSMutableString, NSMutableString)
         [_self appendString:@" '"];
         [_self appendString:[val description]];
         [_self appendString:@"' "];

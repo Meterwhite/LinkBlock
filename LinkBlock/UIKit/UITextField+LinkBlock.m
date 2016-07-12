@@ -12,8 +12,8 @@
 
 - (UITextField* (^)(UIColor *))txtFieldPlaceholdColor
 {
-    return ^(UIColor* color){
-        LinkError_REF_AUTO(UITextField, UITextField);
+    return ^id(UIColor* color){
+        LinkHandle_REF(UITextField, UITextField)
         [_self setValue:color forKeyPath:@"_placeholderLabel.textColor"];
         return _self;
     };

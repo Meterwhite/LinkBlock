@@ -9,5 +9,12 @@
 #import "LinkInfo.h"
 
 @implementation LinkInfo
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _throwCount=0;
+    }
+    return self;
+}
 @end

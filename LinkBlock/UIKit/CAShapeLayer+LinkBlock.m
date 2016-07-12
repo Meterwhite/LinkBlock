@@ -11,8 +11,8 @@
 @implementation NSObject(CAShapeLayerLinkBlock)
 - (CAShapeLayer *(^)(UIBezierPath *))sharpLayerSetPath
 {
-    return ^(UIBezierPath* path){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(UIBezierPath* path){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.path = path.CGPath;
         return _self;
     };
@@ -21,8 +21,8 @@
 
 - (CAShapeLayer *(^)(UIColor *))sharpLayerSetFillColor
 {
-    return ^(UIColor* color){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(UIColor* color){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.fillColor = color.CGColor;
         return _self;
     };
@@ -31,8 +31,8 @@
 
 - (CAShapeLayer *(^)(UIColor *))sharpLayerSetStrokeColor
 {
-    return ^(UIColor* color){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(UIColor* color){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.strokeColor = color.CGColor;
         return _self;
     };
@@ -41,8 +41,8 @@
 
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetFillRule
 {
-    return ^(NSString* fillRule){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(NSString* fillRule){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.fillRule = fillRule;
         return _self;
     };
@@ -51,8 +51,8 @@
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetStrokeStart
 {
-    return ^(CGFloat strokeStart){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(CGFloat strokeStart){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.strokeStart = strokeStart;
         return _self;
     };
@@ -61,8 +61,8 @@
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetStrokeEnd
 {
-    return ^(CGFloat strokeEnd){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(CGFloat strokeEnd){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.strokeEnd = strokeEnd;
         return _self;
     };
@@ -71,8 +71,8 @@
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetLineWidth
 {
-    return ^(CGFloat lineWidth){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(CGFloat lineWidth){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.lineWidth = lineWidth;
         return _self;
     };
@@ -81,8 +81,8 @@
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetMiterLimit
 {
-    return ^(CGFloat miterLimit){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(CGFloat miterLimit){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.miterLimit = miterLimit;
         return _self;
     };
@@ -91,8 +91,8 @@
 
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetLineCap
 {
-    return ^(NSString* lineCap){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(NSString* lineCap){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.lineCap = lineCap;
         return _self;
     };
@@ -101,8 +101,8 @@
 
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetLineJoin
 {
-    return ^(NSString* lineJoin){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(NSString* lineJoin){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.lineJoin = lineJoin;
         return _self;
     };
@@ -111,8 +111,8 @@
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetLineDashPhase
 {
-    return ^(CGFloat lineDashPhase){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(CGFloat lineDashPhase){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.lineDashPhase = lineDashPhase;
         return _self;
     };
@@ -121,8 +121,8 @@
 
 - (CAShapeLayer *(^)(NSArray<NSNumber *> *))sharpLayerSetLineDashPattern
 {
-    return ^(NSArray<NSNumber *> *lineDashPattern){
-        LinkError_REF_AUTO(CAShapeLayer, CAShapeLayer);
+    return ^id(NSArray<NSNumber *> *lineDashPattern){
+        LinkHandle_REF(CAShapeLayer, CAShapeLayer)
         _self.lineDashPattern = lineDashPattern;
         return _self;
     };

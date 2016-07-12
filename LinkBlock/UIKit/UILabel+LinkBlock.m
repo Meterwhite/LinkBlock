@@ -11,8 +11,8 @@
 @implementation NSObject(UILabelLinkBlock)
 - (UILabel *(^)())labAlignTop
 {
-    return ^(){
-        LinkError_REF_AUTO(UILabel, UILabel);
+    return ^id(){
+        LinkHandle_REF(UILabel, UILabel)
         CGSize fontSize = linkObj(_self.text).strSizeWithFont(_self.font);
         double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
@@ -43,8 +43,8 @@
 
 - (UILabel *(^)())labAlignBottom
 {
-    return ^(){
-        LinkError_REF_AUTO(UILabel, UILabel);
+    return ^id(){
+        LinkHandle_REF(UILabel, UILabel)
         if(!_self.text)
             return _self;
         CGSize fontSize =linkObj(_self.text).strSizeWithFont(_self.font);
@@ -80,8 +80,8 @@
 
 - (UILabel *(^)(NSInteger))labNumberOfLines
 {
-    return ^(NSInteger lines){
-        LinkError_REF_AUTO(UILabel, UILabel);
+    return ^id(NSInteger lines){
+        LinkHandle_REF(UILabel, UILabel)
         _self.numberOfLines= lines;
         return _self;
     };
@@ -90,8 +90,8 @@
 
 - (UILabel *(^)(NSTextAlignment))labAlignment
 {
-    return ^(NSTextAlignment alighment){
-        LinkError_REF_AUTO(UILabel, UILabel);
+    return ^id(NSTextAlignment alighment){
+        LinkHandle_REF(UILabel, UILabel)
         _self.textAlignment = alighment;
         return _self;
     };
@@ -100,8 +100,8 @@
 
 - (UILabel *(^)(NSString *))labText
 {
-    return ^(NSString * txt){
-        LinkError_REF_AUTO(UILabel, UILabel);
+    return ^id(NSString * txt){
+        LinkHandle_REF(UILabel, UILabel)
         _self.text= txt;
         return _self;
     };
@@ -110,8 +110,8 @@
 
 - (UILabel *(^)(UIColor *))labTextColor
 {
-    return ^(UIColor * color){
-        LinkError_REF_AUTO(UILabel, UILabel);
+    return ^id(UIColor * color){
+        LinkHandle_REF(UILabel, UILabel)
         _self.textColor= color;
         return _self;
     };
@@ -120,8 +120,8 @@
 
 - (UILabel *(^)(UIFont *))labFont
 {
-    return ^(UIFont * font){
-        LinkError_REF_AUTO(UILabel, UILabel);
+    return ^id(UIFont * font){
+        LinkHandle_REF(UILabel, UILabel)
         _self.font= font;
         return _self;
     };
@@ -130,8 +130,8 @@
 
 - (UILabel *(^)(CGFloat))labFontSystemSizeSet
 {
-    return ^(CGFloat size){
-        LinkError_REF_AUTO(UILabel, UILabel);
+    return ^id(CGFloat size){
+        LinkHandle_REF(UILabel, UILabel)
         _self.font= [UIFont systemFontOfSize:size];
         return _self;
     };
@@ -141,7 +141,7 @@
 - (CGFloat (^)())labFontSystemSizeGet
 {
     return ^(){
-        LinkError_VAL_IF(UILabel){
+        LinkHandle_VAL_IF(UILabel){
             return (CGFloat)0.0;
         }
         return _self.font.pointSize;

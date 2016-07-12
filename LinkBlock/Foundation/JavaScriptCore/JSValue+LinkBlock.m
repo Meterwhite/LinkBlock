@@ -11,8 +11,8 @@
 @implementation NSObject(JSValueLinkBlock)
 - (JSManagedValue *(^)(id))jsValueToManagedValue
 {
-    return ^(id owner){
-        LinkError_REF_AUTO(JSManagedValue, JSValue);
+    return ^id(id owner){
+        LinkHandle_REF(JSManagedValue, JSValue)
         if(owner){
             return [JSManagedValue managedValueWithValue:_self andOwner:owner];
         }else{
@@ -24,8 +24,8 @@
 
 - (JSValue *(^)(id))jsValueAddToSelfManagedRef
 {
-    return ^(id owner){
-        LinkError_REF_AUTO(JSValue, JSValue);
+    return ^id(id owner){
+        LinkHandle_REF(JSValue, JSValue)
         JSManagedValue* value = [JSManagedValue managedValueWithValue:_self];
         [_self.context.virtualMachine addManagedReference:value withOwner:owner];
         return _self;
@@ -35,8 +35,8 @@
 
 - (JSValue *(^)(NSArray *))jsValueCallFunc
 {
-    return ^(NSArray* args){
-        LinkError_REF_AUTO(JSValue, JSValue);
+    return ^id(NSArray* args){
+        LinkHandle_REF(JSValue, JSValue)
         return [_self callWithArguments:args];
     };
 }

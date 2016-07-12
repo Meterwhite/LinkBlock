@@ -11,9 +11,9 @@
 @implementation NSObject(CALayerLinkBlock)
 - (CALayer *(^)(CALayer *))layerAddSublayer
 {
-    return ^(CALayer* layer){
+    return ^id(CALayer* layer){
         
-        LinkError_REF_AUTO(CALayer, CALayer);
+        LinkHandle_REF(CALayer, CALayer)
         [_self addSublayer:layer];
         return _self;
     };
@@ -22,9 +22,9 @@
 
 - (CALayer *(^)(CALayer *, unsigned int))layerInsertSublayerAt
 {
-    return ^(CALayer* layer,unsigned idx){
+    return ^id(CALayer* layer,unsigned idx){
         
-        LinkError_REF_AUTO(CALayer, CALayer);
+        LinkHandle_REF(CALayer, CALayer)
         [_self insertSublayer:layer atIndex:idx];
         return _self;
     };
@@ -33,9 +33,9 @@
 
 - (CALayer *(^)(CALayer *, CALayer *))layerInsertSublayerBelow
 {
-    return ^(CALayer* layer,CALayer* sibling){
+    return ^id(CALayer* layer,CALayer* sibling){
         
-        LinkError_REF_AUTO(CALayer, CALayer);
+        LinkHandle_REF(CALayer, CALayer)
         [_self insertSublayer:layer below:sibling];
         return _self;
     };
@@ -44,9 +44,9 @@
 
 - (CALayer *(^)(CALayer *, CALayer *))layerInsertSublayerAbove
 {
-    return ^(CALayer* layer,CALayer* sibling){
+    return ^id(CALayer* layer,CALayer* sibling){
         
-        LinkError_REF_AUTO(CALayer, CALayer);
+        LinkHandle_REF(CALayer, CALayer)
         [_self insertSublayer:layer above:sibling];
         return _self;
     };

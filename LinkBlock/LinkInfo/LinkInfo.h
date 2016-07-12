@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface LinkInfo : NSObject
-
+@property (nonatomic,assign) NSInteger throwCount;
 @end

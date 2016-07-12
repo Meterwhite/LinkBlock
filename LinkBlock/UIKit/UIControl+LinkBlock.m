@@ -11,8 +11,8 @@
 
 - (UIControl *(^)(BOOL))controlEnable
 {
-    return ^(BOOL enable){
-        LinkError_REF_AUTO(UIControl, UIControl);
+    return ^id(BOOL enable){
+        LinkHandle_REF(UIControl, UIControl)
         _self.enabled=enable;
         return _self;
     };
@@ -21,8 +21,8 @@
 
 - (UIControl *(^)(BOOL))controlSelected
 {
-    return ^(BOOL selected){
-        LinkError_REF_AUTO(UIControl, UIControl);
+    return ^id(BOOL selected){
+        LinkHandle_REF(UIControl, UIControl)
         _self.selected=selected;
         return _self;
     };
@@ -31,8 +31,8 @@
 
 - (UIControl *(^)(BOOL))controlHighlighted
 {
-    return ^(BOOL highlighted){
-        LinkError_REF_AUTO(UIControl, UIControl);
+    return ^id(BOOL highlighted){
+        LinkHandle_REF(UIControl, UIControl)
         _self.highlighted=highlighted;
         return _self;
     };
@@ -41,8 +41,8 @@
 
 - (UIControl *(^)(UIControlContentVerticalAlignment))controlContentVerticalAlignment
 {
-    return ^(UIControlContentVerticalAlignment alignment){
-        LinkError_REF_AUTO(UIControl, UIControl);
+    return ^id(UIControlContentVerticalAlignment alignment){
+        LinkHandle_REF(UIControl, UIControl)
         _self.contentVerticalAlignment = alignment;
         return _self;
     };
@@ -51,8 +51,8 @@
 
 - (UIControl *(^)(UIControlContentHorizontalAlignment))controlContentHorizontalAlignment
 {
-    return ^(UIControlContentHorizontalAlignment alignment){
-        LinkError_REF_AUTO(UIControl, UIControl);
+    return ^id(UIControlContentHorizontalAlignment alignment){
+        LinkHandle_REF(UIControl, UIControl)
         _self.contentHorizontalAlignment = alignment;
         return _self;
     };
