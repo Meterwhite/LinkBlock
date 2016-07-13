@@ -13,8 +13,11 @@
 {
     LinkHandle_REF(NSObject, NSArray)
     if([self isKindOfClass:[LinkGroup class]]){
-        
-        return [((LinkGroup*)self).linkObjects firstObject].makeLinkObjs;
+        LinkGroup* group = (id)_self;
+        LinkGroup* newGroup = [LinkGroup groupWithArr:group.linkObjects];
+        newGroup.userInfo = [group.userInfo mutableCopy];
+        newGroup.throwCount = group.throwCount;
+        return newGroup;
     }
     return [LinkGroup groupWithArr:_self];
 }

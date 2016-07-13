@@ -6,8 +6,7 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import "LinkGroup.h"
-#import <objc/runtime.h>
+#import "LinkBlock.h"
 
 @implementation LinkGroup
 
@@ -46,5 +45,10 @@
     LinkGroup* re = [LinkGroup new];
     [re.linkObjects addObjectsFromArray:obj];
     return re;
+}
+
++ (LinkGroup*)group
+{
+    return [LinkGroup new];
 }
 @end

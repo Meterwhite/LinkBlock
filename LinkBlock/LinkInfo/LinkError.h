@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LinkInfo.h"
 
 @interface LinkError : LinkInfo
 /** 需要类型 */

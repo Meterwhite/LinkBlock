@@ -5,7 +5,7 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import "LinkError.h"
+#import "LinkBlock.h"
 
 @implementation LinkError
 - (NSString *)description

@@ -6,7 +6,7 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import "LinkInfo.h"
+#import "LinkBlock.h"
 
 @implementation LinkInfo
 - (instancetype)init
@@ -16,5 +16,17 @@
         _throwCount=0;
     }
     return self;
+}
+
+- (NSMutableDictionary *)userInfo
+{
+    if(!_userInfo){
+        _userInfo = [NSMutableDictionary new];
+    }
+    return _userInfo;
+}
+- (void)cleanUserInfo
+{
+    [self.userInfo removeAllObjects];
 }
 @end

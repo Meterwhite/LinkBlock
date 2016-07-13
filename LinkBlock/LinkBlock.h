@@ -49,8 +49,19 @@
 #ifndef linkObjs
 #define linkObjs(object , args...) (object?[LinkGroup groupWithObjs:object,##args,nil]:[LinkError new])
 #endif
-
+//使数组多对象链式编程
+#ifndef makeLinkObjs
 #define makeLinkObjs makeLinkObjs
+#endif
+//使其后的链式编程执行多次
+#ifndef linkLoop
+#define linkLoop linkLoop
+#endif
+//使新对象加入链条执行其后方法
+#ifndef linkAnd
+#define linkAnd linkAnd
+#endif
+
 
 //引用类型的返回值时的预处理
 #ifndef LinkHandle_REF

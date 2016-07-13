@@ -18,6 +18,11 @@
     [super viewDidLoad];
     
     //【New】支持多对象链式编程
+    //1.如果使用多个对象的链式编程，需要取值的时候请调用ends()获取多个结果
+    //2.如果调用end()只会取得第一个对象的链条返回值
+    //3.使用endsAt()可以获取指定index对象的链条返回值
+    //4.如果链条结尾返回的是“值类型”，那么该值是第一个对象的链条返回值
+    //5.使用项目中的“方法”对多对象的链式编程不起作用
     //写法一
     UIView* viewA = UIViewNew.viewSetFrame(45,100,20,20);
     UIView* viewB = UIViewNew.viewSetFrame(120,100,20,20);
@@ -26,10 +31,15 @@
     NSMutableArray* arrA = [NSMutableArray arrayWithObjects:@"A", nil];
     NSMutableArray* arrB = [NSMutableArray arrayWithObjects:@"B", nil];
     NSMutableArray* arrC = [NSMutableArray arrayWithObjects:@"C", nil];
-    @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"D").ends().nslogTitle(@"新数组：");
+    NSArray* linkResults = @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"E").ends();
+    //写法三
+    linkResults = arrA.linkAnd(arrB).linkAnd(arrC).m_arrAddObj(@"D").ends();
+    //写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环了
+    linkResults = arrA.linkLoop(100).m_arrAddObj(@"F").ends();
+
+    
     
     //...//...//...//...//...//...//...//...//...//...//...
-    
     //去空格和换行，并打印
     @" 五 千 年 的 风 和 雨 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
     //字符串比较大小

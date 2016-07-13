@@ -71,14 +71,14 @@
         LinkHandle_REF(NSObject, NSObject)
         LinkGroupHandle_REF(setValueForKeyPathSafe,value,key)
         @try {
-            [self setValue:value forKeyPath:key];
+            [_self setValue:value forKeyPath:key];
         }
         @catch (NSException *exception) {
             NSLog(@"LinkBlock log:\n%@",exception);
-            return self;
+            return _self;
         }
         @finally {
-            return self;
+            return _self;
         }
     };
 }
@@ -270,7 +270,7 @@
         }
         LinkGroupHandle_VAL(isRespondsSEL,theSEL)
         if(theSEL){
-            if([self respondsToSelector:theSEL])
+            if([_self respondsToSelector:theSEL])
                 return YES;
         }
         return NO;
@@ -348,6 +348,54 @@
     return self;
 }
 
+- (NSObject *(^)(id))linkAnd
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSObject, NSObject)
+        LinkGroup* group;
+        if([self isKindOfClass:[LinkGroup class]]){
+            group = (id)_self;
+            if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
+                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
+                group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(count+1);
+                [group.linkObjects insertObject:obj atIndex:count];
+            }else{
+                [group.linkObjects addObject:obj];
+            }
+            return group;
+        }
+        group = [LinkGroup groupWithObjs:_self,obj,nil];
+        return group;
+    };
+}
+- (void)setLinkAnd:(NSObject *(^)(id))linkAnd{};
+
+- (NSObject *(^)(NSUInteger))linkLoop
+{
+    return ^id(NSUInteger count){
+        LinkHandle_REF(NSObject, NSObject)
+        LinkGroup* group;
+        if([self isKindOfClass:[LinkGroup class]]){
+            group = (id)_self;
+            group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(group.linkObjects.count);
+            NSArray* copyObjs = [group.linkObjects copy];
+            //暴力复制
+            for (int i=0; i<count; i++) {
+                [group.linkObjects addObject:copyObjs];
+            }
+            return group;
+        }
+        //新Loop
+        group = [LinkGroup group];
+        group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(1);
+        for (int i=0; i<count; i++) {
+            [group.linkObjects addObject:_self];
+        }
+        return group;
+    };
+}
+- (void)setLinkLoop:(NSObject *(^)(NSUInteger))linkLoop{};
+
 - (NSObject *(^)())nslog
 {
     return ^id(){
@@ -423,8 +471,12 @@
                 NSLog(@"%@",[self description]);
                 return nil;
             }else if([self isKindOfClass:[LinkGroup class]]){
-                
-                return [((LinkGroup*)self).linkObjects copy];
+                LinkGroup* group = (id)self;
+                if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
+                    NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
+                    [group.linkObjects setArray:[group.linkObjects subarrayWithRange:NSMakeRange(0, count)]];
+                }
+                return [group.linkObjects copy];
             }
         }
         return self;
@@ -443,8 +495,13 @@
                 NSLog(@"%@",[self description]);
                 return nil;
             }else if([self isKindOfClass:[LinkGroup class]]){
-                if(idx<((LinkGroup*)self).linkObjects.count)
-                    return ((LinkGroup*)self).linkObjects[idx];
+                LinkGroup* group = (id)self;
+                if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
+                    NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
+                    [group.linkObjects setArray:[group.linkObjects subarrayWithRange:NSMakeRange(0, count)]];
+                }
+                if(idx < group.linkObjects.count)
+                    return group.linkObjects[idx];
                 return nil;
             }
         }

@@ -17,8 +17,13 @@
 @property (nonatomic,copy) id           (^endsAt)(NSUInteger idx);
 /** 将当前对象赋值到其他变量， */
 @property (nonatomic,copy) NSObject*    (^setTo)(id* toObject);
+/** 使新对象加入链条执行其后方法 */
+@property (nonatomic,copy) NSObject*    (^linkAnd)(id obj);
+/** 使其后的链条执行多次 */
+@property (nonatomic,copy) NSObject*    (^linkLoop)(NSUInteger count);
 /** 链条分支，返回源对象，在链条内处理新分支 */
 - (NSObject*)newLink:(void(^)(NSObject* fromObj))aNewLink;
+
 #pragma mark - 功能
 /** NSLog() */
 @property (nonatomic,copy) NSObject*    (^nslog)();

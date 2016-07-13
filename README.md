@@ -8,9 +8,35 @@
 * This is objective-c link block , to `chain programming`.
 * Frame encapsulation of native Foundation is the most basic and the most common functions...
 * Continuously updated
-##Simple to use LinkBlock;
+
+##Simple to use LinkBlock
 ```objc
+//1.将整个文件夹拖入项目
+//2.在使用的地方引用。提示：最好不要在pch文件中引用，避免污染整个项目的属性提示
+//3.查看注释在.h文件（command+左键@方法名 跳转两次）
 #import "LinkBlock.h"
+```
+##【新增】多个对象的链式编程
+```objc
+//写法一，多个对象并列
+UIView* viewA = UIViewNew.viewSetFrame(45,100,20,20);
+UIView* viewB = UIViewNew.viewSetFrame(120,100,20,20);
+linkObjs(viewA, viewB).viewAddToView(self.view).viewBGColor([UIColor lightGrayColor]);
+//写法二，数组对象
+NSMutableArray* arrA = [NSMutableArray arrayWithObjects:@"A", nil];
+NSMutableArray* arrB = [NSMutableArray arrayWithObjects:@"B", nil];
+NSMutableArray* arrC = [NSMutableArray arrayWithObjects:@"C", nil];
+NSArray* result = @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"D").ends();
+//写法三，逐个添加到链条中
+NSArray* result = arrA.linkAnd(arrB).linkAnd(arrC).m_arrAddObj(@"D").ends();
+//写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环和int i了
+NSArray* result = arrA.linkLoop(100).m_arrAddObj(@"F").ends();
+//1.如果使用多个对象的链式编程，需要取值的时候请调用ends()获取多个结果
+//2.对于多对象链式编程如果调用end()只会取得第一个对象的链条返回值
+//3.使用endsAt(index)可以获取指定index对象的链条返回值
+//4.如果链条结尾返回值是“值类型”，那么该值是第一个对象的链条返回值
+//5.使用项目中的“方法”对多对象的链式编程不起作用
+//...//...//...//...//...//...//...//...//...//...//...
 ```
 
 ##麻烦的CGRectMake()

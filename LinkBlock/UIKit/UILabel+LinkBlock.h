@@ -9,9 +9,9 @@
 
 #define UILabelNew ([UILabel new])
 @interface NSObject(UILabelLinkBlock)
-/** 文本顶部对齐 */
+/** 即时的文本顶部对齐 */
 @property (nonatomic,copy) UILabel*         (^labAlignTop)();
-/** 文本底部对齐 */
+/** 即时的文本底部对齐 */
 @property (nonatomic,copy) UILabel*         (^labAlignBottom)();
 @property (nonatomic,copy) UILabel*         (^labAlignment)(NSTextAlignment alighment);
 @property (nonatomic,copy) UILabel*         (^labNumberOfLines)(NSInteger lines);

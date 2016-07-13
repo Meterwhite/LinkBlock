@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface LinkInfo : NSObject
-/** 异常抛出距离 */
+/** 传递距离 */
 @property (nonatomic,assign) NSInteger throwCount;
+@property (nonatomic,strong) NSMutableDictionary* userInfo;
+- (void)cleanUserInfo;
 @end
