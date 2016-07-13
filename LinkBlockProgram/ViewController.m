@@ -17,6 +17,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //【New】支持多对象链式编程
+    //写法一
+    UIView* viewA = UIViewNew.viewSetFrame(45,100,20,20);
+    UIView* viewB = UIViewNew.viewSetFrame(120,100,20,20);
+    linkObjs(viewA, viewB).viewAddToView(self.view).viewBGColor([UIColor lightGrayColor]);
+    //写法二
+    NSMutableArray* arrA = [NSMutableArray arrayWithObjects:@"A", nil];
+    NSMutableArray* arrB = [NSMutableArray arrayWithObjects:@"B", nil];
+    NSMutableArray* arrC = [NSMutableArray arrayWithObjects:@"C", nil];
+    @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"D").ends().nslogTitle(@"新数组：");
+    
+    //...//...//...//...//...//...//...//...//...//...//...
+    
     //去空格和换行，并打印
     @" 五 千 年 的 风 和 雨 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
     //字符串比较大小
