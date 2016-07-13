@@ -45,14 +45,15 @@
 #ifndef linkObj
 #define linkObj(object) (object?object:[LinkError new])
 #endif
-////多对象链式编程
-//#ifndef linkObjs
-//#define linkObjs(objectArr) \
-//([LinkGroup groupWithObjs:(objectArr)])
-//#endif
+//多对象链式编程
+#ifndef linkObjs
+#define linkObjs(object , args...) (object?[LinkGroup groupWithObjs:object,##args,nil]:[LinkError new])
+#endif
 
+#define makeLinkObjs makeLinkObjs
 
 //引用类型的返回值时的预处理
+#ifndef LinkHandle_REF
 #define LinkHandle_REF(returnType , currType)\
 currType* _self = (currType*)self;\
 if([self isKindOfClass:[LinkError class]]){\
@@ -67,14 +68,18 @@ if(![self isKindOfClass:[currType class]]&&\
     error.inFunc = [NSString stringWithUTF8String:__func__];\
     return (returnType *)error;\
 }
+#endif
 
 //值类型的返回值时的预处理
-#define LinkHandle_VAL_IF(currType) \
+#ifndef LinkHandle_VAL_IFNOT
+#define LinkHandle_VAL_IFNOT(currType) \
 currType* _self = (currType*)self;\
-if([self isKindOfClass:[LinkError class]] || ![self isKindOfClass:[currType class]])
+if(![self isKindOfClass:[LinkInfo class]]&&![self isKindOfClass:[currType class]])
+#endif
 
-//多对象链式编程控制
-#define LinkGroupHandle(blockName , ...)\
+//多对象链式编程控制引用返回类型时
+#ifndef LinkGroupHandle_REF
+#define LinkGroupHandle_REF(blockName , ...)\
 if([self isKindOfClass:[LinkGroup class]]){\
     LinkGroup* group = (LinkGroup*)self;\
     NSMutableArray* returnObjs = [NSMutableArray new];\
@@ -82,11 +87,18 @@ if([self isKindOfClass:[LinkGroup class]]){\
         id re = group.linkObjects[i].blockName(__VA_ARGS__);\
         [returnObjs addObject:re];\
     }\
-    [group.linkObjects removeAllObjects];\
-    [group.linkObjects addObjectsFromArray:returnObjs];\
+    [group.linkObjects setArray:returnObjs];\
     return (id)group;\
-}\
-
+}
+#endif
+//多对象链式编程控制值返回类型时
+#ifndef LinkGroupHandle_VAL
+#define LinkGroupHandle_VAL(blockName , ...) \
+if([self isKindOfClass:[LinkGroup class]]){\
+    LinkGroup* group = (LinkGroup*)self;\
+    return [group.linkObjects firstObject].blockName(__VA_ARGS__);\
+}
+#endif
 
 static inline id _LinkBoxValue(const char *type, ...) {
     va_list v;

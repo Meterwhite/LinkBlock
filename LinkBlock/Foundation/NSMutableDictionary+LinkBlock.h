@@ -16,8 +16,8 @@
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictReplaceKey)(id<NSCopying> replaceKey, id<NSCopying> withKey);
 /** 字典转模型：替换字典中的key，非遍历的 */
 @property (nonatomic,copy) NSMutableDictionary* (^m_dictReplaceKeyWithoutDeep)(id<NSCopying> replaceKey, id<NSCopying> withKey);
-@property (nonatomic,copy) id                   (^m_dictGet)(id<NSCopying> key);
-@property (nonatomic,copy) id                   (^m_dictGetNoNSNull)(id<NSCopying> key);
+@property (nonatomic,copy) NSObject*            (^m_dictGet)(id<NSCopying> key);
+@property (nonatomic,copy) NSObject*            (^m_dictGetNoNSNull)(id<NSCopying> key);
 @property (nonatomic,copy) NSDictionary*        (^m_dictGetDictNoNullType)(id<NSCopying> key);
 @property (nonatomic,copy) NSArray*             (^m_dictGetArrNoNullType)(id<NSCopying> key);
 @property (nonatomic,copy) BOOL                 (^m_dictGetBOOLNoNullType)(id<NSCopying> key);

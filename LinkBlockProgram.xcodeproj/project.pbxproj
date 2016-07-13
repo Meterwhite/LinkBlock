@@ -108,7 +108,7 @@
 		9FBD171E1BDB91D500C2F402 /* NSURL+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+LinkBlock.m"; sourceTree = "<group>"; };
 		9FBD171F1BDB91D500C2F402 /* NSValue+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+LinkBlock.h"; sourceTree = "<group>"; };
 		9FBD17201BDB91D500C2F402 /* NSValue+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+LinkBlock.m"; sourceTree = "<group>"; };
-		9FBD17211BDB91D500C2F402 /* LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkBlock.h; sourceTree = "<group>"; };
+		9FBD17211BDB91D500C2F402 /* LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LinkBlock.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		9FBD17251BDB91D500C2F402 /* UIButton+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LinkBlock.h"; sourceTree = "<group>"; };
 		9FBD17261BDB91D500C2F402 /* UIButton+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+LinkBlock.m"; sourceTree = "<group>"; };
 		9FBD17271BDB91D500C2F402 /* UIColor+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+LinkBlock.h"; sourceTree = "<group>"; };

@@ -8,6 +8,6 @@
 
 #import <JavaScriptCore/JavaScriptCore.h>
 
-@interface JSManagedValue(JSManagedValueLinkBlock)
+@interface NSObject(JSManagedValueLinkBlock)
 @property (nonatomic,copy) JSManagedValue* (^jsManagedValueAddToManagedRef)(JSVirtualMachine* virtualMachine, id owner);
 @end

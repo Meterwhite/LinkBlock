@@ -12,6 +12,7 @@
 {
     return ^id(NSString* prefix){
         LinkHandle_REF(NSString, UIColor)
+        LinkGroupHandle_REF(colorToStrWithPrefix,prefix)
         NSMutableString* reIsMStr = [NSMutableString string];
         if([prefix isKindOfClass:[NSString class]]) [reIsMStr appendString:prefix];
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
@@ -31,9 +32,10 @@
 - (CGFloat (^)())colorRed
 {
     return ^(){
-        LinkHandle_VAL_IF(UIColor){
+        LinkHandle_VAL_IFNOT(UIColor){
             return (CGFloat)0.0;
         }
+        LinkGroupHandle_VAL(colorRed)
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return r;
@@ -47,9 +49,10 @@
 - (CGFloat (^)())colorGreen
 {
     return ^(){
-        LinkHandle_VAL_IF(UIColor){
+        LinkHandle_VAL_IFNOT(UIColor){
             return (CGFloat)0.0;
         }
+        LinkGroupHandle_VAL(colorGreen)
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return g;
@@ -63,9 +66,10 @@
 - (CGFloat (^)())colorBlue
 {
     return ^(){
-        LinkHandle_VAL_IF(UIColor){
+        LinkHandle_VAL_IFNOT(UIColor){
             return (CGFloat)0.0;
         }
+        LinkGroupHandle_VAL(colorBlue)
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return b;
@@ -79,9 +83,10 @@
 - (CGFloat (^)())colorAlpha
 {
     return ^(){
-        LinkHandle_VAL_IF(UIColor){
+        LinkHandle_VAL_IFNOT(UIColor){
             return (CGFloat)0.0;
         }
+        LinkGroupHandle_VAL(colorAlpha)
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return a;
@@ -95,9 +100,10 @@
 - (CGFloat (^)())colorHue
 {
     return ^(){
-        LinkHandle_VAL_IF(UIColor){
+        LinkHandle_VAL_IFNOT(UIColor){
             return (CGFloat)0.0;
         }
+        LinkGroupHandle_VAL(colorHue)
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return hue;
@@ -111,9 +117,10 @@
 - (CGFloat (^)())colorSaturation
 {
     return ^(){
-        LinkHandle_VAL_IF(UIColor){
+        LinkHandle_VAL_IFNOT(UIColor){
             return (CGFloat)0.0;
         }
+        LinkGroupHandle_VAL(colorSaturation)
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return saturation;
@@ -127,9 +134,10 @@
 - (CGFloat (^)())colorBrightness
 {
     return ^(){
-        LinkHandle_VAL_IF(UIColor){
+        LinkHandle_VAL_IFNOT(UIColor){
             return (CGFloat)0.0;
         }
+        LinkGroupHandle_VAL(colorBrightness)
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return brightness;
@@ -144,6 +152,7 @@
 {
     return ^id(CGFloat value){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorRedSet,value)
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
@@ -160,6 +169,7 @@
 {
     return ^id(CGFloat value){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorGreenSet,value)
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
@@ -176,6 +186,7 @@
 {
     return ^id(CGFloat value){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorBlueSet,value)
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
@@ -192,6 +203,7 @@
 {
     return ^id(CGFloat value){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorAlphaSet,value)
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
@@ -207,6 +219,7 @@
 {
     return ^id(CGFloat value){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorHueSet,value)
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
@@ -222,6 +235,7 @@
 {
     return ^id(CGFloat value){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorSaturationSet,value)
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
@@ -237,6 +251,7 @@
 {
     return ^id(CGFloat value){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorBrightnessSet,value)
         value = (value<0||value>1) ? 0.0 : value;
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
@@ -252,6 +267,7 @@
 {
     return ^id(NSArray* views){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorSetBackgroundToViews,views)
         [views enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL *stop) {
             if([view isKindOfClass:[UIView class]])
                 view.backgroundColor = _self;
@@ -265,6 +281,7 @@
 {
     return ^id(UIView* view){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorSetTextColorToViewSubviews,view)
         if(![view isKindOfClass:[UIView class]])
             return _self;
         if([view isKindOfClass:[UILabel class]]     ||
@@ -302,6 +319,7 @@
 {
     return ^id(double percent){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorBrightnessPercent,percent)
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat alpha;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha]){
             
@@ -329,6 +347,7 @@
 {
     return ^id(){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorHighlightDarkColor)
         return _self.colorBrightnessPercent(-0.382);
     };
 }
@@ -338,6 +357,7 @@
 {
     return ^id(){
         LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorHighlightLightColor)
         return _self.colorBrightnessPercent(0.382);
     };
 }

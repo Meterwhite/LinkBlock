@@ -14,6 +14,7 @@
 {
     return ^id(float ratio){
         LinkHandle_REF(NSData, UIImage)
+        LinkGroupHandle_REF(imgToData,ratio)
         NSData* reIsData = UIImageJPEGRepresentation(_self, ratio);
         if(!reIsData){
             reIsData= UIImagePNGRepresentation(_self);
@@ -27,6 +28,7 @@
 {
     return ^id(CGSize maxSize){
         LinkHandle_REF(UIImage, UIImage)
+        LinkGroupHandle_REF(imgResizeAspect,maxSize)
         CGFloat originWidth= _self.size.width;
         CGFloat originHeight= _self.size.height;
         CGFloat originRatio = originWidth / originHeight;//宽长比
@@ -57,6 +59,7 @@
 {
     return ^id(CGRect frame){
         LinkHandle_REF(UIImage, UIImage)
+        LinkGroupHandle_REF(imgCut,frame)
         CGImageRef cgImgRef= CGImageCreateWithImageInRect(_self.CGImage, frame);
         UIImage* re= [UIImage imageWithCGImage:cgImgRef];
         CGImageRelease(cgImgRef);
@@ -69,6 +72,7 @@
 {
     return ^id(float percent){
         LinkHandle_REF(UIImage, UIImage)
+        LinkGroupHandle_REF(imgBlur,percent)
         if ((percent < 0.0f) || (percent > 1.0f)) {
             percent = 0.5f;
         }
@@ -144,6 +148,7 @@
 {
     return ^id(UIImageRenderingMode mode){
         LinkHandle_REF(UIImage, UIImage)
+        LinkGroupHandle_REF(imgRenderingMode,mode)
         return [_self imageWithRenderingMode:mode];
     };
 }
@@ -156,6 +161,7 @@
 {
     return ^id(NSArray* views,UIControlState state){
         LinkHandle_REF(UIImage, UIImage)
+        LinkGroupHandle_REF(imgSetBgImgToBtns,views,state)
         [views enumerateObjectsUsingBlock:^(UIButton *btn, NSUInteger idx, BOOL *stop) {
             if([btn isKindOfClass:[UIButton class]])
                 [btn setBackgroundImage:_self forState:state];
@@ -169,6 +175,7 @@
 {
     return ^id(NSArray* views){
         LinkHandle_REF(UIImage, UIImage)
+        LinkGroupHandle_REF(imgSetImgToImageViews,views)
         [views enumerateObjectsUsingBlock:^(UIImageView *imgView, NSUInteger idx, BOOL *stop) {
             if([imgView isKindOfClass:[UIImageView class]])
                 ((UIImageView*)imgView).image = _self;
@@ -182,6 +189,7 @@
 {
     return ^id(NSArray* btns, UIControlState state){
         LinkHandle_REF(UIImage, UIImage)
+        LinkGroupHandle_REF(imgSetImgToBtns,btns,state)
         [btns enumerateObjectsUsingBlock:^(UIButton* btn, NSUInteger idx, BOOL *stop) {
             if([btn isKindOfClass:[UIButton class]])
                 [btn setImage:_self forState:state];
@@ -195,7 +203,7 @@
 {
     return ^id(UIImage* aImg , CGRect rect){
         LinkHandle_REF(UIImage, UIImage)
-        
+        LinkGroupHandle_REF(imgAddImg,aImg,rect)
         UIGraphicsBeginImageContext(_self.size);
         [_self drawInRect:CGRectMake(0, 0, _self.size.width, _self.size.height)];
         [aImg drawInRect:rect];
@@ -210,6 +218,7 @@
 {
     return ^id(){
         LinkHandle_REF(UIColor, UIImage)
+        LinkGroupHandle_REF(imgGetPatternColor)
         return [UIColor colorWithPatternImage:_self];
     };
 }

@@ -14,6 +14,7 @@
     return ^id(CALayer* layer){
         
         LinkHandle_REF(CALayer, CALayer)
+        LinkGroupHandle_REF(layerAddSublayer,layer)
         [_self addSublayer:layer];
         return _self;
     };
@@ -25,6 +26,7 @@
     return ^id(CALayer* layer,unsigned idx){
         
         LinkHandle_REF(CALayer, CALayer)
+        LinkGroupHandle_REF(layerInsertSublayerAt,layer,idx)
         [_self insertSublayer:layer atIndex:idx];
         return _self;
     };
@@ -36,6 +38,7 @@
     return ^id(CALayer* layer,CALayer* sibling){
         
         LinkHandle_REF(CALayer, CALayer)
+        LinkGroupHandle_REF(layerInsertSublayerBelow,layer,sibling)
         [_self insertSublayer:layer below:sibling];
         return _self;
     };
@@ -47,6 +50,7 @@
     return ^id(CALayer* layer,CALayer* sibling){
         
         LinkHandle_REF(CALayer, CALayer)
+        LinkGroupHandle_REF(layerInsertSublayerAbove,layer,sibling)
         [_self insertSublayer:layer above:sibling];
         return _self;
     };

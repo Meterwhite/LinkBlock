@@ -13,6 +13,7 @@
 {
     return ^id(){
         LinkHandle_REF(JSContext, UIWebView)
+        LinkGroupHandle_REF(webViewContext)
         return (JSContext*)[_self valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     };
 }
@@ -22,6 +23,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSString, UIWebView)
+        LinkGroupHandle_REF(webViewTitle)
         return [_self stringByEvaluatingJavaScriptFromString:@"document.title"];
     };
 }
@@ -31,6 +33,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSString, UIWebView)
+        LinkGroupHandle_REF(webViewLocationHref)
         return [_self stringByEvaluatingJavaScriptFromString:@"window.location.href"];
     };
 }
@@ -40,6 +43,7 @@
 {
     return ^id(NSString* script){
         LinkHandle_REF(NSString, UIWebView)
+        LinkGroupHandle_REF(webViewEvalScript,script)
         return [_self stringByEvaluatingJavaScriptFromString:script];
     };
 }
@@ -49,6 +53,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSString, UIWebView)
+        LinkGroupHandle_REF(webViewHTML)
         return [_self stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
     };
 }

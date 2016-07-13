@@ -13,6 +13,7 @@
 {
     return ^id(NSAttributedString* attrStr){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAppendAttrStr,attrStr)
         if([attrStr isKindOfClass:[NSAttributedString class]])
             [_self appendAttributedString:attrStr];
         return _self;
@@ -24,6 +25,7 @@
 {
     return ^id(NSString *str){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAppendStr,str)
         if(([str isKindOfClass:[NSString class]])){
             NSAttributedString *attStr= [[NSAttributedString alloc] initWithString:str];
             [_self appendAttributedString:attStr];
@@ -37,6 +39,7 @@
 {
     return ^id(NSString *str, NSString* attrName, id attrValue){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAppendStrAndAttr,str,attrName,attrValue)
         if([str isKindOfClass:[NSString class]] && [attrName isKindOfClass:[NSString class]] && attrValue){
             NSAttributedString *tNewAttrStr= [[NSAttributedString alloc] initWithString:str attributes:@{attrName:attrValue}];
             [_self appendAttributedString:tNewAttrStr];
@@ -50,6 +53,7 @@
 {
     return ^id(NSString *str, NSDictionary *attrDic){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAppendStrWithAttrDict,str,attrDic)
         if([str isKindOfClass:[NSString class]] && [attrDic isKindOfClass:[NSDictionary class]]){
             NSAttributedString *tNewAttrStr= [[NSAttributedString alloc] initWithString:str attributes:attrDic];
             [_self appendAttributedString:tNewAttrStr];
@@ -63,6 +67,7 @@
 {
     return ^id(NSAttributedString* attrStr, NSUInteger index){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strInsertAttrStrAtIndex,attrStr,index)
         if([attrStr isKindOfClass:[NSAttributedString class]]){
             [_self insertAttributedString:attrStr atIndex:index];
         }
@@ -76,6 +81,7 @@
 {
     return ^id(NSString* str , NSUInteger index){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strInsertStrAtIndex,str,index)
         if([str isKindOfClass:[NSString class]]){
             NSAttributedString *tNewAttrStr= [[NSAttributedString alloc] initWithString:str];
             [_self insertAttributedString:tNewAttrStr atIndex:index];
@@ -89,6 +95,7 @@
 {
     return ^id(NSString *str,NSString *attrName, id attrValue, NSUInteger idx){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strInsertStrWithAttrAtIndex,str,attrName,attrValue,idx)
         if([str isKindOfClass:[NSString class]] &&
            [attrName isKindOfClass:[NSString class]]&&
            attrValue){
@@ -105,6 +112,7 @@
 {
     return ^id(NSString *str, NSDictionary *attrDic, NSUInteger index){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strInsertStrWithAttrDict,str,attrDic,index)
         if([str isKindOfClass:[NSString class]] && [attrDic isKindOfClass:[NSDictionary class]]){
             NSAttributedString *tNewAttrStr= [[NSAttributedString alloc] initWithString:str attributes:attrDic];
             [_self insertAttributedString:tNewAttrStr atIndex:index];
@@ -118,6 +126,7 @@
 {
     return ^id(NSString *attrName, id attrValue, NSRange range){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAddAttrInRange,attrName,attrValue,range)
         if([attrName isKindOfClass:[NSString class]]&& attrValue)
             [_self addAttribute:attrName value:attrValue range:range];
         return _self;
@@ -129,6 +138,7 @@
 {
     return ^id(NSString *attrName, id attrValue){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAddAttr,attrName,attrValue)
         if([attrName isKindOfClass:[NSString class]]&& attrValue)
             [_self addAttribute:attrName value:attrValue range:NSMakeRange(0, _self.length)];
         return _self;
@@ -140,6 +150,7 @@
 {
     return ^id(UIFont *font){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAddAttrFont,font)
         if([font isKindOfClass:[UIFont class]]){
             [_self addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, _self.length)];
         }
@@ -152,6 +163,7 @@
 {
     return ^id(UIColor *textColor){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAddAttrTextColor,textColor)
         if([textColor isKindOfClass:[UIColor class]]){
             [_self addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0, _self.length)];
         }
@@ -164,6 +176,7 @@
 {
     return ^id(UIColor *bgColor){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAddAttrBGColor,bgColor)
         if([bgColor isKindOfClass:[UIColor class]]){
             [_self addAttribute:NSBackgroundColorAttributeName value:bgColor range:NSMakeRange(0, _self.length)];
         }
@@ -176,6 +189,7 @@
 {
     return ^id(NSString *forStr,NSDictionary* attrDict){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strSetAttrForStr,forStr,attrDict)
         if([forStr isKindOfClass:[NSString class]] &&
            [attrDict isKindOfClass:[NSDictionary class]]){
             NSUInteger tCurrentIndex= 0;
@@ -198,6 +212,7 @@
 {
     return ^id(NSString *forStr,NSDictionary* attrDict, NSRange range){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strSetAttrForStrInRange,forStr,attrDict,range)
         if([forStr isKindOfClass:[NSString class]]&&
            [attrDict isKindOfClass:[NSDictionary class]]){
             NSUInteger tCurrentIndex= range.location;
@@ -222,6 +237,7 @@
 {
     return ^id(NSString* attrName){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strRemoveAttr,attrName)
         if([attrName isKindOfClass:[NSString class]]){
             [_self removeAttribute:attrName range:NSMakeRange(0, _self.length)];
         }
@@ -234,6 +250,7 @@
 {
     return ^id(NSString* attrName,NSRange range){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strRemoveAttrInRange,attrName,range)
         if([attrName isKindOfClass:[NSString class]]){
             [_self removeAttribute:attrName range:range];
         }
@@ -246,6 +263,7 @@
 {
     return ^id(NSRange range){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strDeleteStrInRange,range)
         [_self deleteCharactersInRange:range];
         return _self;
     };
@@ -256,6 +274,7 @@
 {
     return ^id(NSString *str,NSRange range){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strReplaceStrWithStrInRange,str,range)
         if([str isKindOfClass:[NSString class]]){
             [_self replaceCharactersInRange:range withString:str];
         }
@@ -268,6 +287,7 @@
 {
     return ^id(NSDictionary* attrDict){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strAddAttrDict,attrDict)
         if([attrDict isKindOfClass:[NSDictionary class]]){
             [_self addAttributes:attrDict range:NSMakeRange(0, _self.length)];
         }
@@ -280,6 +300,7 @@
 {
     return ^id(NSDictionary *attrDict){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strSetAttrDict,attrDict)
         if([attrDict isKindOfClass:[NSDictionary class]]){
             [_self setAttributes:attrDict range:NSMakeRange(0, _self.length)];
         }
@@ -292,6 +313,7 @@
 {
     return ^id(NSDictionary *attrDict, NSRange range){
         LinkHandle_REF(NSMutableAttributedString, NSMutableAttributedString)
+        LinkGroupHandle_REF(m_attr_strSetAttrDictInRange,attrDict,range)
         if([attrDict isKindOfClass:[NSDictionary class]]){
             [_self setAttributes:attrDict range: range];
         }
@@ -300,14 +322,13 @@
 }
 - (void)setM_attr_strSetAttrDictInRange:(NSMutableAttributedString *(^)(NSDictionary *, NSRange))blockSetAttrDictInRange{};
 
-
-
 - (CGRect (^)(CGFloat))m_attr_strSize
 {
     return ^(CGFloat maxWidth){
-        LinkHandle_VAL_IF(NSAttributedString){
+        LinkHandle_VAL_IFNOT(NSAttributedString){
             return CGRectZero;
         }
+        LinkGroupHandle_VAL(m_attr_strSize,maxWidth)
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
     };
 }
@@ -316,9 +337,10 @@
 - (CGRect (^)(CGFloat, NSStringDrawingOptions))m_attr_strSizeWithOptions
 {
     return ^(CGFloat maxWidth,NSStringDrawingOptions options ){
-        LinkHandle_VAL_IF(NSAttributedString){
+        LinkHandle_VAL_IFNOT(NSAttributedString){
             return CGRectZero;
         }
+        LinkGroupHandle_VAL(m_attr_strSizeWithOptions,maxWidth,options)
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil];
     };
 }
@@ -327,9 +349,10 @@
 - (BOOL (^)(NSAttributedString *))m_attr_strIsEqualToAttrStr
 {
     return ^(NSAttributedString* attrStr){
-        LinkHandle_VAL_IF(NSAttributedString){
+        LinkHandle_VAL_IFNOT(NSAttributedString){
             return NO;
         }
+        LinkGroupHandle_VAL(m_attr_strIsEqualToAttrStr,attrStr)
         return [_self isEqualToAttributedString:attrStr];
     };
 }
@@ -339,6 +362,7 @@
 {
     return ^id(UIImage* image, CGRect rect){
         LinkHandle_REF(UIImage , NSMutableAttributedString)
+        LinkGroupHandle_VAL(m_attr_strDrawImgRect,image,rect)
         UIGraphicsBeginImageContext(image.size);
         [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
         [_self drawInRect:rect];

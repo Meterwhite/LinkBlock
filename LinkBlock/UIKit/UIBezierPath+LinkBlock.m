@@ -8,11 +8,12 @@
 
 #import "LinkBlock.h"
 
-@implementation UIBezierPath(UIBezierPathLinkBlock)
+@implementation NSObject(UIBezierPathLinkBlock)
 - (UIBezierPath *(^)(CGFloat))bezierPathSetLineWidth
 {
     return ^id(CGFloat lineWidth){
         LinkHandle_REF(UIBezierPath, UIBezierPath)
+        LinkGroupHandle_REF(bezierPathSetLineWidth,lineWidth)
         _self.lineWidth = lineWidth;
         return _self;
     };
@@ -23,6 +24,7 @@
 {
     return ^id(CGLineCap lineCapStyle){
         LinkHandle_REF(UIBezierPath, UIBezierPath)
+        LinkGroupHandle_REF(bezierPathSetLineCapStyle,lineCapStyle)
         _self.lineCapStyle = lineCapStyle;
         return _self;
     };
@@ -151,7 +153,7 @@
 - (BOOL (^)(CGPoint))bezierPathContainsPoint
 {
     return ^(CGPoint point){
-        LinkHandle_VAL_IF(UIBezierPath){
+        LinkHandle_VAL_IFNOT(UIBezierPath){
             return NO;
         }
         return [_self containsPoint:point];

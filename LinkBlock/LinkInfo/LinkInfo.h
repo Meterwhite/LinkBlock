@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface LinkInfo : NSObject
+/** 异常抛出距离 */
 @property (nonatomic,assign) NSInteger throwCount;
 @end

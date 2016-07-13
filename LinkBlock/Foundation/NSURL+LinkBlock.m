@@ -16,6 +16,7 @@
 {
     return ^id(){
         LinkHandle_REF(UIImage, NSURL)
+        LinkGroupHandle_REF(urlAssetsToUIImageByThumbnail)
         __block UIImage* re = nil;
         ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
         [assetslibrary assetForURL:_self resultBlock:^(ALAsset *asset) {
@@ -30,6 +31,7 @@
 {
     return ^id(){
         LinkHandle_REF(UIImage, NSURL)
+        LinkGroupHandle_REF(urlAssetsToUIImageByFullScreen)
         __block UIImage* re = nil;
         ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
         [assetslibrary assetForURL:_self resultBlock:^(ALAsset *asset) {
@@ -44,6 +46,7 @@
 {
     return ^id(){
         LinkHandle_REF(UIImage, NSURL)
+        LinkGroupHandle_REF(urlAssetsToUIImageByFullResolution)
         __block UIImage* re = nil;
         ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
         [assetslibrary assetForURL:_self resultBlock:^(ALAsset *asset) {
@@ -58,6 +61,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSData, NSURL)
+        LinkGroupHandle_REF(urlToNSDataFromContents)
         return [NSData dataWithContentsOfURL:_self];
     };
 }

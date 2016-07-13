@@ -10,35 +10,34 @@
 @implementation NSObject(NSDictionaryLinkBlock)
 
 
-- (id (^)(id<NSCopying>))dictGet
+- (NSObject* (^)(id<NSCopying>))dictGet
 {
     return ^id(id<NSCopying> key){
-        LinkHandle_VAL_IF(NSDictionary){
-            return (id)nil;
-        }
+        LinkHandle_REF(NSObject, NSDictionary)
+        LinkGroupHandle_REF(dictGet,key)
         return _self[key];
     };
 }
-- (void)setDictGet:(id (^)(id<NSCopying>))dictGet{};
+- (void)setDictGet:(NSObject* (^)(id<NSCopying>))dictGet{};
 
-- (id (^)(id<NSCopying>))dictGetNoNSNull
+- (NSObject* (^)(id<NSCopying>))dictGetNoNSNull
 {
     return ^id(id<NSCopying> key){
-        LinkHandle_VAL_IF(NSDictionary){
-            return (id)nil;
-        }
+        LinkHandle_REF(NSObject, NSDictionary)
+        LinkGroupHandle_REF(dictGetNoNSNull,key)
         if(!_self[key] || [_self[key] isKindOfClass:[NSNull class]] ){
             return (id)nil;
         }
         return _self[key];
     };
 }
-- (void)setDictGetNoNSNull:(id (^)(id<NSCopying>))dictGetNoNSNull{};
+- (void)setDictGetNoNSNull:(NSObject* (^)(id<NSCopying>))dictGetNoNSNull{};
 
 - (NSDictionary *(^)(id<NSCopying>))dictGetDictNoNullType
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(NSDictionary, NSDictionary)
+        LinkGroupHandle_REF(dictGetDictNoNullType,key)
         if(![_self[key] isKindOfClass:[NSDictionary class]]){
             return [NSDictionary dictionary];
         }
@@ -51,6 +50,7 @@
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(NSArray, NSDictionary)
+        LinkGroupHandle_REF(dictGetArrNoNullType,key)
         if(![_self[key] isKindOfClass:[NSArray class]])
             return [NSArray array];
         return (NSArray*)_self[key];
@@ -62,6 +62,7 @@
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(UIView, NSDictionary)
+        LinkGroupHandle_REF(dictGetViewNoNullType,key)
         if(![_self[key] isKindOfClass:[UIView class]])
             return [UIView new];
         return (UIView*)_self[key];
@@ -72,9 +73,10 @@
 - (BOOL (^)(id<NSCopying>))dictGetBOOLNoNullType
 {
     return ^(id<NSCopying> key){
-        LinkHandle_VAL_IF(NSDictionary){
+        LinkHandle_VAL_IFNOT(NSDictionary){
             return NO;
         }
+        LinkGroupHandle_VAL(dictGetBOOLNoNullType,key)
         if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",arr,dict,... ...
             if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
             {
@@ -93,9 +95,10 @@
 - (BOOL (^)(id<NSCopying>))dictContainerKey
 {
     return ^(id<NSCopying> key){
-        LinkHandle_VAL_IF(NSDictionary){
+        LinkHandle_VAL_IFNOT(NSDictionary){
             return NO;
         }
+        LinkGroupHandle_VAL(dictContainerKey,key)
         return [[_self allKeys] containsObject:key];
     };
 }
@@ -104,9 +107,10 @@
 - (BOOL (^)(id))dictContainerValue
 {
     return ^(id value){
-        LinkHandle_VAL_IF(NSDictionary){
+        LinkHandle_VAL_IFNOT(NSDictionary){
             return NO;
         }
+        LinkGroupHandle_VAL(dictContainerValue,value)
         return [[_self allValues] containsObject:value];
     };
 }
@@ -116,6 +120,7 @@
 {
     return ^id(id value){
         LinkHandle_REF(NSArray, NSDictionary)
+        LinkGroupHandle_REF(dictKeysForValue,value)
         return [_self allKeysForObject:value];
     };
 }
@@ -125,6 +130,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSArray, NSDictionary)
+        LinkGroupHandle_REF(dictAllKeys)
         return [_self allKeys];
     };
 }
@@ -133,6 +139,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSArray, NSDictionary)
+        LinkGroupHandle_REF(dictAllValues)
         return [_self allValues];
     };
 }
@@ -142,6 +149,7 @@
 {
     return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
         LinkHandle_REF(NSMutableDictionary, NSDictionary)
+        LinkGroupHandle_REF(dictReplaceKey,replaceKey,withKey)
         NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:_self];
         
         [[result allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -172,6 +180,7 @@
 {
     return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
         LinkHandle_REF(NSMutableDictionary, NSDictionary)
+        LinkGroupHandle_REF(dictReplaceKeyWithoutDeep,replaceKey,withKey)
         NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:_self];
         [[result allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
             

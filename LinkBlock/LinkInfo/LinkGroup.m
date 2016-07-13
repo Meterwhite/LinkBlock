@@ -19,10 +19,32 @@
     return _linkObjects;
 }
 
-+ (LinkGroup *)groupWithObjs:(NSArray *)objs
++ (LinkGroup *)groupWithObjs:(id)obj, ...
+{
+    
+    LinkGroup* re = [LinkGroup new];
+    if(!obj)
+        return re;
+    
+    NSMutableArray* objs = [NSMutableArray new];
+    [objs addObject:obj];
+    
+    va_list args;
+    va_start(args, obj);
+    id parmObj;
+    while ((parmObj = va_arg(args, id))) {
+        [objs addObject:parmObj];
+    }
+    va_end(args);
+    
+    [re.linkObjects addObjectsFromArray:objs];
+    return re;
+}
+
++ (LinkGroup *)groupWithArr:(NSArray *)obj
 {
     LinkGroup* re = [LinkGroup new];
-    [re.linkObjects addObjectsFromArray:objs];
+    [re.linkObjects addObjectsFromArray:obj];
     return re;
 }
 @end

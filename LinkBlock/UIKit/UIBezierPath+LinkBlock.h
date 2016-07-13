@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #define UIBezierPathNew ([UIBezierPath bezierPath])
-@interface UIBezierPath(UIBezierPathLinkBlock)
+@interface NSObject(UIBezierPathLinkBlock)
 
 @property (nonatomic,copy) UIBezierPath*    (^bezierPathSetLineWidth)(CGFloat lineWidth);
 @property (nonatomic,copy) UIBezierPath*    (^bezierPathSetLineCapStyle)(CGLineCap lineCapStyle);

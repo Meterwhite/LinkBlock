@@ -11,5 +11,6 @@
 @interface LinkGroup : LinkInfo
 @property (nonatomic,strong) NSMutableArray<NSObject*>* linkObjects;
 
-+ (LinkGroup*)groupWithObjs:(NSArray*)objs;
++ (LinkGroup*)groupWithObjs:(id)obj,...;
++ (LinkGroup*)groupWithArr:(NSArray*)obj;
 @end

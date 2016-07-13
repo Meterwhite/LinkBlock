@@ -13,6 +13,7 @@
 {
     return ^id(BOOL enable){
         LinkHandle_REF(UIControl, UIControl)
+        LinkGroupHandle_REF(controlEnable,enable)
         _self.enabled=enable;
         return _self;
     };
@@ -23,6 +24,7 @@
 {
     return ^id(BOOL selected){
         LinkHandle_REF(UIControl, UIControl)
+        LinkGroupHandle_REF(controlSelected,selected)
         _self.selected=selected;
         return _self;
     };
@@ -33,6 +35,7 @@
 {
     return ^id(BOOL highlighted){
         LinkHandle_REF(UIControl, UIControl)
+        LinkGroupHandle_REF(controlHighlighted,highlighted)
         _self.highlighted=highlighted;
         return _self;
     };
@@ -43,6 +46,7 @@
 {
     return ^id(UIControlContentVerticalAlignment alignment){
         LinkHandle_REF(UIControl, UIControl)
+        LinkGroupHandle_REF(controlContentVerticalAlignment,alignment)
         _self.contentVerticalAlignment = alignment;
         return _self;
     };
@@ -53,6 +57,7 @@
 {
     return ^id(UIControlContentHorizontalAlignment alignment){
         LinkHandle_REF(UIControl, UIControl)
+        LinkGroupHandle_REF(controlContentHorizontalAlignment,alignment)
         _self.contentHorizontalAlignment = alignment;
         return _self;
     };

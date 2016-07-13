@@ -13,6 +13,7 @@
 {
     return ^id(){
         LinkHandle_REF(UILabel, UILabel)
+        LinkGroupHandle_REF(labAlignTop)
         CGSize fontSize = linkObj(_self.text).strSizeWithFont(_self.font);
         double finalHeight = fontSize.height *_self.numberOfLines;
         if(!finalHeight){
@@ -45,6 +46,7 @@
 {
     return ^id(){
         LinkHandle_REF(UILabel, UILabel)
+        LinkGroupHandle_REF(labAlignBottom)
         if(!_self.text)
             return _self;
         CGSize fontSize =linkObj(_self.text).strSizeWithFont(_self.font);
@@ -82,6 +84,7 @@
 {
     return ^id(NSInteger lines){
         LinkHandle_REF(UILabel, UILabel)
+        LinkGroupHandle_REF(labNumberOfLines,lines)
         _self.numberOfLines= lines;
         return _self;
     };
@@ -92,6 +95,7 @@
 {
     return ^id(NSTextAlignment alighment){
         LinkHandle_REF(UILabel, UILabel)
+        LinkGroupHandle_REF(labAlignment,alighment)
         _self.textAlignment = alighment;
         return _self;
     };
@@ -102,6 +106,7 @@
 {
     return ^id(NSString * txt){
         LinkHandle_REF(UILabel, UILabel)
+        LinkGroupHandle_REF(labText,txt)
         _self.text= txt;
         return _self;
     };
@@ -112,6 +117,7 @@
 {
     return ^id(UIColor * color){
         LinkHandle_REF(UILabel, UILabel)
+        LinkGroupHandle_REF(labTextColor,color)
         _self.textColor= color;
         return _self;
     };
@@ -122,6 +128,7 @@
 {
     return ^id(UIFont * font){
         LinkHandle_REF(UILabel, UILabel)
+        LinkGroupHandle_REF(labFont,font)
         _self.font= font;
         return _self;
     };
@@ -132,6 +139,7 @@
 {
     return ^id(CGFloat size){
         LinkHandle_REF(UILabel, UILabel)
+        LinkGroupHandle_REF(labFontSystemSizeSet,size)
         _self.font= [UIFont systemFontOfSize:size];
         return _self;
     };
@@ -141,9 +149,10 @@
 - (CGFloat (^)())labFontSystemSizeGet
 {
     return ^(){
-        LinkHandle_VAL_IF(UILabel){
+        LinkHandle_VAL_IFNOT(UILabel){
             return (CGFloat)0.0;
         }
+        LinkGroupHandle_VAL(labFontSystemSizeGet)
         return _self.font.pointSize;
     };
 }

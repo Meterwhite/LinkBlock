@@ -8,11 +8,13 @@
 
 #import "LinkBlock.h"
 
-@implementation JSManagedValue(JSManagedValueLinkBlock)
+@implementation NSObject(JSManagedValueLinkBlock)
 - (JSManagedValue *(^)(JSVirtualMachine *,id))jsManagedValueAddToManagedRef
 {
     return ^id(JSVirtualMachine* virtualMachine,id owner){
+        
         LinkHandle_REF(JSManagedValue, JSManagedValue)
+        LinkGroupHandle_REF(jsManagedValueAddToManagedRef,virtualMachine,owner)
         [virtualMachine addManagedReference:_self withOwner:owner];
         return _self;
     };

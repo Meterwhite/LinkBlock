@@ -12,6 +12,7 @@
 {
     return ^id(CGFloat w, CGFloat h){
         LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewContentSize,w,h)
         _self.contentSize= CGSizeMake(w, h);
         return _self;
     };
@@ -22,6 +23,7 @@
 {
     return ^id(CGFloat x, CGFloat y){
         LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewContentOffset,x,y)
         _self.contentOffset= CGPointMake(x, y);
         return _self;
     };
@@ -32,6 +34,7 @@
 {
     return ^id(CGFloat top , CGFloat left , CGFloat bottom , CGFloat right){
         LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewContentInserts,top,left,bottom,right)
         _self.contentInset= UIEdgeInsetsMake(top, left, bottom, right);
         return _self;
     };
@@ -42,6 +45,7 @@
 {
     return ^id(id<UIScrollViewDelegate> delegate){
         LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewDelegate,delegate)
         _self.delegate= delegate;
         return _self;
     };
@@ -52,6 +56,7 @@
 {
     return ^id(BOOL b){
         LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewShowsHorizontal,b)
         _self.showsHorizontalScrollIndicator= b;
         return _self;
     };
@@ -62,6 +67,7 @@
 {
     return ^id(BOOL b){
         LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewShowsVertical,b)
         _self.showsVerticalScrollIndicator= b;
         return _self;
     };
@@ -72,6 +78,7 @@
 {
     return ^id(BOOL b){
         LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewBounce,b)
         _self.bounces= b;
         return _self;
     };
@@ -82,6 +89,7 @@
 {
     return ^id(BOOL b){
         LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewScrollEnabled,b)
         _self.scrollEnabled = b;
         return _self;
     };

@@ -9,10 +9,10 @@
 
 #define NSMutableArrayNew ([NSMutableArray new])
 @interface NSObject(NSMutableArrayLinkBlock)
-@property (nonatomic,copy) id                       (^m_arrAt)(NSUInteger idx);
+@property (nonatomic,copy) NSObject*                (^m_arrAt)(NSUInteger idx);
 @property (nonatomic,copy) NSMutableArray*          (^m_arrSubFrom)(NSUInteger idx);
 @property (nonatomic,copy) NSMutableArray*          (^m_arrSubTo)(NSUInteger idx);
-@property (nonatomic,copy) id                       (^m_arrAny)();
+@property (nonatomic,copy) NSObject*                (^m_arrAny)();
 /** 插入一个元素,安全的 */
 @property (nonatomic,copy) NSMutableArray*  (^m_arrAddObj)(id obj);
 /** 插入一个数组,安全的 */

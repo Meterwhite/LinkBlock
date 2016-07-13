@@ -14,6 +14,7 @@
 {
     return ^id(UIColor* color){
         LinkHandle_REF(UITextField, UITextField)
+        LinkGroupHandle_REF(txtFieldPlaceholdColor,color)
         [_self setValue:color forKeyPath:@"_placeholderLabel.textColor"];
         return _self;
     };

@@ -10,6 +10,11 @@
 
 #define NSArrayNew ([NSArray new])
 @interface NSObject(NSArraryLinkBlock)
+/**
+*  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
+*  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end()
+*/
+@property (nonatomic,strong)NSObject*               makeLinkObjs;
 
 @property (nonatomic,copy) id                       (^arrAt)(NSUInteger idx);
 /** 数组对象中是否包含某个字符串对象 */

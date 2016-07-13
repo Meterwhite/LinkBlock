@@ -8,12 +8,26 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(NSArraryLinkBlock)
+
+- (NSObject *)makeLinkObjs
+{
+    LinkHandle_REF(NSObject, NSArray)
+    if([self isKindOfClass:[LinkGroup class]]){
+        
+        return [((LinkGroup*)self).linkObjects firstObject].makeLinkObjs;
+    }
+    return [LinkGroup groupWithArr:_self];
+}
+- (void)setMakeLinkObjs:(NSObject *)makeLinkObjs{};
+
 - (BOOL (^)(NSString *))arrIsContainerStr
 {
     return ^(NSString* str){
-        LinkHandle_VAL_IF(NSArray){
+        LinkHandle_VAL_IFNOT(NSArray){
             return NO;
         }
+        LinkGroupHandle_VAL(arrIsContainerStr,str);
+        
         __block BOOL re= NO;
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if([obj isKindOfClass:[NSString class]] && [obj isEqualToString:str]){
@@ -29,9 +43,10 @@
 - (BOOL (^)(NSUInteger))arrcontainIndex
 {
     return ^(NSUInteger index){
-        LinkHandle_VAL_IF(NSArray){
+        LinkHandle_VAL_IFNOT(NSArray){
             return NO;
         }
+        LinkGroupHandle_VAL(arrcontainIndex,index)
         return (BOOL)(index< _self.count);
     };
 }
@@ -42,9 +57,10 @@
 {
     return ^id(NSUInteger idx1, NSUInteger idx2){
         LinkHandle_REF(NSArray, NSArray)
+        LinkGroupHandle_REF(arrObjsFromIndexTo,idx1,idx2)
         if(!_self.count ||idx1>idx2 || idx1> _self.count-1)
             return @[];
-
+        
         if(idx2> _self.count-1)
             idx2= _self.count - 1;
 
@@ -59,6 +75,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSDictionary, NSArray)
+        LinkGroupHandle_REF(arrToDictByKeyNumber)
         NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [reIsDictM setObject:obj forKey:@(idx)];
@@ -72,6 +89,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSDictionary, NSArray)
+        LinkGroupHandle_REF(arrToDictByKeyString)
         NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [reIsDictM setObject:obj forKey:[NSString stringWithFormat:@"%lu", (unsigned long)idx]];
@@ -84,9 +102,10 @@
 - (BOOL (^)(id))arrIsContainer
 {
     return ^(id obj){
-        LinkHandle_VAL_IF(NSArray){
+        LinkHandle_VAL_IFNOT(NSArray){
             return NO;
         }
+        LinkGroupHandle_VAL(arrIsContainer,obj)
         return [_self containsObject:obj];
     };
 }
@@ -95,9 +114,10 @@
 - (id (^)())arrAny
 {
     return ^id(){
-        LinkHandle_VAL_IF(NSArray){
+        LinkHandle_VAL_IFNOT(NSArray){
             return (id)nil;
         }
+        LinkGroupHandle_VAL(arrAny)
         return _self[arc4random_uniform((u_int32_t)_self.count)];
     };
 }
@@ -106,9 +126,10 @@
 - (id (^)(NSUInteger))arrAt
 {
     return ^id(NSUInteger idx){
-        LinkHandle_VAL_IF(NSArray){
+        LinkHandle_VAL_IFNOT(NSArray){
             return (id)nil;
         }
+        LinkGroupHandle_VAL(arrAt,idx)
         id re;
         if(_self.arrcontainIndex(idx)){
             re = [_self objectAtIndex:idx];
@@ -125,6 +146,7 @@
 {
     return ^id(__unsafe_unretained Class typeClass){
         LinkHandle_REF(NSArray, NSArray)
+        LinkGroupHandle_VAL(arrValuesOfType,typeClass)
         if(!typeClass)
             return _self;
         NSMutableArray* re = [NSMutableArray array];
@@ -142,6 +164,7 @@
 {
     return ^id(NSString* predicateFormat){
         LinkHandle_REF(NSArray, NSArray)
+        LinkGroupHandle_REF(arrFilter,predicateFormat)
         return [_self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
     };
 }
@@ -151,6 +174,7 @@
 {
     return ^id(id value){
         LinkHandle_REF(NSIndexSet, NSArray)
+        LinkGroupHandle_REF(arrIndexSetOfValue,value)
         return  [_self indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if([obj isEqual:value])
                 return YES;
@@ -164,6 +188,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSNumber, NSArray)
+        LinkGroupHandle_REF(arrMaxNumber)
         __block NSNumber* max = _self[0];
         [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
             if([num isKindOfClass:[NSNumber class]])
@@ -179,6 +204,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSNumber, NSArray)
+        LinkGroupHandle_REF(arrMinNumber)
         __block NSNumber* min = _self[0];
         [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
             if([num isKindOfClass:[NSNumber class]])
@@ -194,7 +220,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSObject, NSArray)
-        LinkGroupHandle(arrLast)
+        LinkGroupHandle_REF(arrLast)
         return [_self lastObject];
     };
 }
@@ -204,7 +230,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSObject, NSArray)
-        LinkGroupHandle(arrFirst)
+        LinkGroupHandle_REF(arrFirst)
         return [_self firstObject];
     };
 }
@@ -214,6 +240,7 @@
 {
     return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
         LinkHandle_REF(NSMutableArray, NSArray)
+        LinkGroupHandle_REF(arrReplaceKeyInDict,replaceKey,withKey)
         NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
         [re enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull dict, NSUInteger idx, BOOL * _Nonnull stop) {
             if([dict isKindOfClass:[NSDictionary class]]){
@@ -230,6 +257,7 @@
 {
     return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
         LinkHandle_REF(NSMutableArray, NSArray)
+        LinkGroupHandle_REF(arrReplaceKeyInDictWithoutDeep,replaceKey,withKey)
         NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
         [re enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull dict, NSUInteger idx, BOOL * _Nonnull stop) {
             if([dict isKindOfClass:[NSDictionary class]]){
@@ -249,12 +277,9 @@
 - (void)arrEnumerateWithPredicateFormat:(NSString *)predicateFormat
                              usingBlock:(void (^)(id, NSUInteger, BOOL *))block
 {
-    LinkHandle_VAL_IF(NSArray){
-        return;
-    }
     NSMutableArray* re= [NSMutableArray new];
     NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat];
-    [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if([predicate evaluateWithObject:obj]){
             [re addObject:obj];
             if(block) block(obj, idx, &*stop);

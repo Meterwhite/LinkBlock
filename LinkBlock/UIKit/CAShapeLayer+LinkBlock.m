@@ -13,6 +13,7 @@
 {
     return ^id(UIBezierPath* path){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetPath,path)
         _self.path = path.CGPath;
         return _self;
     };
@@ -23,6 +24,7 @@
 {
     return ^id(UIColor* color){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetFillColor,color)
         _self.fillColor = color.CGColor;
         return _self;
     };
@@ -33,6 +35,7 @@
 {
     return ^id(UIColor* color){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetStrokeColor,color)
         _self.strokeColor = color.CGColor;
         return _self;
     };
@@ -43,6 +46,7 @@
 {
     return ^id(NSString* fillRule){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetFillRule,fillRule)
         _self.fillRule = fillRule;
         return _self;
     };
@@ -53,6 +57,7 @@
 {
     return ^id(CGFloat strokeStart){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetStrokeStart,strokeStart)
         _self.strokeStart = strokeStart;
         return _self;
     };
@@ -63,6 +68,7 @@
 {
     return ^id(CGFloat strokeEnd){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetStrokeEnd,strokeEnd)
         _self.strokeEnd = strokeEnd;
         return _self;
     };
@@ -73,6 +79,7 @@
 {
     return ^id(CGFloat lineWidth){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetLineWidth,lineWidth)
         _self.lineWidth = lineWidth;
         return _self;
     };
@@ -83,6 +90,7 @@
 {
     return ^id(CGFloat miterLimit){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetMiterLimit,miterLimit)
         _self.miterLimit = miterLimit;
         return _self;
     };
@@ -93,6 +101,7 @@
 {
     return ^id(NSString* lineCap){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetLineCap,lineCap)
         _self.lineCap = lineCap;
         return _self;
     };
@@ -103,6 +112,7 @@
 {
     return ^id(NSString* lineJoin){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetLineJoin,lineJoin)
         _self.lineJoin = lineJoin;
         return _self;
     };
@@ -113,6 +123,7 @@
 {
     return ^id(CGFloat lineDashPhase){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetLineDashPhase,lineDashPhase)
         _self.lineDashPhase = lineDashPhase;
         return _self;
     };
@@ -123,6 +134,7 @@
 {
     return ^id(NSArray<NSNumber *> *lineDashPattern){
         LinkHandle_REF(CAShapeLayer, CAShapeLayer)
+        LinkGroupHandle_REF(sharpLayerSetLineDashPattern,lineDashPattern)
         _self.lineDashPattern = lineDashPattern;
         return _self;
     };

@@ -13,6 +13,7 @@
 {
     return ^id(UIImage * img){
         LinkHandle_REF(UIImageView, UIImageView)
+        LinkGroupHandle_REF(img_viewImage,img)
         _self.image= img;
         return _self;
     };
@@ -23,6 +24,7 @@
 {
     return ^id(UIImage * img){
         LinkHandle_REF(UIImageView, UIImageView)
+        LinkGroupHandle_REF(img_viewImageHighlight,img)
         _self.highlightedImage= img;
         return _self;
     };
@@ -33,6 +35,7 @@
 {
     return ^id(NSString * imgStr){
         LinkHandle_REF(UIImageView, UIImageView)
+        LinkGroupHandle_REF(img_viewImageStr,imgStr)
         _self.image = [UIImage imageNamed:imgStr];
         return _self;
     };
@@ -43,6 +46,7 @@
 {
     return ^id(NSString * imgStr){
         LinkHandle_REF(UIImageView, UIImageView)
+        LinkGroupHandle_REF(img_viewImageStrHighlight,imgStr)
         _self.highlightedImage = [UIImage imageNamed:imgStr];
         return _self;
     };
@@ -53,6 +57,7 @@
 {
     return ^id(BOOL b){
         LinkHandle_REF(UIImageView, UIImageView)
+        LinkGroupHandle_REF(img_viewHighlight,b)
         _self.highlighted = b;
         return _self;
     };

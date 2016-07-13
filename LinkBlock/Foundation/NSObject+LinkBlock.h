@@ -14,44 +14,12 @@
 /** 末尾取值时调用过滤掉错误对象（LinkError），若中途发生类型错误结果返回nil */
 @property (nonatomic,copy) id           (^end)();
 @property (nonatomic,copy) NSArray*     (^ends)();
+@property (nonatomic,copy) id           (^endsAt)(NSUInteger idx);
 /** 将当前对象赋值到其他变量， */
 @property (nonatomic,copy) NSObject*    (^setTo)(id* toObject);
 /** 链条分支，返回源对象，在链条内处理新分支 */
 - (NSObject*)newLink:(void(^)(NSObject* fromObj))aNewLink;
-
-/** 指定对象的类型，避免类型强转写法 */
-//Foundation
-@property (nonatomic,copy) NSString*                    (^typeIsNSString)();
-@property (nonatomic,copy) NSMutableString*             (^typeIsNSMutableString)();
-@property (nonatomic,copy) NSArray*                     (^typeIsNSArray)();
-@property (nonatomic,copy) NSMutableArray*              (^typeIsNSMutableArray)();
-@property (nonatomic,copy) NSDictionary*                (^typeIsNSDictionary)();
-@property (nonatomic,copy) NSMutableDictionary*         (^typeIsNSMutableDictionary)();
-@property (nonatomic,copy) NSAttributedString*          (^typeIsNSAttributedString)();
-@property (nonatomic,copy) NSMutableAttributedString*   (^typeIsNSMutableAttributedString)();
-@property (nonatomic,copy) NSURL*                       (^typeIsNSURL)();
-@property (nonatomic,copy) NSUserDefaults*              (^typeIsNSUserDefaults)();
-@property (nonatomic,copy) NSNumber*                    (^typeIsNSNumber)();
-@property (nonatomic,copy) NSValue*                     (^typeIsNSValue)();
-@property (nonatomic,copy) UIImage*                     (^typeIsUIImage)();
-@property (nonatomic,copy) NSDate*                      (^typeIsNSDate)();
-@property (nonatomic,copy) NSData*                      (^typeIsNSData)();
-//UIKit
-@property (nonatomic,copy) UIView*                      (^typeIsUIView)();
-@property (nonatomic,copy) UILabel*                     (^typeIsUILabel)();
-@property (nonatomic,copy) UIControl*                   (^typeIsUIControl)();
-@property (nonatomic,copy) UIButton*                    (^typeIsUIButton)();
-@property (nonatomic,copy) UIScrollView*                (^typeIsUIScrollView)();
-@property (nonatomic,copy) UIImageView*                 (^typeIsUIImageView)();
-@property (nonatomic,copy) UITableView*                 (^typeIsUITableView)();
-@property (nonatomic,copy) UIColor*                     (^typeIsUIColor)();
-@property (nonatomic,copy) UIViewController*            (^typeIsUIViewController)();
-@property (nonatomic,copy) UITextField*                 (^typeIsUITextField)();
-@property (nonatomic,copy) UITextView*                  (^typeIsUITextView)();
-
 #pragma mark - 功能
-/** 强制类型转换当前对象，失败则返回该类型的初始化对象 */
-@property (nonatomic,copy) NSObject*    (^typeForceObj)(Class theCalss);
 /** NSLog() */
 @property (nonatomic,copy) NSObject*    (^nslog)();
 /** 输出对象前增加标识语 */
@@ -108,4 +76,38 @@
 @property (nonatomic,copy) NSObject*    (^objBeforeInArr)(NSArray* inArr);
 @property (nonatomic,copy) NSObject*    (^objNextInArr)(NSArray* inArr);
 @property (nonatomic,copy) NSArray*     (^objKeysInDict)(NSDictionary* inDict);
+/** 必须获取该类型的对象，若类型不符则返回该类型的初始化对象 */
+@property (nonatomic,copy) NSObject*    (^objMustType)(Class theCalss);
+
+
+/** 指定对象的类型，避免类型强转写法 */
+//Foundation
+@property (nonatomic,copy) NSString*                    (^typeIsNSString)();
+@property (nonatomic,copy) NSMutableString*             (^typeIsNSMutableString)();
+@property (nonatomic,copy) NSArray*                     (^typeIsNSArray)();
+@property (nonatomic,copy) NSMutableArray*              (^typeIsNSMutableArray)();
+@property (nonatomic,copy) NSDictionary*                (^typeIsNSDictionary)();
+@property (nonatomic,copy) NSMutableDictionary*         (^typeIsNSMutableDictionary)();
+@property (nonatomic,copy) NSAttributedString*          (^typeIsNSAttributedString)();
+@property (nonatomic,copy) NSMutableAttributedString*   (^typeIsNSMutableAttributedString)();
+@property (nonatomic,copy) NSURL*                       (^typeIsNSURL)();
+@property (nonatomic,copy) NSUserDefaults*              (^typeIsNSUserDefaults)();
+@property (nonatomic,copy) NSNumber*                    (^typeIsNSNumber)();
+@property (nonatomic,copy) NSValue*                     (^typeIsNSValue)();
+@property (nonatomic,copy) UIImage*                     (^typeIsUIImage)();
+@property (nonatomic,copy) NSDate*                      (^typeIsNSDate)();
+@property (nonatomic,copy) NSData*                      (^typeIsNSData)();
+//UIKit
+@property (nonatomic,copy) UIView*                      (^typeIsUIView)();
+@property (nonatomic,copy) UILabel*                     (^typeIsUILabel)();
+@property (nonatomic,copy) UIControl*                   (^typeIsUIControl)();
+@property (nonatomic,copy) UIButton*                    (^typeIsUIButton)();
+@property (nonatomic,copy) UIScrollView*                (^typeIsUIScrollView)();
+@property (nonatomic,copy) UIImageView*                 (^typeIsUIImageView)();
+@property (nonatomic,copy) UITableView*                 (^typeIsUITableView)();
+@property (nonatomic,copy) UIColor*                     (^typeIsUIColor)();
+@property (nonatomic,copy) UIViewController*            (^typeIsUIViewController)();
+@property (nonatomic,copy) UITextField*                 (^typeIsUITextField)();
+@property (nonatomic,copy) UITextView*                  (^typeIsUITextView)();
+
 @end
