@@ -36,8 +36,6 @@
     linkResults = arrA.linkAnd(arrB).linkAnd(arrC).m_arrAddObj(@"D").ends();
     //写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环了
     linkResults = arrA.linkLoop(100).m_arrAddObj(@"F").ends();
-
-    
     
     //...//...//...//...//...//...//...//...//...//...//...
     //去空格和换行，并打印
@@ -181,3 +179,49 @@
     id value = linkObj(nil).end();
 }
 @end
+
+
+
+
+
+
+//NSDictionary* dict = @{
+//                       @"0":@"abcd",
+//                       @"1":@[@"abcd",@"abcd"],
+//                       @"2":@{@"0":@[@"abcd"]}
+//                       };
+//
+////    dict = [NSDictionary dictionaryWithObjectsAndKeys:@"abc",@"0",@[@"abcd",@"abcd"],@"1",@{@"0":@[@"abcd"]},@"2", nil];
+//
+////    NSMutableDictionary* parm =[NSMutableDictionary new];
+////    parm[@"1"]=@"1";
+////    parm = [parm copy];
+//
+//
+////    NSMutableString* strff = [NSMutableString stringWithFormat:@"123123"];//NSTaggedPointerString
+////    NSMutableString* mStr =[NSMutableString new];
+////    NSMutableString* mStr2 = [@"123" mutableCopy];
+////    NSString* strff2 = [NSString stringWithFormat:@"123123"];//NSTaggedPointerString
+////    NSString* strA = @"1232" ;
+////
+//
+//
+//dict = dict.objMutableCopyDeep();
+//
+//[dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+//    
+//    if([obj isKindOfClass:[NSMutableString class]]){
+//        NSLog(@"__");
+//    }
+//    NSLog(@"%@", NSStringFromClass([obj class]));
+//}];
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//return;

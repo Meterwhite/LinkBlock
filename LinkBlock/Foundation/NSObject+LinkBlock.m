@@ -208,6 +208,50 @@
 }
 - (void)setObjMutableCopy:(NSObject *(^)())objMutableCopy{};
 
+- (NSObject *(^)())objMutableCopyDeep
+{
+    return ^id(){
+        LinkHandle_REF(NSObject, NSObject)
+        LinkGroupHandle_REF(objMutableCopyDeep)
+        
+        if([_self isKindOfClass:[NSString class]]&&
+           _self.superclass!=[NSMutableString class]){
+            
+            return [_self mutableCopy];
+        }else if ([_self isKindOfClass:[NSArray class]]&&
+                  ![_self isKindOfClass:[NSMutableArray class]]){
+            
+            NSMutableArray<NSObject*>* reSelf = [_self mutableCopy];
+            [((NSArray*)_self) enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if(([reSelf[idx] isKindOfClass:[NSString class]]&& reSelf[idx].superclass!=[NSMutableString class])||
+                   ([reSelf[idx] isKindOfClass:[NSArray class]]&&![reSelf[idx] isKindOfClass:[NSMutableArray class]])||
+                   ([reSelf[idx] isKindOfClass:[NSDictionary class]]&&![reSelf[idx] isKindOfClass:[NSMutableDictionary class]])){
+                    
+                    reSelf[idx] =  [reSelf[idx] mutableCopy];
+                }
+            }];
+            return reSelf;
+        }else if ([_self isKindOfClass:[NSDictionary class]]&&
+                  ![_self isKindOfClass:[NSMutableDictionary class]]){
+            
+            NSMutableDictionary* reSelf = [_self mutableCopy];
+            [(NSDictionary*)_self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSObject*  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                if(([obj isKindOfClass:[NSString class]]&& obj.superclass!=[NSMutableString class] )||
+                   ([obj isKindOfClass:[NSArray class]]&&![obj isKindOfClass:[NSMutableArray class]])||
+                   ([obj isKindOfClass:[NSDictionary class]]&&![obj isKindOfClass:[NSMutableDictionary class]])){
+                    
+                    [reSelf setObject:obj.objMutableCopyDeep() forKey:key];
+                }
+            }];
+            return reSelf;
+        }
+        return _self;
+    };
+}
+- (void)setObjMutableCopyDeep:(NSObject *(^)())objMutableCopyDeep{};
+
 - (BOOL (^)(NSObject *))objIsEqual
 {
     return ^(NSObject* obj){
@@ -342,10 +386,11 @@
 
 - (NSObject *)newLink:(void (^)(NSObject *))aNewLin
 {
+    LinkHandle_REF(NSObject, NSObject)
     if(aNewLin){
-        aNewLin(self);
+        aNewLin(_self);
     }
-    return self;
+    return _self;
 }
 
 - (NSObject *(^)(id))linkAnd

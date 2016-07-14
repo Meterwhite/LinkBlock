@@ -11,9 +11,11 @@
 
 @interface NSObject(LinkBlock)
 #pragma mark - 方式
-/** 末尾取值时调用过滤掉错误对象（LinkError），若中途发生类型错误结果返回nil */
+/** 获取链条返回值，并将链条信息对象和错误转nil */
 @property (nonatomic,copy) id           (^end)();
+/** 多对象链式编程获取多个链条返回值，并将错误转nil */
 @property (nonatomic,copy) NSArray*     (^ends)();
+/** 多对象链式编程获取某一链条返回值，并将错误转nil */
 @property (nonatomic,copy) id           (^endsAt)(NSUInteger idx);
 /** 将当前对象赋值到其他变量， */
 @property (nonatomic,copy) NSObject*    (^setTo)(id* toObject);
@@ -74,11 +76,17 @@
 #pragma mark - NSObject
 @property (nonatomic,copy) NSObject*    (^objCopy)();
 @property (nonatomic,copy) NSObject*    (^objMutableCopy)();
+/**
+ *  对象及可能包含的子对象全部转为跟json相关的可变类型
+ *  （NSMutableArray,NSMutableDictionary,NSMutableString）
+ */
+@property (nonatomic,copy) NSObject*    (^objMutableCopyDeep)();
 @property (nonatomic,copy) BOOL         (^objIsEqual)(NSObject* obj);
 /** 数组，字典等对象转成json的字符串 */
 @property (nonatomic,copy) NSString*    (^objToJsonString)();
-/** 无返回nil */
+/** 在数组中的前一个元素，无返回nil */
 @property (nonatomic,copy) NSObject*    (^objBeforeInArr)(NSArray* inArr);
+/** 在数组中的后一个元素无返回nil */
 @property (nonatomic,copy) NSObject*    (^objNextInArr)(NSArray* inArr);
 @property (nonatomic,copy) NSArray*     (^objKeysInDict)(NSDictionary* inDict);
 /** 必须获取该类型的对象，若类型不符则返回该类型的初始化对象 */
