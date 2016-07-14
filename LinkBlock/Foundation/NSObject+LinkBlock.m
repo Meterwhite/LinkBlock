@@ -214,17 +214,16 @@
         LinkHandle_REF(NSObject, NSObject)
         LinkGroupHandle_REF(objMutableCopyDeep)
         
-        if([_self isKindOfClass:[NSString class]]&&
-           _self.superclass!=[NSMutableString class]){
+        if([_self isKindOfClass:[NSString class]]&&![_self isMemberOfClass:NSClassFromString(@"__NSCFString")]){//不可变字符串
             
             return [_self mutableCopy];
         }else if ([_self isKindOfClass:[NSArray class]]&&
-                  ![_self isKindOfClass:[NSMutableArray class]]){
+                  ![_self isKindOfClass:[NSMutableArray class]]){//不可变数组
             
             NSMutableArray<NSObject*>* reSelf = [_self mutableCopy];
             [((NSArray*)_self) enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
-                if(([reSelf[idx] isKindOfClass:[NSString class]]&& reSelf[idx].superclass!=[NSMutableString class])||
+                if(([reSelf[idx] isKindOfClass:[NSString class]]&&![reSelf[idx] isMemberOfClass:NSClassFromString(@"__NSCFString")])||
                    ([reSelf[idx] isKindOfClass:[NSArray class]]&&![reSelf[idx] isKindOfClass:[NSMutableArray class]])||
                    ([reSelf[idx] isKindOfClass:[NSDictionary class]]&&![reSelf[idx] isKindOfClass:[NSMutableDictionary class]])){
                     
@@ -233,12 +232,12 @@
             }];
             return reSelf;
         }else if ([_self isKindOfClass:[NSDictionary class]]&&
-                  ![_self isKindOfClass:[NSMutableDictionary class]]){
+                  ![_self isKindOfClass:[NSMutableDictionary class]]){//不可变字典
             
             NSMutableDictionary* reSelf = [_self mutableCopy];
             [(NSDictionary*)_self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSObject*  _Nonnull obj, BOOL * _Nonnull stop) {
                 
-                if(([obj isKindOfClass:[NSString class]]&& obj.superclass!=[NSMutableString class] )||
+                if(([obj isKindOfClass:[NSString class]]&&![obj isMemberOfClass:NSClassFromString(@"__NSCFString")])||
                    ([obj isKindOfClass:[NSArray class]]&&![obj isKindOfClass:[NSMutableArray class]])||
                    ([obj isKindOfClass:[NSDictionary class]]&&![obj isKindOfClass:[NSMutableDictionary class]])){
                     

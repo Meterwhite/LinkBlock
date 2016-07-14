@@ -77,7 +77,7 @@
 @property (nonatomic,copy) NSObject*    (^objCopy)();
 @property (nonatomic,copy) NSObject*    (^objMutableCopy)();
 /**
- *  对象及可能包含的子对象全部转为跟json相关的可变类型
+ *  对象及可能包含的子对象全部转为json相关的可变类型
  *  （NSMutableArray,NSMutableDictionary,NSMutableString）
  */
 @property (nonatomic,copy) NSObject*    (^objMutableCopyDeep)();
@@ -93,7 +93,7 @@
 @property (nonatomic,copy) NSObject*    (^objMustType)(Class theCalss);
 
 
-/** 指定对象的类型，避免类型强转写法 */
+/** 指定对象的类型，避免链条中需要类型强转时 */
 //Foundation
 @property (nonatomic,copy) NSString*                    (^typeIsNSString)();
 @property (nonatomic,copy) NSMutableString*             (^typeIsNSMutableString)();
