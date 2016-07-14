@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LinkBlock"
-  s.version      = "1.0.3"
+  s.version      = "2.0.0"
   s.summary      = 'objc chain programming.'
   s.homepage     = 'https://github.com/qddnovo/LinkBlock'
   s.license      = 'MIT'
