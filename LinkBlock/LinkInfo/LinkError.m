@@ -10,7 +10,7 @@
 @implementation LinkError
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"【LinkError】调用方法\"%@\"时需要类型\"%@\"而不是类型\"%@\"，在链条的倒数第\"%ld\"处发生",self.inFunc,self.needClass,self.errorClass,(long)(self.throwCount+1)];
+    return [NSString stringWithFormat:@"【LinkError】调用方法\"%@\"时需要类型\"%@\"而不是类型\"%@\"，在链条的倒数第\"%ld\"处发生",self.inFunc,self.needClass,self.errorClass,(long)(self.throwCount+(NSInteger)1)];
 }
 
 - (NSString *)debugDescription
