@@ -19,8 +19,12 @@
 @property (nonatomic,copy) id           (^endsAt)(NSUInteger idx);
 /** 将当前对象赋值到其他变量， */
 @property (nonatomic,copy) NSObject*    (^setTo)(id* toObject);
-/** 使新对象加入链条执行其后方法 */
+/** 使新对象加入链条 */
 @property (nonatomic,copy) NSObject*    (^linkAnd)(id obj);
+/** 使多链条中移除一个 */
+@property (nonatomic,copy) NSObject*    (^linkOut)(NSUInteger idx);
+/** 取出多链条中一个 */
+@property (nonatomic,copy) NSObject*    (^linkAt)(NSUInteger idx);
 /** 使其后的链条执行多次 */
 @property (nonatomic,copy) NSObject*    (^linkLoop)(NSUInteger count);
 /** 链条分支，返回源对象，在链条内处理新分支 */

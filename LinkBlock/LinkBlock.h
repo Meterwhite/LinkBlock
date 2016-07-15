@@ -53,13 +53,21 @@
 #ifndef makeLinkObjs
 #define makeLinkObjs makeLinkObjs
 #endif
-//使其后的链式编程执行多次
-#ifndef linkLoop
-#define linkLoop linkLoop
-#endif
-//使新对象加入链条执行其后方法
+//使新对象加入链条
 #ifndef linkAnd
 #define linkAnd linkAnd
+#endif
+//使多链条中移除一个
+#ifndef linkOut
+#define linkOut linkOut
+#endif
+//取出多链条中一个
+#ifndef linkAt
+#define linkAt linkAt
+#endif
+//使其后的链条执行多次
+#ifndef linkLoop
+#define linkLoop linkLoop
 #endif
 
 
