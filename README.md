@@ -108,9 +108,7 @@ arrForFilter.arrFilter(@"age<0").setTo(&arrForFilter);
     usingBlock:^(NSObject* obj, NSUInteger idx, BOOL *stop) {
     //...
 }];
-```
-##对字典的操作
-```objc
+
 //替换字典中的键
 NSDictionary* dictToReplace = @{
                                 @"description":@"123",
@@ -119,48 +117,17 @@ NSDictionary* dictToReplace = @{
                                             @"arr":@[
                                                         @{
                                                             @"dict2":@{
-                                                                @"description":@"123"
+                                                                        @"description":@"123"
                                                             }
                                                         },
-                                                    @{
-                                                        @"description":@"123123"
-                                                    },
-                                                    @"adf"
-                                                    ]
-                                        }
-                            };
+                                                        @{
+                                                            @"description":@"123123"
+                                                        },
+                                                        @"adf"
+                                                        ]
+                                            }
+                                };
 dictToReplace.dictReplaceKey(@"description", @"DESCRIPTION").setTo(&dictToReplace);
-```
-
-##SQL拼接的易读和易查错
-```objc
-//高效阅读的sql编码方式，易查错，易修改
-/** 
-if(sex == 0){
-    select * from Student,Teacher,Foods where id > 1000
-}else{
-    select id,name,age,sex from Student,Teacher,Foods where id > 1000
-}
-如下：
-*/
-BOOL sex;
-NSString* sqlString =
-[[[SQLNew SQLSelect:^(NSMutableString *makeSQL) {
-
-    [makeSQL SQLIf:sex using:^(NSMutableString *makeSQL) {
-
-        makeSQL.SQLStr(@"*");
-    } elseUsing:^(NSMutableString *makeSQL) {
-
-        makeSQL.SQLArr(@[@"id",@"name",@"age",@"sex",@"nickName",@"address",@"point"]);
-    }];
-}] SQLFrom:^(NSMutableString *makeSQL) {
-
-    makeSQL.SQLArr(@[@"Student" , @"Teacher", @"Foods"]);
-}] SQLWhere:^(NSMutableString *makeSQL) {
-    
-    makeSQL.SQLStr( @"id =").SQLIntInStr(1000);
-}];
 ```
 
 ##安全写法linkObj(obj)和end()
