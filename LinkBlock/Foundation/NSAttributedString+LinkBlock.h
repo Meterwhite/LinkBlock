@@ -10,9 +10,9 @@
 
 @interface NSObject(NSAttributedStringLinkBlock)
 /** 默认情况下计算尺寸，如支持UILable文字排版计算 */
-@property (nonatomic,copy) CGRect   (^attr_strSize)(CGFloat maxWidth);
-@property (nonatomic,copy) CGRect   (^attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
-@property (nonatomic,copy) BOOL     (^attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
+@property (nonatomic,copy,readonly) CGRect   (^attr_strSize)(CGFloat maxWidth);
+@property (nonatomic,copy,readonly) CGRect   (^attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
+@property (nonatomic,copy,readonly) BOOL     (^attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
 /** 加水印 */
-@property (nonatomic,copy) UIImage* (^attr_strDrawImgRect)(UIImage* image, CGRect rect);
+@property (nonatomic,copy,readonly) UIImage* (^attr_strDrawImgRect)(UIImage* image, CGRect rect);
 @end

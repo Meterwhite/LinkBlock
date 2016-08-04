@@ -20,7 +20,7 @@
         return _self;
     };
 }
-- (void)setM_arrAddObj:(NSMutableArray *(^)(id))m_arrAddObj{};
+
 
 - (NSMutableArray *(^)(NSArray *))m_arrAddObjs
 {
@@ -33,7 +33,7 @@
         return _self;
     };
 }
-- (void)setM_arrAddObjs:(NSMutableArray *(^)(NSArray *))m_arrAddObjs{};
+
 
 - (NSMutableArray *(^)(id, NSUInteger))m_arrInsertObjAt
 {
@@ -49,7 +49,7 @@
         return _self;
     };
 }
-- (void)setM_arrInsertObjAt:(NSMutableArray *(^)(id, NSUInteger))m_arrInsertObjAt{};
+
 
 - (NSMutableArray *(^)(NSArray *, NSUInteger))m_arrInsertArrayAt
 {
@@ -62,7 +62,7 @@
         return _self;
     };
 }
-- (void)setM_arrInsertArrayAt:(NSMutableArray *(^)(NSArray *, NSUInteger))m_arrInsertArrayAt{};
+
 
 - (NSMutableArray *(^)(id, id))m_arrInsertBefore
 {
@@ -79,7 +79,7 @@
         return _self;
     };
 }
-- (void)setM_arrInsertBefore:(NSMutableArray *(^)(id, id))m_arrInsertBefore{};
+
 
 - (NSMutableArray *(^)(id, id))m_arrInsertBehind
 {
@@ -95,7 +95,7 @@
         return _self;
     };
 }
-- (void)setM_arrInsertBehind:(NSMutableArray *(^)(id, id))m_arrInsertBehind{};
+
 
 - (NSMutableArray *(^)(id))m_arrRemoveObj
 {
@@ -108,7 +108,7 @@
         return _self;
     };
 }
-- (void)setM_arrRemoveObj:(NSMutableArray *(^)(id))m_arrRemoveObj{};
+
 
 - (NSMutableArray *(^)(NSUInteger))m_arrRemoveAt
 {
@@ -121,7 +121,7 @@
         return _self;
     };
 }
-- (void)setM_arrRemoveAt:(NSMutableArray *(^)(NSUInteger))m_arrRemoveAt{};
+
 
 - (NSMutableArray *(^)(NSUInteger, NSUInteger))m_arrRemoveObjsFromTo
 {
@@ -134,7 +134,7 @@
         return _self;
     };
 }
-- (void)setM_arrRemoveObjsFromTo:(NSMutableArray *(^)(NSUInteger, NSUInteger))m_arrRemoveObjsFromTo{};
+
 
 - (NSMutableArray *(^)())m_arrRemoveAll
 {
@@ -145,7 +145,7 @@
         return _self;
     };
 }
-- (void)setM_arrRemoveAll:(NSMutableArray *(^)())m_arrRemoveAll{};
+
 
 - (NSMutableArray *(^)(id, id))m_arrReplaceObjWith
 {
@@ -161,7 +161,7 @@
         return _self;
     };
 }
-- (void)setM_arrReplaceObjWith:(NSMutableArray *(^)(id, id))m_arrReplaceObjWith{};
+
 
 - (NSObject* (^)(NSUInteger))m_arrAt
 {
@@ -169,7 +169,7 @@
         return self.arrAt(idx);
     };
 }
-- (void)setM_arrAt:(NSObject* (^)(NSUInteger))m_arrValueAt{};
+
 
 - (BOOL (^)(NSString *))m_arrIsContainerStr
 {
@@ -177,7 +177,7 @@
         return self.arrIsContainerStr(str);
     };
 }
-- (void)setM_arrIsContainerStr:(BOOL (^)(NSString *))m_arrIsContainerStr{};
+
 
 - (BOOL (^)(id))m_arrContain
 {
@@ -185,7 +185,7 @@
         return self.arrIsContainer(obj);
     };
 }
-- (void)setM_arrContain:(BOOL (^)(id))m_arrContain{};
+
 
 - (NSArray *(^)(NSUInteger, NSUInteger))m_arrObjsFromIndexTo
 {
@@ -202,7 +202,7 @@
         return self.arrcontainIndex(idx);
     };
 }
-- (void)setM_arrContainIndex:(BOOL (^)(NSUInteger))m_arrContainIndex{};
+
 
 - (NSDictionary *(^)())m_arrToDictByKeyNumber
 {
@@ -210,7 +210,7 @@
         return self.arrToDictByKeyNumber();
     };
 }
-- (void)setM_arrToDictByKeyNumber:(NSDictionary *(^)())m_arrToDictByKeyNumber{};
+
 
 - (NSDictionary *(^)())m_arrToDictByKeyString
 {
@@ -218,7 +218,7 @@
         return self.arrToDictByKeyString();
     };
 }
-- (void)setM_arrToDictByKeyString:(NSDictionary *(^)())m_arrToDictByKeyString{};
+
 
 
 - (NSMutableArray *(^)(NSString *, BOOL))m_arrSortByKey
@@ -232,7 +232,7 @@
         return _self;
     };
 }
-- (void)setM_arrSortByKey:(NSMutableArray *(^)(NSString *, BOOL))m_arrSortByKey{};
+
 
 - (NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceObjByKey
 {
@@ -259,7 +259,7 @@
         return _self;
     };
 }
-- (void)setM_arrAddOrReplaceObjByKey:(NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceObjByKey{};
+
 
 - (NSMutableArray *(^)(NSString *))m_arrFilter
 {
@@ -270,7 +270,7 @@
         return _self;
     };
 }
-- (void)setM_arrFilter:(NSMutableArray *(^)(NSString *))m_arrFilter{};
+
 
 - (NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceObjByKeyAt
 {
@@ -297,7 +297,7 @@
         return _self;
     };
 }
-- (void)setM_arrInsertOrReplaceObjByKeyAt:(NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceObjByKeyAt{};
+
 
 - (NSMutableArray *(^)(id, NSString *))m_arrTryReplaceObjByKey
 {
@@ -321,7 +321,7 @@
         return _self;
     };
 }
-- (void)setM_arrTryReplaceObjByKey:(NSMutableArray *(^)(id, NSString *))m_arrTryReplaceObjByKey{};
+
 
 - (NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey
 {
@@ -334,7 +334,7 @@
         return _self;
     };
 }
-- (void)setM_arrTryReplaceObjsByKey:(NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey{};
+
 
 - (NSMutableArray *(^)(NSUInteger))m_arrSubFrom
 {
@@ -348,7 +348,7 @@
         return _self;
     };
 }
-- (void)setM_arrSubFrom:(NSMutableArray *(^)(NSUInteger))m_arrSubFrom{};
+
 
 - (NSMutableArray *(^)(NSUInteger))m_arrSubTo
 {
@@ -362,7 +362,7 @@
         return _self;
     };
 }
-- (void)setM_arrSubTo:(NSMutableArray *(^)(NSUInteger))m_arrSubTo{};
+
 
 - (NSMutableArray *(^)(__unsafe_unretained Class))m_arrObjsOfType
 {
@@ -380,7 +380,7 @@
         return re;
     };
 }
-- (void)setM_arrObjsOfType:(NSMutableArray *(^)(__unsafe_unretained Class))m_arrObjsOfType{};
+
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict
 {
@@ -388,7 +388,7 @@
         return self.arrReplaceKeyInDict(replaceKey, withKey);
     };
 }
-- (void)setM_arrReplaceKeyInDict:(NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict{};
+
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDictWithoutDeep
 {
@@ -396,7 +396,7 @@
         return self.arrReplaceKeyInDictWithoutDeep(replaceKey, withKey);
     };
 }
-- (void)setM_arrReplaceKeyInDictWithoutDeep:(NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDictWithoutDeep{};
+
 
 - (NSObject* (^)())m_arrAny
 {
@@ -406,7 +406,7 @@
         return _self[arc4random_uniform((u_int32_t)_self.count)];
     };
 }
-- (void)setM_arrAny:(NSObject* (^)())m_arrAny{};
+
 
 - (NSMutableArray<NSValue *> *(^)(BOOL, BOOL))m_arrSortRange
 {
@@ -450,5 +450,5 @@
         return _self;
     };
 }
-- (void)setM_arrSortRange:(NSMutableArray<NSValue *> *(^)(BOOL, BOOL))m_arrSortRange{};
+
 @end

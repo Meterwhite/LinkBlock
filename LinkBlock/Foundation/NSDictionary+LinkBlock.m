@@ -18,7 +18,7 @@
         return _self[key];
     };
 }
-- (void)setDictGet:(NSObject* (^)(id<NSCopying>))dictGet{};
+
 
 - (NSObject* (^)(id<NSCopying>))dictGetNoNSNull
 {
@@ -31,7 +31,7 @@
         return _self[key];
     };
 }
-- (void)setDictGetNoNSNull:(NSObject* (^)(id<NSCopying>))dictGetNoNSNull{};
+
 
 - (NSDictionary *(^)(id<NSCopying>))dictGetDictNoNullType
 {
@@ -56,7 +56,7 @@
         return (NSArray*)_self[key];
     };
 }
-- (void)setDictGetArrNoNullType:(NSArray *(^)(id<NSCopying>))dictGetArrValueNoNullType{};
+
 
 - (UIView *(^)(id<NSCopying>))dictGetViewNoNullType
 {
@@ -68,7 +68,7 @@
         return (UIView*)_self[key];
     };
 }
-- (void)setDictGetViewNoNullType:(UIView *(^)(id<NSCopying>))dictGetViewNoNullType{};
+
 
 - (BOOL (^)(id<NSCopying>))dictGetBOOLNoNullType
 {
@@ -102,7 +102,7 @@
         return [[_self allKeys] containsObject:key];
     };
 }
-- (void)setDictContainerKey:(BOOL (^)(id<NSCopying>))blockContainerKey{};
+
 
 - (BOOL (^)(id))dictContainerValue
 {
@@ -114,7 +114,7 @@
         return [[_self allValues] containsObject:value];
     };
 }
-- (void)setDictContainerValue:(BOOL (^)(id))blockContainerValue{};
+
 
 - (NSArray *(^)(id))dictKeysForValue
 {
@@ -124,7 +124,7 @@
         return [_self allKeysForObject:value];
     };
 }
-- (void)setDictKeysForValue:(NSArray *(^)(id))blockKeysForValue{};
+
 
 - (NSArray *(^)())dictAllKeys
 {
@@ -134,7 +134,7 @@
         return [_self allKeys];
     };
 }
-- (void)setDictAllKeys:(NSArray *(^)())blockAllKeys{};
+
 - (NSArray *(^)())dictAllValues
 {
     return ^id(){
@@ -143,7 +143,7 @@
         return [_self allValues];
     };
 }
-- (void)setDictAllValues:(NSArray *(^)())blockAllValues{};
+
 
 - (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKey
 {
@@ -174,7 +174,7 @@
         return result;
     };
 }
-- (void)setDictReplaceKey:(NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKey{};
+
 
 - (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKeyWithoutDeep
 {
@@ -192,6 +192,6 @@
         return result;
     };
 }
-- (void)setDictReplaceKeyWithoutDeep:(NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKeyWithoutDeep{};
+
 
 @end

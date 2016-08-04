@@ -25,7 +25,7 @@
         return re;
     };
 }
-- (void)setUrlAssetsToUIImageByThumbnail:(UIImage *(^)())urlAssetsToUIImageByThumbnail{};
+
 
 - (UIImage *(^)())urlAssetsToUIImageByFullScreen
 {
@@ -40,7 +40,7 @@
         return re;
     };
 }
-- (void)setUrlAssetsToUIImageByFullScreen:(UIImage *(^)())urlAssetsToUIImageByFullScreen{};
+
 
 - (UIImage *(^)())urlAssetsToUIImageByFullResolution
 {
@@ -55,7 +55,7 @@
         return re;
     };
 }
-- (void)setUrlAssetsToUIImageByFullResolution:(UIImage *(^)())urlAssetsToUIImageByFullResolution{};
+
 
 - (NSData *(^)())urlToNSDataFromContents
 {
@@ -65,5 +65,5 @@
         return [NSData dataWithContentsOfURL:_self];
     };
 }
-- (void)setUrlToNSDataFromContents:(NSData *(^)())urlToNSDataFromContents{};
+
 @end

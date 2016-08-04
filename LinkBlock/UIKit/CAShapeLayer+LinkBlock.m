@@ -18,7 +18,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetPath:(CAShapeLayer *(^)(UIBezierPath *))sharpLayerSetPath{};
+
 
 - (CAShapeLayer *(^)(UIColor *))sharpLayerSetFillColor
 {
@@ -29,7 +29,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetFillColor:(CAShapeLayer *(^)(UIColor *))sharpLayerSetFillColor{};
+
 
 - (CAShapeLayer *(^)(UIColor *))sharpLayerSetStrokeColor
 {
@@ -40,7 +40,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetStrokeColor:(CAShapeLayer *(^)(UIColor *))sharpLayerSetStrokeColor{};
+
 
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetFillRule
 {
@@ -51,7 +51,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetFillRule:(CAShapeLayer *(^)(NSString *))sharpLayerSetFillRule{};
+
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetStrokeStart
 {
@@ -62,7 +62,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetStrokeStart:(CAShapeLayer *(^)(CGFloat))sharpLayerSetStrokeStart{};
+
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetStrokeEnd
 {
@@ -73,7 +73,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetStrokeEnd:(CAShapeLayer *(^)(CGFloat))sharpLayerSetStrokeEnd{};
+
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetLineWidth
 {
@@ -84,7 +84,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetLineWidth:(CAShapeLayer *(^)(CGFloat))sharpLayerSetLineWidth{};
+
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetMiterLimit
 {
@@ -95,7 +95,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetMiterLimit:(CAShapeLayer *(^)(CGFloat))sharpLayerSetMiterLimit{};
+
 
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetLineCap
 {
@@ -106,7 +106,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetLineCap:(CAShapeLayer *(^)(NSString *))sharpLayerSetLineCap{};
+
 
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetLineJoin
 {
@@ -117,7 +117,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetLineJoin:(CAShapeLayer *(^)(NSString *))sharpLayerSetLineJoin{};
+
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetLineDashPhase
 {
@@ -128,7 +128,7 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetLineDashPhase:(CAShapeLayer *(^)(CGFloat))sharpLayerSetLineDashPhase{};
+
 
 - (CAShapeLayer *(^)(NSArray<NSNumber *> *))sharpLayerSetLineDashPattern
 {
@@ -139,5 +139,5 @@
         return _self;
     };
 }
-- (void)setSharpLayerSetLineDashPattern:(CAShapeLayer *(^)(NSArray<NSNumber *> *))sharpLayerSetLineDashPattern{};
+
 @end

@@ -19,7 +19,7 @@
         return _self;
     };
 }
-- (void)setLayerAddSublayer:(CALayer *(^)(CALayer *))layerAddSublayer{};
+
 
 - (CALayer *(^)(CALayer *, unsigned int))layerInsertSublayerAt
 {
@@ -31,7 +31,7 @@
         return _self;
     };
 }
-- (void)setLayerInsertSublayerAt:(CALayer *(^)(CALayer *, unsigned int))layerInsertSublayerAt{};
+
 
 - (CALayer *(^)(CALayer *, CALayer *))layerInsertSublayerBelow
 {
@@ -43,7 +43,7 @@
         return _self;
     };
 }
-- (void)setLayerInsertSublayerBelow:(CALayer *(^)(CALayer *, CALayer *))layerInsertSublayerBelow{};
+
 
 - (CALayer *(^)(CALayer *, CALayer *))layerInsertSublayerAbove
 {
@@ -55,7 +55,7 @@
         return _self;
     };
 }
-- (void)setLayerInsertSublayerAbove:(CALayer *(^)(CALayer *, CALayer *))layerInsertSublayerAbove{};
+
 
 
 @end

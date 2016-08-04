@@ -12,49 +12,49 @@
 @interface NSObject(LinkBlock)
 #pragma mark - 方式
 /** 获取链条返回值，并将链条信息对象和错误转nil */
-@property (nonatomic,copy) id           (^end)();
+@property (nonatomic,copy,readonly) id           (^end)();
 /** 多对象链式编程获取多个链条返回值，并将错误转nil */
-@property (nonatomic,copy) NSArray*     (^ends)();
+@property (nonatomic,copy,readonly) NSArray*     (^ends)();
 /** 多对象链式编程获取某一链条返回值，并将错误转nil */
-@property (nonatomic,copy) id           (^endsAt)(NSUInteger idx);
+@property (nonatomic,copy,readonly) id           (^endsAt)(NSUInteger idx);
 /** 将当前对象赋值到其他变量， */
-@property (nonatomic,copy) NSObject*    (^setTo)(id* toObject);
+@property (nonatomic,copy,readonly) NSObject*    (^setTo)(id* toObject);
 /** 使新对象加入链条 */
-@property (nonatomic,copy) NSObject*    (^linkAnd)(id obj);
+@property (nonatomic,copy,readonly) NSObject*    (^linkAnd)(id obj);
 /** 使多链条中移除一个 */
-@property (nonatomic,copy) NSObject*    (^linkOut)(NSUInteger idx);
+@property (nonatomic,copy,readonly) NSObject*    (^linkOut)(NSUInteger idx);
 /** 取出多链条中一个 */
-@property (nonatomic,copy) NSObject*    (^linkAt)(NSUInteger idx);
+@property (nonatomic,copy,readonly) NSObject*    (^linkAt)(NSUInteger idx);
 /** 使其后的链条执行多次 */
-@property (nonatomic,copy) NSObject*    (^linkLoop)(NSUInteger count);
+@property (nonatomic,copy,readonly) NSObject*    (^linkLoop)(NSUInteger count);
 /** 链条分支，返回源对象，在链条内处理新分支 */
 - (NSObject*)newLink:(void(^)(NSObject* fromObj))aNewLink;
 
 #pragma mark - 功能
 /** NSLog() */
-@property (nonatomic,copy) NSObject*    (^nslog)();
+@property (nonatomic,copy,readonly) NSObject*    (^nslog)();
 /** 输出对象前增加标识语 */
-@property (nonatomic,copy) NSObject*    (^nslogTitle)(NSString* title);
+@property (nonatomic,copy,readonly) NSObject*    (^nslogTitle)(NSString* title);
 /** 输出对象Key对应的值 */
-@property (nonatomic,copy) NSObject*    (^nslogValueForKey)(NSString* key);
-@property (nonatomic,copy) NSObject*    (^nslogValueForKeyPath)(NSString* key);
+@property (nonatomic,copy,readonly) NSObject*    (^nslogValueForKey)(NSString* key);
+@property (nonatomic,copy,readonly) NSObject*    (^nslogValueForKeyPath)(NSString* key);
 
 #pragma mark - Runtime
-@property (nonatomic,copy) id           (^valueForKey)(NSString* key);
-@property (nonatomic,copy) NSObject*    (^setValueForKey)(id value,NSString* key);
-@property (nonatomic,copy) id           (^valueForKeyPath)(NSString* key);
-@property (nonatomic,copy) NSObject*    (^setValueForKeyPath)(id value,NSString* key);
+@property (nonatomic,copy,readonly) id           (^valueForKey)(NSString* key);
+@property (nonatomic,copy,readonly) NSObject*    (^setValueForKey)(id value,NSString* key);
+@property (nonatomic,copy,readonly) id           (^valueForKeyPath)(NSString* key);
+@property (nonatomic,copy,readonly) NSObject*    (^setValueForKeyPath)(id value,NSString* key);
 /** 安全的使用KVC，低效率 */
-@property (nonatomic,copy) id           (^valueForKeySafe)(NSString* key);
-@property (nonatomic,copy) NSObject*    (^setValueForKeySafe)(id value,NSString* key);
-@property (nonatomic,copy) id           (^valueForKeyPathSafe)(NSString* key);
-@property (nonatomic,copy) NSObject*    (^setValueForKeyPathSafe)(id value,NSString* key);
+@property (nonatomic,copy,readonly) id           (^valueForKeySafe)(NSString* key);
+@property (nonatomic,copy,readonly) NSObject*    (^setValueForKeySafe)(id value,NSString* key);
+@property (nonatomic,copy,readonly) id           (^valueForKeyPathSafe)(NSString* key);
+@property (nonatomic,copy,readonly) NSObject*    (^setValueForKeyPathSafe)(id value,NSString* key);
 
-@property (nonatomic,copy) BOOL         (^isKindOf)( __unsafe_unretained Class classKind);
-@property (nonatomic,copy) BOOL         (^isSubClassOf)( __unsafe_unretained Class classKind);
-@property (nonatomic,copy) BOOL         (^isRespondsSEL)(SEL theSEL);
-@property (nonatomic,copy) NSString*    (^className)();
-@property (nonatomic,copy) NSString*    (^superclassName)();
+@property (nonatomic,copy,readonly) BOOL         (^isKindOf)( __unsafe_unretained Class classKind);
+@property (nonatomic,copy,readonly) BOOL         (^isSubClassOf)( __unsafe_unretained Class classKind);
+@property (nonatomic,copy,readonly) BOOL         (^isRespondsSEL)(SEL theSEL);
+@property (nonatomic,copy,readonly) NSString*    (^className)();
+@property (nonatomic,copy,readonly) NSString*    (^superclassName)();
 /**
  *  属性是getter和setter方法的称谓，成员变量为存在字段
  *  如果不是手动设置了getter和setter方法，编译器会生成'_'加'PropertyName'的成员变量
@@ -78,53 +78,53 @@
 + (NSArray*)classGetProtocolList;
 
 #pragma mark - NSObject
-@property (nonatomic,copy) NSObject*    (^objCopy)();
-@property (nonatomic,copy) NSObject*    (^objMutableCopy)();
+@property (nonatomic,copy,readonly) NSObject*    (^objCopy)();
+@property (nonatomic,copy,readonly) NSObject*    (^objMutableCopy)();
 /**
  *  对象及可能包含的子对象全部转为json相关的可变类型
  *  （NSMutableArray,NSMutableDictionary,NSMutableString）
  */
-@property (nonatomic,copy) NSObject*    (^objMutableCopyDeep)();
-@property (nonatomic,copy) BOOL         (^objIsEqual)(NSObject* obj);
+@property (nonatomic,copy,readonly) NSObject*    (^objMutableCopyDeep)();
+@property (nonatomic,copy,readonly) BOOL         (^objIsEqual)(NSObject* obj);
 /** 数组，字典等对象转成json的字符串 */
-@property (nonatomic,copy) NSString*    (^objToJsonString)();
+@property (nonatomic,copy,readonly) NSString*    (^objToJsonString)();
 /** 在数组中的前一个元素，无返回nil */
-@property (nonatomic,copy) NSObject*    (^objBeforeInArr)(NSArray* inArr);
+@property (nonatomic,copy,readonly) NSObject*    (^objBeforeInArr)(NSArray* inArr);
 /** 在数组中的后一个元素无返回nil */
-@property (nonatomic,copy) NSObject*    (^objNextInArr)(NSArray* inArr);
-@property (nonatomic,copy) NSArray*     (^objKeysInDict)(NSDictionary* inDict);
+@property (nonatomic,copy,readonly) NSObject*    (^objNextInArr)(NSArray* inArr);
+@property (nonatomic,copy,readonly) NSArray*     (^objKeysInDict)(NSDictionary* inDict);
 /** 必须获取该类型的对象，若类型不符则返回该类型的初始化对象 */
-@property (nonatomic,copy) NSObject*    (^objMustType)(Class theCalss);
+@property (nonatomic,copy,readonly) NSObject*    (^objMustType)(Class theCalss);
 
 
 /** 指定对象的类型，避免链条中需要类型强转时 */
 //Foundation
-@property (nonatomic,copy) NSString*                    (^typeIsNSString)();
-@property (nonatomic,copy) NSMutableString*             (^typeIsNSMutableString)();
-@property (nonatomic,copy) NSArray*                     (^typeIsNSArray)();
-@property (nonatomic,copy) NSMutableArray*              (^typeIsNSMutableArray)();
-@property (nonatomic,copy) NSDictionary*                (^typeIsNSDictionary)();
-@property (nonatomic,copy) NSMutableDictionary*         (^typeIsNSMutableDictionary)();
-@property (nonatomic,copy) NSAttributedString*          (^typeIsNSAttributedString)();
-@property (nonatomic,copy) NSMutableAttributedString*   (^typeIsNSMutableAttributedString)();
-@property (nonatomic,copy) NSURL*                       (^typeIsNSURL)();
-@property (nonatomic,copy) NSUserDefaults*              (^typeIsNSUserDefaults)();
-@property (nonatomic,copy) NSNumber*                    (^typeIsNSNumber)();
-@property (nonatomic,copy) NSValue*                     (^typeIsNSValue)();
-@property (nonatomic,copy) UIImage*                     (^typeIsUIImage)();
-@property (nonatomic,copy) NSDate*                      (^typeIsNSDate)();
-@property (nonatomic,copy) NSData*                      (^typeIsNSData)();
+@property (nonatomic,copy,readonly) NSString*                    (^typeIsNSString)();
+@property (nonatomic,copy,readonly) NSMutableString*             (^typeIsNSMutableString)();
+@property (nonatomic,copy,readonly) NSArray*                     (^typeIsNSArray)();
+@property (nonatomic,copy,readonly) NSMutableArray*              (^typeIsNSMutableArray)();
+@property (nonatomic,copy,readonly) NSDictionary*                (^typeIsNSDictionary)();
+@property (nonatomic,copy,readonly) NSMutableDictionary*         (^typeIsNSMutableDictionary)();
+@property (nonatomic,copy,readonly) NSAttributedString*          (^typeIsNSAttributedString)();
+@property (nonatomic,copy,readonly) NSMutableAttributedString*   (^typeIsNSMutableAttributedString)();
+@property (nonatomic,copy,readonly) NSURL*                       (^typeIsNSURL)();
+@property (nonatomic,copy,readonly) NSUserDefaults*              (^typeIsNSUserDefaults)();
+@property (nonatomic,copy,readonly) NSNumber*                    (^typeIsNSNumber)();
+@property (nonatomic,copy,readonly) NSValue*                     (^typeIsNSValue)();
+@property (nonatomic,copy,readonly) UIImage*                     (^typeIsUIImage)();
+@property (nonatomic,copy,readonly) NSDate*                      (^typeIsNSDate)();
+@property (nonatomic,copy,readonly) NSData*                      (^typeIsNSData)();
 //UIKit
-@property (nonatomic,copy) UIView*                      (^typeIsUIView)();
-@property (nonatomic,copy) UILabel*                     (^typeIsUILabel)();
-@property (nonatomic,copy) UIControl*                   (^typeIsUIControl)();
-@property (nonatomic,copy) UIButton*                    (^typeIsUIButton)();
-@property (nonatomic,copy) UIScrollView*                (^typeIsUIScrollView)();
-@property (nonatomic,copy) UIImageView*                 (^typeIsUIImageView)();
-@property (nonatomic,copy) UITableView*                 (^typeIsUITableView)();
-@property (nonatomic,copy) UIColor*                     (^typeIsUIColor)();
-@property (nonatomic,copy) UIViewController*            (^typeIsUIViewController)();
-@property (nonatomic,copy) UITextField*                 (^typeIsUITextField)();
-@property (nonatomic,copy) UITextView*                  (^typeIsUITextView)();
+@property (nonatomic,copy,readonly) UIView*                      (^typeIsUIView)();
+@property (nonatomic,copy,readonly) UILabel*                     (^typeIsUILabel)();
+@property (nonatomic,copy,readonly) UIControl*                   (^typeIsUIControl)();
+@property (nonatomic,copy,readonly) UIButton*                    (^typeIsUIButton)();
+@property (nonatomic,copy,readonly) UIScrollView*                (^typeIsUIScrollView)();
+@property (nonatomic,copy,readonly) UIImageView*                 (^typeIsUIImageView)();
+@property (nonatomic,copy,readonly) UITableView*                 (^typeIsUITableView)();
+@property (nonatomic,copy,readonly) UIColor*                     (^typeIsUIColor)();
+@property (nonatomic,copy,readonly) UIViewController*            (^typeIsUIViewController)();
+@property (nonatomic,copy,readonly) UITextField*                 (^typeIsUITextField)();
+@property (nonatomic,copy,readonly) UITextView*                  (^typeIsUITextView)();
 
 @end

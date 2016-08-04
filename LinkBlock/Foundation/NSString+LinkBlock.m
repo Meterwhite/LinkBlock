@@ -18,7 +18,7 @@
         return (NSMutableString*)_self.mutableCopy;
     };
 }
-- (void)setStrMutableCopy:(NSMutableString *(^)())strMutableCopy{};
+
 
 - (BOOL (^)(NSString *))strIsEqualStr
 {
@@ -31,7 +31,7 @@
     };
 }
 
-- (void)setStrIsEqualStr:(BOOL (^)(NSString *))strIsEqualStr{};
+
 
 - (NSString *(^)(NSString *))strAppend
 {
@@ -45,7 +45,7 @@
         }
     };
 }
-- (void)setStrAppend:(NSString *(^)(NSString *))strAppend{};
+
 
 - (NSString *(^)(NSString *, NSString *))strReplace
 {
@@ -61,7 +61,7 @@
         }
     };
 }
-- (void)setStrReplace:(NSString *(^)(NSString *, NSString *))strReplace{};
+
 
 - (NSString *(^)(NSString *, NSUInteger))strInsertAt
 {
@@ -77,7 +77,7 @@
         }
     };
 }
-- (void)setStrInsertAt:(NSString *(^)(NSString *, NSUInteger))strInsertAt{};
+
 
 - (NSString *(^)(NSRange))strDeleteInRange
 {
@@ -89,7 +89,7 @@
         return (NSString*)[tNewMStr copy];
     };
 }
-- (void)setStrDeleteInRange:(NSString *(^)(NSRange))strDeleteInRange{};
+
 
 - (NSString *(^)(NSUInteger))strAt
 {
@@ -102,7 +102,7 @@
         return [NSString stringWithCharacters:&ch length:1];
     };
 }
-- (void)setStrAt:(NSString *(^)(NSUInteger))strAt{};
+
 
 - (NSString *(^)(NSString *, NSRange))strReplaceInRange
 {
@@ -116,7 +116,7 @@
         }
     };
 }
-- (void)setStrReplaceInRange:(NSString *(^)(NSString *, NSRange))strReplaceInRange{};
+
 
 - (NSString *(^)(NSString *))strDeleteStr
 {
@@ -130,7 +130,7 @@
         }
     };
 }
-- (void)setStrDeleteStr:(NSString *(^)(NSString *))strDeleteStr{};
+
 
 - (BOOL (^)(NSString *))strIsContain
 {
@@ -142,7 +142,7 @@
         return [_self containsString:str];
     };
 }
-- (void)setStrIsContain:(BOOL (^)(NSString *))strIsContain{};
+
 
 - (NSInteger (^)(NSString *))strIndexOfStr
 {
@@ -158,7 +158,7 @@
         }
     };
 }
-- (void)setStrIndexOfStr:(NSInteger (^)(NSString *))strIndexOfStr{};
+
 
 - (BOOL (^)())strIsContainzh_CN
 {
@@ -176,7 +176,7 @@
         return NO;
     };
 }
-- (void)setStrIsContainzh_CN:(BOOL (^)())strIsContainzh_CN{};
+
 
 - (BOOL (^)(NSRange))strIszh_CNInRange
 {
@@ -197,7 +197,7 @@
         return YES;
     };
 }
-- (void)setStrIszh_CNInRange:(BOOL (^)(NSRange))strIszh_CNInRange{};
+
 
 - (NSInteger (^)(NSString *, NSUInteger))strIndexOfStrStartAt
 {
@@ -213,7 +213,7 @@
         }
     };
 }
-- (void)setStrIndexOfStrStartAt:(NSInteger (^)(NSString *, NSUInteger))strIndexOfStrStartAt{};
+
 
 - (NSRange (^)(NSString *))strRangeOfStr
 {
@@ -229,7 +229,7 @@
         }
     };
 }
-- (void)setStrRangeOfStr:(NSRange (^)(NSString *))strRangeOfStr{};
+
 
 - (NSString *(^)(NSString *, ...))strAppendFormat
 {
@@ -260,7 +260,7 @@
         return _self;
     };
 }
-- (void)setStrAppendFormat:(NSString *(^)(NSString *, ...))strAppendFormat{};
+
 
 - (NSString *(^)(NSString *))strAppendLine
 {
@@ -270,7 +270,7 @@
         return [_self stringByAppendingFormat:@"%@%@", @"\r\n", str];
     };
 }
-- (void)setStrAppendLine:(NSString *(^)(NSString *))strAppendLine{};
+
 
 - (BOOL (^)())strIsEmoji
 {
@@ -314,7 +314,7 @@
         return returnValue;
     };
 }
-- (void)setStrIsEmoji:(BOOL (^)())strIsEmoji{};
+
 
 - (CGSize (^)(UIFont *))strSizeWithFont
 {
@@ -326,7 +326,7 @@
         return _self.strSizeWithFontAndMaxWidth(font , MAXFLOAT);
     };
 }
-- (void)setStrSizeWithFont:(CGSize (^)(UIFont *))strSizeWithFont{};
+
 
 - (CGSize (^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidth
 {
@@ -338,7 +338,7 @@
         return _self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, MAXFLOAT));
     };
 }
-- (void)setStrSizeWithFontAndMaxWidth:(CGSize (^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidth{};
+
 
 - (CGSize (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize
 {
@@ -358,7 +358,7 @@
         //        }
     };
 }
-- (void)setStrSizeWithFontAndMaxSize:(CGSize (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize{};
+
 
 - (double (^)(NSDictionary *))strHeight
 {
@@ -375,7 +375,7 @@
         return (double)rect.size.height;
     };
 }
-- (void)setStrHeight:(double (^)(NSDictionary *))strHeight{};
+
 
 - (double (^)(NSDictionary *))strLineHeight
 {
@@ -392,7 +392,7 @@
         return (double)rect.size.height;
     };
 }
-- (void)setStrLineHeight:(double (^)(NSDictionary *))strLineHeight{};
+
 
 - (NSInteger (^)(CGFloat, NSDictionary *))strLinesCountAboutView
 {
@@ -423,7 +423,7 @@
         return (NSInteger)(allHeight/lineHeight + enterCount);
     };
 }
-- (void)setStrLinesCountAboutView:(NSInteger (^)(CGFloat, NSDictionary *))strLinesCountAboutView{};
+
 
 - (NSString* (^)(NSInteger, CGFloat,NSDictionary*))strSubToLineAboutView
 {
@@ -476,7 +476,7 @@
         return [_self substringToIndex:forRange.location+1];
     };
 }
-- (void)setStrSubToLineAboutView:(NSString *(^)(NSInteger, CGFloat, NSDictionary *))strSubToLineAboutView{};
+
 
 - (BOOL (^)())strIsBlank{
     return ^(){
@@ -496,7 +496,7 @@
         return NO;
     };
 }
-- (void)setStrIsBlank:(BOOL (^)())strIsBlank{};
+
 
 - (NSUInteger (^)())strLength
 {
@@ -508,7 +508,7 @@
         return _self.length;
     };
 }
-- (void)setStrLength:(NSUInteger (^)())strLength{};
+
 
 - (NSUInteger (^)())strLengthASCII
 {
@@ -526,7 +526,7 @@
         return asciiLength;
     };
 }
-- (void)setStrLengthASCII:(NSUInteger (^)())strLengthASCII{};
+
 
 - (NSUInteger (^)())strLengthUnicode
 {
@@ -549,7 +549,7 @@
         return unicodeLength;
     };
 }
-- (void)setStrLengthUnicode:(NSUInteger (^)())strLengthUnicode{};
+
 
 - (NSUInteger (^)())strLengthComposed
 {
@@ -566,7 +566,7 @@
         return re;
     };
 }
-- (void)setStrLengthComposed:(NSUInteger (^)())strLengthComposed{};
+
 
 - (NSUInteger (^)(NSString *))strLengthComposedAndCustom
 {
@@ -591,7 +591,7 @@
         return re;
     };
 }
-- (void)setStrLengthComposedAndCustom:(NSUInteger (^)(NSString *))strLengthComposedAndCustom{};
+
 
 - (BOOL (^)())strIsContainEmoji
 {
@@ -637,7 +637,7 @@
         return hasEomji;
     };
 }
-- (void)setStrIsContainEmoji:(BOOL (^)())strIsContainEmoji{};
+
 
 - (NSString* (^)())strClearSpaceAndWrap
 {
@@ -650,7 +650,7 @@
         return noWrap;
     };
 }
-- (void)setStrClearSpaceAndWrap:(NSString *(^)())strClearSpaceAndWrap{};
+
 
 - (NSComparisonResult (^)(NSString *))strCompareNumberSensitive
 {
@@ -662,7 +662,7 @@
         return [_self compare:str options: NSNumericSearch | NSWidthInsensitiveSearch ];
     };
 }
-- (void)setStrCompareNumberSensitive:(NSComparisonResult (^)(NSString *))strCompareNumberSensitive{};
+
 
 - (NSComparisonResult (^)(NSString *))strCompare
 {
@@ -674,7 +674,7 @@
         return [_self compare:str options: NSWidthInsensitiveSearch | NSForcedOrderingSearch];
     };;
 }
-- (void)setStrCompare:(NSComparisonResult (^)(NSString *))strCompare{};
+
 
 - (BOOL (^)())strIsInteger
 {
@@ -688,7 +688,7 @@
         return (BOOL)([scaner scanInteger:&intVal] && [scaner isAtEnd]);
     };
 }
-- (void)setStrIsInteger:(BOOL (^)())strIsInteger{};
+
 
 - (BOOL (^)())strIsFloating
 {
@@ -702,7 +702,7 @@
         return (BOOL)([scaner scanDouble:&doubleVal] && [scaner isAtEnd]);
     };
 }
-- (void)setStrIsFloating:(BOOL (^)())strIsFloating{};
+
 
 - (BOOL (^)())strIsNumber
 {
@@ -714,7 +714,7 @@
         return (BOOL)(_self.strIsInteger() || _self.strIsFloating());
     };
 }
-- (void)setStrIsNumber:(BOOL (^)())blockIsNumber{};
+
 
 - (NSString *(^)(NSString *))strDeleteLeft
 {
@@ -729,7 +729,7 @@
         return (NSString*)[reIsStrM copy];
     };
 }
-- (void)setStrDeleteLeft:(NSString *(^)(NSString *))strDeleteLeft{};
+
 
 - (NSString *(^)(NSString *))strDeleteRight
 {
@@ -744,7 +744,7 @@
         return re;
     };
 }
-- (void)setStrDeleteRight:(NSString *(^)(NSString *))strDeleteRight{};
+
 
 - (NSString *(^)(NSString*))strTrimLeft
 {
@@ -759,7 +759,7 @@
         return (NSString*)[reIsStrM copy];
     };
 }
-- (void)setStrTrimLeft:(NSString *(^)(NSString *))strTrimLeft{};
+
 
 - (NSString *(^)(NSString*))strTrimRight
 {
@@ -774,7 +774,7 @@
         return (NSString*)reIsStrM.objCopy();
     };
 }
-- (void)setStrTrimRight:(NSString *(^)(NSString *))strTrimRight{};
+
 
 - (NSString *(^)(NSString *))strTrim
 {
@@ -793,7 +793,7 @@
         return (NSString*)reIsStrM.objCopy();
     };
 }
-- (void)setStrTrim:(NSString *(^)(NSString *))strTrim{};
+
 
 - (UIColor *(^)())strToUIColorFromHexStr
 {
@@ -825,7 +825,7 @@
         return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:1.0f];
     };
 }
-- (void)setStrToUIColorFromHexStr:(UIColor *(^)())strToColorFromHexStr{};
+
 
 - (double (^)())strToDoubleFromHexStr
 {
@@ -844,7 +844,7 @@
         return re;
     };
 }
-- (void)setStrToDoubleFromHexStr:(double (^)())strToDoubleFromHexStr{};
+
 
 - (unsigned int (^)())strToIntFromHexStr
 {
@@ -863,7 +863,7 @@
         return re;
     };
 }
-- (void)setStrToIntFromHexStr:(unsigned int (^)())strToIntFromHexStr{};
+
 
 - (CGRect (^)())strToCGRect
 {
@@ -875,7 +875,7 @@
         return CGRectFromString(_self);
     };
 }
-- (void)setStrToCGRect:(CGRect (^)())strToCGRect{};
+
 - (CGPoint (^)())strToCGPoint
 {
     return ^(){
@@ -886,7 +886,7 @@
         return CGPointFromString(_self);
     };
 }
-- (void)setStrToCGPoint:(CGPoint (^)())strToCGPoint{};
+
 
 - (CGVector (^)())strToCGVector
 {
@@ -898,7 +898,7 @@
         return CGVectorFromString(_self);
     };
 }
-- (void)setStrToCGVector:(CGVector (^)())strToCGVector{};
+
 
 - (CGSize (^)())strToCGSize
 {
@@ -910,7 +910,7 @@
         return CGSizeFromString(_self);
     };
 }
-- (void)setStrToCGSize:(CGSize (^)())strToCGSize{};
+
 
 - (CGAffineTransform (^)())strToCGAffineTransform
 {
@@ -922,7 +922,7 @@
         return CGAffineTransformFromString(_self);
     };
 }
-- (void)setStrToCGAffineTransform:(CGAffineTransform (^)())strToCGAffineTransform{};
+
 
 - (UIEdgeInsets (^)())strToUIEdgeInsets
 {
@@ -934,7 +934,7 @@
         return UIEdgeInsetsFromString(_self);
     };
 }
-- (void)setStrToUIEdgeInsets:(UIEdgeInsets (^)())strToUIEdgeInsets{};
+
 - (UIOffset (^)())strToUIOffset
 {
     return ^(){
@@ -945,7 +945,7 @@
         return UIOffsetFromString(_self);
     };
 }
-- (void)setStrToUIOffset:(UIOffset (^)())strToUIOffset{};
+
 - (NSData *(^)())strToNSDataWithContentsOfFile
 {
     return ^id(){
@@ -954,7 +954,7 @@
         return [NSData dataWithContentsOfFile:_self];
     };
 }
-- (void)setStrToNSDataWithContentsOfFile:(NSData *(^)())strToNSDataFromContents{};
+
 
 - (NSData *(^)(NSStringEncoding))strToNSDataUseEncoding
 {
@@ -964,7 +964,7 @@
         return [_self dataUsingEncoding:encoding];
     };
 }
-- (void)setStrToNSDataUseEncoding:(NSData *(^)(NSStringEncoding))strToNSDataUseEncoding{};
+
 
 - (NSDate *(^)(NSString *))strToNSDateWithFormat
 {
@@ -976,7 +976,7 @@
         return [fmt dateFromString:_self];
     };
 }
-- (void)setStrToNSDateWithFormat:(NSDate *(^)(NSString *))strToNSDateWithFormat{};
+
 
 - (NSDate *(^)())strToNSDateSince1970
 {
@@ -986,7 +986,7 @@
         return [NSDate dateWithTimeIntervalSince1970:[_self doubleValue]];
     };
 }
-- (void)setStrToNSDateSince1970:(NSDate *(^)())strToNSDateSince1970{};
+
 
 - (NSDictionary *(^)(NSStringEncoding))strToNSDictionary
 {
@@ -1014,7 +1014,7 @@
         return @{};
     };
 }
-- (void)setStrToNSDictionary:(NSDictionary *(^)(NSStringEncoding))strToNSDictionary{};
+
 
 - (NSArray *(^)(NSStringEncoding))strToNSArrary
 {
@@ -1038,7 +1038,7 @@
         return @[];
     };
 }
-- (void)setStrToNSArrary:(NSArray *(^)(NSStringEncoding))strToNSArrary{};
+
 
 
 -(NSURL *(^)())strToNSURL
@@ -1049,7 +1049,7 @@
         return [NSURL URLWithString:_self];
     };
 }
-- (void)setStrToNSURL:(NSURL *(^)())strToNSURL{};
+
 
 - (UIImage *(^)())strToUIImage
 {
@@ -1064,7 +1064,7 @@
         return reImg;
     };
 }
-- (void)setStrToUIImage:(UIImage *(^)())strToUIImage{};
+
 
 - (NSInteger (^)())strToInteger
 {
@@ -1076,7 +1076,7 @@
         return [_self integerValue];
     };
 }
-- (void)setStrToInteger:(NSInteger (^)())strToInteger{};
+
 
 - (long long (^)())strToLongLong
 {
@@ -1088,7 +1088,7 @@
         return [_self longLongValue];
     };
 }
-- (void)setStrToLongLong:(long long (^)())strToLongLong{};
+
 
 - (BOOL (^)())strToBOOL
 {
@@ -1100,7 +1100,7 @@
         return [_self boolValue];
     };
 }
-- (void)setStrToBOOL:(BOOL (^)())strToBOOL{};
+
 
 - (double (^)())strToDouble
 {
@@ -1112,7 +1112,7 @@
         return [_self doubleValue];
     };
 }
-- (void)setStrToDouble:(double (^)())strToDouble{};
+
 
 - (float (^)())strToFloat
 {
@@ -1124,7 +1124,7 @@
         return [_self floatValue];
     };
 }
-- (void)setStrToFloat:(float (^)())strToFloat{};
+
 
 - (NSArray<NSString*> *(^)(NSString *))strSplitWithStr
 {
@@ -1134,7 +1134,7 @@
         return [_self componentsSeparatedByString:splitStr];
     };
 }
-- (void)setStrSplitWithStr:(NSArray<NSString*> *(^)(NSString *))blockSplitStrWithStr{};
+
 
 - (NSArray<NSString*> *(^)(NSString *))strSplitWithCharsStr
 {
@@ -1145,7 +1145,7 @@
         return [_self componentsSeparatedByCharactersInSet:charSet];
     };
 }
-- (void)setStrSplitWithCharsStr:(NSArray<NSString*> *(^)(NSString *))blockSplitStrWithCharsStr{};
+
 
 - (BOOL (^)(NSString *))strHasPrefix
 {
@@ -1157,7 +1157,7 @@
         return [_self hasPrefix:prefix];
     };
 }
-- (void)setStrHasPrefix:(BOOL (^)(NSString *))strHasPrefix{};
+
 
 - (BOOL (^)(NSString *))strHasSuffix
 {
@@ -1169,7 +1169,7 @@
         return [_self hasSuffix:suffix];
     };
 }
-- (void)setStrHasSuffix:(BOOL (^)(NSString *))strHasSuffix{};
+
 
 - (NSString *(^)(NSUInteger))strSubFrom
 {
@@ -1179,7 +1179,7 @@
         return [_self substringFromIndex:idx];
     };
 }
-- (void)setStrSubFrom:(NSString *(^)(NSUInteger))strSubFrom{};
+
 
 - (NSString *(^)(NSUInteger))strSubTo
 {
@@ -1189,7 +1189,7 @@
         return [_self substringToIndex:idx];
     };
 }
-- (void)setStrSubTo:(NSString *(^)(NSUInteger))strSubTo{};
+
 
 - (NSString *(^)(NSUInteger, NSUInteger))strSubFromTo
 {
@@ -1201,7 +1201,7 @@
         return [_self substringWithRange:NSMakeRange(from, to- from)];
     };
 }
-- (void)setStrSubFromTo:(NSString *(^)(NSUInteger, NSUInteger))strSubFromTo{};
+
 
 - (NSObject *(^)())strCreateObj
 {
@@ -1216,7 +1216,7 @@
         }
     };
 }
-- (void)setStrCreateObj:(NSObject *(^)())strCreateObj{};
+
 
 - (UILabel *(^)(CGRect))strCreateLab
 {
@@ -1228,7 +1228,7 @@
         return re;
     };
 }
-- (void)setStrCreateLab:(UILabel *(^)(CGRect))strCreateLab{};
+
 
 - (UIImageView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))strCreateImgView
 {
@@ -1240,7 +1240,7 @@
         return re;
     };
 }
-- (void)setStrCreateImgView:(UIImageView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))strCreateImgView{};
+
 
 - (BOOL (^)(NSString *))strRegexIsMatch
 {
@@ -1256,7 +1256,7 @@
         return NO;
     };
 }
-- (void)setStrRegexIsMatch:(BOOL (^)(NSString *))strRegexIsMatch{};
+
 
 
 - (NSString *(^)(NSString *, NSString*))strRegexReplace
@@ -1277,7 +1277,7 @@
                                           withTemplate:replaceTemplate];
     };
 }
-- (void)setStrRegexReplace:(NSString *(^)(NSString *, NSString *))strRegexReplace{};
+
 
 - (NSString *(^)(NSArray *))strSetTextToControls
 {
@@ -1298,7 +1298,7 @@
         return _self;
     };
 }
-- (void)setStrSetTextToControls:(NSString *(^)(NSArray *))strSetTextToControls{};
+
 
 - (NSString *(^)(NSArray *))strSetTextColorToControls
 {
@@ -1320,7 +1320,7 @@
         return _self;
     };
 }
-- (void)setStrSetTextColorToControls:(NSString *(^)(NSArray *))strSetTextColorToControls{};
+
 
 - (NSString *(^)(NSArray *))strSetBGColorHexToViews
 {
@@ -1335,7 +1335,7 @@
         return _self;
     };
 }
-- (void)setStrSetBGColorHexToViews:(NSString *(^)(NSArray *))strSetBgColorToViews{};
+
 
 - (double (^)())strFindNumber
 {
@@ -1350,7 +1350,7 @@
         return re;
     };
 }
-- (void)setStrFindNumber:(double (^)())strFindNumber{};
+
 
 - (NSString *(^)())strReversed
 {
@@ -1372,7 +1372,7 @@
         return re;
     };
 }
-- (void)setStrReversed:(NSString *(^)())strReversed{};
+
 
 
 
@@ -1386,7 +1386,7 @@
         return [[_self componentsSeparatedByString:@"\n"] count];
     };
 }
-- (void)setStrLinesCount:(NSUInteger (^)())strLinesCount{};
+
 
 - (NSString *(^)(NSUInteger))strSubToLine
 {
@@ -1404,7 +1404,7 @@
         return (NSString*)[re copy];
     };
 }
-- (void)setStrSubToLine:(NSString *(^)(NSUInteger))strSubToLine{};
+
 
 - (NSString *(^)(NSStringEncoding))strURLEncode
 {
@@ -1414,7 +1414,7 @@
         return [_self stringByAddingPercentEscapesUsingEncoding:encode];
     };
 }
-- (void)setStrURLEncode:(NSString *(^)(NSStringEncoding))strURLEncode{};
+
 
 - (NSString *(^)(NSStringEncoding))strURLDecode
 {
@@ -1424,7 +1424,7 @@
         return [_self stringByReplacingPercentEscapesUsingEncoding:encode];
     };
 }
-- (void)setStrURLDecode:(NSString *(^)(NSStringEncoding))strURLDecode{};
+
 
 - (NSString *(^)())strURLEncodeUTF8
 {
@@ -1434,7 +1434,7 @@
         return _self.strURLEncode(NSUTF8StringEncoding);
     };
 }
-- (void)setStrURLEncodeUTF8:(NSString *(^)())strURLEncodeUTF8{};
+
 
 - (NSString *(^)())strURLDecodeUTF8
 {
@@ -1444,7 +1444,7 @@
         return _self.strURLDecode(NSUTF8StringEncoding);
     };
 }
-- (void)setStrURLDecodeUTF8:(NSString *(^)())strURLDecodeUTF8{};
+
 
 - (NSString *(^)())strURLBeforeKeyValues
 {
@@ -1454,7 +1454,7 @@
         return [[_self componentsSeparatedByString:@"?"] firstObject];
     };
 }
-- (void)setStrURLBeforeKeyValues:(NSString *(^)())strURLBeforeKeyValues{};
+
 
 - (NSDictionary *(^)())strURLKeyValues
 {
@@ -1475,7 +1475,7 @@
         return (NSDictionary*)[kvDict copy];
     };
 }
-- (void)setStrURLKeyValues:(NSDictionary *(^)())strURLKeyValues{};
+
 
 - (NSString *(^)(NSString *))strURLValueForKey
 {
@@ -1488,7 +1488,7 @@
         return (NSString*)[kvs objectForKey:key];
     };
 }
-- (void)setStrURLValueForKey:(NSString *(^)(NSString *))strURLValueForKey{};
+
 
 - (NSString *(^)(NSString *, NSString *))strURLSetValueForKey
 {
@@ -1534,7 +1534,7 @@
         return (NSString*)[reURL copy];
     };
 }
-- (void)setStrURLSetValueForKey:(NSString *(^)(NSString *, NSString *))strURLSetValueForKey{};
+
 
 - (NSString *(^)(NSDictionary<NSString*,NSString*> *))strURLSetKeyValueWithDict
 {
@@ -1596,7 +1596,7 @@
         return (NSString*)[reURL copy];
     };
 }
-- (void)setStrURLSetKeyValueWithDict:(NSString *(^)(NSDictionary<NSString *,NSString *> *))strURLSetKeyValueWithDict{};
+
 
 - (NSArray *(^)())strURLAllKeys
 {
@@ -1609,7 +1609,7 @@
         return [kvs allKeys];
     };
 }
-- (void)setStrURLAllKeys:(NSArray *(^)())strURLAllKeys{};
+
 
 - (NSArray *(^)())strURLAllValues
 {
@@ -1622,7 +1622,7 @@
         return [kvs allValues];
     };
 }
-- (void)setStrURLAllValues:(NSArray *(^)())strURLAllValues{};
+
 
 - (NSString *(^)(NSString *))strURLRemoveValueForKey
 {
@@ -1660,7 +1660,7 @@
         return (NSString*)[reURL copy];
     };
 }
-- (void)setStrURLRemoveValueForKey:(NSString *(^)(NSString *))strURLRemoveValueForKey{};
+
 
 - (NSString *(^)(NSString *, NSString *))strURLReplaceKeyWithKey
 {
@@ -1697,7 +1697,7 @@
         return (NSString*)[reURL copy];
     };
 }
-- (void)setStrURLReplaceKeyWithKey:(NSString *(^)(NSString *, NSString *))strURLReplaceKeyWithKey{};
+
 
 - (NSString *(^)(NSDictionary<NSString *,NSString *> *))strURLReplaceKeyWithDict
 {
@@ -1737,7 +1737,7 @@
         return (NSString*)[reURL copy];
     };
 }
-- (void)setStrURLReplaceKeyWithDict:(NSString *(^)(NSDictionary<NSString *,NSString *> *))strURLReplaceKeyWithDict{};
+
 
 - (NSString *(^)(NSString *))strPathWithName
 {
@@ -1747,7 +1747,7 @@
         return [[NSBundle mainBundle] pathForResource:_self ofType:type];
     };
 }
-- (void)setStrPathWithName:(NSString *(^)(NSString *))strPathWithName{};
+
 
 - (NSString *(^)(NSString *))strPathAppendingComponent
 {
@@ -1757,7 +1757,7 @@
         return [_self stringByAppendingPathComponent:component];
     };
 }
-- (void)setStrPathAppendingComponent:(NSString *(^)(NSString *))strPathAppendingComponent{};
+
 @end
 
 @implementation NSString (NSStringLinkBlock)

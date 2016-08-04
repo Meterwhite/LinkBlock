@@ -17,7 +17,7 @@
         return [_self objectForKeyedSubscript:key];
     };
 }
-- (void)setJsContextValue:(JSValue *(^)(id))jsContextValue{};
+
 
 - (JSContext *(^)(NSObject <NSCopying> *, id))jsContextSetValue
 {
@@ -28,7 +28,7 @@
         return _self;
     };
 }
-- (void)setJsContextSetValue:(JSContext *(^)(NSObject<NSCopying> *, id))jsContextSetValue{};
+
 
 - (JSValue *(^)(NSString *))jsContextEval
 {
@@ -38,7 +38,7 @@
         return [_self evaluateScript:script];
     };
 }
-- (void)setJsContextEval:(JSValue *(^)(NSString *))jsContextEval{};
+
 
 - (JSValue *(^)(NSString *, NSArray *))jsContextCallFunc
 {
@@ -48,7 +48,7 @@
         return [[_self objectForKeyedSubscript:func] callWithArguments:args];
     };
 }
-- (void)setJsContextCallFunc:(JSValue *(^)(NSString *, NSArray *))jsContextCallFunc{};
+
 
 - (JSValue *(^)(NSString *,NSString* ))jsContextGetElementById
 {
@@ -62,7 +62,7 @@
         }
     };
 }
-- (void)setJsContextGetElementById:(JSValue *(^)(NSString *,NSString*))jsContextGetElementById{};
+
 
 - (JSValue *(^)(NSString *, NSString *))jsContextGetElementsByName
 {
@@ -76,7 +76,7 @@
         }
     };
 }
-- (void)setJsContextGetElementsByName:(JSValue *(^)(NSString *, NSString *))jsContextGetElementByName{};
+
 
 - (JSValue *(^)(NSString *, NSString *))jsContextGetElementsByTagName
 {
@@ -90,7 +90,7 @@
         }
     };
 }
-- (void)setJsContextGetElementsByTagName:(JSValue *(^)(NSString *, NSString *))jsContextGetElementByTagName{};
+
 
 - (JSContext *(^)(NSString *))jsContextWrite
 {
@@ -101,7 +101,7 @@
         return _self;
     };
 }
-- (void)setJsContextWrite:(JSContext *(^)(NSString *))jsContextWrite{};
+
 
 - (JSContext *(^)(NSString *))jsContextAlert
 {
@@ -112,7 +112,7 @@
         return _self;
     };
 }
-- (void)setJsContextAlert:(JSContext *(^)(NSString *))jsContextAlert{};
+
 
 - (JSContext *(^)())jsContextHistoryBack
 {
@@ -123,7 +123,7 @@
         return _self;
     };
 }
-- (void)setJsContextHistoryBack:(JSContext *(^)())jsContextHistoryBack{};
+
 
 - (JSContext *(^)())jsContextHistoryForward
 {
@@ -134,7 +134,7 @@
         return _self;
     };
 }
-- (void)setJsContextHistoryForward:(JSContext *(^)())jsContextHistoryForward{};
+
 
 - (JSContext *(^)(NSString* page))jsContextHistoryGo
 {
@@ -146,7 +146,7 @@
         return _self;
     };
 }
-- (void)setJsContextHistoryGo:(JSContext *(^)(NSString*))jsContextHistoryGo{};
+
 
 - (NSString *(^)())jsContextTitle
 {
@@ -156,7 +156,7 @@
         return [[_self evaluateScript:@"document.title"] toString];
     };
 }
-- (void)setJsContextTitle:(NSString *(^)())jsContextTitle{};
+
 
 - (NSString *(^)())jsContextHTML
 {
@@ -166,7 +166,7 @@
         return [[_self evaluateScript:@"document.documentElement.innerHTML"] toString];
     };
 }
-- (void)setJsContextHTML:(NSString *(^)())jsContextHTML{};
+
 
 - (NSString *(^)())jsContextLocationHref
 {
@@ -176,7 +176,7 @@
         return [[_self evaluateScript:@"window.location.href"] toString];
     };
 }
-- (void)setJsContextLocationHref:(NSString *(^)())jsContextLocationHref{};
+
 
 - (JSContext *(^)())jsContextLocationReload
 {
@@ -187,5 +187,5 @@
         return _self;
     };
 }
-- (void)setJsContextLocationReload:(JSContext *(^)())jsContextLocationReload{};
+
 @end

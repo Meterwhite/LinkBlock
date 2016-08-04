@@ -27,7 +27,7 @@
         return (NSString*)[reIsMStr copy];
     };
 }
-- (void)setColorToStrWithPrefix:(NSString *(^)(NSString *))blockToStringWithPrefix{};
+
 
 - (CGFloat (^)())colorRed
 {
@@ -44,7 +44,7 @@
         }
     };
 }
-- (void)setColorRed:(CGFloat (^)())blockRedValue{};
+
 
 - (CGFloat (^)())colorGreen
 {
@@ -61,7 +61,7 @@
         }
     };
 }
-- (void)setColorGreen:(CGFloat (^)())blockGreenValue{};
+
 
 - (CGFloat (^)())colorBlue
 {
@@ -78,7 +78,7 @@
         }
     };
 }
-- (void)setColorBlue:(CGFloat (^)())blockBlueValue{};
+
 
 - (CGFloat (^)())colorAlpha
 {
@@ -95,7 +95,7 @@
         }
     };
 }
-- (void)setColorAlpha:(CGFloat (^)())blockAlphaValue{};
+
 
 - (CGFloat (^)())colorHue
 {
@@ -112,7 +112,7 @@
         }
     };
 }
-- (void)setColorHue:(CGFloat (^)())colorHue{};
+
 
 - (CGFloat (^)())colorSaturation
 {
@@ -129,7 +129,7 @@
         }
     };
 }
-- (void)setColorSaturation:(CGFloat (^)())colorSaturation{};
+
 
 - (CGFloat (^)())colorBrightness
 {
@@ -146,7 +146,7 @@
         }
     };
 }
-- (void)setColorBrightness:(CGFloat (^)())colorBrightness{};
+
 
 - (UIColor* (^)(CGFloat))colorRedSet
 {
@@ -229,7 +229,7 @@
         }
     };
 }
-- (void)setColorHueSet:(UIColor *(^)(CGFloat))colorHueSet{};
+
 
 - (UIColor *(^)(CGFloat))colorSaturationSet
 {
@@ -245,7 +245,7 @@
         }
     };
 }
-- (void)setColorSaturationSet:(UIColor *(^)(CGFloat))colorSaturationSet{};
+
 
 - (UIColor *(^)(CGFloat))colorBrightnessSet
 {
@@ -261,7 +261,7 @@
         }
     };
 }
-- (void)setColorBrightnessSet:(UIColor *(^)(CGFloat))colorBrightnessSet{};
+
 
 - (UIColor *(^)(NSArray *))colorSetBackgroundToViews
 {
@@ -275,7 +275,7 @@
         return _self;
     };
 }
-- (void)setColorSetBackgroundToViews:(UIColor *(^)(NSArray *))colorSetBackgroundToViews{};
+
 
 - (UIColor *(^)(UIView *))colorSetTextColorToViewSubviews
 {
@@ -313,7 +313,7 @@
         return _self;
     };
 }
-- (void)setColorSetTextColorToViewSubviews:(UIColor *(^)(UIView *))colorSetTextColorToViewSubviews{};
+
 
 - (UIColor *(^)(double))colorBrightnessPercent
 {
@@ -341,7 +341,7 @@
         }
     };
 }
-- (void)setColorBrightnessPercent:(UIColor *(^)(double))colorBrightnessPercent{};
+
 
 - (UIColor *(^)())colorHighlightDarkColor
 {
@@ -351,7 +351,7 @@
         return _self.colorBrightnessPercent(-0.382);
     };
 }
-- (void)setColorHighlightDarkColor:(UIColor *(^)())colorHighlightDarkColor{};
+
 
 - (UIColor *(^)())colorHighlightLightColor
 {
@@ -361,5 +361,5 @@
         return _self.colorBrightnessPercent(0.382);
     };
 }
-- (void)setColorHighlightLightColor:(UIColor *(^)())colorHighlightLightColor{};
+
 @end

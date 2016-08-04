@@ -21,7 +21,7 @@
     }
     return [LinkGroup groupWithArr:_self];
 }
-- (void)setMakeLinkObjs:(NSObject *)makeLinkObjs{};
+
 
 - (BOOL (^)(NSString *))arrIsContainerStr
 {
@@ -41,7 +41,7 @@
         return re;
     };
 }
-- (void)setArrIsContainerStr:(BOOL (^)(NSString *))blockContainerStr{};
+
 
 - (BOOL (^)(NSUInteger))arrcontainIndex
 {
@@ -53,7 +53,7 @@
         return (BOOL)(index< _self.count);
     };
 }
-- (void)setArrcontainIndex:(BOOL (^)(NSUInteger))arrcontainIndex{};
+
 
 
 - (NSArray *(^)(NSUInteger, NSUInteger))arrObjsFromIndexTo
@@ -72,7 +72,7 @@
         return [_self subarrayWithRange:NSMakeRange(loc, len)];
     };
 }
-- (void)setArrObjsFromIndexTo:(NSArray *(^)(NSUInteger, NSUInteger))blockObjsFromIndexTo{};
+
 
 - (NSDictionary *(^)())arrToDictByKeyNumber
 {
@@ -86,7 +86,7 @@
         return (NSDictionary*)[reIsDictM copy];
     };
 }
-- (void)setArrToDictByKeyNumber:(NSDictionary *(^)())blockArrToDictByNumberKey{};
+
 
 - (NSDictionary *(^)())arrToDictByKeyString
 {
@@ -100,7 +100,7 @@
         return (NSDictionary*)[reIsDictM copy];
     };
 }
-- (void)setArrToDictByKeyString:(NSDictionary *(^)())blockArrToDictByStringKey{};
+
 
 - (BOOL (^)(id))arrIsContainer
 {
@@ -112,7 +112,7 @@
         return [_self containsObject:obj];
     };
 }
-- (void)setArrIsContainer:(BOOL (^)(id))blockContainer{};
+
 
 - (id (^)())arrAny
 {
@@ -124,7 +124,7 @@
         return _self[arc4random_uniform((u_int32_t)_self.count)];
     };
 }
-- (void)setArrAny:(id(^)())arrAny{};
+
 
 - (id (^)(NSUInteger))arrAt
 {
@@ -142,7 +142,7 @@
         return re;
     };
 }
-- (void)setArrAt:(id (^)(NSUInteger))arrAt{};
+
 
 
 - (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
@@ -161,7 +161,7 @@
         return (NSArray*)re.objCopy();
     };
 }
-- (void)setArrValuesOfType:(NSArray *(^)(__unsafe_unretained Class))blockValuesOfType{};
+
 
 - (NSArray *(^)(NSString *))arrFilter
 {
@@ -171,7 +171,7 @@
         return [_self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
     };
 }
-- (void)setArrFilter:(NSArray *(^)(NSString *))arrFilter{};
+
 
 - (NSIndexSet *(^)(id))arrIndexSetOfValue
 {
@@ -185,7 +185,7 @@
         }];
     };
 }
-- (void)setArrIndexSetOfValue:(NSIndexSet *(^)(id))arrIndexSetOfValue{};
+
 
 - (NSNumber *(^)())arrMaxNumber
 {
@@ -201,7 +201,7 @@
         return max;
     };
 }
-- (void)setArrMaxNumber:(NSNumber *(^)())arrValueNumberMax{};
+
 
 - (NSNumber *(^)())arrMinNumber
 {
@@ -217,7 +217,7 @@
         return min;
     };
 }
-- (void)setArrMinNumber:(NSNumber *(^)())arrMinNumberFind{};
+
 
 - (NSObject *(^)())arrLast
 {
@@ -227,7 +227,7 @@
         return [_self lastObject];
     };
 }
-- (void)setArrLast:(NSObject *(^)())arrLast{};
+
 
 - (NSObject *(^)())arrFirst
 {
@@ -237,7 +237,7 @@
         return [_self firstObject];
     };
 }
-- (void)setArrFirst:(NSObject *(^)())arrFirst{};
+
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDict
 {
@@ -254,7 +254,7 @@
         return re;
     };
 }
-- (void)setArrReplaceKeyInDict:(NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDict{};
+
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDictWithoutDeep
 {
@@ -271,7 +271,7 @@
         return re;
     };
 }
-- (void)setArrReplaceKeyInDictWithoutDeep:(NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDictWithoutDeep{};
+
 
 @end
 

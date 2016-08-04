@@ -19,5 +19,5 @@
         return _self;
     };
 }
-- (void)setTxtFieldPlaceholdColor:(UITextField *(^)(UIColor *))txtFieldPlaceholdColor{};
+
 @end

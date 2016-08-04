@@ -18,7 +18,7 @@
         return _self;
     };
 }
-- (void)setBezierPathSetLineWidth:(UIBezierPath *(^)(CGFloat))bezierPathSetLineWidth{};
+
 
 - (UIBezierPath *(^)(CGLineCap))bezierPathSetLineCapStyle
 {
@@ -29,7 +29,7 @@
         return _self;
     };
 }
-- (void)setBezierPathSetLineCapStyle:(UIBezierPath *(^)(CGLineCap))bezierPathSetLineCapStyle{};
+
 
 - (UIBezierPath *(^)(CGLineJoin))bezierPathSetLineJoinStyle
 {
@@ -39,7 +39,7 @@
         return _self;
     };
 }
-- (void)setBezierPathSetLineJoinStyle:(UIBezierPath *(^)(CGLineJoin))bezierPathSetLineJoinStyle{};
+
 
 - (UIBezierPath *(^)(CGFloat))bezierPathSetMiterLimit
 {
@@ -49,7 +49,7 @@
         return _self;
     };
 }
-- (void)setBezierPathSetMiterLimit:(UIBezierPath *(^)(CGFloat))bezierPathSetMiterLimit{};
+
 
 - (UIBezierPath *(^)(CGFloat))bezierPathSetFlatness
 {
@@ -59,7 +59,7 @@
         return _self;
     };
 }
-- (void)setBezierPathSetFlatness:(UIBezierPath *(^)(CGFloat))bezierPathSetFlatness{};
+
 
 - (UIBezierPath *(^)(CGPoint))bezierPathMoveToPoint
 {
@@ -69,7 +69,7 @@
         return _self;
     };
 }
-- (void)setBezierPathMoveToPoint:(UIBezierPath *(^)(CGPoint))bezierPathMoveToPoint{};
+
 
 - (UIBezierPath *(^)(CGPoint))bezierPathAddLineToPoint
 {
@@ -79,7 +79,7 @@
         return _self;
     };
 }
-- (void)setBezierPathAddLineToPoint:(UIBezierPath *(^)(CGPoint))bezierPathAddLineToPoint{};
+
 
 - (UIBezierPath *(^)(CGPoint, CGPoint, CGPoint))bezierPathAddCurveToPoint
 {
@@ -89,7 +89,7 @@
         return _self;
     };
 }
-- (void)setBezierPathAddCurveToPoint:(UIBezierPath *(^)(CGPoint, CGPoint, CGPoint))bezierPathAddCurveToPoint{};
+
 
 - (UIBezierPath *(^)(CGPoint, CGPoint))bezierPathAddQuadCurveToPoint
 {
@@ -99,7 +99,7 @@
         return _self;
     };
 }
-- (void)setBezierPathAddQuadCurveToPoint:(UIBezierPath *(^)(CGPoint, CGPoint))bezierPathAddQuadCurveToPoint{};
+
 
 - (UIBezierPath *(^)(CGPoint, CGFloat, CGFloat, CGFloat, BOOL))bezierPathAddArcWithCenter
 {
@@ -109,7 +109,7 @@
         return _self;
     };
 }
-- (void)setBezierPathAddArcWithCenter:(UIBezierPath *(^)(CGPoint, CGFloat, CGFloat, CGFloat, BOOL))bezierPathAddArcWithCenter{};
+
 
 - (UIBezierPath *(^)())bezierPathClosePath
 {
@@ -119,7 +119,7 @@
         return _self;
     };
 }
-- (void)setBezierPathClosePath:(UIBezierPath *(^)())bezierPathClosePath{};
+
 
 - (UIBezierPath *(^)())bezierPathRemoveAllPoints
 {
@@ -129,7 +129,7 @@
         return _self;
     };
 }
-- (void)setBezierPathRemoveAllPoints:(UIBezierPath *(^)())bezierPathRemoveAllPoints{};
+
 
 - (UIBezierPath *(^)(UIBezierPath *))bezierPathAppendPath
 {
@@ -139,7 +139,7 @@
         return _self;
     };
 }
-- (void)setBezierPathAppendPath:(UIBezierPath *(^)(UIBezierPath *))bezierPathAppendPath{};
+
 
 - (UIBezierPath *(^)())bezierPathByReversingPath
 {
@@ -148,7 +148,7 @@
         return [_self bezierPathByReversingPath];
     };
 }
-- (void)setBezierPathByReversingPath:(UIBezierPath *(^)())bezierPathByReversingPath{};
+
 
 - (BOOL (^)(CGPoint))bezierPathContainsPoint
 {
@@ -159,7 +159,7 @@
         return [_self containsPoint:point];
     };
 }
-- (void)setBezierPathContainsPoint:(BOOL (^)(CGPoint))bezierPathContainsPoint{};
+
 
 - (UIBezierPath *(^)())bezierPathFill
 {
@@ -169,7 +169,7 @@
         return _self;
     };
 }
-- (void)setBezierPathFill:(UIBezierPath *(^)())bezierPathFill{};
+
 
 - (UIBezierPath *(^)())bezierPathStroke
 {
@@ -179,7 +179,7 @@
         return _self;
     };
 }
-- (void)setBezierPathStroke:(UIBezierPath *(^)())bezierPathStroke{};
+
 
 - (UIBezierPath *(^)())bezierPathAddClip
 {
@@ -189,5 +189,5 @@
         return _self;
     };
 }
-- (void)setBezierPathAddClip:(UIBezierPath *(^)())bezierPathAddClip{};
+
 @end

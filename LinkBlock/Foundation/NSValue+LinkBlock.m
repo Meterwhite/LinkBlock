@@ -25,7 +25,7 @@
         return _self;
     };
 }
-- (void)setValueSetPointToViews:(NSValue *(^)(NSArray *))valueSetPointToViews{};
+
 
 - (NSValue *(^)(NSArray *))valueSetSizeToViews
 {
@@ -42,7 +42,7 @@
         return _self;
     };
 }
-- (void)setValueSetSizeToViews:(NSValue *(^)(NSArray *))valueSetSizeToViews{};
+
 
 - (NSUInteger (^)())valueNSRangeLocation
 {
@@ -54,7 +54,7 @@
         return [_self rangeValue].location;
     };
 }
-- (void)setValueNSRangeLocation:(NSUInteger (^)())valueNSRangeLocation{};
+
 
 - (NSUInteger (^)())valueNSRangeLength
 {
@@ -66,7 +66,7 @@
         return [_self rangeValue].length;
     };
 }
-- (void)setValueNSRangeLength:(NSUInteger (^)())valueNSRangeLength{};
+
 
 - (CGFloat (^)())valueCGPointX
 {
@@ -78,7 +78,7 @@
         return [_self CGPointValue].x;
     };
 }
-- (void)setValueCGPointX:(CGFloat (^)())valueCGPointX{};
+
 
 - (CGFloat (^)())valueCGPointY
 {
@@ -90,7 +90,7 @@
         return [_self CGPointValue].y;
     };
 }
-- (void)setValueCGPointY:(CGFloat (^)())valueCGPointY{};
+
 
 - (CGFloat (^)())valueCGSizeWidth
 {
@@ -102,7 +102,7 @@
         return [_self CGSizeValue].width;
     };
 }
-- (void)setValueCGSizeWidth:(CGFloat (^)())valueCGSizeWidth{};
+
 
 - (CGFloat (^)())valueCGSizeHeight
 {
@@ -114,7 +114,7 @@
         return [_self CGSizeValue].height;
     };
 }
-- (void)setValueCGSizeHeight:(CGFloat (^)())valueCGSizeHeight{};
+
 
 - (CGFloat (^)())valueCGRectX
 {
@@ -126,7 +126,7 @@
         return [_self CGRectValue].origin.x;
     };
 }
-- (void)setValueCGRectX:(CGFloat (^)())valueCGRectX{};
+
 
 - (CGFloat (^)())valueCGRectY
 {
@@ -138,7 +138,7 @@
         return [_self CGRectValue].origin.y;
     };
 }
-- (void)setValueCGRectY:(CGFloat (^)())valueCGRectY{};
+
 
 - (CGFloat (^)())valueCGRectWidth
 {
@@ -150,7 +150,7 @@
         return [_self CGRectValue].size.width;
     };
 }
-- (void)setValueCGRectWidth:(CGFloat (^)())valueCGRectWidth{};
+
 
 - (CGFloat (^)())valueCGRectHeight
 {
@@ -162,7 +162,7 @@
         return [_self CGRectValue].size.width;
     };
 }
-- (void)setValueCGRectHeight:(CGFloat (^)())valueCGRectHeight{};
+
 
 - (CGPoint (^)())valueCGRectOrigin
 {
@@ -174,7 +174,7 @@
         return [_self CGRectValue].origin;
     };
 }
-- (void)setValueCGRectOrigin:(CGPoint (^)())valueCGRectOrigin{};
+
 
 - (CGSize (^)())valueCGRectSize
 {
@@ -186,7 +186,7 @@
         return [_self CGRectValue].size;
     };
 }
-- (void)setValueCGRectSize:(CGSize (^)())valueCGRectSize{};
+
 
 - (CGFloat (^)())valueCGVectorX
 {
@@ -198,7 +198,7 @@
         return [_self CGVectorValue].dx;
     };
 }
-- (void)setValueCGVectorX:(CGFloat (^)())valueCGVectorX{};
+
 
 - (CGFloat (^)())valueCGVectorY
 {
@@ -210,5 +210,5 @@
         return [_self CGVectorValue].dy;
     };
 }
-- (void)setValueCGVectorY:(CGFloat (^)())valueCGVectorY{};
+
 @end

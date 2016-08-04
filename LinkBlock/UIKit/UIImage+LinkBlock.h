@@ -12,18 +12,18 @@
  *  图片转NSData
  *  @ ratio: 仅仅针对JPEG格式有效的压缩质量
  */
-@property (nonatomic,copy) NSData*          (^imgToData)(float ratio);
+@property (nonatomic,copy,readonly) NSData*          (^imgToData)(float ratio);
 /** 保持比例放大或缩小图片 */
-@property (nonatomic,copy) UIImage*         (^imgResizeAspect)(CGSize maxSize);
+@property (nonatomic,copy,readonly) UIImage*         (^imgResizeAspect)(CGSize maxSize);
 /** 剪切 */
-@property (nonatomic,copy) UIImage*         (^imgCut)(CGRect frame);
+@property (nonatomic,copy,readonly) UIImage*         (^imgCut)(CGRect frame);
 /** 高斯模糊 #import <Accelerate/Accelerate.h> */
-@property (nonatomic,copy) UIImage*         (^imgBlur)(float percent);
+@property (nonatomic,copy,readonly) UIImage*         (^imgBlur)(float percent);
 /** 渲染模式 */
-@property (nonatomic,copy) UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
+@property (nonatomic,copy,readonly) UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
 /** 水印；图片合并到图片； */
-@property (nonatomic,copy) UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
+@property (nonatomic,copy,readonly) UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
 /** 图片取色 */
-@property (nonatomic,copy) UIColor*         (^imgGetPatternColor)();
+@property (nonatomic,copy,readonly) UIColor*         (^imgGetPatternColor)();
 
 @end

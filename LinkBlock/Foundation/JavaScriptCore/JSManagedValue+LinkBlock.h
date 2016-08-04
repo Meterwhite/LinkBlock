@@ -9,5 +9,5 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 @interface NSObject(JSManagedValueLinkBlock)
-@property (nonatomic,copy) JSManagedValue* (^jsManagedValueAddToManagedRef)(JSVirtualMachine* virtualMachine, id owner);
+@property (nonatomic,copy,readonly) JSManagedValue* (^jsManagedValueAddToManagedRef)(JSVirtualMachine* virtualMachine, id owner);
 @end

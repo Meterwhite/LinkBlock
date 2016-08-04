@@ -18,7 +18,7 @@
         return _self;
     };
 }
-- (void)setImg_viewImage:(UIImageView *(^)(UIImage *))img_viewImage{};
+
 
 - (UIImageView *(^)(UIImage *))img_viewImageHighlight
 {
@@ -29,7 +29,7 @@
         return _self;
     };
 }
-- (void)setImg_viewImageHighlight:(UIImageView *(^)(UIImage *))img_viewImageHighlight{};
+
 
 - (UIImageView *(^)(NSString *))img_viewImageStr
 {
@@ -40,7 +40,7 @@
         return _self;
     };
 }
-- (void)setImg_viewImageStr:(UIImageView *(^)(NSString *))img_viewImageStr{};
+
 
 - (UIImageView *(^)(NSString *))img_viewImageStrHighlight
 {
@@ -51,7 +51,7 @@
         return _self;
     };
 }
-- (void)setImg_viewImageStrHighlight:(UIImageView *(^)(NSString *))img_viewImageStrHighlight{};
+
 
 - (UIImageView *(^)(BOOL))img_viewHighlight
 {
@@ -62,5 +62,5 @@
         return _self;
     };
 }
-- (void)setImg_viewHighlight:(UIImageView *(^)(BOOL))img_viewHighlight{};
+
 @end

@@ -21,7 +21,7 @@
         return _self;
     };
 }
-- (void)setM_strReplaceStr:(NSMutableString *(^)(NSString *, NSString *))blockReplaceStrWithStr{};
+
 
 - (NSMutableString *(^)(NSString *, NSUInteger))m_strInsertStrAt
 {
@@ -32,7 +32,7 @@
         return _self;
     };
 }
-- (void)setM_strInsertStrAt:(NSMutableString *(^)(NSString *, NSUInteger))m_strInsertStrAt{};
+
 
 - (NSMutableString *(^)(NSString *))m_strAppenStr
 {
@@ -43,7 +43,7 @@
         return _self;
     };
 }
-- (void)setM_strAppenStr:(NSMutableString *(^)(NSString *))m_strAppenStr{};
+
 
 - (NSMutableString *(^)())m_strClear
 {
@@ -54,7 +54,7 @@
         return _self;
     };
 }
-- (void)setM_strClear:(NSMutableString *(^)())m_strClear{};
+
 
 - (NSMutableString *(^)(NSRange))m_strDeleteInRange
 {
@@ -65,7 +65,7 @@
         return _self;
     };
 }
-- (void)setM_strDeleteInRange:(NSMutableString *(^)(NSRange))m_strDeleteInRange{};
+
 
 - (NSMutableString *(^)(NSString *))SQLStr
 {
@@ -78,7 +78,7 @@
         return _self;
     };
 }
-- (void)setSQLStr:(NSMutableString *(^)(NSString *))SQLStr{};
+
 
 - (NSMutableString *(^)(NSInteger))SQLInt
 {
@@ -91,7 +91,7 @@
         return _self;
     };
 }
-- (void)setSQLInt:(NSMutableString *(^)(NSInteger))SQLInt{};
+
 
 -(NSMutableString *(^)(double))SQLDouble
 {
@@ -104,7 +104,7 @@
         return _self;
     };
 }
-- (void)setSQLDouble:(NSMutableString *(^)(double))SQLDouble{};
+
 
 - (NSMutableString *(^)(NSArray *))SQLArr
 {
@@ -122,7 +122,7 @@
         return _self;
     };
 }
-- (void)setSQLArr:(NSMutableString *(^)(NSArray *))SQLArr{};
+
 
 -(NSMutableString *(^)(NSDictionary *))SQLDictKeys
 {
@@ -140,7 +140,7 @@
         return _self;
     };
 }
-- (void)setSQLDictKeys:(NSMutableString *(^)(NSDictionary *))SQLDictKeys{};
+
 
 - (NSMutableString *(^)(NSDictionary *))SQLDictValues
 {
@@ -158,7 +158,7 @@
         return _self;
     };
 }
-- (void)setSQLDictValues:(NSMutableString *(^)(NSDictionary *))SQLDictValues{};
+
 
 - (NSMutableString *(^)(NSString *))SQLStrInStr
 {
@@ -171,7 +171,7 @@
         return _self;
     };
 }
-- (void)setSQLStrInStr:(NSMutableString *(^)(NSString *))SQLStrInStr{};
+
 
 - (NSMutableString *(^)(NSInteger))SQLIntInStr
 {
@@ -184,7 +184,7 @@
         return _self;
     };
 }
-- (void)setSQLIntInStr:(NSMutableString *(^)(NSInteger))SQLIntInStr{};
+
 
 - (NSMutableString *(^)(double))SQLDoubleInStr
 {
@@ -197,7 +197,7 @@
         return _self;
     };
 }
-- (void)setSQLDoubleInStr:(NSMutableString *(^)(double))SQLDoubleInStr{};
+
 
 - (NSMutableString *(^)(NSString *, NSString *))SQLKeyValueEqualStr
 {
@@ -212,7 +212,7 @@
         return _self;
     };
 }
--(void)setSQLKeyValueEqualStr:(NSMutableString *(^)(NSString *, NSString *))SQLKeyValueEqualStr{};
+
 
 - (NSMutableString *(^)(NSString *, NSString *))SQLKeyValueEqualStrInStr
 {
@@ -227,7 +227,7 @@
         return _self;
     };
 }
-- (void)setSQLKeyValueEqualStrInStr:(NSMutableString *(^)(NSString *, NSString *))SQLKeyValueEqualStrInStr{};
+
 
 - (NSMutableString *(^)(NSString *, NSInteger))SQLKeyValueEqualInt
 {
@@ -242,7 +242,7 @@
         return _self;
     };
 }
-- (void)setSQLKeyValueEqualInt:(NSMutableString *(^)(NSString *, NSInteger))SQLKeyValueEqualInt{};
+
 
 - (NSMutableString *(^)(NSString *, double))SQLKeyValueEqualDouble
 {
@@ -257,7 +257,7 @@
         return _self;
     };
 }
-- (void)setSQLKeyValueEqualDouble:(NSMutableString *(^)(NSString *, double))SQLKeyValueEqualDouble{};
+
 
 - (NSMutableString *(^)())SQL_Select
 {
@@ -268,7 +268,7 @@
         return _self;
     };
 }
-- (void)setSQL_Select:(NSMutableString *(^)())SQL_Select{};
+
 
 - (NSMutableString *(^)())SQL_Where
 {
@@ -279,7 +279,7 @@
         return _self;
     };
 }
-- (void)setSQL_Where:(NSMutableString *(^)())SQL_Where{};
+
 
 - (NSMutableString *(^)())SQL_From
 {
@@ -290,7 +290,7 @@
         return _self;
     };
 }
-- (void)setSQL_From:(NSMutableString *(^)())SQL_From{};
+
 
 - (NSMutableString *(^)())SQL_Create
 {
@@ -301,7 +301,7 @@
         return _self;
     };
 }
-- (void)setSQL_Create:(NSMutableString *(^)())SQL_Create{};
+
 
 - (NSMutableString *(^)())SQL_Update
 {
@@ -312,7 +312,7 @@
         return _self;
     };
 }
-- (void)setSQL_Update:(NSMutableString *(^)())SQL_Update{};
+
 
 - (NSMutableString *(^)())SQL_InsertInto
 {
@@ -323,7 +323,7 @@
         return _self;
     };
 }
-- (void)setSQL_InsertInto:(NSMutableString *(^)())SQL_InsertInto{};
+
 
 - (NSMutableString *(^)())SQL_ReplaceInto
 {
@@ -334,7 +334,7 @@
         return _self;
     };
 }
-- (void)setSQL_ReplaceInto:(NSMutableString *(^)())SQL_ReplaceInto{};
+
 
 - (NSMutableString *(^)())SQL_And
 {
@@ -345,7 +345,7 @@
         return _self;
     };
 }
-- (void)setSQL_And:(NSMutableString *(^)())SQL_And{};
+
 
 - (NSMutableString *(^)())SQL_Or
 {
@@ -356,7 +356,7 @@
         return _self;
     };
 }
-- (void)setSQL_Or:(NSMutableString *(^)())SQL_Or{};
+
 
 - (NSMutableString *(^)())SQL_In
 {
@@ -367,7 +367,7 @@
         return _self;
     };
 }
-- (void)setSQL_In:(NSMutableString *(^)())SQL_In{};
+
 
 - (NSMutableString *(^)())SQL_Distinct
 {
@@ -378,7 +378,7 @@
         return _self;
     };
 }
-- (void)setSQL_Distinct:(NSMutableString *(^)())SQL_Distinct{};
+
 
 - (NSMutableString *(^)())SQL_As
 {
@@ -389,7 +389,7 @@
         return _self;
     };
 }
-- (void)setSQL_As:(NSMutableString *(^)())SQL_As{};
+
 
 - (NSMutableString *(^)())SQL_Like
 {
@@ -400,7 +400,7 @@
         return _self;
     };
 }
-- (void)setSQL_Like:(NSMutableString *(^)())SQL_Like{};
+
 
 - (NSMutableString *(^)())SQL_Comma
 {
@@ -411,7 +411,7 @@
         return _self;
     };
 }
-- (void)setSQL_Comma:(NSMutableString *(^)())SQL_Comma{};
+
 
 - (NSMutableString *(^)(id))SQL_InPair
 {
@@ -424,7 +424,7 @@
         return _self;
     };
 }
-- (void)setSQL_InPair:(NSMutableString *(^)(id))SQL_InPair{};
+
 
 - (NSMutableString *(^)(id))SQL_InvertedComma
 {
@@ -437,7 +437,7 @@
         return _self;
     };
 }
-- (void)setSQL_InvertedComma:(NSMutableString *(^)(id))SQL_InvertedComma{};
+
 
 @end
 

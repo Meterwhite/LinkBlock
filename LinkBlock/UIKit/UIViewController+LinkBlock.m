@@ -19,7 +19,7 @@
         return _self;
     };
 }
-- (void)setVcAddChildVC:(UIViewController *(^)(UIViewController *))vcAddChildVC{};
+
 
 - (UIViewController *(^)(NSString *))vcTitle
 {
@@ -30,5 +30,5 @@
         return _self;
     };
 }
-- (void)setVcTitle:(UIViewController *(^)(NSString *))vcTitle{};
+
 @end

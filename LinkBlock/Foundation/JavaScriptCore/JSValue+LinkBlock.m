@@ -21,7 +21,7 @@
         }
     };
 }
-- (void)setJsValueToManagedValue:(JSManagedValue *(^)(id))jsValueToManagedValue{};
+
 
 - (JSValue *(^)(id))jsValueAddToSelfManagedRef
 {
@@ -33,7 +33,7 @@
         return _self;
     };
 }
-- (void)setJsValueAddToSelfManagedRef:(JSValue *(^)(id))jsValueAddToSelfManagedRef{};
+
 
 - (JSValue *(^)(NSArray *))jsValueCallFunc
 {
@@ -43,6 +43,6 @@
         return [_self callWithArguments:args];
     };
 }
-- (void)setJsValueCallFunc:(JSValue *(^)(NSArray *))jsValueCallFunc{};
+
 
 @end

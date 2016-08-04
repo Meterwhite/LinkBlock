@@ -18,7 +18,7 @@
         return _self;
     };
 }
-- (void)setControlEnable:(UIControl *(^)(BOOL))controlEnable{};
+
 
 - (UIControl *(^)(BOOL))controlSelected
 {
@@ -29,7 +29,7 @@
         return _self;
     };
 }
-- (void)setControlSelected:(UIControl *(^)(BOOL))controlSelected{};
+
 
 - (UIControl *(^)(BOOL))controlHighlighted
 {
@@ -40,7 +40,7 @@
         return _self;
     };
 }
-- (void)setControlHighlighted:(UIControl *(^)(BOOL))controlHighlighted{};
+
 
 - (UIControl *(^)(UIControlContentVerticalAlignment))controlContentVerticalAlignment
 {
@@ -51,7 +51,7 @@
         return _self;
     };
 }
-- (void)setControlContentVerticalAlignment:(UIControl *(^)(UIControlContentVerticalAlignment))controlContentVerticalAlignment{};
+
 
 - (UIControl *(^)(UIControlContentHorizontalAlignment))controlContentHorizontalAlignment
 {
@@ -62,5 +62,5 @@
         return _self;
     };
 }
-- (void)setControlContentHorizontalAlignment:(UIControl *(^)(UIControlContentHorizontalAlignment))controlContentHorizontalAlignment{};
+
 @end

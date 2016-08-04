@@ -17,7 +17,7 @@
         return (JSContext*)[_self valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     };
 }
-- (void)setWebViewContext:(JSContext *(^)())webViewContext{};
+
 
 - (NSString *(^)())webViewTitle
 {
@@ -27,7 +27,7 @@
         return [_self stringByEvaluatingJavaScriptFromString:@"document.title"];
     };
 }
-- (void)setWebViewTitle:(NSString *(^)())webViewTitle{};
+
 
 - (NSString *(^)())webViewLocationHref
 {
@@ -37,7 +37,7 @@
         return [_self stringByEvaluatingJavaScriptFromString:@"window.location.href"];
     };
 }
-- (void)setWebViewLocationHref:(NSString *(^)())webViewLocationHref{};
+
 
 - (NSString *(^)(NSString* ))webViewEvalScript
 {
@@ -47,7 +47,7 @@
         return [_self stringByEvaluatingJavaScriptFromString:script];
     };
 }
-- (void)setWebViewEvalScript:(NSString *(^)(NSString *))webViewEvalScript{};
+
 
 - (NSString *(^)())webViewHTML
 {
@@ -57,5 +57,5 @@
         return [_self stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
     };
 }
-- (void)setWebViewHTML:(NSString *(^)())webViewHTML{};
+
 @end

@@ -10,48 +10,48 @@
 
 #define NSMutableStringNew ([NSMutableString new])
 @interface NSObject(NSMutableStringLinkBlock)
-@property (nonatomic,copy) NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
-@property (nonatomic,copy) NSMutableString*     (^m_strAppenStr)(NSString* str);
-@property (nonatomic,copy) NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr);
-@property (nonatomic,copy) NSMutableString*     (^m_strDeleteInRange)(NSRange range);
-@property (nonatomic,copy) NSMutableString*     (^m_strClear)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
+@property (nonatomic,copy,readonly) NSMutableString*     (^m_strAppenStr)(NSString* str);
+@property (nonatomic,copy,readonly) NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr);
+@property (nonatomic,copy,readonly) NSMutableString*     (^m_strDeleteInRange)(NSRange range);
+@property (nonatomic,copy,readonly) NSMutableString*     (^m_strClear)();
 
 #pragma mark - SQL拼接部分
 #define SQLNew ([NSMutableString new])
-@property (nonatomic,copy) NSMutableString*     (^SQLStr)(NSString* str);
-@property (nonatomic,copy) NSMutableString*     (^SQLInt)(NSInteger intVal);
-@property (nonatomic,copy) NSMutableString*     (^SQLDouble)(double doubleVal);
-@property (nonatomic,copy) NSMutableString*     (^SQLArr)(NSArray* arr);
-@property (nonatomic,copy) NSMutableString*     (^SQLDictKeys)(NSDictionary* dict);
-@property (nonatomic,copy) NSMutableString*     (^SQLDictValues)(NSDictionary* dict);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLStr)(NSString* str);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLInt)(NSInteger intVal);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLDouble)(double doubleVal);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLArr)(NSArray* arr);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLDictKeys)(NSDictionary* dict);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLDictValues)(NSDictionary* dict);
 
 /** 单引号包围的值 '...' */
-@property (nonatomic,copy) NSMutableString*     (^SQLStrInStr)(NSString* str);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLStrInStr)(NSString* str);
 /** 单引号包围的值 '...' */
-@property (nonatomic,copy) NSMutableString*     (^SQLIntInStr)(NSInteger intVal);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLIntInStr)(NSInteger intVal);
 /** 单引号包围的值 '...' */
-@property (nonatomic,copy) NSMutableString*     (^SQLDoubleInStr)(double doubleVal);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQLDoubleInStr)(double doubleVal);
 
-@property (nonatomic,copy) NSMutableString*     (^SQL_Select)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_Where)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_From)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_Create)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_Update)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_InsertInto)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_ReplaceInto)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_Select)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_Where)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_From)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_Create)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_Update)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_InsertInto)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_ReplaceInto)();
 
-@property (nonatomic,copy) NSMutableString*     (^SQL_And)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_Or)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_In)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_Distinct)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_As)();
-@property (nonatomic,copy) NSMutableString*     (^SQL_Like)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_And)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_Or)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_In)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_Distinct)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_As)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_Like)();
 /** 逗号 */
-@property (nonatomic,copy) NSMutableString*     (^SQL_Comma)();
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_Comma)();
 /** 括号包围 */
-@property (nonatomic,copy) NSMutableString*     (^SQL_InPair)(id val);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_InPair)(id val);
 /** 单引号包围 */
-@property (nonatomic,copy) NSMutableString*     (^SQL_InvertedComma)(id val);
+@property (nonatomic,copy,readonly) NSMutableString*     (^SQL_InvertedComma)(id val);
 
 @end
 

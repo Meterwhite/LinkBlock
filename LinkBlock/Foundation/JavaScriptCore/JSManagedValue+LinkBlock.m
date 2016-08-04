@@ -19,5 +19,5 @@
         return _self;
     };
 }
-- (void)setJsManagedValueAddToManagedRef:(JSManagedValue *(^)(JSVirtualMachine *, id))jsManagedValueAddToManagedRef{};
+
 @end

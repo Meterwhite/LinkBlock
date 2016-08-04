@@ -11,9 +11,9 @@
 
 #define CALayerNew ([CALayer layer])
 @interface  NSObject(CALayerLinkBlock)
-@property (nonatomic,copy) CALayer*     (^layerAddSublayer)(CALayer* layer);
-@property (nonatomic,copy) CALayer*     (^layerInsertSublayerAt)(CALayer* layer,unsigned idx);
-@property (nonatomic,copy) CALayer*     (^layerInsertSublayerBelow)(CALayer* layer,CALayer* sibling);
-@property (nonatomic,copy) CALayer*     (^layerInsertSublayerAbove)(CALayer* layer,CALayer* sibling);
+@property (nonatomic,copy,readonly) CALayer*     (^layerAddSublayer)(CALayer* layer);
+@property (nonatomic,copy,readonly) CALayer*     (^layerInsertSublayerAt)(CALayer* layer,unsigned idx);
+@property (nonatomic,copy,readonly) CALayer*     (^layerInsertSublayerBelow)(CALayer* layer,CALayer* sibling);
+@property (nonatomic,copy,readonly) CALayer*     (^layerInsertSublayerAbove)(CALayer* layer,CALayer* sibling);
 
 @end

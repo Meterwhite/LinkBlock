@@ -40,7 +40,7 @@
         return _self;
     };
 }
-- (void)setLabAlignTop:(UILabel *(^)())labAlignTop{};
+
 
 - (UILabel *(^)())labAlignBottom
 {
@@ -78,7 +78,7 @@
         return _self;
     };
 }
-- (void)setLabAlignBottom:(UILabel *(^)())labAlignBottom{};
+
 
 - (UILabel *(^)(NSInteger))labNumberOfLines
 {
@@ -89,7 +89,7 @@
         return _self;
     };
 }
-- (void)setLabNumberOfLines:(UILabel *(^)(NSInteger))labNumberOfLines{};
+
 
 - (UILabel *(^)(NSTextAlignment))labAlignment
 {
@@ -100,7 +100,7 @@
         return _self;
     };
 }
-- (void)setLabAlignment:(UILabel *(^)(NSTextAlignment))labAlignment{};
+
 
 - (UILabel *(^)(NSString *))labText
 {
@@ -111,7 +111,7 @@
         return _self;
     };
 }
-- (void)setLabText:(UILabel *(^)(NSString *))labText{};
+
 
 - (UILabel *(^)(UIColor *))labTextColor
 {
@@ -122,7 +122,7 @@
         return _self;
     };
 }
-- (void)setLabTextColor:(UILabel *(^)(UIColor *))labTextColor{};
+
 
 - (UILabel *(^)(UIFont *))labFont
 {
@@ -133,7 +133,7 @@
         return _self;
     };
 }
-- (void)setLabFont:(UILabel *(^)(UIFont *))labFont{};
+
 
 - (UILabel *(^)(CGFloat))labFontSystemSizeSet
 {
@@ -144,7 +144,7 @@
         return _self;
     };
 }
-- (void)setLabFontSystemSizeSet:(UILabel *(^)(CGFloat))labFontSystemSizeSet{};
+
 
 - (CGFloat (^)())labFontSystemSizeGet
 {
@@ -156,5 +156,5 @@
         return _self.font.pointSize;
     };
 }
-- (void)setLabFontSystemSizeGet:(CGFloat (^)())labFontSystemSizeGet{};
+
 @end

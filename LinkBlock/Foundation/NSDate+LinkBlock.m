@@ -23,7 +23,7 @@
         return [comps year];
     };
 }
-- (void)setDateMinusYear:(NSInteger (^)(NSDate *))dateMinusYear{};
+
 
 - (NSInteger (^)(NSDate *))dateMinusMonth
 {
@@ -39,7 +39,7 @@
         return [comps month];
     };
 }
-- (void)setDateMinusMonth:(NSInteger (^)(NSDate *))dateMinusMonth{};
+
 
 - (NSInteger (^)(NSDate *))dateMinusDay
 {
@@ -55,7 +55,7 @@
         return [comps day];
     };
 }
-- (void)setDateMinusDay:(NSInteger (^)(NSDate *))dateMinusDay{};
+
 
 - (NSInteger (^)(NSDate *))dateMinusHour
 {
@@ -71,7 +71,7 @@
         return [comps hour];
     };
 }
-- (void)setDateMinusHour:(NSInteger (^)(NSDate *))dateMinusHour{};
+
 
 - (NSInteger (^)(NSDate *))dateMinusMinut
 {
@@ -87,7 +87,7 @@
         return [comps minute];
     };
 }
-- (void)setDateMinusMinut:(NSInteger (^)(NSDate *))dateMinusMinut{};
+
 
 - (NSInteger (^)(NSDate *))dateMinusSec
 {
@@ -103,7 +103,7 @@
         return [comps second];
     };
 }
-- (void)setDateMinusSec:(NSInteger (^)(NSDate *))dateMinusSec{};
+
 
 - (NSString *(^)(NSString *))dateToStrWithFormat
 {
@@ -117,7 +117,7 @@
         return [fmt stringFromDate:_self];
     };
 }
-- (void)setDateToStrWithFormat:(NSString *(^)(NSString *))dateToStrWithFormat{};
+
 
 - (NSDate *(^)(NSTimeInterval))dateAddTimeInterval
 {
@@ -127,7 +127,7 @@
         return [_self dateByAddingTimeInterval:timeInterval];
     };
 }
-- (void)setDateAddTimeInterval:(NSDate *(^)(NSTimeInterval))dateAddTimeInterval{};
+
 
 - (NSDate *(^)(NSInteger))dateAddSec
 {
@@ -140,7 +140,7 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-- (void)setDateAddSec:(NSDate *(^)(NSInteger))dateAddSec{};
+
 
 - (NSDate *(^)(NSInteger))dateAddMinut
 {
@@ -153,7 +153,7 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-- (void)setDateAddMinut:(NSDate *(^)(NSInteger))dateAddMinut{};
+
 
 - (NSDate *(^)(NSInteger))dateAddHour
 {
@@ -166,7 +166,7 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-- (void)setDateAddHour:(NSDate *(^)(NSInteger))dateAddHour{};
+
 
 - (NSDate *(^)(NSInteger))dateAddDay
 {
@@ -179,7 +179,7 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-- (void)setDateAddDay:(NSDate *(^)(NSInteger))dateAddDay{};
+
 
 - (NSDate *(^)(NSInteger))dateAddMonth
 {
@@ -192,7 +192,7 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-- (void)setDateAddMonth:(NSDate *(^)(NSInteger))dateAddMonth{};
+
 
 - (NSDate *(^)(NSInteger))dateAddYear
 {
@@ -205,7 +205,7 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-- (void)setDateAddYear:(NSDate *(^)(NSInteger))dateAddYear{};
+
 
 - (NSInteger (^)())dateYear
 {
@@ -219,7 +219,7 @@
         return [comps year];
     };
 }
-- (void)setDateYear:(NSInteger (^)())dateYear{};
+
 
 - (NSInteger (^)())dateMonth
 {
@@ -233,7 +233,7 @@
         return [comps month];
     };
 }
-- (void)setDateMonth:(NSInteger (^)())dateMonth{};
+
 - (NSInteger (^)())dateDay
 {
     return ^(){
@@ -246,7 +246,7 @@
         return [comps day];
     };
 }
-- (void)setDateDay:(NSInteger (^)())dateDay{};
+
 - (NSInteger (^)())dateHour
 {
     return ^(){
@@ -259,7 +259,7 @@
         return [comps hour];
     };
 }
-- (void)setDateHour:(NSInteger (^)())dateHour{};
+
 - (NSInteger (^)())dateMinut
 {
     return ^(){
@@ -272,7 +272,7 @@
         return [comps minute];
     };
 }
-- (void)setDateMinut:(NSInteger (^)())dateMinut{};
+
 - (NSInteger (^)())dateSec
 {
     return ^(){
@@ -285,7 +285,7 @@
         return [comps second];
     };
 }
-- (void)setDateSec:(NSInteger (^)())dateSec{};
+
 
 - (NSDate *(^)())dateDayAtStart
 {
@@ -300,7 +300,7 @@
         return [[NSCalendar currentCalendar] dateFromComponents:comps];
     };
 }
-- (void)setDateDayAtStart:(NSDate *(^)())dateDayAtStart{};
+
 
 - (NSDate *(^)())dateDayAtEnd
 {
@@ -315,7 +315,7 @@
         return [[NSCalendar currentCalendar] dateFromComponents:comps];
     };
 }
-- (void)setDateDayAtEnd:(NSDate *(^)())dateDayAtEnd{};
+
 
 - (NSDate *(^)())dateCurrentZone
 {
@@ -327,7 +327,7 @@
         return [_self dateByAddingTimeInterval:offset];
     };
 }
-- (void)setDateCurrentZone:(NSDate *(^)())dateCurrentZone{};
+
 
 - (NSDate *(^)(NSInteger))dateSetYear
 {
@@ -341,7 +341,7 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-- (void)setDateSetYear:(NSDate *(^)(NSInteger))dateSetYear{};
+
 
 - (NSDate *(^)(NSInteger))dateSetMonth
 {
@@ -355,7 +355,7 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-- (void)setDateSetMonth:(NSDate *(^)(NSInteger))dateSetMonth{};
+
 
 - (NSDate *(^)(NSInteger))dateSetDay
 {
@@ -369,7 +369,7 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-- (void)setDateSetDay:(NSDate *(^)(NSInteger))dateSetDay{};
+
 
 - (NSDate *(^)(NSInteger))dateSetHour
 {
@@ -383,7 +383,7 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-- (void)setDateSetHour:(NSDate *(^)(NSInteger))dateSetHour{};
+
 
 - (NSDate *(^)(NSInteger))dateSetMinut
 {
@@ -398,7 +398,7 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-- (void)setDateSetMinut:(NSDate *(^)(NSInteger))dateSetMinut{};
+
 
 - (NSDate *(^)(NSInteger))dateSetSec
 {
@@ -413,7 +413,7 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-- (void)setDateSetSec:(NSDate *(^)(NSInteger))dateSetSec{};
+
 
 - (BOOL (^)())dateIsLeapYear
 {
@@ -431,7 +431,7 @@
         return NO;
     };
 }
-- (void)setDateIsLeapYear:(BOOL (^)())dateIsLeapYear{};
+
 
 - (BOOL (^)())dateIsInToday
 {
@@ -449,7 +449,7 @@
         return NO;
     };
 }
-- (void)setDateIsInToday:(BOOL (^)())dateIsInToday{};
+
 
 - (BOOL (^)())dateIsInMonth
 {
@@ -467,7 +467,7 @@
         return NO;
     };
 }
-- (void)setDateIsInMonth:(BOOL (^)())dateIsInMonth{};
+
 
 - (NSTimeInterval (^)())dateTimeIntervalSince1970
 {
@@ -480,7 +480,7 @@
         return [_self timeIntervalSince1970];
     };
 }
-- (void)setDateTimeIntervalSince1970:(NSTimeInterval (^)())dateTimeIntervalSince1970{};
+
 
 - (NSDateComponents *(^)())dateComponentsAll
 {
@@ -490,5 +490,5 @@
         return [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:_self];
     };
 }
-- (void)setDateComponentsAll:(NSDateComponents *(^)())dateComponentsAll{};
+
 @end

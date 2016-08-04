@@ -26,7 +26,7 @@
         }
     };
 }
-- (void)setValueForKeySafe:(id (^)(NSString *))valueGetSafe{};
+
 
 - (NSObject *(^)(id ,NSString* ))setValueForKeySafe
 {
@@ -45,7 +45,7 @@
         }
     };
 }
-- (void)setSetValueForKeySafe:(NSObject *(^)(id value,NSString* key))valueSetSafe{};
+
 
 - (id (^)(NSString *))valueForKeyPathSafe
 {
@@ -63,7 +63,7 @@
         }
     };
 }
-- (void)setValueForKeyPathSafe:(id (^)(NSString *))valuePathGetSafe{};
+
 
 - (NSObject *(^)(id ,NSString* ))setValueForKeyPathSafe
 {
@@ -82,7 +82,7 @@
         }
     };
 }
-- (void)setSetValueForKeyPathSafe:(NSObject *(^)(id value,NSString* key))valuePathSetSafe{};
+
 
 + (BOOL)classContainProperty:(NSString*)property
 {
@@ -196,7 +196,7 @@
         return [_self copy];
     };
 }
-- (void)setObjCopy:(NSObject *(^)())objCopy{};
+
 
 - (NSObject *(^)())objMutableCopy
 {
@@ -206,7 +206,7 @@
         return (NSObject*)[_self mutableCopy];
     };
 }
-- (void)setObjMutableCopy:(NSObject *(^)())objMutableCopy{};
+
 
 - (NSObject *(^)())objMutableCopyDeep
 {
@@ -249,7 +249,7 @@
         return _self;
     };
 }
-- (void)setObjMutableCopyDeep:(NSObject *(^)())objMutableCopyDeep{};
+
 
 - (BOOL (^)(NSObject *))objIsEqual
 {
@@ -261,7 +261,7 @@
         return [_self isEqual:obj];
     };
 }
-- (void)setObjIsEqual:(BOOL (^)(NSObject *))objIsEqual{};
+
 
 - (BOOL (^)( __unsafe_unretained Class))isKindOf
 {
@@ -275,7 +275,7 @@
         return [_self isKindOfClass:classKind];
     };
 }
-- (void)setIsKindOf:(BOOL (^)(__unsafe_unretained Class))objIsKind{};
+
 
 - (BOOL (^)(__unsafe_unretained Class))isSubClassOf
 {
@@ -289,7 +289,7 @@
         return [[_self class] isSubclassOfClass:classKind];
     };
 }
-- (void)setIsSubClassOf:(BOOL (^)(__unsafe_unretained Class))isSubClassOf{};
+
 
 - (NSObject* (^)(__unsafe_unretained Class))objMustType
 {
@@ -303,7 +303,7 @@
         }
     };
 }
-- (void)setObjMustType:(NSObject *(^)(__unsafe_unretained Class))objMustType{};
+
 
 - (BOOL (^)(SEL))isRespondsSEL
 {
@@ -319,7 +319,7 @@
         return NO;
     };
 }
-- (void)setIsRespondsSEL:(BOOL (^)(SEL))isResponseSEL{};
+
 
 
 - (NSString *(^)())objToJsonString
@@ -338,7 +338,7 @@
         return [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
     };
 }
-- (void)setObjToJsonString:(NSString *(^)())objToJsonString{};
+
 
 - (Class (^)())objClass
 {
@@ -350,7 +350,7 @@
         return [_self class];
     };
 }
-- (void)setObjClass:(Class (^)())objClass{};
+
 
 - (NSString *(^)())className
 {
@@ -360,7 +360,7 @@
         return NSStringFromClass(_self.class);
     };
 }
-- (void)setClassName:(NSString *(^)())objClassName{};
+
 
 - (NSString *(^)())superclassName
 {
@@ -370,7 +370,7 @@
         return NSStringFromClass(_self.superclass);
     };
 }
-- (void)setSuperclassName:(NSString *(^)())superclassName{};
+
 
 - (NSObject *(^)(id*))setTo
 {
@@ -381,7 +381,7 @@
         return _self;
     };
 }
-- (void)setSetTo:(NSObject *(^)(id*))setTo{};
+
 
 - (NSObject *)newLink:(void (^)(NSObject *))aNewLin
 {
@@ -412,7 +412,7 @@
         return group;
     };
 }
-- (void)setLinkAnd:(NSObject *(^)(id))linkAnd{};
+
 
 - (NSObject *(^)(NSUInteger idx))linkOut
 {
@@ -435,7 +435,7 @@
         return _self;
     };
 }
-- (void)setLinkOut:(NSObject *(^)(NSUInteger idx))linkOut{};
+
 
 - (NSObject *(^)(NSUInteger))linkAt
 {
@@ -455,7 +455,7 @@
         return _self;
     };
 }
-- (void)setLinkAt:(NSObject *(^)(NSUInteger))linkAt{};
+
 
 - (NSObject *(^)(NSUInteger))linkLoop
 {
@@ -481,7 +481,7 @@
         return group;
     };
 }
-- (void)setLinkLoop:(NSObject *(^)(NSUInteger))linkLoop{};
+
 
 - (NSObject *(^)())nslog
 {
@@ -492,7 +492,7 @@
         return _self;
     };
 }
-- (void)setNslog:(NSObject *(^)())nslog{};
+
 
 - (NSObject *(^)(NSString *))nslogTitle
 {
@@ -503,7 +503,7 @@
         return _self;
     };
 }
-- (void)setNslogTitle:(NSObject *(^)(NSString *))nslogTitle{};
+
 
 - (NSObject *(^)(NSString *))nslogValueForKey
 {
@@ -514,7 +514,7 @@
         return _self;
     };
 }
-- (void)setNslogValueForKey:(NSObject *(^)(NSString *))nslogValueForKey{};
+
 
 - (NSObject *(^)(NSString *))nslogValueForKeyPath
 {
@@ -525,7 +525,7 @@
         return _self;
     };
 }
-- (void)setNslogValueForKeyPath:(NSObject *(^)(NSString *))nslogValueForKeyPath{};
+
 
 - (id (^)())end
 {
@@ -545,7 +545,7 @@
         return self;
     };
 }
-- (void)setEnd:(id(^)())end{};
+
 
 - (NSArray *(^)())ends
 {
@@ -569,7 +569,7 @@
         return self;
     };
 }
-- (void)setEnds:(NSArray *(^)())ends{};
+
 
 - (id (^)(NSUInteger))endsAt
 {
@@ -595,7 +595,7 @@
         return self;
     };
 }
-- (void)setEndsAt:(id (^)(NSUInteger))endsAt{};
+
 
 - (id (^)(NSString *))valueForKey
 {
@@ -607,7 +607,7 @@
         return [_self valueForKey:key];
     };
 }
-- (void)setValueForKey:(id (^)(NSString *))valueForKey{};
+
 
 - (NSObject *(^)(id, NSString* ))setValueForKey
 {
@@ -618,7 +618,7 @@
         return _self;
     };
 }
-- (void)setSetValueForKey:(NSObject *(^)(id, NSString *))setValueForKey{};
+
 
 - (id (^)(NSString *))valueForKeyPath
 {
@@ -630,7 +630,7 @@
         return [_self valueForKeyPath:key];
     };
 }
-- (void)setValueForKeyPath:(id (^)(NSString *))valueForKeyPath{};
+
 
 - (NSObject *(^)(id , NSString* ))setValueForKeyPath
 {
@@ -641,7 +641,7 @@
         return self;
     };
 }
-- (void)setSetValueForKeyPath:(NSObject *(^)(id, NSString *))setValueForKeyPath{};
+
 
 - (NSObject *(^)(NSArray *))objBeforeInArr
 {
@@ -656,7 +656,7 @@
         }
     };
 }
-- (void)setObjBeforeInArr:(NSObject *(^)(NSArray *))objBeforeInArr{};
+
 
 - (NSObject *(^)(NSArray *))objNextInArr
 {
@@ -671,7 +671,7 @@
         }
     };
 }
-- (void)setObjNextInArr:(NSObject *(^)(NSArray *))objNextInArr{};
+
 
 - (NSArray *(^)(NSDictionary *))objKeysInDict
 {
@@ -681,7 +681,7 @@
         return [inDict allKeysForObject:_self];
     };
 }
-- (void)setObjKeysInDict:(NSArray *(^)(NSDictionary *))objKeysInDict{};
+
 
 #pragma mark - 类型转换
 
@@ -692,156 +692,156 @@
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSString:(NSString *(^)())typeIsNSString{};
+
 
 - (NSMutableString *(^)())typeIsNSMutableString
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSMutableString:(NSMutableString *(^)())typeIsNSMutableString{};
+
 
 - (NSArray *(^)())typeIsNSArray
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSArray:(NSArray *(^)())typeIsNSArray{};
+
 
 - (NSMutableArray *(^)())typeIsNSMutableArray
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSMutableArray:(NSMutableArray *(^)())typeIsNSMutableArray{};
+
 
 - (NSDictionary *(^)())typeIsNSDictionary
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSDictionary:(NSDictionary *(^)())typeIsNSDictionary{};
+
 
 - (NSMutableDictionary *(^)())typeIsNSMutableDictionary
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSMutableDictionary:(NSMutableDictionary *(^)())typeIsNSMutableDictionary{};
+
 
 - (NSAttributedString *(^)())typeIsNSAttributedString
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSAttributedString:(NSAttributedString *(^)())typeIsNSAttributedString{};
+
 
 - (NSMutableAttributedString *(^)())typeIsNSMutableAttributedString
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSMutableAttributedString:(NSMutableAttributedString *(^)())typeIsNSMutableAttributedString{};
+
 
 - (NSURL *(^)())typeIsNSURL
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSURL:(NSURL *(^)())typeIsNSURL{};
+
 
 - (NSUserDefaults *(^)())typeIsNSUserDefaults
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSUserDefaults:(NSUserDefaults *(^)())typeIsNSUserDefaults{};
+
 
 - (UIView *(^)())typeIsUIView
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUIView:(UIView *(^)())typeIsUIView{};
+
 
 - (UILabel *(^)())typeIsUILabel
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUILabel:(UILabel *(^)())typeIsUILabel{};
+
 
 - (UIControl *(^)())typeIsUIControl
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUIControl:(UIControl *(^)())typeIsUIControl{};
+
 
 - (UIButton *(^)())typeIsUIButton
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUIButton:(UIButton *(^)())typeIsUIButton{};
+
 
 - (UIScrollView *(^)())typeIsUIScrollView
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUIScrollView:(UIScrollView *(^)())typeIsUIScrollView{};
+
 
 - (UIImage *(^)())typeIsUIImage
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUIImage:(UIImage *(^)())typeIsUIImage{};
+
 
 - (UIColor *(^)())typeIsUIColor
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUIColor:(UIColor *(^)())typeIsUIColor{};
+
 
 - (UIViewController *(^)())typeIsUIViewController
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUIViewController:(UIViewController *(^)())typeIsUIViewController{};
+
 
 - (UIImageView *(^)())typeIsUIImageView
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUIImageView:(UIImageView *(^)())typeIsUIImageView{};
+
 
 - (UITableView *(^)())typeIsUITableView
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUITableView:(UITableView *(^)())typeIsUITableView{};
+
 
 - (NSNumber *(^)())typeIsNSNumber
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSNumber:(NSNumber *(^)())typeIsNSNumber{};
+
 
 - (NSValue *(^)())typeIsNSValue
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSValue:(NSValue *(^)())typeIsNSValue{};
+
 
 - (UITextField *(^)())typeIsUITextField
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUITextField:(UITextField *(^)())typeIsUITextField{};
+
 
 - (UITextView *(^)())typeIsUITextView
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsUITextView:(UITextView *(^)())typeIsUITextView{};
+
 
 - (NSDate *(^)())typeIsNSDate
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSDate:(NSDate *(^)())typeIsNSDate{};
+
 
 - (NSData *(^)())typeIsNSData
 {
     Link_Type_ReturnSelf
 }
-- (void)setTypeIsNSData:(NSData *(^)())typeIsNSData{};
+
 
 @end

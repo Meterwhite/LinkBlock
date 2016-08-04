@@ -10,21 +10,21 @@
 #import "LinkBlock.h"
 
 @interface NSObject(NSValueLinkBlock)
-@property (nonatomic,copy) NSUInteger       (^valueNSRangeLocation)();
-@property (nonatomic,copy) NSUInteger       (^valueNSRangeLength)();
-@property (nonatomic,copy) CGFloat          (^valueCGPointX)();
-@property (nonatomic,copy) CGFloat          (^valueCGPointY)();
-@property (nonatomic,copy) CGFloat          (^valueCGSizeWidth)();
-@property (nonatomic,copy) CGFloat          (^valueCGSizeHeight)();
-@property (nonatomic,copy) CGFloat          (^valueCGRectX)();
-@property (nonatomic,copy) CGFloat          (^valueCGRectY)();
-@property (nonatomic,copy) CGFloat          (^valueCGRectWidth)();
-@property (nonatomic,copy) CGFloat          (^valueCGRectHeight)();
-@property (nonatomic,copy) CGSize           (^valueCGRectSize)();
-@property (nonatomic,copy) CGPoint          (^valueCGRectOrigin)();
-@property (nonatomic,copy) CGFloat          (^valueCGVectorX)();
-@property (nonatomic,copy) CGFloat          (^valueCGVectorY)();
+@property (nonatomic,copy,readonly) NSUInteger       (^valueNSRangeLocation)();
+@property (nonatomic,copy,readonly) NSUInteger       (^valueNSRangeLength)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGPointX)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGPointY)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGSizeWidth)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGSizeHeight)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGRectX)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGRectY)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGRectWidth)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGRectHeight)();
+@property (nonatomic,copy,readonly) CGSize           (^valueCGRectSize)();
+@property (nonatomic,copy,readonly) CGPoint          (^valueCGRectOrigin)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGVectorX)();
+@property (nonatomic,copy,readonly) CGFloat          (^valueCGVectorY)();
 
-@property (nonatomic,copy) NSValue*         (^valueSetSizeToViews)(NSArray* views);
-@property (nonatomic,copy) NSValue*         (^valueSetPointToViews)(NSArray* views);
+@property (nonatomic,copy,readonly) NSValue*         (^valueSetSizeToViews)(NSArray* views);
+@property (nonatomic,copy,readonly) NSValue*         (^valueSetPointToViews)(NSArray* views);
 @end

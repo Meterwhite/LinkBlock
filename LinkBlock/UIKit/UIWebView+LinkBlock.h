@@ -12,9 +12,9 @@
 #define UIWebViewNew ([UIWebView new])
 
 @interface NSObject(UIWebViewLinkBlock)
-@property (nonatomic,copy) JSContext*      (^webViewContext)();
-@property (nonatomic,copy) NSString*       (^webViewEvalScript)(NSString* script);
-@property (nonatomic,copy) NSString*       (^webViewTitle)();
-@property (nonatomic,copy) NSString*       (^webViewLocationHref)();
-@property (nonatomic,copy) NSString*       (^webViewHTML)();
+@property (nonatomic,copy,readonly) JSContext*      (^webViewContext)();
+@property (nonatomic,copy,readonly) NSString*       (^webViewEvalScript)(NSString* script);
+@property (nonatomic,copy,readonly) NSString*       (^webViewTitle)();
+@property (nonatomic,copy,readonly) NSString*       (^webViewLocationHref)();
+@property (nonatomic,copy,readonly) NSString*       (^webViewHTML)();
 @end

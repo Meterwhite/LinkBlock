@@ -9,23 +9,23 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 @interface NSObject(JSContextLinkBlock)
-@property (nonatomic,copy) JSValue*     (^jsContextValue)(id key);
-@property (nonatomic,copy) JSContext*   (^jsContextSetValue)(NSObject <NSCopying> * key, id value);
-@property (nonatomic,copy) JSValue*     (^jsContextEval)(NSString* script);
-@property (nonatomic,copy) JSValue*     (^jsContextCallFunc)(NSString* func , NSArray* args);
+@property (nonatomic,copy,readonly) JSValue*     (^jsContextValue)(id key);
+@property (nonatomic,copy,readonly) JSContext*   (^jsContextSetValue)(NSObject <NSCopying> * key, id value);
+@property (nonatomic,copy,readonly) JSValue*     (^jsContextEval)(NSString* script);
+@property (nonatomic,copy,readonly) JSValue*     (^jsContextCallFunc)(NSString* func , NSArray* args);
 
 #pragma mark - DOM节点操作
-@property (nonatomic,copy) JSValue*     (^jsContextGetElementById)(NSString* elementId, NSString* appendScript);
-@property (nonatomic,copy) JSValue*     (^jsContextGetElementsByName)(NSString* name, NSString* appendScript);
-@property (nonatomic,copy) JSValue*     (^jsContextGetElementsByTagName)(NSString* tagName, NSString* appendScript);
-@property (nonatomic,copy) NSString*    (^jsContextTitle)();
-@property (nonatomic,copy) NSString*    (^jsContextHTML)();
-@property (nonatomic,copy) NSString*    (^jsContextLocationHref)();
-@property (nonatomic,copy) JSContext*   (^jsContextLocationReload)();
-@property (nonatomic,copy) JSContext*   (^jsContextWrite)(NSString* str);
-@property (nonatomic,copy) JSContext*   (^jsContextAlert)(NSString* str);
-@property (nonatomic,copy) JSContext*   (^jsContextHistoryBack)();
-@property (nonatomic,copy) JSContext*   (^jsContextHistoryForward)();
+@property (nonatomic,copy,readonly) JSValue*     (^jsContextGetElementById)(NSString* elementId, NSString* appendScript);
+@property (nonatomic,copy,readonly) JSValue*     (^jsContextGetElementsByName)(NSString* name, NSString* appendScript);
+@property (nonatomic,copy,readonly) JSValue*     (^jsContextGetElementsByTagName)(NSString* tagName, NSString* appendScript);
+@property (nonatomic,copy,readonly) NSString*    (^jsContextTitle)();
+@property (nonatomic,copy,readonly) NSString*    (^jsContextHTML)();
+@property (nonatomic,copy,readonly) NSString*    (^jsContextLocationHref)();
+@property (nonatomic,copy,readonly) JSContext*   (^jsContextLocationReload)();
+@property (nonatomic,copy,readonly) JSContext*   (^jsContextWrite)(NSString* str);
+@property (nonatomic,copy,readonly) JSContext*   (^jsContextAlert)(NSString* str);
+@property (nonatomic,copy,readonly) JSContext*   (^jsContextHistoryBack)();
+@property (nonatomic,copy,readonly) JSContext*   (^jsContextHistoryForward)();
 /** page = -1,0,1,2... */
-@property (nonatomic,copy) JSContext*   (^jsContextHistoryGo)(NSString* page);
+@property (nonatomic,copy,readonly) JSContext*   (^jsContextHistoryGo)(NSString* page);
 @end

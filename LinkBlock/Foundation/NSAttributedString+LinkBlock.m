@@ -18,7 +18,7 @@
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
     };
 }
-- (void)setAttr_strSize:(CGRect (^)(CGFloat))blockSize{};
+
 
 - (CGRect (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptions
 {
@@ -30,7 +30,7 @@
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil];
     };
 }
-- (void)setAttr_strSizeWithOptions:(CGRect (^)(CGFloat, NSStringDrawingOptions))blockSizeWithOptions{};
+
 
 - (BOOL (^)(NSAttributedString *))attr_strIsEqualToAttrStr
 {
@@ -42,7 +42,7 @@
         return [_self isEqualToAttributedString:attrStr];
     };
 }
-- (void)setAttr_strIsEqualToAttrStr:(BOOL (^)(NSAttributedString *))blockIsEqualToAttrStr{};
+
 
 - (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
 {
@@ -57,5 +57,5 @@
         return newImg;
     };
 }
-- (void)setAttr_strDrawImgRect:(UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect{};
+
 @end

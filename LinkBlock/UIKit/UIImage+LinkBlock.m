@@ -22,7 +22,7 @@
         return reIsData;
     };
 }
-- (void)setImgToData:(NSData *(^)(float))imgToData{};
+
 
 - (UIImage *(^)(CGSize))imgResizeAspect
 {
@@ -66,7 +66,7 @@
         return re;
     };
 }
-- (void)setImgCut:(UIImage *(^)(CGRect))imgCut{};
+
 
 - (UIImage *(^)(float))imgBlur
 {
@@ -142,7 +142,7 @@
         return returnImage;
     };
 }
-- (void)setImgBlur:(UIImage *(^)(float))imgBlur{};
+
 
 - (UIImage *(^)(UIImageRenderingMode))imgRenderingMode
 {
@@ -152,7 +152,7 @@
         return [_self imageWithRenderingMode:mode];
     };
 }
-- (void)setImgRenderingMode:(UIImage *(^)(UIImageRenderingMode))imgRenderingMode{};
+
 
 - (UIImage *(^)(UIImage *, CGRect))imgAddImg
 {
@@ -167,7 +167,7 @@
         return reImg;
     };
 }
-- (void)setImgAddImg:(UIImage *(^)(UIImage *, CGRect))imgAddImg{};
+
 
 - (UIColor *(^)())imgGetPatternColor
 {
@@ -177,5 +177,5 @@
         return [UIColor colorWithPatternImage:_self];
     };
 }
-- (void)setImgGetPatternColor:(UIColor *(^)())imgGetPatternColor{};
+
 @end
