@@ -29,6 +29,22 @@
 }
 
 
+- (UIImage *(^)(CGSize))colorToUIImage
+{
+    return ^id(CGSize size){
+        LinkHandle_REF(UIImage, UIColor)
+        LinkGroupHandle_REF(colorToUIImage,size)
+        UIGraphicsBeginImageContext(size);
+        CGContextRef content = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(content, _self.CGColor);
+        CGContextFillRect(content, CGRectMake(0, 0, size.width, size.height));
+        UIImage* re = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return re;
+    };
+}
+
+
 - (CGFloat (^)())colorRed
 {
     return ^(){

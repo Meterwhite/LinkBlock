@@ -11,6 +11,8 @@
 @interface NSObject(UIColorLinkBlock)
 /** 颜色转16进制字符串，返回为：prefix+颜色 */
 @property (nonatomic,copy,readonly) NSString*        (^colorToStrWithPrefix)(NSString* prefix);
+/** 根据颜色创建图片 */
+@property (nonatomic,copy,readonly) UIImage*         (^colorToUIImage)(CGSize size);
 @property (nonatomic,copy,readonly) CGFloat          (^colorRed)();
 @property (nonatomic,copy,readonly) CGFloat          (^colorGreen)();
 @property (nonatomic,copy,readonly) CGFloat          (^colorBlue)();
