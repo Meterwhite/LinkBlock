@@ -34,6 +34,7 @@
 #import "UIScrollView+LinkBlock.h"
 #import "UIImageView+LinkBlock.h"
 #import "UIViewController+LinkBlock.h"
+#import "UITextView+LinkBlock.h"
 #import "UITextField+LinkBlock.h"
 #import "CALayer+LinkBlock.h"
 #import "CAShapeLayer+LinkBlock.h"

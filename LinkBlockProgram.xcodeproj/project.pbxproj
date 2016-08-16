@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		450856C21D62B3230015E24A /* UITextView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 450856C11D62B3230015E24A /* UITextView+LinkBlock.m */; };
 		452047671CED65310092ED18 /* CAShapeLayer+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 452047661CED65310092ED18 /* CAShapeLayer+LinkBlock.m */; };
 		4520476A1CEDB8D30092ED18 /* CALayer+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 452047691CEDB8D30092ED18 /* CALayer+LinkBlock.m */; };
 		4528C60C1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4528C60B1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m */; };
@@ -61,6 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		450856C01D62B3230015E24A /* UITextView+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+LinkBlock.h"; sourceTree = "<group>"; };
+		450856C11D62B3230015E24A /* UITextView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+LinkBlock.m"; sourceTree = "<group>"; };
 		452047651CED65310092ED18 /* CAShapeLayer+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "CAShapeLayer+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		452047661CED65310092ED18 /* CAShapeLayer+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "CAShapeLayer+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		452047681CEDB8D30092ED18 /* CALayer+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "CALayer+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -258,6 +261,8 @@
 				9FBD17361BDB91D500C2F402 /* UIViewController+LinkBlock.m */,
 				EEEF93361C5B5C0900A9ADBF /* UITextField+LinkBlock.h */,
 				EEEF93371C5B5C0900A9ADBF /* UITextField+LinkBlock.m */,
+				450856C01D62B3230015E24A /* UITextView+LinkBlock.h */,
+				450856C11D62B3230015E24A /* UITextView+LinkBlock.m */,
 				45DEF2C31CEB0B950000E453 /* UIBezierPath+LinkBlock.h */,
 				45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */,
 				452047651CED65310092ED18 /* CAShapeLayer+LinkBlock.h */,
@@ -450,6 +455,7 @@
 				45BFEBED1D34F225007B83B5 /* LinkGroup.m in Sources */,
 				9FBD17411BDB91D500C2F402 /* NSString+LinkBlock.m in Sources */,
 				9FBD17451BDB91D500C2F402 /* UIButton+LinkBlock.m in Sources */,
+				450856C21D62B3230015E24A /* UITextView+LinkBlock.m in Sources */,
 				9FBD17481BDB91D500C2F402 /* UIImage+LinkBlock.m in Sources */,
 				9FBD174C1BDB91D500C2F402 /* UIView+LinkBlock.m in Sources */,
 				9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */,

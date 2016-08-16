@@ -1,30 +1,21 @@
 //
-//  UITextField+LinkBlock.m
+//  UITextView+LinkBlock.m
 //  LinkBlockProgram
 //
-//  Created by NOVO on 16/1/29.
+//  Created by NOVO on 16/8/16.
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
 #import "LinkBlock.h"
 
-@implementation NSObject(UITextFieldLinkBlock)
+@implementation NSObject(UITextViewLinkBlock)
 
-- (UITextField* (^)(UIColor *))txtFieldPlaceholdColor
-{
-    return ^id(UIColor* color){
-        LinkHandle_REF(UITextField, UITextField)
-        LinkGroupHandle_REF(txtFieldPlaceholdColor,color)
-        [_self setValue:color forKeyPath:@"_placeholderLabel.textColor"];
-        return _self;
-    };
-}
-
-- (UITextField *(^)(NSRange))txtFieldSelectRangeSet
+- (UITextView *(^)(NSRange))txtViewSelectRangeSet
 {
     return ^id(NSRange range){
-        LinkHandle_REF(UITextField, UITextField)
-        LinkGroupHandle_REF(txtFieldSelectRangeSet,range)
+        LinkHandle_REF(UITextView, UITextView)
+        LinkGroupHandle_REF(txtViewSelectRangeSet,range)
+        
         UITextPosition* beginning = _self.beginningOfDocument;
         UITextPosition* startPosition = [_self positionFromPosition:beginning offset:range.location];
         UITextPosition* endPosition = [_self positionFromPosition:beginning offset:range.location + range.length];
@@ -34,13 +25,13 @@
     };
 }
 
-- (NSRange (^)())txtFieldSelectRangeGet
+- (NSRange (^)())txtViewSelectRangeGet
 {
     return ^NSRange(){
-        LinkHandle_VAL_IFNOT(UITextField){
+        LinkHandle_VAL_IFNOT(UITextView){
             return NSMakeRange(NSNotFound, 0);
         }
-        LinkGroupHandle_VAL(txtFieldSelectRangeGet)
+        LinkGroupHandle_VAL(txtViewSelectRangeGet)
         
         UITextPosition* beginning = _self.beginningOfDocument;
         UITextRange* selectedRange = _self.selectedTextRange;
