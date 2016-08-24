@@ -51,7 +51,8 @@
 
 @end
 
-@interface NSArray(NSArraryLinkBlock)
+@interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)
+
 /**
  *  根据条件过滤并遍历结果集
  *
@@ -59,7 +60,7 @@
  *
  *  @return 根据条件过滤后的结果集
  */
-- (void)arrEnumerateWithPredicateFormat:(NSString*)predicateFormat usingBlock:(void(^)(id obj, NSUInteger idx, BOOL *stop))block;
+- (void)arrEnumerateWithPredicateFormat:(NSString*)predicateFormat usingBlock:(void(^)(ObjectType obj, NSUInteger idx, BOOL *stop))block;
 
 /**
  *  使用数组中的字符为元字符规则去遍历字符串，遍历以元字符为单位，如：emoji，一个规则

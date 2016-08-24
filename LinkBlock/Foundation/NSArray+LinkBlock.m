@@ -285,7 +285,7 @@
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if([predicate evaluateWithObject:obj]){
             [re addObject:obj];
-            if(block) block(obj, idx, &*stop);
+            if(block) block(obj, idx, stop);
         }
     }];
 }
