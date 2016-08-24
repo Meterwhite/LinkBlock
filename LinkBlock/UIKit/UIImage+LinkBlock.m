@@ -23,7 +23,6 @@
     };
 }
 
-
 - (UIImage *(^)(CGSize))imgResizeAspect
 {
     return ^id(CGSize maxSize){
@@ -66,7 +65,6 @@
         return re;
     };
 }
-
 
 - (UIImage *(^)(float))imgBlur
 {
@@ -143,7 +141,6 @@
     };
 }
 
-
 - (UIImage *(^)(UIImageRenderingMode))imgRenderingMode
 {
     return ^id(UIImageRenderingMode mode){
@@ -152,7 +149,6 @@
         return [_self imageWithRenderingMode:mode];
     };
 }
-
 
 - (UIImage *(^)(UIImage *, CGRect))imgAddImg
 {
@@ -167,7 +163,6 @@
         return reImg;
     };
 }
-
 
 - (UIColor *(^)())imgGetPatternColor
 {

@@ -41,7 +41,6 @@
     };
 }
 
-
 - (UILabel *(^)())labAlignBottom
 {
     return ^id(){
@@ -79,7 +78,6 @@
     };
 }
 
-
 - (UILabel *(^)(NSInteger))labNumberOfLines
 {
     return ^id(NSInteger lines){
@@ -89,7 +87,6 @@
         return _self;
     };
 }
-
 
 - (UILabel *(^)(NSTextAlignment))labAlignment
 {
@@ -101,7 +98,6 @@
     };
 }
 
-
 - (UILabel *(^)(NSString *))labText
 {
     return ^id(NSString * txt){
@@ -111,7 +107,6 @@
         return _self;
     };
 }
-
 
 - (UILabel *(^)(UIColor *))labTextColor
 {
@@ -123,7 +118,6 @@
     };
 }
 
-
 - (UILabel *(^)(UIFont *))labFont
 {
     return ^id(UIFont * font){
@@ -134,7 +128,6 @@
     };
 }
 
-
 - (UILabel *(^)(CGFloat))labFontSystemSizeSet
 {
     return ^id(CGFloat size){
@@ -144,7 +137,6 @@
         return _self;
     };
 }
-
 
 - (CGFloat (^)())labFontSystemSizeGet
 {

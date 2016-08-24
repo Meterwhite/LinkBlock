@@ -20,7 +20,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSString *))m_attr_strAppendStr
 {
     return ^id(NSString *str){
@@ -33,7 +32,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableAttributedString *(^)(NSString *, NSString *, id))m_attr_strAppendStrAndAttr
 {
@@ -48,7 +46,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *))m_attr_strAppendStrWithAttrDict
 {
     return ^id(NSString *str, NSDictionary *attrDic){
@@ -61,7 +58,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableAttributedString *(^)(NSAttributedString *, NSUInteger))m_attr_strInsertAttrStrAtIndex
 {
@@ -90,7 +86,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSString *, NSString *, id, NSUInteger idx))m_attr_strInsertStrWithAttrAtIndex
 {
     return ^id(NSString *str,NSString *attrName, id attrValue, NSUInteger idx){
@@ -107,7 +102,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSUInteger))m_attr_strInsertStrWithAttrDict
 {
     return ^id(NSString *str, NSDictionary *attrDic, NSUInteger index){
@@ -121,7 +115,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSString *, id, NSRange))m_attr_strAddAttrInRange
 {
     return ^id(NSString *attrName, id attrValue, NSRange range){
@@ -133,7 +126,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSString *, id))m_attr_strAddAttr
 {
     return ^id(NSString *attrName, id attrValue){
@@ -144,7 +136,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableAttributedString *(^)(UIFont *))m_attr_strAddAttrFont
 {
@@ -158,7 +149,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(UIColor *))m_attr_strAddAttrTextColor
 {
     return ^id(UIColor *textColor){
@@ -171,7 +161,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(UIColor *))m_attr_strAddAttrBGColor
 {
     return ^id(UIColor *bgColor){
@@ -183,7 +172,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *))m_attr_strSetAttrForStr
 {
@@ -206,7 +194,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableAttributedString *(^)(NSString *, NSDictionary *, NSRange))m_attr_strSetAttrForStrInRange
 {
@@ -232,7 +219,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSString *))m_attr_strRemoveAttr
 {
     return ^id(NSString* attrName){
@@ -244,7 +230,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableAttributedString *(^)(NSString *, NSRange))m_attr_strRemoveAttrInRange
 {
@@ -258,7 +243,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSRange))m_attr_strDeleteStrInRange
 {
     return ^id(NSRange range){
@@ -268,7 +252,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableAttributedString *(^)(NSString *, NSRange))m_attr_strReplaceStrWithStrInRange
 {
@@ -282,7 +265,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSDictionary *))m_attr_strAddAttrDict
 {
     return ^id(NSDictionary* attrDict){
@@ -294,7 +276,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableAttributedString *(^)(NSDictionary *))m_attr_strSetAttrDict
 {
@@ -308,7 +289,6 @@
     };
 }
 
-
 - (NSMutableAttributedString *(^)(NSDictionary *, NSRange))m_attr_strSetAttrDictInRange
 {
     return ^id(NSDictionary *attrDict, NSRange range){
@@ -321,7 +301,6 @@
     };
 }
 
-
 - (CGRect (^)(CGFloat))m_attr_strSize
 {
     return ^(CGFloat maxWidth){
@@ -332,7 +311,6 @@
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
     };
 }
-
 
 - (CGRect (^)(CGFloat, NSStringDrawingOptions))m_attr_strSizeWithOptions
 {
@@ -345,7 +323,6 @@
     };
 }
 
-
 - (BOOL (^)(NSAttributedString *))m_attr_strIsEqualToAttrStr
 {
     return ^(NSAttributedString* attrStr){
@@ -356,7 +333,6 @@
         return [_self isEqualToAttributedString:attrStr];
     };
 }
-
 
 - (UIImage *(^)(UIImage *, CGRect))m_attr_strDrawImgRect
 {

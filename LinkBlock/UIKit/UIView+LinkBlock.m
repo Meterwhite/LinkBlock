@@ -19,7 +19,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat))viewSetX
 {
     return ^id(CGFloat x){
@@ -31,7 +30,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(CGFloat))viewSetY
 {
@@ -45,7 +43,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat))viewSetCenterX
 {
     return ^id(CGFloat centerX){
@@ -57,7 +54,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(CGFloat))viewSetCenterY
 {
@@ -71,7 +67,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat))viewSetWidth
 {
     return ^id(CGFloat width){
@@ -84,7 +79,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat))viewSetHeight
 {
     return ^id(CGFloat height){
@@ -96,7 +90,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(CGFloat,CGFloat))viewSetSize
 {
@@ -111,7 +104,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat,CGFloat))viewSetOrigin
 {
     return ^id(CGFloat x,CGFloat y){
@@ -125,7 +117,6 @@
     };
 }
 
-
 - (UIView *(^)(UIColor *))viewBGColor
 {
     return ^id(UIColor *color){
@@ -135,7 +126,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)())viewBGColorRandom
 {
@@ -147,7 +137,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat x,CGFloat y))viewSetCenter
 {
     return ^id(CGFloat x,CGFloat y){
@@ -157,7 +146,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIColor *))viewBorderColor
 {
@@ -171,7 +159,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat))viewBorderWidth
 {
     return ^id(CGFloat width){
@@ -181,7 +168,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(CGFloat))viewCornerRadius
 {
@@ -193,7 +179,6 @@
     };
 }
 
-
 - (UIView *(^)(BOOL))viewMasksToBounds
 {
     return ^id(BOOL flag){
@@ -203,7 +188,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)())viewFirstResponderSubViewForInput
 {
@@ -231,7 +215,6 @@
     };
 }
 
-
 - (CGRect (^)())viewConvertRectToWindow
 {
     return ^(){
@@ -242,7 +225,6 @@
         return [_self.superview convertRect:_self.frame toView:nil];
     };
 }
-
 
 - (UIView *(^)(UIView *, BOOL))viewConvertSuperverTo
 {
@@ -265,7 +247,6 @@
     };
 }
 
-
 - (BOOL (^)(UIView *))viewIsSubviewTo
 {
     return ^(UIView *theView){
@@ -283,7 +264,6 @@
     };
 }
 
-
 - (UIView *(^)(BOOL))viewUserInteractionEnabled
 {
     return ^id(BOOL b){
@@ -293,7 +273,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(BOOL))viewMultipleTouchEnabled
 {
@@ -305,7 +284,6 @@
     };
 }
 
-
 - (UIView *(^)(BOOL))viewExclusiveTouch
 {
     return ^id(BOOL b){
@@ -315,7 +293,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIViewAutoresizing))viewAutoresizingMask
 {
@@ -327,7 +304,6 @@
     };
 }
 
-
 - (UIView *(^)(BOOL))viewClipsToBounds
 {
     return ^id(BOOL b){
@@ -337,7 +313,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(CGFloat))viewAlpha
 {
@@ -349,7 +324,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat))viewOpaque
 {
     return ^id(CGFloat opaque){
@@ -359,7 +333,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(BOOL))viewHidden
 {
@@ -371,7 +344,6 @@
     };
 }
 
-
 - (UIView *(^)(UIViewContentMode))viewContentMode
 {
     return ^id(UIViewContentMode contentMode){
@@ -381,7 +353,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(NSUInteger))viewSubviewAt
 {
@@ -394,7 +365,6 @@
     };
 }
 
-
 - (UIView *(^)())viewRemoveFromSuperview
 {
     return ^id(){
@@ -405,7 +375,6 @@
     };
 }
 
-
 - (UIView *(^)(NSUInteger))viewRemoveSubviewAt
 {
     return ^id(NSUInteger index){
@@ -414,7 +383,6 @@
         return _self.viewSubviewAt(index).viewRemoveFromSuperview();
     };
 }
-
 
 - (UIView *(^)(NSUInteger, NSUInteger))viewExchangeSubviewByIndex
 {
@@ -425,7 +393,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIView *))viewRemoveSubviewTry
 {
@@ -438,7 +405,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)())viewRemoveAll
 {
@@ -454,7 +420,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *))viewAddSubview
 {
     return ^id(UIView* subview){
@@ -466,7 +431,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(__weak UIView *))viewAddToView
 {
@@ -485,7 +449,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *, NSUInteger))viewInsertSubviewAtIndex
 {
     return ^id(UIView* view, NSUInteger index){
@@ -495,7 +458,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIView *, UIView *))viewInsertSubviewBelow
 {
@@ -507,7 +469,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *, UIView *))viewInsertSubviewAbouve
 {
     return ^id(UIView* view, UIView* belowView){
@@ -517,7 +478,6 @@
         return _self;
     };
 }
-
 
 - (UIView* (^)(BOOL))viewSubiewsExclusiveTouch
 {
@@ -532,7 +492,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIRectCorner, CGSize))viewCornerRadiusSide
 {
@@ -560,7 +519,6 @@
     };
 }
 
-
 - (BOOL (^)())viewIsZeroSize
 {
     return ^(){
@@ -574,7 +532,6 @@
     };
 }
 
-
 - (CGFloat (^)())viewX
 {
     return ^(){
@@ -585,7 +542,6 @@
         return _self.frame.origin.x;
     };
 }
-
 
 - (CGFloat (^)())viewY
 {
@@ -598,7 +554,6 @@
     };
 }
 
-
 - (CGFloat (^)())viewCenterX
 {
     return ^(){
@@ -609,7 +564,6 @@
         return _self.center.x;
     };
 }
-
 
 - (CGFloat (^)())viewCenterY
 {
@@ -622,7 +576,6 @@
     };
 }
 
-
 - (CGSize (^)())viewSize
 {
     return ^(){
@@ -633,7 +586,6 @@
         return _self.frame.size;
     };
 }
-
 
 - (CGFloat (^)())viewWidth
 {
@@ -646,7 +598,6 @@
     };
 }
 
-
 - (CGFloat (^)())viewHeight
 {
     return ^(){
@@ -658,7 +609,6 @@
     };
 }
 
-
 - (CGPoint (^)())viewOrigin
 {
     return ^(){
@@ -669,7 +619,6 @@
         return _self.frame.origin;
     };
 }
-
 
 - (UIView *(^)(double))viewAnimateShakeHorizental
 {
@@ -685,7 +634,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveUp
 {
     return ^id(CGFloat distance, NSTimeInterval time){
@@ -697,7 +645,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveDown
 {
@@ -711,7 +658,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveRight
 {
     return ^id(CGFloat distance, NSTimeInterval time){
@@ -723,7 +669,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveLeft
 {
@@ -737,7 +682,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(double))viewAnimateShakeVertical
 {
@@ -753,7 +697,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)())viewAnimateAppleMotionEffects
 {
@@ -781,7 +724,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat, NSTimeInterval, BOOL))viewAnimatePulse
 {
     return ^id(CGFloat scale,NSTimeInterval duration,BOOL repeat){
@@ -799,7 +741,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromTop
 {
@@ -822,7 +763,6 @@
     };
 }
 
-
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromBotton
 {
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
@@ -843,7 +783,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromLeft
 {
@@ -866,7 +805,6 @@
     };
 }
 
-
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromRight
 {
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
@@ -888,7 +826,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToLeft
 {
     return ^id(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
@@ -907,7 +844,6 @@
     };
 }
 
-
 - (UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToRight
 {
     return ^id(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
@@ -925,7 +861,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)())viewAnimateRemove
 {
@@ -952,7 +887,6 @@
     };
 }
 
-
 - (UIView *(^)())viewAnimatePause
 {
     return ^id(){
@@ -964,7 +898,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)())viewAnimateResume
 {
@@ -981,7 +914,6 @@
     };
 }
 
-
 - (UIImage *(^)())viewSnapshot
 {
     return ^id(){
@@ -995,7 +927,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *))viewCopyX
 {
     return ^id(UIView* fromView){
@@ -1007,7 +938,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIView *))viewCopyY
 {
@@ -1021,7 +951,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *))viewCopyFrame
 {
     return ^id(UIView* fromView){
@@ -1031,7 +960,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIView *))viewCopySize
 {
@@ -1045,7 +973,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *))viewCopyOrigin
 {
     return ^id(UIView* fromView){
@@ -1057,7 +984,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIView *))viewCopyCenter
 {
@@ -1083,7 +1009,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *))viewCopyCenterY
 {
     return ^id(UIView* fromView){
@@ -1095,7 +1020,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIView *, CGFloat))viewTopTo
 {
@@ -1109,7 +1033,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *, CGFloat))viewBottomTo
 {
     return ^id(UIView* toView, CGFloat margin){
@@ -1121,7 +1044,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(UIView *, CGFloat))viewLeftTo
 {
@@ -1135,7 +1057,6 @@
     };
 }
 
-
 - (UIView *(^)(UIView *, CGFloat))viewRightTo
 {
     return ^id(UIView* toView, CGFloat margin){
@@ -1148,7 +1069,6 @@
     };
 }
 
-
 - (CGFloat (^)())viewMaxX
 {
     return ^(){
@@ -1159,7 +1079,6 @@
         return CGRectGetMaxX(_self.frame);
     };
 }
-
 
 - (CGFloat (^)())viewMaxY
 {
@@ -1172,7 +1091,6 @@
     };
 }
 
-
 - (UIView *(^)())viewBringFrontInView
 {
     return ^id(){
@@ -1184,7 +1102,6 @@
     };
 }
 
-
 - (UIView *(^)())viewSendBackInView
 {
     return ^id(){
@@ -1195,7 +1112,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)())viewRemoveConstraints
 {
@@ -1213,7 +1129,6 @@
     };
 }
 
-
 - (BOOL (^)())viewIsUsingAutolayout
 {
     return ^(){
@@ -1227,7 +1142,6 @@
     };
 }
 
-
 - (BOOL (^)())viewIsUsingAutoresizing
 {
     return ^(){
@@ -1238,7 +1152,6 @@
         return (BOOL)_self.autoresizingMask;
     };
 }
-
 
 - (UIView *(^)())viewRemoveAutoresizing
 {
@@ -1251,7 +1164,6 @@
     };
 }
 
-
 - (UIView *(^)())viewBeforeIndexView
 {
     return ^id(){
@@ -1261,7 +1173,6 @@
     };
 }
 
-
 - (UIView *(^)())viewNextIndexView
 {
     return ^id(){
@@ -1270,7 +1181,6 @@
         return (UIView*)_self.objNextInArr(_self.subviews);
     };
 }
-
 
 - (BOOL (^)(UIView *))viewIsSuperviewTo
 {
@@ -1286,7 +1196,6 @@
         return re;
     };
 }
-
 
 - (UIView *(^)(CGFloat))viewSetWidthAspect
 {
@@ -1334,7 +1243,6 @@
         return _self;
     };
 }
-
 
 - (UIView *(^)(CGFloat))viewSetHeightAspect
 {

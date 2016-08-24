@@ -22,7 +22,6 @@
     };
 }
 
-
 - (JSValue *(^)(id))jsValueAddToSelfManagedRef
 {
     return ^id(id owner){
@@ -33,7 +32,6 @@
         return _self;
     };
 }
-
 
 - (JSValue *(^)(NSArray *))jsValueCallFunc
 {

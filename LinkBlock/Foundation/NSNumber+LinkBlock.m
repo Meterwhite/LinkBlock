@@ -125,7 +125,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (NSNumber *(^)(NSArray *))numSetHeightToViews
 {
     return ^id(NSArray* views){
@@ -147,7 +146,6 @@ static NSArray* _charCTypeArr;
         return _self;
     };
 }
-
 
 - (NSNumber *(^)(NSArray *))numSetXToViews
 {
@@ -171,7 +169,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (NSNumber *(^)(NSArray *))numSetYToViews
 {
     return ^id(NSArray* views){
@@ -193,7 +190,6 @@ static NSArray* _charCTypeArr;
         return _self;
     };
 }
-
 
 - (NSString *(^)(NSUInteger))numFloatingToStr
 {
@@ -227,7 +223,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (BOOL (^)())numHasDecimalValue
 {
     return ^(){
@@ -240,7 +235,6 @@ static NSArray* _charCTypeArr;
         return NO;
     };
 }
-
 
 - (BOOL (^)(double))numIsEqualToValue
 {
@@ -255,7 +249,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (BOOL (^)(double))numIsMoreThanValue
 {
     return ^(double value){
@@ -268,7 +261,6 @@ static NSArray* _charCTypeArr;
         return NO;
     };
 }
-
 
 - (BOOL (^)(double))numIsMoreThanOrEqualValue
 {
@@ -283,7 +275,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (BOOL (^)(double))numIsLessThanValue
 {
     return ^(double value){
@@ -297,7 +288,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (BOOL (^)(double))numIsLessThanOrEqualValue
 {
     return ^(double value){
@@ -310,7 +300,6 @@ static NSArray* _charCTypeArr;
         return NO;
     };
 }
-
 
 - (BOOL (^)(NSNumber *))numIsEqualToNum
 {
@@ -328,7 +317,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (NSDate *(^)())numToNSDateSince1970
 {
     return ^id(){
@@ -337,7 +325,6 @@ static NSArray* _charCTypeArr;
         return [NSDate dateWithTimeIntervalSince1970:[_self doubleValue]];
     };
 }
-
 
 - (BOOL (^)())numIsOdd
 {
@@ -354,7 +341,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (BOOL (^)())numIsEven
 {
     return ^(){
@@ -368,7 +354,6 @@ static NSArray* _charCTypeArr;
         return NO;
     };
 }
-
 
 - (BOOL (^)(NSArray *))numIndexIsInArrRange
 {
@@ -387,7 +372,6 @@ static NSArray* _charCTypeArr;
     };
 }
 
-
 - (BOOL (^)(NSString *))numIndexIsInStringRange
 {
     return ^(NSString* str){
@@ -404,7 +388,6 @@ static NSArray* _charCTypeArr;
         return NO;
     };
 }
-
 
 - (UIFont *(^)())numToUIFontSystemSize
 {

@@ -24,7 +24,6 @@
     };
 }
 
-
 - (NSInteger (^)(NSDate *))dateMinusMonth
 {
     return ^(NSDate* date){
@@ -39,7 +38,6 @@
         return [comps month];
     };
 }
-
 
 - (NSInteger (^)(NSDate *))dateMinusDay
 {
@@ -56,7 +54,6 @@
     };
 }
 
-
 - (NSInteger (^)(NSDate *))dateMinusHour
 {
     return ^(NSDate* date){
@@ -71,7 +68,6 @@
         return [comps hour];
     };
 }
-
 
 - (NSInteger (^)(NSDate *))dateMinusMinut
 {
@@ -88,7 +84,6 @@
     };
 }
 
-
 - (NSInteger (^)(NSDate *))dateMinusSec
 {
     return ^(NSDate* date){
@@ -104,7 +99,6 @@
     };
 }
 
-
 - (NSString *(^)(NSString *))dateToStrWithFormat
 {
     return ^id(NSString* formatStr){
@@ -118,7 +112,6 @@
     };
 }
 
-
 - (NSDate *(^)(NSTimeInterval))dateAddTimeInterval
 {
     return ^id(NSTimeInterval timeInterval){
@@ -127,7 +120,6 @@
         return [_self dateByAddingTimeInterval:timeInterval];
     };
 }
-
 
 - (NSDate *(^)(NSInteger))dateAddSec
 {
@@ -141,7 +133,6 @@
     };
 }
 
-
 - (NSDate *(^)(NSInteger))dateAddMinut
 {
     return ^id(NSInteger minute){
@@ -153,7 +144,6 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-
 
 - (NSDate *(^)(NSInteger))dateAddHour
 {
@@ -167,7 +157,6 @@
     };
 }
 
-
 - (NSDate *(^)(NSInteger))dateAddDay
 {
     return ^id(NSInteger day){
@@ -179,7 +168,6 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-
 
 - (NSDate *(^)(NSInteger))dateAddMonth
 {
@@ -193,7 +181,6 @@
     };
 }
 
-
 - (NSDate *(^)(NSInteger))dateAddYear
 {
     return ^id(NSInteger year){
@@ -205,7 +192,6 @@
         return [calender dateByAddingComponents:comps toDate:_self options:0];
     };
 }
-
 
 - (NSInteger (^)())dateYear
 {
@@ -219,7 +205,6 @@
         return [comps year];
     };
 }
-
 
 - (NSInteger (^)())dateMonth
 {
@@ -286,7 +271,6 @@
     };
 }
 
-
 - (NSDate *(^)())dateDayAtStart
 {
     return ^id(){
@@ -300,7 +284,6 @@
         return [[NSCalendar currentCalendar] dateFromComponents:comps];
     };
 }
-
 
 - (NSDate *(^)())dateDayAtEnd
 {
@@ -316,7 +299,6 @@
     };
 }
 
-
 - (NSDate *(^)())dateCurrentZone
 {
     return ^id(){
@@ -327,7 +309,6 @@
         return [_self dateByAddingTimeInterval:offset];
     };
 }
-
 
 - (NSDate *(^)(NSInteger))dateSetYear
 {
@@ -342,7 +323,6 @@
     };
 }
 
-
 - (NSDate *(^)(NSInteger))dateSetMonth
 {
     return ^id(NSInteger month){
@@ -355,7 +335,6 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-
 
 - (NSDate *(^)(NSInteger))dateSetDay
 {
@@ -370,7 +349,6 @@
     };
 }
 
-
 - (NSDate *(^)(NSInteger))dateSetHour
 {
     return ^id(NSInteger hour){
@@ -383,7 +361,6 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-
 
 - (NSDate *(^)(NSInteger))dateSetMinut
 {
@@ -399,7 +376,6 @@
     };
 }
 
-
 - (NSDate *(^)(NSInteger))dateSetSec
 {
     return ^id(NSInteger sec){
@@ -413,7 +389,6 @@
         return [NSDate dateWithTimeIntervalSince1970:timeNum];
     };
 }
-
 
 - (BOOL (^)())dateIsLeapYear
 {
@@ -432,7 +407,6 @@
     };
 }
 
-
 - (BOOL (^)())dateIsInToday
 {
     return ^(){
@@ -449,7 +423,6 @@
         return NO;
     };
 }
-
 
 - (BOOL (^)())dateIsInMonth
 {
@@ -468,7 +441,6 @@
     };
 }
 
-
 - (NSTimeInterval (^)())dateTimeIntervalSince1970
 {
     return ^(){
@@ -480,7 +452,6 @@
         return [_self timeIntervalSince1970];
     };
 }
-
 
 - (NSDateComponents *(^)())dateComponentsAll
 {

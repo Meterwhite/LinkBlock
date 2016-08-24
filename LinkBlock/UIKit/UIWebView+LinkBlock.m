@@ -18,7 +18,6 @@
     };
 }
 
-
 - (NSString *(^)())webViewTitle
 {
     return ^id(){
@@ -27,7 +26,6 @@
         return [_self stringByEvaluatingJavaScriptFromString:@"document.title"];
     };
 }
-
 
 - (NSString *(^)())webViewLocationHref
 {
@@ -38,7 +36,6 @@
     };
 }
 
-
 - (NSString *(^)(NSString* ))webViewEvalScript
 {
     return ^id(NSString* script){
@@ -47,7 +44,6 @@
         return [_self stringByEvaluatingJavaScriptFromString:script];
     };
 }
-
 
 - (NSString *(^)())webViewHTML
 {

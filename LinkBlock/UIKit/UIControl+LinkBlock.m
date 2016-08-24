@@ -19,7 +19,6 @@
     };
 }
 
-
 - (UIControl *(^)(BOOL))controlSelected
 {
     return ^id(BOOL selected){
@@ -29,7 +28,6 @@
         return _self;
     };
 }
-
 
 - (UIControl *(^)(BOOL))controlHighlighted
 {
@@ -41,7 +39,6 @@
     };
 }
 
-
 - (UIControl *(^)(UIControlContentVerticalAlignment))controlContentVerticalAlignment
 {
     return ^id(UIControlContentVerticalAlignment alignment){
@@ -51,7 +48,6 @@
         return _self;
     };
 }
-
 
 - (UIControl *(^)(UIControlContentHorizontalAlignment))controlContentHorizontalAlignment
 {

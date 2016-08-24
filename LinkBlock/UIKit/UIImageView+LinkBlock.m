@@ -19,7 +19,6 @@
     };
 }
 
-
 - (UIImageView *(^)(UIImage *))img_viewImageHighlight
 {
     return ^id(UIImage * img){
@@ -29,7 +28,6 @@
         return _self;
     };
 }
-
 
 - (UIImageView *(^)(NSString *))img_viewImageStr
 {
@@ -41,7 +39,6 @@
     };
 }
 
-
 - (UIImageView *(^)(NSString *))img_viewImageStrHighlight
 {
     return ^id(NSString * imgStr){
@@ -51,7 +48,6 @@
         return _self;
     };
 }
-
 
 - (UIImageView *(^)(BOOL))img_viewHighlight
 {

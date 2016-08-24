@@ -20,7 +20,6 @@
     };
 }
 
-
 - (UIViewController *(^)(NSString *))vcTitle
 {
     return ^id(NSString* title){

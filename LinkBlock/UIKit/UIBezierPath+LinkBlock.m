@@ -19,7 +19,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)(CGLineCap))bezierPathSetLineCapStyle
 {
     return ^id(CGLineCap lineCapStyle){
@@ -30,7 +29,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)(CGLineJoin))bezierPathSetLineJoinStyle
 {
     return ^id(CGLineJoin lineJoinStyle){
@@ -39,7 +37,6 @@
         return _self;
     };
 }
-
 
 - (UIBezierPath *(^)(CGFloat))bezierPathSetMiterLimit
 {
@@ -50,7 +47,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)(CGFloat))bezierPathSetFlatness
 {
     return ^id(CGFloat flatness){
@@ -59,7 +55,6 @@
         return _self;
     };
 }
-
 
 - (UIBezierPath *(^)(CGPoint))bezierPathMoveToPoint
 {
@@ -70,7 +65,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)(CGPoint))bezierPathAddLineToPoint
 {
     return ^id(CGPoint point){
@@ -79,7 +73,6 @@
         return _self;
     };
 }
-
 
 - (UIBezierPath *(^)(CGPoint, CGPoint, CGPoint))bezierPathAddCurveToPoint
 {
@@ -90,7 +83,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)(CGPoint, CGPoint))bezierPathAddQuadCurveToPoint
 {
     return ^id(CGPoint endPoint,CGPoint controlPoint){
@@ -99,7 +91,6 @@
         return _self;
     };
 }
-
 
 - (UIBezierPath *(^)(CGPoint, CGFloat, CGFloat, CGFloat, BOOL))bezierPathAddArcWithCenter
 {
@@ -110,7 +101,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)())bezierPathClosePath
 {
     return ^id(){
@@ -119,7 +109,6 @@
         return _self;
     };
 }
-
 
 - (UIBezierPath *(^)())bezierPathRemoveAllPoints
 {
@@ -130,7 +119,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)(UIBezierPath *))bezierPathAppendPath
 {
     return ^id(UIBezierPath* aPath){
@@ -140,7 +128,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)())bezierPathByReversingPath
 {
     return ^id(){
@@ -148,7 +135,6 @@
         return [_self bezierPathByReversingPath];
     };
 }
-
 
 - (BOOL (^)(CGPoint))bezierPathContainsPoint
 {
@@ -160,7 +146,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)())bezierPathFill
 {
     return ^id(){
@@ -170,7 +155,6 @@
     };
 }
 
-
 - (UIBezierPath *(^)())bezierPathStroke
 {
     return ^id(){
@@ -179,7 +163,6 @@
         return _self;
     };
 }
-
 
 - (UIBezierPath *(^)())bezierPathAddClip
 {

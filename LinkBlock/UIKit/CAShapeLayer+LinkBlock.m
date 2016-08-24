@@ -19,7 +19,6 @@
     };
 }
 
-
 - (CAShapeLayer *(^)(UIColor *))sharpLayerSetFillColor
 {
     return ^id(UIColor* color){
@@ -29,7 +28,6 @@
         return _self;
     };
 }
-
 
 - (CAShapeLayer *(^)(UIColor *))sharpLayerSetStrokeColor
 {
@@ -41,7 +39,6 @@
     };
 }
 
-
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetFillRule
 {
     return ^id(NSString* fillRule){
@@ -51,7 +48,6 @@
         return _self;
     };
 }
-
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetStrokeStart
 {
@@ -63,7 +59,6 @@
     };
 }
 
-
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetStrokeEnd
 {
     return ^id(CGFloat strokeEnd){
@@ -73,7 +68,6 @@
         return _self;
     };
 }
-
 
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetLineWidth
 {
@@ -85,7 +79,6 @@
     };
 }
 
-
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetMiterLimit
 {
     return ^id(CGFloat miterLimit){
@@ -95,7 +88,6 @@
         return _self;
     };
 }
-
 
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetLineCap
 {
@@ -107,7 +99,6 @@
     };
 }
 
-
 - (CAShapeLayer *(^)(NSString *))sharpLayerSetLineJoin
 {
     return ^id(NSString* lineJoin){
@@ -118,7 +109,6 @@
     };
 }
 
-
 - (CAShapeLayer *(^)(CGFloat))sharpLayerSetLineDashPhase
 {
     return ^id(CGFloat lineDashPhase){
@@ -128,7 +118,6 @@
         return _self;
     };
 }
-
 
 - (CAShapeLayer *(^)(NSArray<NSNumber *> *))sharpLayerSetLineDashPattern
 {

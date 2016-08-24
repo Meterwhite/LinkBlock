@@ -18,7 +18,6 @@
     };
 }
 
-
 - (UIScrollView *(^)(CGFloat, CGFloat))scroll_viewContentOffset
 {
     return ^id(CGFloat x, CGFloat y){
@@ -28,7 +27,6 @@
         return _self;
     };
 }
-
 
 - (UIScrollView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))scroll_viewContentInserts
 {
@@ -40,7 +38,6 @@
     };
 }
 
-
 - (UIScrollView *(^)(id<UIScrollViewDelegate>))scroll_viewDelegate
 {
     return ^id(id<UIScrollViewDelegate> delegate){
@@ -50,7 +47,6 @@
         return _self;
     };
 }
-
 
 - (UIScrollView *(^)(BOOL))scroll_viewShowsHorizontal
 {
@@ -62,7 +58,6 @@
     };
 }
 
-
 - (UIScrollView *(^)(BOOL))scroll_viewShowsVertical
 {
     return ^id(BOOL b){
@@ -73,7 +68,6 @@
     };
 }
 
-
 - (UIScrollView *(^)(BOOL))scroll_viewBounce
 {
     return ^id(BOOL b){
@@ -83,7 +77,6 @@
         return _self;
     };
 }
-
 
 - (UIScrollView *(^)(BOOL))scroll_viewScrollEnabled
 {

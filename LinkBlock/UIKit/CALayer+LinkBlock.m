@@ -20,7 +20,6 @@
     };
 }
 
-
 - (CALayer *(^)(CALayer *, unsigned int))layerInsertSublayerAt
 {
     return ^id(CALayer* layer,unsigned idx){
@@ -31,7 +30,6 @@
         return _self;
     };
 }
-
 
 - (CALayer *(^)(CALayer *, CALayer *))layerInsertSublayerBelow
 {
@@ -44,7 +42,6 @@
     };
 }
 
-
 - (CALayer *(^)(CALayer *, CALayer *))layerInsertSublayerAbove
 {
     return ^id(CALayer* layer,CALayer* sibling){
@@ -55,7 +52,5 @@
         return _self;
     };
 }
-
-
 
 @end

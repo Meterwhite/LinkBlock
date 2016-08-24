@@ -22,7 +22,6 @@
     return [LinkGroup groupWithArr:_self];
 }
 
-
 - (BOOL (^)(NSString *))arrIsContainerStr
 {
     return ^(NSString* str){
@@ -41,7 +40,6 @@
         return re;
     };
 }
-
 
 - (BOOL (^)(NSUInteger))arrcontainIndex
 {
@@ -73,7 +71,6 @@
     };
 }
 
-
 - (NSDictionary *(^)())arrToDictByKeyNumber
 {
     return ^id(){
@@ -86,7 +83,6 @@
         return (NSDictionary*)[reIsDictM copy];
     };
 }
-
 
 - (NSDictionary *(^)())arrToDictByKeyString
 {
@@ -101,7 +97,6 @@
     };
 }
 
-
 - (BOOL (^)(id))arrIsContainer
 {
     return ^(id obj){
@@ -113,7 +108,6 @@
     };
 }
 
-
 - (id (^)())arrAny
 {
     return ^id(){
@@ -124,7 +118,6 @@
         return _self[arc4random_uniform((u_int32_t)_self.count)];
     };
 }
-
 
 - (id (^)(NSUInteger))arrAt
 {
@@ -162,7 +155,6 @@
     };
 }
 
-
 - (NSArray *(^)(NSString *))arrFilter
 {
     return ^id(NSString* predicateFormat){
@@ -171,7 +163,6 @@
         return [_self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
     };
 }
-
 
 - (NSIndexSet *(^)(id))arrIndexSetOfValue
 {
@@ -185,7 +176,6 @@
         }];
     };
 }
-
 
 - (NSNumber *(^)())arrMaxNumber
 {
@@ -202,7 +192,6 @@
     };
 }
 
-
 - (NSNumber *(^)())arrMinNumber
 {
     return ^id(){
@@ -218,7 +207,6 @@
     };
 }
 
-
 - (NSObject *(^)())arrLast
 {
     return ^id(){
@@ -228,7 +216,6 @@
     };
 }
 
-
 - (NSObject *(^)())arrFirst
 {
     return ^id(){
@@ -237,7 +224,6 @@
         return [_self firstObject];
     };
 }
-
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDict
 {
@@ -254,7 +240,6 @@
         return re;
     };
 }
-
 
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDictWithoutDeep
 {
@@ -276,6 +261,17 @@
 @end
 
 @implementation NSArray(NSArraryLinkBlock)
+
+- (NSMutableArray *)arrFindUsingBlock:(BOOL (^)(id, NSUInteger, BOOL *))block
+{
+    NSMutableArray* reArr = [NSMutableArray new];
+    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(block(obj,idx,stop)){
+            [reArr addObject:obj];
+        }
+    }];
+    return reArr;
+}
 
 - (void)arrEnumerateWithPredicateFormat:(NSString *)predicateFormat
                              usingBlock:(void (^)(id, NSUInteger, BOOL *))block

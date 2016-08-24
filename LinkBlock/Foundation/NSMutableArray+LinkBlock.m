@@ -21,7 +21,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(NSArray *))m_arrAddObjs
 {
     return ^id(NSArray *arr){
@@ -33,7 +32,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableArray *(^)(id, NSUInteger))m_arrInsertObjAt
 {
@@ -50,7 +48,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(NSArray *, NSUInteger))m_arrInsertArrayAt
 {
     return ^id(NSArray * arr, NSUInteger index){
@@ -62,7 +59,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableArray *(^)(id, id))m_arrInsertBefore
 {
@@ -80,7 +76,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(id, id))m_arrInsertBehind
 {
     return ^id(id obj, id behindObj){
@@ -96,7 +91,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(id))m_arrRemoveObj
 {
     return ^id(id obj){
@@ -108,7 +102,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableArray *(^)(NSUInteger))m_arrRemoveAt
 {
@@ -122,7 +115,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(NSUInteger, NSUInteger))m_arrRemoveObjsFromTo
 {
     return ^id(NSUInteger from, NSUInteger to){
@@ -135,7 +127,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)())m_arrRemoveAll
 {
     return ^id(){
@@ -145,7 +136,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableArray *(^)(id, id))m_arrReplaceObjWith
 {
@@ -162,14 +152,12 @@
     };
 }
 
-
 - (NSObject* (^)(NSUInteger))m_arrAt
 {
     return ^id(NSUInteger idx){
         return self.arrAt(idx);
     };
 }
-
 
 - (BOOL (^)(NSString *))m_arrIsContainerStr
 {
@@ -178,14 +166,12 @@
     };
 }
 
-
 - (BOOL (^)(id))m_arrContain
 {
     return ^(id obj){
         return self.arrIsContainer(obj);
     };
 }
-
 
 - (NSArray *(^)(NSUInteger, NSUInteger))m_arrObjsFromIndexTo
 {
@@ -203,14 +189,12 @@
     };
 }
 
-
 - (NSDictionary *(^)())m_arrToDictByKeyNumber
 {
     return ^id(){
         return self.arrToDictByKeyNumber();
     };
 }
-
 
 - (NSDictionary *(^)())m_arrToDictByKeyString
 {
@@ -232,7 +216,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceObjByKey
 {
@@ -260,7 +243,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(NSString *))m_arrFilter
 {
     return ^id(NSString* predicateFormat){
@@ -270,7 +252,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceObjByKeyAt
 {
@@ -298,7 +279,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(id, NSString *))m_arrTryReplaceObjByKey
 {
     return ^id(id obj , NSString* key){
@@ -322,7 +302,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey
 {
     return ^id(NSArray* objs , NSString* key){
@@ -334,7 +313,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableArray *(^)(NSUInteger))m_arrSubFrom
 {
@@ -349,7 +327,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(NSUInteger))m_arrSubTo
 {
     return ^id(NSUInteger idx){
@@ -362,7 +339,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableArray *(^)(__unsafe_unretained Class))m_arrObjsOfType
 {
@@ -381,7 +357,6 @@
     };
 }
 
-
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict
 {
     return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
@@ -389,14 +364,12 @@
     };
 }
 
-
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDictWithoutDeep
 {
     return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
         return self.arrReplaceKeyInDictWithoutDeep(replaceKey, withKey);
     };
 }
-
 
 - (NSObject* (^)())m_arrAny
 {
@@ -406,7 +379,6 @@
         return _self[arc4random_uniform((u_int32_t)_self.count)];
     };
 }
-
 
 - (NSMutableArray<NSValue *> *(^)(BOOL, BOOL))m_arrSortRange
 {

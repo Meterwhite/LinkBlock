@@ -19,7 +19,6 @@
     };
 }
 
-
 - (NSObject* (^)(id<NSCopying>))dictGetNoNSNull
 {
     return ^id(id<NSCopying> key){
@@ -31,7 +30,6 @@
         return _self[key];
     };
 }
-
 
 - (NSDictionary *(^)(id<NSCopying>))dictGetDictNoNullType
 {
@@ -57,7 +55,6 @@
     };
 }
 
-
 - (UIView *(^)(id<NSCopying>))dictGetViewNoNullType
 {
     return ^id(id<NSCopying> key){
@@ -68,7 +65,6 @@
         return (UIView*)_self[key];
     };
 }
-
 
 - (BOOL (^)(id<NSCopying>))dictGetBOOLNoNullType
 {
@@ -103,7 +99,6 @@
     };
 }
 
-
 - (BOOL (^)(id))dictContainerValue
 {
     return ^(id value){
@@ -115,7 +110,6 @@
     };
 }
 
-
 - (NSArray *(^)(id))dictKeysForValue
 {
     return ^id(id value){
@@ -124,7 +118,6 @@
         return [_self allKeysForObject:value];
     };
 }
-
 
 - (NSArray *(^)())dictAllKeys
 {
@@ -143,7 +136,6 @@
         return [_self allValues];
     };
 }
-
 
 - (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKey
 {
@@ -174,7 +166,6 @@
         return result;
     };
 }
-
 
 - (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKeyWithoutDeep
 {

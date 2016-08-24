@@ -28,7 +28,6 @@
     };
 }
 
-
 - (UIImage *(^)(CGSize))colorToUIImage
 {
     return ^id(CGSize size){
@@ -43,7 +42,6 @@
         return re;
     };
 }
-
 
 - (CGFloat (^)())colorRed
 {
@@ -61,7 +59,6 @@
     };
 }
 
-
 - (CGFloat (^)())colorGreen
 {
     return ^(){
@@ -77,7 +74,6 @@
         }
     };
 }
-
 
 - (CGFloat (^)())colorBlue
 {
@@ -95,7 +91,6 @@
     };
 }
 
-
 - (CGFloat (^)())colorAlpha
 {
     return ^(){
@@ -111,7 +106,6 @@
         }
     };
 }
-
 
 - (CGFloat (^)())colorHue
 {
@@ -129,7 +123,6 @@
     };
 }
 
-
 - (CGFloat (^)())colorSaturation
 {
     return ^(){
@@ -146,7 +139,6 @@
     };
 }
 
-
 - (CGFloat (^)())colorBrightness
 {
     return ^(){
@@ -162,7 +154,6 @@
         }
     };
 }
-
 
 - (UIColor* (^)(CGFloat))colorRedSet
 {
@@ -246,7 +237,6 @@
     };
 }
 
-
 - (UIColor *(^)(CGFloat))colorSaturationSet
 {
     return ^id(CGFloat value){
@@ -261,7 +251,6 @@
         }
     };
 }
-
 
 - (UIColor *(^)(CGFloat))colorBrightnessSet
 {
@@ -278,7 +267,6 @@
     };
 }
 
-
 - (UIColor *(^)(NSArray *))colorSetBackgroundToViews
 {
     return ^id(NSArray* views){
@@ -291,7 +279,6 @@
         return _self;
     };
 }
-
 
 - (UIColor *(^)(UIView *))colorSetTextColorToViewSubviews
 {
@@ -330,7 +317,6 @@
     };
 }
 
-
 - (UIColor *(^)(double))colorBrightnessPercent
 {
     return ^id(double percent){
@@ -358,7 +344,6 @@
     };
 }
 
-
 - (UIColor *(^)())colorHighlightDarkColor
 {
     return ^id(){
@@ -367,7 +352,6 @@
         return _self.colorBrightnessPercent(-0.382);
     };
 }
-
 
 - (UIColor *(^)())colorHighlightLightColor
 {

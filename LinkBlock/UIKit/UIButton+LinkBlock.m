@@ -18,7 +18,6 @@
     };
 }
 
-
 - (UIButton *(^)(CGFloat, CGFloat, CGFloat, CGFloat))btnImageEdgeInsets
 {
     return ^id(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right){
@@ -28,7 +27,6 @@
         return _self;
     };
 }
-
 
 - (UIButton *(^)(NSString *, UIControlState))btnTitle
 {
@@ -40,7 +38,6 @@
     };
 }
 
-
 - (UIButton *(^)(UIColor *, UIControlState))btnTitleColor
 {
     return ^id(UIColor* color, UIControlState state){
@@ -50,7 +47,6 @@
         return _self;
     };
 }
-
 
 - (UIButton *(^)(UIImage *, UIControlState))btnImage
 {
@@ -62,7 +58,6 @@
     };
 }
 
-
 - (UIButton *(^)(UIImage *, UIControlState))btnBGImage
 {
     return ^id(UIImage* img, UIControlState state){
@@ -72,7 +67,6 @@
         return _self;
     };
 }
-
 
 - (UIButton *(^)(UIFont *))btnTitleFont
 {
@@ -84,7 +78,6 @@
     };
 }
 
-
 - (UIButton *(^)(CGFloat))btnTitleFontSystemSizeSet
 {
     return ^id(CGFloat size){
@@ -95,7 +88,6 @@
     };
 }
 
-
 - (UIButton *(^)(NSAttributedString *, UIControlState))btnAttributeTitle
 {
     return ^id(NSAttributedString* attrStr , UIControlState state){
@@ -105,7 +97,6 @@
         return _self;
     };
 }
-
 
 - (CGFloat (^)())btnTitleFontSystemSizeGet
 {

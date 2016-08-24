@@ -22,7 +22,6 @@
     };
 }
 
-
 - (NSMutableString *(^)(NSString *, NSUInteger))m_strInsertStrAt
 {
     return ^id(NSString* str, NSUInteger idx){
@@ -32,7 +31,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(NSString *))m_strAppenStr
 {
@@ -44,7 +42,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())m_strClear
 {
     return ^id(){
@@ -55,7 +52,6 @@
     };
 }
 
-
 - (NSMutableString *(^)(NSRange))m_strDeleteInRange
 {
     return ^id(NSRange range){
@@ -65,7 +61,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(NSString *))SQLStr
 {
@@ -78,7 +73,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(NSInteger))SQLInt
 {
@@ -104,7 +98,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(NSArray *))SQLArr
 {
@@ -141,7 +134,6 @@
     };
 }
 
-
 - (NSMutableString *(^)(NSDictionary *))SQLDictValues
 {
     return ^id(NSDictionary* dic){
@@ -159,7 +151,6 @@
     };
 }
 
-
 - (NSMutableString *(^)(NSString *))SQLStrInStr
 {
     return ^id(NSString* str){
@@ -171,7 +162,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(NSInteger))SQLIntInStr
 {
@@ -185,7 +175,6 @@
     };
 }
 
-
 - (NSMutableString *(^)(double))SQLDoubleInStr
 {
     return ^id(double num){
@@ -197,7 +186,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(NSString *, NSString *))SQLKeyValueEqualStr
 {
@@ -213,7 +201,6 @@
     };
 }
 
-
 - (NSMutableString *(^)(NSString *, NSString *))SQLKeyValueEqualStrInStr
 {
     return ^id(NSString* key , NSString* str){
@@ -227,7 +214,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(NSString *, NSInteger))SQLKeyValueEqualInt
 {
@@ -243,7 +229,6 @@
     };
 }
 
-
 - (NSMutableString *(^)(NSString *, double))SQLKeyValueEqualDouble
 {
     return ^id(NSString* key , double num){
@@ -258,7 +243,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())SQL_Select
 {
     return ^id(){
@@ -268,7 +252,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)())SQL_Where
 {
@@ -280,7 +263,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())SQL_From
 {
     return ^id(){
@@ -290,7 +272,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)())SQL_Create
 {
@@ -302,7 +283,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())SQL_Update
 {
     return ^id(){
@@ -312,7 +292,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)())SQL_InsertInto
 {
@@ -324,7 +303,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())SQL_ReplaceInto
 {
     return ^id(){
@@ -334,7 +312,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)())SQL_And
 {
@@ -346,7 +323,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())SQL_Or
 {
     return ^id(){
@@ -356,7 +332,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)())SQL_In
 {
@@ -368,7 +343,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())SQL_Distinct
 {
     return ^id(){
@@ -378,7 +352,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)())SQL_As
 {
@@ -390,7 +363,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())SQL_Like
 {
     return ^id(){
@@ -401,7 +373,6 @@
     };
 }
 
-
 - (NSMutableString *(^)())SQL_Comma
 {
     return ^id(){
@@ -411,7 +382,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(id))SQL_InPair
 {
@@ -424,7 +394,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableString *(^)(id))SQL_InvertedComma
 {

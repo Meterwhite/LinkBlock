@@ -19,7 +19,6 @@
     };
 }
 
-
 - (CGRect (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptions
 {
     return ^(CGFloat maxWidth,NSStringDrawingOptions options ){
@@ -31,7 +30,6 @@
     };
 }
 
-
 - (BOOL (^)(NSAttributedString *))attr_strIsEqualToAttrStr
 {
     return ^(NSAttributedString* attrStr){
@@ -42,7 +40,6 @@
         return [_self isEqualToAttributedString:attrStr];
     };
 }
-
 
 - (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
 {

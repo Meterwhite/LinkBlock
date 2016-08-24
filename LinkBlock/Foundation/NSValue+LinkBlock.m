@@ -26,7 +26,6 @@
     };
 }
 
-
 - (NSValue *(^)(NSArray *))valueSetSizeToViews
 {
     return ^id(NSArray* views){
@@ -43,7 +42,6 @@
     };
 }
 
-
 - (NSUInteger (^)())valueNSRangeLocation
 {
     return ^(){
@@ -54,7 +52,6 @@
         return [_self rangeValue].location;
     };
 }
-
 
 - (NSUInteger (^)())valueNSRangeLength
 {
@@ -67,7 +64,6 @@
     };
 }
 
-
 - (CGFloat (^)())valueCGPointX
 {
     return ^(){
@@ -78,7 +74,6 @@
         return [_self CGPointValue].x;
     };
 }
-
 
 - (CGFloat (^)())valueCGPointY
 {
@@ -91,7 +86,6 @@
     };
 }
 
-
 - (CGFloat (^)())valueCGSizeWidth
 {
     return ^(){
@@ -102,7 +96,6 @@
         return [_self CGSizeValue].width;
     };
 }
-
 
 - (CGFloat (^)())valueCGSizeHeight
 {
@@ -115,7 +108,6 @@
     };
 }
 
-
 - (CGFloat (^)())valueCGRectX
 {
     return ^(){
@@ -126,7 +118,6 @@
         return [_self CGRectValue].origin.x;
     };
 }
-
 
 - (CGFloat (^)())valueCGRectY
 {
@@ -139,7 +130,6 @@
     };
 }
 
-
 - (CGFloat (^)())valueCGRectWidth
 {
     return ^(){
@@ -150,7 +140,6 @@
         return [_self CGRectValue].size.width;
     };
 }
-
 
 - (CGFloat (^)())valueCGRectHeight
 {
@@ -163,7 +152,6 @@
     };
 }
 
-
 - (CGPoint (^)())valueCGRectOrigin
 {
     return ^(){
@@ -174,7 +162,6 @@
         return [_self CGRectValue].origin;
     };
 }
-
 
 - (CGSize (^)())valueCGRectSize
 {
@@ -187,7 +174,6 @@
     };
 }
 
-
 - (CGFloat (^)())valueCGVectorX
 {
     return ^(){
@@ -198,7 +184,6 @@
         return [_self CGVectorValue].dx;
     };
 }
-
 
 - (CGFloat (^)())valueCGVectorY
 {

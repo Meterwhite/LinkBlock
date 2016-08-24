@@ -26,7 +26,6 @@
     };
 }
 
-
 - (UIImage *(^)())urlAssetsToUIImageByFullScreen
 {
     return ^id(){
@@ -41,7 +40,6 @@
     };
 }
 
-
 - (UIImage *(^)())urlAssetsToUIImageByFullResolution
 {
     return ^id(){
@@ -55,7 +53,6 @@
         return re;
     };
 }
-
 
 - (NSData *(^)())urlToNSDataFromContents
 {

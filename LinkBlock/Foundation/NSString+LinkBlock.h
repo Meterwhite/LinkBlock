@@ -99,14 +99,12 @@
 #pragma mark - 创建
 /** 根据字符串类名调用new方法创建对象 */
 @property (nonatomic,copy,readonly) NSObject*            (^strCreateObj)();
-/** 根据图片名创键图片控件 */
-@property (nonatomic,copy,readonly) UIImageView*         (^strCreateImgView)(CGFloat x, CGFloat y, CGFloat w, CGFloat h);
-@property (nonatomic,copy,readonly) UILabel*             (^strCreateLab)(CGRect frame);
 #pragma mrak - 转换
 /** 格式如：0xcccccc , #cccccc , cccccc */
 @property (nonatomic,copy,readonly) UIColor*             (^strToUIColorFromHexStr)();
 @property (nonatomic,copy,readonly) NSURL*               (^strToNSURL)();
 @property (nonatomic,copy,readonly) UIImage*             (^strToUIImage)();
+@property (nonatomic,copy,readonly) UIImageView*         (^strToUIImageView)();
 @property (nonatomic,copy,readonly) NSInteger            (^strToInteger)();
 @property (nonatomic,copy,readonly) long long            (^strToLongLong)();
 @property (nonatomic,copy,readonly) double               (^strToDouble)();

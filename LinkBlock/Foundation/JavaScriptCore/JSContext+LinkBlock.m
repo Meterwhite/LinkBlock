@@ -18,7 +18,6 @@
     };
 }
 
-
 - (JSContext *(^)(NSObject <NSCopying> *, id))jsContextSetValue
 {
     return ^id(NSObject <NSCopying> * key , id value){
@@ -29,7 +28,6 @@
     };
 }
 
-
 - (JSValue *(^)(NSString *))jsContextEval
 {
     return ^id(NSString* script){
@@ -39,7 +37,6 @@
     };
 }
 
-
 - (JSValue *(^)(NSString *, NSArray *))jsContextCallFunc
 {
     return ^id(NSString* func , NSArray* args){
@@ -48,7 +45,6 @@
         return [[_self objectForKeyedSubscript:func] callWithArguments:args];
     };
 }
-
 
 - (JSValue *(^)(NSString *,NSString* ))jsContextGetElementById
 {
@@ -63,7 +59,6 @@
     };
 }
 
-
 - (JSValue *(^)(NSString *, NSString *))jsContextGetElementsByName
 {
     return ^id(NSString* elementId,NSString* appendScript){
@@ -76,7 +71,6 @@
         }
     };
 }
-
 
 - (JSValue *(^)(NSString *, NSString *))jsContextGetElementsByTagName
 {
@@ -91,7 +85,6 @@
     };
 }
 
-
 - (JSContext *(^)(NSString *))jsContextWrite
 {
     return ^id(NSString* str){
@@ -101,7 +94,6 @@
         return _self;
     };
 }
-
 
 - (JSContext *(^)(NSString *))jsContextAlert
 {
@@ -113,7 +105,6 @@
     };
 }
 
-
 - (JSContext *(^)())jsContextHistoryBack
 {
     return ^id(NSString* str){
@@ -124,7 +115,6 @@
     };
 }
 
-
 - (JSContext *(^)())jsContextHistoryForward
 {
     return ^id(NSString* str){
@@ -134,7 +124,6 @@
         return _self;
     };
 }
-
 
 - (JSContext *(^)(NSString* page))jsContextHistoryGo
 {
@@ -147,7 +136,6 @@
     };
 }
 
-
 - (NSString *(^)())jsContextTitle
 {
     return ^id(){
@@ -156,7 +144,6 @@
         return [[_self evaluateScript:@"document.title"] toString];
     };
 }
-
 
 - (NSString *(^)())jsContextHTML
 {
@@ -167,7 +154,6 @@
     };
 }
 
-
 - (NSString *(^)())jsContextLocationHref
 {
     return ^id(){
@@ -176,7 +162,6 @@
         return [[_self evaluateScript:@"window.location.href"] toString];
     };
 }
-
 
 - (JSContext *(^)())jsContextLocationReload
 {

@@ -20,7 +20,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))m_dictReplaceKey
 {
     return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
@@ -28,14 +27,12 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))m_dictReplaceKeyWithoutDeep
 {
     return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
         return self.m_dictReplaceKeyWithoutDeep(replaceKey, withKey);
     };
 }
-
 
 - (NSMutableDictionary *(^)(NSDictionary *))m_dictUnionDict
 {
@@ -62,7 +59,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(UIColor *))makeAttrDictTextColor
 {
     return ^id(UIColor *color){
@@ -74,7 +70,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(UIColor *))makeAttrDictBGColor
 {
@@ -88,7 +83,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSTextAttachment *))makeAttrDictAttachment
 {
     return ^id(NSTextAttachment* attachment){
@@ -100,7 +94,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(NSParagraphStyle* paragraphStyle))makeAttrDictParagraphStyle
 {
@@ -114,7 +107,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSNumber*))makeAttrDictLigature
 {
     return ^id(NSNumber *num){
@@ -125,7 +117,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(NSNumber*))makeAttrDictKern
 {
@@ -138,7 +129,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSNumber*))makeAttrDictStrikethroughStyle
 {
     return ^id(NSNumber *num){
@@ -150,7 +140,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSUnderlineStyle))makeAttrDictUnderlineStyle
 {
     return ^id(NSUnderlineStyle underlineStyle){
@@ -160,7 +149,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(UIColor*))makeAttrDictStrokeColor
 {
@@ -174,7 +162,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSNumber *))makeAttrDictStrokeWidth
 {
     return ^id(NSNumber *num){
@@ -186,7 +173,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(NSShadow*))makeAttrDictShadow
 {
@@ -200,7 +186,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSString*))makeAttrDictTextEffect
 {
     return ^id(NSString* textEffect){
@@ -212,7 +197,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(NSURL*))makeAttrDictLink
 {
@@ -226,7 +210,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSNumber *))makeAttrDictBaselineOffset
 {
     return ^id(NSNumber *num){
@@ -238,7 +221,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(UIColor*))makeAttrDictUnderlineColor
 {
@@ -252,7 +234,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(UIColor*))makeAttrDictStrikethroughColor
 {
     return ^id(UIColor* bgColor){
@@ -264,7 +245,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(NSNumber *))makeAttrDictObliquenes
 {
@@ -278,7 +258,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSNumber *n))makeAttrDictExpansion
 {
     return ^id(NSNumber *num){
@@ -290,7 +269,6 @@
         return _self;
     };
 }
-
 
 - (NSMutableDictionary *(^)(NSArray*))makeAttrDictWritingDirection
 {
@@ -304,7 +282,6 @@
     };
 }
 
-
 - (NSMutableDictionary *(^)(NSNumber *))makeAttrDictVerticalGlyphForm
 {
     return ^id(NSNumber *num){
@@ -317,14 +294,12 @@
     };
 }
 
-
 - (NSObject* (^)(id<NSCopying>))m_dictGet
 {
     return ^id(id<NSCopying> key){
         return self.dictGet(key);
     };
 }
-
 
 - (NSObject* (^)(id<NSCopying>))m_dictGetNoNSNull
 {
@@ -333,14 +308,12 @@
     };
 }
 
-
 - (NSArray *(^)(id<NSCopying>))m_dictGetArrNoNullType
 {
     return ^id(id<NSCopying> key){
         return self.dictGetArrNoNullType(key);
     };
 }
-
 
 - (NSDictionary *(^)(id<NSCopying>))m_dictGetDictNoNullType
 {
@@ -349,14 +322,12 @@
     };
 }
 
-
 - (BOOL (^)(id<NSCopying>))m_dictGetBOOLNoNullType
 {
     return ^(id<NSCopying> key){
         return self.dictGetBOOLNoNullType(key);
     };
 }
-
 
 - (UIView *(^)(id<NSCopying>))m_dictGetViewNoNullType
 {
@@ -365,14 +336,12 @@
     };
 }
 
-
 - (BOOL (^)(id<NSCopying>))m_dictContainerKey
 {
     return ^(id<NSCopying> key){
         return self.dictContainerKey(key);
     };
 }
-
 
 - (BOOL (^)(id value))m_dictContainerValue
 {
@@ -381,7 +350,6 @@
     };
 }
 
-
 - (NSArray *(^)())m_dictAllKeys
 {
     return ^id(){
@@ -389,14 +357,12 @@
     };
 }
 
-
 - (NSArray *(^)())m_dictAllValues
 {
     return ^id(){
         return self.dictAllValues();
     };
 }
-
 
 - (NSArray *(^)(id))m_dictKeysForValue
 {

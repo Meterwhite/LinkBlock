@@ -52,6 +52,10 @@
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)
+/**
+ *  查找对象
+ */
+- (NSMutableArray<ObjectType>*)arrFindUsingBlock:(BOOL(^)(ObjectType obj, NSUInteger idx, BOOL *stop))block;
 
 /**
  *  根据条件过滤并遍历结果集
