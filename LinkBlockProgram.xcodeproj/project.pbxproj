@@ -11,6 +11,8 @@
 		452047671CED65310092ED18 /* CAShapeLayer+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 452047661CED65310092ED18 /* CAShapeLayer+LinkBlock.m */; };
 		4520476A1CEDB8D30092ED18 /* CALayer+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 452047691CEDB8D30092ED18 /* CALayer+LinkBlock.m */; };
 		4528C60C1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4528C60B1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m */; };
+		453AFBC91D6EFB4E00012095 /* Man.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AFBC61D6EFB4E00012095 /* Man.m */; };
+		453AFBCA1D6EFB4E00012095 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AFBC81D6EFB4E00012095 /* Person.m */; };
 		458AD6001D193BDC00D5B931 /* JSContext+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FD1D193BDC00D5B931 /* JSContext+LinkBlock.m */; };
 		458AD6011D193BDC00D5B931 /* JSValue+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FF1D193BDC00D5B931 /* JSValue+LinkBlock.m */; };
 		458AD6041D194D9200D5B931 /* JSManagedValue+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD6031D194D9200D5B931 /* JSManagedValue+LinkBlock.m */; };
@@ -70,6 +72,10 @@
 		452047691CEDB8D30092ED18 /* CALayer+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "CALayer+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4528C60A1D1A5D3C00B35C97 /* UIWebView+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "UIWebView+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4528C60B1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+LinkBlock.m"; sourceTree = "<group>"; };
+		453AFBC51D6EFB4E00012095 /* Man.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Man.h; sourceTree = "<group>"; };
+		453AFBC61D6EFB4E00012095 /* Man.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Man.m; sourceTree = "<group>"; };
+		453AFBC71D6EFB4E00012095 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		453AFBC81D6EFB4E00012095 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		4567BEDC1D20C4C600202871 /* JavaScriptCore+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JavaScriptCore+LinkBlock.h"; sourceTree = "<group>"; };
 		458AD5FC1D193BDC00D5B931 /* JSContext+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "JSContext+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		458AD5FD1D193BDC00D5B931 /* JSContext+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "JSContext+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -166,6 +172,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		453AFBC41D6EFB4E00012095 /* TestClass */ = {
+			isa = PBXGroup;
+			children = (
+				453AFBC51D6EFB4E00012095 /* Man.h */,
+				453AFBC61D6EFB4E00012095 /* Man.m */,
+				453AFBC71D6EFB4E00012095 /* Person.h */,
+				453AFBC81D6EFB4E00012095 /* Person.m */,
+			);
+			path = TestClass;
+			sourceTree = "<group>";
+		};
 		458AD5FB1D193BBB00D5B931 /* JavaScriptCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +314,7 @@
 		9FFDA20E1B835E2F0044097D /* LinkBlockProgram */ = {
 			isa = PBXGroup;
 			children = (
+				453AFBC41D6EFB4E00012095 /* TestClass */,
 				9FFDA2131B835E2F0044097D /* AppDelegate.h */,
 				9FFDA2141B835E2F0044097D /* AppDelegate.m */,
 				9FFDA2161B835E2F0044097D /* ViewController.h */,
@@ -438,6 +456,7 @@
 			files = (
 				9FBD174B1BDB91D500C2F402 /* UIScrollView+LinkBlock.m in Sources */,
 				45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */,
+				453AFBCA1D6EFB4E00012095 /* Person.m in Sources */,
 				9FBD174D1BDB91D500C2F402 /* UIViewController+LinkBlock.m in Sources */,
 				9FBD173E1BDB91D500C2F402 /* NSMutableString+LinkBlock.m in Sources */,
 				9FBD17401BDB91D500C2F402 /* NSObject+LinkBlock.m in Sources */,
@@ -463,6 +482,7 @@
 				4528C60C1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m in Sources */,
 				458AD6041D194D9200D5B931 /* JSManagedValue+LinkBlock.m in Sources */,
 				9FFDA2151B835E2F0044097D /* AppDelegate.m in Sources */,
+				453AFBC91D6EFB4E00012095 /* Man.m in Sources */,
 				9FBD174A1BDB91D500C2F402 /* UILabel+LinkBlock.m in Sources */,
 				458AD6001D193BDC00D5B931 /* JSContext+LinkBlock.m in Sources */,
 				9FBD17471BDB91D500C2F402 /* UIControl+LinkBlock.m in Sources */,

@@ -35,6 +35,10 @@
 @property (nonatomic,copy,readonly) NSObject*    (^nslog)();
 /** 输出对象前增加标识语 */
 @property (nonatomic,copy,readonly) NSObject*    (^nslogTitle)(NSString* title);
+/** 将对象以字典的形式进行打印 */
+@property (nonatomic,copy,readonly) NSObject*    (^po)();
+/** 将对象以字典的形式进行打印，其中对所有容器类型进行遍历转换 */
+@property (nonatomic,copy,readonly) NSObject*    (^poDeep)();
 /** 输出对象Key对应的值 */
 @property (nonatomic,copy,readonly) NSObject*    (^nslogValueForKey)(NSString* key);
 @property (nonatomic,copy,readonly) NSObject*    (^nslogValueForKeyPath)(NSString* key);
@@ -44,7 +48,6 @@
 @property (nonatomic,copy,readonly) NSObject*    (^setValueForKey)(id value,NSString* key);
 @property (nonatomic,copy,readonly) id           (^valueForKeyPath)(NSString* key);
 @property (nonatomic,copy,readonly) NSObject*    (^setValueForKeyPath)(id value,NSString* key);
-/** 安全的使用KVC，低效率 */
 @property (nonatomic,copy,readonly) id           (^valueForKeySafe)(NSString* key);
 @property (nonatomic,copy,readonly) NSObject*    (^setValueForKeySafe)(id value,NSString* key);
 @property (nonatomic,copy,readonly) id           (^valueForKeyPathSafe)(NSString* key);
@@ -55,39 +58,59 @@
 @property (nonatomic,copy,readonly) BOOL         (^isRespondsSEL)(SEL theSEL);
 @property (nonatomic,copy,readonly) NSString*    (^className)();
 @property (nonatomic,copy,readonly) NSString*    (^superclassName)();
-/**
- *  属性是getter和setter方法的称谓，成员变量为存在字段
- *  如果不是手动设置了getter和setter方法，编译器会生成'_'加'PropertyName'的成员变量
- *  使用得到的IvarList是带'_'的名称
- */
+
+/** 是否是常见基础类型 */
++ (BOOL)classIsFoundation;
 /** 当前类型是否包含属性（@property value），不包括父类 */
 + (BOOL)classContainProperty:(NSString*)property;
 /** 当前类型是否包含成员变量（_value）不包括父类 */
 + (BOOL)classContainIvar:(NSString*)ivarName;
-/** 获取当前类型的属性名列表（@property value） */
-+ (NSArray*)classGetIvarList;
 /** 获取当前类型的成员变量名列表 */
-+ (NSArray*)classGetPropertyList;
-/** 获取实例和类方法名列表 */
-- (NSArray*)objGetAllMethodList;
++ (NSArray<NSString*>*)classGetIvarList;
+/** 获取当前类型的属性名列表（@property value） */
++ (NSArray<NSString*>*)classGetPropertyList;
+/**
+ *  获取当前类型及父类的属性名列表（@property value）
+ *
+ *  @param includeFoundation 是否包含基础类型
+ */
++ (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation;
 /** 获取实例方法名列表 */
-- (NSArray*)objGetInstanceMethodList;
+- (NSArray<NSString*>*)objGetInstanceMethodList;
 /** 获取类方法名列表 */
-+ (NSArray*)classGetClassMethodList;
++ (NSArray<NSString*>*)classGetClassMethodList;
 /** 获取协议名列表 */
-+ (NSArray*)classGetProtocolList;
++ (NSArray<NSString*>*)classGetProtocolList;
+/**
+ *  遍历所有类
+ *
+ *  @param includeFoundation 遍历时是否包含基础类型
+ */
++ (void)classEnumerateUsingBlock:(void(^)(Class clazz , BOOL* stop))block
+               includeFoundation:(BOOL)includeFoundation;
 
 #pragma mark - NSObject
 @property (nonatomic,copy,readonly) NSObject*    (^objCopy)();
 @property (nonatomic,copy,readonly) NSObject*    (^objMutableCopy)();
 /**
  *  对象及可能包含的子对象全部转为json相关的可变类型
- *  （NSMutableArray,NSMutableDictionary,NSMutableString）
+ * （NSMutableArray,NSMutableDictionary,NSMutableString）
  */
 @property (nonatomic,copy,readonly) NSObject*    (^objMutableCopyDeep)();
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqual)(NSObject* obj);
-/** 数组，字典等对象转成json的字符串 */
+/** NSDate,NSString,NSArray,NSDictionary等对象转成json的字符串 */
 @property (nonatomic,copy,readonly) NSString*    (^objToJsonString)();
+/**
+ *  将当前对象转字典（如果对象为容器类型则对值进行一次转换）
+ *  includeFoundationProperty：是否包含基础类型的属性
+ */
+@property (nonatomic,copy,readonly) NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
+/**
+ *  对象转字典（对所有属性进行层次遍历，对容器对象的值也是）
+ *  includeFoundationProperty：是否包含基础类型的属性
+ */
+@property (nonatomic,copy,readonly) NSDictionary*(^objToNSDictionaryDeep)(BOOL includeFoundation);
+
 /** 在数组中的前一个元素，无返回nil */
 @property (nonatomic,copy,readonly) NSObject*    (^objBeforeInArr)(NSArray* inArr);
 /** 在数组中的后一个元素无返回nil */
@@ -99,32 +122,32 @@
 
 /** 指定对象的类型，避免链条中需要类型强转时 */
 //Foundation
-@property (nonatomic,copy,readonly) NSString*                    (^typeIsNSString)();
-@property (nonatomic,copy,readonly) NSMutableString*             (^typeIsNSMutableString)();
-@property (nonatomic,copy,readonly) NSArray*                     (^typeIsNSArray)();
-@property (nonatomic,copy,readonly) NSMutableArray*              (^typeIsNSMutableArray)();
-@property (nonatomic,copy,readonly) NSDictionary*                (^typeIsNSDictionary)();
-@property (nonatomic,copy,readonly) NSMutableDictionary*         (^typeIsNSMutableDictionary)();
-@property (nonatomic,copy,readonly) NSAttributedString*          (^typeIsNSAttributedString)();
-@property (nonatomic,copy,readonly) NSMutableAttributedString*   (^typeIsNSMutableAttributedString)();
-@property (nonatomic,copy,readonly) NSURL*                       (^typeIsNSURL)();
-@property (nonatomic,copy,readonly) NSUserDefaults*              (^typeIsNSUserDefaults)();
-@property (nonatomic,copy,readonly) NSNumber*                    (^typeIsNSNumber)();
-@property (nonatomic,copy,readonly) NSValue*                     (^typeIsNSValue)();
-@property (nonatomic,copy,readonly) UIImage*                     (^typeIsUIImage)();
-@property (nonatomic,copy,readonly) NSDate*                      (^typeIsNSDate)();
-@property (nonatomic,copy,readonly) NSData*                      (^typeIsNSData)();
+@property (nonatomic,copy,readonly) NSString*                    (^ofNSString)();
+@property (nonatomic,copy,readonly) NSMutableString*             (^ofNSMutableString)();
+@property (nonatomic,copy,readonly) NSArray*                     (^ofNSArray)();
+@property (nonatomic,copy,readonly) NSMutableArray*              (^ofNSMutableArray)();
+@property (nonatomic,copy,readonly) NSDictionary*                (^ofNSDictionary)();
+@property (nonatomic,copy,readonly) NSMutableDictionary*         (^ofNSMutableDictionary)();
+@property (nonatomic,copy,readonly) NSAttributedString*          (^ofNSAttributedString)();
+@property (nonatomic,copy,readonly) NSMutableAttributedString*   (^ofNSMutableAttributedString)();
+@property (nonatomic,copy,readonly) NSURL*                       (^ofNSURL)();
+@property (nonatomic,copy,readonly) NSUserDefaults*              (^ofNSUserDefaults)();
+@property (nonatomic,copy,readonly) NSNumber*                    (^ofNSNumber)();
+@property (nonatomic,copy,readonly) NSValue*                     (^ofNSValue)();
+@property (nonatomic,copy,readonly) UIImage*                     (^ofUIImage)();
+@property (nonatomic,copy,readonly) NSDate*                      (^ofNSDate)();
+@property (nonatomic,copy,readonly) NSData*                      (^ofNSData)();
 //UIKit
-@property (nonatomic,copy,readonly) UIView*                      (^typeIsUIView)();
-@property (nonatomic,copy,readonly) UILabel*                     (^typeIsUILabel)();
-@property (nonatomic,copy,readonly) UIControl*                   (^typeIsUIControl)();
-@property (nonatomic,copy,readonly) UIButton*                    (^typeIsUIButton)();
-@property (nonatomic,copy,readonly) UIScrollView*                (^typeIsUIScrollView)();
-@property (nonatomic,copy,readonly) UIImageView*                 (^typeIsUIImageView)();
-@property (nonatomic,copy,readonly) UITableView*                 (^typeIsUITableView)();
-@property (nonatomic,copy,readonly) UIColor*                     (^typeIsUIColor)();
-@property (nonatomic,copy,readonly) UIViewController*            (^typeIsUIViewController)();
-@property (nonatomic,copy,readonly) UITextField*                 (^typeIsUITextField)();
-@property (nonatomic,copy,readonly) UITextView*                  (^typeIsUITextView)();
-
+@property (nonatomic,copy,readonly) UIView*                      (^ofUIView)();
+@property (nonatomic,copy,readonly) UILabel*                     (^ofUILabel)();
+@property (nonatomic,copy,readonly) UIControl*                   (^ofUIControl)();
+@property (nonatomic,copy,readonly) UIButton*                    (^ofUIButton)();
+@property (nonatomic,copy,readonly) UIScrollView*                (^ofUIScrollView)();
+@property (nonatomic,copy,readonly) UIImageView*                 (^ofUIImageView)();
+@property (nonatomic,copy,readonly) UITableView*                 (^ofUITableView)();
+@property (nonatomic,copy,readonly) UIColor*                     (^ofUIColor)();
+@property (nonatomic,copy,readonly) UIViewController*            (^ofUIViewController)();
+@property (nonatomic,copy,readonly) UITextField*                 (^ofUITextField)();
+@property (nonatomic,copy,readonly) UITextView*                  (^ofUITextView)();
+@property (nonatomic,copy,readonly) UIWebView*                   (^ofUIWebView)();
 @end

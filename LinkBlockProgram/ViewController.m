@@ -7,6 +7,8 @@
 
 #import "ViewController.h"
 #import "LinkBlock.h"
+#import "Person.h"
+#import "Man.h"
 
 @interface ViewController ()
 
@@ -26,6 +28,7 @@
     //写法一
     UIView* viewA = UIViewNew.viewSetFrame(45,100,20,20);
     UIView* viewB = UIViewNew.viewSetFrame(120,100,20,20);
+    
     linkObjs(viewA, viewB).viewAddToView(self.view).viewBGColor([UIColor lightGrayColor]);
     //写法二
     NSMutableArray* arrA = [NSMutableArray arrayWithObjects:@"A", nil];
@@ -37,7 +40,7 @@
     //写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环了
     linkResults = arrA.linkLoop(100).m_arrAddObj(@"F").ends();
     
-    //...//...//...//...//...//...//...//...//...//...//...
+    /** *** ** *** ** *** ** *** ** *** ** *** ** *** ** *** ** *** ** *** ** *** ** */
     //去空格和换行，并打印
     @" 五 千 年 的 风 和 雨 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
     //字符串比较大小
@@ -52,6 +55,19 @@
     [strForEnumerateComposed strEnumerateComposedAndCustom:@"\\[[\u4E00-\u9FA5]+\\]" usingBlock:^(NSString *string, NSRange range, BOOL isCustom, BOOL *stop) {
         //...
     }];
+    
+    //对象转字典
+    Man* man = [Man new];
+    man.name = @"old jack";
+    Man* jack = [Man new];
+    jack.name = @"jack";
+    Man* grandFather = [Man new];
+    grandFather.name = @"jackson";
+    man.sun = jack;
+    man.family = @[jack,grandFather];
+    man.objToNSDictionaryDeep(NO);
+    //将对象解析为字典在控制台打印
+    man.poDeep();
     
     //创建属性字典
     AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);

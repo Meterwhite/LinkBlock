@@ -6,6 +6,7 @@
 //
 
 #import <objc/runtime.h>
+#import <CoreData/CoreData.h>
 #import "LinkBlock.h"
 
 @implementation NSObject(LinkBlock)
@@ -80,53 +81,182 @@
     };
 }
 
++ (BOOL)classIsFoundation
+{
+    //root
+    if(self == [NSObject class] || self == [NSManagedObject class]) return YES;
+    //base
+    if([self isSubclassOfClass:[NSArray class]]) return YES;
+    if([self isSubclassOfClass:[NSDictionary class]]) return YES;
+    if([self isSubclassOfClass:[NSValue class]]) return YES;
+    if([self isSubclassOfClass:[NSString class]]) return YES;
+    if([self isSubclassOfClass:[NSDate class]]) return YES;
+    if([self isSubclassOfClass:[NSData class]]) return YES;
+    if([self isSubclassOfClass:[NSAttributedString class]]) return YES;
+    if([self isSubclassOfClass:[NSURL class]]) return YES;
+    if([self isSubclassOfClass:[NSError class]]) return YES;
+    if([self isSubclassOfClass:[NSSet class] ]) return YES;
+    if([self isSubclassOfClass:[NSPredicate class]]) return YES;
+    if([self isSubclassOfClass:[NSCoder class] ]) return YES;
+    if([self isSubclassOfClass:[NSFormatter class]]) return YES;
+    if([self isSubclassOfClass:[NSMapTable class]]) return YES;
+    if([self isSubclassOfClass:[NSHashTable class]]) return YES;
+    if(self == [NSNull class]) return YES;
+    
+    //other
+    if(self == [NSBundle class]) return YES;
+    if(self == [NSCalendar class]) return YES;
+    if(self == [NSCharacterSet class]) return YES;
+    if(self == [NSPersonNameComponents class]) return YES;
+    if(self == [NSEnumerator class]) return YES;
+    if(self == [NSExpression class]) return YES;
+    if(self == [NSFileHandle class]) return YES;
+    if(self == [NSFileManager class]) return YES;
+    if(self == [NSHTTPCookie class]) return YES;
+    if(self == [NSHTTPCookieStorage class]) return YES;
+    if(self == [NSIndexPath class]) return YES;
+    if(self == [NSIndexSet class]) return YES;
+    if(self == [NSInvocation class]) return YES;
+    if(self == [NSJSONSerialization class]) return YES;
+    if(self == [NSLocale class]) return YES;
+    if(self == [NSLock class]) return YES;
+    if(self == [NSMethodSignature class]) return YES;
+    if(self == [NSNotification class]) return YES;
+    if(self == [NSNotificationQueue class]) return YES;
+    if(self == [NSOperation class]) return YES;
+    if(self == [NSOrderedSet class]) return YES;
+    if(self == [NSOrthography class]) return YES;
+    if(self == [NSOrthography class]) return YES;
+    if(self == [NSPointerArray class]) return YES;
+    if(self == [NSPointerFunctions class]) return YES;
+    if(self == [NSPort class]) return YES;
+    if(self == [NSProcessInfo class]) return YES;
+    if(self == [NSPropertyListSerialization class]) return YES;
+    if(self == [NSProxy class]) return YES;
+    if(self == [NSRegularExpression class]) return YES;
+    if(self == [NSRunLoop class]) return YES;
+    if(self == [NSScanner class]) return YES;
+    if(self == [NSSortDescriptor class]) return YES;
+    if(self == [NSStream class]) return YES;
+    if(self == [NSTextCheckingResult class]) return YES;
+    if(self == [NSThread class]) return YES;
+    if(self == [NSTimeZone class]) return YES;
+    if(self == [NSTimer class]) return YES;
+    if(self == [NSURLAuthenticationChallenge class]) return YES;
+    if(self == [NSURLCache class]) return YES;
+    if(self == [NSURLConnection class]) return YES;
+    if(self == [NSURLCredential class]) return YES;
+    if(self == [NSURLCredentialStorage class]) return YES;
+    if(self == [NSURLProtectionSpace class]) return YES;
+    if(self == [NSURLProtocol class]) return YES;
+    if(self == [NSURLRequest class]) return YES;
+    if(self == [NSURLResponse class]) return YES;
+    if(self == [NSUserDefaults class]) return YES;
+    if(self == [NSValueTransformer class]) return YES;
+    if(self == [NSXMLParser class]) return YES;
+    
+    if(self == [NSExtensionContext class]) return YES;
+    if(self == [NSExtensionItem class]) return YES;
+    if(self == [NSFileCoordinator class]) return YES;
+    if(self == [NSFileVersion class]) return YES;
+    if(self == [NSFileWrapper class]) return YES;
+    if(self == [NSItemProvider class]) return YES;
+    if(self == [NSMetadataQuery class]) return YES;
+    if(self == [NSProgress class]) return YES;
+    if(self == [NSUbiquitousKeyValueStore class]) return YES;
+    if(self == [NSUndoManager class]) return YES;
+    if(self == [NSURLSession class]) return YES;
+    if(self == [NSUserActivity class]) return YES;
+    if(self == [NSUUID class]) return YES;
+    
+    //UIKit
+    if([self isSubclassOfClass:[UIResponder class]]){
+        if(self == [UIView class]) return YES;
+        if(self == [UIControl class]) return YES;
+        if(class_getSuperclass(self) == [UIControl class]) return YES;
+        return NO;//自定义控件（非直接继承UIControl）
+    }
+    if(self == [CALayer class]) return YES;
+    if(self == [UIColor class]) return YES;
+    if(self == [UIViewController class]) return YES;
+    if(self == [UIDevice class]) return YES;
+    if(self == [NSTextAttachment class]) return YES;
+    if(self == [UIScreen class]) return YES;
+    if(self == [UIBezierPath class]) return YES;
+    
+    if(self == [UINib class]) return YES;
+    if(self == [UITextChecker class]) return YES;
+    if(self == [UIGestureRecognizer class]) return YES;
+    if(self == [UIStoryboard class]) return YES;
+    if(self == [UIPress class]) return YES;
+    if(self == [UIEvent class]) return YES;
+
+    return NO;
+}
 
 + (BOOL)classContainProperty:(NSString*)property
 {
     unsigned int outCount, i;
     objc_property_t* properties = class_copyPropertyList([self class], &outCount);
-    for(i=0 ; i< outCount; i++)
-        if([property isEqualToString:[NSString stringWithUTF8String:property_getName(properties[i])]])
+    for(i=0 ; i< outCount; i++){
+        if([property isEqualToString:[NSString stringWithUTF8String:property_getName(properties[i])]]){
+            free(properties);
             return YES;
-    
+        }
+    }
+    free(properties);
     return NO;
 }
+
 + (BOOL)classContainIvar:(NSString*)ivarName
 {
     unsigned int outCout ,i ;
     Ivar* ivarList = class_copyIvarList([self class], &outCout);
-    for(i=0;i< outCout;i++)
-        if([ivarName isEqualToString:[NSString stringWithUTF8String:ivar_getName(ivarList[i])]])
+    for(i=0;i< outCout;i++){
+        if([ivarName isEqualToString:[NSString stringWithUTF8String:ivar_getName(ivarList[i])]]){
+            free(ivarList);
             return YES;
-    
+        }
+    }
+    free(ivarList);
     return NO;
 }
 
-
-+ (NSArray*)classGetIvarList
++ (NSArray<NSString*>*)classGetIvarList
 {
     unsigned int outCount , i;
     Ivar* ivarList = class_copyIvarList([self class], &outCount);
     NSMutableArray* reMArr = [NSMutableArray new];
     for(i=0 ; i< outCount; i++)
         [reMArr addObject:[NSString stringWithUTF8String:ivar_getName(ivarList[i])]];
-    
-    return (NSArray*)[reMArr copy];
+    free(ivarList);
+    return [reMArr copy];
 }
-+ (NSArray*)classGetPropertyList
++ (NSArray<NSString*>*)classGetPropertyList
 {
     unsigned int outCount, i;
     objc_property_t* properties = class_copyPropertyList([self class], &outCount);
     
     NSMutableArray* reMArr = [NSMutableArray new];
     
-    for(i=0 ; i< outCount; i++)
+    for(i=0 ; i< outCount; i++){
         [reMArr addObject:[NSString stringWithUTF8String:property_getName(properties[i])]];
-    
-    return (NSArray*)[reMArr copy];
+    }
+    free(properties);
+    return [reMArr copy];
 }
 
-+ (NSArray*)classGetClassMethodList
++ (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation
+{
+    NSMutableArray* reArr = [NSMutableArray new];
+    [self classEnumerateUsingBlock:^(__unsafe_unretained Class clazz, BOOL *stop) {
+        
+        [reArr addObjectsFromArray:[clazz classGetPropertyList]];
+    } includeFoundation:includeFoundation];
+    return [reArr copy];
+}
+
++ (NSArray<NSString*>*)classGetClassMethodList
 {
     unsigned int outCount;
     Method* methods = class_copyMethodList(object_getClass(self), &outCount);
@@ -136,10 +266,11 @@
         NSString* methodName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
         [reMArr addObject:methodName];
     }
-    return (NSArray*)[reMArr copy];
+    free(methods);
+    return [reMArr copy];
 }
 
-- (NSArray*)objGetInstanceMethodList
+- (NSArray<NSString*>*)objGetInstanceMethodList
 {
     unsigned int outCount;
     Method* methods = class_copyMethodList([self class], &outCount);
@@ -149,10 +280,11 @@
         NSString* methodName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
         [reMArr addObject:methodName];
     }
-    return (NSArray*)[reMArr copy];
+    free(methods);
+    return [reMArr copy];
 }
 
-+ (NSArray*)classGetProtocolList
++ (NSArray<NSString*>*)classGetProtocolList
 {
     unsigned int outCount;
     NSMutableArray* reMArr = [NSMutableArray new];
@@ -164,25 +296,22 @@
         NSString* protocolName= [NSString stringWithCString:protocol_getName(protocols[i]) encoding:NSUTF8StringEncoding];
         [reMArr addObject:protocolName];
     }
-    
-    return (NSArray*)[reMArr copy];
+    free(protocols);
+    return [reMArr copy];
 }
 
-- (NSArray*)objGetAllMethodList
++ (void)classEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, BOOL *))block
+               includeFoundation:(BOOL)includeFoundation
 {
-    NSMutableArray* reMArr = [NSMutableArray new];
-    
-    NSArray<NSString*>* classMethod = [[self class] classGetClassMethodList];
-    [classMethod enumerateObjectsUsingBlock:^(NSString * _Nonnull classMethodName, NSUInteger idx, BOOL * _Nonnull stop) {
-        [reMArr addObject: [NSString stringWithFormat:@"+ %@",classMethodName]];
-    }];
-    
-    NSArray<NSString*>* instanceMehod = [self objGetInstanceMethodList];
-    [instanceMehod enumerateObjectsUsingBlock:^(NSString * _Nonnull instanceMethodName, NSUInteger idx, BOOL * _Nonnull stop) {
-        [reMArr addObject: [NSString stringWithFormat:@"- %@",instanceMethodName]];
-    }];
-    
-    return (NSArray*)[reMArr copy];
+    if(!block)  return;
+    BOOL stop = NO;
+    Class clazz = self;
+    while (clazz && !stop) {
+        
+        block(clazz, &stop);
+        clazz = class_getSuperclass(clazz);
+        if([clazz classIsFoundation]) break;
+    }
 }
 
 - (NSObject *(^)())objCopy
@@ -319,14 +448,229 @@
         LinkGroupHandle_REF(objToJsonString)
         if(![NSJSONSerialization isValidJSONObject:_self])
             return @"\"\"";
-        NSError* error= nil;
-        NSData * JSONData = [NSJSONSerialization dataWithJSONObject:_self
-                                                            options:kNilOptions
-                                                              error:&error];
-        if(error)
-            return @"\"\"";
-        return [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+        NSError* error;
+        NSData * jsonData;
+        if([self isKindOfClass:[NSString class]]){
+            
+            jsonData = [NSJSONSerialization JSONObjectWithData:[((NSString *)self) dataUsingEncoding:NSUTF8StringEncoding]
+                                                       options:kNilOptions
+                                                         error:&error];
+        } else if ([self isKindOfClass:[NSData class]]){
+            
+            jsonData = [NSJSONSerialization dataWithJSONObject:_self
+                                                       options:kNilOptions
+                                                         error:&error];
+        }
+        if(error) return @"";
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     };
+}
+
+- (NSDictionary *(^)(BOOL))objToNSDictionary
+{
+    return ^id(BOOL includeFoundation){
+        LinkHandle_REF(NSDictionary, NSObject)
+        LinkGroupHandle_REF(objToNSDictionary,includeFoundation)
+        
+        //为容器对象时层次遍历
+        if([_self isKindOfClass:[NSDictionary class]]){
+            NSMutableDictionary* reDict = [NSMutableDictionary new];
+            [reDict addEntriesFromDictionary:_self];
+            [_self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSObject*  _Nonnull value, BOOL * _Nonnull stop) {
+                reDict[key] = value.objToNSDictionary(includeFoundation);
+            }];
+            return reDict.copy;
+        }
+        if([_self isKindOfClass:[NSArray class]]){
+            NSMutableArray* reArr = [NSMutableArray new];
+            [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [reArr addObject:obj.objToNSDictionary(includeFoundation)];
+            }];
+            return reArr.copy;
+        }
+        if([_self isKindOfClass:[NSSet class]]){
+            NSMutableSet* reSet = [NSMutableSet new];
+            [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, BOOL * _Nonnull stop) {
+                [reSet addObject:obj.objToNSDictionary(includeFoundation)];
+            }];
+            return reSet.copy;
+        }
+        if([_self isKindOfClass:[NSHashTable class]]){
+            NSHashTable* reTab = _self.mutableCopy;
+            [reTab removeAllObjects];
+            for (NSObject* obj in [_self objectEnumerator]) {
+                [reTab addObject:obj.objToNSDictionary(includeFoundation)];
+            }
+            return reTab;
+        }
+        if([_self isKindOfClass:[NSMapTable class]]){
+            NSMapTable* reMap = _self.mutableCopy;
+            [reMap removeAllObjects];
+            for (NSObject* key in [_self keyEnumerator]) {
+                NSObject* value = [_self objectForKey:key];
+                [reMap setObject:value.objToNSDictionary(includeFoundation)
+                          forKey:key];
+            }
+            return reMap;
+        }
+        
+        //为非容器Foundation类型时返回自身
+        if([[self class] classIsFoundation])  return _self;
+        
+        //为非容器对象遍历属性
+        NSMutableDictionary* reDict = [NSMutableDictionary new];
+        NSArray<NSString*>* properties = [[_self class] classGetAllPropertyList:includeFoundation];
+        @try {
+            [properties enumerateObjectsUsingBlock:^(NSString * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                __kindof NSObject* value = [_self valueForKey:property];
+                
+                if(!value)  return;
+                
+                reDict[property] = value;
+            }];
+        }@catch (NSException *exception){
+            //发生错误则进行安全赋值
+            [reDict removeAllObjects];
+            [properties enumerateObjectsUsingBlock:^(NSString * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                __kindof NSObject* value;
+                
+                @try {
+                    value = [_self valueForKey:property];
+                } @catch (NSException *exception) {
+                    exception.nslog();
+                } @finally {
+                    value = nil;
+                }
+                
+                if(!value)  return;
+                
+                reDict[property] = value;
+            }];
+        }
+        return [reDict copy];
+    };
+}
+
+- (NSDictionary *(^)(BOOL))objToNSDictionaryDeep
+{
+    return ^id(BOOL includeFoundation){
+        LinkHandle_REF(NSDictionary, NSObject)
+        LinkGroupHandle_REF(objToNSDictionary,includeFoundation)
+        //为容器对象时层次遍历
+        if([_self isKindOfClass:[NSDictionary class]]){
+            NSMutableDictionary* reDict = [NSMutableDictionary new];
+            [reDict addEntriesFromDictionary:_self];
+            [_self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSObject*  _Nonnull value, BOOL * _Nonnull stop) {
+                reDict[key] = value.objToNSDictionaryDeep(includeFoundation);
+            }];
+            return reDict.copy;
+        }
+        if([_self isKindOfClass:[NSArray class]]){
+            NSMutableArray* reArr = [NSMutableArray new];
+            [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [reArr addObject:obj.objToNSDictionaryDeep(includeFoundation)];
+            }];
+            return reArr.copy;
+        }
+        if([_self isKindOfClass:[NSSet class]]){
+            NSMutableSet* reSet = [NSMutableSet new];
+            [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, BOOL * _Nonnull stop) {
+                [reSet addObject:obj.objToNSDictionaryDeep(includeFoundation)];
+            }];
+            return reSet.copy;
+        }
+        if([_self isKindOfClass:[NSHashTable class]]){
+            NSHashTable* reTab = _self.mutableCopy;
+            [reTab removeAllObjects];
+            for (NSObject* obj in [_self objectEnumerator]) {
+                [reTab addObject:obj.objToNSDictionaryDeep(includeFoundation)];
+            }
+            return reTab;
+        }
+        if([_self isKindOfClass:[NSMapTable class]]){
+            NSMapTable* reMap = _self.mutableCopy;
+            [reMap removeAllObjects];
+            for (NSObject* key in [_self keyEnumerator]) {
+                NSObject* value = [_self objectForKey:key];
+                [reMap setObject:value.objToNSDictionaryDeep(includeFoundation)
+                          forKey:key];
+            }
+            return reMap;
+        }
+        
+        //为非容器Foundation类型时返回自身
+        if([[self class] classIsFoundation])  return _self;
+        
+        //为非容器对象遍历属性
+        NSMutableDictionary* reDict = [NSMutableDictionary new];
+        NSArray<NSString*>* properties = [[_self class] classGetAllPropertyList:includeFoundation];
+        @try {
+            [properties enumerateObjectsUsingBlock:^(NSString * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                __kindof NSObject* value = [_self valueForKey:property];
+                
+                if(!value)  return;
+                //属性值为容器类型时层次遍历
+                if([value isKindOfClass:[NSDictionary class]]   ||
+                   [value isKindOfClass:[NSArray class]]        ||
+                   [value isKindOfClass:[NSSet class]]          ||
+                   [value isKindOfClass:[NSHashTable class]]    ||
+                   [value isKindOfClass:[NSMapTable class]]){
+                    
+                    reDict[property] = value.objToNSDictionaryDeep(includeFoundation);
+                }else{
+                    
+                    if([[value class] classIsFoundation]){
+                        //属性值为Foundation类型时直接赋值
+                        reDict[property] = value;
+                    }else{
+                        //属性值为非Foundation类型时继续转换
+                        reDict[property] = value.objToNSDictionaryDeep(includeFoundation);
+                    }
+                }
+            }];
+        }@catch (NSException *exception) {
+            //发生错误则进行安全赋值
+            [reDict removeAllObjects];
+            [properties enumerateObjectsUsingBlock:^(NSString * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                __kindof NSObject* value;
+                
+                @try {
+                    value = [_self valueForKey:property];
+                } @catch (NSException *exception) {
+                    exception.nslog();
+                } @finally {
+                    value = nil;
+                }
+                
+                if(!value)  return;
+                //属性值为容器类型时层次遍历
+                if([value isKindOfClass:[NSDictionary class]]   ||
+                   [value isKindOfClass:[NSArray class]]        ||
+                   [value isKindOfClass:[NSSet class]]          ||
+                   [value isKindOfClass:[NSHashTable class]]    ||
+                   [value isKindOfClass:[NSMapTable class]]){
+                    
+                    reDict[property] = value.objToNSDictionaryDeep(includeFoundation);
+                }else{
+                    
+                    if([[value class] classIsFoundation]){
+                        //属性值为Foundation类型时直接赋值
+                        reDict[property] = value;
+                    }else{
+                        //属性值为非Foundation类型时继续转换
+                        reDict[property] = value.objToNSDictionaryDeep(includeFoundation);
+                    }
+                }
+            }];
+        }
+        
+        return [reDict copy];
+    };
+    
 }
 
 - (Class (^)())objClass
@@ -480,6 +824,26 @@
         LinkHandle_REF(NSObject, NSObject)
         LinkGroupHandle_REF(nslogTitle,title)
         NSLog(@"%@%@",title,_self);
+        return _self;
+    };
+}
+
+- (NSObject *(^)())po
+{
+    return ^id(){
+        LinkHandle_REF(NSObject, NSObject)
+        LinkGroupHandle_REF(po)
+        NSLog(@"%@",_self.objToNSDictionary(YES));
+        return _self;
+    };
+}
+
+- (NSObject *(^)())poDeep
+{
+    return ^id(){
+        LinkHandle_REF(NSObject, NSObject)
+        LinkGroupHandle_REF(po)
+        NSLog(@"%@",_self.objToNSDictionaryDeep(YES));
         return _self;
     };
 }
@@ -653,138 +1017,40 @@
 
 #pragma mark - 类型转换
 
-#ifndef Link_Type_ReturnSelf 
-#define Link_Type_ReturnSelf return ^id(){return self;};
+#ifndef Link_TransType_Maro
+#define Link_TransType_Maro(ReType) \
+- (ReType *(^)())of##ReType \
+{ \
+    return ^id(){return self;}; \
+}
 #endif
-- (NSString *(^)())typeIsNSString
-{
-    Link_Type_ReturnSelf
-}
 
-- (NSMutableString *(^)())typeIsNSMutableString
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSArray *(^)())typeIsNSArray
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSMutableArray *(^)())typeIsNSMutableArray
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSDictionary *(^)())typeIsNSDictionary
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSMutableDictionary *(^)())typeIsNSMutableDictionary
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSAttributedString *(^)())typeIsNSAttributedString
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSMutableAttributedString *(^)())typeIsNSMutableAttributedString
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSURL *(^)())typeIsNSURL
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSUserDefaults *(^)())typeIsNSUserDefaults
-{
-    Link_Type_ReturnSelf
-}
-
-- (UIView *(^)())typeIsUIView
-{
-    Link_Type_ReturnSelf
-}
-
-- (UILabel *(^)())typeIsUILabel
-{
-    Link_Type_ReturnSelf
-}
-
-- (UIControl *(^)())typeIsUIControl
-{
-    Link_Type_ReturnSelf
-}
-
-- (UIButton *(^)())typeIsUIButton
-{
-    Link_Type_ReturnSelf
-}
-
-- (UIScrollView *(^)())typeIsUIScrollView
-{
-    Link_Type_ReturnSelf
-}
-
-- (UIImage *(^)())typeIsUIImage
-{
-    Link_Type_ReturnSelf
-}
-
-- (UIColor *(^)())typeIsUIColor
-{
-    Link_Type_ReturnSelf
-}
-
-- (UIViewController *(^)())typeIsUIViewController
-{
-    Link_Type_ReturnSelf
-}
-
-- (UIImageView *(^)())typeIsUIImageView
-{
-    Link_Type_ReturnSelf
-}
-
-- (UITableView *(^)())typeIsUITableView
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSNumber *(^)())typeIsNSNumber
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSValue *(^)())typeIsNSValue
-{
-    Link_Type_ReturnSelf
-}
-
-- (UITextField *(^)())typeIsUITextField
-{
-    Link_Type_ReturnSelf
-}
-
-- (UITextView *(^)())typeIsUITextView
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSDate *(^)())typeIsNSDate
-{
-    Link_Type_ReturnSelf
-}
-
-- (NSData *(^)())typeIsNSData
-{
-    Link_Type_ReturnSelf
-}
-
+Link_TransType_Maro(NSString)
+Link_TransType_Maro(NSMutableString)
+Link_TransType_Maro(NSArray)
+Link_TransType_Maro(NSMutableArray)
+Link_TransType_Maro(NSDictionary)
+Link_TransType_Maro(NSMutableDictionary)
+Link_TransType_Maro(NSAttributedString)
+Link_TransType_Maro(NSMutableAttributedString)
+Link_TransType_Maro(NSURL)
+Link_TransType_Maro(NSUserDefaults)
+Link_TransType_Maro(NSNumber)
+Link_TransType_Maro(NSValue)
+Link_TransType_Maro(NSDate)
+Link_TransType_Maro(NSData)
+Link_TransType_Maro(UIView)
+Link_TransType_Maro(UILabel)
+Link_TransType_Maro(UIControl)
+Link_TransType_Maro(UIButton)
+Link_TransType_Maro(UIScrollView)
+Link_TransType_Maro(UIImage)
+Link_TransType_Maro(UIColor)
+Link_TransType_Maro(UIViewController)
+Link_TransType_Maro(UIImageView)
+Link_TransType_Maro(UITableView)
+Link_TransType_Maro(UITextField)
+Link_TransType_Maro(UITextView)
+Link_TransType_Maro(UIWebView)
 
 @end

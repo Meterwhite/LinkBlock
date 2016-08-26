@@ -73,6 +73,19 @@ NSString* strForEnumerateComposed = @"[海贼王]になる男だ[微笑]\n😈�
     //...
 }];
 
+//对象转字典
+Man* man = [Man new];
+man.name = @"old jack";
+Man* jack = [Man new];
+jack.name = @"jack";
+Man* grandFather = [Man new];
+grandFather.name = @"jackson";
+man.sun = jack;
+man.family = @[jack,grandFather];
+man.objToNSDictionaryDeep(NO);
+//将对象解析为字典在控制台打印
+man.poDeep();
+
 //创建属性字典
 AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
 

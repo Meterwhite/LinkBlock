@@ -75,7 +75,7 @@
 //引用类型的返回值时的预处理
 #ifndef LinkHandle_REF
 #define LinkHandle_REF(returnType , currType)\
-currType* _self = (currType*)self;\
+__kindof currType* _self = (currType*)self;\
 if([self isKindOfClass:[LinkError class]]){\
     ((LinkError*)self).throwCount++;\
     return (returnType *)self;\
@@ -93,7 +93,7 @@ if(![self isKindOfClass:[currType class]]&&\
 //值类型的返回值时的预处理
 #ifndef LinkHandle_VAL_IFNOT
 #define LinkHandle_VAL_IFNOT(currType) \
-currType* _self = (currType*)self;\
+__kindof currType* _self = (currType*)self;\
 if(![self isKindOfClass:[LinkInfo class]]&&![self isKindOfClass:[currType class]])
 #endif
 
