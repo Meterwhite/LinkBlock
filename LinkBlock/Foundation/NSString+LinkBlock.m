@@ -1140,7 +1140,7 @@
         LinkGroupHandle_REF(strSubFromTo,from,to)
         if( from> to || to>_self.length)
             return _self;
-        return [_self substringWithRange:NSMakeRange(from, to- from)];
+        return [_self substringWithRange:NSMakeRange(from, to- from+ 1)];
     };
 }
 
