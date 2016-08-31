@@ -189,6 +189,57 @@
     };
 }
 
+- (UIView *(^)(BOOL))viewClipsToBounds
+{
+    return ^id(BOOL flag){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewClipsToBounds,flag)
+        _self.clipsToBounds= flag;
+        return _self;
+    };
+}
+
+- (UIView *(^)(BOOL))viewEndEditing
+{
+    return ^id(BOOL force){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewEndEditing,force)
+        [_self endEditing:force];
+        return _self;
+    };
+}
+
+- (BOOL (^)())viewIsFirstResponder
+{
+    return ^(){
+        LinkHandle_VAL_IFNOT(UIView){
+            return NO;
+        }
+        LinkGroupHandle_VAL(viewIsFirstResponder)
+        return _self.isFirstResponder;
+    };
+}
+
+- (UIView *(^)())viewBecomeFirstResponder
+{
+    return ^id(){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewBecomeFirstResponder)
+        [_self becomeFirstResponder];
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewResignFirstResponder
+{
+    return ^id(){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewResignFirstResponder)
+        [_self resignFirstResponder];
+        return _self;
+    };
+}
+
 - (UIView *(^)())viewFirstResponderSubViewForInput
 {
     return ^id(){
@@ -304,16 +355,6 @@
     };
 }
 
-- (UIView *(^)(BOOL))viewClipsToBounds
-{
-    return ^id(BOOL b){
-        LinkHandle_REF(UIView, UIView)
-        LinkGroupHandle_REF(viewClipsToBounds,b)
-        _self.clipsToBounds = YES;
-        return _self;
-    };
-}
-
 - (UIView *(^)(CGFloat))viewAlpha
 {
     return ^id(CGFloat alpha){
@@ -411,11 +452,8 @@
     return ^id(){
         LinkHandle_REF(UIView, UIView)
         LinkGroupHandle_REF(viewRemoveAll)
-        [_self.subviews enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
-            if([v isKindOfClass:[UIView class]]){
-                [v removeFromSuperview];
-            }
-        }];
+        
+        [_self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         return _self;
     };
 }
@@ -437,14 +475,39 @@
     return ^id(__weak UIView* view){
         LinkHandle_REF(UIView, UIView)
         LinkGroupHandle_REF(viewAddToView,view)
-        if([self isKindOfClass:[LinkError class]])
-            return (UIView *)self;
-        if(![self isKindOfClass:[UIView class]])
-            return (UIView *)[LinkError new];
-        
         if([view isKindOfClass:[UIView class]]){
             [view addSubview:_self];
         }
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewSetNeedsLayout
+{
+    return ^id(){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewSetNeedsLayout)
+        [_self setNeedsLayout];
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewLayoutIfNeeded
+{
+    return ^id(){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewSetNeedsLayout)
+        [_self viewLayoutIfNeeded];
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewSetNeedsDisplay
+{
+    return ^id(){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewSetNeedsLayout)
+        [_self setNeedsDisplay];
         return _self;
     };
 }
@@ -1191,7 +1254,9 @@
         LinkGroupHandle_VAL(viewIsSuperviewTo,aView)
         __block BOOL re = NO;
         [aView viewEnumerateSuperviewUsingBlock:^(UIView *superview, BOOL *stop) {
-            if(superview==_self) re = YES;*stop = re;
+            if([superview isEqual: _self]) {
+                re = YES;*stop = re;
+            }
         }];
         return re;
     };

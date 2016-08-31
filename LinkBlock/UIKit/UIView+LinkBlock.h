@@ -41,24 +41,31 @@
 @property (nonatomic,copy,readonly) UIView*      (^viewBGColorRandom)();
 @property (nonatomic,copy,readonly) UIView*      (^viewBorderColor)(UIColor* color);
 @property (nonatomic,copy,readonly) UIView*      (^viewBorderWidth)(CGFloat w);
+/** view.layer.cornerRadius */
 @property (nonatomic,copy,readonly) UIView*      (^viewCornerRadius)(CGFloat radius);
-/** 不同方位的圆角 */
+/** 方位组合的圆角 */
 @property (nonatomic,copy,readonly) UIView*      (^viewCornerRadiusSide)(UIRectCorner side , CGSize radius);
+/** view.layer.masksToBounds */
 @property (nonatomic,copy,readonly) UIView*      (^viewMasksToBounds)(BOOL b);
+@property (nonatomic,copy,readonly) UIView*      (^viewClipsToBounds)(BOOL b);
+@property (nonatomic,copy,readonly) UIView*      (^viewEndEditing)(BOOL force);
+@property (nonatomic,copy,readonly) UIView*      (^viewBecomeFirstResponder)();
+@property (nonatomic,copy,readonly) UIView*      (^viewResignFirstResponder)();
+@property (nonatomic,copy,readonly) BOOL         (^viewIsFirstResponder)();
+/** 递归此视图，找到第一响应者的的输入类型控件 */
+@property (nonatomic,copy,readonly) UIView*      (^viewFirstResponderSubViewForInput)();
 /** 前置视图 */
 @property (nonatomic,copy,readonly) UIView*      (^viewBringFrontInView)();
 /** 下沉视图 */
 @property (nonatomic,copy,readonly) UIView*      (^viewSendBackInView)();
-/** 是否为子视图 */
+/** 是否为子视图，包括多层次的子视图 */
 @property (nonatomic,copy,readonly) BOOL         (^viewIsSubviewTo)(UIView* theView);
-/** 当前视图位于同一层的前一个视图，注意没有返回nil */
+/** 当前视图位于同一层的前一个视图，没有则返回nil */
 @property (nonatomic,copy,readonly) UIView*      (^viewBeforeIndexView)();
-/** 当前视图位于同一层的后一个视图，注意没有返回nil */
+/** 当前视图位于同一层的后一个视图，没有则返回nil */
 @property (nonatomic,copy,readonly) UIView*      (^viewNextIndexView)();
 /** 当前视图是否是父级别的视图 */
 @property (nonatomic,copy,readonly) BOOL         (^viewIsSuperviewTo)(UIView* aView);
-/** 递归此视图，找到第一响应者的的输入类型控件 */
-@property (nonatomic,copy,readonly) UIView*      (^viewFirstResponderSubViewForInput)();
 /** 控制子控件的并发触控 */
 @property (nonatomic,copy,readonly) UIView*      (^viewSubiewsExclusiveTouch)(BOOL b);
 /** 控件相对window的位置 */
@@ -70,7 +77,6 @@
 @property (nonatomic,copy,readonly) UIView*      (^viewMultipleTouchEnabled)(BOOL b);
 @property (nonatomic,copy,readonly) UIView*      (^viewExclusiveTouch)(BOOL b);
 @property (nonatomic,copy,readonly) UIView*      (^viewAutoresizingMask)(UIViewAutoresizing mask);
-@property (nonatomic,copy,readonly) UIView*      (^viewClipsToBounds)(BOOL b);
 @property (nonatomic,copy,readonly) UIView*      (^viewAlpha)(CGFloat alpha);
 @property (nonatomic,copy,readonly) UIView*      (^viewOpaque)(CGFloat opaque);
 @property (nonatomic,copy,readonly) UIView*      (^viewHidden)(BOOL hidden);
@@ -90,7 +96,9 @@
 @property (nonatomic,copy,readonly) UIView*      (^viewExchangeSubviewByIndex)(NSUInteger index1, NSUInteger index2);
 @property (nonatomic,copy,readonly) UIView*      (^viewAddSubview)(UIView* subview);
 @property (nonatomic,copy,readonly) UIView*      (^viewAddToView)(__weak UIView* view);
-
+@property (nonatomic,copy,readonly) UIView*      (^viewSetNeedsLayout)();
+@property (nonatomic,copy,readonly) UIView*      (^viewLayoutIfNeeded)();
+@property (nonatomic,copy,readonly) UIView*      (^viewSetNeedsDisplay)();
 #pragma mark - 常见动画部分
 /** 注意：真实移动了视图的位置 */
 @property (nonatomic,copy,readonly) UIView*      (^viewAnimateMoveUp)(CGFloat distance, NSTimeInterval time);
