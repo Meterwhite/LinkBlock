@@ -41,11 +41,25 @@
 #import "UIBezierPath+LinkBlock.h"
 #import "UIWebView+LinkBlock.h"
 
-
-//需要取值时推荐起始使用
+//////////////////////////////////////////////////////////////////////
+//MARK:基础
+//////////////////////////////////////////////////////////////////////
+//安全的起始对象
 #ifndef linkObj
 #define linkObj(object) (object?object:[LinkError new])
 #endif
+//获取链条返回值，并将链条信息对象和错误转nil
+#ifndef end
+#define end end
+#endif
+//将当前对象赋值到变量
+#ifndef setTo
+#define setTo setTo
+#endif
+
+//////////////////////////////////////////////////////////////////////
+//MARK:多对象链式编程
+//////////////////////////////////////////////////////////////////////
 //多对象链式编程
 #ifndef linkObjs
 #define linkObjs(object , args...) (object?[LinkGroup groupWithObjs:object,##args,nil]:[LinkError new])
@@ -70,8 +84,18 @@
 #ifndef linkLoop
 #define linkLoop linkLoop
 #endif
+//多对象链式编程获取多个链条返回值，并将错误转nil
+#ifndef ends
+#define ends ends
+#endif
+//多对象链式编程获取某一链条返回值，并将错误转nil
+#ifndef endsAt
+#define endsAt endsAt
+#endif
 
-
+//////////////////////////////////////////////////////////////////////
+//MARK:其他
+//////////////////////////////////////////////////////////////////////
 //引用类型的返回值时的预处理
 #ifndef LinkHandle_REF
 #define LinkHandle_REF(returnType , currType)\

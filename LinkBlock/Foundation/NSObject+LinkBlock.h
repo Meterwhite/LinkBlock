@@ -17,7 +17,7 @@
 @property (nonatomic,copy,readonly) NSArray*     (^ends)();
 /** 多对象链式编程获取某一链条返回值，并将错误转nil */
 @property (nonatomic,copy,readonly) id           (^endsAt)(NSUInteger idx);
-/** 将当前对象赋值到其他变量， */
+/** 将当前对象赋值到变量 */
 @property (nonatomic,copy,readonly) NSObject*    (^setTo)(id* toObject);
 /** 使新对象加入链条 */
 @property (nonatomic,copy,readonly) NSObject*    (^linkAnd)(id obj);
