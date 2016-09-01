@@ -96,6 +96,8 @@
 
 @property (nonatomic,copy,readonly) NSString*    (^strPathWithName)(NSString* type);
 @property (nonatomic,copy,readonly) NSString*    (^strPathAppendingComponent)(NSString* component);
+/** 将字符串复制到通用剪贴板 */
+@property (nonatomic,copy,readonly) NSString*    (^strCopyToGeneralPasteboard)();
 #pragma mark - 创建
 /** 根据字符串类名调用new方法创建对象 */
 @property (nonatomic,copy,readonly) NSObject*            (^strCreateObj)();

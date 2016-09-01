@@ -1647,6 +1647,16 @@
     };
 }
 
+- (NSString *(^)())strCopyToGeneralPasteboard
+{
+    return ^id(){
+        LinkHandle_REF(NSString, NSString)
+        LinkGroupHandle_REF(strCopyToGeneralPasteboard)
+        [UIPasteboard generalPasteboard].string = _self;
+        return _self;
+    };
+}
+
 @end
 
 @implementation NSString (NSStringLinkBlock)
