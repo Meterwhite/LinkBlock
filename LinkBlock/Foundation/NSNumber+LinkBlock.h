@@ -42,6 +42,8 @@
 /** 数字转日期 */
 @property (nonatomic,copy,readonly) NSDate*      (^numToNSDateSince1970)();
 @property (nonatomic,copy,readonly) UIFont*      (^numToUIFontSystemSize)();
+/** <@(0x969696).numToUIColorFromHex()>十六进制转颜色 */
+@property (nonatomic,copy,readonly) UIColor*     (^numToUIColorFromHex)();
 
 /** 当前数字是否在数组长度范围内 */
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInArrRange)(NSArray* arr);

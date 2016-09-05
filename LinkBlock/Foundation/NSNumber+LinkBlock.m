@@ -398,6 +398,18 @@ static NSArray* _charCTypeArr;
     };
 }
 
+- (UIColor *(^)())numToUIColorFromHex
+{
+    return ^id(){
+        LinkHandle_REF(UIColor, NSNumber)
+        LinkGroupHandle_REF(numToUIColorFromHex)
+        NSInteger rgbValue = _self.integerValue;
+        return [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+                               green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+                                blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0];
+    };
+}
+
 @end
 
 @implementation NSNumber (NSNumberLinkBlock)
