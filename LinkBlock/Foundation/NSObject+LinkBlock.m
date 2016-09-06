@@ -385,6 +385,167 @@
     };
 }
 
+- (BOOL (^)(NSObject *, ...))objIsEqualToEach
+{
+    return ^(NSObject* obj , ...){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        
+        NSMutableArray* objs = [NSMutableArray new];
+        [objs addObject:obj];
+        va_list args;
+        va_start(args, obj);
+        id parmObj;
+        while ((parmObj = va_arg(args, id))) {
+            [objs addObject:parmObj];
+        }
+        va_end(args);
+        
+        ///////////////////////
+        //LinkGroupHandle_VAL
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            return [group.linkObjects firstObject].objIsEqualToEachInArray(objs);
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        return _self.objIsEqualToEachInArray(objs);
+    };
+}
+
+- (BOOL (^)(NSArray *))objIsEqualToEachInArray
+{
+    return ^(NSArray * objs){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        LinkGroupHandle_VAL(objIsEqualToEachInArray,objs)
+        
+        if(![objs isKindOfClass:[NSArray class]])
+            return NO;
+        
+        SEL selCompari;
+        if([_self isKindOfClass:[NSString class]]){
+            selCompari = @selector(isEqualToString:);
+        }else if ([_self isKindOfClass:[NSNumber class]]){
+            selCompari = @selector(isEqualToNumber:);
+        }else if ([_self isKindOfClass:[NSValue class]]){
+            selCompari = @selector(isEqualToValue:);
+        }else if ([_self isKindOfClass:[NSDate class]]){
+            selCompari = @selector(isEqualToDate:);
+        }else if ([_self isKindOfClass:[NSData class]]){
+            selCompari = @selector(isEqualToData:);
+        }else if ([_self isKindOfClass:[NSArray class]]){
+            selCompari = @selector(isEqualToArray:);
+        }else if ([_self isKindOfClass:[NSDictionary class]]){
+            selCompari = @selector(isEqualToDictionary:);
+        }else if ([_self isKindOfClass:[NSSet class]]){
+            selCompari = @selector(isEqualToSet:);
+        }else if ([_self isKindOfClass:[NSIndexSet class]]){
+            selCompari = @selector(isEqualToIndexSet:);
+        }else if ([_self isKindOfClass:[NSAttributedString class]]){
+            selCompari = @selector(isEqualToAttributedString:);
+        }else if ([_self isKindOfClass:[NSTimeZone class]]){
+            selCompari = @selector(isEqualToTimeZone:);
+        }else if ([_self isKindOfClass:[NSHashTable class]]){
+            selCompari = @selector(isEqualToHashTable:);
+        }else if ([_self isKindOfClass:[NSOrderedSet class]]){
+            selCompari = @selector(isEqualToOrderedSet:);
+        }else{
+            selCompari = @selector(isEqual:);
+        }
+
+        for (id obj in objs) {
+            if(![_self performSelector:selCompari withObject:obj]){
+                return NO;
+            }
+        }
+        return YES;
+    };
+}
+
+- (BOOL (^)(NSObject *, ...))objIsEqualToSomeone
+{
+    return ^(NSObject* obj , ...){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        NSMutableArray* objs = [NSMutableArray new];
+        [objs addObject:obj];
+        va_list args;
+        va_start(args, obj);
+        id parmObj;
+        while ((parmObj = va_arg(args, id))) {
+            [objs addObject:parmObj];
+        }
+        va_end(args);
+        
+        ///////////////////////
+        //LinkGroupHandle_VAL
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            return [group.linkObjects firstObject].objIsEqualToSomeoneInArray(objs);
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        return _self.objIsEqualToSomeoneInArray(objs);
+    };
+}
+
+- (BOOL (^)(NSArray *))objIsEqualToSomeoneInArray
+{
+    return ^(NSArray * objs){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        LinkGroupHandle_VAL(objIsEqualToSomeoneInArray,objs)
+        
+        if(![objs isKindOfClass:[NSArray class]])
+            return NO;
+        
+        SEL selCompari;
+        if([_self isKindOfClass:[NSString class]]){
+            selCompari = @selector(isEqualToString:);
+        }else if ([_self isKindOfClass:[NSNumber class]]){
+            selCompari = @selector(isEqualToNumber:);
+        }else if ([_self isKindOfClass:[NSValue class]]){
+            selCompari = @selector(isEqualToValue:);
+        }else if ([_self isKindOfClass:[NSDate class]]){
+            selCompari = @selector(isEqualToDate:);
+        }else if ([_self isKindOfClass:[NSData class]]){
+            selCompari = @selector(isEqualToData:);
+        }else if ([_self isKindOfClass:[NSArray class]]){
+            selCompari = @selector(isEqualToArray:);
+        }else if ([_self isKindOfClass:[NSDictionary class]]){
+            selCompari = @selector(isEqualToDictionary:);
+        }else if ([_self isKindOfClass:[NSSet class]]){
+            selCompari = @selector(isEqualToSet:);
+        }else if ([_self isKindOfClass:[NSIndexSet class]]){
+            selCompari = @selector(isEqualToIndexSet:);
+        }else if ([_self isKindOfClass:[NSAttributedString class]]){
+            selCompari = @selector(isEqualToAttributedString:);
+        }else if ([_self isKindOfClass:[NSTimeZone class]]){
+            selCompari = @selector(isEqualToTimeZone:);
+        }else if ([_self isKindOfClass:[NSHashTable class]]){
+            selCompari = @selector(isEqualToHashTable:);
+        }else if ([_self isKindOfClass:[NSOrderedSet class]]){
+            selCompari = @selector(isEqualToOrderedSet:);
+        }else{
+            selCompari = @selector(isEqual:);
+        }
+        
+        for (id obj in objs) {
+            if([_self performSelector:selCompari withObject:obj]){
+                return YES;
+            }
+        }
+        return NO;
+    };
+}
+
 - (BOOL (^)( __unsafe_unretained Class))isKindOf
 {
     return ^(Class classKind){

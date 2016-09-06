@@ -221,7 +221,8 @@
 {
     return ^id(NSString *formatStr, ...){
         LinkHandle_REF(NSString, NSString)
-        
+        ///////////////////////
+        //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
             LinkGroup* group = (LinkGroup*)self;
             NSMutableArray* returnObjs = [NSMutableArray new];
@@ -235,6 +236,8 @@
             [group.linkObjects setArray:returnObjs];
             return (id)group;
         }
+        //LinkGroupHandle_VAL
+        ///////////////////////
         
         if([formatStr isKindOfClass:[NSString class]]){
             va_list args;

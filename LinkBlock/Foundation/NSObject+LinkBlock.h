@@ -98,6 +98,11 @@
  */
 @property (nonatomic,copy,readonly) NSObject*    (^objMutableCopyDeep)();
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqual)(NSObject* obj);
+@property (nonatomic,copy,readonly) BOOL         (^objIsEqualToEach)(NSObject* obj,...);
+@property (nonatomic,copy,readonly) BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
+@property (nonatomic,copy,readonly) BOOL         (^objIsEqualToSomeone)(NSObject* obj,...);
+@property (nonatomic,copy,readonly) BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
+
 /** NSDate,NSString,NSArray,NSDictionary等对象转成json的字符串 */
 @property (nonatomic,copy,readonly) NSString*    (^objToJsonString)();
 /**
