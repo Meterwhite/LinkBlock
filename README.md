@@ -56,49 +56,37 @@ UIButtonNew.viewSetFrame(20,20,150,80)
 .viewAddToView(self.view)
 .btnTitle(@"Button", UIControlStateNormal);
 ```
-##一些样例
+##样例
 ```objc
 //去空格和换行，并打印
 @" 五 千 年 的 风 和 雨 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
+
 //字符串比较大小
 @"123".strCompare(@"111");
-//对数字敏感的字符串比较
-@"abc1.txt".strCompareNumberSensitive(@"abc2.txt");
 
 //查找最大数
 @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
+
 //遍历元字符和自定义规则元字符
 NSString* strForEnumerateComposed = @"[海贼王]になる男だ[微笑]\n😈😴ABC";
 [strForEnumerateComposed strEnumerateComposedAndCustom:@"\\[[\u4E00-\u9FA5]+\\]" usingBlock:^(NSString *string, NSRange range, BOOL isCustom, BOOL *stop) {
     //...
 }];
 
-//对象转字典
-Man* man = [Man new];
-man.name = @"old jack";
-Man* jack = [Man new];
-jack.name = @"jack";
-Man* grandFather = [Man new];
-grandFather.name = @"jackson";
-man.sun = jack;
-man.family = @[jack,grandFather];
-man.objToNSDictionaryDeep(NO);
-//将对象解析为字典在控制台打印
-man.poDeep();
-
 //创建属性字典
 AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
 
-//添加一个标签到视图上，并且文本顶部对齐，中间对齐
+//添加一个标签到视图上
 UILabelNew
-.labText(@"中间对齐顶部对齐")
+.labText(@"标签")
 .viewSetFrame(20,200,150,80)
-.labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop()
+.labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
 .viewAddToView(self.view)
 .viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
 
-//字符串常量直接转颜色
-@"0xff22cc".strToColorFromHexStr();
+//颜色
+@"0xff22cc".strToUIColorFromHexStr();
+@(0xffccff).numToUIColorFromHex();
 
 //正则表达式替换_xxx_为[xxx]
 @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
@@ -106,18 +94,11 @@ UILabelNew
 @"abc@abc.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*
 [a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
 
-
-//数组过滤
-NSArray* arrForFilter = @[ @{@"name":@"ali", @"age":@(123)} ,
-                            @{@"name":@"bli", @"age":@(0)}   ,
-                            @{@"name":@"cli", @"age":@(12)}  ,
-                            @{@"name":@"dli", @"age":@(-45)}  ];
-
 //过滤age<0的数据
-arrForFilter.arrFilter(@"age<0").setTo(&arrForFilter);
+arr.arrFilter(@"age<0").setTo(&arrForFilter);
 
 //遍历age<100 并且 age>-1 的数据
-[arrForFilter arrEnumerateWithPredicateFormat:@"age>-1 and age<100"
+[arr arrEnumerateWithPredicateFormat:@"age>-1 and age<100"
     usingBlock:^(NSObject* obj, NSUInteger idx, BOOL *stop) {
     //...
 }];
@@ -141,6 +122,16 @@ NSDictionary* dictToReplace = @{
                                             }
                                 };
 dictToReplace.dictReplaceKey(@"description", @"DESCRIPTION").setTo(&dictToReplace);
+
+//对象转字典
+Man* man = [Man new];
+man.name = @"old jack";
+Man* jack = [Man new];
+jack.name = @"jack";
+man.sun = jack;
+man.objToNSDictionaryDeep(NO);
+//将对象解析为字典在控制台打印
+man.poDeep();
 ```
 
 ##安全写法linkObj(obj)和end()
@@ -152,7 +143,7 @@ NSString *str2 = linkObj(str1).strAppend(str0).strAt(15).end();
 ```
 
 ##LinkError
-* 由于objc是有弱类型语言特征的语言，block是作为了扩展的属性，才可以被'.'出来。当中间一个链条返回的对象是nil，或者非预期的类型，那么下一根链条就会断裂，报错。为了让链条能够在安全的情况下容错走通，那么引入一个新的单例的类型LinkError
+* 中间一个链条返回的对象是nil，或者非预期的类型，那么下一根链条就会报错断裂。为了让链条能够在安全的情况下容错，那么引入一个新的的类型LinkError
 。这个对象响应所有扩展属性的调用，功能仅仅返回自己到下一根链条以供传递。所以end()方法的使用对于获取链条末尾的返回值很关键。
 
 ##关于
