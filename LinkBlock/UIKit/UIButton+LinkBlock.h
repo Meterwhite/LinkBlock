@@ -9,14 +9,24 @@
 
 #define UIButtonNew ([UIButton buttonWithType:UIButtonTypeCustom])
 @interface NSObject(UIButtonLinkBlock)
+/** <^(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnTitleEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
+/** <^(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnImageEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
+/** <^(NSString* title, UIControlState state)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnTitle)(NSString* title, UIControlState state);
+/** <^(UIColor* color , UIControlState state)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnTitleColor)(UIColor* color , UIControlState state);
+/** <^(NSAttributedString* attrStr, UIControlState state)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnAttributeTitle)(NSAttributedString* attrStr, UIControlState state);
+/** <^(UIImage* img, UIControlState state)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnImage)(UIImage* img, UIControlState state);
+/** <^(UIImage* img, UIControlState state)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnBGImage)(UIImage* img, UIControlState state);
+/** <^(UIFont* font)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnTitleFont)(UIFont* font);
+/** <^(CGFloat size)> */
 @property (nonatomic,copy,readonly) UIButton* (^btnTitleFontSystemSizeSet)(CGFloat size);
+/** <^()> */
 @property (nonatomic,copy,readonly) CGFloat   (^btnTitleFontSystemSizeGet)();
 @end

@@ -8,23 +8,23 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(UIColorLinkBlock)
-- (NSString *(^)(NSString *))colorToStrWithPrefix
+- (NSString *(^)(NSString *))colorToHexStrByPrefix
 {
     return ^id(NSString* prefix){
         LinkHandle_REF(NSString, UIColor)
-        LinkGroupHandle_REF(colorToStrWithPrefix,prefix)
-        NSMutableString* reIsMStr = [NSMutableString string];
-        if([prefix isKindOfClass:[NSString class]]) [reIsMStr appendString:prefix];
+        LinkGroupHandle_REF(colorToHexStrByPrefix,prefix)
+        NSMutableString* reStr = [NSMutableString string];
+        if([prefix isKindOfClass:[NSString class]]) [reStr appendString:prefix];
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             
-            [reIsMStr appendFormat:@"%02x",(int)(r*255.0)];
-            [reIsMStr appendFormat:@"%02x",(int)(g*255.0)];
-            [reIsMStr appendFormat:@"%02x",(int)(g*255.0)];
+            [reStr appendFormat:@"%02x",(int)(r*255.0)];
+            [reStr appendFormat:@"%02x",(int)(g*255.0)];
+            [reStr appendFormat:@"%02x",(int)(g*255.0)];
         }else{
-            return (NSString*)nil;
+            return nil;
         }
-        return (NSString*)[reIsMStr copy];
+        return reStr.copy;
     };
 }
 
@@ -45,112 +45,112 @@
 
 - (CGFloat (^)())colorRed
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(colorRed)
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return r;
         }else{
-            return (CGFloat)0.0;
+            return 0.0;
         }
     };
 }
 
 - (CGFloat (^)())colorGreen
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(colorGreen)
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return g;
         }else{
-            return (CGFloat)0.0;
+            return 0.0;
         }
     };
 }
 
 - (CGFloat (^)())colorBlue
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(colorBlue)
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return b;
         }else{
-            return (CGFloat)0.0;
+            return 0.0;
         }
     };
 }
 
 - (CGFloat (^)())colorAlpha
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(colorAlpha)
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
         if([_self getRed:&r green:&g blue:&b alpha:&a]){
             return a;
         }else{
-            return (CGFloat)1.0;
+            return 1.0;
         }
     };
 }
 
 - (CGFloat (^)())colorHue
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(colorHue)
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return hue;
         }else{
-            return (CGFloat)1.0;
+            return 1.0;
         }
     };
 }
 
 - (CGFloat (^)())colorSaturation
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(colorSaturation)
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return saturation;
         }else{
-            return (CGFloat)1.0;
+            return 1.0;
         }
     };
 }
 
 - (CGFloat (^)())colorBrightness
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(colorBrightness)
         CGFloat hue;CGFloat saturation;CGFloat brightness;CGFloat a;
         if([_self getHue:&hue saturation:&saturation brightness:&brightness alpha:&a]){
             return brightness;
         }else{
-            return (CGFloat)1.0;
+            return 1.0;
         }
     };
 }
@@ -267,9 +267,19 @@
     };
 }
 
-- (UIColor *(^)(NSArray *))colorSetBackgroundToViews
+- (UIColor *(^)(UIView *))colorSetBackgroundToView
 {
-    return ^id(NSArray* views){
+    return ^id(UIView* view){
+        LinkHandle_REF(UIColor, UIColor)
+        LinkGroupHandle_REF(colorSetBackgroundToView,view)
+        view.backgroundColor = _self;
+        return _self;
+    };
+}
+
+- (UIColor *(^)(NSArray<UIView*> *))colorSetBackgroundToViews
+{
+    return ^id(NSArray<UIView*>* views){
         LinkHandle_REF(UIColor, UIColor)
         LinkGroupHandle_REF(colorSetBackgroundToViews,views)
         [views enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL *stop) {
@@ -280,39 +290,22 @@
     };
 }
 
-- (UIColor *(^)(UIView *))colorSetTextColorToViewSubviews
+- (UIColor *(^)(UIView *))colorSetTextToView
 {
     return ^id(UIView* view){
         LinkHandle_REF(UIColor, UIColor)
-        LinkGroupHandle_REF(colorSetTextColorToViewSubviews,view)
+        LinkGroupHandle_REF(colorSetTextToView,view)
         if(![view isKindOfClass:[UIView class]])
             return _self;
         if([view isKindOfClass:[UILabel class]]     ||
            [view isKindOfClass:[UITextView class]]  ||
-           [view isKindOfClass:[UITextField class]]
-           )
-        {
+           [view isKindOfClass:[UITextField class]] ){
+            
             [view setValue:_self forKey:@"textColor"];
-        }
-        else if ([view isKindOfClass:[UIButton class]])
-        {
+        }else if ([view isKindOfClass:[UIButton class]]){
+            
             [((UIButton*)view) setTitleColor:_self forState:UIControlStateNormal];
         }
-        //子视图
-        [view.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
-            if([obj isKindOfClass:[UILabel class]]     ||
-               [obj isKindOfClass:[UITextView class]]  ||
-               [obj isKindOfClass:[UITextField class]]
-               )
-            {
-                [obj setValue:_self forKey:@"textColor"];
-            }
-            else if ([obj isKindOfClass:[UIButton class]])
-            {
-                [((UIButton*)obj) setTitleColor:_self forState:UIControlStateNormal];
-            }
-        }];
-        
         return _self;
     };
 }

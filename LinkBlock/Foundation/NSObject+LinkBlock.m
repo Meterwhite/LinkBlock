@@ -101,6 +101,7 @@
     if([self isSubclassOfClass:[NSFormatter class]]) return YES;
     if([self isSubclassOfClass:[NSMapTable class]]) return YES;
     if([self isSubclassOfClass:[NSHashTable class]]) return YES;
+    if([self isSubclassOfClass:NSClassFromString(@"NSBlock")]) return YES;
     if(self == [NSNull class]) return YES;
     
     //other
@@ -230,7 +231,7 @@
     for(i=0 ; i< outCount; i++)
         [reMArr addObject:[NSString stringWithUTF8String:ivar_getName(ivarList[i])]];
     free(ivarList);
-    return [reMArr copy];
+    return reMArr.copy;
 }
 + (NSArray<NSString*>*)classGetPropertyList
 {
@@ -243,17 +244,17 @@
         [reMArr addObject:[NSString stringWithUTF8String:property_getName(properties[i])]];
     }
     free(properties);
-    return [reMArr copy];
+    return reMArr.copy;
 }
 
 + (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation
 {
     NSMutableArray* reArr = [NSMutableArray new];
     [self classEnumerateUsingBlock:^(__unsafe_unretained Class clazz, BOOL *stop) {
-        
+        if(clazz == [NSObject class]) return;
         [reArr addObjectsFromArray:[clazz classGetPropertyList]];
     } includeFoundation:includeFoundation];
-    return [reArr copy];
+    return reArr.copy;
 }
 
 + (NSArray<NSString*>*)classGetClassMethodList
@@ -267,7 +268,7 @@
         [reMArr addObject:methodName];
     }
     free(methods);
-    return [reMArr copy];
+    return reMArr.copy;
 }
 
 - (NSArray<NSString*>*)objGetInstanceMethodList
@@ -281,7 +282,7 @@
         [reMArr addObject:methodName];
     }
     free(methods);
-    return [reMArr copy];
+    return reMArr.copy;
 }
 
 + (NSArray<NSString*>*)classGetProtocolList
@@ -297,7 +298,7 @@
         [reMArr addObject:protocolName];
     }
     free(protocols);
-    return [reMArr copy];
+    return reMArr.copy;
 }
 
 + (void)classEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, BOOL *))block
@@ -310,7 +311,7 @@
         
         block(clazz, &stop);
         clazz = class_getSuperclass(clazz);
-        if([clazz classIsFoundation]) break;
+        if(!includeFoundation && [clazz classIsFoundation]) break;
     }
 }
 
@@ -319,7 +320,7 @@
     return ^id(){
         LinkHandle_REF(NSObject, NSObject)
         LinkGroupHandle_REF(objCopy)
-        return [_self copy];
+        return _self.copy;
     };
 }
 
@@ -328,7 +329,7 @@
     return ^id(){
         LinkHandle_REF(NSObject, NSObject)
         LinkGroupHandle_REF(objMutableCopy)
-        return (NSObject*)[_self mutableCopy];
+        return _self.mutableCopy;
     };
 }
 
@@ -374,9 +375,9 @@
     };
 }
 
-- (BOOL (^)(NSObject *))objIsEqual
+- (BOOL (^)(id))objIsEqual
 {
-    return ^(NSObject* obj){
+    return ^(id obj){
         LinkHandle_VAL_IFNOT(NSObject){
             return NO;
         }
@@ -385,9 +386,9 @@
     };
 }
 
-- (BOOL (^)(NSObject *, ...))objIsEqualToEach
+- (BOOL (^)(id,...))objIsEqualToEach
 {
-    return ^(NSObject* obj , ...){
+    return ^(id obj ,...){
         LinkHandle_VAL_IFNOT(NSObject){
             return NO;
         }
@@ -397,7 +398,8 @@
         va_list args;
         va_start(args, obj);
         id parmObj;
-        while ((parmObj = va_arg(args, id))) {
+        
+        while ((parmObj = va_arg(args, id) )) {
             [objs addObject:parmObj];
         }
         va_end(args);
@@ -466,9 +468,9 @@
     };
 }
 
-- (BOOL (^)(NSObject *, ...))objIsEqualToSomeone
+- (BOOL (^)(id, ...))objIsEqualToSomeone
 {
-    return ^(NSObject* obj , ...){
+    return ^(id obj , ...){
         LinkHandle_VAL_IFNOT(NSObject){
             return NO;
         }
@@ -718,7 +720,7 @@
 {
     return ^id(BOOL includeFoundation){
         LinkHandle_REF(NSDictionary, NSObject)
-        LinkGroupHandle_REF(objToNSDictionary,includeFoundation)
+        LinkGroupHandle_REF(objToNSDictionaryDeep,includeFoundation)
         //为容器对象时层次遍历
         if([_self isKindOfClass:[NSDictionary class]]){
             NSMutableDictionary* reDict = [NSMutableDictionary new];
@@ -829,7 +831,7 @@
             }];
         }
         
-        return [reDict copy];
+        return reDict.copy;
     };
     
 }
@@ -994,7 +996,7 @@
     return ^id(){
         LinkHandle_REF(NSObject, NSObject)
         LinkGroupHandle_REF(po)
-        NSLog(@"%@",_self.objToNSDictionary(YES));
+        NSLog(@"%@",_self.objToNSDictionary(NO));
         return _self;
     };
 }

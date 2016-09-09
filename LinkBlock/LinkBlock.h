@@ -94,7 +94,7 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////
-//MARK:其他
+//MARK:控制
 //////////////////////////////////////////////////////////////////////
 //引用类型的返回值时的预处理
 #ifndef LinkHandle_REF
@@ -144,6 +144,47 @@ if([self isKindOfClass:[LinkGroup class]]){\
 }
 #endif
 
+//////////////////////////////////////////////////////////////////////
+//MARK:其他
+//////////////////////////////////////////////////////////////////////
+#ifndef objIsEqualToEach
+#define objIsEqualToEach(obj, args...) objIsEqualToEach(obj,##args,nil)
+#endif
+
+#ifndef objIsEqualToSomeone
+#define objIsEqualToSomeone(obj, args...) objIsEqualToSomeone(obj,##args,nil)
+#endif
+
+#ifndef strAppendFormat
+#define strAppendFormat(formatStr, args...) strAppendFormat(formatStr,##args,nil)
+#endif
+
+#ifndef numIsEqualToNum
+#define numIsEqualToNum(...) numIsEqualToNum(LBBoxValue((__VA_ARGS__)))
+#endif
+
+#ifndef numIsGreatThanNum
+#define numIsGreatThan(...) numIsGreatThanNum(LBBoxValue((__VA_ARGS__)))
+#endif
+
+#ifndef numIsGreatEqualNum
+#define numIsGreatEqualNum(...) numIsGreatEqualNum(LBBoxValue((__VA_ARGS__)))
+#endif
+
+#ifndef numIsGreatEqualNum
+#define numIsGreatEqualNum(...) numIsGreatEqualNum(__VA_ARGS__);
+#endif
+
+#ifndef numIsLessThanNum
+#define numIsLessThanNum(...) numIsLessThanNum(LBBoxValue((__VA_ARGS__)))
+#endif
+
+#ifndef numIsLessEqualNum
+#define numIsLessEqualNum(...) numIsLessEqualNum(LBBoxValue((__VA_ARGS__)))
+#endif
+
+//MARK:装箱
+#define LBBoxValue(value) _LinkBoxValue(@encode(__typeof__((value))), (value))
 static inline id _LinkBoxValue(const char *type, ...) {
     va_list v;
     va_start(v, type);

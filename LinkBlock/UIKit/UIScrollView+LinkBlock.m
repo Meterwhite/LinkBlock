@@ -88,4 +88,24 @@
     };
 }
 
+- (UIScrollView *(^)(BOOL))scroll_viewDelaysContentTouches
+{
+    return ^id(BOOL b){
+        LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewDelaysContentTouches,b)
+        _self.delaysContentTouches = b;
+        return _self;
+    };
+}
+
+- (UIScrollView *(^)(BOOL))scroll_viewCanCancelContentTouches
+{
+    return ^id(BOOL b){
+        LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewCanCancelContentTouches,b)
+        _self.canCancelContentTouches = b;
+        return _self;
+    };
+}
+
 @end

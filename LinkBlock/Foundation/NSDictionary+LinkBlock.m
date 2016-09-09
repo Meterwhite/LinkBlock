@@ -31,53 +31,19 @@
     };
 }
 
-- (NSDictionary *(^)(id<NSCopying>))dictGetDictNoNullType
-{
-    return ^id(id<NSCopying> key){
-        LinkHandle_REF(NSDictionary, NSDictionary)
-        LinkGroupHandle_REF(dictGetDictNoNullType,key)
-        if(![_self[key] isKindOfClass:[NSDictionary class]]){
-            return [NSDictionary dictionary];
-        }
-        return (NSDictionary*)_self[key];
-    };
-}
-- (void)setDictGetDictNoNullType:(NSDictionary *(^)(id<NSCopying>))dictGetDictValueNoNullType{}
 
-- (NSArray *(^)(id<NSCopying>))dictGetArrNoNullType
-{
-    return ^id(id<NSCopying> key){
-        LinkHandle_REF(NSArray, NSDictionary)
-        LinkGroupHandle_REF(dictGetArrNoNullType,key)
-        if(![_self[key] isKindOfClass:[NSArray class]])
-            return [NSArray array];
-        return (NSArray*)_self[key];
-    };
-}
-
-- (UIView *(^)(id<NSCopying>))dictGetViewNoNullType
-{
-    return ^id(id<NSCopying> key){
-        LinkHandle_REF(UIView, NSDictionary)
-        LinkGroupHandle_REF(dictGetViewNoNullType,key)
-        if(![_self[key] isKindOfClass:[UIView class]])
-            return [UIView new];
-        return (UIView*)_self[key];
-    };
-}
-
-- (BOOL (^)(id<NSCopying>))dictGetBOOLNoNullType
+- (BOOL (^)(id<NSCopying>))dictGetBOOL
 {
     return ^(id<NSCopying> key){
         LinkHandle_VAL_IFNOT(NSDictionary){
             return NO;
         }
-        LinkGroupHandle_VAL(dictGetBOOLNoNullType,key)
-        if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",arr,dict,... ...
+        LinkGroupHandle_VAL(dictGetBOOL,key)
+        if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
             if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
             {
-                return [_self[key] boolValue];//@(0),@"1"
-            }else{//arr,dict,... ...
+                return [_self[key] boolValue];//@(0),@"0"
+            }else{
                 return NO;
             }
         }else{//nil,NSNull
@@ -86,7 +52,6 @@
         return [_self[key] boolValue];
     };
 }
-- (void)setDictGetBOOLNoNullType:(BOOL (^)(id<NSCopying>))dictGetBOOLValueNoNullType{}
 
 - (BOOL (^)(id<NSCopying>))dictContainerKey
 {

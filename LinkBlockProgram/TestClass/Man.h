@@ -9,6 +9,6 @@
 #import "Person.h"
 
 @interface Man : Person
-@property (nonatomic,strong) Man* sun;
+@property (nonatomic,strong) Man* son;
 @property (nonatomic,strong) NSArray<Person*>* family;
 @end

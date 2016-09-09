@@ -11,42 +11,44 @@
 #define NSArrayNew ([NSArray new])
 @interface NSObject(NSArraryLinkBlock)
 /**
-*  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
-*  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end()
-*/
-@property (nonatomic,strong)NSObject*               makeLinkObjs;
+ *  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
+ *  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end()
+ */
+@property (nonatomic,strong) NSObject*                       makeLinkObjs;
 
+/** <^(NSUInteger idx)> */
 @property (nonatomic,copy,readonly) id                       (^arrAt)(NSUInteger idx);
-/** 数组对象中是否包含某个字符串对象 */
+/** <^(NSString* str)>数组对象中是否包含某个字符串对象 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrIsContainerStr)(NSString* str);
-/** 是否包含某个对象 */
+/** <^(id obj)>是否包含某个对象 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrIsContainer)(id obj);
-/** 某个范围内的数据 */
+/** <^(NSUInteger from, NSUInteger to)>获取from到to（包含）范围内的对象 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
-/** 某个index是否在范围内 */
+/** <^(NSUInteger idx)>某个index是否在范围内 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrcontainIndex)(NSUInteger idx);
-/** 数组转字典，键为NSNumber类型 */
+/** <^()>数组转字典，键为NSNumber类型 */
 @property (nonatomic,copy,readonly) NSDictionary*            (^arrToDictByKeyNumber)();
-/** 数组转字典，键为NSString类型 */
+/** <^()>数组转字典，键为NSString类型 */
 @property (nonatomic,copy,readonly) NSDictionary*            (^arrToDictByKeyString)();
-/** 获取任意一个对象 */
+/** <^()>获取任意一个对象 */
 @property (nonatomic,copy,readonly) id                       (^arrAny)();
-/** 最后一个对象 */
+/** <^()>最后一个对象 */
 @property (nonatomic,copy,readonly) NSObject*                (^arrLast)();
-/** 第一个对象 */
+/** <^()>第一个对象 */
 @property (nonatomic,copy,readonly) NSObject*                (^arrFirst)();
+/** <^(Class typeClass)> */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrValuesOfType)(Class typeClass);
-/** 组数过滤，如age>20 */
+/**<^(NSString* predicateFormat)>组数过滤，如age>20 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrFilter)(NSString* predicateFormat);
-/** 获取数组中某个值的所有索引 */
+/**<^(id value)>获取数组中某个值的所有索引 */
 @property (nonatomic,copy,readonly) NSIndexSet*              (^arrIndexSetOfValue)(id value);
-/** 替换数组中字典的key，深度遍历的 */
+/**<^(id<NSCopying> replaceKey,id<NSCopying> withKey)>替换数组中字典的key，深度遍历的 */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrReplaceKeyInDict)(id<NSCopying> replaceKey,id<NSCopying> withKey);
-/** 替换数组中字典的key，非深度遍历的 */
+/**<^(id<NSCopying> replaceKey,id<NSCopying> withKey)>替换数组中字典的key，非深度遍历的 */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrReplaceKeyInDictWithoutDeep)(id<NSCopying> replaceKey,id<NSCopying> withKey);
-/** 找到数组中最大的数字类型，可容纳其他类型对象 */
+/**<^()>找到数组中最大的数字类型，可容纳其他类型对象 */
 @property (nonatomic,copy,readonly) NSNumber*                (^arrMaxNumber)();
-/** 找到数组中最小的数字类型，可容纳其他类型对象 */
+/**<^()>找到数组中最小的数字类型，可容纳其他类型对象 */
 @property (nonatomic,copy,readonly) NSNumber*                (^arrMinNumber)();
 
 @end

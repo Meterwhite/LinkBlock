@@ -8,9 +8,14 @@
 #import <UIKit/UIKit.h>
 
 @interface NSObject(UIControlLinkBlock)
-@property (nonatomic,copy,readonly) UIControl*       (^controlEnable)(BOOL enable);
-@property (nonatomic,copy,readonly) UIControl*       (^controlSelected)(BOOL selected);
-@property (nonatomic,copy,readonly) UIControl*       (^controlHighlighted)(BOOL highlighted);
-@property (nonatomic,copy,readonly) UIControl*       (^controlContentHorizontalAlignment)(UIControlContentHorizontalAlignment alignment);
-@property (nonatomic,copy,readonly) UIControl*       (^controlContentVerticalAlignment)(UIControlContentVerticalAlignment alignment);
+/** <^(BOOL enable)> */
+@property (nonatomic,copy,readonly) UIControl*  (^controlEnable)(BOOL enable);
+/** <^(BOOL enable)> */
+@property (nonatomic,copy,readonly) UIControl*  (^controlSelected)(BOOL enable);
+/** <^(BOOL enable)> */
+@property (nonatomic,copy,readonly) UIControl*  (^controlHighlighted)(BOOL enable);
+/** <^(UIControlContentHorizontalAlignment alignment)> */
+@property (nonatomic,copy,readonly) UIControl*  (^controlContentHorizontalAlignment)(UIControlContentHorizontalAlignment alignment);
+/** <^(UIControlContentVerticalAlignment alignment)> */
+@property (nonatomic,copy,readonly) UIControl*  (^controlContentVerticalAlignment)(UIControlContentVerticalAlignment alignment);
 @end

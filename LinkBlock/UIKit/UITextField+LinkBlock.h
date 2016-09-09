@@ -10,7 +10,10 @@
 
 #define UITextFieldNew ([UITextField new])
 @interface NSObject(UITextFieldLinkBlock)
+/** <^(UIColor* color)> */
 @property (nonatomic,copy,readonly) UITextField*        (^txtFieldPlaceholdColor)(UIColor* color);
+/** <^(NSRange range)> */
 @property (nonatomic,copy,readonly) UITextField*        (^txtFieldSelectRangeSet)(NSRange range);
+/** <^()> */
 @property (nonatomic,copy,readonly) NSRange             (^txtFieldSelectRangeGet)();
 @end

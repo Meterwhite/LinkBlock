@@ -91,8 +91,7 @@
     return ^id(NSUInteger index){
         LinkHandle_REF(NSString, NSString)
         LinkGroupHandle_REF(strAt,index)
-        if(index > _self.length - 1)
-            return @"";
+        if(index > _self.length - 1) return @"";
         unichar ch = [_self characterAtIndex:index];
         return [NSString stringWithCharacters:&ch length:1];
     };
@@ -255,7 +254,7 @@
     return ^id(NSString* str){
         LinkHandle_REF(NSString, NSString)
         LinkGroupHandle_REF(strAppendLine,str)
-        return [_self stringByAppendingFormat:@"%@%@", @"\r\n", str];
+        return [_self stringByAppendingFormat:@"%@%@", @"\n", str];
     };
 }
 
@@ -343,9 +342,9 @@
     };
 }
 
-- (double (^)(NSDictionary *))strHeight
+- (CGFloat (^)(NSDictionary *))strHeight
 {
-    return ^(NSDictionary* attrDict){
+    return ^CGFloat(NSDictionary* attrDict){
         
         LinkHandle_VAL_IFNOT(NSString){
             return 0.0;
@@ -355,13 +354,13 @@
                                           options:NSStringDrawingUsesDeviceMetrics
                                        attributes:attrDict
                                           context:nil];
-        return (double)rect.size.height;
+        return rect.size.height;
     };
 }
 
-- (double (^)(NSDictionary *))strLineHeight
+- (CGFloat (^)(NSDictionary *))strLineHeight
 {
-    return ^(NSDictionary* attrDict){
+    return ^CGFloat(NSDictionary* attrDict){
         
         LinkHandle_VAL_IFNOT(NSString){
             return 0.0;
@@ -371,7 +370,7 @@
                                           options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                        attributes:attrDict
                                           context:nil];
-        return (double)rect.size.height;
+        return rect.size.height;
     };
 }
 
@@ -549,18 +548,20 @@
             return (NSUInteger)0;
         }
         LinkGroupHandle_VAL(strLengthComposedAndCustom,reg)
-        NSError* error = nil;
+        
         NSUInteger re = 0;
         NSMutableString* tempString = [_self mutableCopy];
-        NSRegularExpression* regExp = [[NSRegularExpression alloc] initWithPattern:reg options:0 error:&error];
-        if(!error){
-            
-            re += [regExp replaceMatchesInString:tempString options:0 range:NSMakeRange(0, tempString.length) withTemplate:@""];
-            NSRange range;
-            for(int i=0; i<tempString.length; i+=range.length){
-                range = [tempString rangeOfComposedCharacterSequenceAtIndex:i];
-                re++;
+        if(reg){
+            NSError* error;
+            NSRegularExpression* regExp = [[NSRegularExpression alloc] initWithPattern:reg options:0 error:&error];
+            if(!error){
+                re += [regExp replaceMatchesInString:tempString options:0 range:NSMakeRange(0, tempString.length) withTemplate:@""];
             }
+        }
+        NSRange range;
+        for(int i=0; i<tempString.length; i+=range.length){
+            range = [tempString rangeOfComposedCharacterSequenceAtIndex:i];
+            re++;
         }
         return re;
     };
@@ -692,7 +693,7 @@
         if(range.location == 0){
             [reIsStrM deleteCharactersInRange:range];
         }
-        return (NSString*)[reIsStrM copy];
+        return reIsStrM.copy;
     };
 }
 
@@ -720,7 +721,7 @@
                                   withString:@""
                                      options:NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
-        return (NSString*)[reIsStrM copy];
+        return reIsStrM.copy;
     };
 }
 
@@ -734,7 +735,7 @@
                                   withString:@""
                                      options:NSBackwardsSearch|NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
-        return (NSString*)reIsStrM.objCopy();
+        return reIsStrM.copy;
     };
 }
 
@@ -752,7 +753,7 @@
                                   withString:@""
                                      options:NSBackwardsSearch|NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
-        return (NSString*)reIsStrM.objCopy();
+        return reIsStrM.copy;
     };
 }
 
@@ -1007,7 +1008,7 @@
         UIImage* reImg = [UIImage imageNamed:_self];
         if(!reImg){
             
-            reImg = [UIImage imageWithContentsOfFile:_self.strPathWithName(nil)];
+            reImg = [UIImage imageWithContentsOfFile:_self.strPathByFileNameInBundle(nil)];
         }
         return reImg;
     };
@@ -1195,9 +1196,9 @@
     };
 }
 
-- (NSString *(^)(NSArray *))strSetTextToControls
+- (NSString *(^)(NSArray<UIView*> *))strSetTextToControls
 {
-    return ^id(NSArray* controls){
+    return ^id(NSArray<UIView*>* controls){
         LinkHandle_REF(NSString, NSString)
         LinkGroupHandle_REF(strSetTextToControls,controls)
         [controls enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
@@ -1632,11 +1633,11 @@
     };
 }
 
-- (NSString *(^)(NSString *))strPathWithName
+- (NSString *(^)(NSString *))strPathByFileNameInBundle
 {
     return ^id(NSString* type){
         LinkHandle_REF(NSString, NSString)
-        LinkGroupHandle_REF(strPathWithName,type)
+        LinkGroupHandle_REF(strPathByFileNameInBundle,type)
         return [[NSBundle mainBundle] pathForResource:_self ofType:type];
     };
 }
@@ -1647,6 +1648,17 @@
         LinkHandle_REF(NSString, NSString)
         LinkGroupHandle_REF(strPathAppendingComponent,component)
         return [_self stringByAppendingPathComponent:component];
+    };
+}
+
+- (BOOL (^)())strPathFileExists
+{
+    return ^BOOL(){
+        LinkHandle_VAL_IFNOT(NSString){
+            return NO;
+        }
+        LinkGroupHandle_VAL(strPathFileExists)
+        return [[NSFileManager defaultManager] fileExistsAtPath:_self];
     };
 }
 

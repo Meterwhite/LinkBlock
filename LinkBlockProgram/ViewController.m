@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     //【New】支持多对象链式编程
     //1.如果使用多个对象的链式编程，需要取值的时候请调用ends()获取多个结果
     //2.如果调用end()只会取得第一个对象的链条返回值
@@ -63,7 +63,7 @@
     jack.name = @"jack";
     Man* grandFather = [Man new];
     grandFather.name = @"jackson";
-    man.sun = jack;
+    man.son = jack;
     man.family = @[jack,grandFather];
     man.objToNSDictionaryDeep(NO);
     //将对象解析为字典在控制台打印
@@ -176,9 +176,9 @@
         if(idx%2==0){
             
             testButton
-            .btnTitleColor(@"42a7f4".strToUIColorFromHexStr(),UIControlStateNormal)
+            .btnTitleColor(@(0x42a7f4).numToUIColorFromHex(),UIControlStateNormal)
             //设置按钮字体高亮色为系统高亮色
-            .btnTitleColor(@"42a7f4".strToUIColorFromHexStr().colorHighlightDarkColor(),UIControlStateHighlighted)
+            .btnTitleColor(@"#42a7f4".strToUIColorFromHexStr().colorHighlightDarkColor(),UIControlStateHighlighted)
             .btnTitle([NSString stringWithFormat:@"添加测试按钮\n%ld",(long)idx],UIControlStateNormal);
         }else{
             
@@ -192,6 +192,6 @@
 #warning PS
     //起手写宏linkObj(obj)，确保对象为nil时不报错
     //end()取值时过滤掉链接错误并返回nil或者正确的对象
-    id value = linkObj(nil).end();
+    id value = linkObj(nil).end();//测试报错
 }
 @end

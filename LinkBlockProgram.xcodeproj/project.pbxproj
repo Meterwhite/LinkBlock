@@ -175,10 +175,10 @@
 		453AFBC41D6EFB4E00012095 /* TestClass */ = {
 			isa = PBXGroup;
 			children = (
-				453AFBC51D6EFB4E00012095 /* Man.h */,
-				453AFBC61D6EFB4E00012095 /* Man.m */,
 				453AFBC71D6EFB4E00012095 /* Person.h */,
 				453AFBC81D6EFB4E00012095 /* Person.m */,
+				453AFBC51D6EFB4E00012095 /* Man.h */,
+				453AFBC61D6EFB4E00012095 /* Man.m */,
 			);
 			path = TestClass;
 			sourceTree = "<group>";

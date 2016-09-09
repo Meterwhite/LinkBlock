@@ -9,21 +9,22 @@
 
 @interface NSObject(UIImageLinkBlock)
 /**
+ *  <^(float ratio)>
  *  图片转NSData
  *  @ ratio: 仅仅针对JPEG格式有效的压缩质量
  */
 @property (nonatomic,copy,readonly) NSData*          (^imgToData)(float ratio);
-/** 保持比例放大或缩小图片 */
+/** <^(CGSize maxSize)>保持比例放大或缩小图片 */
 @property (nonatomic,copy,readonly) UIImage*         (^imgResizeAspect)(CGSize maxSize);
-/** 剪切 */
+/** <^(CGRect frame)>剪切 */
 @property (nonatomic,copy,readonly) UIImage*         (^imgCut)(CGRect frame);
-/** 高斯模糊 #import <Accelerate/Accelerate.h> */
+/** <^(float percent)>高斯模糊 #import <Accelerate/Accelerate.h> */
 @property (nonatomic,copy,readonly) UIImage*         (^imgBlur)(float percent);
-/** 渲染模式 */
+/** <^(UIImageRenderingMode mode)>渲染模式 */
 @property (nonatomic,copy,readonly) UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
-/** 水印；图片合并到图片； */
+/** <^(UIImage* aImg , CGRect rect)>水印；图片合并到图片； */
 @property (nonatomic,copy,readonly) UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
-/** 图片取色 */
+/** <^()>图片取色 */
 @property (nonatomic,copy,readonly) UIColor*         (^imgGetPatternColor)();
 
 @end

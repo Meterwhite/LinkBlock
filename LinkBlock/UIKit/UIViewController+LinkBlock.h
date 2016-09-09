@@ -10,6 +10,8 @@
 
 #define UIViewControllerNew ([UIViewController new])
 @interface NSObject(UIViewControllerLinkBlock)
+/** <^(UIViewController* childVC)> */
 @property (nonatomic,copy,readonly) UIViewController*    (^vcAddChildVC)(UIViewController* childVC);
+/** <^(NSString* title)> */
 @property (nonatomic,copy,readonly) UIViewController*    (^vcTitle)(NSString* title);
 @end

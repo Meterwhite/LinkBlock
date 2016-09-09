@@ -308,31 +308,11 @@
     };
 }
 
-- (NSArray *(^)(id<NSCopying>))m_dictGetArrNoNullType
-{
-    return ^id(id<NSCopying> key){
-        return self.dictGetArrNoNullType(key);
-    };
-}
 
-- (NSDictionary *(^)(id<NSCopying>))m_dictGetDictNoNullType
-{
-    return ^id(id<NSCopying> key){
-        return self.dictGetDictNoNullType(key);
-    };
-}
-
-- (BOOL (^)(id<NSCopying>))m_dictGetBOOLNoNullType
+- (BOOL (^)(id<NSCopying>))m_dictGetBOOL
 {
     return ^(id<NSCopying> key){
-        return self.dictGetBOOLNoNullType(key);
-    };
-}
-
-- (UIView *(^)(id<NSCopying>))m_dictGetViewNoNullType
-{
-    return ^id(id<NSCopying> key){
-        return self.dictGetViewNoNullType(key);
+        return self.dictGetBOOL(key);
     };
 }
 
@@ -370,7 +350,4 @@
         return self.dictKeysForValue(value);
     };
 }
-
-
-
 @end

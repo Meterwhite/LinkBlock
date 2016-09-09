@@ -10,48 +10,84 @@
 #import "LinkBlock.h"
 
 @interface NSObject(NSNumberLinkBlock)
+/** <^()> */
 @property (nonatomic,copy,readonly) void*        (^numValue)();
-
-/** 是否是整数包含长短整型 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsInteger)();
-/** 是否是浮点数，包含单双精度浮点型 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsFloating)();
+/** <^()>是否是整数类型 */
+@property (nonatomic,copy,readonly) BOOL         (^numIsIntegerType)();
+/** <^()>是否是浮点数类型 */
+@property (nonatomic,copy,readonly) BOOL         (^numIsFloatingType)();
+/** <^()>是否是字符类型 */
+@property (nonatomic,copy,readonly) BOOL         (^numIsCharType)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsBOOL)();
+/** <^()> */
 @property (nonatomic,copy,readonly) BOOL         (^numIsChar)();
-@property (nonatomic,copy,readonly) BOOL         (^numIsBool)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsShort)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsInt)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsLong)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsLongLong)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedChar)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedShort)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedInt)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedLong)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedLongLong)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsFloat)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsDouble)();
 
-/** YES：小数位为0，NO：小数位有值， */
+/** <^()>是否包含小数位的值；YES：小数位为0，NO：小数位有值， */
 @property (nonatomic,copy,readonly) BOOL         (^numHasDecimalValue)();
-@property (nonatomic,copy,readonly) BOOL         (^numIsEqualToValue)(double value);
-@property (nonatomic,copy,readonly) BOOL         (^numIsMoreThanValue)(double value);
-@property (nonatomic,copy,readonly) BOOL         (^numIsMoreThanOrEqualValue)(double value);
-@property (nonatomic,copy,readonly) BOOL         (^numIsLessThanValue)(double value);
-@property (nonatomic,copy,readonly) BOOL         (^numIsLessThanOrEqualValue)(double value);
-@property (nonatomic,copy,readonly) BOOL         (^numIsEqualToNum)(NSNumber* aNum);
-
-/** 判断奇数 */
+/** <^(NSNumber* num)> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsEqualToNum)(NSNumber* num);
+/** <^(NSNumber* num)>大于 */
+@property (nonatomic,copy,readonly) BOOL         (^numIsGreatThanNum)(NSNumber* num);
+/** <^(NSNumber* num)>大等于 */
+@property (nonatomic,copy,readonly) BOOL         (^numIsGreatEqualNum)(NSNumber* num);
+/** <^(NSNumber* num)>小于 */
+@property (nonatomic,copy,readonly) BOOL         (^numIsLessThanNum)(NSNumber* num);
+/** <^(NSNumber* num)>小等于 */
+@property (nonatomic,copy,readonly) BOOL         (^numIsLessEqualNum)(NSNumber* num);
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsYES)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^numIsNO)();
+/** <^()>判断奇数 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsOdd)();
-/** 判断偶数 */
+/** <^()>判断偶数 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsEven)();
 
-/**
- *  小数转字符串：digit：小数位数
- */
-@property (nonatomic,copy,readonly) NSString*    (^numFloatingToStr)(NSUInteger digit);
-/** 小数转百分比:0.231>>23.1%，digit：小数位数 */
-@property (nonatomic,copy,readonly) NSMutableString*    (^numFloatingToPercentStr)(NSUInteger digit);
-/** 数字转日期 */
+/** <^(NSUInteger digit小数位数)>小数转字符串：digit：小数位数 */
+@property (nonatomic,copy,readonly) NSString*           (^numToStrFloating)(NSUInteger digit);
+/** <^(NSUInteger digit小数位数)>小数转百分比:@(0.231)->@"23.1%"，digit：小数位数 */
+@property (nonatomic,copy,readonly) NSMutableString*    (^numToStrPercent)(NSUInteger digit);
+/** <^()>数字转日期 */
 @property (nonatomic,copy,readonly) NSDate*      (^numToNSDateSince1970)();
+/** <^()> */
 @property (nonatomic,copy,readonly) UIFont*      (^numToUIFontSystemSize)();
 /** <@(0x969696).numToUIColorFromHex()>十六进制转颜色 */
 @property (nonatomic,copy,readonly) UIColor*     (^numToUIColorFromHex)();
 
-/** 当前数字是否在数组长度范围内 */
+/** <^(NSArray* arr)>当前值是否在数组长度长度值内 */
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInArrRange)(NSArray* arr);
-/** 当前数字是否在字符串长度范围内 */
+/** <^(NSString* str)>当前值是否在字符串长度值范围内 */
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInStringRange)(NSString* str);
+/** <^(NSArray* views)> */
 @property (nonatomic,copy,readonly) NSNumber*    (^numSetHeightToViews)(NSArray* views);
+/** <^(NSArray* views)> */
 @property (nonatomic,copy,readonly) NSNumber*    (^numSetWidthToViews)(NSArray* views);
+/** <^(NSArray* views)> */
 @property (nonatomic,copy,readonly) NSNumber*    (^numSetXToViews)(NSArray* views);
+/** <^(NSArray* views)> */
 @property (nonatomic,copy,readonly) NSNumber*    (^numSetYToViews)(NSArray* views);
 
 @end
