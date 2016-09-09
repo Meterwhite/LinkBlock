@@ -2,8 +2,8 @@
 //  Person.h
 //  LinkBlockProgram
 //
-//  Created by MDLK on 16/8/24.
-//  Copyright © 2016年 QuXingYi. All rights reserved.
+//  Created by NOVO on 16/8/24.
+//  Copyright © 2016年 NOVO. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

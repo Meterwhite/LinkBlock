@@ -8,7 +8,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#ifndef NSMutableDictionaryNew
 #define NSMutableDictionaryNew ([NSMutableDictionary new])
+#endif
 @interface NSObject(NSMutableDictionaryLinkBlock)
 /** <^(id<NSCopying> key , id value)>赋值 */
 @property (nonatomic,copy,readonly) NSMutableDictionary* (^m_dictSetValue)(id<NSCopying> key , id value);

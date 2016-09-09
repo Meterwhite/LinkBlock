@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef NSDateNew
 #define NSDateNew ([NSDate date])
+#endif
 @interface NSObject(NSDateLinkBlock)
 /** <^(NSString* formatStr)>日期转字符串 */
 @property (nonatomic,copy,readonly) NSString*        (^dateToStrWithFormat)(NSString* formatStr);

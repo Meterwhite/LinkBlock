@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#ifndef CALayerNew
 #define CALayerNew ([CALayer layer])
+#endif
 @interface  NSObject(CALayerLinkBlock)
 /** <^(CALayer* layer)> */
 @property (nonatomic,copy,readonly) CALayer*     (^layerAddSublayer)(CALayer* layer);

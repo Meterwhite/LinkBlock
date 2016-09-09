@@ -47,15 +47,15 @@
 
 /** <^()>是否包含小数位的值；YES：小数位为0，NO：小数位有值， */
 @property (nonatomic,copy,readonly) BOOL         (^numHasDecimalValue)();
-/** <^(NSNumber* num)> */
+/** <^(num)>等于@宏定义覆盖后可传入数字直接量 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsEqualToNum)(NSNumber* num);
-/** <^(NSNumber* num)>大于 */
+/** <^(num)>大于@宏定义覆盖后可传入数字直接量 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsGreatThanNum)(NSNumber* num);
-/** <^(NSNumber* num)>大等于 */
+/** <^(num)>大等于@宏定义覆盖后可传入数字直接量 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsGreatEqualNum)(NSNumber* num);
-/** <^(NSNumber* num)>小于 */
+/** <^(num)>小于@宏定义覆盖后可传入数字直接量 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsLessThanNum)(NSNumber* num);
-/** <^(NSNumber* num)>小等于 */
+/** <^(num)>小等于@宏定义覆盖后可传入数字直接量 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsLessEqualNum)(NSNumber* num);
 /** <^()> */
 @property (nonatomic,copy,readonly) BOOL         (^numIsYES)();
@@ -81,15 +81,6 @@
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInArrRange)(NSArray* arr);
 /** <^(NSString* str)>当前值是否在字符串长度值范围内 */
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInStringRange)(NSString* str);
-/** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) NSNumber*    (^numSetHeightToViews)(NSArray* views);
-/** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) NSNumber*    (^numSetWidthToViews)(NSArray* views);
-/** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) NSNumber*    (^numSetXToViews)(NSArray* views);
-/** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) NSNumber*    (^numSetYToViews)(NSArray* views);
-
 @end
 
 @interface NSNumber (NSNumberLinkBlock)

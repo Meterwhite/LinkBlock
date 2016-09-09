@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef NSMutableStringNew
 #define NSMutableStringNew ([NSMutableString new])
+#endif
 @interface NSObject(NSMutableStringLinkBlock)
 /** <^(NSString* str, NSUInteger idx)> */
 @property (nonatomic,copy,readonly) NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);

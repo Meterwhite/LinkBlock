@@ -8,7 +8,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#ifndef NSArrayNew
 #define NSArrayNew ([NSArray new])
+#endif
 @interface NSObject(NSArraryLinkBlock)
 /**
  *  使数组内对象执行多个链式编程，使用ends()可获取结果集合，

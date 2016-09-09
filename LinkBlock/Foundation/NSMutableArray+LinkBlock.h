@@ -6,8 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#ifndef NSMutableArrayNew
 #define NSMutableArrayNew ([NSMutableArray new])
+#endif
 @interface NSObject(NSMutableArrayLinkBlock)
 /** <^(NSUInteger idx)> */
 @property (nonatomic,copy,readonly) NSObject*                (^m_arrAt)(NSUInteger idx);

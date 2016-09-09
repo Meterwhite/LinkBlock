@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#ifndef UITextFieldNew
 #define UITextFieldNew ([UITextField new])
+#endif
 @interface NSObject(UITextFieldLinkBlock)
 /** <^(UIColor* color)> */
 @property (nonatomic,copy,readonly) UITextField*        (^txtFieldPlaceholdColor)(UIColor* color);

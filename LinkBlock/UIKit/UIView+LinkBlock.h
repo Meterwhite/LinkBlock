@@ -7,7 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
+#ifndef UIViewNew
 #define UIViewNew ([UIView new])
+#endif
 @interface NSObject(UIViewLinkBlock)
 /** <^()> */
 @property (nonatomic,copy,readonly) BOOL         (^viewIsZeroSize)();

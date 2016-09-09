@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#ifndef UITextViewNew
 #define UITextViewNew ([UITextView new])
+#endif
 @interface NSObject(UITextViewLinkBlock)
 /** <^(NSRange range)> */
 @property (nonatomic,copy,readonly) UITextView*         (^txtViewSelectRangeSet)(NSRange range);

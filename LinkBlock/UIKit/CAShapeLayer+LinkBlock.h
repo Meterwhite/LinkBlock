@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#ifndef CAShapeLayerNew
 #define CAShapeLayerNew ([CAShapeLayer layer])
+#endif
 @interface  NSObject(CAShapeLayerLinkBlock)
 /** <^(UIBezierPath* path)> */
 @property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetPath)(UIBezierPath* path);

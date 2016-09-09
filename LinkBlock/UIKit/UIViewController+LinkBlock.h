@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#ifndef UIViewControllerNew
 #define UIViewControllerNew ([UIViewController new])
+#endif
 @interface NSObject(UIViewControllerLinkBlock)
 /** <^(UIViewController* childVC)> */
 @property (nonatomic,copy,readonly) UIViewController*    (^vcAddChildVC)(UIViewController* childVC);

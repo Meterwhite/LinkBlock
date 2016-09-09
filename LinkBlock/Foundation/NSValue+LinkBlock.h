@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "LinkBlock.h"
 
+#ifndef NSValueNew
+#define NSValueNew(...) ((NSValue*)(LBBoxValue((__VA_ARGS__))))
+#endif
 @interface NSObject(NSValueLinkBlock)
 /** <^()> */
 @property (nonatomic,copy,readonly) NSUInteger       (^valueNSRangeLocation)();

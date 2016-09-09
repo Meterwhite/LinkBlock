@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#ifndef UIImageViewNew
 #define UIImageViewNew ([UIImageView new])
+#endif
 @interface NSObject(UIImageViewLinkBlock)
 /** <^(UIImage* image)> */
 @property (nonatomic,copy,readonly) UIImageView*         (^img_viewImage)(UIImage* image);

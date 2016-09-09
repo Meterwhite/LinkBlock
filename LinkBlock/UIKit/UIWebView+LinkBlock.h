@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
+#ifndef UIWebViewNew
 #define UIWebViewNew ([UIWebView new])
-
+#endif
 @interface NSObject(UIWebViewLinkBlock)
 /** <^()> */
 @property (nonatomic,copy,readonly) JSContext*      (^webViewContext)();

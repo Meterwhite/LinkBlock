@@ -8,6 +8,9 @@
 //#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#ifndef UIScrollViewNew
+#define UIScrollViewNew ([UIScrollView new])
+#endif
 @interface NSObject(UIScrollViewLinkBlock)
 /** <^(CGFloat w , CGFloat h)> */
 @property (nonatomic,copy,readonly) UIScrollView*        (^scroll_viewContentSize)(CGFloat w , CGFloat h);
