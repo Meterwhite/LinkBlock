@@ -124,21 +124,26 @@
 @property (nonatomic,copy,readonly) UIView*      (^viewContentMode)(UIViewContentMode contentMode);
 /** <^(NSUInteger index)> */
 @property (nonatomic,copy,readonly) UIView*      (^viewSubviewAt)(NSUInteger index);
-
+/** <^()>在父视图中的索引位。如果没有则返回0 */
+@property (nonatomic,copy,readonly) NSUInteger   (^viewIndexInSuperview)();
 /** <^()> */
 @property (nonatomic,copy,readonly) UIView*      (^viewRemoveFromSuperview)();
 /** <^(NSUInteger index)> */
 @property (nonatomic,copy,readonly) UIView*      (^viewRemoveSubviewAt)(NSUInteger index);
-/** <^(UIView* view)>尝试移除一个子控件 */
-@property (nonatomic,copy,readonly) UIView*      (^viewRemoveSubviewTry)(UIView* view);
 /** <^()>移除所有子控件 */
-@property (nonatomic,copy,readonly) UIView*      (^viewRemoveAll)();
+@property (nonatomic,copy,readonly) UIView*      (^viewRemoveAllSubview)();
 /** <^(UIView* subView, NSUInteger index)> */
 @property (nonatomic,copy,readonly) UIView*      (^viewInsertSubviewAtIndex)(UIView* subView, NSUInteger index);
+/** <^(UIView* toView, NSUInteger index)> */
+@property (nonatomic,copy,readonly) UIView*      (^viewInsertToViewAtIndex)(UIView* toView, NSUInteger index);
 /** <^(UIView* subView, UIView* abouveView)> */
 @property (nonatomic,copy,readonly) UIView*      (^viewInsertSubviewAbouve)(UIView* subView, UIView* abouveView);
+/** <^(UIView* toView, UIView* abouveView)> */
+@property (nonatomic,copy,readonly) UIView*      (^viewInsertToViewAbouve)(UIView* toView, UIView* abouveView);
 /** <^(UIView* subView, UIView* belowView)> */
 @property (nonatomic,copy,readonly) UIView*      (^viewInsertSubviewBelow)(UIView* subView, UIView* belowView);
+/** <^(UIView* toView, UIView* belowView)> */
+@property (nonatomic,copy,readonly) UIView*      (^viewInsertToViewBelow)(UIView* toView, UIView* belowView);
 /** <^(NSUInteger index1, NSUInteger index2)> */
 @property (nonatomic,copy,readonly) UIView*      (^viewExchangeSubviewByIndex)(NSUInteger index1, NSUInteger index2);
 /** <^(UIView* subview)> */

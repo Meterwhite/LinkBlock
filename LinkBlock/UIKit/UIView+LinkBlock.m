@@ -406,6 +406,25 @@
     };
 }
 
+- (NSUInteger (^)())viewIndexInSuperview
+{
+    return ^NSUInteger(){
+        LinkHandle_VAL_IFNOT(UIView){
+            return 0;
+        }
+        LinkGroupHandle_VAL(viewIndexInSuperview)
+        
+        
+        for (NSUInteger i=0; i<_self.superview.subviews.count; i++) {
+            
+            if([_self.superview.subviews[i] isEqual:_self]){
+                return i;
+            }
+        }
+        return 0;
+    };
+}
+
 - (UIView *(^)())viewRemoveFromSuperview
 {
     return ^id(){
@@ -435,23 +454,11 @@
     };
 }
 
-- (UIView *(^)(UIView *))viewRemoveSubviewTry
-{
-    return ^id(UIView* view){
-        LinkHandle_REF(UIView, UIView)
-        LinkGroupHandle_REF(viewRemoveSubviewTry,view)
-        if([view isKindOfClass:[UIView class]] && view.viewIsSubviewTo(_self)){
-            view.viewRemoveFromSuperview();
-        }
-        return _self;
-    };
-}
-
-- (UIView *(^)())viewRemoveAll
+- (UIView *(^)())viewRemoveAllSubview
 {
     return ^id(){
         LinkHandle_REF(UIView, UIView)
-        LinkGroupHandle_REF(viewRemoveAll)
+        LinkGroupHandle_REF(viewRemoveAllSubview)
         
         [_self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         return _self;
@@ -522,6 +529,16 @@
     };
 }
 
+- (UIView *(^)(UIView *, NSUInteger))viewInsertToViewAtIndex
+{
+    return ^id(UIView* view, NSUInteger index){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewInsertToViewAtIndex,view,index)
+        [view insertSubview:_self atIndex:index];
+        return _self;
+    };
+}
+
 - (UIView *(^)(UIView *, UIView *))viewInsertSubviewBelow
 {
     return ^id(UIView* view, UIView* belowView){
@@ -532,12 +549,32 @@
     };
 }
 
+- (UIView *(^)(UIView *, UIView *))viewInsertToViewBelow
+{
+    return ^id(UIView* view, UIView* belowView){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewInsertSubviewBelow,view,belowView)
+        [view insertSubview:_self belowSubview:belowView];
+        return _self;
+    };
+}
+
 - (UIView *(^)(UIView *, UIView *))viewInsertSubviewAbouve
 {
     return ^id(UIView* view, UIView* belowView){
         LinkHandle_REF(UIView, UIView)
         LinkGroupHandle_REF(viewInsertSubviewAbouve,view,belowView)
         [_self insertSubview:view aboveSubview:belowView];
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *, UIView *))viewInsertToViewAbouve
+{
+    return ^id(UIView* view, UIView* belowView){
+        LinkHandle_REF(UIView, UIView)
+        LinkGroupHandle_REF(viewInsertSubviewAbouve,view,belowView)
+        [view insertSubview:_self aboveSubview:belowView];
         return _self;
     };
 }

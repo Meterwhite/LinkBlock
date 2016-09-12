@@ -91,7 +91,7 @@
     .viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
     
     //字符串常量直接转颜色
-    @"0xff22cc".strToUIColorFromHexStr();//0x.. ，#..，..
+    @"0xff22cc".strToUIColorFromHex();//0x.. ，#..，..
     
     //正则表达式替换_xxx_为[xxx]
     @"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]");

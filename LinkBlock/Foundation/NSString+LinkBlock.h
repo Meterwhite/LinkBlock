@@ -123,12 +123,11 @@
 @property (nonatomic,copy,readonly) BOOL         (^strPathFileExists)();
 /** <^()>将字符串复制到通用剪贴板 */
 @property (nonatomic,copy,readonly) NSString*    (^strCopyToGeneralPasteboard)();
-#pragma mark - 创建
-/** <^()>根据字符串类名调用new方法创建对象 */
-@property (nonatomic,copy,readonly) NSObject*            (^strCreateObj)();
 #pragma mrak - 转换
+/** <^()>根据字符串类名调用new方法创建对象 */
+@property (nonatomic,copy,readonly) NSObject*            (^strToObjectFromName)();
 /** <^()>字符串转颜色；包含格式：0xcccccc , #cccccc , cccccc */
-@property (nonatomic,copy,readonly) UIColor*             (^strToUIColorFromHexStr)();
+@property (nonatomic,copy,readonly) UIColor*             (^strToUIColorFromHex)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSURL*               (^strToNSURL)();
 /** <^()>根据文件名创建UIImage */
@@ -145,23 +144,23 @@
 @property (nonatomic,copy,readonly) float                (^strToFloat)();
 /** <^()> */
 @property (nonatomic,copy,readonly) BOOL                 (^strToBOOL)();
-/** <^()> */
-@property (nonatomic,copy,readonly) double               (^strToDoubleFromHexStr)();
-/** <^()> */
-@property (nonatomic,copy,readonly) unsigned int         (^strToIntFromHexStr)();
-/** <^()> */
+/** <^()>十六进制字符串转double */
+@property (nonatomic,copy,readonly) double               (^strToDoubleFromHex)();
+/** <^()>十六进制字符串转unsigned int */
+@property (nonatomic,copy,readonly) unsigned int         (^strToIntFromHex)();
+/** <^()>@”{{x,y},{w,h}}”.strToCGRect() */
 @property (nonatomic,copy,readonly) CGRect               (^strToCGRect)();
-/** <^()> */
+/** <^()>@”{x,y}”.strToCGVector() */
 @property (nonatomic,copy,readonly) CGVector             (^strToCGVector)();
-/** <^()> */
+/** <^()>@”{w,h}”.strToCGSize() */
 @property (nonatomic,copy,readonly) CGSize               (^strToCGSize)();
-/** <^()> */
+/** <^()>@”{x,y}”.strToCGPoint() */
 @property (nonatomic,copy,readonly) CGPoint              (^strToCGPoint)();
-/** <^()> */
+/** <^()>@"{a, b, c, d, tx, ty}".strToCGAffineTransform() */
 @property (nonatomic,copy,readonly) CGAffineTransform    (^strToCGAffineTransform)();
-/** <^()> */
+/** <^()>@”{top, left, bottom, right}”.strToUIEdgeInsets() */
 @property (nonatomic,copy,readonly) UIEdgeInsets         (^strToUIEdgeInsets)();
-/** <^()> */
+/** <^()>@{x,y}.strToUIOffset() */
 @property (nonatomic,copy,readonly) UIOffset             (^strToUIOffset)();
 /** <^()>路径转NSData */
 @property (nonatomic,copy,readonly) NSData*              (^strToNSDataWithContentsOfFile)();
@@ -186,7 +185,7 @@
 @property (nonatomic,copy,readonly) NSString*            (^strRegexReplace)(NSString* regex, NSString* replaceTemplate);
 
 /** <^(NSArray* views)>十六进制字符串颜色设置到控件 */
-@property (nonatomic,copy,readonly) NSString*            (^strSetBGColorHexToViews)(NSArray* views);
+@property (nonatomic,copy,readonly) NSString*            (^strSetBGColorFromHexToViews)(NSArray* views);
 /** <^(NSArray<UIView*>* controls)>主要针对主要控件设置文本 */
 @property (nonatomic,copy,readonly) NSString*            (^strSetTextToControls)(NSArray<UIView*>* controls);
 /** <^(NSArray* controls)> */

@@ -757,7 +757,7 @@
     };
 }
 
-- (UIColor *(^)())strToUIColorFromHexStr
+- (UIColor *(^)())strToUIColorFromHex
 {
     return ^id(){
         LinkHandle_REF(UIColor, NSString)
@@ -788,7 +788,7 @@
     };
 }
 
-- (double (^)())strToDoubleFromHexStr
+- (double (^)())strToDoubleFromHex
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -806,7 +806,7 @@
     };
 }
 
-- (unsigned int (^)())strToIntFromHexStr
+- (unsigned int (^)())strToIntFromHex
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1148,7 +1148,7 @@
     };
 }
 
-- (NSObject *(^)())strCreateObj
+- (NSObject *(^)())strToObjectFromName
 {
     return ^id(){
         LinkHandle_REF(NSObject, NSString)
@@ -1237,7 +1237,7 @@
     };
 }
 
-- (NSString *(^)(NSArray *))strSetBGColorHexToViews
+- (NSString *(^)(NSArray *))strSetBGColorFromHexToViews
 {
     return ^id(NSArray* views){
         LinkHandle_REF(NSString, NSString)
