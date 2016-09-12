@@ -81,6 +81,10 @@
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInArrRange)(NSArray* arr);
 /** <^(NSString* str)>当前值是否在字符串长度值范围内 */
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInStringRange)(NSString* str);
+/** <^(NSMutableArray* arr)> */
+@property (nonatomic,copy,readonly) NSNumber*    (^numIndexObjRemoveFromArr)(NSMutableArray* arr);
+/** <^(NSMutableArray* arr)> */
+@property (nonatomic,copy,readonly) NSObject*    (^numIndexObjInArr)(NSMutableArray* arr);
 @end
 
 @interface NSNumber (NSNumberLinkBlock)

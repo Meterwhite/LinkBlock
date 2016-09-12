@@ -629,6 +629,38 @@
     };
 }
 
+- (NSObject *(^)(NSMutableDictionary *, id<NSCopying>))objSetToDict
+{
+    return ^id(NSMutableDictionary* dict, id<NSCopying> key){
+        LinkHandle_REF(NSObject, NSObject)
+        LinkGroupHandle_REF(objSetToDict,dict,key)
+        dict[key] = _self;
+        return _self;
+    };
+}
+
+- (BOOL (^)(NSMutableDictionary *))objIsInDictKeys
+{
+    return ^BOOL(NSMutableDictionary* dict){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        LinkGroupHandle_VAL(objIsInDictKeys,dict)
+        return [dict.allKeys containsObject:_self];
+    };
+}
+
+- (BOOL (^)(NSMutableDictionary *))objIsInDictValues
+{
+    return ^BOOL(NSMutableDictionary* dict){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        LinkGroupHandle_VAL(objIsInDictKeys,dict)
+        return [dict.allValues containsObject:_self];
+    };
+}
+
 - (NSDictionary *(^)(BOOL))objToNSDictionary
 {
     return ^id(BOOL includeFoundation){
@@ -1140,6 +1172,26 @@
     };
 }
 
+- (NSObject *(^)(NSMutableArray *))objAddToArr
+{
+    return ^id(NSMutableArray* arr){
+        LinkHandle_REF(NSObject, NSObject)
+        LinkGroupHandle_REF(objAddToArr,arr)
+        [arr addObject:_self];
+        return _self;
+    };
+}
+
+- (NSObject *(^)(NSMutableArray *))objRemoveFromArr
+{
+    return ^id(NSMutableArray* arr){
+        LinkHandle_REF(NSObject, NSObject)
+        LinkGroupHandle_REF(objRemoveFromArr,arr)
+        [arr removeObject:_self];
+        return _self;
+    };
+}
+
 - (NSObject *(^)(NSArray *))objBeforeInArr
 {
     return ^id(NSArray* inArr){
@@ -1168,15 +1220,16 @@
     };
 }
 
-- (NSArray *(^)(NSDictionary *))objKeysInDict
+- (BOOL (^)(NSArray *))objIsInArr
 {
-    return ^id(NSDictionary* inDict){
-        LinkHandle_REF(NSArray, NSObject)
-        LinkGroupHandle_REF(objKeysInDict,inDict)
-        return [inDict allKeysForObject:_self];
+    return ^BOOL(NSArray* inArr){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        LinkGroupHandle_VAL(objIsInArr, inArr)
+        return [inArr containsObject:_self];
     };
 }
-
 
 #pragma mark - 类型转换
 

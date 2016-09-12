@@ -457,6 +457,31 @@
     };
 }
 
+- (NSNumber* (^)(NSMutableArray *))numIndexObjRemoveFromArr
+{
+    return ^id(NSMutableArray* arr){
+        
+        LinkHandle_REF(NSNumber, NSNumber)
+        LinkGroupHandle_REF(numIndexObjRemoveFromArr,arr)
+        NSInteger idx = _self.integerValue;
+        if(idx>0 && idx<arr.count-1)
+            [arr removeObjectAtIndex:idx];
+        return _self;
+    };
+}
+
+- (NSObject *(^)(NSMutableArray *))numIndexObjInArr
+{
+    return ^id(NSMutableArray* arr){
+        
+        LinkHandle_REF(NSObject, NSNumber)
+        LinkGroupHandle_REF(numIndexObjInArr,arr)
+        NSInteger idx = _self.integerValue;
+        if(idx>0 && idx<arr.count-1) return arr[idx];
+        return [NSNull null];
+    };
+}
+
 - (UIFont *(^)())numToUIFontSystemSize
 {
     return ^id(){

@@ -123,9 +123,30 @@
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqualToSomeone)(id obj,...);
 /** <^(NSArray* arr)> */
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
-
+/**  <^(Class theCalss)>必须获取该类型的对象，若类型不符则返回该类型的初始化对象 */
+@property (nonatomic,copy,readonly) NSObject*    (^objMustType)(Class theCalss);
+#pragma mark - For NSString
 /** <^()>NSDate,NSString,NSArray,NSDictionary等对象转成json的字符串 */
 @property (nonatomic,copy,readonly) NSString*    (^objToJsonString)();
+
+#pragma mark - For NSMutableArray
+/** <^(NSMutableArray* arr)> */
+@property (nonatomic,copy,readonly) NSObject*    (^objAddToArr)(NSMutableArray* arr);
+/** <^(NSMutableArray* arr)> */
+@property (nonatomic,copy,readonly) NSObject*    (^objRemoveFromArr)(NSMutableArray* arr);
+/** <^(NSArray* inArr)>在数组中的前一个元素，无返回nil */
+@property (nonatomic,copy,readonly) NSObject*    (^objBeforeInArr)(NSArray* inArr);
+/** <^(NSArray* inArr)>在数组中的后一个元素无返回nil */
+@property (nonatomic,copy,readonly) NSObject*    (^objNextInArr)(NSArray* inArr);
+/** <^(NSArray* inArr)> */
+@property (nonatomic,copy,readonly) BOOL         (^objIsInArr)(NSArray* inArr);
+#pragma mark - For NSMutableDictionary
+/** <^(NSMutableDictionary* dict, id<NSCopying> key)> */
+@property (nonatomic,copy,readonly) NSObject*    (^objSetToDict)(NSMutableDictionary* dict, id<NSCopying> key);
+/** <^(NSMutableDictionary* dict)> */
+@property (nonatomic,copy,readonly) BOOL         (^objIsInDictValues)(NSMutableDictionary* dict);
+/** <^(NSMutableDictionary* dict)> */
+@property (nonatomic,copy,readonly) BOOL         (^objIsInDictKeys)(NSMutableDictionary* dict);
 /**
  *  <^(BOOL includeFoundation)>
  *  将当前对象转字典（如果对象为容器类型则对值进行一次转换）
@@ -139,17 +160,10 @@
  */
 @property (nonatomic,copy,readonly) NSDictionary*(^objToNSDictionaryDeep)(BOOL includeFoundation);
 
-/** <^(NSArray* inArr)>在数组中的前一个元素，无返回nil */
-@property (nonatomic,copy,readonly) NSObject*    (^objBeforeInArr)(NSArray* inArr);
-/** <^(NSArray* inArr)>在数组中的后一个元素无返回nil */
-@property (nonatomic,copy,readonly) NSObject*    (^objNextInArr)(NSArray* inArr);
-/** <^(NSArray* inArr)> */
-@property (nonatomic,copy,readonly) NSArray*     (^objKeysInDict)(NSArray* inArr);
-/**  <^(Class theCalss)>必须获取该类型的对象，若类型不符则返回该类型的初始化对象 */
-@property (nonatomic,copy,readonly) NSObject*    (^objMustType)(Class theCalss);
 
 
-/** 指定对象的类型，避免链条中需要类型强转时 */
+
+//MARK: 指定对象的类型，避免链条中需要类型强转时
 //Foundation
 @property (nonatomic,copy,readonly) NSString*                    (^ofNSString)();
 @property (nonatomic,copy,readonly) NSMutableString*             (^ofNSMutableString)();
