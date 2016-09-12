@@ -761,7 +761,7 @@
 {
     return ^id(){
         LinkHandle_REF(UIColor, NSString)
-        LinkGroupHandle_REF(strToUIColorFromHexStr)
+        LinkGroupHandle_REF(strToUIColorFromHex)
         NSString *newString = [[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
         if ([newString length] < 6)
             return [UIColor whiteColor];
@@ -794,7 +794,7 @@
         LinkHandle_VAL_IFNOT(NSString){
             return 0.0;
         }
-        LinkGroupHandle_VAL(strToDoubleFromHexStr)
+        LinkGroupHandle_VAL(strToDoubleFromHex)
         NSString *newString = [[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
         if ([newString hasPrefix:@"0X"])
             newString = [newString substringFromIndex:2];
@@ -812,7 +812,7 @@
         LinkHandle_VAL_IFNOT(NSString){
             return (unsigned int)0;
         }
-        LinkGroupHandle_VAL(strToIntFromHexStr)
+        LinkGroupHandle_VAL(strToIntFromHex)
         NSString *newString = [[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
         if ([newString hasPrefix:@"0X"])
             newString = [newString substringFromIndex:2];
@@ -1152,7 +1152,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSObject, NSString)
-        LinkGroupHandle_REF(strCreateObj)
+        LinkGroupHandle_REF(strToObjectFromName)
         Class class= NSClassFromString(_self);
         if(class){
             return (NSObject*)[class new];
@@ -1221,7 +1221,7 @@
     return ^id(NSArray* controls){
         LinkHandle_REF(NSString, NSString)
         LinkGroupHandle_REF(strSetTextColorToControls,controls)
-        UIColor* color = _self.strToUIColorFromHexStr();
+        UIColor* color = _self.strToUIColorFromHex();
         [controls enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
             if([v isKindOfClass:[UIButton class]]){
                 [((UIButton*)v) setTitleColor:color forState:UIControlStateNormal];
@@ -1241,8 +1241,8 @@
 {
     return ^id(NSArray* views){
         LinkHandle_REF(NSString, NSString)
-        LinkGroupHandle_REF(strSetBGColorHexToViews,views)
-        UIColor* color = _self.strToUIColorFromHexStr();
+        LinkGroupHandle_REF(strSetBGColorFromHexToViews,views)
+        UIColor* color = _self.strToUIColorFromHex();
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
             if([v isKindOfClass:[UIView class]])
                 v.backgroundColor = color;

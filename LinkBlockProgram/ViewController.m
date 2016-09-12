@@ -78,7 +78,7 @@
     .btnTitle(@"Button", UIControlStateNormal)
     .btnTitleColor([UIColor brownColor],UIControlStateNormal)
     .btnTitleColor([UIColor brownColor].colorHighlightDarkColor(),UIControlStateHighlighted)
-    .viewBGColor(@"f0f0f0".strToUIColorFromHexStr())
+    .viewBGColor(@"f0f0f0".strToUIColorFromHex())
     .frame= @"{{20,20},{150,80}}".strToCGRect();
     
     
@@ -88,7 +88,7 @@
     .labText(@"中间对齐顶部对齐")
     .labNumberOfLines(0).labAlignment(NSTextAlignmentCenter).labAlignTop()
     .viewAddToView(self.view)
-    .viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
+    .viewBGColor(@"#f0f0f0".strToUIColorFromHex());
     
     //字符串常量直接转颜色
     @"0xff22cc".strToUIColorFromHex();//0x.. ，#..，..
@@ -178,7 +178,7 @@
             testButton
             .btnTitleColor(@(0x42a7f4).numToUIColorFromHex(),UIControlStateNormal)
             //设置按钮字体高亮色为系统高亮色
-            .btnTitleColor(@"#42a7f4".strToUIColorFromHexStr().colorHighlightDarkColor(),UIControlStateHighlighted)
+            .btnTitleColor(@"#42a7f4".strToUIColorFromHex().colorHighlightDarkColor(),UIControlStateHighlighted)
             .btnTitle([NSString stringWithFormat:@"添加测试按钮\n%ld",(long)idx],UIControlStateNormal);
         }else{
             
