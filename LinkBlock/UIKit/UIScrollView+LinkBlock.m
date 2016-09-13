@@ -78,6 +78,16 @@
     };
 }
 
+- (UIScrollView *(^)(BOOL))scroll_viewPagingEnabled
+{
+    return ^id(BOOL b){
+        LinkHandle_REF(UIScrollView, UIScrollView)
+        LinkGroupHandle_REF(scroll_viewPagingEnabled,b)
+        _self.pagingEnabled= b;
+        return _self;
+    };
+}
+
 - (UIScrollView *(^)(BOOL))scroll_viewScrollEnabled
 {
     return ^id(BOOL b){

@@ -27,6 +27,8 @@
 /** <^(BOOL b)> */
 @property (nonatomic,copy,readonly) UIScrollView*        (^scroll_viewBounce)(BOOL b);
 /** <^(BOOL b)> */
+@property (nonatomic,copy,readonly) UIScrollView*        (^scroll_viewPagingEnabled)(BOOL b);
+/** <^(BOOL b)> */
 @property (nonatomic,copy,readonly) UIScrollView*        (^scroll_viewScrollEnabled)(BOOL b);
 /** <^(BOOL b)> */
 @property (nonatomic,copy,readonly) UIScrollView*        (^scroll_viewDelaysContentTouches)(BOOL b);
