@@ -119,7 +119,7 @@ if(![self isKindOfClass:[currType class]]&&\
 #ifndef LinkHandle_VAL_IFNOT
 #define LinkHandle_VAL_IFNOT(currType) \
 __kindof currType* _self = (currType*)self;\
-if(![self isKindOfClass:[LinkInfo class]]&&![self isKindOfClass:[currType class]])
+if([self isKindOfClass:[LinkError class]] || (![self isKindOfClass:[currType class]]&&![self isKindOfClass:[LinkGroup class]]))
 #endif
 
 //多对象链式编程控制引用返回类型时

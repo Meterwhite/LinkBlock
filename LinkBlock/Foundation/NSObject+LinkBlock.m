@@ -428,39 +428,39 @@
         if(![objs isKindOfClass:[NSArray class]])
             return NO;
         
-        SEL selCompari;
+        BOOL (^blockCompare)(id obj1, id obj2);
         if([_self isKindOfClass:[NSString class]]){
-            selCompari = @selector(isEqualToString:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToString:obj2];};
         }else if ([_self isKindOfClass:[NSNumber class]]){
-            selCompari = @selector(isEqualToNumber:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToNumber:obj2];};
         }else if ([_self isKindOfClass:[NSValue class]]){
-            selCompari = @selector(isEqualToValue:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToValue:obj2];};
         }else if ([_self isKindOfClass:[NSDate class]]){
-            selCompari = @selector(isEqualToDate:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToDate:obj2];};
         }else if ([_self isKindOfClass:[NSData class]]){
-            selCompari = @selector(isEqualToData:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToData:obj2];};
         }else if ([_self isKindOfClass:[NSArray class]]){
-            selCompari = @selector(isEqualToArray:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToArray:obj2];};
         }else if ([_self isKindOfClass:[NSDictionary class]]){
-            selCompari = @selector(isEqualToDictionary:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToDictionary:obj2];};
         }else if ([_self isKindOfClass:[NSSet class]]){
-            selCompari = @selector(isEqualToSet:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToSet:obj2];};
         }else if ([_self isKindOfClass:[NSIndexSet class]]){
-            selCompari = @selector(isEqualToIndexSet:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToIndexSet:obj2];};
         }else if ([_self isKindOfClass:[NSAttributedString class]]){
-            selCompari = @selector(isEqualToAttributedString:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToAttributedString:obj2];};
         }else if ([_self isKindOfClass:[NSTimeZone class]]){
-            selCompari = @selector(isEqualToTimeZone:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToTimeZone:obj2];};
         }else if ([_self isKindOfClass:[NSHashTable class]]){
-            selCompari = @selector(isEqualToHashTable:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToHashTable:obj2];};
         }else if ([_self isKindOfClass:[NSOrderedSet class]]){
-            selCompari = @selector(isEqualToOrderedSet:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToOrderedSet:obj2];};
         }else{
-            selCompari = @selector(isEqual:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqual:obj2];};
         }
 
         for (id obj in objs) {
-            if(![_self performSelector:selCompari withObject:obj]){
+            if(blockCompare(_self, obj)){
                 return NO;
             }
         }
@@ -508,39 +508,39 @@
         if(![objs isKindOfClass:[NSArray class]])
             return NO;
         
-        SEL selCompari;
+        BOOL (^blockCompare)(id obj1, id obj2);
         if([_self isKindOfClass:[NSString class]]){
-            selCompari = @selector(isEqualToString:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToString:obj2];};
         }else if ([_self isKindOfClass:[NSNumber class]]){
-            selCompari = @selector(isEqualToNumber:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToNumber:obj2];};
         }else if ([_self isKindOfClass:[NSValue class]]){
-            selCompari = @selector(isEqualToValue:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToValue:obj2];};
         }else if ([_self isKindOfClass:[NSDate class]]){
-            selCompari = @selector(isEqualToDate:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToDate:obj2];};
         }else if ([_self isKindOfClass:[NSData class]]){
-            selCompari = @selector(isEqualToData:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToData:obj2];};
         }else if ([_self isKindOfClass:[NSArray class]]){
-            selCompari = @selector(isEqualToArray:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToArray:obj2];};
         }else if ([_self isKindOfClass:[NSDictionary class]]){
-            selCompari = @selector(isEqualToDictionary:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToDictionary:obj2];};
         }else if ([_self isKindOfClass:[NSSet class]]){
-            selCompari = @selector(isEqualToSet:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToSet:obj2];};
         }else if ([_self isKindOfClass:[NSIndexSet class]]){
-            selCompari = @selector(isEqualToIndexSet:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToIndexSet:obj2];};
         }else if ([_self isKindOfClass:[NSAttributedString class]]){
-            selCompari = @selector(isEqualToAttributedString:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToAttributedString:obj2];};
         }else if ([_self isKindOfClass:[NSTimeZone class]]){
-            selCompari = @selector(isEqualToTimeZone:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToTimeZone:obj2];};
         }else if ([_self isKindOfClass:[NSHashTable class]]){
-            selCompari = @selector(isEqualToHashTable:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToHashTable:obj2];};
         }else if ([_self isKindOfClass:[NSOrderedSet class]]){
-            selCompari = @selector(isEqualToOrderedSet:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToOrderedSet:obj2];};
         }else{
-            selCompari = @selector(isEqual:);
+            blockCompare = ^(id obj1, id obj2){return [obj1 isEqual:obj2];};
         }
         
         for (id obj in objs) {
-            if([_self performSelector:selCompari withObject:obj]){
+            if(blockCompare(_self , obj)){
                 return YES;
             }
         }
