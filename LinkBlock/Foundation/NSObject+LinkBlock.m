@@ -610,7 +610,7 @@
         LinkHandle_REF(NSString, NSObject)
         LinkGroupHandle_REF(objToJsonString)
         if(![NSJSONSerialization isValidJSONObject:_self])
-            return @"\"\"";
+            return @"";
         NSError* error;
         NSData * jsonData;
         if([self isKindOfClass:[NSString class]]){
@@ -618,7 +618,7 @@
             jsonData = [NSJSONSerialization JSONObjectWithData:[((NSString *)self) dataUsingEncoding:NSUTF8StringEncoding]
                                                        options:kNilOptions
                                                          error:&error];
-        } else if ([self isKindOfClass:[NSData class]]){
+        } else{
             
             jsonData = [NSJSONSerialization dataWithJSONObject:_self
                                                        options:kNilOptions
