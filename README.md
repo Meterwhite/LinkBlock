@@ -39,15 +39,6 @@ NSArray* result = arrA.linkLoop(100).m_arrAddObj(@"F").ends();
 //...//...//...//...//...//...//...//...//...//...//...
 ```
 
-##麻烦的CGRectMake()
-```objc
-//绘制UI常创建多个变量
-UIButton* btn;
-UIImageView* img;
-CGRect rect1;
-CGRect rect2;
-[btn addSubview:img];
-```
 ##使用链式的方式完成一件事情
 ```objc
 //如果使用链式编程的方式，大部分工作可以在思路连续的情况下进行
@@ -56,10 +47,43 @@ UIButtonNew.viewSetFrame(20,20,150,80)
 .viewAddToView(self.view)
 .btnTitle(@"Button", UIControlStateNormal);
 ```
-##样例
+
+##精简代码量提高可读性
+```objc
+/* 显示一个隐藏其他按钮 */
+//通常
+[buttonArr enumerateObjectsUsingBlock:^(UIButton* button,NSUInteger idx,BOOL * _Nonnull stop){
+    if(self.selectIndex == idx){
+        button.hidden = NO;
+    }else{
+        button.hidden = YES;
+    }
+}];
+//使用链式
+buttonArr.makeLinkObjs.viewHidden(YES).linkAt(self.selectIndex).viewHidden(NO);
+//makeLinkObjs，使数组多对象链式编程
+
+//类似重复的代码结构
+switch (selectType) {
+    case typeA:
+        viewA.hidden = YES;
+        viewB.hidden = NO;
+        break;
+    case typeB:
+        viewA.hidden = NO;
+        viewB.hidden = YES;
+        break;
+    default:
+        break;
+}
+//使用链式
+linkObjs(viewA , viewB).viewHidden(YES).linkAt(selectType==typeA?:0:1).viewHidden(NO);
+```
+
+##一些样例
 ```objc
 //去空格和换行，并打印
-@" 五 千 年 的 风 和 雨 啊 \r\n 唱 了 多 少 萌 ".strClearSpaceAndWrap().nslog();
+@" 1 9 岁 男 孩 身 高 2 . 3 米 仍 在 长 个 \n 将 破 世 界 纪 录 ".strClearSpaceAndWrap().nslog();
 
 //字符串比较大小
 @"123".strCompare(@"111");
