@@ -12,7 +12,7 @@
 - (NSMutableArray *(^)(id))m_arrAddObj
 {
     return ^id(id obj){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrAddObj , obj)
         if(!obj)goto END;
         [_self addObject:obj];
@@ -24,7 +24,7 @@
 - (NSMutableArray *(^)(NSArray *))m_arrAddObjs
 {
     return ^id(NSArray *arr){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrAddObjs,arr)
         if(!arr || ![arr isKindOfClass:[NSArray class]])goto END;
         [_self addObjectsFromArray:arr];
@@ -36,7 +36,7 @@
 - (NSMutableArray *(^)(id, NSUInteger))m_arrInsertObjAt
 {
     return ^id(id obj, NSUInteger index){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertObjAt,obj,index)
         if(!obj || index>_self.count)
             return _self;
@@ -51,7 +51,7 @@
 - (NSMutableArray *(^)(NSArray *, NSUInteger))m_arrInsertArrayAt
 {
     return ^id(NSArray * arr, NSUInteger index){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertArrayAt,arr,index)
         if(!_self.count || ![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto END;
         [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, arr.count)]];
@@ -63,7 +63,7 @@
 - (NSMutableArray *(^)(id, id))m_arrInsertBefore
 {
     return ^id(id obj, id beforObj){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertBefore,obj,beforObj)
         if(!obj || !beforObj) goto END;
         long idx= [_self indexOfObject:beforObj];
@@ -79,7 +79,7 @@
 - (NSMutableArray *(^)(id, id))m_arrInsertBehind
 {
     return ^id(id obj, id behindObj){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertBehind,obj,behindObj)
         if(!obj || !behindObj) goto END;
         NSUInteger idx= [_self indexOfObject:behindObj];
@@ -94,7 +94,7 @@
 - (NSMutableArray *(^)(id))m_arrRemoveObj
 {
     return ^id(id obj){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrRemoveObj,obj)
         if(!obj)goto END;
         [_self removeObject:obj];
@@ -106,7 +106,7 @@
 - (NSMutableArray *(^)(NSUInteger))m_arrRemoveAt
 {
     return ^id(NSUInteger index){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrRemoveAt,index)
         if(index>_self.count)goto END;
         [_self removeObjectAtIndex:index];
@@ -118,7 +118,7 @@
 - (NSMutableArray *(^)(NSUInteger, NSUInteger))m_arrRemoveObjsFromTo
 {
     return ^id(NSUInteger from, NSUInteger to){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrRemoveObjsFromTo,from,to)
         if( to>_self.count || from>to )goto END;
         [_self removeObjectsInRange:NSMakeRange(from, to - from + 1)];
@@ -130,7 +130,7 @@
 - (NSMutableArray *(^)())m_arrRemoveAll
 {
     return ^id(){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrRemoveAll)
         [_self removeAllObjects];
         return _self;
@@ -140,7 +140,7 @@
 - (NSMutableArray *(^)(id, id))m_arrReplaceObjWith
 {
     return ^id(id obj, id withObj){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrReplaceObjWith,obj,withObj)
         if(!obj|| !withObj)goto END;
         NSInteger idx= [_self indexOfObject:obj];
@@ -208,7 +208,7 @@
 - (NSMutableArray *(^)(NSString *, BOOL))m_arrSortByKey
 {
     return ^id(NSString* key , BOOL ascending){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrSortByKey,key,ascending)
         NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key
                                                                ascending:ascending];
@@ -220,7 +220,7 @@
 - (NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceObjByKey
 {
     return ^id(id obj , NSString* key){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrAddOrReplaceObjByKey,obj,key)
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
@@ -246,7 +246,7 @@
 - (NSMutableArray *(^)(NSString *))m_arrFilter
 {
     return ^id(NSString* predicateFormat){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrFilter,predicateFormat)
         [_self filterUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
         return _self;
@@ -256,7 +256,7 @@
 - (NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceObjByKeyAt
 {
     return ^id(id obj , NSString* key , NSUInteger idx){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertOrReplaceObjByKeyAt,obj,key,idx)
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
@@ -282,7 +282,7 @@
 - (NSMutableArray *(^)(id, NSString *))m_arrTryReplaceObjByKey
 {
     return ^id(id obj , NSString* key){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrTryReplaceObjByKey,obj,key)
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
@@ -305,7 +305,7 @@
 - (NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey
 {
     return ^id(NSArray* objs , NSString* key){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrTryReplaceObjsByKey,objs,key)
         [objs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             _self.m_arrTryReplaceObjByKey(obj, key);
@@ -317,7 +317,7 @@
 - (NSMutableArray *(^)(NSUInteger))m_arrSubFrom
 {
     return ^id(NSUInteger idx){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrSubFrom,idx)
         NSUInteger count = _self.count;
         if(idx >= count ) return _self;
@@ -330,7 +330,7 @@
 - (NSMutableArray *(^)(NSUInteger))m_arrSubTo
 {
     return ^id(NSUInteger idx){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrSubTo,idx)
         NSUInteger count = _self.count;
         if(idx >= count ) return _self;
@@ -343,7 +343,7 @@
 - (NSMutableArray *(^)(__unsafe_unretained Class))m_arrObjsOfType
 {
     return ^id(__unsafe_unretained Class typeClass){
-        LinkHandle_REF(NSMutableArray, NSMutableArray)
+        LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrObjsOfType,typeClass)
         if(!typeClass)
             return _self;
@@ -374,7 +374,7 @@
 - (NSObject* (^)())m_arrAny
 {
     return ^id(){
-        LinkHandle_REF(NSObject, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(m_arrAny)
         return _self[arc4random_uniform((u_int32_t)_self.count)];
     };
@@ -383,7 +383,7 @@
 - (NSMutableArray<NSValue *> *(^)(BOOL, BOOL))m_arrSortRange
 {
     return ^id(BOOL ascending, BOOL isCombine){
-        LinkHandle_REF(NSMutableArray<NSValue *>, NSMutableArray<NSValue *>)
+        LinkHandle_REF(NSMutableArray<NSValue *>)
         LinkGroupHandle_REF(m_arrSortRange,ascending,isCombine)
         NSMutableSet<NSValue*>* combineArr = [NSMutableSet new];
         NSInteger flagDirection = ascending?1:-1;

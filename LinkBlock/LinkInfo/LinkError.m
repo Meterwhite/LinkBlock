@@ -25,6 +25,7 @@
         _needClass = @"ObjectCType";
         _errorClass = @"nil";
         _inFunc = @"linkObj";
+        _infoType = LinkInfoError;
     }
     return self;
 }

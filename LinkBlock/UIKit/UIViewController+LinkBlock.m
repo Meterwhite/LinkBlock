@@ -13,7 +13,7 @@
 - (UIViewController *(^)(UIViewController *))vcAddChildVC
 {
     return ^id(UIViewController* childVC){
-        LinkHandle_REF(UIViewController, UIViewController)
+        LinkHandle_REF(UIViewController)
         LinkGroupHandle_REF(vcAddChildVC,childVC)
         [_self addChildViewController:childVC];
         return _self;
@@ -23,7 +23,7 @@
 - (UIViewController *(^)(NSString *))vcTitle
 {
     return ^id(NSString* title){
-        LinkHandle_REF(UIViewController, UIViewController)
+        LinkHandle_REF(UIViewController)
         LinkGroupHandle_REF(vcTitle,title)
         _self.title = title;
         return _self;

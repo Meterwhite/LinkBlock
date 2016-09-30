@@ -13,7 +13,7 @@
 - (NSObject* (^)(id<NSCopying>))dictGet
 {
     return ^id(id<NSCopying> key){
-        LinkHandle_REF(NSObject, NSDictionary)
+        LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictGet,key)
         return _self[key];
     };
@@ -22,7 +22,7 @@
 - (NSObject* (^)(id<NSCopying>))dictGetNoNSNull
 {
     return ^id(id<NSCopying> key){
-        LinkHandle_REF(NSObject, NSDictionary)
+        LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictGetNoNSNull,key)
         if(!_self[key] || [_self[key] isKindOfClass:[NSNull class]] ){
             return (id)nil;
@@ -78,7 +78,7 @@
 - (NSArray *(^)(id))dictKeysForValue
 {
     return ^id(id value){
-        LinkHandle_REF(NSArray, NSDictionary)
+        LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictKeysForValue,value)
         return [_self allKeysForObject:value];
     };
@@ -87,7 +87,7 @@
 - (NSArray *(^)())dictAllKeys
 {
     return ^id(){
-        LinkHandle_REF(NSArray, NSDictionary)
+        LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictAllKeys)
         return [_self allKeys];
     };
@@ -96,7 +96,7 @@
 - (NSArray *(^)())dictAllValues
 {
     return ^id(){
-        LinkHandle_REF(NSArray, NSDictionary)
+        LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictAllValues)
         return [_self allValues];
     };
@@ -105,7 +105,7 @@
 - (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKey
 {
     return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
-        LinkHandle_REF(NSMutableDictionary, NSDictionary)
+        LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictReplaceKey,replaceKey,withKey)
         NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:_self];
         
@@ -135,7 +135,7 @@
 - (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKeyWithoutDeep
 {
     return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
-        LinkHandle_REF(NSMutableDictionary, NSDictionary)
+        LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictReplaceKeyWithoutDeep,replaceKey,withKey)
         NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:_self];
         [[result allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -149,5 +149,15 @@
     };
 }
 
-
+- (NSDictionary *(^)())dictObjsValueRandom
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictObjsValueRandom)
+        [_self.allValues enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.objValueRandom();
+        }];
+        return _self;
+    };
+}
 @end

@@ -44,7 +44,7 @@
 - (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
 {
     return ^id(UIImage* image, CGRect rect){
-        LinkHandle_REF(UIImage , NSAttributedString)
+        LinkHandle_REF(NSAttributedString)
         LinkGroupHandle_REF(attr_strDrawImgRect,image,rect)
         UIGraphicsBeginImageContext(image.size);
         [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];

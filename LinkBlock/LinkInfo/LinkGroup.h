@@ -10,6 +10,7 @@
 
 typedef NS_OPTIONS(NSUInteger, LinkGroupHandleType) {
     LinkGroupHandleTypeNone                 = 0,
+    /** 原链条数 */
     LinkGroupHandleTypeLoopOriginCount      = 1 << 0
 };
 

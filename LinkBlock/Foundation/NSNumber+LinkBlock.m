@@ -266,7 +266,7 @@
 - (NSString *(^)(NSUInteger))numToStrFloating
 {
     return ^id(NSUInteger digit){
-        LinkHandle_REF(NSString, NSNumber)
+        LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numToStrFloating,digit)
         if(digit<=0){
             
@@ -286,7 +286,7 @@
 - (NSMutableString *(^)(NSUInteger))numToStrPercent
 {
     return ^id(NSUInteger digit){
-        LinkHandle_REF(NSMutableString, NSNumber)
+        LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numToStrPercent,digit)
         NSMutableString* re = [NSMutableString new];
         [re appendString:@([_self doubleValue]*100.0).numToStrFloating(digit)];
@@ -388,7 +388,7 @@
 - (NSDate *(^)())numToNSDateSince1970
 {
     return ^id(){
-        LinkHandle_REF(NSDate, NSNumber)
+        LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numToNSDateSince1970)
         return [NSDate dateWithTimeIntervalSince1970:[_self doubleValue]];
     };
@@ -461,7 +461,7 @@
 {
     return ^id(NSMutableArray* arr){
         
-        LinkHandle_REF(NSNumber, NSNumber)
+        LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numIndexObjRemoveFromArr,arr)
         NSInteger idx = _self.integerValue;
         if(idx>0 && idx<arr.count-1)
@@ -474,7 +474,7 @@
 {
     return ^id(NSMutableArray* arr){
         
-        LinkHandle_REF(NSObject, NSNumber)
+        LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numIndexObjInArr,arr)
         NSInteger idx = _self.integerValue;
         if(idx>0 && idx<arr.count-1) return arr[idx];
@@ -485,7 +485,7 @@
 - (UIFont *(^)())numToUIFontSystemSize
 {
     return ^id(){
-        LinkHandle_REF(UIFont, NSNumber)
+        LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numToUIFontSystemSize)
         return [UIFont systemFontOfSize:[_self doubleValue]];
     };
@@ -494,7 +494,7 @@
 - (UIColor *(^)())numToUIColorFromHex
 {
     return ^id(){
-        LinkHandle_REF(UIColor, NSNumber)
+        LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numToUIColorFromHex)
         NSInteger rgbValue = _self.integerValue;
         return [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \

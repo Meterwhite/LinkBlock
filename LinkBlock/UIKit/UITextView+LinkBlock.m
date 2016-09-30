@@ -13,7 +13,7 @@
 - (UITextView *(^)(NSRange))txtViewSelectRangeSet
 {
     return ^id(NSRange range){
-        LinkHandle_REF(UITextView, UITextView)
+        LinkHandle_REF(UITextView)
         LinkGroupHandle_REF(txtViewSelectRangeSet,range)
         
         UITextPosition* beginning = _self.beginningOfDocument;

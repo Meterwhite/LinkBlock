@@ -13,7 +13,7 @@
 - (NSData *(^)(float))imgToData
 {
     return ^id(float ratio){
-        LinkHandle_REF(NSData, UIImage)
+        LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgToData,ratio)
         NSData* reIsData = UIImageJPEGRepresentation(_self, ratio);
         if(!reIsData){
@@ -26,7 +26,7 @@
 - (UIImage *(^)(CGSize))imgResizeAspect
 {
     return ^id(CGSize maxSize){
-        LinkHandle_REF(UIImage, UIImage)
+        LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgResizeAspect,maxSize)
         CGFloat originWidth= _self.size.width;
         CGFloat originHeight= _self.size.height;
@@ -57,7 +57,7 @@
 - (UIImage *(^)(CGRect))imgCut
 {
     return ^id(CGRect frame){
-        LinkHandle_REF(UIImage, UIImage)
+        LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgCut,frame)
         CGImageRef cgImgRef= CGImageCreateWithImageInRect(_self.CGImage, frame);
         UIImage* re= [UIImage imageWithCGImage:cgImgRef];
@@ -69,7 +69,7 @@
 - (UIImage *(^)(float))imgBlur
 {
     return ^id(float percent){
-        LinkHandle_REF(UIImage, UIImage)
+        LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgBlur,percent)
         if ((percent < 0.0f) || (percent > 1.0f)) {
             percent = 0.5f;
@@ -144,7 +144,7 @@
 - (UIImage *(^)(UIImageRenderingMode))imgRenderingMode
 {
     return ^id(UIImageRenderingMode mode){
-        LinkHandle_REF(UIImage, UIImage)
+        LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgRenderingMode,mode)
         return [_self imageWithRenderingMode:mode];
     };
@@ -153,7 +153,7 @@
 - (UIImage *(^)(UIImage *, CGRect))imgAddImg
 {
     return ^id(UIImage* aImg , CGRect rect){
-        LinkHandle_REF(UIImage, UIImage)
+        LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgAddImg,aImg,rect)
         UIGraphicsBeginImageContext(_self.size);
         [_self drawInRect:CGRectMake(0, 0, _self.size.width, _self.size.height)];
@@ -167,7 +167,7 @@
 - (UIColor *(^)())imgGetPatternColor
 {
     return ^id(){
-        LinkHandle_REF(UIColor, UIImage)
+        LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgGetPatternColor)
         return [UIColor colorWithPatternImage:_self];
     };

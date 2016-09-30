@@ -12,7 +12,7 @@
 - (NSObject *(^)(id<NSCopying>))errorValueInUserInfo
 {
     return ^id(id<NSCopying> key){
-        LinkHandle_REF(NSObject, NSError)
+        LinkHandle_REF(NSError)
         LinkGroupHandle_REF(errorValueInUserInfo,key)
         return _self.userInfo[key];
     };

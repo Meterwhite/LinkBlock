@@ -47,7 +47,8 @@
     @"123".strCompare(@"111");
     //对数字敏感的字符串比较
     @"abc1.txt".strCompareNumberSensitive(@"abc2.txt");
-    
+    //对象随机赋值，并将对象作为字典打印
+    [Person new].objValueRandom().po();
     //查找最大数
     @"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
     //遍历元字符和自定义规则元字符
@@ -66,8 +67,6 @@
     man.son = jack;
     man.family = @[jack,grandFather];
     man.objToNSDictionaryDeep(NO);
-    //将对象解析为字典在控制台打印
-    man.poDeep();
     
     //创建属性字典
     AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);

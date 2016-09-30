@@ -34,4 +34,6 @@
 @property (nonatomic,copy,readonly) UIScrollView*        (^scroll_viewDelaysContentTouches)(BOOL b);
 /** <^(BOOL b)> */
 @property (nonatomic,copy,readonly) UIScrollView*        (^scroll_viewCanCancelContentTouches)(BOOL b);
+/** <^(BOOL b)>锁定单一滚动方向 */
+@property (nonatomic,copy,readonly) UIScrollView*        (^scroll_viewDirectionalLockEnabled)(BOOL b);
 @end

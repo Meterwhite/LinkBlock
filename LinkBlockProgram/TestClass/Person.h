@@ -10,4 +10,8 @@
 
 @interface Person : NSObject
 @property (nonatomic,copy) NSString* name;
+@property (nonatomic,assign) NSInteger age;
+@property (nonatomic,strong) NSNumber* tall;
+@property (nonatomic,assign) BOOL live;
+@property (nonatomic,strong) id info;
 @end

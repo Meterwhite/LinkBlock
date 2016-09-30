@@ -13,7 +13,7 @@
 - (NSValue *(^)(NSArray *))valueSetPointToViews
 {
     return ^id(NSArray* views){
-        LinkHandle_REF(NSValue, NSValue)
+        LinkHandle_REF(NSValue)
         LinkGroupHandle_REF(valueSetPointToViews,views)
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
             if([v isKindOfClass:[UIView class]]){
@@ -29,7 +29,7 @@
 - (NSValue *(^)(NSArray *))valueSetSizeToViews
 {
     return ^id(NSArray* views){
-        LinkHandle_REF(NSValue, NSValue)
+        LinkHandle_REF(NSValue)
         LinkGroupHandle_REF(valueSetSizeToViews,views)
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
             if([v isKindOfClass:[UIView class]]){

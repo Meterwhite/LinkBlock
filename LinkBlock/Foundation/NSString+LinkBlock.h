@@ -60,7 +60,7 @@
 @property (nonatomic,copy,readonly) CGFloat      (^strHeight)(NSDictionary* attrDict);
 /** <^(NSDictionary* attrDict)>计算字符串的行高 */
 @property (nonatomic,copy,readonly) CGFloat      (^strLineHeight)(NSDictionary* attrDict);
-/** <^(CGFloat maxWidth,NSDictionary* attrDict)>视图排版中计算的字符串的行数 */
+/** <^(CGFloat maxWidth,NSDictionary* attrDict)>视图排版中的文字的行数 */
 @property (nonatomic,copy,readonly) NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary* attrDict);
 /** <^()>字符串的行数 */
 @property (nonatomic,copy,readonly) NSUInteger    (^strLinesCount)();
@@ -121,6 +121,11 @@
 @property (nonatomic,copy,readonly) NSString*    (^strPathAppendingComponent)(NSString* component);
 /** <^()>路径下文件是否存在 */
 @property (nonatomic,copy,readonly) BOOL         (^strPathFileExists)();
+/** 
+ <^()>播放路径下音效并释放；
+ 播放系统键盘音：@"/System/Library/Audio/UISounds/Tock.caf".strPathSoundPlay();
+ */
+@property (nonatomic,copy,readonly) NSString*    (^strPathSoundPlay)();
 /** <^()>将字符串复制到通用剪贴板 */
 @property (nonatomic,copy,readonly) NSString*    (^strCopyToGeneralPasteboard)();
 #pragma mrak - 转换
@@ -174,6 +179,8 @@
 @property (nonatomic,copy,readonly) NSDictionary*        (^strToNSDictionary)(NSStringEncoding encoding);
 /** <^(NSStringEncoding encoding)>json形式字符串转数组 */
 @property (nonatomic,copy,readonly) NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
+/** <^()>路径转系统音效ID；注意释放； */
+@property (nonatomic,copy,readonly) UInt32               (^strToSystemSoundID)();
 /** <^(NSString* regex)> */
 @property (nonatomic,copy,readonly) BOOL                 (^strRegexIsMatch)(NSString* regex);
 /**

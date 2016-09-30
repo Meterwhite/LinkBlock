@@ -13,10 +13,11 @@
 #endif
 @interface NSObject(NSArraryLinkBlock)
 /**
- *  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
- *  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end()
+ 使数组内对象执行多个链式编程，使用ends()可获取结果集合，
+ 如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end()
+ Arr.makeLinkObjs....
  */
-@property (nonatomic,strong) NSObject*                       makeLinkObjs;
+@property (nonatomic,strong,readonly) NSObject*              makeLinkObjs;
 
 /** <^(NSUInteger idx)> */
 @property (nonatomic,copy,readonly) id                       (^arrAt)(NSUInteger idx);
@@ -52,7 +53,8 @@
 @property (nonatomic,copy,readonly) NSNumber*                (^arrMaxNumber)();
 /**<^()>找到数组中最小的数字类型，可容纳其他类型对象 */
 @property (nonatomic,copy,readonly) NSNumber*                (^arrMinNumber)();
-
+/** <^()>对数组中对象随机赋值，仅含字符串和数字类型 */
+@property (nonatomic,copy,readonly) NSArray*                 (^arrObjsValueRandom)();
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

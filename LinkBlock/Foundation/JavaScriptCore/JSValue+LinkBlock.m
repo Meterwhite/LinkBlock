@@ -12,7 +12,7 @@
 - (JSManagedValue *(^)(id))jsValueToManagedValue
 {
     return ^id(id owner){
-        LinkHandle_REF(JSManagedValue, JSValue)
+        LinkHandle_REF(JSValue)
         LinkGroupHandle_REF(jsValueToManagedValue,owner)
         if(owner){
             return [JSManagedValue managedValueWithValue:_self andOwner:owner];
@@ -25,7 +25,7 @@
 - (JSValue *(^)(id))jsValueAddToSelfManagedRef
 {
     return ^id(id owner){
-        LinkHandle_REF(JSValue, JSValue)
+        LinkHandle_REF(JSValue)
         LinkGroupHandle_REF(jsValueAddToSelfManagedRef,owner)
         JSManagedValue* value = [JSManagedValue managedValueWithValue:_self];
         [_self.context.virtualMachine addManagedReference:value withOwner:owner];
@@ -36,7 +36,7 @@
 - (JSValue *(^)(NSArray *))jsValueCallFunc
 {
     return ^id(NSArray* args){
-        LinkHandle_REF(JSValue, JSValue)
+        LinkHandle_REF(JSValue)
         LinkGroupHandle_REF(jsValueCallFunc,args)
         return [_self callWithArguments:args];
     };

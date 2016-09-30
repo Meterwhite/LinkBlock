@@ -28,4 +28,6 @@
 @property (nonatomic,copy,readonly) NSMutableDictionary* (^dictReplaceKey)(id<NSCopying> replaceKey, id<NSCopying> withKey);
 /** <^(id<NSCopying> replaceKey, id<NSCopying> withKey)>替换字典中的key，非遍历的 */
 @property (nonatomic,copy,readonly) NSMutableDictionary* (^dictReplaceKeyWithoutDeep)(id<NSCopying> replaceKey, id<NSCopying> withKey);
+/** <^()>对字典中的值随机赋值，仅含字符串和数字类型 */
+@property (nonatomic,copy,readonly) NSDictionary*        (^dictObjsValueRandom)();
 @end

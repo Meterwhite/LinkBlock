@@ -7,13 +7,14 @@
 //
 
 #import "LinkBlock.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation NSObject(NSStringLinkBlock)
 
 - (NSMutableString *(^)())strMutableCopy
 {
     return ^id(){
-        LinkHandle_REF(NSMutableString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strMutableCopy)
         return (NSMutableString*)_self.mutableCopy;
     };
@@ -35,7 +36,7 @@
 - (NSString *(^)(NSString *))strAppend
 {
     return ^id(NSString *str){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strAppend,str)
         if([str isKindOfClass:[NSString class]]){
             return [_self stringByAppendingString:str];
@@ -48,7 +49,7 @@
 - (NSString *(^)(NSString *, NSString *))strReplace
 {
     return ^id(NSString* replaceStr, NSString* withStr){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strReplace,replaceStr,withStr)
         if([replaceStr isKindOfClass:[NSString class]] &&
            [withStr isKindOfClass:[NSString class]] ){
@@ -63,7 +64,7 @@
 - (NSString *(^)(NSString *, NSUInteger))strInsertAt
 {
     return ^id(NSString* str, NSUInteger index){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strInsertAt,str,index)
         if([str isKindOfClass:[NSString class]]){
             NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
@@ -78,7 +79,7 @@
 - (NSString *(^)(NSRange))strDeleteInRange
 {
     return ^id(NSRange range){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strDeleteInRange,range)
         NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
         [tNewMStr deleteCharactersInRange:range];
@@ -89,7 +90,7 @@
 - (NSString *(^)(NSUInteger))strAt
 {
     return ^id(NSUInteger index){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strAt,index)
         if(index > _self.length - 1) return @"";
         unichar ch = [_self characterAtIndex:index];
@@ -100,7 +101,7 @@
 - (NSString *(^)(NSString *, NSRange))strReplaceInRange
 {
     return ^id(NSString* str, NSRange range){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strReplaceInRange,str,range)
         if([str isKindOfClass:[NSString class]]){
             return [_self stringByReplacingCharactersInRange:range withString:str];
@@ -113,7 +114,7 @@
 - (NSString *(^)(NSString *))strDeleteStr
 {
     return ^id(NSString *str){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strDeleteStr,str)
         if([str isKindOfClass:[NSString class]]){
             return [_self stringByReplacingOccurrencesOfString:str withString:@""];
@@ -219,7 +220,7 @@
 - (NSString *(^)(NSString *, ...))strAppendFormat
 {
     return ^id(NSString *formatStr, ...){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
@@ -252,7 +253,7 @@
 - (NSString *(^)(NSString *))strAppendLine
 {
     return ^id(NSString* str){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strAppendLine,str)
         return [_self stringByAppendingFormat:@"%@%@", @"\n", str];
     };
@@ -408,7 +409,7 @@
 {
     return ^id(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict){
         
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubToLineAboutView,toLine,maxWidth,attrDict)
         //折半查找
         NSRange forRange = NSMakeRange(0 , _self.length);
@@ -615,7 +616,7 @@
 - (NSString* (^)())strClearSpaceAndWrap
 {
     return ^id(){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strClearSpaceAndWrap)
         NSString *noWrap = [_self stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         noWrap = [noWrap stringByReplacingOccurrencesOfString:@"\r" withString:@""];
@@ -686,7 +687,7 @@
 - (NSString *(^)(NSString *))strDeleteLeft
 {
     return ^id(NSString* str){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strDeleteLeft,str)
         NSMutableString * reIsStrM= [_self mutableCopy];
         NSRange range = [str rangeOfString:str];
@@ -700,7 +701,7 @@
 - (NSString *(^)(NSString *))strDeleteRight
 {
     return ^id(NSString* str){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strDeleteRight,str)
         NSString* re = _self;
         NSString* lastStr = [re substringWithRange:NSMakeRange(_self.length- str.length, str.length)];
@@ -714,7 +715,7 @@
 - (NSString *(^)(NSString*))strTrimLeft
 {
     return ^id(NSString* str){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strTrimLeft,str)
         NSMutableString * reIsStrM= _self.strMutableCopy();
         [reIsStrM replaceOccurrencesOfString:str
@@ -728,7 +729,7 @@
 - (NSString *(^)(NSString*))strTrimRight
 {
     return ^id(NSString* str){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strTrimRight,str)
         NSMutableString * reIsStrM= [_self mutableCopy];
         [reIsStrM replaceOccurrencesOfString:str
@@ -742,7 +743,7 @@
 - (NSString *(^)(NSString *))strTrim
 {
     return ^id(NSString* str){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strTrim,str)
         NSMutableString * reIsStrM= _self.strMutableCopy();
         [reIsStrM replaceOccurrencesOfString:str
@@ -760,7 +761,7 @@
 - (UIColor *(^)())strToUIColorFromHex
 {
     return ^id(){
-        LinkHandle_REF(UIColor, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToUIColorFromHex)
         NSString *newString = [[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
         if ([newString length] < 6)
@@ -904,7 +905,7 @@
 - (NSData *(^)())strToNSDataWithContentsOfFile
 {
     return ^id(){
-        LinkHandle_REF(NSData, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSDataWithContentsOfFile)
         return [NSData dataWithContentsOfFile:_self];
     };
@@ -913,7 +914,7 @@
 - (NSData *(^)(NSStringEncoding))strToNSDataUseEncoding
 {
     return ^id(NSStringEncoding encoding){
-        LinkHandle_REF(NSData, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSDataUseEncoding,encoding)
         return [_self dataUsingEncoding:encoding];
     };
@@ -922,7 +923,7 @@
 - (NSDate *(^)(NSString *))strToNSDateWithFormat
 {
     return ^id(NSString* formatStr){
-        LinkHandle_REF(NSDate, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSDateWithFormat,formatStr)
         NSDateFormatter* fmt = [NSDateFormatter new];
         fmt.dateFormat = formatStr;
@@ -933,7 +934,7 @@
 - (NSDate *(^)())strToNSDateSince1970
 {
     return ^id(){
-        LinkHandle_REF(NSDate, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSDateSince1970)
         return [NSDate dateWithTimeIntervalSince1970:[_self doubleValue]];
     };
@@ -942,7 +943,7 @@
 - (NSDictionary *(^)(NSStringEncoding))strToNSDictionary
 {
     return ^id(NSStringEncoding encoding){
-        LinkHandle_REF(NSDictionary, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSDictionary,encoding)
         NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
                                                             withString:@""];
@@ -969,7 +970,7 @@
 - (NSArray *(^)(NSStringEncoding))strToNSArrary
 {
     return ^id(NSStringEncoding encoding){
-        LinkHandle_REF(NSArray, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSArrary,encoding)
         NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
                                                             withString:@""];
@@ -989,12 +990,24 @@
     };
 }
 
-
+- (SystemSoundID (^)())strToSystemSoundID
+{
+    return ^SystemSoundID(){
+        LinkHandle_VAL_IFNOT(NSString){
+            return 0;
+        }
+        LinkGroupHandle_VAL(strToSystemSoundID)
+        
+        SystemSoundID soundID;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)_self.strToNSURL(),&soundID);
+        return soundID;
+    };
+}
 
 -(NSURL *(^)())strToNSURL
 {
     return ^id(){
-        LinkHandle_REF(NSURL, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSURL)
         return [NSURL URLWithString:_self];
     };
@@ -1003,7 +1016,7 @@
 - (UIImage *(^)())strToUIImage
 {
     return ^id(){
-        LinkHandle_REF(UIImage, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToUIImage)
         UIImage* reImg = [UIImage imageNamed:_self];
         if(!reImg){
@@ -1017,7 +1030,7 @@
 - (UIImageView *(^)())strToUIImageView
 {
     return ^id(){
-        LinkHandle_REF(UIImageView, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToUIImageView)
         return [[UIImageView alloc] initWithImage:_self.strToUIImage().end()];
     };
@@ -1081,7 +1094,7 @@
 - (NSArray<NSString*> *(^)(NSString *))strSplitWithStr
 {
     return ^id(NSString* splitStr){
-        LinkHandle_REF(NSArray<NSString*>, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSplitWithStr,splitStr)
         return [_self componentsSeparatedByString:splitStr];
     };
@@ -1090,7 +1103,7 @@
 - (NSArray<NSString*> *(^)(NSString *))strSplitWithCharsStr
 {
     return ^id(NSString* splitStrs){
-        LinkHandle_REF(NSArray<NSString*>, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSplitWithCharsStr,splitStrs)
         NSCharacterSet *charSet= [NSCharacterSet characterSetWithCharactersInString:splitStrs];
         return [_self componentsSeparatedByCharactersInSet:charSet];
@@ -1122,7 +1135,7 @@
 - (NSString *(^)(NSUInteger))strSubFrom
 {
     return ^id(NSUInteger idx){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubFrom,idx)
         return [_self substringFromIndex:idx];
     };
@@ -1131,7 +1144,7 @@
 - (NSString *(^)(NSUInteger))strSubTo
 {
     return ^id(NSUInteger idx){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubTo,idx)
         return [_self substringToIndex:idx];
     };
@@ -1140,7 +1153,7 @@
 - (NSString *(^)(NSUInteger, NSUInteger))strSubFromTo
 {
     return ^id(NSUInteger from, NSUInteger to){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubFromTo,from,to)
         if( from> to || to>_self.length)
             return _self;
@@ -1151,7 +1164,7 @@
 - (NSObject *(^)())strToObjectFromName
 {
     return ^id(){
-        LinkHandle_REF(NSObject, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToObjectFromName)
         Class class= NSClassFromString(_self);
         if(class){
@@ -1180,7 +1193,7 @@
 - (NSString *(^)(NSString *, NSString*))strRegexReplace
 {
     return ^id(NSString* regexStr, NSString* replaceTemplate){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strRegexReplace,regexStr,replaceTemplate)
         NSError* error = nil;
         NSRegularExpression* regex = [[NSRegularExpression alloc]
@@ -1199,7 +1212,7 @@
 - (NSString *(^)(NSArray<UIView*> *))strSetTextToControls
 {
     return ^id(NSArray<UIView*>* controls){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetTextToControls,controls)
         [controls enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
             if([view isKindOfClass:[UIView class]]){
@@ -1219,7 +1232,7 @@
 - (NSString *(^)(NSArray *))strSetTextColorToControls
 {
     return ^id(NSArray* controls){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetTextColorToControls,controls)
         UIColor* color = _self.strToUIColorFromHex();
         [controls enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
@@ -1240,7 +1253,7 @@
 - (NSString *(^)(NSArray *))strSetBGColorFromHexToViews
 {
     return ^id(NSArray* views){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetBGColorFromHexToViews,views)
         UIColor* color = _self.strToUIColorFromHex();
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
@@ -1268,7 +1281,7 @@
 - (NSString *(^)())strReversed
 {
     return ^id(){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strReversed)
         NSUInteger start = 0;
         NSUInteger end = _self.length - 1;
@@ -1300,7 +1313,7 @@
 - (NSString *(^)(NSUInteger))strSubToLine
 {
     return ^id(NSUInteger toLine){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubToLine,toLine)
         NSMutableString* re = [NSMutableString new];
         NSArray<NSString*>* linesArr = [_self componentsSeparatedByString:@"\n"];
@@ -1317,7 +1330,7 @@
 - (NSString *(^)(NSStringEncoding))strURLEncode
 {
     return ^id(NSStringEncoding encode){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLEncode,encode)
         return [_self stringByAddingPercentEscapesUsingEncoding:encode];
     };
@@ -1326,7 +1339,7 @@
 - (NSString *(^)(NSStringEncoding))strURLDecode
 {
     return ^id(NSStringEncoding encode){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLDecode,encode)
         return [_self stringByReplacingPercentEscapesUsingEncoding:encode];
     };
@@ -1335,7 +1348,7 @@
 - (NSString *(^)())strURLEncodeUTF8
 {
     return ^id(){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLEncodeUTF8)
         return _self.strURLEncode(NSUTF8StringEncoding);
     };
@@ -1344,7 +1357,7 @@
 - (NSString *(^)())strURLDecodeUTF8
 {
     return ^id(){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLDecodeUTF8)
         return _self.strURLDecode(NSUTF8StringEncoding);
     };
@@ -1353,7 +1366,7 @@
 - (NSString *(^)())strURLBeforeKeyValues
 {
     return ^id(){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLBeforeKeyValues)
         return [[_self componentsSeparatedByString:@"?"] firstObject];
     };
@@ -1362,7 +1375,7 @@
 - (NSDictionary *(^)())strURLKeyValues
 {
     return ^id(){
-        LinkHandle_REF(NSDictionary, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLKeyValues)
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
         if(splitedArr.count!=2)
@@ -1382,7 +1395,7 @@
 - (NSString *(^)(NSString *))strURLValueForKey
 {
     return ^id(NSString* key){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLValueForKey,key)
         NSDictionary* kvs = _self.strURLKeyValues();
         if(!kvs)
@@ -1394,7 +1407,7 @@
 - (NSString *(^)(NSString *, NSString *))strURLSetValueForKey
 {
     return ^id(NSString* value , NSString* key){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLSetValueForKey,value,key)
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
         if(splitedArr.count==1 && ![_self isEqualToString:@""]){
@@ -1439,7 +1452,7 @@
 - (NSString *(^)(NSDictionary<NSString*,NSString*> *))strURLSetKeyValueWithDict
 {
     return ^id(NSDictionary<NSString*,NSString*>* keyValues){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLSetKeyValueWithDict,keyValues)
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
         if(splitedArr.count==1 && ![_self isEqualToString:@""]){
@@ -1500,7 +1513,7 @@
 - (NSArray *(^)())strURLAllKeys
 {
     return ^id(){
-        LinkHandle_REF(NSArray, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLAllKeys)
         NSDictionary* kvs = _self.strURLKeyValues();
         if(!kvs)
@@ -1512,7 +1525,7 @@
 - (NSArray *(^)())strURLAllValues
 {
     return ^id(){
-        LinkHandle_REF(NSArray, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLAllValues)
         NSDictionary* kvs = _self.strURLKeyValues();
         if(!kvs)
@@ -1524,7 +1537,7 @@
 - (NSString *(^)(NSString *))strURLRemoveValueForKey
 {
     return ^id(NSString* key){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLRemoveValueForKey,key)
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
         if(splitedArr.count!=2)
@@ -1561,7 +1574,7 @@
 - (NSString *(^)(NSString *, NSString *))strURLReplaceKeyWithKey
 {
     return ^id(NSString* replaceKey , NSString* withKey){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLReplaceKeyWithKey,replaceKey,withKey)
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
         if(splitedArr.count!=2) return _self;
@@ -1597,7 +1610,7 @@
 - (NSString *(^)(NSDictionary<NSString *,NSString *> *))strURLReplaceKeyWithDict
 {
     return ^id(NSDictionary<NSString*,NSString*>* replaceKey_withKey){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLReplaceKeyWithDict,replaceKey_withKey)
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
         if(splitedArr.count!=2) return _self;
@@ -1636,7 +1649,7 @@
 - (NSString *(^)(NSString *))strPathByFileNameInBundle
 {
     return ^id(NSString* type){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strPathByFileNameInBundle,type)
         return [[NSBundle mainBundle] pathForResource:_self ofType:type];
     };
@@ -1645,7 +1658,7 @@
 - (NSString *(^)(NSString *))strPathAppendingComponent
 {
     return ^id(NSString* component){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strPathAppendingComponent,component)
         return [_self stringByAppendingPathComponent:component];
     };
@@ -1662,10 +1675,35 @@
     };
 }
 
+- (NSString *(^)())strPathSoundPlay
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPathSoundPlay)
+        
+        SystemSoundID soundID;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)_self.strToNSURL(),&soundID);
+        AudioServicesAddSystemSoundCompletion(soundID,
+                                              NULL,
+                                              NULL,
+                                              LBSystemSoundFinishedPlayingCallback,
+                                              NULL
+                                              );
+        AudioServicesPlaySystemSound(soundID);
+        
+        return _self;
+    };
+}
+//播放后的回调
+void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_data)
+{
+    AudioServicesDisposeSystemSoundID(sound_id);
+}
+
 - (NSString *(^)())strCopyToGeneralPasteboard
 {
     return ^id(){
-        LinkHandle_REF(NSString, NSString)
+        LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strCopyToGeneralPasteboard)
         [UIPasteboard generalPasteboard].string = _self;
         return _self;

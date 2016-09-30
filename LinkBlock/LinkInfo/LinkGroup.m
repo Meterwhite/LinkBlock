@@ -10,6 +10,15 @@
 
 @implementation LinkGroup
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _infoType = LinkInfoGroup;
+    }
+    return self;
+}
+
 - (NSMutableArray<NSObject*> *)linkObjects
 {
     if(!_linkObjects){

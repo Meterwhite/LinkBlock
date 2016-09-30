@@ -11,7 +11,7 @@
 - (NSMutableDictionary *(^)(id<NSCopying>  , id))m_dictSetValue
 {
     return ^id(id<NSCopying> key  , id value){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(m_dictSetValue,key,value)
         if(!value || !key )
             return _self;
@@ -37,7 +37,7 @@
 - (NSMutableDictionary *(^)(NSDictionary *))m_dictUnionDict
 {
     return ^id(NSDictionary* dict){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(m_dictUnionDict,dict)
         [_self addEntriesFromDictionary:dict];
         return _self;
@@ -50,7 +50,7 @@
 - (NSMutableDictionary *(^)(UIFont *))makeAttrDictFont
 {
     return ^id(UIFont *font){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictFont,font)
         if([font isKindOfClass:[UIFont class]]){
             _self[NSFontAttributeName]= font;
@@ -62,7 +62,7 @@
 - (NSMutableDictionary *(^)(UIColor *))makeAttrDictTextColor
 {
     return ^id(UIColor *color){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictTextColor,color)
         if([color isKindOfClass:[UIColor class]]){
             _self[NSForegroundColorAttributeName]= color;
@@ -74,7 +74,7 @@
 - (NSMutableDictionary *(^)(UIColor *))makeAttrDictBGColor
 {
     return ^id(UIColor *color){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictBGColor,color)
         if([color isKindOfClass:[UIColor class]]){
             _self[NSBackgroundColorAttributeName]= color;
@@ -86,7 +86,7 @@
 - (NSMutableDictionary *(^)(NSTextAttachment *))makeAttrDictAttachment
 {
     return ^id(NSTextAttachment* attachment){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictAttachment,attachment)
         if([attachment isKindOfClass:[NSTextAttachment class]]){
             _self[NSAttachmentAttributeName]= attachment;
@@ -98,7 +98,7 @@
 - (NSMutableDictionary *(^)(NSParagraphStyle* paragraphStyle))makeAttrDictParagraphStyle
 {
     return ^id(NSParagraphStyle* paragraphStyle){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictParagraphStyle,paragraphStyle)
         if([paragraphStyle isKindOfClass:[NSParagraphStyle class]]){
             _self[NSParagraphStyleAttributeName]= paragraphStyle;
@@ -110,7 +110,7 @@
 - (NSMutableDictionary *(^)(NSNumber*))makeAttrDictLigature
 {
     return ^id(NSNumber *num){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictLigature,num)
         if([num isKindOfClass:[NSNumber class]])
             _self[NSLigatureAttributeName]= num;
@@ -121,7 +121,7 @@
 - (NSMutableDictionary *(^)(NSNumber*))makeAttrDictKern
 {
     return ^id(NSNumber *num){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictKern,num)
         if([num isKindOfClass:[NSNumber class]])
             _self[NSKernAttributeName]= num;
@@ -132,7 +132,7 @@
 - (NSMutableDictionary *(^)(NSNumber*))makeAttrDictStrikethroughStyle
 {
     return ^id(NSNumber *num){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictStrikethroughStyle,num)
         if([num isKindOfClass:[NSNumber class]])
             _self[NSStrikethroughStyleAttributeName]= num;
@@ -143,7 +143,7 @@
 - (NSMutableDictionary *(^)(NSUnderlineStyle))makeAttrDictUnderlineStyle
 {
     return ^id(NSUnderlineStyle underlineStyle){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictUnderlineStyle,underlineStyle)
         _self[NSUnderlineStyleAttributeName]= @(underlineStyle);
         return _self;
@@ -153,7 +153,7 @@
 - (NSMutableDictionary *(^)(UIColor*))makeAttrDictStrokeColor
 {
     return ^id(UIColor* color){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictStrokeColor,color)
         if([color isKindOfClass:[UIColor class]]){
             _self[NSStrokeColorAttributeName]= color;
@@ -165,7 +165,7 @@
 - (NSMutableDictionary *(^)(NSNumber *))makeAttrDictStrokeWidth
 {
     return ^id(NSNumber *num){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictStrokeWidth,num)
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSStrokeWidthAttributeName]= num;
@@ -177,7 +177,7 @@
 - (NSMutableDictionary *(^)(NSShadow*))makeAttrDictShadow
 {
     return ^id(NSShadow* shadown){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictShadow,shadown)
         if([shadown isKindOfClass:[NSShadow class]]){
             _self[NSShadowAttributeName]= shadown;
@@ -189,7 +189,7 @@
 - (NSMutableDictionary *(^)(NSString*))makeAttrDictTextEffect
 {
     return ^id(NSString* textEffect){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictTextEffect,textEffect)
         if([textEffect isKindOfClass:[NSString class]]){
             _self[NSTextEffectAttributeName]= textEffect;
@@ -201,7 +201,7 @@
 - (NSMutableDictionary *(^)(NSURL*))makeAttrDictLink
 {
     return ^id(NSURL* linkURL){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictLink,linkURL)
         if([linkURL isKindOfClass:[NSURL class]]){
             _self[NSLinkAttributeName]= linkURL;
@@ -213,7 +213,7 @@
 - (NSMutableDictionary *(^)(NSNumber *))makeAttrDictBaselineOffset
 {
     return ^id(NSNumber *num){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictBaselineOffset,num)
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSBaselineOffsetAttributeName]= num;
@@ -225,7 +225,7 @@
 - (NSMutableDictionary *(^)(UIColor*))makeAttrDictUnderlineColor
 {
     return ^id(UIColor* underlineColor){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictUnderlineColor,underlineColor)
         if([underlineColor isKindOfClass:[UIColor class]]){
             _self[NSUnderlineColorAttributeName]= underlineColor;
@@ -237,7 +237,7 @@
 - (NSMutableDictionary *(^)(UIColor*))makeAttrDictStrikethroughColor
 {
     return ^id(UIColor* bgColor){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictStrikethroughColor,bgColor)
         if([bgColor isKindOfClass:[UIColor class]]){
             _self[NSStrikethroughColorAttributeName]= bgColor;
@@ -249,7 +249,7 @@
 - (NSMutableDictionary *(^)(NSNumber *))makeAttrDictObliquenes
 {
     return ^id(NSNumber *num){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictObliquenes,num)
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSObliquenessAttributeName]= num;
@@ -261,7 +261,7 @@
 - (NSMutableDictionary *(^)(NSNumber *n))makeAttrDictExpansion
 {
     return ^id(NSNumber *num){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictExpansion,num)
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSExpansionAttributeName]= num;
@@ -273,7 +273,7 @@
 - (NSMutableDictionary *(^)(NSArray*))makeAttrDictWritingDirection
 {
     return ^id(NSArray* writingDirection){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictWritingDirection,writingDirection)
         if([writingDirection isKindOfClass:[NSArray class]]){
             _self[NSWritingDirectionAttributeName]= writingDirection;
@@ -285,7 +285,7 @@
 - (NSMutableDictionary *(^)(NSNumber *))makeAttrDictVerticalGlyphForm
 {
     return ^id(NSNumber *num){
-        LinkHandle_REF(NSMutableDictionary, NSMutableDictionary)
+        LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(makeAttrDictVerticalGlyphForm,num)
         if([num isKindOfClass:[NSNumber class]]){
             _self[NSVerticalGlyphFormAttributeName]= num;

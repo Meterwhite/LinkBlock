@@ -11,7 +11,7 @@
 
 - (NSObject *)makeLinkObjs
 {
-    LinkHandle_REF(NSObject, NSArray)
+    LinkHandle_REF(NSArray)
     if([self isKindOfClass:[LinkGroup class]]){
         LinkGroup* group = (id)_self;
         LinkGroup* newGroup = [LinkGroup groupWithArr:group.linkObjects];
@@ -57,7 +57,7 @@
 - (NSArray *(^)(NSUInteger, NSUInteger))arrObjsFromIndexTo
 {
     return ^id(NSUInteger idx1, NSUInteger idx2){
-        LinkHandle_REF(NSArray, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrObjsFromIndexTo,idx1,idx2)
         if(!_self.count ||idx1>idx2 || idx1> _self.count-1)
             return @[];
@@ -74,7 +74,7 @@
 - (NSDictionary *(^)())arrToDictByKeyNumber
 {
     return ^id(){
-        LinkHandle_REF(NSDictionary, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrToDictByKeyNumber)
         NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -87,7 +87,7 @@
 - (NSDictionary *(^)())arrToDictByKeyString
 {
     return ^id(){
-        LinkHandle_REF(NSDictionary, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrToDictByKeyString)
         NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -141,7 +141,7 @@
 - (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
 {
     return ^id(__unsafe_unretained Class typeClass){
-        LinkHandle_REF(NSArray, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_VAL(arrValuesOfType,typeClass)
         if(!typeClass)
             return _self;
@@ -158,7 +158,7 @@
 - (NSArray *(^)(NSString *))arrFilter
 {
     return ^id(NSString* predicateFormat){
-        LinkHandle_REF(NSArray, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrFilter,predicateFormat)
         return [_self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
     };
@@ -167,7 +167,7 @@
 - (NSIndexSet *(^)(id))arrIndexSetOfValue
 {
     return ^id(id value){
-        LinkHandle_REF(NSIndexSet, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrIndexSetOfValue,value)
         return  [_self indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if([obj isEqual:value])
@@ -180,7 +180,7 @@
 - (NSNumber *(^)())arrMaxNumber
 {
     return ^id(){
-        LinkHandle_REF(NSNumber, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrMaxNumber)
         __block NSNumber* max = _self[0];
         [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
@@ -195,7 +195,7 @@
 - (NSNumber *(^)())arrMinNumber
 {
     return ^id(){
-        LinkHandle_REF(NSNumber, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrMinNumber)
         __block NSNumber* min = _self[0];
         [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
@@ -210,7 +210,7 @@
 - (NSObject *(^)())arrLast
 {
     return ^id(){
-        LinkHandle_REF(NSObject, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrLast)
         return [_self lastObject];
     };
@@ -219,7 +219,7 @@
 - (NSObject *(^)())arrFirst
 {
     return ^id(){
-        LinkHandle_REF(NSObject, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrFirst)
         return [_self firstObject];
     };
@@ -228,7 +228,7 @@
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDict
 {
     return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
-        LinkHandle_REF(NSMutableArray, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrReplaceKeyInDict,replaceKey,withKey)
         NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
         [re enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull dict, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -244,7 +244,7 @@
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDictWithoutDeep
 {
     return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
-        LinkHandle_REF(NSMutableArray, NSArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrReplaceKeyInDictWithoutDeep,replaceKey,withKey)
         NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
         [re enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull dict, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -257,6 +257,18 @@
     };
 }
 
+- (NSArray *(^)())arrObjsValueRandom
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrObjsValueRandom)
+        
+        [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.objValueRandom();
+        }];
+        return _self;
+    };
+}
 
 @end
 

@@ -12,7 +12,7 @@
 - (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))viewSetFrame
 {
     return ^id(CGFloat x,CGFloat y, CGFloat width, CGFloat height){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetFrame,x,y,width,height)
         _self.frame= CGRectMake(x, y, width, height);
         return _self;
@@ -22,7 +22,7 @@
 - (UIView *(^)(CGFloat))viewSetX
 {
     return ^id(CGFloat x){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetX,x)
         CGRect frame = _self.frame;
         frame.origin.x = x;
@@ -34,7 +34,7 @@
 - (UIView *(^)(CGFloat))viewSetY
 {
     return ^id(CGFloat y){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetY,y)
         CGRect frame = _self.frame;
         frame.origin.y = y;
@@ -46,7 +46,7 @@
 - (UIView *(^)(CGFloat))viewSetCenterX
 {
     return ^id(CGFloat centerX){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetCenterX,centerX)
         CGPoint center = _self.center;
         center.x = centerX;
@@ -58,7 +58,7 @@
 - (UIView *(^)(CGFloat))viewSetCenterY
 {
     return ^id(CGFloat centerY){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetCenterY,centerY)
         CGPoint center = _self.center;
         center.y = centerY;
@@ -70,7 +70,7 @@
 - (UIView *(^)(CGFloat))viewSetWidth
 {
     return ^id(CGFloat width){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetWidth,width)
         CGRect frame= _self.frame;
         frame.size.width= width;
@@ -82,7 +82,7 @@
 - (UIView *(^)(CGFloat))viewSetHeight
 {
     return ^id(CGFloat height){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetHeight,height)
         CGRect frame= _self.frame;
         frame.size.height= height;
@@ -94,7 +94,7 @@
 - (UIView *(^)(CGFloat,CGFloat))viewSetSize
 {
     return ^id(CGFloat width, CGFloat height){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetSize,width,height)
         CGRect frame= _self.frame;
         frame.size.width= width;
@@ -107,7 +107,7 @@
 - (UIView *(^)(CGFloat,CGFloat))viewSetOrigin
 {
     return ^id(CGFloat x,CGFloat y){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetOrigin,x,y)
         CGRect frame= _self.frame;
         frame.origin.x= x;
@@ -120,7 +120,7 @@
 - (UIView *(^)(UIColor *))viewBGColor
 {
     return ^id(UIColor *color){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBGColor,color)
         _self.backgroundColor= color;
         return _self;
@@ -130,7 +130,7 @@
 - (UIView *(^)())viewBGColorRandom
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBGColorRandom)
         _self.backgroundColor= [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0];
         return _self;
@@ -140,7 +140,7 @@
 - (UIView *(^)(CGFloat x,CGFloat y))viewSetCenter
 {
     return ^id(CGFloat x,CGFloat y){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetCenter,x,y)
         _self.center = CGPointMake(x, y);
         return _self;
@@ -150,7 +150,7 @@
 - (UIView *(^)(UIColor *))viewBorderColor
 {
     return ^id(UIColor* color){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBorderColor,color)
         if([color isKindOfClass:[UIColor class]]){
             _self.layer.borderColor= color.CGColor;
@@ -162,7 +162,7 @@
 - (UIView *(^)(CGFloat))viewBorderWidth
 {
     return ^id(CGFloat width){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBorderWidth,width)
         _self.layer.borderWidth= width;
         return _self;
@@ -172,7 +172,7 @@
 - (UIView *(^)(CGFloat))viewCornerRadius
 {
     return ^id(CGFloat cornerRadius){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCornerRadius,cornerRadius)
         _self.layer.cornerRadius= cornerRadius;
         return _self;
@@ -182,7 +182,7 @@
 - (UIView *(^)(BOOL))viewMasksToBounds
 {
     return ^id(BOOL flag){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewMasksToBounds,flag)
         _self.layer.masksToBounds= flag;
         return _self;
@@ -192,7 +192,7 @@
 - (UIView *(^)(BOOL))viewClipsToBounds
 {
     return ^id(BOOL flag){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewClipsToBounds,flag)
         _self.clipsToBounds= flag;
         return _self;
@@ -202,7 +202,7 @@
 - (UIView *(^)(BOOL))viewEndEditing
 {
     return ^id(BOOL force){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewEndEditing,force)
         [_self endEditing:force];
         return _self;
@@ -223,7 +223,7 @@
 - (UIView *(^)())viewBecomeFirstResponder
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBecomeFirstResponder)
         [_self becomeFirstResponder];
         return _self;
@@ -233,7 +233,7 @@
 - (UIView *(^)())viewResignFirstResponder
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewResignFirstResponder)
         [_self resignFirstResponder];
         return _self;
@@ -243,7 +243,7 @@
 - (UIView *(^)())viewFirstResponderSubViewForInput
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewFirstResponderSubViewForInput)
         __block UIView *re= nil;
         [_self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
@@ -281,7 +281,7 @@
 {
     return ^id(UIView* aView, BOOL isKeep){
         
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewConvertSuperverTo,aView,isKeep)
         if(isKeep){
             
@@ -318,7 +318,7 @@
 - (UIView *(^)(BOOL))viewUserInteractionEnabled
 {
     return ^id(BOOL b){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewUserInteractionEnabled,b)
         _self.userInteractionEnabled = b;
         return _self;
@@ -328,7 +328,7 @@
 - (UIView *(^)(BOOL))viewMultipleTouchEnabled
 {
     return ^id(BOOL b){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewMultipleTouchEnabled,b)
         _self.multipleTouchEnabled =b;
         return _self;
@@ -338,7 +338,7 @@
 - (UIView *(^)(BOOL))viewExclusiveTouch
 {
     return ^id(BOOL b){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewExclusiveTouch,b)
         _self.exclusiveTouch = b;
         return _self;
@@ -348,7 +348,7 @@
 - (UIView *(^)(UIViewAutoresizing))viewAutoresizingMask
 {
     return ^id(UIViewAutoresizing mask){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAutoresizingMask,mask)
         _self.autoresizingMask = mask;
         return _self;
@@ -358,7 +358,7 @@
 - (UIView *(^)(CGFloat))viewAlpha
 {
     return ^id(CGFloat alpha){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAlpha,alpha)
         _self.alpha= alpha;
         return _self;
@@ -368,7 +368,7 @@
 - (UIView *(^)(CGFloat))viewOpaque
 {
     return ^id(CGFloat opaque){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewOpaque,opaque)
         _self.opaque = opaque;
         return _self;
@@ -378,7 +378,7 @@
 - (UIView *(^)(BOOL))viewHidden
 {
     return ^id(BOOL b){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewHidden,b)
         _self.hidden= b;
         return _self;
@@ -388,7 +388,7 @@
 - (UIView *(^)(UIViewContentMode))viewContentMode
 {
     return ^id(UIViewContentMode contentMode){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewContentMode,contentMode)
         _self.contentMode = contentMode;
         return _self;
@@ -398,7 +398,7 @@
 - (UIView *(^)(NSUInteger))viewSubviewAt
 {
     return ^id(NSUInteger index){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSubviewAt,index)
         if(index< _self.subviews.count)
             return (UIView*)(_self.subviews[index]);
@@ -428,7 +428,7 @@
 - (UIView *(^)())viewRemoveFromSuperview
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewRemoveFromSuperview)
         [_self removeFromSuperview];
         return _self;
@@ -438,7 +438,7 @@
 - (UIView *(^)(NSUInteger))viewRemoveSubviewAt
 {
     return ^id(NSUInteger index){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewRemoveSubviewAt,index)
         return _self.viewSubviewAt(index).viewRemoveFromSuperview();
     };
@@ -447,7 +447,7 @@
 - (UIView *(^)(NSUInteger, NSUInteger))viewExchangeSubviewByIndex
 {
     return ^id(NSUInteger index1, NSUInteger index2){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewExchangeSubviewByIndex,index1,index2)
         [_self exchangeSubviewAtIndex:index1 withSubviewAtIndex:index2];
         return _self;
@@ -457,7 +457,7 @@
 - (UIView *(^)())viewRemoveAllSubview
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewRemoveAllSubview)
         
         [_self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -468,7 +468,7 @@
 - (UIView *(^)(UIView *))viewAddSubview
 {
     return ^id(UIView* subview){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAddSubview,subview)
         if([subview isKindOfClass:[UIView class]]){
             [_self addSubview:subview];
@@ -480,7 +480,7 @@
 - (UIView *(^)(__weak UIView *))viewAddToView
 {
     return ^id(__weak UIView* view){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAddToView,view)
         if([view isKindOfClass:[UIView class]]){
             [view addSubview:_self];
@@ -492,7 +492,7 @@
 - (UIView *(^)())viewSetNeedsLayout
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetNeedsLayout)
         [_self setNeedsLayout];
         return _self;
@@ -502,7 +502,7 @@
 - (UIView *(^)())viewLayoutIfNeeded
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetNeedsLayout)
         [_self viewLayoutIfNeeded];
         return _self;
@@ -512,7 +512,7 @@
 - (UIView *(^)())viewSetNeedsDisplay
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetNeedsLayout)
         [_self setNeedsDisplay];
         return _self;
@@ -522,7 +522,7 @@
 - (UIView *(^)(UIView *, NSUInteger))viewInsertSubviewAtIndex
 {
     return ^id(UIView* view, NSUInteger index){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewInsertSubviewAtIndex,view,index)
         [_self insertSubview:view atIndex:index];
         return _self;
@@ -532,7 +532,7 @@
 - (UIView *(^)(UIView *, NSUInteger))viewInsertToViewAtIndex
 {
     return ^id(UIView* view, NSUInteger index){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewInsertToViewAtIndex,view,index)
         [view insertSubview:_self atIndex:index];
         return _self;
@@ -542,7 +542,7 @@
 - (UIView *(^)(UIView *, UIView *))viewInsertSubviewBelow
 {
     return ^id(UIView* view, UIView* belowView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewInsertSubviewBelow,view,belowView)
         [_self insertSubview:view belowSubview:belowView];
         return _self;
@@ -552,7 +552,7 @@
 - (UIView *(^)(UIView *, UIView *))viewInsertToViewBelow
 {
     return ^id(UIView* view, UIView* belowView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewInsertSubviewBelow,view,belowView)
         [view insertSubview:_self belowSubview:belowView];
         return _self;
@@ -562,7 +562,7 @@
 - (UIView *(^)(UIView *, UIView *))viewInsertSubviewAbouve
 {
     return ^id(UIView* view, UIView* belowView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewInsertSubviewAbouve,view,belowView)
         [_self insertSubview:view aboveSubview:belowView];
         return _self;
@@ -572,7 +572,7 @@
 - (UIView *(^)(UIView *, UIView *))viewInsertToViewAbouve
 {
     return ^id(UIView* view, UIView* belowView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewInsertSubviewAbouve,view,belowView)
         [view insertSubview:_self aboveSubview:belowView];
         return _self;
@@ -582,7 +582,7 @@
 - (UIView* (^)(BOOL))viewSubiewsExclusiveTouch
 {
     return ^id(BOOL b){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSubiewsExclusiveTouch,b)
         [_self.subviews enumerateObjectsUsingBlock:^(UIView* subView, NSUInteger idx, BOOL *stop) {
             if([subView isKindOfClass:[UIView class]]){
@@ -596,7 +596,7 @@
 - (UIView *(^)(UIRectCorner, CGSize))viewCornerRadiusSide
 {
     return ^id(UIRectCorner side , CGSize radius){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCornerRadiusSide,side,radius)
         __block CGRect bounds = _self.bounds;
         if(_self.constraints.count){
@@ -723,7 +723,7 @@
 - (UIView *(^)(double))viewAnimateShakeHorizental
 {
     return ^id(double duration){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateShakeHorizental,duration)
         CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -737,7 +737,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveUp
 {
     return ^id(CGFloat distance, NSTimeInterval time){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateMoveUp,distance,time)
         [UIView animateWithDuration:time animations:^{
             _self.transform = CGAffineTransformTranslate(_self.transform,0 , distance);
@@ -749,7 +749,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveDown
 {
     return ^id(CGFloat distance, NSTimeInterval time){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateMoveDown,distance,time)
         [UIView animateWithDuration:time animations:^{
             _self.transform = CGAffineTransformTranslate(_self.transform,0 , -distance);
@@ -761,7 +761,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveRight
 {
     return ^id(CGFloat distance, NSTimeInterval time){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateMoveRight,distance,time)
         [UIView animateWithDuration:time animations:^{
             _self.transform = CGAffineTransformTranslate(_self.transform,distance, 0);
@@ -773,7 +773,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval))viewAnimateMoveLeft
 {
     return ^id(CGFloat distance, NSTimeInterval time){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateMoveLeft,distance,time)
         [UIView animateWithDuration:time animations:^{
             _self.transform = CGAffineTransformTranslate(_self.transform, -distance, 0);
@@ -786,7 +786,7 @@
 - (UIView *(^)(double))viewAnimateShakeVertical
 {
     return ^id(double duration){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateShakeVertical,duration)
         CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -801,7 +801,7 @@
 - (UIView *(^)())viewAnimateAppleMotionEffects
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateAppleMotionEffects)
         // Motion effects are available starting from iOS 7.
         if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending))
@@ -827,7 +827,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval, BOOL))viewAnimatePulse
 {
     return ^id(CGFloat scale,NSTimeInterval duration,BOOL repeat){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimatePulse,scale,duration,repeat)
         CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
         pulseAnimation.duration = duration;
@@ -845,7 +845,7 @@
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromTop
 {
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateFlipFromTop,duration,repeatCount,shouldAutoreverse)
         NSString *subtype = @"fromTop";
         CATransition *transition = [CATransition animation];
@@ -866,7 +866,7 @@
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromBotton
 {
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateFlipFromBotton,duration,repeatCount,shouldAutoreverse)
         NSString *subtype = @"fromBottom";
         CATransition *transition = [CATransition animation];
@@ -887,7 +887,7 @@
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromLeft
 {
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateFlipFromLeft,duration,repeatCount,shouldAutoreverse)
         NSString *subtype = @"fromLeft";
         CATransition *transition = [CATransition animation];
@@ -908,7 +908,7 @@
 - (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromRight
 {
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateFlipFromRight,duration,repeatCount,shouldAutoreverse)
         NSString *subtype = @"fromRight";
         CATransition *transition = [CATransition animation];
@@ -929,7 +929,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToLeft
 {
     return ^id(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateRotateToLeft,angle,duration,repeatCount,shouldAutoreverse)
         CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         rotationAnimation.toValue = @(-angle);
@@ -947,7 +947,7 @@
 - (UIView *(^)(CGFloat, NSTimeInterval, NSUInteger, BOOL))viewAnimateRotateToRight
 {
     return ^id(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateRotateToRight,angle,duration,repeatCount,shouldAutoreverse)
         CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         rotationAnimation.toValue = @(angle);
@@ -965,7 +965,7 @@
 - (UIView *(^)())viewAnimateRemove
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateRemove)
         [CATransaction begin];
         [_self.layer removeAllAnimations];
@@ -990,7 +990,7 @@
 - (UIView *(^)())viewAnimatePause
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimatePause)
         CFTimeInterval pausedTime= [_self.layer convertTime:CACurrentMediaTime() fromLayer:nil];
         _self.layer.speed= 0.0;
@@ -1002,7 +1002,7 @@
 - (UIView *(^)())viewAnimateResume
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateResume)
         CFTimeInterval pausedTime= [_self.layer timeOffset];
         _self.layer.speed= 1.0;
@@ -1017,7 +1017,7 @@
 - (UIImage *(^)())viewSnapshot
 {
     return ^id(){
-        LinkHandle_REF(UIImage, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSnapshot)
         UIGraphicsBeginImageContextWithOptions(_self.bounds.size, YES, 0);
         [_self drawViewHierarchyInRect:_self.bounds afterScreenUpdates:YES];
@@ -1030,7 +1030,7 @@
 - (UIView *(^)(UIView *))viewCopyX
 {
     return ^id(UIView* fromView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCopyX,fromView)
         CGRect frame = _self.frame;
         frame.origin.x = fromView.frame.origin.x;
@@ -1042,7 +1042,7 @@
 - (UIView *(^)(UIView *))viewCopyY
 {
     return ^id(UIView* fromView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCopyY,fromView)
         CGRect frame = _self.frame;
         frame.origin.y = fromView.frame.origin.y;
@@ -1054,7 +1054,7 @@
 - (UIView *(^)(UIView *))viewCopyFrame
 {
     return ^id(UIView* fromView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCopyFrame,fromView)
         _self.frame= fromView.frame;
         return _self;
@@ -1064,7 +1064,7 @@
 - (UIView *(^)(UIView *))viewCopySize
 {
     return ^id(UIView* fromView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCopySize,fromView)
         CGRect frame = _self.frame;
         frame.size= fromView.frame.size;
@@ -1076,7 +1076,7 @@
 - (UIView *(^)(UIView *))viewCopyOrigin
 {
     return ^id(UIView* fromView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCopyOrigin,fromView)
         CGRect frame = _self.frame;
         frame.origin= fromView.frame.origin;
@@ -1088,7 +1088,7 @@
 - (UIView *(^)(UIView *))viewCopyCenter
 {
     return ^id(UIView* fromView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCopyCenter,fromView)
         _self.center = fromView.center;
         return _self;
@@ -1100,7 +1100,7 @@
 - (UIView *(^)(UIView *))viewCopyCenterX
 {
     return ^id(UIView* fromView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCopyCenterX,fromView)
         CGPoint center = _self.center;
         center.x= fromView.center.x;
@@ -1112,7 +1112,7 @@
 - (UIView *(^)(UIView *))viewCopyCenterY
 {
     return ^id(UIView* fromView){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewCopyCenterY,fromView)
         CGPoint center = _self.center;
         center.y= fromView.center.y;
@@ -1124,7 +1124,7 @@
 - (UIView *(^)(UIView *, CGFloat))viewTopTo
 {
     return ^id(UIView* toView, CGFloat margin){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewTopTo,toView,margin)
         CGRect frame = _self.frame;
         frame.origin.y = toView.viewMaxY()+ margin;
@@ -1136,7 +1136,7 @@
 - (UIView *(^)(UIView *, CGFloat))viewBottomTo
 {
     return ^id(UIView* toView, CGFloat margin){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBottomTo,toView,margin)
         CGRect frame = _self.frame;
         frame.origin.y = toView.frame.origin.y - margin;
@@ -1148,7 +1148,7 @@
 - (UIView *(^)(UIView *, CGFloat))viewLeftTo
 {
     return ^id(UIView* toView, CGFloat margin){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewLeftTo,toView,margin)
         CGRect frame = _self.frame;
         frame.origin.x = toView.frame.origin.x - frame.size.width- margin;
@@ -1160,7 +1160,7 @@
 - (UIView *(^)(UIView *, CGFloat))viewRightTo
 {
     return ^id(UIView* toView, CGFloat margin){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewRightTo,toView,margin)
         CGRect frame = _self.frame;
         frame.origin.x = toView.viewMaxX() + margin;
@@ -1194,7 +1194,7 @@
 - (UIView *(^)())viewBringFrontInView
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBringFrontInView)
         if(_self.superview)
             [_self.superview bringSubviewToFront:_self];
@@ -1205,7 +1205,7 @@
 - (UIView *(^)())viewSendBackInView
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSendBackInView)
         if(_self.superview)
             [_self.superview sendSubviewToBack:_self];
@@ -1216,7 +1216,7 @@
 - (UIView *(^)())viewRemoveConstraints
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewRemoveConstraints)
         [_self removeConstraints:_self.constraints];
         if(_self.superview){
@@ -1256,7 +1256,7 @@
 - (UIView *(^)())viewRemoveAutoresizing
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewRemoveAutoresizing)
         _self.autoresizingMask=UIViewAutoresizingNone;
         _self.translatesAutoresizingMaskIntoConstraints=NO;
@@ -1267,7 +1267,7 @@
 - (UIView *(^)())viewBeforeIndexView
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBeforeIndexView)
         return (UIView*)_self.objBeforeInArr(_self.subviews);
     };
@@ -1276,7 +1276,7 @@
 - (UIView *(^)())viewNextIndexView
 {
     return ^id(){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewNextIndexView)
         return (UIView*)_self.objNextInArr(_self.subviews);
     };
@@ -1302,7 +1302,7 @@
 - (UIView *(^)(CGFloat))viewSetWidthAspect
 {
     return ^id(CGFloat newWidth){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetWidthAspect,newWidth)
         __block CGFloat w = 0;
         __block CGFloat h = 0;
@@ -1349,7 +1349,7 @@
 - (UIView *(^)(CGFloat))viewSetHeightAspect
 {
     return ^id(CGFloat newHeight){
-        LinkHandle_REF(UIView, UIView)
+        LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetHeightAspect,newHeight)
         CGFloat k;
         CGFloat newWidth;

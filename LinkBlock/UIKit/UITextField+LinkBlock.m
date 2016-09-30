@@ -13,7 +13,7 @@
 - (UITextField* (^)(UIColor *))txtFieldPlaceholdColor
 {
     return ^id(UIColor* color){
-        LinkHandle_REF(UITextField, UITextField)
+        LinkHandle_REF(UITextField)
         LinkGroupHandle_REF(txtFieldPlaceholdColor,color)
         [_self setValue:color forKeyPath:@"_placeholderLabel.textColor"];
         return _self;
@@ -23,7 +23,7 @@
 - (UITextField *(^)(NSRange))txtFieldSelectRangeSet
 {
     return ^id(NSRange range){
-        LinkHandle_REF(UITextField, UITextField)
+        LinkHandle_REF(UITextField)
         LinkGroupHandle_REF(txtFieldSelectRangeSet,range)
         UITextPosition* beginning = _self.beginningOfDocument;
         UITextPosition* startPosition = [_self positionFromPosition:beginning offset:range.location];
