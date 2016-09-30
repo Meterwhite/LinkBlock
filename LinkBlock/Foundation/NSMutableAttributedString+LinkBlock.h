@@ -62,10 +62,12 @@
 
 /** <^(CGFloat maxWidth)>默认情况下计算尺寸，如支持UILable文字排版计算 */
 @property (nonatomic,copy,readonly) CGRect   (^m_attr_strSize)(CGFloat maxWidth);
+/** <^(CGFloat maxWidth)>默认情况下计算尺寸，如支持UILable文字排版计算 */
+@property (nonatomic,copy,readonly) NSValue*(^m_attr_strSize_n)(CGFloat maxWidth);
 /** <^(CGFloat maxWidth, NSStringDrawingOptions optoins)> */
 @property (nonatomic,copy,readonly) CGRect   (^m_attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
-/** <^(NSAttributedString* attrStr)> */
-@property (nonatomic,copy,readonly) BOOL     (^m_attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
+/** <^(CGFloat maxWidth, NSStringDrawingOptions optoins)> */
+@property (nonatomic,copy,readonly) NSValue*(^m_attr_strSizeWithOptions_n)(CGFloat maxWidth, NSStringDrawingOptions optoins);
 /** <^(UIImage* image, CGRect rect)>加水印 */
 @property (nonatomic,copy,readonly) UIImage* (^m_attr_strDrawImgRect)(UIImage* image, CGRect rect);
 @end

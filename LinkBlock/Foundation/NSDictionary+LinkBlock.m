@@ -53,6 +53,25 @@
     };
 }
 
+- (NSNumber* (^)(id<NSCopying>))dictGetBOOL_n
+{
+    return ^id(id<NSCopying> key){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictGetBOOL_n,key)
+        if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
+            if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
+            {
+                return @([_self[key] boolValue]);//@(0),@"0"
+            }else{
+                return @NO;
+            }
+        }else{//nil,NSNull
+            return @NO;
+        }
+        return @([_self[key] boolValue]);
+    };
+}
+
 - (BOOL (^)(id<NSCopying>))dictContainerKey
 {
     return ^(id<NSCopying> key){
@@ -64,6 +83,15 @@
     };
 }
 
+- (NSNumber* (^)(id<NSCopying>))dictContainerKey_n
+{
+    return ^id(id<NSCopying> key){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictContainerKey_n,key)
+        return @([[_self allKeys] containsObject:key]);
+    };
+}
+
 - (BOOL (^)(id))dictContainerValue
 {
     return ^(id value){
@@ -72,6 +100,15 @@
         }
         LinkGroupHandle_VAL(dictContainerValue,value)
         return [[_self allValues] containsObject:value];
+    };
+}
+
+- (NSNumber* (^)(id))dictContainerValue_n
+{
+    return ^id(id value){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictContainerValue_n,value)
+        return @([[_self allValues] containsObject:value]);
     };
 }
 

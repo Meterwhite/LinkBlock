@@ -9,6 +9,7 @@
 #import "LinkGroup.h"
 #import "LinkError.h"
 #import "LinkReturn.h"
+#import "Others+LinkBlock.h"
 
 #import "NSArray+LinkBlock.h"
 #import "NSAttributedString+LinkBlock.h"
@@ -53,11 +54,11 @@
 #endif
 /**
  <^()>获取链条返回值，并将链条信息对象和错误转nil
- ... = linkObj(..)...end();
- ... = linkObj(..)...linkIF(...)...end();
+ ... = linkObj(..)...end;
+ ... = linkObj(..)...linkIF(...)...end;
  */
-#ifndef end
-#define end end
+#ifndef linkEnd
+#define linkEnd linkEnd
 #endif
 /**
  <^(id* toObject)>将当前对象赋值到变量
@@ -93,10 +94,26 @@
 #define linkElse linkElse
 #endif
 /**
+ 根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
+ 用法与linkIf相似
+ ...objIsEqual_n(...).linkIf_YES...LinkElse....
+ */
+#ifndef linkIf_YES
+#define linkIf_YES linkIf_YES
+#endif
+/**
+ 根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
+ 用法与linkIf相似
+ ...objIsEqual_n(...).linkIf_NO...LinkElse...
+ */
+#ifndef linkIf_NO
+#define linkIf_NO linkIf_NO
+#endif
+/**
  <^()>使其后语句跳空;可与分支配合
  ...[aNewLink:^(NSObject* fromObj){
  if(...){
- ...linkReturn();
+ ...linkReturn;
  }
  }]...
  */
@@ -113,7 +130,7 @@
 #endif
 /**
  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
- 如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end()
+ 如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
  Arr.makeLinkObjs....
  */
 #ifndef makeLinkObjs
@@ -166,15 +183,15 @@
  <^()>多对象链式编程获取多个链条返回值，并将错误转nil
  ... = linkObj(...)...linkLoop(...)...ends();
  */
-#ifndef ends
-#define ends ends
+#ifndef linkEnds
+#define linkEnds linkEnds
 #endif
 /**
  <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil
  ... = linkObj(...)...linkLoop(...)...endAt(index);
  */
-#ifndef endsAt
-#define endsAt endsAt
+#ifndef linkEndsAt
+#define linkEndsAt linkEndsAt
 #endif
 
 //////////////////////////////////////////////////////////////////////
@@ -238,9 +255,16 @@ if([self isKindOfClass:[LinkGroup class]]){\
 #ifndef objIsEqualToEach
 #define objIsEqualToEach(obj, args...) objIsEqualToEach(obj,##args,nil)
 #endif
+#ifndef objIsEqualToEach_n
+#define objIsEqualToEach_n(obj, args...) objIsEqualToEach_n(obj,##args,nil)
+#endif
 
 #ifndef objIsEqualToSomeone
 #define objIsEqualToSomeone(obj, args...) objIsEqualToSomeone(obj,##args,nil)
+#endif
+
+#ifndef objIsEqualToSomeone_n
+#define objIsEqualToSomeone_n(obj, args...) objIsEqualToSomeone_n(obj,##args,nil)
 #endif
 
 #ifndef strAppendFormat
@@ -250,25 +274,43 @@ if([self isKindOfClass:[LinkGroup class]]){\
 #ifndef numIsEqualToNum
 #define numIsEqualToNum(...) numIsEqualToNum(LBBoxValue((__VA_ARGS__)))
 #endif
+#ifndef numIsEqualToNum_n
+#define numIsEqualToNum_n(...) numIsEqualToNum_n(LBBoxValue((__VA_ARGS__)))
+#endif
 
 #ifndef numIsGreatThanNum
 #define numIsGreatThan(...) numIsGreatThanNum(LBBoxValue((__VA_ARGS__)))
+#endif
+#ifndef numIsGreatThanNum_n
+#define numIsGreatThanNum_n(...) numIsGreatThanNum_n(LBBoxValue((__VA_ARGS__)))
 #endif
 
 #ifndef numIsGreatEqualNum
 #define numIsGreatEqualNum(...) numIsGreatEqualNum(LBBoxValue((__VA_ARGS__)))
 #endif
+#ifndef numIsGreatEqualNum_n
+#define numIsGreatEqualNum_n(...) numIsGreatEqualNum_n(LBBoxValue((__VA_ARGS__)))
+#endif
 
 #ifndef numIsGreatEqualNum
 #define numIsGreatEqualNum(...) numIsGreatEqualNum(__VA_ARGS__);
+#endif
+#ifndef numIsGreatEqualNum_n
+#define numIsGreatEqualNum_n(...) numIsGreatEqualNum_n(__VA_ARGS__);
 #endif
 
 #ifndef numIsLessThanNum
 #define numIsLessThanNum(...) numIsLessThanNum(LBBoxValue((__VA_ARGS__)))
 #endif
+#ifndef numIsLessThanNum_n
+#define numIsLessThanNum_n(...) numIsLessThanNum_n(LBBoxValue((__VA_ARGS__)))
+#endif
 
 #ifndef numIsLessEqualNum
 #define numIsLessEqualNum(...) numIsLessEqualNum(LBBoxValue((__VA_ARGS__)))
+#endif
+#ifndef numIsLessEqualNum_n
+#define numIsLessEqualNum_n(...) numIsLessEqualNum_n(LBBoxValue((__VA_ARGS__)))
 #endif
 
 //MARK:装箱

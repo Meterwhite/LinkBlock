@@ -22,12 +22,6 @@
 @property (nonatomic,copy,readonly) NSObject*            (^m_dictGet)(id<NSCopying> key);
 /** <^(id<NSCopying> key)> */
 @property (nonatomic,copy,readonly) NSObject*            (^m_dictGetNoNSNull)(id<NSCopying> key);
-/** <^(id<NSCopying> key)> */
-@property (nonatomic,copy,readonly) BOOL                 (^m_dictGetBOOL)(id<NSCopying> key);
-/** <^(id<NSCopying> key)> */
-@property (nonatomic,copy,readonly) BOOL                 (^m_dictContainerKey)(id<NSCopying> key);
-/** <^(id value)> */
-@property (nonatomic,copy,readonly) BOOL                 (^m_dictContainerValue)(id value);
 /** <^()> */
 @property (nonatomic,copy,readonly) NSArray*             (^m_dictAllKeys)();
 /** <^()> */

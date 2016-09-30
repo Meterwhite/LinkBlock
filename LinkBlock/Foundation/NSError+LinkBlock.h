@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LinkBlock.h"
 
 @interface NSObject(NSErrorLinkBlock)
 /** <^(id<NSCopying> key)> */

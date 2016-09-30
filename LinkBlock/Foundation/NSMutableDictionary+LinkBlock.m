@@ -308,28 +308,6 @@
     };
 }
 
-
-- (BOOL (^)(id<NSCopying>))m_dictGetBOOL
-{
-    return ^(id<NSCopying> key){
-        return self.dictGetBOOL(key);
-    };
-}
-
-- (BOOL (^)(id<NSCopying>))m_dictContainerKey
-{
-    return ^(id<NSCopying> key){
-        return self.dictContainerKey(key);
-    };
-}
-
-- (BOOL (^)(id value))m_dictContainerValue
-{
-    return ^(id value){
-        return self.dictContainerValue(value);
-    };
-}
-
 - (NSArray *(^)())m_dictAllKeys
 {
     return ^id(){

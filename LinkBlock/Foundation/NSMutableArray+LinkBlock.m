@@ -152,59 +152,6 @@
     };
 }
 
-- (NSObject* (^)(NSUInteger))m_arrAt
-{
-    return ^id(NSUInteger idx){
-        return self.arrAt(idx);
-    };
-}
-
-- (BOOL (^)(NSString *))m_arrIsContainerStr
-{
-    return ^(NSString* str){
-        return self.arrIsContainerStr(str);
-    };
-}
-
-- (BOOL (^)(id))m_arrContain
-{
-    return ^(id obj){
-        return self.arrIsContainer(obj);
-    };
-}
-
-- (NSArray *(^)(NSUInteger, NSUInteger))m_arrObjsFromIndexTo
-{
-    return ^id(NSUInteger from, NSUInteger to){
-        return self.arrObjsFromIndexTo(from , to);
-    };
-}
-- (void)setM_arrObjsFromIndexTo:(NSArray *(^)(NSUInteger, NSUInteger))m_arrObjsFromIndexTo
-{};
-
-- (BOOL (^)(NSUInteger))m_arrContainIndex
-{
-    return ^(NSUInteger idx){
-        return self.arrcontainIndex(idx);
-    };
-}
-
-- (NSDictionary *(^)())m_arrToDictByKeyNumber
-{
-    return ^id(){
-        return self.arrToDictByKeyNumber();
-    };
-}
-
-- (NSDictionary *(^)())m_arrToDictByKeyString
-{
-    return ^id(){
-        return self.arrToDictByKeyString();
-    };
-}
-
-
-
 - (NSMutableArray *(^)(NSString *, BOOL))m_arrSortByKey
 {
     return ^id(NSString* key , BOOL ascending){
@@ -314,49 +261,6 @@
     };
 }
 
-- (NSMutableArray *(^)(NSUInteger))m_arrSubFrom
-{
-    return ^id(NSUInteger idx){
-        LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrSubFrom,idx)
-        NSUInteger count = _self.count;
-        if(idx >= count ) return _self;
-        NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(idx, count - idx)];
-        [_self objectsAtIndexes:idxSet];
-        return _self;
-    };
-}
-
-- (NSMutableArray *(^)(NSUInteger))m_arrSubTo
-{
-    return ^id(NSUInteger idx){
-        LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrSubTo,idx)
-        NSUInteger count = _self.count;
-        if(idx >= count ) return _self;
-        NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, idx)];
-        [_self objectsAtIndexes:idxSet];
-        return _self;
-    };
-}
-
-- (NSMutableArray *(^)(__unsafe_unretained Class))m_arrObjsOfType
-{
-    return ^id(__unsafe_unretained Class typeClass){
-        LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrObjsOfType,typeClass)
-        if(!typeClass)
-            return _self;
-        NSMutableArray* re = [NSMutableArray array];
-        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if([obj isKindOfClass:typeClass]){
-                [re addObject:obj];
-            }
-        }];
-        return re;
-    };
-}
-
 - (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict
 {
     return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
@@ -368,15 +272,6 @@
 {
     return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
         return self.arrReplaceKeyInDictWithoutDeep(replaceKey, withKey);
-    };
-}
-
-- (NSObject* (^)())m_arrAny
-{
-    return ^id(){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(m_arrAny)
-        return _self[arc4random_uniform((u_int32_t)_self.count)];
     };
 }
 

@@ -15,6 +15,8 @@
 @property (nonatomic,copy,readonly) CGRect   (^attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
 /** <^(NSAttributedString* attrStr)> */
 @property (nonatomic,copy,readonly) BOOL     (^attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
+/** <^(NSAttributedString* attrStr)> */
+@property (nonatomic,copy,readonly) NSNumber*(^attr_strIsEqualToAttrStr_n)(NSAttributedString* attrStr);
 /** <^(UIImage* image, CGRect rect)>属性文本绘制到图片 */
 @property (nonatomic,copy,readonly) UIImage* (^attr_strDrawImgRect)(UIImage* image, CGRect rect);
 @end

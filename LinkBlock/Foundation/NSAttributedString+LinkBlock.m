@@ -41,6 +41,15 @@
     };
 }
 
+- (NSNumber* (^)(NSAttributedString *))attr_strIsEqualToAttrStr_n
+{
+    return ^id(NSAttributedString* attrStr){
+        LinkHandle_REF(NSAttributedString)
+        LinkGroupHandle_REF(attr_strIsEqualToAttrStr_n,attrStr)
+        return @([_self isEqualToAttributedString:attrStr]);
+    };
+}
+
 - (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
 {
     return ^id(UIImage* image, CGRect rect){

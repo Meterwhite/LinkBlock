@@ -10,11 +10,11 @@
 
 
 @implementation NSObject(NSValueLinkBlock)
-- (NSValue *(^)(NSArray *))valueSetPointToViews
+- (NSValue *(^)(NSArray *))valueCGPointSetToViews
 {
     return ^id(NSArray* views){
         LinkHandle_REF(NSValue)
-        LinkGroupHandle_REF(valueSetPointToViews,views)
+        LinkGroupHandle_REF(valueCGPointSetToViews,views)
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
             if([v isKindOfClass:[UIView class]]){
                 CGRect frame = v.frame;
@@ -26,11 +26,11 @@
     };
 }
 
-- (NSValue *(^)(NSArray *))valueSetSizeToViews
+- (NSValue *(^)(NSArray *))valueCGSizeSetToViews
 {
     return ^id(NSArray* views){
         LinkHandle_REF(NSValue)
-        LinkGroupHandle_REF(valueSetSizeToViews,views)
+        LinkGroupHandle_REF(valueCGSizeSetToViews,views)
         [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
             if([v isKindOfClass:[UIView class]]){
                 CGRect frame = v.frame;

@@ -312,6 +312,15 @@
     };
 }
 
+- (NSValue* (^)(CGFloat))m_attr_strSize_n
+{
+    return ^id(CGFloat maxWidth){
+        LinkHandle_REF(NSAttributedString)
+        LinkGroupHandle_REF(m_attr_strSize_n,maxWidth)
+        return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil]];
+    };
+}
+
 - (CGRect (^)(CGFloat, NSStringDrawingOptions))m_attr_strSizeWithOptions
 {
     return ^(CGFloat maxWidth,NSStringDrawingOptions options ){
@@ -323,14 +332,12 @@
     };
 }
 
-- (BOOL (^)(NSAttributedString *))m_attr_strIsEqualToAttrStr
+- (NSValue* (^)(CGFloat, NSStringDrawingOptions))m_attr_strSizeWithOptions_n
 {
-    return ^(NSAttributedString* attrStr){
-        LinkHandle_VAL_IFNOT(NSAttributedString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(m_attr_strIsEqualToAttrStr,attrStr)
-        return [_self isEqualToAttributedString:attrStr];
+    return ^id(CGFloat maxWidth,NSStringDrawingOptions options ){
+        LinkHandle_REF(NSAttributedString)
+        LinkGroupHandle_REF(m_attr_strSizeWithOptions_n,maxWidth,options)
+        return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil]];
     };
 }
 

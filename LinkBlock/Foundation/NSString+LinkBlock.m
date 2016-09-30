@@ -31,7 +31,14 @@
     };
 }
 
-
+- (NSNumber* (^)(NSString *))strIsEqualStr_n
+{
+    return ^id(NSString* str){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strIsEqualStr_n,str)
+        return @([_self isEqualToString:str]);
+    };
+}
 
 - (NSString *(^)(NSString *))strAppend
 {
@@ -135,6 +142,15 @@
     };
 }
 
+- (NSNumber* (^)(NSString *))strIsContain_n
+{
+    return ^id(NSString* str){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strIsContain_n,str)
+        return @([_self containsString:str]);
+    };
+}
+
 - (NSInteger (^)(NSString *))strIndexOfStr
 {
     return ^(NSString* str){
@@ -167,6 +183,21 @@
     };
 }
 
+- (NSNumber* (^)())strIsContainzh_CN_n
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strIsContainzh_CN_n)
+        for(int i=0; i<_self.length; i++){
+            int charS = [_self characterAtIndex:i];
+            if(charS >= 0x4e00 && charS <= 0x9fff){
+                return @YES;
+            }
+        }
+        return @NO;
+    };
+}
+
 - (BOOL (^)(NSRange))strIszh_CNInRange
 {
     return ^(NSRange range){
@@ -184,6 +215,24 @@
             }
         }
         return YES;
+    };
+}
+
+- (NSNumber* (^)(NSRange))strIszh_CNInRange_n
+{
+    return ^id(NSRange range){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strIszh_CNInRange_n,range)
+        if( range.location>_self.length-1 || range.location+range.length>_self.length )
+            return @NO;
+        
+        for(NSUInteger i=range.location; i<range.location+range.length; i++){
+            int charS = [_self characterAtIndex:i];
+            if(charS < 0x4e00 || charS > 0x9fff){//不是汉字
+                return @NO;
+            }
+        }
+        return @YES;
     };
 }
 
@@ -302,6 +351,47 @@
     };
 }
 
+- (NSNumber* (^)())strIsEmoji_n
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strIsEmoji_n)
+        // 判断是否是 emoji表情
+        BOOL returnValue = NO;
+        
+        const unichar hs = [_self characterAtIndex:0];
+        // surrogate pair
+        if (0xd800 <= hs && hs <= 0xdbff) {
+            if (_self.length > 1) {
+                const unichar ls = [_self characterAtIndex:1];
+                const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
+                if (0x1d000 <= uc && uc <= 0x1f77f) {
+                    returnValue = YES;
+                }
+            }
+        } else if (_self.length > 1) {
+            const unichar ls = [_self characterAtIndex:1];
+            if (ls == 0x20e3) {
+                returnValue = YES;
+            }
+        } else {
+            // non surrogate
+            if (0x2100 <= hs && hs <= 0x27ff) {
+                returnValue = YES;
+            } else if (0x2B05 <= hs && hs <= 0x2b07) {
+                returnValue = YES;
+            } else if (0x2934 <= hs && hs <= 0x2935) {
+                returnValue = YES;
+            } else if (0x3297 <= hs && hs <= 0x3299) {
+                returnValue = YES;
+            } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50) {
+                returnValue = YES;
+            }
+        }
+        return @(returnValue);
+    };
+}
+
 - (CGSize (^)(UIFont *))strSizeWithFont
 {
     return ^(UIFont* font){
@@ -313,6 +403,15 @@
     };
 }
 
+- (NSValue* (^)(UIFont *))strSizeWithFont_n
+{
+    return ^id(UIFont* font){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSizeWithFont_n,font)
+        return [NSValue valueWithCGSize:_self.strSizeWithFontAndMaxWidth(font , MAXFLOAT)];
+    };
+}
+
 - (CGSize (^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidth
 {
     return ^(UIFont* font, CGFloat maxWidth){
@@ -321,6 +420,15 @@
         }
         LinkGroupHandle_VAL(strSizeWithFontAndMaxWidth,font,maxWidth)
         return _self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, MAXFLOAT));
+    };
+}
+
+- (NSValue* (^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidth_n
+{
+    return ^id(UIFont* font, CGFloat maxWidth){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSizeWithFontAndMaxWidth_n,font,maxWidth)
+        return [NSValue valueWithCGSize:_self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, MAXFLOAT))];
     };
 }
 
@@ -340,6 +448,17 @@
         //        else {
         //            return [_self sizeWithFont:font constrainedToSize:maxSize];
         //        }
+    };
+}
+
+- (NSValue* (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize_n
+{
+    return ^id(UIFont* font, CGSize maxSize){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSizeWithFontAndMaxSize_n,font,maxSize)
+        NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+        attrs[NSFontAttributeName] = font;
+        return [NSValue valueWithCGSize:[_self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil].size];
     };
 }
 
@@ -476,6 +595,24 @@
     };
 }
 
+- (NSNumber* (^)())strIsBlank_n
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strIsBlank_n)
+        if ([[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0) {
+            return @YES;
+        }
+        if ([_self isEqualToString:@"<null>"]) {
+            return @YES;
+        }
+        if ([_self isEqualToString:@"(null)"]) {
+            return @YES;
+        }
+        return @NO;
+    };
+}
+
 - (NSUInteger (^)())strLength
 {
     return ^(){
@@ -484,6 +621,15 @@
         }
         LinkGroupHandle_VAL(strLength)
         return _self.length;
+    };
+}
+
+- (NSNumber* (^)())strLength_n
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strLength_n)
+        return @(_self.length);
     };
 }
 
@@ -610,6 +756,49 @@
             if(hasEomji){*stop = YES;}
         }];
         return hasEomji;
+    };
+}
+
+- (NSNumber* (^)())strIsContainEmoji_n
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strIsContainEmoji_n)
+        __block BOOL hasEomji = NO;
+        
+        [_self enumerateSubstringsInRange:NSMakeRange(0, _self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+            const unichar hs = [substring characterAtIndex:0];
+            // surrogate pair
+            if (0xd800 <= hs && hs <= 0xdbff) {
+                if (substring.length > 1) {
+                    const unichar ls = [substring characterAtIndex:1];
+                    const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
+                    if (0x1d000 <= uc && uc <= 0x1f77f) {
+                        hasEomji = YES;
+                    }
+                }
+            } else if (substring.length > 1) {
+                const unichar ls = [substring characterAtIndex:1];
+                if (ls == 0x20e3) {
+                    hasEomji = YES;
+                }
+            } else {
+                // non surrogate
+                if (0x2100 <= hs && hs <= 0x27ff && hs != 0x263b) {
+                    hasEomji = YES;
+                } else if (0x2B05 <= hs && hs <= 0x2b07) {
+                    hasEomji = YES;
+                } else if (0x2934 <= hs && hs <= 0x2935) {
+                    hasEomji = YES;
+                } else if (0x3297 <= hs && hs <= 0x3299) {
+                    hasEomji = YES;
+                } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50|| hs == 0x231a ) {
+                    hasEomji = YES;
+                }
+            }
+            if(hasEomji){*stop = YES;}
+        }];
+        return @(hasEomji);
     };
 }
 
@@ -1023,6 +1212,7 @@
             
             reImg = [UIImage imageWithContentsOfFile:_self.strPathByFileNameInBundle(nil)];
         }
+        if(!reImg)  return [LinkError new];
         return reImg;
     };
 }
@@ -1032,62 +1222,7 @@
     return ^id(){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToUIImageView)
-        return [[UIImageView alloc] initWithImage:_self.strToUIImage().end()];
-    };
-}
-
-- (NSInteger (^)())strToInteger
-{
-    return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return (NSInteger)0;
-        }
-        LinkGroupHandle_VAL(strToInteger)
-        return [_self integerValue];
-    };
-}
-
-- (long long (^)())strToLongLong
-{
-    return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return (long long)0;
-        }
-        LinkGroupHandle_VAL(strToLongLong)
-        return [_self longLongValue];
-    };
-}
-
-- (BOOL (^)())strToBOOL
-{
-    return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strToBOOL)
-        return [_self boolValue];
-    };
-}
-
-- (double (^)())strToDouble
-{
-    return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return (double)0.0;
-        }
-        LinkGroupHandle_VAL(strToDouble)
-        return [_self doubleValue];
-    };
-}
-
-- (float (^)())strToFloat
-{
-    return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return (float)0.0;
-        }
-        LinkGroupHandle_VAL(strToFloat)
-        return [_self floatValue];
+        return [[UIImageView alloc] initWithImage:_self.strToUIImage().linkEnd];
     };
 }
 
@@ -1121,6 +1256,15 @@
     };
 }
 
+- (NSNumber* (^)(NSString *))strHasPrefix_n
+{
+    return ^id(NSString* prefix){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strHasPrefix_n,prefix)
+        return @([_self hasPrefix:prefix]);
+    };
+}
+
 - (BOOL (^)(NSString *))strHasSuffix
 {
     return ^(NSString* suffix){
@@ -1129,6 +1273,15 @@
         }
         LinkGroupHandle_VAL(strHasSuffix,suffix)
         return [_self hasSuffix:suffix];
+    };
+}
+
+- (NSNumber* (^)(NSString *))strHasSuffix_n
+{
+    return ^id(NSString* suffix){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strHasSuffix_n,suffix)
+        return @([_self hasSuffix:suffix]);
     };
 }
 
@@ -1187,6 +1340,19 @@
             return YES;
         }
         return NO;
+    };
+}
+
+- (NSNumber* (^)(NSString *))strRegexIsMatch_n
+{
+    return ^id(NSString* regex){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strRegexIsMatch_n,regex)
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+        if([predicate evaluateWithObject:_self] == YES){
+            return @YES;
+        }
+        return @NO;
     };
 }
 
@@ -1672,6 +1838,15 @@
         }
         LinkGroupHandle_VAL(strPathFileExists)
         return [[NSFileManager defaultManager] fileExistsAtPath:_self];
+    };
+}
+
+- (NSNumber* (^)())strPathFileExists_n
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPathFileExists_n)
+        return @([[NSFileManager defaultManager] fileExistsAtPath:_self]);
     };
 }
 

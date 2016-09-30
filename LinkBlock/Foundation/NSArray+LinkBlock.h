@@ -14,21 +14,27 @@
 @interface NSObject(NSArraryLinkBlock)
 /**
  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
- 如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end()
+ 如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
  Arr.makeLinkObjs....
  */
 @property (nonatomic,strong,readonly) NSObject*              makeLinkObjs;
 
 /** <^(NSUInteger idx)> */
 @property (nonatomic,copy,readonly) id                       (^arrAt)(NSUInteger idx);
-/** <^(NSString* str)>数组对象中是否包含某个字符串对象 */
-@property (nonatomic,copy,readonly) BOOL                     (^arrIsContainerStr)(NSString* str);
 /** <^(id obj)>是否包含某个对象 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrIsContainer)(id obj);
+/** <^(id obj)>是否包含某个对象 */
+@property (nonatomic,copy,readonly) NSNumber*                (^arrIsContainer_n)(id obj);
+/** <^(NSUInteger idx)> */
+@property (nonatomic,copy,readonly) NSMutableArray*          (^arrSubFrom)(NSUInteger idx);
+/** <^(NSUInteger idx)> */
+@property (nonatomic,copy,readonly) NSMutableArray*          (^arrSubTo)(NSUInteger idx);
 /** <^(NSUInteger from, NSUInteger to)>获取from到to（包含）范围内的对象 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
 /** <^(NSUInteger idx)>某个index是否在范围内 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrcontainIndex)(NSUInteger idx);
+/** <^(NSUInteger idx)>某个index是否在范围内 */
+@property (nonatomic,copy,readonly) NSNumber*                (^arrcontainIndex_n)(NSUInteger idx);
 /** <^()>数组转字典，键为NSNumber类型 */
 @property (nonatomic,copy,readonly) NSDictionary*            (^arrToDictByKeyNumber)();
 /** <^()>数组转字典，键为NSString类型 */
@@ -55,6 +61,8 @@
 @property (nonatomic,copy,readonly) NSNumber*                (^arrMinNumber)();
 /** <^()>对数组中对象随机赋值，仅含字符串和数字类型 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrObjsValueRandom)();
+/** <^(Class typeClass)>获取数组中所有该类型的对象 */
+@property (nonatomic,copy,readonly) NSMutableArray*          (^arrObjsOfType)(Class typeClass);
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

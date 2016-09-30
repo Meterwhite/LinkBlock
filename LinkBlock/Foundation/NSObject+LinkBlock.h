@@ -12,21 +12,21 @@
 @interface NSObject(LinkBlock)
 #pragma mark - 方式
 /** 
- <^()>获取链条返回值，并将链条信息对象和错误转nil
- ... = linkObj(..)...end();
- ... = linkObj(..)...linkIF(...)...end();
+ <- end>获取链条返回值，并将链条信息对象和错误转nil
+ ... = linkObj(..)...end;
+ ... = linkObj(..)...linkIF(...)...end;
  */
-@property (nonatomic,copy,readonly) id           (^end)();
+-                                   (id)         linkEnd;
 /** 
- <^()>多对象链式编程获取多个链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...ends();
+ <- ends>多对象链式编程获取多个链条返回值，并将错误转nil
+ ... = linkObj(...)...linkLoop(...)...ends;
  */
-@property (nonatomic,copy,readonly) NSArray*     (^ends)();
+-                                   (NSArray*)   linkEnds;
 /** 
  <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil
  ... = linkObj(...)...linkLoop(...)...endAt(index);
  */
-@property (nonatomic,copy,readonly) id           (^endsAt)(NSUInteger idx);
+@property (nonatomic,copy,readonly) id           (^linkEndsAt)(NSUInteger idx);
 /** 
  <^(id* toObject)>将当前对象赋值到变量
  ...setTo(&...);
@@ -35,13 +35,13 @@
 /** 
  <^(id obj)>使新对象加入链条
  ...linkAnd(obj1)...linkAnd(obj2)...
- ... = ...linkAnd(obj1)...linkAnd(obj2)...ends();
+ ... = ...linkAnd(obj1)...linkAnd(obj2)...ends;
  */
 @property (nonatomic,copy,readonly) NSObject*    (^linkAnd)(id obj);
 /**
  <^(id obj)>以新对象执行其后链条，可以与linkIf，linkElse配合
  linkObjs(,,,)...linkTo(aNewObj)...
- ...linkIf(...)...linkTo(aNewObj)...linkElse(...)...
+ ...linkIf(...)...linkTo(aNewObj)...linkElse...
  */
 @property (nonatomic,copy,readonly) NSObject*    (^linkTo)(id obj);
 /** 
@@ -56,39 +56,39 @@
 @property (nonatomic,copy,readonly) NSObject*    (^linkAt)(NSUInteger idx);
 /**
  <^()>取出多链条中第一个
- linkObjs(,,,)...linkFirstObj()...
+ linkObjs(,,,)...linkFirstObj...
  */
-@property (nonatomic,copy,readonly) NSObject*    (^linkFirstObj)();
+-                                  (NSObject*)   linkFirstObj;
 /**
  <^()>取出多链条中最后一个
- linkObjs(,,,)...linkLastObj()...
+ linkObjs(,,,)...linkLastObj...
  */
-@property (nonatomic,copy,readonly) NSObject*    (^linkLastObj)();
+-                                  (NSObject*)   linkLastObj;
 /** 
  <^(NSUInteger count)>使其后的链条执行多次
  ...linkLoop(10)...
  */
 @property (nonatomic,copy,readonly) NSObject*    (^linkLoop)(NSUInteger count);
 /** 
- <^()>根据条件是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行；取值需使用end()
- ...linkIf(...)...linkIf(...)...linkElse()...
+ <^()>根据条件是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行；取值需使用end
+ ...linkIf(...)...linkIf(...)...linkElse...
  ... = ...linkLoop(...)...linkIf(...)...ends();
  */
 @property (nonatomic,copy,readonly) NSObject*    (^linkIf)(BOOL condition);
 /** 
- <^()>从中断语句中恢复执行其后语句，与前一个linkIf配合使用；取值需使用end()
- ...linkIf(...)...linkIf(...)...linkElse()...
+ <^()>从中断语句中恢复执行其后语句，与前一个linkIf配合使用；取值需使用end
+ ...linkIf(...)...linkIf(...)...linkElse...
  */
-@property (nonatomic,copy,readonly) NSObject*    (^linkElse)();
+-                                  (NSObject*)   linkElse;
 /**
- <^()>使其后语句跳空；可与分支配合；取值需使用end()
+ <^()>使其后语句跳空；可与分支配合；取值需使用end
  ...[aNewLink:^(NSObject* fromObj){
     if(...){
-        ...linkReturn();
+        ...linkReturn;
     }
- }]...end();
+ }]...end;
  */
-@property (nonatomic,copy,readonly) NSObject*    (^linkReturn)();
+-                                  (NSObject*)   linkReturn;
 /** 
  链条分支，返回源对象，在链条内处理新分支
  ...[aNewLink:^(NSObject* fromObj){
@@ -130,10 +130,13 @@
 @property (nonatomic,copy,readonly) NSObject*    (^setValueForKeyPathSafe)(id value,NSString* key);
 /** <^(Class classKind)> */
 @property (nonatomic,copy,readonly) BOOL         (^isKindOf)( __unsafe_unretained Class classKind);
+@property (nonatomic,copy,readonly) NSNumber*    (^isKindOf_n)( __unsafe_unretained Class classKind);
 /** <^(Class classKind)> */
 @property (nonatomic,copy,readonly) BOOL         (^isSubClassOf)( __unsafe_unretained Class classKind);
+@property (nonatomic,copy,readonly) NSNumber*    (^isSubClassOf_n)( __unsafe_unretained Class classKind);
 /** <^(SEL theSEL)> */
 @property (nonatomic,copy,readonly) BOOL         (^isRespondsSEL)(SEL theSEL);
+@property (nonatomic,copy,readonly) NSNumber*    (^isRespondsSEL_n)(SEL theSEL);
 /** <^()> */
 @property (nonatomic,copy,readonly) NSString*    (^className)();
 /** <^()> */
@@ -198,14 +201,19 @@
 @property (nonatomic,copy,readonly) NSObject*    (^objMutableCopyDeep)();
 /** <^(id obj)> */
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqual)(id obj);
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsEqual_n)(id obj);
 /** <^(id obj,...)> */
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqualToEach)(id obj,...);
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsEqualToEach_n)(id obj,...);
 /** <^(NSArray* arr)> */
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsEqualToEachInArray_n)(NSArray* arr);
 /** <^(id obj,...)> */
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqualToSomeone)(id obj,...);
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsEqualToSomeone_n)(id obj,...);
 /** <^(NSArray* arr)> */
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsEqualToSomeoneInArray_n)(NSArray* arr);
 /** <^(Class theCalss)>必须获取该类型的对象，若类型不符则返回该类型的初始化对象 */
 @property (nonatomic,copy,readonly) NSObject*    (^objMustType)(Class theCalss);
 /** <^(NSString* key)>将BOOL或NSNumber(BOOL)属性字段值反转 */
@@ -241,45 +249,44 @@
  *  将当前对象转字典（如果对象为容器类型则对值进行一次转换）
  *  includeFoundationProperty：是否包含基础类型的属性
  */
-@property (nonatomic,copy,readonly) NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
+@property (nonatomic,copy,readonly) NSDictionary*(^objToNSDictionaryNoDeep)(BOOL includeFoundation);
 /**
  *  <^(BOOL includeFoundation)>
  *  对象转字典（对所有属性进行层次遍历，对容器对象的值也是）
  *  includeFoundationProperty：是否包含基础类型的属性
  */
-@property (nonatomic,copy,readonly) NSDictionary*(^objToNSDictionaryDeep)(BOOL includeFoundation);
+@property (nonatomic,copy,readonly) NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
 
 
 
 
-//MARK: 指定对象的类型，避免链条中需要类型强转时
-//Foundation
-@property (nonatomic,copy,readonly) NSString*                    (^ofNSString)();
-@property (nonatomic,copy,readonly) NSMutableString*             (^ofNSMutableString)();
-@property (nonatomic,copy,readonly) NSArray*                     (^ofNSArray)();
-@property (nonatomic,copy,readonly) NSMutableArray*              (^ofNSMutableArray)();
-@property (nonatomic,copy,readonly) NSDictionary*                (^ofNSDictionary)();
-@property (nonatomic,copy,readonly) NSMutableDictionary*         (^ofNSMutableDictionary)();
-@property (nonatomic,copy,readonly) NSAttributedString*          (^ofNSAttributedString)();
-@property (nonatomic,copy,readonly) NSMutableAttributedString*   (^ofNSMutableAttributedString)();
-@property (nonatomic,copy,readonly) NSURL*                       (^ofNSURL)();
-@property (nonatomic,copy,readonly) NSUserDefaults*              (^ofNSUserDefaults)();
-@property (nonatomic,copy,readonly) NSNumber*                    (^ofNSNumber)();
-@property (nonatomic,copy,readonly) NSValue*                     (^ofNSValue)();
-@property (nonatomic,copy,readonly) UIImage*                     (^ofUIImage)();
-@property (nonatomic,copy,readonly) NSDate*                      (^ofNSDate)();
-@property (nonatomic,copy,readonly) NSData*                      (^ofNSData)();
-//UIKit
-@property (nonatomic,copy,readonly) UIView*                      (^ofUIView)();
-@property (nonatomic,copy,readonly) UILabel*                     (^ofUILabel)();
-@property (nonatomic,copy,readonly) UIControl*                   (^ofUIControl)();
-@property (nonatomic,copy,readonly) UIButton*                    (^ofUIButton)();
-@property (nonatomic,copy,readonly) UIScrollView*                (^ofUIScrollView)();
-@property (nonatomic,copy,readonly) UIImageView*                 (^ofUIImageView)();
-@property (nonatomic,copy,readonly) UITableView*                 (^ofUITableView)();
-@property (nonatomic,copy,readonly) UIColor*                     (^ofUIColor)();
-@property (nonatomic,copy,readonly) UIViewController*            (^ofUIViewController)();
-@property (nonatomic,copy,readonly) UITextField*                 (^ofUITextField)();
-@property (nonatomic,copy,readonly) UITextView*                  (^ofUITextView)();
-@property (nonatomic,copy,readonly) UIWebView*                   (^ofUIWebView)();
+//MARK: 明确对象类型
+-                  (NSString*)                  ofNSString;
+-                  (NSMutableString*)           ofNSMutableString;
+-                  (NSArray*)                   ofNSArray;
+-                  (NSMutableArray*)            ofNSMutableArray;
+-                  (NSDictionary*)              ofNSDictionary;
+-                  (NSMutableDictionary*)       ofNSMutableDictionary;
+-                  (NSAttributedString*)        ofNSAttributedString;
+-                  (NSMutableAttributedString*) ofNSMutableAttributedString;
+-                  (NSURL*)                     ofNSURL;
+-                  (NSUserDefaults*)            ofNSUserDefaults;
+-                  (NSNumber*)                  ofNSNumber;
+-                  (NSValue*)                   ofNSValue;
+-                  (UIImage*)                   ofUIImage;
+-                  (NSDate*)                    ofNSDate;
+-                  (NSData*)                    ofNSData;
+-                  (UIView*)                    ofUIView;
+-                  (UILabel*)                   ofUILabel;
+-                  (UIControl*)                 ofUIControl;
+-                  (UIButton*)                  ofUIButton;
+-                  (UIScrollView*)              ofUIScrollView;
+-                  (UIImageView*)               ofUIImageView;
+-                  (UITableView*)               ofUITableView;
+-                  (UIColor*)                   ofUIColor;
+-                  (UIViewController*)          ofUIViewController;
+-                  (UITextField*)               ofUITextField;
+-                  (UITextView*)                ofUITextView;
+-                  (UIWebView*)                 ofUIWebView;
+
 @end

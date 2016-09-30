@@ -2,176 +2,97 @@
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
 ## What is this?
-* 这是一个objc扩展集合`链式编程`，为了减少换行和中括号的干扰，让我们尽量专注于编码的逻辑。
-* 提炼Fundation最基本功能和最常见功能。
+* LinkBlock是objc`链式编程`语法糖扩展，使我们专注于编码的逻辑。
+* 将同一个对象的多种操作整合，使代码结构清晰。
+* 整合Fundation最基本功能。
 * 持续维护。
-* This is objective-c link block , to `chain programming`.
+* LinkBlock is objective-c Syntactic sugar , to `chain programming`.
+* Integration of the various operations of the one object, so that the code structure is clear
 * Frame encapsulation of native Foundation is the most basic and the most common functions...
 * Continuously updated
 
-##Simple to use LinkBlock
+##Manually【手动导入】
 ```objc
-//1.将整个文件夹拖入项目
-//2.在使用的地方引用。提示：最好不要在pch文件中引用，避免污染整个项目的属性提示
-//3.查看注释在.h文件（command+左键@方法名 跳转两次）
+//1.Drag all source files under floder `LinkBlock` to your project.【将`LinkBlock`文件夹中的所有源代码拽入项目中】
+//2.Import the main header file：`#import "LinkBlock.h"`【导入主头文件：`#import "LinkBlock.h"`】
+//PS：Best not to use pch. to avoid the pollution of the entire project propertys tips.【提示：最好不要在pch文件中引用，避免污染整个项目的属性提示；查看注释在.h文件（command+左键@方法名 跳转两次）】
+
 #import "LinkBlock.h"
 ```
-##【新增】多个对象的链式编程
+##Basic grammar【基础语法】
 ```objc
-//写法一，多个对象并列
-UIView* viewA = UIViewNew.viewSetFrame(45,100,20,20);
-UIView* viewB = UIViewNew.viewSetFrame(120,100,20,20);
-linkObjs(viewA, viewB).viewAddToView(self.view).viewBGColor([UIColor lightGrayColor]);
-//写法二，数组对象
-NSMutableArray* arrA = [NSMutableArray arrayWithObjects:@"A", nil];
-NSMutableArray* arrB = [NSMutableArray arrayWithObjects:@"B", nil];
-NSMutableArray* arrC = [NSMutableArray arrayWithObjects:@"C", nil];
-NSArray* result = @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"D").ends();
-//写法三，逐个添加到链条中
-NSArray* result = arrA.linkAnd(arrB).linkAnd(arrC).m_arrAddObj(@"D").ends();
-//写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环和int i了
-NSArray* result = arrA.linkLoop(100).m_arrAddObj(@"F").ends();
-//1.如果使用多个对象的链式编程，需要取值的时候请调用ends()获取多个结果
-//2.对于多对象链式编程如果调用end()只会取得第一个对象的链条返回值
-//3.使用endsAt(index)可以获取指定index对象的链条返回值
-//4.如果链条结尾返回值是“值类型”，那么该值是第一个对象的链条返回值
-//5.使用项目中的“方法”对多对象的链式编程不起作用
-//...//...//...//...//...//...//...//...//...//...//...
-```
-
-##使用链式的方式完成一件事情
-```objc
-//如果使用链式编程的方式，大部分工作可以在思路连续的情况下进行
-UIButtonNew.viewSetFrame(20,20,150,80)
-.viewBGColor(@"0xff22cc".strToColorFromHexStr())
-.viewAddToView(self.view)
-.btnTitle(@"Button", UIControlStateNormal);
-```
-
-##精简代码量提高可读性
-```objc
-/* 显示一个隐藏其他按钮 */
-//通常
-[buttonArr enumerateObjectsUsingBlock:^(UIButton* button,NSUInteger idx,BOOL * _Nonnull stop){
-    if(self.selectIndex == idx){
-        button.hidden = NO;
-    }else{
-        button.hidden = YES;
-    }
-}];
-//使用链式
-buttonArr.makeLinkObjs.viewHidden(YES).linkAt(self.selectIndex).viewHidden(NO);
-//makeLinkObjs，使数组多对象链式编程
-
-//类似重复的代码结构
-switch (selectType) {
-    case typeA:
-        viewA.hidden = YES;
-        viewB.hidden = NO;
-        break;
-    case typeB:
-        viewA.hidden = NO;
-        viewB.hidden = YES;
-        break;
-    default:
-        break;
-}
-//使用链式
-linkObjs(viewA , viewB).viewHidden(YES).linkAt(selectType==typeA?:0:1).viewHidden(NO);
-```
-
-##一些样例
-```objc
-//去空格和换行，并打印
-@" 1 9 岁 男 孩 身 高 2 . 3 米 仍 在 长 个 \n 将 破 世 界 纪 录 ".strClearSpaceAndWrap().nslog();
-
-//字符串比较大小
-@"123".strCompare(@"111");
-
-//查找最大数
-@"[12,43,534]".strToNSArrary(NSUTF8StringEncoding).arrMaxNumber().nslogTitle(@"最大数是:\n");
-
-//遍历元字符和自定义规则元字符
-NSString* strForEnumerateComposed = @"[海贼王]になる男だ[微笑]\n😈😴ABC";
-[strForEnumerateComposed strEnumerateComposedAndCustom:@"\\[[\u4E00-\u9FA5]+\\]" usingBlock:^(NSString *string, NSRange range, BOOL isCustom, BOOL *stop) {
-    //...
-}];
-
-//创建属性字典
-AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15]).makeAttrDictTextColor([UIColor blackColor]);
-
-//添加一个标签到视图上
+//Does not get the value【不需要取值的情况如：】
+//Add a label to the view【添加一个标签到视图上】
 UILabelNew
-.labText(@"标签")
+.labText(@"UILable").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
 .viewSetFrame(20,200,150,80)
-.labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
-.viewAddToView(self.view)
-.viewBGColor(@"#f0f0f0".strToUIColorFromHexStr());
+.viewBGColor(@"#f0f0f0".strToUIColorFromHex())
+.viewAddToView(self.view);
 
-//颜色
-@"0xff22cc".strToUIColorFromHexStr();
-@(0xffccff).numToUIColorFromHex();
-
-//正则表达式替换_xxx_为[xxx]
-@"name=_boom_".strRegexReplace(@"(_)(\\w+)(_)" , @"[$2]").nslog();
-//正则表达式验证是否为邮箱
-@"abc@abc.com".strRegexIsMatch(@"^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*
-[a-z0-9]+.){1,63}[a-z0-9]+$") ? @"YES email".nslog() : @"NO email".nslog();
-
-//过滤age<0的数据
-arr.arrFilter(@"age<0").setTo(&arrForFilter);
-
-//遍历age<100 并且 age>-1 的数据
-[arr arrEnumerateWithPredicateFormat:@"age>-1 and age<100"
-    usingBlock:^(NSObject* obj, NSUInteger idx, BOOL *stop) {
-    //...
-}];
-
-//替换字典中的键
-NSDictionary* dictToReplace = @{
-                                @"description":@"123",
-                                @"dict":@{
-                                            @"description":@"123",
-                                            @"arr":@[
-                                                        @{
-                                                            @"dict2":@{
-                                                                        @"description":@"123"
-                                                            }
-                                                        },
-                                                        @{
-                                                            @"description":@"123123"
-                                                        },
-                                                        @"adf"
-                                                        ]
-                                            }
-                                };
-dictToReplace.dictReplaceKey(@"description", @"DESCRIPTION").setTo(&dictToReplace);
-
-//对象转字典
-Man* man = [Man new];
-man.name = @"old jack";
-Man* jack = [Man new];
-jack.name = @"jack";
-man.sun = jack;
-man.objToNSDictionaryDeep(NO);
-//将对象解析为字典在控制台打印
-man.poDeep();
+//Need to get value【需要取值的情况：】
+//Using linkObj() if first object can be nil.Use end to get the true value.【链首对象可能为空需要使用linkObj，报错则需要使用end获取真实的值】
+NSString* priceStr = linkObj(priceFromNet).strAppend(@"￥").linkEnd;
+//priceFromNet为空这里控制台会报错，而不是崩溃
 ```
 
-##安全写法linkObj(obj)和end()
+##Conditional grammar【条件语法】
 ```objc
-//起手写宏linkObj(obj)，确保对象为nil时不报错。若不使用则不能像享受nil调用方法时不报错的待遇。
-//end()取值时过滤掉链接错误(LinkError)并返回nil或者正确的对象。
-id value = linkObj(nil).end();
-NSString *str2 = linkObj(str1).strAppend(str0).strAt(15).end();
+//...linkIf(...)...linkIf(...)...linkElse()...
+
+//判断并打印随机数的奇偶性
+//NSNumber* aNumber = ...
+if(aNumber.integerValue%2 == 0){
+    NSLog(@"%@是奇数",aNumber);
+}else{
+    NSLog(@"%@是偶数",aNumber);
+}
+//The above code can be written in the following form【上方代码可写成如下形式】
+aNumber.description
+.linkIf(aNumber.numIsOdd()).strAppend(@"是奇数").nslog()
+.linkElse.strAppend(@"是偶数").nslog();
 ```
 
-##LinkError
-* 中间一个链条返回的对象是nil，或者非预期的类型，那么下一根链条就会报错断裂。为了让链条能够在安全的情况下容错，那么引入一个新的的类型LinkError
-。这个对象响应所有扩展属性的调用，功能仅仅返回自己到下一根链条以供传递。所以end()方法的使用对于获取链条末尾的返回值很关键。
+##Multi Chain grammar【多链条语法】
+```objc
+//1.如果使用多个对象的链式编程，需要取值的时候请调用ends()获取多个结果
+//2.如果调用end只会取得第一个对象的链条返回值
+//3.使用endsAt()可以获取指定index对象的链条返回值
+//4.如果链条结尾返回的是“值类型”，那么该值是第一个对象的链条返回值
+//5.使用项目中的“方法”对多对象的链式编程不起作用
 
-##关于
-* 目前xcode还没能给block有尚好的参数提示，所以使用起来还是略微不便，需要去头文件查看参数。提供者也将参数名赋予准确的意义。
+//1【写法一】
+linkObjs(viewA, viewB).viewAddToView(self.view);
+
+//2【写法二】
+linkResults = @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"E").linkEnds;
+
+//3【写法三】
+linkResults = arrA.linkAnd(arrB).linkAnd(arrC).m_arrAddObj(@"D").linkEnds;
+
+//4.Repeat the following code 100 times like papapa【写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环了】
+linkResults = arrA.linkLoop(100).m_arrAddObj(@"F").linkEnds;
+
+//Multiple controls one to display the other hidden【多个控件一个显示其他隐藏】
+linkObjs(viewA,viewB,...).viewHidden(YES).linkAt(selectedIndex).viewHidden(NO);
+```
+
+##Shortcut syntax【快捷语法】
+```objc
+//Set random value to object, print the object as a dictionary 【对象随机赋值，并将对象作为字典打印】
+[Person new].objValueRandom().po();
+
+//Create NSAttrubuteDictionary【创建属性字典】
+AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15])
+.makeAttrDictTextColor([UIColor blackColor]);
+
+//Continuous comparison【连续比较】
+//objIsEqualToEach和objIsEqualToSomeone
+//if( [name isEqual:@"Jack"] || [name isEqual:@"Tom"] || ... )
+//=>
+//if( name.objIsEqualToEach(@"Jack" , @"Tom" , ...) )
+
+//... ...
+```
 
 ##Mail address quxingyi@outlook.com
 * 一朝做鸟程序员

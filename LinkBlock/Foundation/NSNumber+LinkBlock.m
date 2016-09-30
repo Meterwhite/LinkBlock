@@ -11,6 +11,82 @@
 
 @implementation NSObject(NSNumberLinkBlock)
 
+- (NSNumber *)linkIf_YES
+{
+    if([self isKindOfClass:[LinkInfo class]]){
+        if(((LinkError*)self).infoType == LinkInfoError){
+            
+            ((LinkError*)self).throwCount++;
+            return (id)self;
+        }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
+            
+            NSNumber* reVal = ((LinkReturn*)self).returnValue;
+            if([reVal isKindOfClass:[NSNumber class]] && reVal.boolValue){
+                return reVal;
+            }
+        }
+        return (id)self;
+    }
+    ////////////////////
+    ///LinkGroupHandle
+    ////////////////////
+    if([self isKindOfClass:[LinkGroup class]]){
+        LinkGroup* group = (LinkGroup*)self;
+        NSMutableArray* returnObjs = [NSMutableArray new];
+        for (int i=0; i<group.linkObjects.count; i++) {
+            id re = group.linkObjects[i].linkIf_YES;
+            [returnObjs addObject:re];
+        }
+        [group.linkObjects setArray:returnObjs];
+        return (id)group;
+    }
+    
+    if([self isKindOfClass:[NSNumber class]] && ((NSNumber*)self).boolValue){
+        return (id)self;
+    }
+    LinkReturn* reVal = [LinkReturn new];
+    reVal.returnValue = self;
+    return (id)reVal;
+}
+
+- (NSNumber *)linkIf_NO
+{
+    if([self isKindOfClass:[LinkInfo class]]){
+        if(((LinkError*)self).infoType == LinkInfoError){
+            
+            ((LinkError*)self).throwCount++;
+            return (id)self;
+        }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
+            
+            NSNumber* reVal = ((LinkReturn*)self).returnValue;
+            if([reVal isKindOfClass:[NSNumber class]] && !reVal.boolValue){
+                return reVal;
+            }
+        }
+        return (id)self;
+    }
+    ////////////////////
+    ///LinkGroupHandle
+    ////////////////////
+    if([self isKindOfClass:[LinkGroup class]]){
+        LinkGroup* group = (LinkGroup*)self;
+        NSMutableArray* returnObjs = [NSMutableArray new];
+        for (int i=0; i<group.linkObjects.count; i++) {
+            id re = group.linkObjects[i].linkIf_YES;
+            [returnObjs addObject:re];
+        }
+        [group.linkObjects setArray:returnObjs];
+        return (id)group;
+    }
+    
+    if([self isKindOfClass:[NSNumber class]] && !((NSNumber*)self).boolValue){
+        return (id)self;
+    }
+    LinkReturn* reVal = [LinkReturn new];
+    reVal.returnValue = self;
+    return (id)reVal;
+}
+
 - (void *(^)())numValue
 {
     return ^(){
@@ -319,6 +395,15 @@
     };
 }
 
+- (NSNumber* (^)(NSNumber *))numIsEqualToNum_n
+{
+    return ^id(NSNumber* num){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsEqualToNum_n,num)
+        return @([_self isEqualToNumber:num]);
+    };
+}
+
 - (BOOL (^)(NSNumber*))numIsGreatThanNum
 {
     return ^BOOL(NSNumber* num){
@@ -327,6 +412,15 @@
         }
         LinkGroupHandle_VAL(numIsGreatThanNum,num)
         return [_self compare:num]==NSOrderedDescending;
+    };
+}
+
+- (NSNumber* (^)(NSNumber*))numIsGreatThanNum_n
+{
+    return ^id(NSNumber* num){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsGreatThanNum_n,num)
+        return @([_self compare:num]==NSOrderedDescending);
     };
 }
 
@@ -341,6 +435,15 @@
     };
 }
 
+- (NSNumber* (^)(NSNumber*))numIsGreatEqualNum_n
+{
+    return ^id(NSNumber* num){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsGreatEqualNum_n,num)
+        return @([_self compare:num]>=NSOrderedSame);
+    };
+}
+
 - (BOOL (^)(NSNumber*))numIsLessThanNum
 {
     return ^BOOL(NSNumber* num){
@@ -352,6 +455,15 @@
     };
 }
 
+- (NSNumber* (^)(NSNumber*))numIsLessThanNum_n
+{
+    return ^id(NSNumber* num){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsLessThanNum_n,num)
+        return @([_self compare:num]==NSOrderedAscending);
+    };
+}
+
 - (BOOL (^)(NSNumber*))numIsLessEqualNum
 {
     return ^BOOL(NSNumber* num){
@@ -360,6 +472,15 @@
         }
         LinkGroupHandle_VAL(numIsLessEqualNum,num)
         return [_self compare:num]<=NSOrderedSame;
+    };
+}
+
+- (NSNumber* (^)(NSNumber*))numIsLessEqualNum_n
+{
+    return ^id(NSNumber* num){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsLessEqualNum_n,num)
+        return @([_self compare:num]<=NSOrderedSame);
     };
 }
 

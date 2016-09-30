@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LinkBlock.h"
 
 #ifndef NSValueNew
 #define NSValueNew(...) ((NSValue*)(LBBoxValue((__VA_ARGS__))))
@@ -42,7 +41,8 @@
 /** <^()> */
 @property (nonatomic,copy,readonly) CGFloat          (^valueCGVectorY)();
 /** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) NSValue*         (^valueSetSizeToViews)(NSArray* views);
+@property (nonatomic,copy,readonly) NSValue*         (^valueCGSizeSetToViews)(NSArray* views);
 /** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) NSValue*         (^valueSetPointToViews)(NSArray* views);
+@property (nonatomic,copy,readonly) NSValue*         (^valueCGPointSetToViews)(NSArray* views);
+
 @end

@@ -10,14 +10,7 @@
 #define NSMutableArrayNew ([NSMutableArray new])
 #endif
 @interface NSObject(NSMutableArrayLinkBlock)
-/** <^(NSUInteger idx)> */
-@property (nonatomic,copy,readonly) NSObject*                (^m_arrAt)(NSUInteger idx);
-/** <^(NSUInteger idx)> */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrSubFrom)(NSUInteger idx);
-/** <^(NSUInteger idx)> */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrSubTo)(NSUInteger idx);
-/** <^()> */
-@property (nonatomic,copy,readonly) NSObject*                (^m_arrAny)();
+
 /** <^(id obj)>插入一个元素,安全的 */
 @property (nonatomic,copy,readonly) NSMutableArray*  (^m_arrAddObj)(id obj);
 /** <^(NSArray* arr)>插入一个数组,安全的 */
@@ -41,21 +34,7 @@
 /** <^(id obj,id withObj)>用一个对象替换数组中的一个对象,安全的 */
 @property (nonatomic,copy,readonly) NSMutableArray*  (^m_arrReplaceObjWith)(id obj,id withObj);
 
-/** <^(NSString* str)>数组对象中是否包含某个字符串对象 */
-@property (nonatomic,copy,readonly) BOOL                     (^m_arrIsContainerStr)(NSString* str);
-/** <^(id obj)>是否包含某个对象 */
-@property (nonatomic,copy,readonly) BOOL                     (^m_arrContain)(id obj);
-/** <^(NSUInteger index1, NSUInteger index2)>某个范围内的数据 */
-@property (nonatomic,copy,readonly) NSArray*                 (^m_arrObjsFromIndexTo)(NSUInteger index1, NSUInteger index2);
-/** <^(NSUInteger index)>某个index是否在范围内 */
-@property (nonatomic,copy,readonly) BOOL                     (^m_arrContainIndex)(NSUInteger index);
-/** <^()>数组转字典，键为NSNumber类型 */
-@property (nonatomic,copy,readonly) NSDictionary*            (^m_arrToDictByKeyNumber)();
-/** <^()>数组转字典，键为NSString类型 */
-@property (nonatomic,copy,readonly) NSDictionary*            (^m_arrToDictByKeyString)();
 
-/** <^(Class typeClass)>获取数组中所有该类型的对象 */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrObjsOfType)(Class typeClass);
 /** <^(NSString* key, BOOL ascending)>以数组中对象的Key的值进行排序,ascending：升序 */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrSortByKey)(NSString* key, BOOL ascending);
 /** <^(BOOL ascending, BOOL isCombine)>对数组子项为NSRange型的NSValue进行排序，isCombine：NSRange(0,2)会合并NSRange(0,1) */

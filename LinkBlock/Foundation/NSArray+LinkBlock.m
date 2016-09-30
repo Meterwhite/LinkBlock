@@ -22,25 +22,6 @@
     return [LinkGroup groupWithArr:_self];
 }
 
-- (BOOL (^)(NSString *))arrIsContainerStr
-{
-    return ^(NSString* str){
-        LinkHandle_VAL_IFNOT(NSArray){
-            return NO;
-        }
-        LinkGroupHandle_VAL(arrIsContainerStr,str);
-        
-        __block BOOL re= NO;
-        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if([obj isKindOfClass:[NSString class]] && [obj isEqualToString:str]){
-                re= YES;
-                *stop= YES;
-            }
-        }];
-        return re;
-    };
-}
-
 - (BOOL (^)(NSUInteger))arrcontainIndex
 {
     return ^(NSUInteger index){
@@ -52,7 +33,14 @@
     };
 }
 
-
+- (NSNumber* (^)(NSUInteger))arrcontainIndex_n
+{
+    return ^id(NSUInteger index){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrcontainIndex_n,index)
+        return @(index< _self.count);
+    };
+}
 
 - (NSArray *(^)(NSUInteger, NSUInteger))arrObjsFromIndexTo
 {
@@ -105,6 +93,41 @@
         }
         LinkGroupHandle_VAL(arrIsContainer,obj)
         return [_self containsObject:obj];
+    };
+}
+
+- (NSNumber* (^)(id))arrIsContainer_n
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrIsContainer_n,obj)
+        return @([_self containsObject:obj]);
+    };
+}
+
+- (NSMutableArray *(^)(NSUInteger))arrSubFrom
+{
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(arrSubFrom,idx)
+        NSUInteger count = _self.count;
+        if(idx >= count ) return _self;
+        NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(idx, count - idx)];
+        [_self objectsAtIndexes:idxSet];
+        return _self;
+    };
+}
+
+- (NSMutableArray *(^)(NSUInteger))arrSubTo
+{
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(arrSubTo,idx)
+        NSUInteger count = _self.count;
+        if(idx >= count ) return _self;
+        NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, idx)];
+        [_self objectsAtIndexes:idxSet];
+        return _self;
     };
 }
 
@@ -267,6 +290,23 @@
             obj.objValueRandom();
         }];
         return _self;
+    };
+}
+
+- (NSMutableArray *(^)(__unsafe_unretained Class))arrObjsOfType
+{
+    return ^id(__unsafe_unretained Class typeClass){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(arrObjsOfType,typeClass)
+        if(!typeClass)
+            return _self;
+        NSMutableArray* re = [NSMutableArray array];
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if([obj isKindOfClass:typeClass]){
+                [re addObject:obj];
+            }
+        }];
+        return re;
     };
 }
 

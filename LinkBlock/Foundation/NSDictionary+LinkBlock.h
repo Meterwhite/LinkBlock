@@ -14,10 +14,16 @@
 @property (nonatomic,copy,readonly) NSObject*    (^dictGetNoNSNull)(id<NSCopying> key);
 /** <^(id<NSCopying> key)>取出布尔值 */
 @property (nonatomic,copy,readonly) BOOL         (^dictGetBOOL)(id<NSCopying> key);
+/** <^(id<NSCopying> key)>取出布尔值 */
+@property (nonatomic,copy,readonly) NSNumber*    (^dictGetBOOL_n)(id<NSCopying> key);
 /** <^(id<NSCopying> key)>是否包含key */
 @property (nonatomic,copy,readonly) BOOL         (^dictContainerKey)(id<NSCopying> key);
+/** <^(id<NSCopying> key)>是否包含key */
+@property (nonatomic,copy,readonly) NSNumber*    (^dictContainerKey_n)(id<NSCopying> key);
 /** <^(id value)>是否包含value */
 @property (nonatomic,copy,readonly) BOOL         (^dictContainerValue)(id value);
+/** <^(id value)>是否包含value */
+@property (nonatomic,copy,readonly) NSNumber*    (^dictContainerValue_n)(id value);
 /** <^()> */
 @property (nonatomic,copy,readonly) NSArray*     (^dictAllKeys)();
 /** <^()> */
