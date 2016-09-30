@@ -21,7 +21,7 @@
 ```
 ##Basic grammar【基础语法】
 ```objc
-//Does not get the value【不需要取值的情况如：】
+//Does not get the value:【不需要取值的情况如：】
 //Add a label to the view【添加一个标签到视图上】
 UILabelNew
 .labText(@"UILable").labNumberOfLines(0).labAlignment(NSTextAlignmentCenter)
@@ -29,7 +29,7 @@ UILabelNew
 .viewBGColor(@"#f0f0f0".strToUIColorFromHex())
 .viewAddToView(self.view);
 
-//Need to get value【需要取值的情况：】
+//Need to get value:【需要取值的情况：】
 //Using linkObj() if first object can be nil.Use end to get the true value.【链首对象可能为空需要使用linkObj，报错则需要使用end获取真实的值】
 NSString* priceStr = linkObj(priceFromNet).strAppend(@"￥").linkEnd;
 //priceFromNet为空这里控制台会报错，而不是崩溃
