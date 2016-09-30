@@ -1,7 +1,7 @@
 #LinkBlock
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
-## What is this?
+## Introduce【介绍】
 * LinkBlock是objc`链式编程`语法糖扩展，使我们专注于编码的逻辑。
 * 将同一个对象的多种操作整合，使代码结构清晰。
 * 整合Fundation最基本功能。
