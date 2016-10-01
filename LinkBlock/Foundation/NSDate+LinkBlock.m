@@ -473,6 +473,21 @@
     };
 }
 
+- (NSNumber* (^)())dateIsLeapYear_n
+{
+    return ^id(){
+        LinkHandle_REF(NSDate)
+        LinkGroupHandle_REF(dateIsLeapYear_n)
+        NSInteger year = _self.dateYear();
+        if ((year%4==0 && year %100 !=0) || year%400==0) {
+            return @YES;
+        }else {
+            return @NO;
+        }
+        return @NO;
+    };
+}
+
 - (BOOL (^)())dateIsInToday
 {
     return ^(){
@@ -487,6 +502,20 @@
             return YES;
         }
         return NO;
+    };
+}
+- (NSNumber* (^)())dateIsInToday_n
+{
+    return ^id(){
+        LinkHandle_REF(NSDate)
+        LinkGroupHandle_REF(dateIsInToday_n)
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *comps  = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:_self];
+        NSDateComponents *compsNow  = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
+        if([comps year]==[compsNow year] && [comps month]==[compsNow month] && [comps day]==[compsNow day]){
+            return @YES;
+        }
+        return @NO;
     };
 }
 
@@ -506,6 +535,20 @@
         return NO;
     };
 }
+- (NSNumber* (^)())dateIsInMonth_n
+{
+    return ^id(){
+        LinkHandle_REF(NSDate)
+        LinkGroupHandle_REF(dateIsInMonth_n)
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *comps  = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit fromDate:_self];
+        NSDateComponents *compsNow  = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit fromDate:[NSDate date]];
+        if([comps year]==[compsNow year] && [comps month]==[compsNow month]){
+            return @YES;
+        }
+        return @NO;
+    };
+}
 
 - (NSTimeInterval (^)())dateTimeIntervalSince1970
 {
@@ -518,7 +561,6 @@
         return [_self timeIntervalSince1970];
     };
 }
-
 - (NSNumber* (^)())dateTimeIntervalSince1970_n
 {
     return ^id(){

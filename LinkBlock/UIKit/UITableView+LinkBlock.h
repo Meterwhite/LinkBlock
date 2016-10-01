@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#ifndef UITableViewNew
+#define UITableViewNew ([UITableViewNew new])
+#endif
 @interface NSObject(UITableViewLinkBlock)
 /** <^(id<UITableViewDelegate> delegate)> */
 @property (nonatomic,copy,readonly) UITableView*       (^tab_viewDelegate)(id<UITableViewDelegate> delegate);

@@ -16,7 +16,6 @@
 @property (nonatomic,copy,readonly) NSString*        (^dateToStrWithFormat)(NSString* formatStr);
 /** <^()> */
 @property (nonatomic,copy,readonly) NSTimeInterval   (^dateTimeIntervalSince1970)();
-/** <^()> */
 @property (nonatomic,copy,readonly) NSNumber*        (^dateTimeIntervalSince1970_n)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSDateComponents*(^dateComponentsAll)();
@@ -24,27 +23,21 @@
 #pragma mark - 获取日期项的值
 /** <^()> */
 @property (nonatomic,copy,readonly) NSInteger         (^dateYear)();
-/** <^()> */
 @property (nonatomic,copy,readonly) NSNumber*         (^dateYear_n)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSInteger         (^dateMonth)();
-/** <^()> */
 @property (nonatomic,copy,readonly) NSNumber*         (^dateMonth_n)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSInteger         (^dateDay)();
-/** <^()> */
 @property (nonatomic,copy,readonly) NSNumber*         (^dateDay_n)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSInteger         (^dateHour)();
-/** <^()> */
 @property (nonatomic,copy,readonly) NSNumber*         (^dateHour_n)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSInteger         (^dateMinut)();
-/** <^()> */
 @property (nonatomic,copy,readonly) NSNumber*         (^dateMinut_n)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSInteger         (^dateSec)();
-/** <^()> */
 @property (nonatomic,copy,readonly) NSNumber*         (^dateSec_n)();
 
 #pragma mark - 计算年月日时分秒的差
@@ -98,9 +91,11 @@
 @property (nonatomic,copy,readonly) NSDate*          (^dateCurrentZone)();
 /** <^()>判断闰年 */
 @property (nonatomic,copy,readonly) BOOL             (^dateIsLeapYear)();
+@property (nonatomic,copy,readonly) NSNumber*        (^dateIsLeapYear_n)();
 /** <^()>判断是否在本日 */
 @property (nonatomic,copy,readonly) BOOL             (^dateIsInToday)();
+@property (nonatomic,copy,readonly) NSNumber*        (^dateIsInToday_n)();
 /** <^()>判断是否为本月 */
 @property (nonatomic,copy,readonly) BOOL             (^dateIsInMonth)();
-
+@property (nonatomic,copy,readonly) NSNumber*        (^dateIsInMonth_n)();
 @end

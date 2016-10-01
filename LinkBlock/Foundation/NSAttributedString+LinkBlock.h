@@ -11,11 +11,12 @@
 @interface NSObject(NSAttributedStringLinkBlock)
 /** <^(CGFloat maxWidth)>默认情况下计算尺寸，如支持UILable文字排版计算 */
 @property (nonatomic,copy,readonly) CGRect   (^attr_strSize)(CGFloat maxWidth);
+@property (nonatomic,copy,readonly) NSValue* (^attr_strSize_n)(CGFloat maxWidth);
 /** <^(CGFloat maxWidth, NSStringDrawingOptions optoins)> */
 @property (nonatomic,copy,readonly) CGRect   (^attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
+@property (nonatomic,copy,readonly) NSValue* (^attr_strSizeWithOptions_n)(CGFloat maxWidth, NSStringDrawingOptions optoins);
 /** <^(NSAttributedString* attrStr)> */
 @property (nonatomic,copy,readonly) BOOL     (^attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
-/** <^(NSAttributedString* attrStr)> */
 @property (nonatomic,copy,readonly) NSNumber*(^attr_strIsEqualToAttrStr_n)(NSAttributedString* attrStr);
 /** <^(UIImage* image, CGRect rect)>属性文本绘制到图片 */
 @property (nonatomic,copy,readonly) UIImage* (^attr_strDrawImgRect)(UIImage* image, CGRect rect);

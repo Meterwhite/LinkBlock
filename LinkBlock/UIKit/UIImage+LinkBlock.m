@@ -173,4 +173,34 @@
     };
 }
 
+- (UIImageView *(^)(UIImageView *))imgSetToImgView_linkTo
+{
+    return ^id(UIImageView* imgView){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgSetToImgView_linkTo,imgView)
+        [imgView setImage:_self];
+        return imgView?imgView:[LinkError new];
+    };
+}
+
+-(UIButton *(^)(UIButton *,UIControlState))imgSetToBtn_linkTo
+{
+    return ^id(UIButton* btn,UIControlState state){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgSetToBtn_linkTo,btn,state)
+        [btn setImage:_self forState:state];
+        return btn?btn:[LinkError new];
+    };
+}
+
+-(UIButton *(^)(UIButton *,UIControlState))imgSetToBtnBGImg_linkTo
+{
+    return ^id(UIButton* btn,UIControlState state){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgSetToBtnBGImg_linkTo,btn,state)
+        [btn setImage:_self forState:state];
+        return btn?btn:[LinkError new];
+    };
+}
+
 @end

@@ -301,58 +301,6 @@
     };
 }
 
-- (CGRect (^)(CGFloat))m_attr_strSize
-{
-    return ^(CGFloat maxWidth){
-        LinkHandle_VAL_IFNOT(NSAttributedString){
-            return CGRectZero;
-        }
-        LinkGroupHandle_VAL(m_attr_strSize,maxWidth)
-        return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
-    };
-}
 
-- (NSValue* (^)(CGFloat))m_attr_strSize_n
-{
-    return ^id(CGFloat maxWidth){
-        LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(m_attr_strSize_n,maxWidth)
-        return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil]];
-    };
-}
-
-- (CGRect (^)(CGFloat, NSStringDrawingOptions))m_attr_strSizeWithOptions
-{
-    return ^(CGFloat maxWidth,NSStringDrawingOptions options ){
-        LinkHandle_VAL_IFNOT(NSAttributedString){
-            return CGRectZero;
-        }
-        LinkGroupHandle_VAL(m_attr_strSizeWithOptions,maxWidth,options)
-        return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil];
-    };
-}
-
-- (NSValue* (^)(CGFloat, NSStringDrawingOptions))m_attr_strSizeWithOptions_n
-{
-    return ^id(CGFloat maxWidth,NSStringDrawingOptions options ){
-        LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(m_attr_strSizeWithOptions_n,maxWidth,options)
-        return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil]];
-    };
-}
-
-- (UIImage *(^)(UIImage *, CGRect))m_attr_strDrawImgRect
-{
-    return ^id(UIImage* image, CGRect rect){
-        LinkHandle_REF(NSMutableAttributedString)
-        LinkGroupHandle_VAL(m_attr_strDrawImgRect,image,rect)
-        UIGraphicsBeginImageContext(image.size);
-        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
-        [_self drawInRect:rect];
-        UIImage *newImg = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        return newImg;
-    };
-}
 
 @end

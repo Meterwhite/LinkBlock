@@ -53,6 +53,19 @@
     };
 }
 
+- (NSString *(^)(NSString *))strAppendTo
+{
+    return ^id(NSString *str){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strAppendTo,str)
+        if([str isKindOfClass:[NSString class]]){
+            return [str stringByAppendingString:_self];
+        }else{
+            return _self;
+        }
+    };
+}
+
 - (NSString *(^)(NSString *, NSString *))strReplace
 {
     return ^id(NSString* replaceStr, NSString* withStr){
@@ -1375,61 +1388,6 @@
     };
 }
 
-- (NSString *(^)(NSArray<UIView*> *))strSetTextToControls
-{
-    return ^id(NSArray<UIView*>* controls){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetTextToControls,controls)
-        [controls enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-            if([view isKindOfClass:[UIView class]]){
-                if([view isKindOfClass:[UIButton class]]){
-                    [((UIButton*)view) setTitle:_self forState:UIControlStateNormal];
-                }else if([view isKindOfClass:[UILabel class]] ||
-                         [view isKindOfClass:[UITextField class]] ||
-                         [view isKindOfClass:[UITextView class]]){
-                    [view setValue:_self forKey:@"text"];
-                }
-            }
-        }];
-        return _self;
-    };
-}
-
-- (NSString *(^)(NSArray *))strSetTextColorToControls
-{
-    return ^id(NSArray* controls){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetTextColorToControls,controls)
-        UIColor* color = _self.strToUIColorFromHex();
-        [controls enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
-            if([v isKindOfClass:[UIButton class]]){
-                [((UIButton*)v) setTitleColor:color forState:UIControlStateNormal];
-            }else if ([v isKindOfClass:[UILabel class]] ||
-                      [v isKindOfClass:[UITextField class]] ||
-                      [v isKindOfClass:[UITextView class]]
-                      ){
-                [v setValue:color forKey:@"textColor"];
-            }
-            
-        }];
-        return _self;
-    };
-}
-
-- (NSString *(^)(NSArray *))strSetBGColorFromHexToViews
-{
-    return ^id(NSArray* views){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetBGColorFromHexToViews,views)
-        UIColor* color = _self.strToUIColorFromHex();
-        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
-            if([v isKindOfClass:[UIView class]])
-                v.backgroundColor = color;
-        }];
-        return _self;
-    };
-}
-
 - (double (^)())strFindNumber
 {
     return ^(){
@@ -1882,6 +1840,46 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkGroupHandle_REF(strCopyToGeneralPasteboard)
         [UIPasteboard generalPasteboard].string = _self;
         return _self;
+    };
+}
+
+- (UILabel *(^)(UILabel *))strSetToLab_linkTo
+{
+    return ^id(UILabel* lab){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSetToLab_linkTo, lab)
+        lab.text = _self;
+        return lab?lab:[LinkError new];
+    };
+}
+
+- (UIButton *(^)(UIButton *, UIControlState))strSetToBtn_linkTo
+{
+    return ^id(UIButton* btn, UIControlState state){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSetToBtn_linkTo, btn, state)
+        [btn setTitle:_self forState:state];
+        return btn?btn:[LinkError new];
+    };
+}
+
+- (UITextField *(^)(UITextField *))strSetToTxtField_linkTo
+{
+    return ^id(UITextField * txtField){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSetToTxtField_linkTo, txtField)
+        txtField.text = _self;
+        return txtField?txtField:[LinkError new];
+    };
+}
+
+- (UITextView *(^)(UITextView *))strSetToTxtView_linkTo
+{
+    return ^id(UITextView * txtView){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSetToTxtView_linkTo, txtView)
+        txtView.text = _self;
+        return txtView?txtView:[LinkError new];
     };
 }
 

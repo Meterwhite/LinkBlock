@@ -18,7 +18,7 @@
             
             ((LinkError*)self).throwCount++;
             return (id)self;
-        }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
+        }else if(((LinkReturn*)self).infoType == LinkInfoReturn){//中断时
             
             NSNumber* reVal = ((LinkReturn*)self).returnValue;
             if([reVal isKindOfClass:[NSNumber class]] && reVal.boolValue){
@@ -41,7 +41,7 @@
         return (id)group;
     }
     
-    if([self isKindOfClass:[NSNumber class]] && ((NSNumber*)self).boolValue){
+    if([self isKindOfClass:[NSNumber class]] && ((NSNumber*)self).boolValue){//@YES
         return (id)self;
     }
     LinkReturn* reVal = [LinkReturn new];
@@ -383,6 +383,16 @@
         return NO;
     };
 }
+- (NSNumber* (^)())numHasDecimalValue_n
+{
+    return ^id(){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numHasDecimalValue_n)
+        if([_self doubleValue] - [_self integerValue])
+            return @YES;
+        return @NO;
+    };
+}
 
 - (BOOL (^)(NSNumber *))numIsEqualToNum
 {
@@ -529,6 +539,18 @@
         return NO;
     };
 }
+- (NSNumber* (^)())numIsOdd_n
+{
+    return ^id(){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsOdd_n)
+        if(_self.numIsIntegerType() && ([_self integerValue]%2 == 1)){
+            
+            return @YES;
+        }
+        return @NO;
+    };
+}
 
 - (BOOL (^)())numIsEven
 {
@@ -541,6 +563,17 @@
             return YES;
         }
         return NO;
+    };
+}
+- (NSNumber* (^)())numIsEven_n
+{
+    return ^id(){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsEven_n)
+        if(_self.numIsIntegerType() && ([_self integerValue]%2 == 0)){
+            return @YES;
+        }
+        return @NO;
     };
 }
 
@@ -560,6 +593,20 @@
         return NO;
     };
 }
+- (NSNumber* (^)(NSArray *))numIndexIsInArrRange_n
+{
+    return ^id(NSArray* arr){
+        
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIndexIsInArrRange_n,arr)
+        if(![arr isKindOfClass:[NSArray class]])
+            return @NO;
+        NSInteger idx = [_self integerValue];
+        if(idx>=0 && idx<arr.count)
+            return @YES;
+        return @NO;
+    };
+}
 
 - (BOOL (^)(NSString *))numIndexIsInStringRange
 {
@@ -575,6 +622,20 @@
         if(idx>=0 && idx<str.length)
             return YES;
         return NO;
+    };
+}
+- (NSNumber* (^)(NSString *))numIndexIsInStringRange_n
+{
+    return ^id(NSString* str){
+        
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIndexIsInStringRange_n,str)
+        if(![str isKindOfClass:[NSString class]])
+            return @NO;
+        NSInteger idx = [_self integerValue];
+        if(idx>=0 && idx<str.length)
+            return @YES;
+        return @NO;
     };
 }
 

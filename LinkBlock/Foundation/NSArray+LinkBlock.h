@@ -23,7 +23,6 @@
 @property (nonatomic,copy,readonly) id                       (^arrAt)(NSUInteger idx);
 /** <^(id obj)>是否包含某个对象 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrIsContainer)(id obj);
-/** <^(id obj)>是否包含某个对象 */
 @property (nonatomic,copy,readonly) NSNumber*                (^arrIsContainer_n)(id obj);
 /** <^(NSUInteger idx)> */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrSubFrom)(NSUInteger idx);
@@ -33,8 +32,9 @@
 @property (nonatomic,copy,readonly) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
 /** <^(NSUInteger idx)>某个index是否在范围内 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrcontainIndex)(NSUInteger idx);
-/** <^(NSUInteger idx)>某个index是否在范围内 */
 @property (nonatomic,copy,readonly) NSNumber*                (^arrcontainIndex_n)(NSUInteger idx);
+/** <^(NSMutableArray* arr)>返回新数组 */
+@property (nonatomic,copy,readonly) NSMutableArray*          (^arrAddTo)(NSMutableArray* arr);
 /** <^()>数组转字典，键为NSNumber类型 */
 @property (nonatomic,copy,readonly) NSDictionary*            (^arrToDictByKeyNumber)();
 /** <^()>数组转字典，键为NSString类型 */

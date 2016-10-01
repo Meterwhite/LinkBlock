@@ -47,10 +47,17 @@
 @property (nonatomic,copy,readonly) UIColor*         (^colorSaturationSet)(CGFloat value);
 /** <^(CGFloat value)>设置亮度，返回新对象 */
 @property (nonatomic,copy,readonly) UIColor*         (^colorBrightnessSet)(CGFloat value);
+
 /** <^(UIView* view)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetBackgroundToView)(UIView* view);
-/** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetBackgroundToViews)(NSArray<UIView*>* views);
-/** <^(UIView* UILabel|UITextView|UITextField|UIButton)>尝试设置控件及其子控件的文本颜色 */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetTextToView)(UIView* view);
+@property (nonatomic,copy,readonly) UIColor*         (^colorSetToViewBG)(UIView* view);
+/** <^(NSArray<UIView*>* views)> */
+@property (nonatomic,copy,readonly) UIColor*         (^colorSetToViewsBG)(NSArray<UIView*>* views);
+/** <^(UILabel* lab)> */
+@property (nonatomic,copy,readonly) UIColor*         (^colorSetToLabText)(UILabel* lab);
+/** <^(UITextView* txtView)> */
+@property (nonatomic,copy,readonly) UIColor*         (^colorSetToTxtViewText)(UITextView* txtView);
+/** <^(UITextField* txtField)> */
+@property (nonatomic,copy,readonly) UIColor*         (^colorSetToTxtFieldText)(UITextField* txtField);
+/** <^(UIButton* btn, UIControlState state)> */
+@property (nonatomic,copy,readonly) UIColor*         (^colorSetToBtnTitle)(UIButton* btn, UIControlState state);
 @end

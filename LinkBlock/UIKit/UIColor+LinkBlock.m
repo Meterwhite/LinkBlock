@@ -267,21 +267,21 @@
     };
 }
 
-- (UIColor *(^)(UIView *))colorSetBackgroundToView
+- (UIColor *(^)(UIView *))colorSetToViewBG
 {
     return ^id(UIView* view){
         LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetBackgroundToView,view)
+        LinkGroupHandle_REF(colorSetToViewBG,view)
         view.backgroundColor = _self;
         return _self;
     };
 }
 
-- (UIColor *(^)(NSArray<UIView*> *))colorSetBackgroundToViews
+- (UIColor *(^)(NSArray<UIView*> *))colorSetToViewsBG
 {
     return ^id(NSArray<UIView*>* views){
         LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetBackgroundToViews,views)
+        LinkGroupHandle_REF(colorSetToViewsBG,views)
         [views enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL *stop) {
             if([view isKindOfClass:[UIView class]])
                 view.backgroundColor = _self;
@@ -290,22 +290,42 @@
     };
 }
 
-- (UIColor *(^)(UIView *))colorSetTextToView
+- (UIColor *(^)(UILabel *))colorSetToLabText
 {
-    return ^id(UIView* view){
+    return ^id(UILabel* lab){
         LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetTextToView,view)
-        if(![view isKindOfClass:[UIView class]])
-            return _self;
-        if([view isKindOfClass:[UILabel class]]     ||
-           [view isKindOfClass:[UITextView class]]  ||
-           [view isKindOfClass:[UITextField class]] ){
-            
-            [view setValue:_self forKey:@"textColor"];
-        }else if ([view isKindOfClass:[UIButton class]]){
-            
-            [((UIButton*)view) setTitleColor:_self forState:UIControlStateNormal];
-        }
+        LinkGroupHandle_REF(colorSetToLabText , lab)
+        lab.textColor = _self;
+        return _self;
+    };
+}
+
+- (UIColor *(^)(UITextView *))colorSetToTxtViewText
+{
+    return ^id(UITextView* txtV){
+        LinkHandle_REF(UIColor)
+        LinkGroupHandle_REF(colorSetToTxtViewText , txtV)
+        txtV.textColor = _self;
+        return _self;
+    };
+}
+
+- (UIColor *(^)(UITextField *))colorSetToTxtFieldText
+{
+    return ^id(UITextField* txtF){
+        LinkHandle_REF(UIColor)
+        LinkGroupHandle_REF(colorSetToTxtFieldText , txtF)
+        txtF.textColor = _self;
+        return _self;
+    };
+}
+
+- (UIColor *(^)(UIButton *, UIControlState))colorSetToBtnTitle
+{
+    return ^id(UIButton* btn, UIControlState state){
+        LinkHandle_REF(UIColor)
+        LinkGroupHandle_REF(colorSetToBtnTitle , btn,state)
+        [btn setTitleColor:_self forState:state];
         return _self;
     };
 }

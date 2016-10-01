@@ -12,19 +12,19 @@
 @interface NSObject(LinkBlock)
 #pragma mark - 方式
 /** 
- <- end>获取链条返回值，并将链条信息对象和错误转nil
- ... = linkObj(..)...end;
- ... = linkObj(..)...linkIF(...)...end;
+ <- linkEnd>获取链条返回值，并将链条信息对象和错误转nil
+ ... = linkObj(..)...linkEnd;
+ ... = linkObj(..)...linkIF(...)...linkEnd;
  */
--                                   (id)         linkEnd;
-/** 
+@property (nonatomic,copy,readonly) id           linkEnd;
+/**
  <- ends>多对象链式编程获取多个链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...ends;
+ ... = linkObj(...)...linkLoop(...)...linkEnds;
  */
--                                   (NSArray*)   linkEnds;
+@property (nonatomic,copy,readonly) NSArray*     linkEnds;
 /** 
  <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...endAt(index);
+ ... = linkObj(...)...linkLoop(...)...linkEndsAt(index);
  */
 @property (nonatomic,copy,readonly) id           (^linkEndsAt)(NSUInteger idx);
 /** 
@@ -35,7 +35,7 @@
 /** 
  <^(id obj)>使新对象加入链条
  ...linkAnd(obj1)...linkAnd(obj2)...
- ... = ...linkAnd(obj1)...linkAnd(obj2)...ends;
+ ... = ...linkAnd(obj1)...linkAnd(obj2)...linkEnds;
  */
 @property (nonatomic,copy,readonly) NSObject*    (^linkAnd)(id obj);
 /**
@@ -58,12 +58,12 @@
  <^()>取出多链条中第一个
  linkObjs(,,,)...linkFirstObj...
  */
--                                  (NSObject*)   linkFirstObj;
+@property (nonatomic,copy,readonly) NSObject*    linkFirstObj;
 /**
  <^()>取出多链条中最后一个
  linkObjs(,,,)...linkLastObj...
  */
--                                  (NSObject*)   linkLastObj;
+@property (nonatomic,copy,readonly) NSObject*    linkLastObj;
 /** 
  <^(NSUInteger count)>使其后的链条执行多次
  ...linkLoop(10)...
@@ -72,23 +72,23 @@
 /** 
  <^()>根据条件是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行；取值需使用end
  ...linkIf(...)...linkIf(...)...linkElse...
- ... = ...linkLoop(...)...linkIf(...)...ends();
+ ... = ...linkLoop(...)...linkIf(...)...linkEnds();
  */
 @property (nonatomic,copy,readonly) NSObject*    (^linkIf)(BOOL condition);
 /** 
  <^()>从中断语句中恢复执行其后语句，与前一个linkIf配合使用；取值需使用end
  ...linkIf(...)...linkIf(...)...linkElse...
  */
--                                  (NSObject*)   linkElse;
+@property (nonatomic,copy,readonly) NSObject*    linkElse;
 /**
  <^()>使其后语句跳空；可与分支配合；取值需使用end
  ...[aNewLink:^(NSObject* fromObj){
     if(...){
         ...linkReturn;
     }
- }]...end;
+ }]...linkEnd;
  */
--                                  (NSObject*)   linkReturn;
+@property (nonatomic,copy,readonly) NSObject*    linkReturn;
 /** 
  链条分支，返回源对象，在链条内处理新分支
  ...[aNewLink:^(NSObject* fromObj){
@@ -102,6 +102,8 @@
 @property (nonatomic,copy,readonly) NSObject*    (^nslog)();
 /** <^(NSString* title)>输出对象前增加标识语 */
 @property (nonatomic,copy,readonly) NSObject*    (^nslogTitle)(NSString* title);
+/** <^(NSString* title)>仅仅在语句中输出信息，并不打印对象 */
+@property (nonatomic,copy,readonly) NSObject*    (^logInfo)(NSString* info);
 /** <^()>将对象以字典的形式进行打印，其中对所有容器类型进行遍历转换 */
 @property (nonatomic,copy,readonly) NSObject*    (^po)();
 /** <^()>将对象以字典的形式进行打印 */
@@ -237,13 +239,16 @@
 @property (nonatomic,copy,readonly) NSObject*    (^objNextInArr)(NSArray* inArr);
 /** <^(NSArray* inArr)>对象是否在数组中 */
 @property (nonatomic,copy,readonly) BOOL         (^objIsInArr)(NSArray* inArr);
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsInArr_n)(NSArray* inArr);
 #pragma mark - For NSMutableDictionary
 /** <^(NSMutableDictionary* dict, id<NSCopying> key)>将对象设置到字典 */
 @property (nonatomic,copy,readonly) NSObject*    (^objSetToDict)(NSMutableDictionary* dict, id<NSCopying> key);
 /** <^(NSMutableDictionary* dict)>对象是否在字典值的集合中 */
 @property (nonatomic,copy,readonly) BOOL         (^objIsInDictValues)(NSMutableDictionary* dict);
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsInDictValues_n)(NSMutableDictionary* dict);
 /** <^(NSMutableDictionary* dict)>对象是否在字典键的集合中 */
 @property (nonatomic,copy,readonly) BOOL         (^objIsInDictKeys)(NSMutableDictionary* dict);
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsInDictKeys_n)(NSMutableDictionary* dict);
 /**
  *  <^(BOOL includeFoundation)>
  *  将当前对象转字典（如果对象为容器类型则对值进行一次转换）
@@ -288,5 +293,6 @@
 -                  (UITextField*)               ofUITextField;
 -                  (UITextView*)                ofUITextView;
 -                  (UIWebView*)                 ofUIWebView;
-
+-                  (NSSet*)                     ofNSSet;
+-                  (NSMutableSet*)              ofNSMutableSet;
 @end

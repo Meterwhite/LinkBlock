@@ -18,6 +18,14 @@
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
     };
 }
+- (NSValue* (^)(CGFloat))attr_strSize_n
+{
+    return ^id(CGFloat maxWidth){
+        LinkHandle_REF(NSAttributedString)
+        LinkGroupHandle_REF(attr_strSize_n,maxWidth)
+        return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil]];
+    };
+}
 
 - (CGRect (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptions
 {
@@ -27,6 +35,15 @@
         }
         LinkGroupHandle_VAL(attr_strSizeWithOptions,maxWidth,options)
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil];
+    };
+}
+
+- (NSValue* (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptions_n
+{
+    return ^id(CGFloat maxWidth,NSStringDrawingOptions options ){
+        LinkHandle_REF(NSAttributedString)
+        LinkGroupHandle_REF(attr_strSizeWithOptions_n,maxWidth,options)
+        return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:options context:nil]];
     };
 }
 

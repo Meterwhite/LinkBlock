@@ -18,6 +18,8 @@
 @property (nonatomic,copy,readonly) NSMutableString* (^strMutableCopy)();
 /** <^(NSString* str)> */
 @property (nonatomic,copy,readonly) NSString*    (^strAppend)(NSString* str);
+/** <^(NSString* str)> */
+@property (nonatomic,copy,readonly) NSString*    (^strAppendTo)(NSString* str);
 /** <^(NSString* formatStr , ...)> */
 @property (nonatomic,copy,readonly) NSString*    (^strAppendFormat)(NSString* formatStr , ...);
 /** <^(NSString* str)> */
@@ -186,8 +188,14 @@
 /** <^()>路径转系统音效ID；注意释放； */
 @property (nonatomic,copy,readonly) UInt32               (^strToSystemSoundID)();
 
-
-
+/** <^(UILabel* lab)> */
+@property (nonatomic,copy,readonly) UILabel*             (^strSetToLab_linkTo)(UILabel* lab);
+/** <^(UIButton* btn)> */
+@property (nonatomic,copy,readonly) UIButton*            (^strSetToBtn_linkTo)(UIButton* btn, UIControlState state);
+/** <^(UITextField* txtField)> */
+@property (nonatomic,copy,readonly) UITextField*         (^strSetToTxtField_linkTo)(UITextField* txtField);
+/** <^(UITextView* txtView)> */
+@property (nonatomic,copy,readonly) UITextView*          (^strSetToTxtView_linkTo)(UITextView* txtView);
 
 /** <^(NSString* regex)> */
 @property (nonatomic,copy,readonly) BOOL                 (^strRegexIsMatch)(NSString* regex);
@@ -199,13 +207,6 @@
  *  replaceTemplate : "<a href=\"$0\">$0</a>".
  */
 @property (nonatomic,copy,readonly) NSString*            (^strRegexReplace)(NSString* regex, NSString* replaceTemplate);
-
-/** <^(NSArray* views)>十六进制字符串颜色设置到控件 */
-@property (nonatomic,copy,readonly) NSString*            (^strSetBGColorFromHexToViews)(NSArray* views);
-/** <^(NSArray<UIView*>* controls)>主要针对主要控件设置文本 */
-@property (nonatomic,copy,readonly) NSString*            (^strSetTextToControls)(NSArray<UIView*>* controls);
-/** <^(NSArray* controls)> */
-@property (nonatomic,copy,readonly) NSString*            (^strSetTextColorToControls)(NSArray* controls);
 /** <^()>查找字符串中的第一组数字 */
 @property (nonatomic,copy,readonly) double               (^strFindNumber)();
 

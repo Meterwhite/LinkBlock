@@ -42,6 +42,16 @@
     };
 }
 
+- (NSMutableArray *(^)(NSMutableArray *))arrAddTo
+{
+    return ^id(NSMutableArray* arr){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrAddTo,arr)
+        [arr addObjectsFromArray:_self];
+        return arr?arr:[LinkError new];
+    };
+}
+
 - (NSArray *(^)(NSUInteger, NSUInteger))arrObjsFromIndexTo
 {
     return ^id(NSUInteger idx1, NSUInteger idx2){

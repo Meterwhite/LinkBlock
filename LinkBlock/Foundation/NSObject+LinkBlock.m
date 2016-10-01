@@ -1073,6 +1073,14 @@
         return [dict.allKeys containsObject:_self];
     };
 }
+- (NSNumber* (^)(NSMutableDictionary *))objIsInDictKeys_n
+{
+    return ^id(NSMutableDictionary* dict){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsInDictKeys_n,dict)
+        return @([dict.allKeys containsObject:_self]);
+    };
+}
 
 - (BOOL (^)(NSMutableDictionary *))objIsInDictValues
 {
@@ -1082,6 +1090,14 @@
         }
         LinkGroupHandle_VAL(objIsInDictKeys,dict)
         return [dict.allValues containsObject:_self];
+    };
+}
+- (NSNumber* (^)(NSMutableDictionary *))objIsInDictValues_n
+{
+    return ^id(NSMutableDictionary* dict){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsInDictValues_n,dict)
+        return @([dict.allValues containsObject:_self]);
     };
 }
 
@@ -1509,32 +1525,30 @@
 
 - (NSObject *)linkElse
 {
-    return ^id(){
-        
-        if([self isKindOfClass:[LinkInfo class]]){
-            if(((LinkError*)self).infoType == LinkInfoError){
-                
-                ((LinkError*)self).throwCount++;
-            }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
-                
-                return ((LinkReturn*)self).returnValue;
-            }
-            return self;
+    
+    if([self isKindOfClass:[LinkInfo class]]){
+        if(((LinkError*)self).infoType == LinkInfoError){
+            
+            ((LinkError*)self).throwCount++;
+        }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
+            
+            return ((LinkReturn*)self).returnValue;
         }
-        if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
-            NSMutableArray* returnObjs = [NSMutableArray new];
-            for (int i=0; i<group.linkObjects.count; i++) {
-                id re = group.linkObjects[i].linkElse;
-                [returnObjs addObject:re];
-            }
-            [group.linkObjects setArray:returnObjs];
-            return (id)group;
+        return self;
+    }
+    if([self isKindOfClass:[LinkGroup class]]){
+        LinkGroup* group = (LinkGroup*)self;
+        NSMutableArray* returnObjs = [NSMutableArray new];
+        for (int i=0; i<group.linkObjects.count; i++) {
+            id re = group.linkObjects[i].linkElse;
+            [returnObjs addObject:re];
         }
-        LinkReturn* returnVal = [LinkReturn new];
-        returnVal.returnValue = self;
-        return returnVal;
-    };
+        [group.linkObjects setArray:returnObjs];
+        return (id)group;
+    }
+    LinkReturn* returnVal = [LinkReturn new];
+    returnVal.returnValue = self;
+    return returnVal;
 }
 
 - (NSObject *)linkReturn
@@ -1580,6 +1594,16 @@
         LinkGroupHandle_REF(nslogTitle,title)
         NSLog(@"%@%@",title,_self);
         return _self;
+    };
+}
+
+- (NSObject *(^)(NSString *))logInfo
+{
+    return ^id(NSString* info){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(logInfo,info)
+        NSLog(@"%@",info);
+        return self;
     };
 }
 
@@ -1813,6 +1837,14 @@
         return [inArr containsObject:_self];
     };
 }
+- (NSNumber* (^)(NSArray *))objIsInArr_n
+{
+    return ^id(NSArray* inArr){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsInArr_n, inArr)
+        return @([inArr containsObject:_self]);
+    };
+}
 
 #pragma mark - 类型转换
 
@@ -1851,5 +1883,7 @@ Link_TransType_Maro(UITableView)
 Link_TransType_Maro(UITextField)
 Link_TransType_Maro(UITextView)
 Link_TransType_Maro(UIWebView)
+Link_TransType_Maro(NSMutableSet)
+Link_TransType_Maro(NSSet)
 
 @end

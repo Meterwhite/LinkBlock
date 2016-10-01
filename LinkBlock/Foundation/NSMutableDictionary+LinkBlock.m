@@ -294,38 +294,4 @@
     };
 }
 
-- (NSObject* (^)(id<NSCopying>))m_dictGet
-{
-    return ^id(id<NSCopying> key){
-        return self.dictGet(key);
-    };
-}
-
-- (NSObject* (^)(id<NSCopying>))m_dictGetNoNSNull
-{
-    return ^id(id<NSCopying> key){
-        return self.dictGetNoNSNull(key);
-    };
-}
-
-- (NSArray *(^)())m_dictAllKeys
-{
-    return ^id(){
-        return self.dictAllKeys();
-    };
-}
-
-- (NSArray *(^)())m_dictAllValues
-{
-    return ^id(){
-        return self.dictAllValues();
-    };
-}
-
-- (NSArray *(^)(id))m_dictKeysForValue
-{
-    return ^id(id value){
-        return self.dictKeysForValue(value);
-    };
-}
 @end

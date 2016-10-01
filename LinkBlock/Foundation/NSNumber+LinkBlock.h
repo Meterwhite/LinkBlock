@@ -15,13 +15,15 @@
  用法与linkIf相似
  ...objIsEqual_n(...).linkIf_YES...LinkElse...
  */
--                            (NSNumber *)        linkIf_YES;
+@property (nonatomic,copy,readonly) NSNumber*    linkIf_YES;
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
  ...objIsEqual_n(...).linkIf_NO...LinkElse...
  */
--                            (NSNumber *)        linkIf_NO;
+@property (nonatomic,copy,readonly) NSNumber*    linkIf_NO;
+
+
 /** <^()> */
 @property (nonatomic,copy,readonly) void*        (^numValue)();
 /** <^()>是否是整数类型 */
@@ -59,6 +61,7 @@
 
 /** <^()>是否包含小数位的值；YES：小数位为0，NO：小数位有值， */
 @property (nonatomic,copy,readonly) BOOL         (^numHasDecimalValue)();
+@property (nonatomic,copy,readonly) NSNumber*    (^numHasDecimalValue_n)();
 /** <^(num)>等于@宏定义覆盖后可传入数字直接量 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsEqualToNum)(NSNumber* num);
 @property (nonatomic,copy,readonly) NSNumber*    (^numIsEqualToNum_n)(NSNumber* num);
@@ -80,8 +83,10 @@
 @property (nonatomic,copy,readonly) BOOL         (^numIsNO)();
 /** <^()>判断奇数 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsOdd)();
+@property (nonatomic,copy,readonly) NSNumber*    (^numIsOdd_n)();
 /** <^()>判断偶数 */
 @property (nonatomic,copy,readonly) BOOL         (^numIsEven)();
+@property (nonatomic,copy,readonly) NSNumber*    (^numIsEven_n)();
 
 /** <^(NSUInteger digit小数位数)>小数转字符串：digit：小数位数 */
 @property (nonatomic,copy,readonly) NSString*           (^numToStrFloating)(NSUInteger digit);
@@ -96,8 +101,10 @@
 
 /** <^(NSArray* arr)>当前值是否在数组长度长度值内 */
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInArrRange)(NSArray* arr);
+@property (nonatomic,copy,readonly) NSNumber*    (^numIndexIsInArrRange_n)(NSArray* arr);
 /** <^(NSString* str)>当前值是否在字符串长度值范围内 */
 @property (nonatomic,copy,readonly) BOOL         (^numIndexIsInStringRange)(NSString* str);
+@property (nonatomic,copy,readonly) NSNumber*    (^numIndexIsInStringRange_n)(NSString* str);
 /** <^(NSMutableArray* arr)> */
 @property (nonatomic,copy,readonly) NSNumber*    (^numIndexObjRemoveFromArr)(NSMutableArray* arr);
 /** <^(NSMutableArray* arr)> */

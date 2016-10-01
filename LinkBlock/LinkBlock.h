@@ -54,8 +54,8 @@
 #endif
 /**
  <^()>获取链条返回值，并将链条信息对象和错误转nil
- ... = linkObj(..)...end;
- ... = linkObj(..)...linkIF(...)...end;
+ ... = linkObj(..)...linkEnd;
+ ... = linkObj(..)...linkIF(...)...linkEnd;
  */
 #ifndef linkEnd
 #define linkEnd linkEnd
@@ -81,7 +81,7 @@
 /**
  <^()>根据条件是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  ...linkIF(...)...linkIF(...)...linkELSE()...
- ... = ...linkLoop(...)...linkIF(...)...ends();
+ ... = ...linkLoop(...)...linkIF(...)...linkEnds;
  */
 #ifndef linkIf
 #define linkIf linkIf
@@ -131,7 +131,7 @@
 /**
  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
- Arr.makeLinkObjs....
+ NSArray.makeLinkObjs....
  */
 #ifndef makeLinkObjs
 #define makeLinkObjs makeLinkObjs
@@ -174,21 +174,21 @@
 #endif
 /**
  <^(NSUInteger count)>使其后的链条执行多次
- ...linkLoop(10)...
+ ...linkLoop(count)...
  */
 #ifndef linkLoop
 #define linkLoop linkLoop
 #endif
 /**
  <^()>多对象链式编程获取多个链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...ends();
+ ... = linkObj(...)...linkLoop(...)...linkEnds();
  */
 #ifndef linkEnds
 #define linkEnds linkEnds
 #endif
 /**
  <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...endAt(index);
+ ... = linkObj(...)...linkLoop(...)...linkEndsAt(index);
  */
 #ifndef linkEndsAt
 #define linkEndsAt linkEndsAt
@@ -204,9 +204,9 @@ __kindof currType* _self = (currType*)self;\
 if([_self isKindOfClass:[LinkInfo class]]){\
     if(((LinkInfo*)_self).infoType == LinkInfoError){\
         ((LinkError*)_self).throwCount++;\
-        return _self;\
+        return (id)self;\
     }else if(((LinkInfo*)self).infoType == LinkInfoReturn){\
-        return _self;\
+        return (id)self;\
     }\
 }\
 if(![_self isKindOfClass:[currType class]]&&\
@@ -215,7 +215,7 @@ if(![_self isKindOfClass:[currType class]]&&\
     error.needClass = NSStringFromClass([currType class]);\
     error.errorClass = NSStringFromClass([_self class]);\
     error.inFunc = [NSString stringWithUTF8String:__func__];\
-    return error;\
+    return (id)error;\
 }
 #endif
 

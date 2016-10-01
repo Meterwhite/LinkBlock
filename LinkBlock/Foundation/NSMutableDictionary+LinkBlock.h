@@ -18,16 +18,6 @@
 @property (nonatomic,copy,readonly) NSMutableDictionary* (^m_dictReplaceKey)(id<NSCopying> replaceKey, id<NSCopying> withKey);
 /** <^(id<NSCopying> replaceKey, id<NSCopying> withKey)>替换字典中的key，非遍历的 */
 @property (nonatomic,copy,readonly) NSMutableDictionary* (^m_dictReplaceKeyWithoutDeep)(id<NSCopying> replaceKey, id<NSCopying> withKey);
-/** <^(id<NSCopying> key)> */
-@property (nonatomic,copy,readonly) NSObject*            (^m_dictGet)(id<NSCopying> key);
-/** <^(id<NSCopying> key)> */
-@property (nonatomic,copy,readonly) NSObject*            (^m_dictGetNoNSNull)(id<NSCopying> key);
-/** <^()> */
-@property (nonatomic,copy,readonly) NSArray*             (^m_dictAllKeys)();
-/** <^()> */
-@property (nonatomic,copy,readonly) NSArray*             (^m_dictAllValues)();
-/** <^(id value)> */
-@property (nonatomic,copy,readonly) NSArray*             (^m_dictKeysForValue)(id value);
 /** <^(NSDictionary* dict)>并集，由传入参数覆盖原来数据 */
 @property (nonatomic,copy,readonly) NSMutableDictionary* (^m_dictUnionDict)(NSDictionary* dict);
 

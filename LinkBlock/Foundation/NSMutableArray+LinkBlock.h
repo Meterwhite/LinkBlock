@@ -23,11 +23,11 @@
 @property (nonatomic,copy,readonly) NSMutableArray*  (^m_arrInsertBefore)(id obj, id beforeObj);
 /** <^(id obj, id behindObj)>插入一个对象在另一个对象之后 */
 @property (nonatomic,copy,readonly) NSMutableArray*  (^m_arrInsertBehind)(id obj, id behindObj);
-/** <^(id obj)>移除一个元素,安全的不会溢出 */
+/** <^(id obj)> */
 @property (nonatomic,copy,readonly) NSMutableArray*  (^m_arrRemoveObj)(id obj);
-/** <^(NSUInteger index)>移除指定Index处的元素,安全的不会溢出的 */
+/** <^(NSUInteger index)>移除指定Index处的元素,不会溢出 */
 @property (nonatomic,copy,readonly) NSMutableArray*  (^m_arrRemoveAt)(NSUInteger index);
-/** <^(NSUInteger fromIndex,NSUInteger toIndex)>移除一段元素，在指定Index范围内,安全的不会溢出的 */
+/** <^(NSUInteger fromIndex,NSUInteger toIndex)>移除一段元素，在指定Index范围内,不会溢出 */
 @property (nonatomic,copy,readonly) NSMutableArray*  (^m_arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
 /** <^()>移除所有数组元素,安全的 */
 @property (nonatomic,copy,readonly) NSMutableArray*  (^m_arrRemoveAll)();
