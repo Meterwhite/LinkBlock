@@ -19,11 +19,4 @@
 
 @property (nonatomic,copy,readonly) id (^endsAt)(NSUInteger idx)
     NS_DEPRECATED_IOS(2_0, 2_0, "使用linkEndsAt(idx)替代endsAt(idx)");
-
-
-@property (nonatomic,copy,readonly) UIColor* (^colorSetBackgroundToView)(UIView* view)
-    NS_DEPRECATED_IOS(2_0, 2_0, "");
-
-@property (nonatomic,copy,readonly) UIColor* (^colorSetBackgroundToViews)(NSArray<UIView*>* views)
-    NS_DEPRECATED_IOS(2_0, 2_0, "");
 @end
