@@ -28,4 +28,16 @@
         return (id)self.linkEndsAt(idx);
     };
 }
+
+- (BOOL (^)(id))arrIsContainer
+{
+    return ^(id obj){
+        LinkHandle_VAL_IFNOT(NSArray){
+            return NO;
+        }
+        LinkGroupHandle_VAL(arrIsContainer,obj)
+        return [_self containsObject:obj];
+    };
+}
+
 @end

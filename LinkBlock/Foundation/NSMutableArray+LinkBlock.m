@@ -21,6 +21,18 @@
     };
 }
 
+- (NSMutableArray *(^)(id))m_arrAddObjNotContain
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m_arrAddObjNotContain , obj)
+        if(!obj || [_self containsObject:obj])goto END;
+        [_self addObject:obj];
+    END:
+        return _self;
+    };
+}
+
 - (NSMutableArray *(^)(NSArray *))m_arrAddObjs
 {
     return ^id(NSArray *arr){
@@ -160,6 +172,18 @@
         NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key
                                                                ascending:ascending];
         [_self sortUsingDescriptors:@[sort]];
+        return _self;
+    };
+}
+
+- (NSMutableArray *(^)(BOOL))m_arrSort
+{
+    return ^id(BOOL ascending){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m_arrSort,ascending)
+        [_self sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2]*(ascending?1:-1);
+        }];
         return _self;
     };
 }

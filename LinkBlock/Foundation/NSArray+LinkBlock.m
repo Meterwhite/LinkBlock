@@ -95,22 +95,22 @@
     };
 }
 
-- (BOOL (^)(id))arrIsContainer
+- (BOOL (^)(id))arrContain
 {
     return ^(id obj){
         LinkHandle_VAL_IFNOT(NSArray){
             return NO;
         }
-        LinkGroupHandle_VAL(arrIsContainer,obj)
+        LinkGroupHandle_VAL(arrContain,obj)
         return [_self containsObject:obj];
     };
 }
 
-- (NSNumber* (^)(id))arrIsContainer_n
+- (NSNumber* (^)(id))arrContain_n
 {
     return ^id(id obj){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrIsContainer_n,obj)
+        LinkGroupHandle_REF(arrContain_n,obj)
         return @([_self containsObject:obj]);
     };
 }

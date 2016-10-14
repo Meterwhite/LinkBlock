@@ -19,4 +19,7 @@
 
 @property (nonatomic,copy,readonly) id (^endsAt)(NSUInteger idx)
     NS_DEPRECATED_IOS(2_0, 2_0, "使用linkEndsAt(idx)替代endsAt(idx)");
+
+@property (nonatomic,copy,readonly) BOOL (^arrIsContainer)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "使用arrContain(obj)替代arrIsContainer(obj)");
 @end

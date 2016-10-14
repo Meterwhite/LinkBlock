@@ -22,8 +22,8 @@
 /** <^(NSUInteger idx)> */
 @property (nonatomic,copy,readonly) id                       (^arrAt)(NSUInteger idx);
 /** <^(id obj)>是否包含某个对象 */
-@property (nonatomic,copy,readonly) BOOL                     (^arrIsContainer)(id obj);
-@property (nonatomic,copy,readonly) NSNumber*                (^arrIsContainer_n)(id obj);
+@property (nonatomic,copy,readonly) BOOL                     (^arrContain)(id obj);
+@property (nonatomic,copy,readonly) NSNumber*                (^arrContain_n)(id obj);
 /** <^(NSUInteger idx)> */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrSubFrom)(NSUInteger idx);
 /** <^(NSUInteger idx)> */
