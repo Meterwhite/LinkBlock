@@ -17,4 +17,11 @@
     }
     return self;
 }
+- (instancetype)initWithReturnValue:(id)returnValue
+{
+    if(self = [self init]){
+        self.returnValue = returnValue;
+    }
+    return self;
+}
 @end

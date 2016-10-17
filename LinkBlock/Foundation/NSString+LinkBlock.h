@@ -35,11 +35,11 @@
 /** <^(NSString* replaceStr, NSString* withStr)> */
 @property (nonatomic,copy,readonly) NSString*    (^strReplace)(NSString* replaceStr, NSString* withStr);
 /** <^(NSString* str)> */
-@property (nonatomic,copy,readonly) BOOL         (^strIsContain)(NSString* str);
-@property (nonatomic,copy,readonly) NSNumber*    (^strIsContain_n)(NSString* str);
+@property (nonatomic,copy,readonly) BOOL         (^strContain)(NSString* str);
+@property (nonatomic,copy,readonly) NSNumber*    (^strContain_n)(NSString* str);
 /** <^()>字符串是否含有汉字 */
-@property (nonatomic,copy,readonly) BOOL         (^strIsContainzh_CN)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strIsContainzh_CN_n)();
+@property (nonatomic,copy,readonly) BOOL         (^strContainzh_CN)();
+@property (nonatomic,copy,readonly) NSNumber*    (^strContainzh_CN_n)();
 /** <^(NSRange range)>范围内是否是汉字 */
 @property (nonatomic,copy,readonly) BOOL         (^strIszh_CNInRange)(NSRange range);
 @property (nonatomic,copy,readonly) NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
@@ -75,7 +75,7 @@
 /** <^(CGFloat maxWidth,NSDictionary* attrDict)>视图排版中的文字的行数 */
 @property (nonatomic,copy,readonly) NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary* attrDict);
 /** <^()>字符串的行数 */
-@property (nonatomic,copy,readonly) NSUInteger    (^strLinesCount)();
+@property (nonatomic,copy,readonly) NSUInteger   (^strLinesCount)();
 /** <^(NSInteger toLine截取行数, CGFloat maxWidth,NSDictionary* attrDict)>视图排版中截一定视觉行数的字符串 */
 @property (nonatomic,copy,readonly) NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict);
 /** <^(NSUInteger toLine截取行数)>截取到一定行数（换行符）的字符串 */
@@ -131,6 +131,13 @@
 @property (nonatomic,copy,readonly) NSString*    (^strSubTo)(NSUInteger to);
 /** <^(NSUInteger from , NSUInteger to)包含to> */
 @property (nonatomic,copy,readonly) NSString*    (^strSubFromTo)(NSUInteger from , NSUInteger to);
+/** <^(NSUInteger from)>按元字符截取字符串 */
+@property (nonatomic,copy,readonly) NSString*    (^strSubComposeFrom)(NSUInteger from);
+/** <^(NSUInteger to)不能取到to>按元字符截取字符串 */
+@property (nonatomic,copy,readonly) NSString*    (^strSubComposeTo)(NSUInteger to);
+/** <^(NSUInteger from , NSUInteger to)包含to>按元字符截取字符串 */
+@property (nonatomic,copy,readonly) NSString*    (^strSubComposeFromTo)(NSUInteger from , NSUInteger to);
+
 /** <^(NSString* type)>根据文件名获取Bundle中的文件 */
 @property (nonatomic,copy,readonly) NSString*    (^strPathByFileNameInBundle)(NSString* type);
 @property (nonatomic,copy,readonly) NSString*    (^strPathAppendingComponent)(NSString* component);

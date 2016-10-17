@@ -10,4 +10,6 @@
 
 @interface LinkReturn : LinkInfo
 @property (nonatomic,strong) id returnValue;
+
+- (instancetype)initWithReturnValue:(id)returnValue;
 @end

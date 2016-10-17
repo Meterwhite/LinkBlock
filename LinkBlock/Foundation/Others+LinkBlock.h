@@ -22,4 +22,7 @@
 
 @property (nonatomic,copy,readonly) BOOL (^arrIsContainer)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用arrContain(obj)替代arrIsContainer(obj)");
+
+@property (nonatomic,copy,readonly) BOOL (^strIsContain)(NSString* str)
+NS_DEPRECATED_IOS(2_0, 2_0, "使用strContain(str)替代strIsContain(str)");
 @end

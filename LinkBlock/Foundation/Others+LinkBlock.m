@@ -13,19 +13,19 @@
 - (id (^)())end
 {
     return ^id(){
-        return (id)self.linkEnd;
+        return self.linkEnd;
     };
 }
 - (id (^)())ends
 {
     return ^id(){
-        return (id)self.linkEnds;
+        return self.linkEnds;
     };
 }
 - (id (^)(NSUInteger idx))endsAt
 {
     return ^id(NSUInteger idx){
-        return (id)self.linkEndsAt(idx);
+        return self.linkEndsAt(idx);
     };
 }
 
@@ -40,4 +40,14 @@
     };
 }
 
+- (BOOL (^)(NSString *))strIsContain
+{
+    return ^(NSString* str){
+        LinkHandle_VAL_IFNOT(NSString){
+            return NO;
+        }
+        LinkGroupHandle_VAL(strIsContain,str)
+        return [_self containsString:str];
+    };
+}
 @end

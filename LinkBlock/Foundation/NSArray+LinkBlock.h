@@ -31,8 +31,8 @@
 /** <^(NSUInteger from, NSUInteger to)>获取from到to（包含）范围内的对象 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
 /** <^(NSUInteger idx)>某个index是否在范围内 */
-@property (nonatomic,copy,readonly) BOOL                     (^arrcontainIndex)(NSUInteger idx);
-@property (nonatomic,copy,readonly) NSNumber*                (^arrcontainIndex_n)(NSUInteger idx);
+@property (nonatomic,copy,readonly) BOOL                     (^arrContainIndex)(NSUInteger idx);
+@property (nonatomic,copy,readonly) NSNumber*                (^arrContainIndex_n)(NSUInteger idx);
 /** <^(NSMutableArray* arr)>返回新数组 */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrAddTo)(NSMutableArray* arr);
 /** <^()>数组转字典，键为NSNumber类型 */

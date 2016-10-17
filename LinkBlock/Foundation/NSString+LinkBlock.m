@@ -144,22 +144,22 @@
     };
 }
 
-- (BOOL (^)(NSString *))strIsContain
+- (BOOL (^)(NSString *))strContain
 {
     return ^(NSString* str){
         LinkHandle_VAL_IFNOT(NSString){
             return NO;
         }
-        LinkGroupHandle_VAL(strIsContain,str)
+        LinkGroupHandle_VAL(strContain,str)
         return [_self containsString:str];
     };
 }
 
-- (NSNumber* (^)(NSString *))strIsContain_n
+- (NSNumber* (^)(NSString *))strContain_n
 {
     return ^id(NSString* str){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strIsContain_n,str)
+        LinkGroupHandle_REF(strContain_n,str)
         return @([_self containsString:str]);
     };
 }
@@ -179,13 +179,13 @@
     };
 }
 
-- (BOOL (^)())strIsContainzh_CN
+- (BOOL (^)())strContainzh_CN
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
             return NO;
         }
-        LinkGroupHandle_VAL(strIsContainzh_CN)
+        LinkGroupHandle_VAL(strContainzh_CN)
         for(int i=0; i<_self.length; i++){
             int charS = [_self characterAtIndex:i];
             if(charS >= 0x4e00 && charS <= 0x9fff){
@@ -196,11 +196,11 @@
     };
 }
 
-- (NSNumber* (^)())strIsContainzh_CN_n
+- (NSNumber* (^)())strContainzh_CN_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strIsContainzh_CN_n)
+        LinkGroupHandle_REF(strContainzh_CN_n)
         for(int i=0; i<_self.length; i++){
             int charS = [_self characterAtIndex:i];
             if(charS >= 0x4e00 && charS <= 0x9fff){
@@ -1306,6 +1306,21 @@
         return [_self substringFromIndex:idx];
     };
 }
+- (NSString *(^)(NSUInteger))strSubComposeFrom
+{
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSubComposeFrom,idx)
+        NSUInteger composeCurrentIdx=0; NSRange range = NSMakeRange(NSNotFound, 0);
+        for(int i=0; i<_self.length; i+=range.length){
+            range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
+            if(composeCurrentIdx == idx) break;
+            composeCurrentIdx++;
+        }
+        if(idx > composeCurrentIdx) return _self;
+        return [_self substringFromIndex:range.location];
+    };
+}
 
 - (NSString *(^)(NSUInteger))strSubTo
 {
@@ -1313,6 +1328,21 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubTo,idx)
         return [_self substringToIndex:idx];
+    };
+}
+- (NSString *(^)(NSUInteger))strSubComposeTo
+{
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSubComposeTo,idx)
+        NSUInteger composeCurrentIdx=0; NSRange range = NSMakeRange(NSNotFound, 0);
+        for(int i=0; i<_self.length; i+=range.length){
+            range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
+            if(composeCurrentIdx == idx) break;
+            composeCurrentIdx++;
+        }
+        if(idx > composeCurrentIdx) return _self;
+        return [_self substringToIndex:range.location];
     };
 }
 
@@ -1324,6 +1354,32 @@
         if( from> to || to>_self.length)
             return _self;
         return [_self substringWithRange:NSMakeRange(from, to- from+ 1)];
+    };
+}
+- (NSString *(^)(NSUInteger, NSUInteger))strSubComposeFromTo
+{
+    return ^id(NSUInteger from, NSUInteger to){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSubComposeFromTo,from,to)
+        NSAssert(from <= to, @"范围错误");
+        NSUInteger composeCurrentIdx=0;
+        NSRange range = NSMakeRange(NSNotFound,0);
+        NSRange rangeFrom = range;
+        NSRange rangeTo = range;
+        for(int i=0; i<_self.length; i+=range.length){
+            range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
+            
+            if(rangeFrom.length==0 && composeCurrentIdx == from){
+                rangeFrom = range;
+            }
+            
+            rangeTo = range;
+            if(composeCurrentIdx == to){
+                break;
+            }
+            composeCurrentIdx++;
+        }
+        return [_self substringWithRange:NSMakeRange(rangeFrom.location, rangeTo.location-rangeFrom.location)];
     };
 }
 

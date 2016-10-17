@@ -22,22 +22,22 @@
     return [LinkGroup groupWithArr:_self];
 }
 
-- (BOOL (^)(NSUInteger))arrcontainIndex
+- (BOOL (^)(NSUInteger))arrContainIndex
 {
     return ^(NSUInteger index){
         LinkHandle_VAL_IFNOT(NSArray){
             return NO;
         }
-        LinkGroupHandle_VAL(arrcontainIndex,index)
+        LinkGroupHandle_VAL(arrContainIndex,index)
         return (BOOL)(index< _self.count);
     };
 }
 
-- (NSNumber* (^)(NSUInteger))arrcontainIndex_n
+- (NSNumber* (^)(NSUInteger))arrContainIndex_n
 {
     return ^id(NSUInteger index){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrcontainIndex_n,index)
+        LinkGroupHandle_REF(arrContainIndex_n,index)
         return @(index< _self.count);
     };
 }
@@ -118,25 +118,22 @@
 - (NSMutableArray *(^)(NSUInteger))arrSubFrom
 {
     return ^id(NSUInteger idx){
-        LinkHandle_REF(NSMutableArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrSubFrom,idx)
         NSUInteger count = _self.count;
         if(idx >= count ) return _self;
-        NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(idx, count - idx)];
-        [_self objectsAtIndexes:idxSet];
-        return _self;
+        return [_self subarrayWithRange:NSMakeRange(idx, count - idx)];
     };
 }
 
 - (NSMutableArray *(^)(NSUInteger))arrSubTo
 {
     return ^id(NSUInteger idx){
-        LinkHandle_REF(NSMutableArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrSubTo,idx)
         NSUInteger count = _self.count;
         if(idx >= count ) return _self;
-        NSIndexSet* idxSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, idx)];
-        [_self objectsAtIndexes:idxSet];
+        [_self subarrayWithRange:NSMakeRange(0, idx)];
         return _self;
     };
 }
@@ -159,13 +156,8 @@
             return (id)nil;
         }
         LinkGroupHandle_VAL(arrAt,idx)
-        id re;
-        if(_self.arrcontainIndex(idx)){
-            re = [_self objectAtIndex:idx];
-        }else{
-            re = nil;
-        }
-        return re;
+        NSAssert(idx < _self.count-1, @"数组索引越界");
+        return [_self objectAtIndex:idx];
     };
 }
 
@@ -184,7 +176,7 @@
                 [re addObject:obj];
             }
         }];
-        return (NSArray*)re.objCopy();
+        return re.copy;
     };
 }
 
@@ -203,8 +195,7 @@
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrIndexSetOfValue,value)
         return  [_self indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if([obj isEqual:value])
-                return YES;
+            if([obj isEqual:value]) return YES;
             return NO;
         }];
     };
