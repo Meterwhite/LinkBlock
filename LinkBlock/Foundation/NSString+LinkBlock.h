@@ -11,6 +11,8 @@
 @interface NSObject(NSStringLinkBlock)
 /** <^(NSUInteger index)> */
 @property (nonatomic,copy,readonly) NSString*    (^strAt)(NSUInteger index);
+/** <^(NSUInteger index)>元字符 */
+@property (nonatomic,copy,readonly) NSString*    (^strComposeAt)(NSUInteger index);
 /** <^(NSString* str)> */
 @property (nonatomic,copy,readonly) BOOL         (^strIsEqualStr)(NSString* str);
 @property (nonatomic,copy,readonly) NSNumber*    (^strIsEqualStr_n)(NSString* str);

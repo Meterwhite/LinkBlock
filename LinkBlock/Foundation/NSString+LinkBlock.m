@@ -118,6 +118,23 @@
     };
 }
 
+- (NSString *(^)(NSUInteger))strComposeAt
+{
+    return ^id(NSUInteger index){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strComposeAt,index)
+        
+        NSUInteger composeCurrentIdx=0; NSRange range = NSMakeRange(NSNotFound, 0);
+        for(int i=0; i<_self.length; i+=range.length){
+            range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
+            if(composeCurrentIdx == index) break;
+            if( i+range.length < _self.length) composeCurrentIdx++;
+        }
+        if(index > composeCurrentIdx) return @"";
+        return [_self substringWithRange:range];
+    };
+}
+
 - (NSString *(^)(NSString *, NSRange))strReplaceInRange
 {
     return ^id(NSString* str, NSRange range){
@@ -1315,9 +1332,9 @@
         for(int i=0; i<_self.length; i+=range.length){
             range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
             if(composeCurrentIdx == idx) break;
-            composeCurrentIdx++;
+            if( i+range.length < _self.length) composeCurrentIdx++;
         }
-        if(idx > composeCurrentIdx) return _self;
+        if(idx > composeCurrentIdx) return @"";
         return [_self substringFromIndex:range.location];
     };
 }
@@ -1339,7 +1356,7 @@
         for(int i=0; i<_self.length; i+=range.length){
             range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
             if(composeCurrentIdx == idx) break;
-            composeCurrentIdx++;
+            if( i+range.length < _self.length) composeCurrentIdx++;
         }
         if(idx > composeCurrentIdx) return _self;
         return [_self substringToIndex:range.location];
@@ -1351,8 +1368,7 @@
     return ^id(NSUInteger from, NSUInteger to){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubFromTo,from,to)
-        if( from> to || to>_self.length)
-            return _self;
+        if( from> to || to>_self.length) return @"";
         return [_self substringWithRange:NSMakeRange(from, to- from+ 1)];
     };
 }
@@ -1367,18 +1383,18 @@
         NSRange rangeFrom = range;
         NSRange rangeTo = range;
         for(int i=0; i<_self.length; i+=range.length){
+            
             range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
             
             if(rangeFrom.length==0 && composeCurrentIdx == from){
                 rangeFrom = range;
             }
-            
             rangeTo = range;
-            if(composeCurrentIdx == to){
-                break;
-            }
+            
+            if(composeCurrentIdx == to) break;
             composeCurrentIdx++;
         }
+        if(!rangeFrom.length) return @"";
         return [_self substringWithRange:NSMakeRange(rangeFrom.location, rangeTo.location-rangeFrom.location)];
     };
 }
