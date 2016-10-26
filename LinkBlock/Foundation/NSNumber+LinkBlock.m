@@ -11,21 +11,30 @@
 
 @implementation NSObject(NSNumberLinkBlock)
 
-- (NSNumber *)linkIf_YES
+- (NSObject *)linkIf_YES
 {
     if([self isKindOfClass:[LinkInfo class]]){
         if(((LinkError*)self).infoType == LinkInfoError){
             
             ((LinkError*)self).throwCount++;
-            return (id)self;
+            return self;
         }else if(((LinkReturn*)self).infoType == LinkInfoReturn){//中断时
             
-            NSNumber* reVal = ((LinkReturn*)self).returnValue;
-            if([reVal isKindOfClass:[NSNumber class]] && reVal.boolValue){
-                return reVal;
+            switch (((LinkReturn*)self).returnType) {
+                case LinkReturnLink:
+                    return self;
+                case LinkReturnCondition:
+                {
+                    NSNumber* reVal = ((LinkReturn*)self).returnValue;
+                    if([reVal isKindOfClass:[NSNumber class]] && reVal.boolValue){
+                        return reVal;
+                    }
+                }
+                default:
+                    return self;
             }
         }
-        return (id)self;
+        return self;
     }
     ////////////////////
     ///LinkGroupHandle
@@ -44,23 +53,30 @@
     if([self isKindOfClass:[NSNumber class]] && ((NSNumber*)self).boolValue){//@YES
         return (id)self;
     }
-    LinkReturn* reVal = [LinkReturn new];
-    reVal.returnValue = self;
-    return (id)reVal;
+    return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnCondition];
 }
 
-- (NSNumber *)linkIf_NO
+- (NSObject *)linkIf_NO
 {
     if([self isKindOfClass:[LinkInfo class]]){
         if(((LinkError*)self).infoType == LinkInfoError){
             
             ((LinkError*)self).throwCount++;
-            return (id)self;
-        }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
+            return self;
+        }else if(((LinkReturn*)self).infoType == LinkInfoReturn){//中断时
             
-            NSNumber* reVal = ((LinkReturn*)self).returnValue;
-            if([reVal isKindOfClass:[NSNumber class]] && !reVal.boolValue){
-                return reVal;
+            switch (((LinkReturn*)self).returnType) {
+                case LinkReturnLink:
+                    return self;
+                case LinkReturnCondition:
+                {
+                    NSNumber* reVal = ((LinkReturn*)self).returnValue;
+                    if([reVal isKindOfClass:[NSNumber class]] && !reVal.boolValue){
+                        return reVal;
+                    }
+                }
+                default:
+                    return self;
             }
         }
         return (id)self;
@@ -72,7 +88,7 @@
         LinkGroup* group = (LinkGroup*)self;
         NSMutableArray* returnObjs = [NSMutableArray new];
         for (int i=0; i<group.linkObjects.count; i++) {
-            id re = group.linkObjects[i].linkIf_YES;
+            id re = group.linkObjects[i].linkIf_NO;
             [returnObjs addObject:re];
         }
         [group.linkObjects setArray:returnObjs];
@@ -80,11 +96,9 @@
     }
     
     if([self isKindOfClass:[NSNumber class]] && !((NSNumber*)self).boolValue){
-        return (id)self;
+        return self;
     }
-    LinkReturn* reVal = [LinkReturn new];
-    reVal.returnValue = self;
-    return (id)reVal;
+    return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnCondition];
 }
 
 - (void *(^)())numValue

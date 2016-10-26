@@ -58,7 +58,7 @@
         }
         @catch (NSException *exception) {
             NSLog(@"LinkBlock log:\n%@",exception);
-            return (id)nil;
+            return nil;
         }
     };
 }
@@ -433,6 +433,20 @@
             return reSelf;
         }
         return _self;
+    };
+}
+
+- (BOOL (^)())objIsNSNull
+{
+    return ^(){
+        if(self == [NSNull null]) return YES;
+        return NO;
+    };
+}
+- (NSNumber *(^)())objIsNSNull_n
+{
+    return ^(){
+        return @(self.objIsNSNull());
     };
 }
 
@@ -1347,12 +1361,46 @@
     };
 }
 
-- (NSObject *)newLink:(void (^)(NSObject *))aNewLin
+- (NSObject *)linkInBlock:(void (^)(NSObject *))block
 {
     LinkHandle_REF(NSObject)
-    if(aNewLin){
-        aNewLin(_self);
+    if(block)   block(_self);
+    return _self;
+}
+
+- (NSObject *)linkLoopIn:(NSUInteger)count block:(void (^)(NSObject *, NSUInteger))block
+{
+    LinkHandle_REF(NSObject)
+    for (int i=0; i<count; i++) {
+        if(block)   block(_self , i);
     }
+    return _self;
+}
+
+- (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block
+{
+    LinkHandle_REF(NSObject)
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if(block)   block(_self);
+    });
+    return _self;
+}
+
+- (NSObject *)linkAsy_main_queue:(void (^)(NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(block)   block(_self);
+    });
+    return _self;
+}
+
+- (NSObject *)linkAsy_global_queue:(void (^)(NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        if(block)   block(_self);
+    });
     return _self;
 }
 
@@ -1392,10 +1440,12 @@
         }
         
         LinkGroupHandle_REF(linkTo,obj)
-        if(obj)
+        if(obj){
             return obj;
-        else
+        }
+        else{
             return self;
+        }
     };
 }
 
@@ -1481,7 +1531,7 @@
             group = (id)_self;
             group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(group.linkObjects.count);
             NSArray* copyObjs = [group.linkObjects copy];
-            //暴力复制
+            //复制链条
             for (int i=0; i<count; i++) {
                 [group.linkObjects addObject:copyObjs];
             }
@@ -1507,7 +1557,9 @@
                 ((LinkError*)self).throwCount++;
             }else if(condition && ((LinkReturn*)self).infoType == LinkInfoReturn){
                 
-                return ((LinkReturn*)self).returnValue;
+                if(((LinkReturn*)self).returnType == LinkReturnCondition){
+                    return ((LinkReturn*)self).returnValue;
+                }
             }
             return self;
         }
@@ -1515,9 +1567,7 @@
         LinkGroupHandle_REF(linkIf,condition)
         
         if(!condition){
-            LinkReturn* re = [LinkReturn new];
-            re.returnValue = self;
-            return re;
+            return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnCondition];
         }
         return self;
     };
@@ -1532,7 +1582,9 @@
             ((LinkError*)self).throwCount++;
         }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
             
-            return ((LinkReturn*)self).returnValue;
+            if(((LinkReturn*)self).returnType == LinkReturnCondition){
+                return ((LinkReturn*)self).returnValue;
+            }
         }
         return self;
     }
@@ -1546,9 +1598,7 @@
         [group.linkObjects setArray:returnObjs];
         return (id)group;
     }
-    LinkReturn* returnVal = [LinkReturn new];
-    returnVal.returnValue = self;
-    return returnVal;
+    return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnCondition];
 }
 
 - (NSObject *)linkReturn
@@ -1557,9 +1607,18 @@
             if(((LinkError*)self).infoType == LinkInfoError){
                 
                 ((LinkError*)self).throwCount++;
+                return self;
             }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
                 
-                return self;
+                switch (((LinkReturn*)self).returnType) {
+                    case LinkReturnLink:
+                        return self;
+                    case LinkReturnCondition:
+                        (((LinkReturn*)self).returnValue = LinkReturnLink);
+                        return self;
+                    default:
+                        return self;
+                }
             }
         }
     if([self isKindOfClass:[LinkGroup class]]){
@@ -1572,9 +1631,7 @@
         [group.linkObjects setArray:returnObjs];
         return (id)group;
     }
-        LinkReturn* returnVal = [LinkReturn new];
-        returnVal.returnValue = self;
-        return returnVal;
+    return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnLink];
 }
 
 - (NSObject *(^)())nslog
@@ -1662,6 +1719,8 @@
             
             return ((LinkReturn*)self).returnValue;
         }
+    }else if (self == [NSNull null]){
+        return nil;
     }
     return self;
 }
@@ -1675,25 +1734,28 @@
             NSLog(@"%@",[self description]);
             return nil;
         }else if([self isKindOfClass:[LinkGroup class]]){
+            
             LinkGroup* group = (id)self;
             if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
                 
+                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
                 NSArray* tempArr = [group.linkObjects subarrayWithRange:NSMakeRange(0, count)];
                 NSMutableArray* valueArr = [NSMutableArray new];
                 [tempArr enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [valueArr addObject:obj.linkEnd];
                 }];
-                
                 [group.linkObjects setArray:valueArr];
             }
             return [group.linkObjects copy];
         }else if ([self isKindOfClass:[LinkReturn class]]){
             
             NSObject* reVal = ((LinkReturn*)self).returnValue;
-            if([reVal isKindOfClass:[LinkGroup class]]) return reVal.linkEnds;
+            if([reVal isKindOfClass:[LinkGroup class]])
+                return reVal.linkEnds;
             return reVal.linkEnd;
         }
+    }else if (self == [NSNull null]){
+        return nil;
     }
     return (id)self;
 }
@@ -1719,7 +1781,6 @@
                 return nil;
             }else if ([self isKindOfClass:[LinkReturn class]]){
                 
-                
                 LinkGroup* group = ((LinkReturn*)self).returnValue;
                 if([group isKindOfClass:[LinkGroup class]]){
                     
@@ -1732,6 +1793,8 @@
                     return nil;
                 }
             }
+        }else if (self == [NSNull null]){
+            return nil;
         }
         return self;
     };
@@ -1808,7 +1871,7 @@
         if(idx!=NSNotFound && (idx-1)>0){
             return (NSObject*)[inArr objectAtIndex:idx];
         }else{
-            return (NSObject*)nil;
+            return [NSNull null];
         }
     };
 }
@@ -1822,7 +1885,7 @@
         if(idx!=NSNotFound && (idx+1) <inArr.count){
             return (NSObject*)[inArr objectAtIndex:idx];
         }else{
-            return (NSObject*)nil;
+            return [NSNull null];
         }
     };
 }

@@ -19,13 +19,13 @@
     };
 }
 
-- (NSObject* (^)(id<NSCopying>))dictGetNoNSNull
+- (id (^)(id<NSCopying>))dictGetNoNSNull
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictGetNoNSNull,key)
         if(!_self[key] || [_self[key] isKindOfClass:[NSNull class]] ){
-            return (id)nil;
+            return nil;
         }
         return _self[key];
     };

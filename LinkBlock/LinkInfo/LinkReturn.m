@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         _infoType = LinkInfoReturn;
+        _returnType = LinkReturnLink;
     }
     return self;
 }
@@ -21,6 +22,13 @@
 {
     if(self = [self init]){
         self.returnValue = returnValue;
+    }
+    return self;
+}
+- (instancetype)initWithReturnValue:(id)returnValue returnType:(LinkReturnType)returnType
+{
+    if(self = [self initWithReturnValue:returnValue]){
+        self.returnType = returnType;
     }
     return self;
 }

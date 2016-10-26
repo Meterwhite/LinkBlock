@@ -22,7 +22,7 @@
             [reStr appendFormat:@"%02x",(int)(g*255.0)];
             [reStr appendFormat:@"%02x",(int)(g*255.0)];
         }else{
-            return nil;
+            return [NSNull null];
         }
         return reStr.copy;
     };

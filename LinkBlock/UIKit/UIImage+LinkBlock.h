@@ -27,10 +27,10 @@
 /** <^()>图片取色 */
 @property (nonatomic,copy,readonly) UIColor*         (^imgGetPatternColor)();
 
-/** <UIImageView* ^(UIImageView* imgView)> */
+/** <UIImageView* ^(UIImageView* imgView)>图片设置到控件并返回控件 */
 @property (nonatomic,copy,readonly) UIImageView*     (^imgSetToImgView_linkTo)(UIImageView* imgView);
-/** <UIButton* ^(UIButton* btn,UIControlState state)> */
+/** <UIButton* ^(UIButton* btn,UIControlState state)>图片设置到控件并返回控件 */
 @property (nonatomic,copy,readonly) UIButton*        (^imgSetToBtnBGImg_linkTo)(UIButton* btn,UIControlState state);
-/** <UIButton* ^(UIButton* btn,UIControlState state)> */
+/** <UIButton* ^(UIButton* btn,UIControlState state)>图片设置到控件并返回控件 */
 @property (nonatomic,copy,readonly) UIButton*        (^imgSetToBtn_linkTo)(UIButton* btn,UIControlState state);
 @end

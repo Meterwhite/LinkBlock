@@ -12,18 +12,18 @@
 @interface NSObject(LinkBlock)
 #pragma mark - 方式
 /** 
- <- linkEnd>获取链条返回值，并将链条信息对象和错误转nil
+ <- linkEnd>获取链条返回值，并将错误转nil，NSNull也以nil返回
  ... = linkObj(..)...linkEnd;
- ... = linkObj(..)...linkIF(...)...linkEnd;
+ ... = linkObj(..)...linkIf(...)...linkEnd;
  */
 @property (nonatomic,copy,readonly) id           linkEnd;
 /**
- <- ends>多对象链式编程获取多个链条返回值，并将错误转nil
+ <- ends>多对象链式编程获取多个链条返回值，并将错误转nil，NSNull也以nil返回
  ... = linkObj(...)...linkLoop(...)...linkEnds;
  */
 @property (nonatomic,copy,readonly) NSArray*     linkEnds;
 /** 
- <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil
+ <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil，NSNull也以nil返回
  ... = linkObj(...)...linkLoop(...)...linkEndsAt(index);
  */
 @property (nonatomic,copy,readonly) id           (^linkEndsAt)(NSUInteger idx);
@@ -65,8 +65,8 @@
  */
 @property (nonatomic,copy,readonly) NSObject*    linkLastObj;
 /** 
- <^(NSUInteger count)>使其后的链条执行多次
- ...linkLoop(10)...
+ <^(NSUInteger count)>使其后的链条复制指定次数的重复执行效果。所以...linkLoop(...)...m_arrAddObj([NSObject new])...添加的是同一个对象。这里添加不同对象应使用方法linkLoopIn:block:。
+ ...linkLoop(count)...
  */
 @property (nonatomic,copy,readonly) NSObject*    (^linkLoop)(NSUInteger count);
 /** 
@@ -81,8 +81,8 @@
  */
 @property (nonatomic,copy,readonly) NSObject*    linkElse;
 /**
- <^()>使其后语句跳空；可与分支配合；取值需使用end
- ...[aNewLink:^(NSObject* fromObj){
+ <^()>使其后语句跳空至末尾（优先级高于其他条件）；可与分支配合；取值需使用end
+ ...[linkInBlock:^(NSObject* fromObj){
     if(...){
         ...linkReturn;
     }
@@ -91,18 +91,38 @@
 @property (nonatomic,copy,readonly) NSObject*    linkReturn;
 /** 
  链条分支，返回源对象，在链条内处理新分支
- ...[aNewLink:^(NSObject* fromObj){
-    ...
+ ...[linkInBlock:^(NSObject* link){
+    link...
  }]...
  */
-- (NSObject*)newLink:(void(^)(NSObject* fromObj))aNewLink;
+- (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
+
+/**
+ 异步在主队列中执行block
+ */
+- (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;
+
+/**
+ 异步在全局队列中执行block
+ */
+- (NSObject*)linkAsy_global_queue:(void(^)(NSObject* link))block;
+
+/**
+ 执行指定次数block
+ */
+- (NSObject*)linkLoopIn:(NSUInteger)count block:(void(^)(NSObject* link, NSUInteger index))block;
+
+/**
+ 在主队列中延迟执行block
+ */
+- (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block;
 
 #pragma mark - 功能
 /** <^()>NSLog() */
 @property (nonatomic,copy,readonly) NSObject*    (^nslog)();
 /** <^(NSString* title)>输出对象前增加标识语 */
 @property (nonatomic,copy,readonly) NSObject*    (^nslogTitle)(NSString* title);
-/** <^(NSString* title)>仅仅在语句中输出信息，并不打印对象 */
+/** <^(NSString* title)>独立在语句中输出信息，并不打印对象 */
 @property (nonatomic,copy,readonly) NSObject*    (^logInfo)(NSString* info);
 /** <^()>将对象以字典的形式进行打印，其中对所有容器类型进行遍历转换 */
 @property (nonatomic,copy,readonly) NSObject*    (^po)();
@@ -201,6 +221,9 @@
  * （NSMutableArray,NSMutableDictionary,NSMutableString）
  */
 @property (nonatomic,copy,readonly) NSObject*    (^objMutableCopyDeep)();
+/** <^()> */
+@property (nonatomic,copy,readonly) BOOL         (^objIsNSNull)();
+@property (nonatomic,copy,readonly) NSNumber*    (^objIsNSNull_n)();
 /** <^(id obj)> */
 @property (nonatomic,copy,readonly) BOOL         (^objIsEqual)(id obj);
 @property (nonatomic,copy,readonly) NSNumber*    (^objIsEqual_n)(id obj);

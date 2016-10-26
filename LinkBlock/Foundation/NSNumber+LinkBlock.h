@@ -15,13 +15,13 @@
  用法与linkIf相似
  ...objIsEqual_n(...).linkIf_YES...LinkElse...
  */
-@property (nonatomic,copy,readonly) NSNumber*    linkIf_YES;
+@property (nonatomic,copy,readonly) NSObject*    linkIf_YES;
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
  ...objIsEqual_n(...).linkIf_NO...LinkElse...
  */
-@property (nonatomic,copy,readonly) NSNumber*    linkIf_NO;
+@property (nonatomic,copy,readonly) NSObject*    linkIf_NO;
 
 
 /** <^()> */

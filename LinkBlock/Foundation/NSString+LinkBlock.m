@@ -89,7 +89,7 @@
         if([str isKindOfClass:[NSString class]]){
             NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
             [tNewMStr insertString:str atIndex:index];
-            return (NSString*)[tNewMStr copy];
+            return [tNewMStr copy];
         }else{
             return _self;
         }
@@ -103,7 +103,7 @@
         LinkGroupHandle_REF(strDeleteInRange,range)
         NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
         [tNewMStr deleteCharactersInRange:range];
-        return (NSString*)[tNewMStr copy];
+        return [tNewMStr copy];
     };
 }
 
@@ -1242,7 +1242,7 @@
             
             reImg = [UIImage imageWithContentsOfFile:_self.strPathByFileNameInBundle(nil)];
         }
-        if(!reImg)  return [LinkError new];
+        if(!reImg)  return [NSNull null];
         return reImg;
     };
 }
@@ -1406,9 +1406,9 @@
         LinkGroupHandle_REF(strToObjectFromName)
         Class class= NSClassFromString(_self);
         if(class){
-            return (NSObject*)[class new];
+            return [class new];
         }else{
-            return (NSObject*)[LinkError new];
+            return [NSNull null];
         }
     };
 }
@@ -1519,7 +1519,7 @@
                 [re appendString:@"\n"];
             }
         }];
-        return (NSString*)[re copy];
+        return [re copy];
     };
 }
 
@@ -1584,7 +1584,7 @@
             if(kvArr.count==2)
                 kvDict[kvArr[0]] = kvArr[1];
         }];
-        return (NSDictionary*)[kvDict copy];
+        return [kvDict copy];
     };
 }
 
@@ -1596,7 +1596,7 @@
         NSDictionary* kvs = _self.strURLKeyValues();
         if(!kvs)
             return _self;
-        return (NSString*)[kvs objectForKey:key];
+        return [kvs objectForKey:key];
     };
 }
 
@@ -1641,7 +1641,7 @@
                 [reURL appendString:@"&"];//http//:www.abc.com/abc?abc=abc&...
         }];
         
-        return (NSString*)[reURL copy];
+        return [reURL copy];
     };
 }
 
@@ -1664,7 +1664,7 @@
                     [re appendString:@"&"];
                 idx++;
             }];
-            return (NSString*)[re copy];
+            return [re copy];
         }else if(splitedArr.count!=2){//0,3..
             return _self;
         }
@@ -1702,7 +1702,7 @@
                 [reURL appendString:@"&"];//http//:www.abc.com/abc?abc=abc&...
         }];
         
-        return (NSString*)[reURL copy];
+        return [reURL copy];
     };
 }
 
@@ -1712,8 +1712,7 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLAllKeys)
         NSDictionary* kvs = _self.strURLKeyValues();
-        if(!kvs)
-            return (NSArray *)nil;
+        if(!kvs) return [NSNull null];
         return [kvs allKeys];
     };
 }
@@ -1724,8 +1723,7 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLAllValues)
         NSDictionary* kvs = _self.strURLKeyValues();
-        if(!kvs)
-            return (NSArray *)nil;
+        if(!kvs) return [NSNull null];
         return [kvs allValues];
     };
 }
@@ -1736,8 +1734,7 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLRemoveValueForKey,key)
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
-        if(splitedArr.count!=2)
-            return (NSString*)nil;
+        if(splitedArr.count!=2) return _self;
         
         NSArray<NSString*>* kvStrArr = [splitedArr[1] componentsSeparatedByString:@"&"];//abc=abc
         
@@ -1763,7 +1760,7 @@
                 [reURL appendString:@"&"];//http//:www.abc.com/abc?abc=abc&...
         }];
         
-        return (NSString*)[reURL copy];
+        return [reURL copy];
     };
 }
 
@@ -1799,7 +1796,7 @@
                 [reURL appendString:@"&"];//http//:www.abc.com/abc?abc=abc&...
         }];
         
-        return (NSString*)[reURL copy];
+        return [reURL copy];
     };
 }
 
@@ -1838,7 +1835,7 @@
                 [reURL appendString:@"&"];//http//:www.abc.com/abc?abc=abc&...
         }];
         
-        return (NSString*)[reURL copy];
+        return [reURL copy];
     };
 }
 
@@ -1921,7 +1918,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetToLab_linkTo, lab)
         lab.text = _self;
-        return lab?lab:[LinkError new];
+        return lab?lab:[NSNull null];
     };
 }
 
@@ -1931,7 +1928,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetToBtn_linkTo, btn, state)
         [btn setTitle:_self forState:state];
-        return btn?btn:[LinkError new];
+        return btn?btn:[NSNull null];
     };
 }
 
@@ -1941,7 +1938,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetToTxtField_linkTo, txtField)
         txtField.text = _self;
-        return txtField?txtField:[LinkError new];
+        return txtField?txtField:[NSNull null];
     };
 }
 
@@ -1951,7 +1948,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetToTxtView_linkTo, txtView)
         txtView.text = _self;
-        return txtView?txtView:[LinkError new];
+        return txtView?txtView:[NSNull null];
     };
 }
 

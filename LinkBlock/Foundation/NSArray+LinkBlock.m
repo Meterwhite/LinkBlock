@@ -9,7 +9,7 @@
 
 @implementation NSObject(NSArraryLinkBlock)
 
-- (NSObject *)makeLinkObjs
+- (LinkGroup *)makeLinkObjs
 {
     LinkHandle_REF(NSArray)
     if([self isKindOfClass:[LinkGroup class]]){
@@ -32,7 +32,6 @@
         return (BOOL)(index< _self.count);
     };
 }
-
 - (NSNumber* (^)(NSUInteger))arrContainIndex_n
 {
     return ^id(NSUInteger index){
@@ -48,7 +47,7 @@
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrAddTo,arr)
         [arr addObjectsFromArray:_self];
-        return arr?arr:[LinkError new];
+        return arr?arr:[NSNull null];
     };
 }
 
@@ -57,15 +56,22 @@
     return ^id(NSUInteger idx1, NSUInteger idx2){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrObjsFromIndexTo,idx1,idx2)
-        if(!_self.count ||idx1>idx2 || idx1> _self.count-1)
-            return @[];
-        
-        if(idx2> _self.count-1)
-            idx2= _self.count - 1;
+        if(!_self.count ||idx1>idx2 || idx1> _self.count-1) return [NSNull null];
+        if(idx2> _self.count-1) idx2= _self.count - 1;
 
         NSUInteger loc = idx1;
         NSUInteger len = idx2 - idx1 + 1;
         return [_self subarrayWithRange:NSMakeRange(loc, len)];
+    };
+}
+
+- (__kindof NSArray *(^)(id, NSString *))arrSetValueForKey
+{
+    return ^id(id value , NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrSetValueForKey,value,key)
+        [_self setValue:value forKeyPath:key];
+        return _self;
     };
 }
 
@@ -138,23 +144,21 @@
     };
 }
 
-- (id (^)())arrAny
+- (NSObject* (^)())arrAny
 {
     return ^id(){
-        LinkHandle_VAL_IFNOT(NSArray){
-            return (id)nil;
-        }
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_VAL(arrAny)
-        return _self[arc4random_uniform((u_int32_t)_self.count)];
+        if(_self.count)
+            return _self[arc4random_uniform((u_int32_t)_self.count)];
+        return [NSNull null];
     };
 }
 
-- (id (^)(NSUInteger))arrAt
+- (NSObject* (^)(NSUInteger))arrAt
 {
     return ^id(NSUInteger idx){
-        LinkHandle_VAL_IFNOT(NSArray){
-            return (id)nil;
-        }
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_VAL(arrAt,idx)
         NSAssert(idx < _self.count-1, @"数组索引越界");
         return [_self objectAtIndex:idx];
@@ -163,22 +167,7 @@
 
 
 
-- (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
-{
-    return ^id(__unsafe_unretained Class typeClass){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_VAL(arrValuesOfType,typeClass)
-        if(!typeClass)
-            return _self;
-        NSMutableArray* re = [NSMutableArray array];
-        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if([obj isKindOfClass:typeClass]){
-                [re addObject:obj];
-            }
-        }];
-        return re.copy;
-    };
-}
+
 
 - (NSArray *(^)(NSString *))arrFilter
 {

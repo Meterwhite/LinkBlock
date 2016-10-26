@@ -17,10 +17,10 @@
  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
  Arr.makeLinkObjs....
  */
-@property (nonatomic,strong,readonly) NSObject*              makeLinkObjs;
+@property (nonatomic,strong,readonly)LinkGroup*              makeLinkObjs;
 
 /** <^(NSUInteger idx)> */
-@property (nonatomic,copy,readonly) id                       (^arrAt)(NSUInteger idx);
+@property (nonatomic,copy,readonly) NSObject*                (^arrAt)(NSUInteger idx);
 /** <^(id obj)>是否包含某个对象 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrContain)(id obj);
 @property (nonatomic,copy,readonly) NSNumber*                (^arrContain_n)(id obj);
@@ -30,6 +30,8 @@
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrSubTo)(NSUInteger idx);
 /** <^(NSUInteger from, NSUInteger to)>获取from到to（包含）范围内的对象 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
+/** <^(id value, NSString* key)>使用KVC设置数组一项值 */
+@property (nonatomic,copy,readonly) __kindof NSArray*        (^arrSetValueForKey)(id value, NSString* key);
 /** <^(NSUInteger idx)>某个index是否在范围内 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrContainIndex)(NSUInteger idx);
 @property (nonatomic,copy,readonly) NSNumber*                (^arrContainIndex_n)(NSUInteger idx);
@@ -40,13 +42,11 @@
 /** <^()>数组转字典，键为NSString类型 */
 @property (nonatomic,copy,readonly) NSDictionary*            (^arrToDictByKeyString)();
 /** <^()>获取任意一个对象 */
-@property (nonatomic,copy,readonly) id                       (^arrAny)();
+@property (nonatomic,copy,readonly) NSObject*                (^arrAny)();
 /** <^()>最后一个对象 */
 @property (nonatomic,copy,readonly) NSObject*                (^arrLast)();
 /** <^()>第一个对象 */
 @property (nonatomic,copy,readonly) NSObject*                (^arrFirst)();
-/** <^(Class typeClass)> */
-@property (nonatomic,copy,readonly) NSArray*                 (^arrValuesOfType)(Class typeClass);
 /**<^(NSString* predicateFormat)>组数过滤，如age>20 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrFilter)(NSString* predicateFormat);
 /**<^(id value)>获取数组中某个值的所有索引 */

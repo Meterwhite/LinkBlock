@@ -11,7 +11,7 @@
 /** <^(id<NSCopying> key)>该返回值允许包括NSNull类型对象 */
 @property (nonatomic,copy,readonly) NSObject*    (^dictGet)(id<NSCopying> key);
 /** <^(id<NSCopying> key)>该返回值不包括NSNull类型对象，如果有则为nil */
-@property (nonatomic,copy,readonly) NSObject*    (^dictGetNoNSNull)(id<NSCopying> key);
+@property (nonatomic,copy,readonly) id           (^dictGetNoNSNull)(id<NSCopying> key);
 /** <^(id<NSCopying> key)>取出布尔值 */
 @property (nonatomic,copy,readonly) BOOL         (^dictGetBOOL)(id<NSCopying> key);
 @property (nonatomic,copy,readonly) NSNumber*    (^dictGetBOOL_n)(id<NSCopying> key);

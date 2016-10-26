@@ -179,7 +179,7 @@
         LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgSetToImgView_linkTo,imgView)
         [imgView setImage:_self];
-        return imgView?imgView:[LinkError new];
+        return imgView?imgView:[NSNull null];
     };
 }
 
@@ -189,7 +189,7 @@
         LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgSetToBtn_linkTo,btn,state)
         [btn setImage:_self forState:state];
-        return btn?btn:[LinkError new];
+        return btn?btn:[NSNull null];
     };
 }
 
@@ -199,7 +199,7 @@
         LinkHandle_REF(UIImage)
         LinkGroupHandle_REF(imgSetToBtnBGImg_linkTo,btn,state)
         [btn setImage:_self forState:state];
-        return btn?btn:[LinkError new];
+        return btn?btn:[NSNull null];
     };
 }
 

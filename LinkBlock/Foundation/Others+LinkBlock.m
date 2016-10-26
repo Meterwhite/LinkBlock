@@ -50,4 +50,30 @@
         return [_self containsString:str];
     };
 }
+
+- (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
+{
+    return ^id(__unsafe_unretained Class typeClass){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_VAL(arrValuesOfType,typeClass)
+        if(!typeClass)
+            return _self;
+        NSMutableArray* re = [NSMutableArray array];
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if([obj isKindOfClass:typeClass]){
+                [re addObject:obj];
+            }
+        }];
+        return re.copy;
+    };
+}
+
+- (NSObject *)newLink:(void (^)(NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    if(block){
+        block(_self);
+    }
+    return _self;
+}
 @end

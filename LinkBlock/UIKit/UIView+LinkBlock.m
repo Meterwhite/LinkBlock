@@ -402,7 +402,7 @@
         LinkGroupHandle_REF(viewSubviewAt,index)
         if(index< _self.subviews.count)
             return (UIView*)(_self.subviews[index]);
-        return (UIView*)[LinkError new];
+        return [NSNull null];
     };
 }
 
