@@ -38,7 +38,6 @@
         }
         @catch (NSException *exception) {
             NSLog(@"LinkBlock log:\n%@",exception);
-            return _self;
         }
         @finally {
             return _self;
@@ -73,7 +72,6 @@
         }
         @catch (NSException *exception) {
             NSLog(@"LinkBlock log:\n%@",exception);
-            return _self;
         }
         @finally {
             return _self;
@@ -1291,7 +1289,6 @@
                     value = [_self valueForKey:property];
                 } @catch (NSException *exception) {
                     exception.nslog();
-                } @finally {
                     value = nil;
                 }
                 
@@ -1319,7 +1316,6 @@
         
         return reDict.copy;
     };
-    
 }
 
 - (Class (^)())objClass
