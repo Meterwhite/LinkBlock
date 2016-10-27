@@ -26,6 +26,8 @@
 @property (nonatomic,copy,readonly) UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
 /** <^()>图片取色 */
 @property (nonatomic,copy,readonly) UIColor*         (^imgGetPatternColor)();
+/** <^()>矫正方向;返回新对象 */
+@property (nonatomic,copy,readonly) UIImage*         (^imgOrientationFix)();
 
 /** <UIImageView* ^(UIImageView* imgView)>图片设置到控件并返回控件 */
 @property (nonatomic,copy,readonly) UIImageView*     (^imgSetToImgView_linkTo)(UIImageView* imgView);

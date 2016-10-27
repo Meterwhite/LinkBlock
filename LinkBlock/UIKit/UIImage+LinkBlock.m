@@ -173,6 +173,80 @@
     };
 }
 
+- (UIImage *(^)())imgOrientationFix
+{
+    return ^id(){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgOrientationFix)
+        
+        if (_self.imageOrientation == UIImageOrientationUp) return _self;
+        
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        switch (_self.imageOrientation) {
+            case UIImageOrientationDown:
+            case UIImageOrientationDownMirrored:
+                transform = CGAffineTransformTranslate(transform, _self.size.width, _self.size.height);
+                transform = CGAffineTransformRotate(transform, M_PI);
+                break;
+                
+            case UIImageOrientationLeft:
+            case UIImageOrientationLeftMirrored:
+                transform = CGAffineTransformTranslate(transform, _self.size.width, 0);
+                transform = CGAffineTransformRotate(transform, M_PI_2);
+                break;
+                
+            case UIImageOrientationRight:
+            case UIImageOrientationRightMirrored:
+                transform = CGAffineTransformTranslate(transform, 0, _self.size.height);
+                transform = CGAffineTransformRotate(transform, -M_PI_2);
+                break;
+            default:
+                break;
+        }
+        
+        switch (_self.imageOrientation) {
+            case UIImageOrientationUpMirrored:
+            case UIImageOrientationDownMirrored:
+                transform = CGAffineTransformTranslate(transform, _self.size.width, 0);
+                transform = CGAffineTransformScale(transform, -1, 1);
+                break;
+                
+            case UIImageOrientationLeftMirrored:
+            case UIImageOrientationRightMirrored:
+                transform = CGAffineTransformTranslate(transform, _self.size.height, 0);
+                transform = CGAffineTransformScale(transform, -1, 1);
+                break;
+            default:
+                break;
+        }
+        
+        CGContextRef ctx = CGBitmapContextCreate(NULL, _self.size.width, _self.size.height,
+                                                 CGImageGetBitsPerComponent(_self.CGImage), 0,
+                                                 CGImageGetColorSpace(_self.CGImage),
+                                                 CGImageGetBitmapInfo(_self.CGImage));
+        CGContextConcatCTM(ctx, transform);
+        switch (_self.imageOrientation) {
+            case UIImageOrientationLeft:
+            case UIImageOrientationLeftMirrored:
+            case UIImageOrientationRight:
+            case UIImageOrientationRightMirrored:
+                // Grr...
+                CGContextDrawImage(ctx, CGRectMake(0,0,_self.size.height,_self.size.width), _self.CGImage);
+                break;
+                
+            default:
+                CGContextDrawImage(ctx, CGRectMake(0,0,_self.size.width,_self.size.height), _self.CGImage);
+                break;
+        }
+        
+        CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+        UIImage *reImg = [UIImage imageWithCGImage:cgimg];
+        CGContextRelease(ctx);
+        CGImageRelease(cgimg);
+        return reImg;
+    };
+}
+
 - (UIImageView *(^)(UIImageView *))imgSetToImgView_linkTo
 {
     return ^id(UIImageView* imgView){
