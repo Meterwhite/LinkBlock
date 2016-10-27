@@ -53,7 +53,7 @@
 #define linkObj(object) (object?object:[LinkError new])
 #endif
 /**
- <^()>获取链条返回值，并将链条信息对象和错误转nil
+ <- linkEnd>获取链条返回值，并将错误转nil，NSNull也以nil返回
  ... = linkObj(..)...linkEnd;
  ... = linkObj(..)...linkIF(...)...linkEnd;
  */
@@ -180,14 +180,14 @@
 #define linkLoop linkLoop
 #endif
 /**
- <^()>多对象链式编程获取多个链条返回值，并将错误转nil
+ <- ends>多对象链式编程获取多个链条返回值，并将错误转nil，NSNull也以nil返回
  ... = linkObj(...)...linkLoop(...)...linkEnds();
  */
 #ifndef linkEnds
 #define linkEnds linkEnds
 #endif
 /**
- <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil
+ <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil，NSNull也以nil返回
  ... = linkObj(...)...linkLoop(...)...linkEndsAt(index);
  */
 #ifndef linkEndsAt
