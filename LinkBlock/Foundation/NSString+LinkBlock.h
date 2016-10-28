@@ -153,7 +153,7 @@
 @property (nonatomic,copy,readonly) NSString*    (^strPathSoundPlay)();
 /** <^()>将字符串复制到通用剪贴板 */
 @property (nonatomic,copy,readonly) NSString*    (^strCopyToGeneralPasteboard)();
-/** <^()>加载XIB */
+/** <^(NSUInteger index)>加载XIB */
 @property (nonatomic,copy,readonly) __kindof UIView*     (^strLoadNibNamedAt)(NSUInteger index);
 #pragma mrak - 转换
 /** <^()>根据字符串类名调用new方法创建对象 */
