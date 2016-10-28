@@ -153,6 +153,8 @@
 @property (nonatomic,copy,readonly) NSString*    (^strPathSoundPlay)();
 /** <^()>将字符串复制到通用剪贴板 */
 @property (nonatomic,copy,readonly) NSString*    (^strCopyToGeneralPasteboard)();
+/** <^()>加载XIB */
+@property (nonatomic,copy,readonly) __kindof UIView*     (^strLoadNibNamedAt)(NSUInteger index);
 #pragma mrak - 转换
 /** <^()>根据字符串类名调用new方法创建对象 */
 @property (nonatomic,copy,readonly) NSObject*            (^strToObjectFromName)();
@@ -168,19 +170,19 @@
 @property (nonatomic,copy,readonly) double               (^strToDoubleFromHex)();
 /** <^()>十六进制字符串转unsigned int */
 @property (nonatomic,copy,readonly) unsigned int         (^strToIntFromHex)();
-/** <^()>@”{{x,y},{w,h}}”.strToCGRect() */
+/** <^()>@"{{x,y},{w,h}}".strToCGRect() */
 @property (nonatomic,copy,readonly) CGRect               (^strToCGRect)();
-/** <^()>@”{x,y}”.strToCGVector() */
+/** <^()>@"{x,y}".strToCGVector() */
 @property (nonatomic,copy,readonly) CGVector             (^strToCGVector)();
-/** <^()>@”{w,h}”.strToCGSize() */
+/** <^()>@"{w,h}".strToCGSize() */
 @property (nonatomic,copy,readonly) CGSize               (^strToCGSize)();
-/** <^()>@”{x,y}”.strToCGPoint() */
+/** <^()>@"{x,y}".strToCGPoint() */
 @property (nonatomic,copy,readonly) CGPoint              (^strToCGPoint)();
 /** <^()>@"{a, b, c, d, tx, ty}".strToCGAffineTransform() */
 @property (nonatomic,copy,readonly) CGAffineTransform    (^strToCGAffineTransform)();
-/** <^()>@”{top, left, bottom, right}”.strToUIEdgeInsets() */
+/** <^()>@"{top, left, bottom, right}".strToUIEdgeInsets() */
 @property (nonatomic,copy,readonly) UIEdgeInsets         (^strToUIEdgeInsets)();
-/** <^()>@{x,y}.strToUIOffset() */
+/** <^()>@"{x,y}".strToUIOffset() */
 @property (nonatomic,copy,readonly) UIOffset             (^strToUIOffset)();
 /** <^()>路径转NSData */
 @property (nonatomic,copy,readonly) NSData*              (^strToNSDataWithContentsOfFile)();
@@ -196,7 +198,6 @@
 @property (nonatomic,copy,readonly) NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
 /** <^()>路径转系统音效ID；注意释放； */
 @property (nonatomic,copy,readonly) UInt32               (^strToSystemSoundID)();
-
 /** <^(UILabel* lab)> */
 @property (nonatomic,copy,readonly) UILabel*             (^strSetToLab_linkTo)(UILabel* lab);
 /** <^(UIButton* btn)> */

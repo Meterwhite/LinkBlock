@@ -1223,6 +1223,17 @@
     };
 }
 
+- (__kindof UIView *(^)(NSUInteger))strLoadNibNamedAt
+{
+    return ^id(NSUInteger index){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strLoadNibNamedAt , index)
+        NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
+        if(index >= xibs.count) return [NSNull null];
+        return xibs[index];
+    };
+}
+
 -(NSURL *(^)())strToNSURL
 {
     return ^id(){
