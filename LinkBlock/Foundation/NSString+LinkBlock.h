@@ -105,6 +105,7 @@
 @property (nonatomic,copy,readonly) BOOL         (^strIsFloating)();
 /** <^()>是否是数字类型 */
 @property (nonatomic,copy,readonly) BOOL         (^strIsNumber)();
+@property (nonatomic,copy,readonly) NSNumber*    (^strIsNumber_n)();
 /** <^()>反转字符串 */
 @property (nonatomic,copy,readonly) NSString*    (^strReversed)();
 /** <^(NSString* str)>从左删除第一次匹配的字符串 */
@@ -155,6 +156,10 @@
 @property (nonatomic,copy,readonly) NSString*    (^strCopyToGeneralPasteboard)();
 /** <^(NSUInteger index)>加载XIB */
 @property (nonatomic,copy,readonly) __kindof UIView*     (^strLoadNibNamedAt)(NSUInteger index);
+/** <^(NSUInteger index)>加载第一个XIB */
+@property (nonatomic,copy,readonly) __kindof UIView*     (^strLoadNibNamedFirst)();
+/** <^(NSUInteger index)>加载最后一个XIB */
+@property (nonatomic,copy,readonly) __kindof UIView*     (^strLoadNibNamedLast)();
 #pragma mrak - 转换
 /** <^()>根据字符串类名调用new方法创建对象 */
 @property (nonatomic,copy,readonly) NSObject*            (^strToObjectFromName)();

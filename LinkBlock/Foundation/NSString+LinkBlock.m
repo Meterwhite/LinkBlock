@@ -902,6 +902,14 @@
         return (BOOL)(_self.strIsInteger() || _self.strIsFloating());
     };
 }
+- (NSNumber *(^)())strIsNumber_n
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strIsNumber_n)
+        return @( _self.strIsInteger() || _self.strIsFloating() );
+    };
+}
 
 - (NSString *(^)(NSString *))strDeleteLeft
 {
@@ -1231,6 +1239,28 @@
         NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
         if(index >= xibs.count) return [NSNull null];
         return xibs[index];
+    };
+}
+
+- (__kindof UIView *(^)())strLoadNibNamedFirst
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strLoadNibNamedFirst , index)
+        NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
+        if(!xibs.count) return [NSNull null];
+        return xibs.firstObject;
+    };
+}
+
+- (__kindof UIView *(^)())strLoadNibNamedLast
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strLoadNibNamedLast , index)
+        NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
+        if(!xibs.count) return [NSNull null];
+        return xibs.lastObject;
     };
 }
 
