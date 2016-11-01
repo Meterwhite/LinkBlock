@@ -363,15 +363,11 @@
             return [NSString stringWithFormat:@"%ld", (long)[_self integerValue]];
         }else{
             
-            NSMutableString* formatStr = [NSMutableString new];
-            [formatStr appendString:@"%."];
-            [formatStr appendString:[NSString stringWithFormat:@"%lu", (unsigned long)digit]];
-            [formatStr appendString:@"f"];
+            NSString* formatStr = [NSString stringWithFormat:@"%%.%luf",digit];
             return  [NSString stringWithFormat:formatStr , [_self doubleValue]];
         }
     };
 }
-- (void)setNumFloatingToStr:(NSString *(^)(NSUInteger))numFloatingToStr{}
 
 - (NSMutableString *(^)(NSUInteger))numToStrPercent
 {
@@ -382,6 +378,20 @@
         [re appendString:@([_self doubleValue]*100.0).numToStrFloating(digit)];
         [re appendString:@"%"];
         return re;
+    };
+}
+
+- (NSString *(^)(NSUInteger))numToStrMaxDigit
+{
+    return ^id(NSUInteger maxDigit){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numToStrMaxDigit,maxDigit)
+        if(!_self.numIsFloatingType())  return self.description;
+        if(maxDigit<1) return [NSString stringWithFormat:@"%lu" , _self.integerValue];
+        NSString* formatStr = [NSString stringWithFormat:@"%%.%luf",maxDigit];
+        NSString* numStr = [NSString stringWithFormat:formatStr,_self.doubleValue];
+        numStr = numStr.strTrimRight(@"0");
+        return numStr;
     };
 }
 

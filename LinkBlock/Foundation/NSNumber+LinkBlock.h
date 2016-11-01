@@ -88,10 +88,12 @@
 @property (nonatomic,copy,readonly) BOOL         (^numIsEven)();
 @property (nonatomic,copy,readonly) NSNumber*    (^numIsEven_n)();
 
-/** <^(NSUInteger digit小数位数)>小数转字符串：digit：小数位数 */
+/** <^(NSUInteger digit小数位数)>小数转字符串：digit：小数位数；digit=6 => 0.618000；digit=0时转为整数 */
 @property (nonatomic,copy,readonly) NSString*           (^numToStrFloating)(NSUInteger digit);
 /** <^(NSUInteger digit小数位数)>小数转百分比:@(0.231)->@"23.1%"，digit：小数位数 */
 @property (nonatomic,copy,readonly) NSMutableString*    (^numToStrPercent)(NSUInteger digit);
+/** <^(NSUInteger digit小数位数)>小数转字符串，限定最宽小数位数；整数时没有任何改变;当digit=0时小数将转为整数 */
+@property (nonatomic,copy,readonly) NSString*    (^numToStrMaxDigit)(NSUInteger maxDigit);
 /** <^()>数字转日期 */
 @property (nonatomic,copy,readonly) NSDate*      (^numToNSDateSince1970)();
 /** <^()> */
