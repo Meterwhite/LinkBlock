@@ -278,7 +278,7 @@
 /**
  *  遍历URL字符串参数
  *
- *  @param block 可以使用空字符串抹去一个值，而非nil
+ *  @param block 可以使用空字符串抹去一个值，而非nil；其中urlBeforeKeyValue为'?'前的部分
  *
  *  @return 结果
  */

@@ -79,7 +79,7 @@
                     return self;
             }
         }
-        return (id)self;
+        return self;
     }
     ////////////////////
     ///LinkGroupHandle
@@ -92,7 +92,7 @@
             [returnObjs addObject:re];
         }
         [group.linkObjects setArray:returnObjs];
-        return (id)group;
+        return group;
     }
     
     if([self isKindOfClass:[NSNumber class]] && !((NSNumber*)self).boolValue){
@@ -108,9 +108,9 @@
             return (void*)nil;
         }
         LinkGroupHandle_VAL(numValue)
-        void* re;
-        [_self getValue:&re];
-        return re;
+        void* reVal;
+        [_self getValue:&reVal];
+        return reVal;
     };
 }
 
