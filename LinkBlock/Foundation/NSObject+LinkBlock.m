@@ -374,6 +374,43 @@
     }
 }
 
+- (NSObject *(^)(id))objAppend
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objAppend , obj)
+        
+        if([self isKindOfClass:[NSMutableArray class]] ||
+           [self isKindOfClass:[NSMutableSet class]]){
+            
+            [_self addObject:obj];
+        }else if ([self isKindOfClass:[NSArray class]]){
+            
+            _self = self.mutableCopy;
+            [_self addObject:obj];
+        }else if ([self isKindOfClass:[NSMutableString class]] &&
+                  [obj isKindOfClass:[NSString class]]){
+            
+            [_self appendString:obj];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isKindOfClass:[NSString class]]){
+            
+            _self = self.mutableCopy;
+            [_self appendString:obj];
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            [_self addSubview:obj];
+        }else if ([self isKindOfClass:[NSSet class]]){
+            
+            _self = self.mutableCopy;
+            [_self addObject:obj];
+        }
+        
+        return _self;
+    };
+}
+
 - (NSObject *(^)())objCopy
 {
     return ^id(){

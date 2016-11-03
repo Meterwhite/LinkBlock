@@ -212,6 +212,10 @@
 
 #pragma mark - NSObject
 /** <^()> */
+//@property (nonatomic,copy,readonly) NSObject*    (^objAppend)(id obj);
+///** <^(NSUInteger idx)> */
+//@property (nonatomic,copy,readonly) NSObject*    (^objInsert)(id obj , NSUInteger idx);
+/** <^()> */
 @property (nonatomic,copy,readonly) NSObject*    (^objCopy)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSObject*    (^objMutableCopy)();
