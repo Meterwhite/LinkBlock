@@ -12,7 +12,7 @@
 #define NSDateNew ([NSDate date])
 #endif
 @interface NSObject(NSDateLinkBlock)
-/** <^(NSString* formatStr)>日期转字符串 */
+/** <^(NSString* formatStr)>日期转字符串 formatStr:yyyy-MM-dd */
 @property (nonatomic,copy,readonly) NSString*        (^dateToStrWithFormat)(NSString* formatStr);
 /** <^()> */
 @property (nonatomic,copy,readonly) NSTimeInterval   (^dateTimeIntervalSince1970)();

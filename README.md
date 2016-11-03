@@ -29,7 +29,7 @@ UILabelNew
 .viewAddToView(self.view);
 ```
 ### Need to get value:【需要取值的情况：】
-- Using linkObj() if first object can be nil.Use linkEnd to get the true value.【链首对象可能为空需要使用linkObj，报错则需要使用linkEnd获取真实的值】
+- Using linkObj() if first object can be nil.Use linkEnd to get the safe value.【链首对象可能为空需要使用linkObj，使用linkEnd可以将链条中间可能的报错过滤为nil】
 ```objc
 NSString* priceStr = linkObj(priceFromNet).strAppend(@"￥").linkEnd;
 //priceFromNet为空这里控制台会报错，而不是崩溃
@@ -67,7 +67,7 @@ linkResults = @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"E").linkEnds;
 //3【写法三】
 linkResults = arrA.linkAnd(arrB).linkAnd(arrC).m_arrAddObj(@"D").linkEnds;
 
-//4.Repeat the following code 100 times like papapa【写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环了】
+//4.Repeat the following code 100 times【写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环了】
 linkResults = arrA.linkLoop(100).m_arrAddObj(@"F").linkEnds;
 
 //Multiple controls one to display the other hidden【多个控件一个显示其他隐藏】

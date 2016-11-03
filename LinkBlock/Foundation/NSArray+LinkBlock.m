@@ -300,6 +300,27 @@
     };
 }
 
+- (NSArray *(^)(BOOL))arrSort
+{
+    return ^id(BOOL ascending){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrSort,ascending)
+        return [_self sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2]*(ascending?1:-1);
+        }];
+    };
+}
+
+- (NSArray *(^)(NSString *, BOOL))arrSortByKey
+{
+    return ^id(NSString* key , BOOL ascending){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrSortByKey,key,ascending)
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key
+                                                               ascending:ascending];
+        return [_self sortedArrayUsingDescriptors:@[sort]];
+    };
+}
 @end
 
 @implementation NSArray(NSArraryLinkBlock)

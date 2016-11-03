@@ -63,6 +63,10 @@
 @property (nonatomic,copy,readonly) NSArray*                 (^arrObjsValueRandom)();
 /** <^(Class typeClass)>获取数组中所有该类型的对象 */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrObjsOfType)(Class typeClass);
+/** <^(BOOL ascending)>对数组中的值使用compare:进行排序 */
+@property (nonatomic,copy,readonly) NSArray*                 (^arrSort)(BOOL ascending);
+/** <^(NSString* key, BOOL ascending)>以数组中对象的Key的值进行排序,ascending：升序 */
+@property (nonatomic,copy,readonly) NSArray*                 (^arrSortByKey)(NSString* key, BOOL ascending);
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

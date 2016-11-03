@@ -152,6 +152,10 @@
  播放系统键盘音：@"/System/Library/Audio/UISounds/Tock.caf".strPathSoundPlay();
  */
 @property (nonatomic,copy,readonly) NSString*    (^strPathSoundPlay)();
+/** <^(id<NSCoding>obj)>解档 */
+@property (nonatomic,copy,readonly) NSString*    (^strPathArchiveObject)(id<NSCoding>obj);
+/** <^()>归档，并以归档对象作为链条 */
+@property (nonatomic,copy,readonly) NSObject*    (^strPathUnarchiveObject_linkTo)();
 /** <^()>将字符串复制到通用剪贴板 */
 @property (nonatomic,copy,readonly) NSString*    (^strCopyToGeneralPasteboard)();
 /** <^(NSUInteger index)>加载XIB */

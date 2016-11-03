@@ -1943,6 +1943,26 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     AudioServicesDisposeSystemSoundID(sound_id);
 }
 
+- (NSString *(^)(id<NSCoding>))strPathArchiveObject
+{
+    return ^id(id<NSCoding>obj){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPathArchiveObject , obj)
+        [NSKeyedArchiver archiveRootObject:obj toFile:_self];
+        return _self;
+    };
+}
+
+- (NSObject *(^)())strPathUnarchiveObject_linkTo
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPathUnarchiveObject_linkTo)
+        id obj = [NSKeyedUnarchiver unarchiveObjectWithFile:_self];
+        return obj?obj:[NSNull null];
+    };
+}
+
 - (NSString *(^)())strCopyToGeneralPasteboard
 {
     return ^id(){
