@@ -211,10 +211,24 @@
                includeFoundation:(BOOL)includeFoundation;
 
 #pragma mark - NSObject
-/** <^()> */
-//@property (nonatomic,copy,readonly) NSObject*    (^objAppend)(id obj);
-///** <^(NSUInteger idx)> */
-//@property (nonatomic,copy,readonly) NSObject*    (^objInsert)(id obj , NSUInteger idx);
+/** <^(id obj)>UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
+@property (nonatomic,copy,readonly) NSObject*    (^objAdd)(id obj);
+/** <^(id obj)>UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
+@property (nonatomic,copy,readonly) NSObject*    (^objAddTo)(id obj);
+/** <^(id obj)>UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项，返回为入参对象 */
+@property (nonatomic,copy,readonly) NSObject*    (^objAddTo_linkTo)(id obj);
+/** <^(id obj , NSUInteger idx)>UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
+@property (nonatomic,copy,readonly) NSObject*    (^objInsert)(id obj , NSUInteger idx);
+/** <^(id obj , NSUInteger idx)>UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
+@property (nonatomic,copy,readonly) NSObject*    (^objInsertTo)(id obj , NSUInteger idx);
+/** <^(id obj , NSUInteger idx)>UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项，返回为入参对象 */
+@property (nonatomic,copy,readonly) NSObject*    (^objInsertTo_linkTo)(id obj , NSUInteger idx);
+/** <^(id obj)>UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
+@property (nonatomic,copy,readonly) NSObject*    (^objRemove)(id obj);
+/** <^(id obj)>UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
+@property (nonatomic,copy,readonly) NSObject*    (^objRemoveFrom)(id obj);
+/** <^(id obj)>UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项，返回为入参对象 */
+@property (nonatomic,copy,readonly) NSObject*    (^objRemoveFrom_linkTo)(id obj);
 /** <^()> */
 @property (nonatomic,copy,readonly) NSObject*    (^objCopy)();
 /** <^()> */
@@ -251,11 +265,11 @@
 @property (nonatomic,copy,readonly) NSObject*    (^objSetDelegate)(id delegate);
 /** <^(NSArray* withoutKeys)>将自定义对象随机赋值，只包含字符串类型和数字类型 */
 @property (nonatomic,copy,readonly) NSObject*    (^objValueRandom)();
-#pragma mark - For NSString
+#pragma mark - About NSString
 /** <^()>NSDate,NSString,NSArray,NSDictionary等对象转成json的字符串 */
 @property (nonatomic,copy,readonly) NSString*    (^objToJsonString)();
 
-#pragma mark - For NSMutableArray
+#pragma mark - About NSMutableArray
 /** <^(NSMutableArray* arr)>将对象添加到 */
 @property (nonatomic,copy,readonly) NSObject*    (^objAddToArr)(NSMutableArray* arr);
 /** <^(NSMutableArray* arr)> */
@@ -267,7 +281,7 @@
 /** <^(NSArray* inArr)>对象是否在数组中 */
 @property (nonatomic,copy,readonly) BOOL         (^objIsInArr)(NSArray* inArr);
 @property (nonatomic,copy,readonly) NSNumber*    (^objIsInArr_n)(NSArray* inArr);
-#pragma mark - For NSMutableDictionary
+#pragma mark - About NSMutableDictionary
 /** <^(NSMutableDictionary* dict, id<NSCopying> key)>将对象设置到字典 */
 @property (nonatomic,copy,readonly) NSObject*    (^objSetToDict)(NSMutableDictionary* dict, id<NSCopying> key);
 /** <^(NSMutableDictionary* dict)>对象是否在字典值的集合中 */

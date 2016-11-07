@@ -374,40 +374,357 @@
     }
 }
 
-- (NSObject *(^)(id))objAppend
+- (NSObject *(^)(id))objAdd
 {
     return ^id(id obj){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objAppend , obj)
+        LinkGroupHandle_REF(objAdd , obj)
         
         if([self isKindOfClass:[NSMutableArray class]] ||
-           [self isKindOfClass:[NSMutableSet class]]){
+           [self isKindOfClass:[NSMutableSet class]] ||
+           [self isKindOfClass:[NSHashTable class]] ||
+           [self isKindOfClass:[NSCountedSet class]] ||
+           [self isKindOfClass:[NSMutableOrderedSet class]]){
             
             [_self addObject:obj];
-        }else if ([self isKindOfClass:[NSArray class]]){
-            
-            _self = self.mutableCopy;
-            [_self addObject:obj];
-        }else if ([self isKindOfClass:[NSMutableString class]] &&
-                  [obj isKindOfClass:[NSString class]]){
-            
-            [_self appendString:obj];
         }else if ([self isKindOfClass:[NSString class]] &&
                   [obj isKindOfClass:[NSString class]]){
             
-            _self = self.mutableCopy;
-            [_self appendString:obj];
+            if([self isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+                
+                [_self appendString:obj];
+            }else{
+                
+                _self = self.mutableCopy;
+                [_self appendString:obj];
+            }
         }else if ([self isKindOfClass:[UIView class]] &&
                   [obj isKindOfClass:[UIView class]]){
             
             [_self addSubview:obj];
-        }else if ([self isKindOfClass:[NSSet class]]){
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
             
-            _self = self.mutableCopy;
-            [_self addObject:obj];
+            [_self addSublayer:obj];
         }
         
         return _self;
+    };
+}
+
+- (NSObject *(^)(id))objAddTo
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objAddTo , obj)
+        
+        if([obj isKindOfClass:[NSMutableArray class]] ||
+           [obj isKindOfClass:[NSMutableSet class]] ||
+           [obj isKindOfClass:[NSHashTable class]] ||
+           [obj isKindOfClass:[NSCountedSet class]] ||
+           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+            
+            [obj addObject:_self];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+            
+            [obj appendString:_self];
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            [obj addSubview:_self];
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
+            
+            [obj addSublayer:_self];
+        }
+        
+        return _self;
+    };
+}
+
+- (NSObject *(^)(id))objAddTo_linkTo
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objAddTo_linkTo , obj)
+        
+        if([obj isKindOfClass:[NSMutableArray class]] ||
+           [obj isKindOfClass:[NSMutableSet class]] ||
+           [obj isKindOfClass:[NSHashTable class]] ||
+           [obj isKindOfClass:[NSCountedSet class]] ||
+           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+            
+            [obj addObject:_self];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isKindOfClass:[NSString class]]){
+            
+            if([obj isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+                
+                [obj appendString:_self];
+            }else{
+                
+                obj = [obj mutableCopy];
+                [obj appendString:_self];
+            }
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            [obj addSubview:_self];
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
+            
+            [obj addSublayer:_self];
+        }
+        
+        return obj?obj:[NSNull null];
+    };
+}
+
+- (NSObject *(^)(id, NSUInteger))objInsert
+{
+    return ^id(id obj , NSUInteger idx){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objInsert , obj , idx)
+        
+        if([self isKindOfClass:[NSMutableArray class]] ||
+           [self isKindOfClass:[NSMutableOrderedSet class]]){
+            
+            [_self insertObject:obj atIndex:idx];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isKindOfClass:[NSString class]]){
+            
+            if([_self isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+                
+                [_self insertString:obj atIndex:idx];
+            }else{
+                
+                _self = self.mutableCopy;
+                [_self insertString:obj atIndex:idx];
+            }
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            [_self insertSubview:obj atIndex:idx];
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
+            
+            [_self insertSublayer:obj atIndex:(unsigned)idx];
+        }
+        
+        return _self;
+    };
+}
+
+- (NSObject *(^)(id, NSUInteger))objInsertTo
+{
+    return ^id(id obj , NSUInteger idx){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objInsertTo , obj , idx)
+        
+        if([obj isKindOfClass:[NSMutableArray class]] ||
+           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+            
+            [obj insertObject:_self atIndex:idx];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+            
+            [obj insertString:_self atIndex:idx];
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            [obj insertSubview:_self atIndex:idx];
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
+            
+            [obj insertSublayer:_self atIndex:(unsigned)idx];
+        }
+        
+        return _self;
+    };
+}
+
+- (NSObject *(^)(id, NSUInteger))objInsertTo_linkTo
+{
+    return ^id(id obj , NSUInteger idx){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objInsertTo_linkTo , obj , idx)
+        
+        if([obj isKindOfClass:[NSMutableArray class]] ||
+           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+            
+            [obj insertObject:_self atIndex:idx];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isKindOfClass:[NSString class]]){
+            
+            if([obj isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+                
+                [obj insertString:_self atIndex:idx];
+            }else{
+                
+                obj = [obj mutableCopy];
+                [obj insertString:_self atIndex:idx];
+            }
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            [obj insertSubview:_self atIndex:idx];
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
+            
+            [obj insertSublayer:_self atIndex:(unsigned)idx];
+        }
+        
+        return obj?obj:[NSNull null];
+    };
+}
+
+- (NSObject *(^)(id))objRemove
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objRemove , obj)
+        
+        if([self isKindOfClass:[NSMutableArray class]] ||
+           [self isKindOfClass:[NSMutableSet class]] ||
+           [self isKindOfClass:[NSHashTable class]] ||
+           [self isKindOfClass:[NSCountedSet class]] ||
+           [self isKindOfClass:[NSMutableOrderedSet class]]){
+            
+            [_self removeObject:obj];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isKindOfClass:[NSString class]]){
+            
+            if([_self isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+                
+                [_self replaceOccurrencesOfString:obj
+                                       withString:@""
+                                          options:0
+                                            range:NSMakeRange(0, [_self length])];
+            }else{
+                
+                _self = [_self mutableCopy];
+                [_self replaceOccurrencesOfString:obj
+                                       withString:@""
+                                          options:0
+                                            range:NSMakeRange(0, [_self length])];
+            }
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            if([obj superview] == _self){
+                
+                [obj removeFromSuperview];
+            }
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
+            
+            if( [obj superlayer] == _self){
+                
+                [obj removeFromSuperlayer];
+            }
+        }else if ([self isKindOfClass:[NSMutableDictionary class]]){
+            
+            [_self removeObjectForKey:obj];
+        }
+        
+        return _self;
+    };
+}
+
+- (NSObject *(^)(id))objRemoveFrom
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objRemoveFrom , obj)
+        if(!obj) return _self;
+        if([obj isKindOfClass:[NSMutableArray class]] ||
+           [obj isKindOfClass:[NSMutableSet class]] ||
+           [obj isKindOfClass:[NSHashTable class]] ||
+           [obj isKindOfClass:[NSCountedSet class]] ||
+           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+            
+            [obj removeObject:_self];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+            
+            [obj replaceOccurrencesOfString:_self
+                                 withString:@""
+                                    options:0
+                                      range:NSMakeRange(0, [obj length])];
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            if([_self superview] == obj){
+                
+                [_self removeFromSuperview];
+            }
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
+            
+            if([_self superlayer] == obj){
+                
+                [_self removeFromSuperlayer];
+            }
+        }else if ([obj isKindOfClass:[NSMutableDictionary class]]){
+            
+            [obj removeObjectForKey:_self];
+        }
+        
+        return _self;
+    };
+}
+
+- (NSObject *(^)(id))objRemoveFrom_linkTo
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objRemoveFrom_linkTo , obj)
+        
+        if([obj isKindOfClass:[NSMutableArray class]] ||
+           [obj isKindOfClass:[NSMutableSet class]] ||
+           [obj isKindOfClass:[NSHashTable class]] ||
+           [obj isKindOfClass:[NSCountedSet class]] ||
+           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+            
+            [obj removeObject:_self];
+        }else if ([self isKindOfClass:[NSString class]] &&
+                  [obj isKindOfClass:[NSString class]]){
+            
+            if([obj isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+                
+                [obj replaceOccurrencesOfString:_self
+                                     withString:@""
+                                        options:0
+                                          range:NSMakeRange(0, [obj length])];
+            }else{
+                
+                obj = [obj mutableCopy];
+                [obj replaceOccurrencesOfString:_self
+                                     withString:@""
+                                        options:0
+                                          range:NSMakeRange(0, [obj length])];
+            }
+        }else if ([self isKindOfClass:[UIView class]] &&
+                  [obj isKindOfClass:[UIView class]]){
+            
+            if([_self superview] == obj){
+                
+                [_self removeFromSuperview];
+            }
+        }else if ([self isKindOfClass:[CALayer class]] &&
+                  [obj isKindOfClass:[CALayer class]]){
+            
+            if([_self superlayer] == obj){
+                
+                [_self removeFromSuperlayer];
+            }
+        }else if ([obj isKindOfClass:[NSMutableDictionary class]]){
+            
+            [obj removeObjectForKey:_self];
+        }
+        
+        return obj?obj:[NSNull null];
     };
 }
 
