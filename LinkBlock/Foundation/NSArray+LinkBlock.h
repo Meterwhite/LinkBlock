@@ -17,7 +17,7 @@
  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
  Arr.makeLinkObjs....
  */
-@property (nonatomic,strong,readonly)LinkGroup*              makeLinkObjs;
+@property (nonatomic,strong,readonly)NSObject*               makeLinkObjs;
 
 /** <^(NSUInteger idx)> */
 @property (nonatomic,copy,readonly) NSObject*                (^arrAt)(NSUInteger idx);

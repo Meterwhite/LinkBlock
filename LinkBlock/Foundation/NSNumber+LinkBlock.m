@@ -363,7 +363,7 @@
             return [NSString stringWithFormat:@"%ld", (long)[_self integerValue]];
         }else{
             
-            NSString* formatStr = [NSString stringWithFormat:@"%%.%luf",digit];
+            NSString* formatStr = [NSString stringWithFormat:@"%%.%@f",@(digit)];
             return  [NSString stringWithFormat:formatStr , [_self doubleValue]];
         }
     };
@@ -387,8 +387,8 @@
         LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numToStrMaxDigit,maxDigit)
         if(!_self.numIsFloatingType())  return self.description;
-        if(maxDigit<1) return [NSString stringWithFormat:@"%lu" , _self.integerValue];
-        NSString* formatStr = [NSString stringWithFormat:@"%%.%luf",maxDigit];
+        if(maxDigit<1) return @(_self.integerValue).description;
+        NSString* formatStr = [NSString stringWithFormat:@"%%.%@f",@(maxDigit)];
         NSString* numStr = [NSString stringWithFormat:formatStr,_self.doubleValue];
         numStr = numStr.strTrimRight(@"0");
         return numStr;

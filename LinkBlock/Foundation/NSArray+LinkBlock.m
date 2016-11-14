@@ -9,7 +9,7 @@
 
 @implementation NSObject(NSArraryLinkBlock)
 
-- (LinkGroup *)makeLinkObjs
+- (NSObject *)makeLinkObjs
 {
     LinkHandle_REF(NSArray)
     if([self isKindOfClass:[LinkGroup class]]){
