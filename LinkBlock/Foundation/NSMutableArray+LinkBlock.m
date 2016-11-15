@@ -65,7 +65,7 @@
     return ^id(NSArray * arr, NSUInteger index){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertArrayAt,arr,index)
-        if(!_self.count || ![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto END;
+        if(![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto END;
         [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, arr.count)]];
     END:
         return _self;
