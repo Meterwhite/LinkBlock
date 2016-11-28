@@ -59,8 +59,8 @@
 @property (nonatomic,copy,readonly) BOOL         (^strIsEmoji)();
 @property (nonatomic,copy,readonly) NSNumber*    (^strIsEmoji_n)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^strIsContainEmoji)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strIsContainEmoji_n)();
+@property (nonatomic,copy,readonly) BOOL         (^strContainEmoji)();
+@property (nonatomic,copy,readonly) NSNumber*    (^strContainEmoji_n)();
 /** <^(UIFont* font)>通用视图排版中计算字符串尺寸 */
 @property (nonatomic,copy,readonly) CGSize       (^strSizeWithFont)(UIFont* font);
 @property (nonatomic,copy,readonly) NSValue*     (^strSizeWithFont_n)(UIFont* font);
@@ -173,7 +173,7 @@
 @property (nonatomic,copy,readonly) NSURL*               (^strToNSURL)();
 /** <^()>根据文件名创建UIImage */
 @property (nonatomic,copy,readonly) UIImage*             (^strToUIImage)();
-/** <^()>根据文件名创建UIImageView，大小同图片 */
+/** <^()>根据文件名创建UIImageView，控件尺寸与图片原尺寸相同 */
 @property (nonatomic,copy,readonly) UIImageView*         (^strToUIImageView)();
 /** <^()>十六进制字符串转double */
 @property (nonatomic,copy,readonly) double               (^strToDoubleFromHex)();

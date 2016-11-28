@@ -29,6 +29,13 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用strContain(str)替代strIsContain(str)");
 @property (nonatomic,copy,readonly) NSArray* (^arrValuesOfType)(Class typeClass)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用arrObjsOfType(typeClass)替代arrValuesOfType(typeClass)");
 
+@property (nonatomic,copy,readonly) BOOL     (^strIsContainEmoji)()
+NS_DEPRECATED_IOS(2_0, 2_0, "使用strContainEmoji()替代strIsContainEmoji()");
+
+@property (nonatomic,copy,readonly) NSNumber* (^strIsContainEmoji_n)()
+NS_DEPRECATED_IOS(2_0, 2_0, "使用strContainEmoji_n()替代strIsContainEmoji_n()");
+
 - (NSObject*)newLink:(void(^)(NSObject* fromObj))aNewLink
 NS_DEPRECATED_IOS(2_0, 2_0, "使用- linkInBlock替代- newLink");
+
 @end

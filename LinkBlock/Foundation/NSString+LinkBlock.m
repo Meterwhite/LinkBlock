@@ -744,13 +744,13 @@
     };
 }
 
-- (BOOL (^)())strIsContainEmoji
+- (BOOL (^)())strContainEmoji
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
             return NO;
         }
-        LinkGroupHandle_VAL(strIsContainEmoji)
+        LinkGroupHandle_VAL(strContainEmoji)
         __block BOOL hasEomji = NO;
         
         [_self enumerateSubstringsInRange:NSMakeRange(0, _self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
@@ -789,11 +789,11 @@
     };
 }
 
-- (NSNumber* (^)())strIsContainEmoji_n
+- (NSNumber* (^)())strContainEmoji_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strIsContainEmoji_n)
+        LinkGroupHandle_REF(strContainEmoji_n)
         __block BOOL hasEomji = NO;
         
         [_self enumerateSubstringsInRange:NSMakeRange(0, _self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {

@@ -76,4 +76,18 @@
     }
     return _self;
 }
+
+- (BOOL (^)())strIsContainEmoji
+{
+    return ^(){
+        return self.strContainEmoji();
+    };
+}
+
+- (NSNumber *(^)())strIsContainEmoji_n
+{
+    return ^(){
+        return self.strContainEmoji_n();
+    };
+}
 @end
