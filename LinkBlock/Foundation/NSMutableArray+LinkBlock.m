@@ -342,4 +342,22 @@
     };
 }
 
+- (NSMutableArray *(^)())m_arrReversed
+{
+    return ^id(){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m_arrReversed);
+        
+        NSUInteger i = 0;
+        NSUInteger j = _self.count-1;
+        id temp;
+        while (i<j) {
+            temp = _self[i];
+            _self[i++] = _self[j];
+            _self[j--] = temp;
+        }
+        return _self;
+    };
+}
+
 @end

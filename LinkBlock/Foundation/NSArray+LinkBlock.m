@@ -65,6 +65,58 @@
     };
 }
 
+- (NSMutableString *(^)(NSString *))arrJoin
+{
+    return ^id(NSString* split){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrJoin,split)
+        NSMutableString* re = [NSMutableString new];
+        [_self enumerateObjectsUsingBlock:^(id  _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(![item isKindOfClass:[NSString class]]){
+                [re appendString:[item description]];
+            }else{
+                [re appendString:item];
+            }
+            if(split && idx!=_self.count-1){
+                [re appendString:split];
+            }
+        }];
+        return re;
+    };
+}
+
+- (NSMutableArray *(^)())arrJoinArr
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrJoinArr)
+        NSMutableArray* re = [NSMutableArray new];
+        [_self enumerateObjectsUsingBlock:^(id  _Nonnull arrItem, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([arrItem isKindOfClass:[NSArray class]]){
+                [re addObjectsFromArray:arrItem];
+            }
+        }];
+        return re;
+    };
+}
+
+- (NSMutableDictionary *(^)())arrJoinDict
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrJoinDict)
+        NSMutableDictionary* re = [NSMutableDictionary new];
+        [_self enumerateObjectsUsingBlock:^(id  _Nonnull dictItem, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([dictItem isKindOfClass:[NSDictionary class]]){
+                [re addEntriesFromDictionary:dictItem];
+            }
+        }];
+        return re;
+    };
+}
+
 - (__kindof NSArray *(^)(id, NSString *))arrSetValueForKey
 {
     return ^id(id value , NSString* key){
@@ -319,6 +371,15 @@
         NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key
                                                                ascending:ascending];
         return [_self sortedArrayUsingDescriptors:@[sort]];
+    };
+}
+
+- (NSArray *(^)())arrReversed
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrReversed)
+        return [[_self reverseObjectEnumerator] allObjects];
     };
 }
 @end

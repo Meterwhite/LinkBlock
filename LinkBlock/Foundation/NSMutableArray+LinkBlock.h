@@ -43,11 +43,13 @@
 @property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrSort)(BOOL ascending);
 /** <^(BOOL ascending, BOOL isCombine)>对数组子项为NSRange值的NSValue对象进行排序；isCombine：NSRange(0,2)会合并NSRange(0,1) */
 @property (nonatomic,copy,readonly) NSMutableArray<NSValue*>* (^m_arrSortRange)(BOOL ascending, BOOL isCombine);
-/** <^(id obj , NSString* key)>插入对象如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后 */
+/** <^()>倒序项 */
+@property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrReversed)();
+/** <^(id obj , NSString* key)>插入对象或者替换对象（如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后） */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrAddOrReplaceObjByKey)(id obj , NSString* key);
-/** <^(id obj , NSString* key, NSUInteger idx)>在指定索引处插入对象，如果数组中存在对象的Key对应的value比较相等则全部替换， */
+/** <^(id obj , NSString* key, NSUInteger idx)>在指定索引处插入对象或者替换对象（如果数组中存在对象的Key对应的value比较相等则全部替换） */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrInsertOrReplaceObjByKeyAt)(id obj , NSString* key, NSUInteger idx);
-/** <^(id obj , NSString* key)>替换如果数组中对象与obj参数的key的值相等的对象 */
+/** <^(id obj , NSString* key)>尝试替换一个对象（如果数组中对象与obj参数的key的值相等的对象） */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrTryReplaceObjByKey)(id obj , NSString* key);
 /** <^(NSArray* objs , NSString* key)>替换如果数组中对象与obj参数的key的值相等的对象 */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^m_arrTryReplaceObjsByKey)(NSArray* objs , NSString* key);

@@ -30,6 +30,12 @@
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrSubTo)(NSUInteger idx);
 /** <^(NSUInteger from, NSUInteger to)>获取from到to（包含）范围内的对象 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
+/** <^(NSString* split)>将数组元素连接为字符串，split为连接字符串，正序 */
+@property (nonatomic,copy,readonly) NSMutableString*         (^arrJoin)(NSString* split);
+/** <^()>将数组中数组类型项合并，正序 */
+@property (nonatomic,copy,readonly) NSMutableArray*          (^arrJoinArr)();
+/** <^()>将数组中字典类型项合并，正序 */
+@property (nonatomic,copy,readonly) NSMutableDictionary*     (^arrJoinDict)();
 /** <^(id value, NSString* key)>使用KVC设置数组一项值 */
 @property (nonatomic,copy,readonly) __kindof NSArray*        (^arrSetValueForKey)(id value, NSString* key);
 /** <^(NSUInteger idx)>某个index是否在范围内 */
@@ -67,6 +73,8 @@
 @property (nonatomic,copy,readonly) NSArray*                 (^arrSort)(BOOL ascending);
 /** <^(NSString* key, BOOL ascending)>以数组中对象的Key的值进行排序,ascending：升序 */
 @property (nonatomic,copy,readonly) NSArray*                 (^arrSortByKey)(NSString* key, BOOL ascending);
+/** <^()>倒序，返回新数组 */
+@property (nonatomic,copy,readonly) NSArray*                 (^arrReversed)();
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

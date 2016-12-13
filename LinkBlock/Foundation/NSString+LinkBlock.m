@@ -848,7 +848,7 @@
 {
     return ^(NSString* str ){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSComparisonResult)NSNotFound;
+            return NSOrderedSame;
         }
         LinkGroupHandle_VAL(strCompareNumberSensitive,str)
         return [_self compare:str options: NSNumericSearch | NSWidthInsensitiveSearch ];

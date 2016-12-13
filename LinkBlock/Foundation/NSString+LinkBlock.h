@@ -45,11 +45,11 @@
 /** <^(NSRange range)>范围内是否是汉字 */
 @property (nonatomic,copy,readonly) BOOL         (^strIszh_CNInRange)(NSRange range);
 @property (nonatomic,copy,readonly) NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
-/** <^(NSString* str)> */
+/** <^(NSString* str)>无结果时返回NSNotFound */
 @property (nonatomic,copy,readonly) NSRange      (^strRangeOfStr)(NSString* str);
-/** <^(NSString* str)> */
+/** <^(NSString* str)>无结果时返回NSNotFound */
 @property (nonatomic,copy,readonly) NSInteger    (^strIndexOfStr)(NSString* str);
-/** <^(NSString* str, NSUInteger startIndex)>从某处开始的某字符串的位置 */
+/** <^(NSString* str, NSUInteger startIndex)>从某处开始的某字符串的位置。无结果时返回NSNotFound */
 @property (nonatomic,copy,readonly) NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIndex);
 
 /** <^()>是否是表示空的字符串，包括全部空白符和字符串以及"<null>"，"(null)" */
@@ -70,7 +70,7 @@
 /** <^(UIFont* font, CGSize maxSize)>通用视图排版中计算字符串尺寸 */
 @property (nonatomic,copy,readonly) CGSize       (^strSizeWithFontAndMaxSize)(UIFont* font, CGSize maxSize);
 @property (nonatomic,copy,readonly) NSValue*     (^strSizeWithFontAndMaxSize_n)(UIFont* font, CGSize maxSize);
-/** <^(NSDictionary* attrDict)>计算字符串的高度 */
+/** <^(NSDictionary* attrDict)>计算字符串本身高度 */
 @property (nonatomic,copy,readonly) CGFloat      (^strHeight)(NSDictionary* attrDict);
 /** <^(NSDictionary* attrDict)>计算字符串的行高 */
 @property (nonatomic,copy,readonly) CGFloat      (^strLineHeight)(NSDictionary* attrDict);
@@ -201,7 +201,7 @@
 @property (nonatomic,copy,readonly) NSDate*              (^strToNSDateWithFormat)(NSString* formatStr);
 /** <^()>数字字符串转日期 */
 @property (nonatomic,copy,readonly) NSDate*              (^strToNSDateSince1970)();
-/** <^(NSStringEncoding encoding)>转字典 */
+/** <^(NSStringEncoding encoding)>json形式字符串转字典 */
 @property (nonatomic,copy,readonly) NSDictionary*        (^strToNSDictionary)(NSStringEncoding encoding);
 /** <^(NSStringEncoding encoding)>json形式字符串转数组 */
 @property (nonatomic,copy,readonly) NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
