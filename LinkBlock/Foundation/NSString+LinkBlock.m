@@ -16,7 +16,7 @@
     return ^id(){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strMutableCopy)
-        return (NSMutableString*)_self.mutableCopy;
+        return _self.mutableCopy;
     };
 }
 
@@ -183,15 +183,15 @@
 
 - (NSInteger (^)(NSString *))strIndexOfStr
 {
-    return ^(NSString* str){
+    return ^NSInteger(NSString* str){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strIndexOfStr,str)
         if([str isKindOfClass:[NSString class]]){
-            return (NSInteger)([_self rangeOfString:str].location);
+            return [_self rangeOfString:str].location;
         }else{
-            return (NSInteger)NSNotFound;
+            return NSNotFound;
         }
     };
 }
@@ -268,15 +268,15 @@
 
 - (NSInteger (^)(NSString *, NSUInteger))strIndexOfStrStartAt
 {
-    return ^(NSString* str, NSUInteger startIndex){
+    return ^NSInteger(NSString* str, NSUInteger startIndex){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strIndexOfStrStartAt,str,startIndex)
         if([str isKindOfClass:[NSString class]]){
-            return (NSInteger)([_self rangeOfString:str options:NSCaseInsensitiveSearch range:NSMakeRange(startIndex, _self.length- startIndex)].location);
+            return [_self rangeOfString:str options:NSCaseInsensitiveSearch range:NSMakeRange(startIndex, _self.length- startIndex)].location;
         }else{
-            return (NSInteger)NSNotFound;
+            return NSNotFound;
         }
     };
 }
@@ -313,7 +313,7 @@
             }
             va_end(args);
             [group.linkObjects setArray:returnObjs];
-            return (id)group;
+            return group;
         }
         //LinkGroupHandle_VAL
         ///////////////////////
@@ -526,9 +526,9 @@
 
 - (NSInteger (^)(CGFloat, NSDictionary *))strLinesCountAboutView
 {
-    return ^(CGFloat maxWidth,NSDictionary* attrDict){
+    return ^NSInteger(CGFloat maxWidth,NSDictionary* attrDict){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strLinesCountAboutView,maxWidth,attrDict)
         NSString* originStr= _self;
@@ -550,7 +550,7 @@
                                                  attributes:attrDict
                                                     context:nil].size.height;
         
-        return (NSInteger)(allHeight/lineHeight + enterCount);
+        return allHeight/lineHeight + enterCount;
     };
 }
 
@@ -645,9 +645,9 @@
 
 - (NSUInteger (^)())strLength
 {
-    return ^(){
+    return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSUInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strLength)
         return _self.length;
@@ -665,9 +665,9 @@
 
 - (NSUInteger (^)())strLengthASCII
 {
-    return ^(){
+    return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSUInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strLengthASCII)
         NSUInteger asciiLength = 0;
@@ -682,9 +682,9 @@
 
 - (NSUInteger (^)())strLengthUnicode
 {
-    return ^(){
+    return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSUInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strLengthUnicode)
         NSUInteger asciiLength = 0;
@@ -704,9 +704,9 @@
 
 - (NSUInteger (^)())strLengthComposed
 {
-    return ^(){
+    return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSUInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strLengthComposed)
         NSUInteger re=0; NSRange range;
@@ -720,9 +720,9 @@
 
 - (NSUInteger (^)(NSString *))strLengthComposedAndCustom
 {
-    return ^(NSString* reg){
+    return ^NSUInteger(NSString* reg){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSUInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strLengthComposedAndCustom,reg)
         
@@ -857,9 +857,9 @@
 
 - (NSComparisonResult (^)(NSString *))strCompare
 {
-    return ^(NSString* str){
+    return ^NSComparisonResult(NSString* str){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSComparisonResult)NSNotFound;
+            return NSNotFound;
         }
         LinkGroupHandle_VAL(strCompare,str)
         return [_self compare:str options: NSWidthInsensitiveSearch | NSForcedOrderingSearch];
@@ -868,38 +868,38 @@
 
 - (BOOL (^)())strIsInteger
 {
-    return ^(){
+    return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSString){
             return NO;
         }
         LinkGroupHandle_VAL(strIsInteger)
         NSScanner *scaner= [[NSScanner alloc] initWithString:_self];
         NSInteger intVal;
-        return (BOOL)([scaner scanInteger:&intVal] && [scaner isAtEnd]);
+        return [scaner scanInteger:&intVal] && [scaner isAtEnd];
     };
 }
 
 - (BOOL (^)())strIsFloating
 {
-    return ^(){
+    return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSString){
             return NO;
         }
         LinkGroupHandle_VAL(strIsFloating)
         NSScanner *scaner= [[NSScanner alloc] initWithString:_self];
         double doubleVal;
-        return (BOOL)([scaner scanDouble:&doubleVal] && [scaner isAtEnd]);
+        return [scaner scanDouble:&doubleVal] && [scaner isAtEnd];
     };
 }
 
 - (BOOL (^)())strIsNumber
 {
-    return ^(){
+    return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSString){
             return NO;
         }
         LinkGroupHandle_VAL(strIsNumber)
-        return (BOOL)(_self.strIsInteger() || _self.strIsFloating());
+        return _self.strIsInteger() || _self.strIsFloating();
     };
 }
 - (NSNumber *(^)())strIsNumber_n
@@ -1036,9 +1036,9 @@
 
 - (unsigned int (^)())strToIntFromHex
 {
-    return ^(){
+    return ^unsigned int(){
         LinkHandle_VAL_IFNOT(NSString){
-            return (unsigned int)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strToIntFromHex)
         NSString *newString = [[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
@@ -1538,9 +1538,9 @@
 
 - (NSUInteger (^)())strLinesCount
 {
-    return ^(){
+    return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
-            return (NSUInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(strLinesCount)
         return [[_self componentsSeparatedByString:@"\n"] count];

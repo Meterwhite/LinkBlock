@@ -44,9 +44,9 @@
 
 - (NSUInteger (^)())valueNSRangeLocation
 {
-    return ^(){
+    return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (NSUInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(valueNSRangeLocation)
         return [_self rangeValue].location;
@@ -55,9 +55,9 @@
 
 - (NSUInteger (^)())valueNSRangeLength
 {
-    return ^(){
+    return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (NSUInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(valueNSRangeLength)
         return [_self rangeValue].length;
@@ -66,9 +66,9 @@
 
 - (CGFloat (^)())valueCGPointX
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGPointX)
         return [_self CGPointValue].x;
@@ -77,9 +77,9 @@
 
 - (CGFloat (^)())valueCGPointY
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGPointY)
         return [_self CGPointValue].y;
@@ -88,9 +88,9 @@
 
 - (CGFloat (^)())valueCGSizeWidth
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGSizeWidth)
         return [_self CGSizeValue].width;
@@ -99,9 +99,9 @@
 
 - (CGFloat (^)())valueCGSizeHeight
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGSizeHeight)
         return [_self CGSizeValue].height;
@@ -110,9 +110,9 @@
 
 - (CGFloat (^)())valueCGRectX
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGRectX)
         return [_self CGRectValue].origin.x;
@@ -121,9 +121,9 @@
 
 - (CGFloat (^)())valueCGRectY
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGRectY)
         return [_self CGRectValue].origin.y;
@@ -132,9 +132,9 @@
 
 - (CGFloat (^)())valueCGRectWidth
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGRectWidth)
         return [_self CGRectValue].size.width;
@@ -143,9 +143,9 @@
 
 - (CGFloat (^)())valueCGRectHeight
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGRectHeight)
         return [_self CGRectValue].size.width;
@@ -176,9 +176,9 @@
 
 - (CGFloat (^)())valueCGVectorX
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGVectorX)
         return [_self CGVectorValue].dx;
@@ -187,9 +187,9 @@
 
 - (CGFloat (^)())valueCGVectorY
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(valueCGVectorY)
         return [_self CGVectorValue].dy;

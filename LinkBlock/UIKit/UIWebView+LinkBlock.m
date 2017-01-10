@@ -14,7 +14,7 @@
     return ^id(){
         LinkHandle_REF(UIWebView)
         LinkGroupHandle_REF(webViewContext)
-        return (JSContext*)[_self valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+        return [_self valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     };
 }
 

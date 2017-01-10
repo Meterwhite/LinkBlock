@@ -141,9 +141,9 @@
 
 - (CGFloat (^)())labFontSystemSizeGet
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UILabel){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(labFontSystemSizeGet)
         return _self.font.pointSize;

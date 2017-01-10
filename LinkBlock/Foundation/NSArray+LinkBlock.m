@@ -24,12 +24,12 @@
 
 - (BOOL (^)(NSUInteger))arrContainIndex
 {
-    return ^(NSUInteger index){
+    return ^BOOL(NSUInteger index){
         LinkHandle_VAL_IFNOT(NSArray){
             return NO;
         }
         LinkGroupHandle_VAL(arrContainIndex,index)
-        return (BOOL)(index< _self.count);
+        return index< _self.count;
     };
 }
 - (NSNumber* (^)(NSUInteger))arrContainIndex_n
@@ -132,11 +132,11 @@
     return ^id(){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrToDictByKeyNumber)
-        NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
+        NSMutableDictionary* re= [NSMutableDictionary dictionary];
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [reIsDictM setObject:obj forKey:@(idx)];
+            [re setObject:obj forKey:@(idx)];
         }];
-        return (NSDictionary*)[reIsDictM copy];
+        return [re copy];
     };
 }
 
@@ -145,11 +145,11 @@
     return ^id(){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrToDictByKeyString)
-        NSMutableDictionary* reIsDictM= [NSMutableDictionary dictionary];
+        NSMutableDictionary* re= [NSMutableDictionary dictionary];
         [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [reIsDictM setObject:obj forKey:[NSString stringWithFormat:@"%lu", (unsigned long)idx]];
+            [re setObject:obj forKey:[NSString stringWithFormat:@"%lu", (unsigned long)idx]];
         }];
-        return (NSDictionary*)[reIsDictM copy];
+        return [re copy];
     };
 }
 

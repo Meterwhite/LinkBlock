@@ -47,11 +47,11 @@
             [returnObjs addObject:re];
         }
         [group.linkObjects setArray:returnObjs];
-        return (id)group;
+        return group;
     }
     
     if([self isKindOfClass:[NSNumber class]] && ((NSNumber*)self).boolValue){//@YES
-        return (id)self;
+        return self;
     }
     return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnCondition];
 }
@@ -103,9 +103,9 @@
 
 - (void *(^)())numValue
 {
-    return ^(){
+    return ^void*(){
         LinkHandle_VAL_IFNOT(NSNumber){
-            return (void*)nil;
+            return nil;
         }
         LinkGroupHandle_VAL(numValue)
         void* reVal;

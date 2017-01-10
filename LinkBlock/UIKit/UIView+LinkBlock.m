@@ -401,7 +401,7 @@
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSubviewAt,index)
         if(index< _self.subviews.count)
-            return (UIView*)(_self.subviews[index]);
+            return _self.subviews[index];
         return [NSNull null];
     };
 }
@@ -634,9 +634,9 @@
 
 - (CGFloat (^)())viewX
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(viewX)
         return _self.frame.origin.x;
@@ -645,9 +645,9 @@
 
 - (CGFloat (^)())viewY
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(viewY)
         return _self.frame.origin.y;
@@ -656,9 +656,9 @@
 
 - (CGFloat (^)())viewCenterX
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(viewCenterX)
         return _self.center.x;
@@ -667,9 +667,9 @@
 
 - (CGFloat (^)())viewCenterY
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(viewCenterY)
         return _self.center.y;
@@ -689,9 +689,9 @@
 
 - (CGFloat (^)())viewWidth
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(viewWidth)
         return _self.frame.size.width;
@@ -700,9 +700,9 @@
 
 - (CGFloat (^)())viewHeight
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(viewHeight)
         return _self.frame.size.height;
@@ -978,12 +978,12 @@
 
 - (BOOL (^)())viewAnimateIsDoing
 {
-    return ^(){
+    return ^BOOL(){
         LinkHandle_VAL_IFNOT(UIView){
             return NO;
         }
         LinkGroupHandle_VAL(viewAnimateIsDoing)
-        return (BOOL)[_self.layer.animationKeys count];
+        return [_self.layer.animationKeys count];
     };
 }
 
@@ -1171,9 +1171,9 @@
 
 - (CGFloat (^)())viewMaxX
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(viewMaxX)
         return CGRectGetMaxX(_self.frame);
@@ -1182,9 +1182,9 @@
 
 - (CGFloat (^)())viewMaxY
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(viewMaxY)
         return CGRectGetMaxY(_self.frame);
@@ -1244,12 +1244,12 @@
 
 - (BOOL (^)())viewIsUsingAutoresizing
 {
-    return ^(){
+    return ^BOOL(){
         LinkHandle_VAL_IFNOT(UIView){
             return NO;
         }
         LinkGroupHandle_VAL(viewIsUsingAutoresizing)
-        return (BOOL)_self.autoresizingMask;
+        return _self.autoresizingMask;
     };
 }
 
@@ -1269,7 +1269,7 @@
     return ^id(){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBeforeIndexView)
-        return (UIView*)_self.objBeforeInArr(_self.subviews);
+        return _self.objBeforeInArr(_self.subviews);
     };
 }
 
@@ -1278,7 +1278,7 @@
     return ^id(){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewNextIndexView)
-        return (UIView*)_self.objNextInArr(_self.subviews);
+        return _self.objNextInArr(_self.subviews);
     };
 }
 

@@ -11,9 +11,9 @@
 @implementation NSObject(NSDateLinkBlock)
 - (NSInteger (^)(NSDate *))dateMinusYear
 {
-    return ^(NSDate* date){
+    return ^NSInteger(NSDate* date){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateMinusYear,date)
         NSDateComponents* comps = [[NSCalendar currentCalendar]
@@ -26,9 +26,9 @@
 
 - (NSInteger (^)(NSDate *))dateMinusMonth
 {
-    return ^(NSDate* date){
+    return ^NSInteger(NSDate* date){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateMinusMonth,date)
         NSDateComponents* comps = [[NSCalendar currentCalendar]
@@ -41,9 +41,9 @@
 
 - (NSInteger (^)(NSDate *))dateMinusDay
 {
-    return ^(NSDate* date){
+    return ^NSInteger(NSDate* date){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateMinusDay,date)
         NSDateComponents* comps = [[NSCalendar currentCalendar]
@@ -56,9 +56,9 @@
 
 - (NSInteger (^)(NSDate *))dateMinusHour
 {
-    return ^(NSDate* date){
+    return ^NSInteger(NSDate* date){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateMinusHour,date)
         NSDateComponents* comps = [[NSCalendar currentCalendar]
@@ -71,9 +71,9 @@
 
 - (NSInteger (^)(NSDate *))dateMinusMinut
 {
-    return ^(NSDate* date){
+    return ^NSInteger(NSDate* date){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateMinusMinut,date)
         NSDateComponents* comps = [[NSCalendar currentCalendar]
@@ -86,9 +86,9 @@
 
 - (NSInteger (^)(NSDate *))dateMinusSec
 {
-    return ^(NSDate* date){
+    return ^NSInteger(NSDate* date){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateMinusSec,date)
         NSDateComponents* comps = [[NSCalendar currentCalendar]
@@ -195,9 +195,9 @@
 
 - (NSInteger (^)())dateYear
 {
-    return ^(){
+    return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateYear)
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -219,9 +219,9 @@
 
 - (NSInteger (^)())dateMonth
 {
-    return ^(){
+    return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateMonth)
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -243,9 +243,9 @@
 
 - (NSInteger (^)())dateDay
 {
-    return ^(){
+    return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateDay)
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -267,9 +267,9 @@
 
 - (NSInteger (^)())dateHour
 {
-    return ^(){
+    return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateHour)
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -291,9 +291,9 @@
 
 - (NSInteger (^)())dateMinut
 {
-    return ^(){
+    return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateMinut)
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -315,9 +315,9 @@
 
 - (NSInteger (^)())dateSec
 {
-    return ^(){
+    return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSInteger)0;
+            return 0;
         }
         LinkGroupHandle_VAL(dateSec)
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -552,10 +552,10 @@
 
 - (NSTimeInterval (^)())dateTimeIntervalSince1970
 {
-    return ^(){
+    return ^NSTimeInterval(){
         
         LinkHandle_VAL_IFNOT(NSDate){
-            return (NSTimeInterval)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(dateTimeIntervalSince1970)
         return [_self timeIntervalSince1970];

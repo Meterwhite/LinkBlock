@@ -1946,7 +1946,7 @@
             [returnObjs addObject:re];
         }
         [group.linkObjects setArray:returnObjs];
-        return (id)group;
+        return group;
     }
     return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnCondition];
 }
@@ -1979,7 +1979,7 @@
             [returnObjs addObject:re];
         }
         [group.linkObjects setArray:returnObjs];
-        return (id)group;
+        return group;
     }
     return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnLink];
 }
@@ -2219,7 +2219,7 @@
         LinkGroupHandle_REF(objBeforeInArr,inArr)
         NSUInteger idx = [inArr indexOfObject:_self];
         if(idx!=NSNotFound && (idx-1)>0){
-            return (NSObject*)[inArr objectAtIndex:idx];
+            return [inArr objectAtIndex:idx];
         }else{
             return [NSNull null];
         }
@@ -2233,7 +2233,7 @@
         LinkGroupHandle_REF(objNextInArr,inArr)
         NSUInteger idx = [inArr indexOfObject:_self];
         if(idx!=NSNotFound && (idx+1) <inArr.count){
-            return (NSObject*)[inArr objectAtIndex:idx];
+            return [inArr objectAtIndex:idx];
         }else{
             return [NSNull null];
         }

@@ -115,8 +115,8 @@
 
 @interface NSNumber (NSNumberLinkBlock)
 
-/** for循环，遍历 [0,idx) */
+/** for循环，正序遍历 [0,idx) */
 - (void)numForLoopASC:(void(^)(int idx))forBlock;
-/** for循环，遍历 (idx,0] */
+/** for循环，倒序遍历 (idx,0] */
 - (void)numForLoopDESC:(void(^)(int idx))forBlock;
 @end

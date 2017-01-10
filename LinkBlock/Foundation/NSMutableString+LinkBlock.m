@@ -16,7 +16,7 @@
         LinkGroupHandle_REF(m_strReplaceStr,replaceStr,withStr)
         if([replaceStr isKindOfClass:[NSString class]] &&
            [withStr isKindOfClass:[NSString class]] ){
-            return (NSMutableString*)[[_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr] mutableCopy];
+            return [[_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr] mutableCopy];
         }
         return _self;
     };

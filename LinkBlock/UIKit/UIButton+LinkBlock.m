@@ -353,9 +353,9 @@
 
 - (CGFloat (^)())btnTitleFontSystemSizeGet
 {
-    return ^(){
+    return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIButton){
-            return (CGFloat)0.0;
+            return 0.0;
         }
         LinkGroupHandle_VAL(btnTitleFontSystemSizeGet)
         return _self.titleLabel.font.pointSize;
