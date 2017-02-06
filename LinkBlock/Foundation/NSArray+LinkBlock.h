@@ -34,11 +34,13 @@
 @property (nonatomic,copy,readonly) NSMutableString*         (^arrJoin)(NSString* split);
 /** <^()>将数组中数组类型项合并，正序 */
 @property (nonatomic,copy,readonly) NSMutableArray*          (^arrJoinArr)();
-/** <^()>将数组中字典类型项合并，正序 */
+/** <^()>将数组中字典类型项合并 */
 @property (nonatomic,copy,readonly) NSMutableDictionary*     (^arrJoinDict)();
+/** <^(NSUInteger count)>将数组拆分为每组count个数的多个数组,count为0时返回当前对象本身 */
+@property (nonatomic,copy,readonly) NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
 /** <^(id value, NSString* key)>使用KVC设置数组一项值 */
 @property (nonatomic,copy,readonly) __kindof NSArray*        (^arrSetValueForKey)(id value, NSString* key);
-/** <^(NSUInteger idx)>某个index是否在范围内 */
+/** <^(NSUInteger idx)>索引index是否在范围内 */
 @property (nonatomic,copy,readonly) BOOL                     (^arrContainIndex)(NSUInteger idx);
 @property (nonatomic,copy,readonly) NSNumber*                (^arrContainIndex_n)(NSUInteger idx);
 /** <^(NSMutableArray* arr)>返回新数组 */

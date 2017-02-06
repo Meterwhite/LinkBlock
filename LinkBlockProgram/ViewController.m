@@ -31,7 +31,7 @@
     .viewAddToView(self.view);
     
     //需要取值的情况：
-    //链首对象为空需要使用linkObj，报错则需要使用end获取真实的值
+    //链首对象可能为nil需要使用linkObj包裹，报错则需要使用linkEnd获取真实的值
     NSString* priceFromNet = nil;//如果网络获取的对象为空
     NSString* priceStr = linkObj(priceFromNet).strAppend(@"￥").linkEnd;//这里控制台会报错
     

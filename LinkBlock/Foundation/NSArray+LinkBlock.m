@@ -117,6 +117,34 @@
     };
 }
 
+- (NSMutableArray *(^)(NSUInteger))arrSplitWithCount
+{
+    return ^id(NSUInteger count){
+        if(!count) return self;
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrSplitWithCount,count)
+        NSMutableArray* re = [NSMutableArray new];
+        if(_self.count){
+            
+            [_self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSUInteger groupIdx = idx / count;
+                NSMutableArray* group;
+                if(re.count > groupIdx ){
+                    
+                    group = [re objectAtIndex:groupIdx];
+                }else{
+                    
+                    group = [NSMutableArray new];
+                    [re addObject:group];
+                }
+                [group addObject:obj];
+            }];
+        }
+        return re;
+    };
+}
+
 - (__kindof NSArray *(^)(id, NSString *))arrSetValueForKey
 {
     return ^id(id value , NSString* key){
