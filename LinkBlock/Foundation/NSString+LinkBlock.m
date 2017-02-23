@@ -863,7 +863,7 @@
         }
         LinkGroupHandle_VAL(strCompare,str)
         return [_self compare:str options: NSWidthInsensitiveSearch | NSForcedOrderingSearch];
-    };;
+    };
 }
 
 - (BOOL (^)())strIsInteger

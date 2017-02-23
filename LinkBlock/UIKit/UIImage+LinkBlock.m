@@ -52,7 +52,6 @@
         return re;
     };
 }
-- (void)imgResizeAspect:(UIImage *(^)(CGSize))imgResize{};
 
 - (UIImage *(^)(CGRect))imgCut
 {

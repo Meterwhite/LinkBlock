@@ -170,7 +170,6 @@
         }
     };
 }
-- (void)setColorRedSet:(UIColor *(^)(CGFloat))blockSetRedValue{}
 
 - (UIColor* (^)(CGFloat))colorGreenSet
 {
@@ -187,7 +186,6 @@
         }
     };
 }
-- (void)setColorGreenSet:(UIColor *(^)(CGFloat))blockSetGreenValue{}
 
 - (UIColor* (^)(CGFloat))colorBlueSet
 {
@@ -204,7 +202,6 @@
         }
     };
 }
-- (void)setColorBlueSet:(UIColor *(^)(CGFloat))blockSetBlueValue{}
 
 - (UIColor* (^)(CGFloat))colorAlphaSet
 {
@@ -220,7 +217,6 @@
         }
     };
 }
-- (void)setColorAlphaSet:(UIColor *(^)(CGFloat))blockSetAlphaValue{}
 
 - (UIColor *(^)(CGFloat))colorHueSet
 {

@@ -18,6 +18,7 @@
         return [_self boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
     };
 }
+
 - (NSValue* (^)(CGFloat))attr_strSize_n
 {
     return ^id(CGFloat maxWidth){

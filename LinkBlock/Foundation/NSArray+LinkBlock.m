@@ -245,10 +245,6 @@
     };
 }
 
-
-
-
-
 - (NSArray *(^)(NSString *))arrFilter
 {
     return ^id(NSString* predicateFormat){

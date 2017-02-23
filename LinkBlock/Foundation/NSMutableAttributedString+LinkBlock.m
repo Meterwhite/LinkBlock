@@ -70,8 +70,6 @@
         return _self;
     };
 }
-- (void)setM_attr_strInsertAttrStrAtIndex:(NSMutableAttributedString *(^)(NSAttributedString *, NSUInteger))blockInsertAttrStrAtIndex{}
-;
 
 - (NSMutableAttributedString *(^)(NSString *, NSUInteger))m_attr_strInsertStrAtIndex
 {

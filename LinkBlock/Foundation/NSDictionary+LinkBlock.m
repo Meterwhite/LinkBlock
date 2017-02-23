@@ -31,7 +31,6 @@
     };
 }
 
-
 - (BOOL (^)(id<NSCopying>))dictGetBOOL
 {
     return ^(id<NSCopying> key){

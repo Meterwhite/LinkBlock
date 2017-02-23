@@ -974,7 +974,6 @@
         return _self;
     };
 }
-- (void)setViewAnimateRemove:(UIView *(^)())viewAnimateRemove{}
 
 - (BOOL (^)())viewAnimateIsDoing
 {

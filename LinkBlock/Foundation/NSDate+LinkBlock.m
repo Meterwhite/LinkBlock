@@ -504,6 +504,7 @@
         return NO;
     };
 }
+
 - (NSNumber* (^)())dateIsInToday_n
 {
     return ^id(){
@@ -535,6 +536,7 @@
         return NO;
     };
 }
+
 - (NSNumber* (^)())dateIsInMonth_n
 {
     return ^id(){
@@ -561,6 +563,7 @@
         return [_self timeIntervalSince1970];
     };
 }
+
 - (NSNumber* (^)())dateTimeIntervalSince1970_n
 {
     return ^id(){
