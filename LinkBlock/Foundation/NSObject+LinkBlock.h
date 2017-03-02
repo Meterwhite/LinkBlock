@@ -233,6 +233,8 @@
 @property (nonatomic,copy,readonly) NSObject*    (^objCopy)();
 /** <^()> */
 @property (nonatomic,copy,readonly) NSObject*    (^objMutableCopy)();
+/** <^()> 通过序列化的方式复制一份完全独立的对象 */
+@property (nonatomic,copy,readonly) NSObject*    (^objCopyByArchive)();
 /**
  *  <^()>
  *  对象及可能包含的子对象全部转为json相关的可变类型

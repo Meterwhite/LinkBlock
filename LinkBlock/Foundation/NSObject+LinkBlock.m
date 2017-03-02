@@ -746,6 +746,17 @@
     };
 }
 
+- (NSObject *(^)())objCopyByArchive
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objCopyByArchive)
+        NSAssert([self conformsToProtocol:@protocol(NSCoding)], @"必须实现NSCoding协议");
+        NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:self];
+        return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
+    };
+}
+
 - (NSObject *(^)())objMutableCopyDeep
 {
     return ^id(){
