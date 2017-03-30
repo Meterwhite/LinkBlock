@@ -229,7 +229,6 @@
             case UIImageOrientationLeftMirrored:
             case UIImageOrientationRight:
             case UIImageOrientationRightMirrored:
-                // Grr...
                 CGContextDrawImage(ctx, CGRectMake(0,0,_self.size.height,_self.size.width), _self.CGImage);
                 break;
                 

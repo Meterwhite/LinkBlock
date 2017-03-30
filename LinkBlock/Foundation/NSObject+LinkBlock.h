@@ -177,7 +177,7 @@ LBDeclare NSObject*    (^objPerformSelectorWithArg)(SEL sel , id arg);
 /** <^(SEL sel0 , ...)>宏定义下该方法无需手工以nil结尾； */
 LBDeclare NSObject*    (^objPerformSelectors)(SEL sel0 , ...);
 /** 
- <^(SEL sel0 , NSArray* args0 , ...)> 在参数数组中使用NSNull来代替nil。不要在参数中间传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组。方法内会自动适配参数个数；宏定义下该方法无需手工以nil结尾；
+ <^(SEL sel0 , NSArray* args0 , ...)> 入参方法和参数数组循环间隔；在参数数组中使用NSNull来代替nil。不要在参数中间传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组。方法内会自动适配参数个数；宏定义下该方法无需手工以nil结尾；
  */
 LBDeclare NSObject*    (^objPerformSelectorsWithArgs)(SEL sel0 , NSArray* args0 , ...);
 /** <^(SEL sel)>返回结果 */

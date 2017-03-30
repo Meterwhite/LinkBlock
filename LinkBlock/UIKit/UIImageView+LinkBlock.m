@@ -59,4 +59,24 @@
     };
 }
 
+- (UIImageView *(^)(NSArray<UIImage *> *))img_viewAnimationImages
+{
+    return ^id(NSArray<UIImage *> * imgs){
+        LinkHandle_REF(UIImageView)
+        LinkGroupHandle_REF(img_viewAnimationImages,imgs)
+        _self.animationImages = imgs;
+        return _self;
+    };
+}
+
+- (UIImageView *(^)(NSArray<UIImage *> *))img_viewHighlightedAnimationImages
+{
+    return ^id(NSArray<UIImage *> * imgs){
+        LinkHandle_REF(UIImageView)
+        LinkGroupHandle_REF(img_viewAnimationImages,imgs)
+        _self.highlightedAnimationImages = imgs;
+        return _self;
+    };
+}
+
 @end

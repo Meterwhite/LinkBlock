@@ -26,7 +26,7 @@ LBDeclare UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
 LBDeclare UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
 /** <^()>图片取色 */
 LBDeclare UIColor*         (^imgGetPatternColor)();
-/** <^()>矫正方向;返回新对象 */
+/** <^()>矫正方向的图片 */
 LBDeclare UIImage*         (^imgOrientationFix)();
 
 /** <UIImageView* ^(UIImageView* imgView)>图片设置到控件并返回控件 */
