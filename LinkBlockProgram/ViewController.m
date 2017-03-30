@@ -55,7 +55,7 @@
     //    NSLog(@"%@是偶数",aNumber);
     //}
     //上方代码可写成如下形式
-
+    
     aNumber.description
     .linkIf(aNumber.numIsOdd()).strAppend(@"是奇数").nslog()
     .linkElse.strAppend(@"是偶数").nslog();

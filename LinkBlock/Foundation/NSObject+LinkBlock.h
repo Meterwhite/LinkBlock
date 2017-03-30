@@ -7,6 +7,11 @@
 //
 
 #import "LinkBlockDefine.h"
+#import "LinkInfo.h"
+#import "LinkGroup.h"
+#import "LinkError.h"
+#import "LinkReturn.h"
+#import "Others+LinkBlock.h"
 
 @interface NSObject(LinkBlock)
 #pragma mark - 方式
