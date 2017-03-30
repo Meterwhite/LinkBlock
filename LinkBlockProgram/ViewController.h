@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 @interface ViewController : UIViewController
 

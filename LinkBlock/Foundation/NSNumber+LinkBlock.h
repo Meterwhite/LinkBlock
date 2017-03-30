@@ -6,8 +6,7 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "LinkBlock.h"
+#import "LinkBlockDefine.h"
 
 @interface NSObject(NSNumberLinkBlock)
 /** 
@@ -15,102 +14,102 @@
  用法与linkIf相似
  ...objIsEqual_n(...).linkIf_YES...LinkElse...
  */
-@property (nonatomic,copy,readonly) NSObject*    linkIf_YES;
+LBDeclare_F NSObject*    linkIf_YES;
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
  ...objIsEqual_n(...).linkIf_NO...LinkElse...
  */
-@property (nonatomic,copy,readonly) NSObject*    linkIf_NO;
+LBDeclare_F NSObject*    linkIf_NO;
 
 
 /** <^()> */
-@property (nonatomic,copy,readonly) void*        (^numValue)();
+LBDeclare void*        (^numValue)();
 /** <^()>是否是整数类型 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsIntegerType)();
+LBDeclare BOOL         (^numIsIntegerType)();
 /** <^()>是否是浮点数类型 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsFloatingType)();
+LBDeclare BOOL         (^numIsFloatingType)();
 /** <^()>是否是字符类型 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsCharType)();
+LBDeclare BOOL         (^numIsCharType)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsBOOL)();
+LBDeclare BOOL         (^numIsBOOL)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsChar)();
+LBDeclare BOOL         (^numIsChar)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsShort)();
+LBDeclare BOOL         (^numIsShort)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsInt)();
+LBDeclare BOOL         (^numIsInt)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsLong)();
+LBDeclare BOOL         (^numIsLong)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsLongLong)();
+LBDeclare BOOL         (^numIsLongLong)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedChar)();
+LBDeclare BOOL         (^numIsUnsignedChar)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedShort)();
+LBDeclare BOOL         (^numIsUnsignedShort)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedInt)();
+LBDeclare BOOL         (^numIsUnsignedInt)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedLong)();
+LBDeclare BOOL         (^numIsUnsignedLong)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsUnsignedLongLong)();
+LBDeclare BOOL         (^numIsUnsignedLongLong)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsFloat)();
+LBDeclare BOOL         (^numIsFloat)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsDouble)();
+LBDeclare BOOL         (^numIsDouble)();
 
 /** <^()>是否包含小数位的值；YES：小数位为0，NO：小数位有值， */
-@property (nonatomic,copy,readonly) BOOL         (^numHasDecimalValue)();
-@property (nonatomic,copy,readonly) NSNumber*    (^numHasDecimalValue_n)();
+LBDeclare BOOL         (^numHasDecimalValue)();
+LBDeclare NSNumber*    (^numHasDecimalValue_n)();
 /** <^(num)>等于@宏定义覆盖后可传入数字直接量 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsEqualToNum)(NSNumber* num);
-@property (nonatomic,copy,readonly) NSNumber*    (^numIsEqualToNum_n)(NSNumber* num);
+LBDeclare BOOL         (^numIsEqualToNum)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsEqualToNum_n)(NSNumber* num);
 /** <^(num)>大于@宏定义覆盖后可传入数字直接量 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsGreatThanNum)(NSNumber* num);
-@property (nonatomic,copy,readonly) NSNumber*    (^numIsGreatThanNum_n)(NSNumber* num);
+LBDeclare BOOL         (^numIsGreatThanNum)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsGreatThanNum_n)(NSNumber* num);
 /** <^(num)>大等于@宏定义覆盖后可传入数字直接量 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsGreatEqualNum)(NSNumber* num);
-@property (nonatomic,copy,readonly) NSNumber*    (^numIsGreatEqualNum_n)(NSNumber* num);
+LBDeclare BOOL         (^numIsGreatEqualNum)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsGreatEqualNum_n)(NSNumber* num);
 /** <^(num)>小于@宏定义覆盖后可传入数字直接量 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsLessThanNum)(NSNumber* num);
-@property (nonatomic,copy,readonly) NSNumber*    (^numIsLessThanNum_n)(NSNumber* num);
+LBDeclare BOOL         (^numIsLessThanNum)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsLessThanNum_n)(NSNumber* num);
 /** <^(num)>小等于@宏定义覆盖后可传入数字直接量 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsLessEqualNum)(NSNumber* num);
-@property (nonatomic,copy,readonly) NSNumber*    (^numIsLessEqualNum_n)(NSNumber* num);
+LBDeclare BOOL         (^numIsLessEqualNum)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsLessEqualNum_n)(NSNumber* num);
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsYES)();
+LBDeclare BOOL         (^numIsYES)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^numIsNO)();
+LBDeclare BOOL         (^numIsNO)();
 /** <^()>判断奇数 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsOdd)();
-@property (nonatomic,copy,readonly) NSNumber*    (^numIsOdd_n)();
+LBDeclare BOOL         (^numIsOdd)();
+LBDeclare NSNumber*    (^numIsOdd_n)();
 /** <^()>判断偶数 */
-@property (nonatomic,copy,readonly) BOOL         (^numIsEven)();
-@property (nonatomic,copy,readonly) NSNumber*    (^numIsEven_n)();
+LBDeclare BOOL         (^numIsEven)();
+LBDeclare NSNumber*    (^numIsEven_n)();
 
 /** <^(NSUInteger digit小数位数)>小数转字符串：digit：小数位数；digit=6 => 0.618000；digit=0时转为整数 */
-@property (nonatomic,copy,readonly) NSString*           (^numToStrFloating)(NSUInteger digit);
+LBDeclare NSString*           (^numToStrFloating)(NSUInteger digit);
 /** <^(NSUInteger digit小数位数)>小数转百分比:@(0.231)->@"23.1%"，digit：小数位数 */
-@property (nonatomic,copy,readonly) NSMutableString*    (^numToStrPercent)(NSUInteger digit);
+LBDeclare NSMutableString*    (^numToStrPercent)(NSUInteger digit);
 /** <^(NSUInteger digit小数位数)>小数转字符串，限定最宽小数位数，超过的部分将进行四舍五入；整数时没有任何改变;当digit=0时小数将转为整数 */
-@property (nonatomic,copy,readonly) NSString*    (^numToStrMaxDigit)(NSUInteger maxDigit);
+LBDeclare NSString*    (^numToStrMaxDigit)(NSUInteger maxDigit);
 /** <^()>数字转日期 */
-@property (nonatomic,copy,readonly) NSDate*      (^numToNSDateSince1970)();
+LBDeclare NSDate*      (^numToNSDateSince1970)();
 /** <^()> */
-@property (nonatomic,copy,readonly) UIFont*      (^numToUIFontSystemSize)();
+LBDeclare UIFont*      (^numToUIFontSystemSize)();
 /** <@(0x969696).numToUIColorFromHex()>十六进制转颜色 */
-@property (nonatomic,copy,readonly) UIColor*     (^numToUIColorFromHex)();
+LBDeclare UIColor*     (^numToUIColorFromHex)();
 
 /** <^(NSArray* arr)>当前值是否在数组长度长度值内 */
-@property (nonatomic,copy,readonly) BOOL         (^numIndexIsInArrRange)(NSArray* arr);
-@property (nonatomic,copy,readonly) NSNumber*    (^numIndexIsInArrRange_n)(NSArray* arr);
+LBDeclare BOOL         (^numIndexIsInArrRange)(NSArray* arr);
+LBDeclare NSNumber*    (^numIndexIsInArrRange_n)(NSArray* arr);
 /** <^(NSString* str)>当前值是否在字符串长度值范围内 */
-@property (nonatomic,copy,readonly) BOOL         (^numIndexIsInStringRange)(NSString* str);
-@property (nonatomic,copy,readonly) NSNumber*    (^numIndexIsInStringRange_n)(NSString* str);
+LBDeclare BOOL         (^numIndexIsInStringRange)(NSString* str);
+LBDeclare NSNumber*    (^numIndexIsInStringRange_n)(NSString* str);
 /** <^(NSMutableArray* arr)> */
-@property (nonatomic,copy,readonly) NSNumber*    (^numIndexObjRemoveFromArr)(NSMutableArray* arr);
-/** <^(NSMutableArray* arr)> */
-@property (nonatomic,copy,readonly) NSObject*    (^numIndexObjInArr)(NSMutableArray* arr);
+LBDeclare NSNumber*    (^numIndexObjRemoveFromArr)(NSMutableArray* arr);
+/** <^(NSMutableArray* arr)>，越界时返回NSNull */
+LBDeclare NSObject*    (^numIndexObjInArr)(NSMutableArray* arr);
 @end
 
 @interface NSNumber (NSNumberLinkBlock)

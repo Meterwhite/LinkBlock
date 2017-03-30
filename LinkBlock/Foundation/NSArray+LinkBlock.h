@@ -4,9 +4,7 @@
 //  Created by NOVO on 15/8/12.
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 #ifndef NSArrayNew
 #define NSArrayNew ([NSArray new])
@@ -15,68 +13,79 @@
 /**
  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
- Arr.makeLinkObjs....
+ Arrary.makeLinkObjs....
  */
-@property (nonatomic,strong,readonly)NSObject*               makeLinkObjs;
-
+LBDeclare_F NSObject*              makeLinkObjs;
 /** <^(NSUInteger idx)> */
-@property (nonatomic,copy,readonly) NSObject*                (^arrAt)(NSUInteger idx);
+LBDeclare NSObject*                (^arrAt)(NSUInteger idx);
 /** <^(id obj)>是否包含某个对象 */
-@property (nonatomic,copy,readonly) BOOL                     (^arrContain)(id obj);
-@property (nonatomic,copy,readonly) NSNumber*                (^arrContain_n)(id obj);
+LBDeclare BOOL                     (^arrContain)(id obj);
+LBDeclare NSNumber*                (^arrContain_n)(id obj);
 /** <^(NSUInteger idx)> */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^arrSubFrom)(NSUInteger idx);
+LBDeclare NSMutableArray*          (^arrSubFrom)(NSUInteger idx);
 /** <^(NSUInteger idx)> */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^arrSubTo)(NSUInteger idx);
+LBDeclare NSMutableArray*          (^arrSubTo)(NSUInteger idx);
 /** <^(NSUInteger from, NSUInteger to)>获取from到to（包含）范围内的对象 */
-@property (nonatomic,copy,readonly) NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
+LBDeclare NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
 /** <^(NSString* split)>将数组元素连接为字符串，split为连接字符串，正序 */
-@property (nonatomic,copy,readonly) NSMutableString*         (^arrJoin)(NSString* split);
+LBDeclare NSMutableString*         (^arrJoin)(NSString* split);
 /** <^()>将数组中数组类型项合并，正序 */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^arrJoinArr)();
+LBDeclare NSMutableArray*          (^arrJoinArr)();
 /** <^()>将数组中字典类型项合并 */
-@property (nonatomic,copy,readonly) NSMutableDictionary*     (^arrJoinDict)();
+LBDeclare NSMutableDictionary*     (^arrJoinDict)();
 /** <^(NSUInteger count)>将数组拆分为每组count个数的多个数组,count为0时返回当前对象本身 */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
+LBDeclare NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
 /** <^(id value, NSString* key)>使用KVC设置数组一项值 */
-@property (nonatomic,copy,readonly) __kindof NSArray*        (^arrSetValueForKey)(id value, NSString* key);
+LBDeclare __kindof NSArray*        (^arrSetValueForKey)(id value, NSString* key);
 /** <^(NSUInteger idx)>索引index是否在范围内 */
-@property (nonatomic,copy,readonly) BOOL                     (^arrContainIndex)(NSUInteger idx);
-@property (nonatomic,copy,readonly) NSNumber*                (^arrContainIndex_n)(NSUInteger idx);
+LBDeclare BOOL                     (^arrContainIndex)(NSUInteger idx);
+LBDeclare NSNumber*                (^arrContainIndex_n)(NSUInteger idx);
+/** <^(id obj)> */
+LBDeclare NSUInteger               (^arrIndexOfObj)(id obj);
+LBDeclare NSNumber*                (^arrIndexOfObj_n)(id obj);
 /** <^(NSMutableArray* arr)>返回新数组 */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^arrAddTo)(NSMutableArray* arr);
+LBDeclare NSMutableArray*          (^arrAddToArr)(NSMutableArray* arr);
 /** <^()>数组转字典，键为NSNumber类型 */
-@property (nonatomic,copy,readonly) NSDictionary*            (^arrToDictByKeyNumber)();
+LBDeclare NSDictionary*            (^arrToDictByKeyNumber)();
 /** <^()>数组转字典，键为NSString类型 */
-@property (nonatomic,copy,readonly) NSDictionary*            (^arrToDictByKeyString)();
-/** <^()>获取任意一个对象 */
-@property (nonatomic,copy,readonly) NSObject*                (^arrAny)();
+LBDeclare NSDictionary*            (^arrToDictByKeyString)();
+/** <^()>获取任意一个对象，空数组返回NSNull */
+LBDeclare NSObject*                (^arrAny)();
 /** <^()>最后一个对象 */
-@property (nonatomic,copy,readonly) NSObject*                (^arrLast)();
+LBDeclare NSObject*                (^arrLast)();
 /** <^()>第一个对象 */
-@property (nonatomic,copy,readonly) NSObject*                (^arrFirst)();
-/**<^(NSString* predicateFormat)>组数过滤，如age>20 */
-@property (nonatomic,copy,readonly) NSArray*                 (^arrFilter)(NSString* predicateFormat);
+LBDeclare NSObject*                (^arrFirst)();
+/**<^(NSString* predicateFormat,...)>组数过滤，如age>20 */
+LBDeclare NSArray*                 (^arrFilter)(NSString* predicateFormat , ...);
 /**<^(id value)>获取数组中某个值的所有索引 */
-@property (nonatomic,copy,readonly) NSIndexSet*              (^arrIndexSetOfValue)(id value);
+LBDeclare NSIndexSet*              (^arrIndexSetOfValue)(id value);
 /**<^(id<NSCopying> replaceKey,id<NSCopying> withKey)>替换数组中字典的key，深度遍历的 */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^arrReplaceKeyInDict)(id<NSCopying> replaceKey,id<NSCopying> withKey);
+LBDeclare NSMutableArray*          (^arrReplaceKeyInDict)(id<NSCopying> replaceKey,id<NSCopying> withKey);
 /**<^(id<NSCopying> replaceKey,id<NSCopying> withKey)>替换数组中字典的key，非深度遍历的 */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^arrReplaceKeyInDictWithoutDeep)(id<NSCopying> replaceKey,id<NSCopying> withKey);
+LBDeclare NSMutableArray*          (^arrReplaceKeyInDictWithoutDeep)(id<NSCopying> replaceKey,id<NSCopying> withKey);
 /**<^()>找到数组中最大的数字类型，可容纳其他类型对象 */
-@property (nonatomic,copy,readonly) NSNumber*                (^arrMaxNumber)();
+LBDeclare NSNumber*                (^arrMaxNumber)();
 /**<^()>找到数组中最小的数字类型，可容纳其他类型对象 */
-@property (nonatomic,copy,readonly) NSNumber*                (^arrMinNumber)();
+LBDeclare NSNumber*                (^arrMinNumber)();
 /** <^()>对数组中对象随机赋值，仅含字符串和数字类型 */
-@property (nonatomic,copy,readonly) NSArray*                 (^arrObjsValueRandom)();
+LBDeclare NSArray*                 (^arrObjsValueRandom)();
 /** <^(Class typeClass)>获取数组中所有该类型的对象 */
-@property (nonatomic,copy,readonly) NSMutableArray*          (^arrObjsOfType)(Class typeClass);
+LBDeclare NSMutableArray*          (^arrObjsOfType)(Class typeClass);
 /** <^(BOOL ascending)>对数组中的值使用compare:进行排序 */
-@property (nonatomic,copy,readonly) NSArray*                 (^arrSort)(BOOL ascending);
+LBDeclare NSArray*                 (^arrSort)(BOOL ascending);
 /** <^(NSString* key, BOOL ascending)>以数组中对象的Key的值进行排序,ascending：升序 */
-@property (nonatomic,copy,readonly) NSArray*                 (^arrSortByKey)(NSString* key, BOOL ascending);
+LBDeclare NSArray*                 (^arrSortByKey)(NSString* key, BOOL ascending);
 /** <^()>倒序，返回新数组 */
-@property (nonatomic,copy,readonly) NSArray*                 (^arrReversed)();
+LBDeclare NSArray*                 (^arrReversed)();
+
+#pragma mark - 键值
+/** <^(NSString* key,id value)>数组项是否有匹配键相等的值 */
+LBDeclare BOOL                     (^arrKeyValueContain)(NSString* key,id value);
+LBDeclare NSNumber*                (^arrKeyValueContain_n)(NSString* key,id value);
+/** <^(NSString* key,id value)>返回能与数组项的键值匹配的对象的集合 */
+LBDeclare NSMutableArray*          (^arrKeyValueMatchObjs)(NSString* key,id value);
+/** <^(NSString* key,id value)>返回能与数组项的多个键值匹配的对象的集合 */
+LBDeclare NSMutableArray*          (^arrKeyValuesMatchObjs)(NSDictionary<NSString*,id>* kv);
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

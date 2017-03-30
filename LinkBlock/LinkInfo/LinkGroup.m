@@ -31,8 +31,7 @@
 {
     
     LinkGroup* re = [LinkGroup new];
-    if(!obj)
-        return re;
+    if(!obj) return re;
     
     NSMutableArray* objs = [NSMutableArray new];
     [objs addObject:obj];
@@ -47,6 +46,17 @@
     
     [re.linkObjects addObjectsFromArray:objs];
     return re;
+}
+
++ (LinkGroup*)groupWithObjs:(id)obj0 args:(va_list)args
+{
+    NSMutableArray* objs = [NSMutableArray new];
+    id parmObj = obj0;
+    [objs addObject:parmObj];
+    while ((parmObj = va_arg(args, id))) {
+        [objs addObject:parmObj];
+    }
+    return [self groupWithArr:objs];
 }
 
 + (LinkGroup *)groupWithArr:(NSArray *)obj

@@ -6,16 +6,15 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "LinkBlock.h"
+#import "LinkBlockDefine.h"
 
 @interface NSObject(NSURLLinkBlock)
 /** <^()>系统照片url转图像，缩略图 */
-@property (nonatomic,copy,readonly) UIImage*         (^urlAssetsToUIImageByThumbnail)();
+LBDeclare UIImage*         (^urlAssetsToUIImageByThumbnail)();
 /** <^()>系统照片url转图像，高清图 */
-@property (nonatomic,copy,readonly) UIImage*         (^urlAssetsToUIImageByFullResolution)();
+LBDeclare UIImage*         (^urlAssetsToUIImageByFullResolution)();
 /** <^()>系统照片url转图像，全屏相片 */
-@property (nonatomic,copy,readonly) UIImage*         (^urlAssetsToUIImageByFullScreen)();
+LBDeclare UIImage*         (^urlAssetsToUIImageByFullScreen)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSData*          (^urlToNSDataFromContents)();
+LBDeclare NSData*          (^urlToNSDataFromContents)();
 @end

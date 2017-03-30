@@ -11,74 +11,6 @@
 
 @implementation NSObject(LinkBlock)
 
-- (id (^)(NSString *))valueForKeySafe
-{
-    return ^id(NSString* key){
-        LinkHandle_VAL_IFNOT(NSObject){
-            return nil;
-        }
-        LinkGroupHandle_VAL(valueForKeySafe,key)
-        @try {
-            return [_self valueForKey:key];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"LinkBlock log:\n%@",exception);
-            return nil;
-        }
-    };
-}
-
-- (NSObject *(^)(id ,NSString* ))setValueForKeySafe
-{
-    return ^id(id value,NSString* key){
-        LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(setValueForKeySafe,value,key)
-        @try {
-            [_self setValue:value forKey:key];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"LinkBlock log:\n%@",exception);
-        }
-        @finally {
-            return _self;
-        }
-    };
-}
-
-- (id (^)(NSString *))valueForKeyPathSafe
-{
-    return ^id(NSString* key){
-        LinkHandle_VAL_IFNOT(NSObject){
-            return nil;
-        }
-        LinkGroupHandle_VAL(valueForKeyPathSafe,key)
-        @try {
-            return [_self valueForKeyPath:key];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"LinkBlock log:\n%@",exception);
-            return nil;
-        }
-    };
-}
-
-- (NSObject *(^)(id ,NSString* ))setValueForKeyPathSafe
-{
-    return ^id(id value,NSString* key){
-        LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(setValueForKeyPathSafe,value,key)
-        @try {
-            [_self setValue:value forKeyPath:key];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"LinkBlock log:\n%@",exception);
-        }
-        @finally {
-            return _self;
-        }
-    };
-}
-
 + (BOOL)classIsFoundation
 {
     //root
@@ -464,7 +396,7 @@
                 [obj appendString:_self];
             }else{
                 
-                obj = [obj mutableCopy];
+                obj = [obj mutableCopy] ;
                 [obj appendString:_self];
             }
         }else if ([self isKindOfClass:[UIView class]] &&
@@ -477,7 +409,7 @@
             [obj addSublayer:_self];
         }
         
-        return obj?obj:[NSNull null];
+        return linkObj(obj);
     };
 }
 
@@ -499,7 +431,7 @@
                 [_self insertString:obj atIndex:idx];
             }else{
                 
-                _self = self.mutableCopy;
+                _self = [_self mutableCopy];
                 [_self insertString:obj atIndex:idx];
             }
         }else if ([self isKindOfClass:[UIView class]] &&
@@ -575,15 +507,15 @@
             [obj insertSublayer:_self atIndex:(unsigned)idx];
         }
         
-        return obj?obj:[NSNull null];
+        return linkObj(obj);
     };
 }
 
-- (NSObject *(^)(id))objRemove
+- (NSObject *(^)(id))objRemoveAll
 {
     return ^id(id obj){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objRemove , obj)
+        LinkGroupHandle_REF(objRemoveAll , obj)
         
         if([self isKindOfClass:[NSMutableArray class]] ||
            [self isKindOfClass:[NSMutableSet class]] ||
@@ -639,14 +571,14 @@
         LinkGroupHandle_REF(objRemoveFrom , obj)
         if(!obj) return _self;
         if([obj isKindOfClass:[NSMutableArray class]] ||
-           [obj isKindOfClass:[NSMutableSet class]] ||
-           [obj isKindOfClass:[NSHashTable class]] ||
-           [obj isKindOfClass:[NSCountedSet class]] ||
+           [obj isKindOfClass:[NSMutableSet class]]   ||
+           [obj isKindOfClass:[NSHashTable class]]    ||
+           [obj isKindOfClass:[NSCountedSet class]]   ||
            [obj isKindOfClass:[NSMutableOrderedSet class]]){
             
             [obj removeObject:_self];
         }else if ([self isKindOfClass:[NSString class]] &&
-                  [obj isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+                  [obj isMemberOfClass:NSClassFromString(@"__NSCFString")]){//NSMutableString
             
             [obj replaceOccurrencesOfString:_self
                                  withString:@""
@@ -724,7 +656,7 @@
             [obj removeObjectForKey:_self];
         }
         
-        return obj?obj:[NSNull null];
+        return linkObj(obj);
     };
 }
 
@@ -754,6 +686,34 @@
         NSAssert([self conformsToProtocol:@protocol(NSCoding)], @"必须实现NSCoding协议");
         NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:self];
         return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
+    };
+}
+
+- (BOOL (^)())objIsMutableType
+{
+    return ^(){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        LinkGroupHandle_VAL(objIsMutableType)
+        
+        if([_self isKindOfClass:[NSString class]]                         &&
+           [_self isMemberOfClass:NSClassFromString(@"__NSCFString")]){
+            return YES;
+        }else if([_self isKindOfClass:[NSMutableArray class]]             ||
+                 [_self isKindOfClass:[NSMutableDictionary class]]        ||
+                 [_self isKindOfClass:[NSMutableAttributedString class]]  ||
+                 [_self isKindOfClass:[NSMutableSet class]]               ||
+                 [_self isKindOfClass:[NSMutableData class]]              ||
+                 [_self isKindOfClass:[NSMutableIndexSet class]]          ||
+                 [_self isKindOfClass:[NSMutableOrderedSet class]]        ||
+                 [_self isKindOfClass:[NSMutableParagraphStyle class]]    ||
+                 [_self isKindOfClass:[NSMutableURLRequest class]]        ||
+                 [_self isKindOfClass:[NSMutableCharacterSet class]]
+                 ){
+            return YES;
+        }
+        return NO;
     };
 }
 
@@ -1223,51 +1183,70 @@
     };
 }
 
-- (BOOL (^)( __unsafe_unretained Class))isKindOf
+- (BOOL (^)( __unsafe_unretained Class))objIsKindOf
 {
     return ^(Class classKind){
         LinkHandle_VAL_IFNOT(NSObject){
             return NO;
         }
-        LinkGroupHandle_VAL(isKindOf,classKind)
-        if(!classKind)
-            return NO;
-        return [_self isKindOfClass:classKind];
+        LinkGroupHandle_VAL(objIsKindOf,classKind)
+        if(!classKind) return NO;
+        return [_self.linkEnd isKindOfClass:classKind];
     };
 }
 
-- (NSNumber *(^)(__unsafe_unretained Class))isKindOf_n
+- (NSNumber *(^)(__unsafe_unretained Class))objIsKindOf_n
 {
     return ^id(Class classKind){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(isKindOf_n,classKind)
-        if(!classKind)
-            return @NO;
-        return @([_self isKindOfClass:classKind]);
+        LinkGroupHandle_REF(objIsKindOf_n,classKind)
+        if(!classKind) return @NO;
+        return @([_self.linkEnd isKindOfClass:classKind]);
     };
 }
 
-- (BOOL (^)(__unsafe_unretained Class))isSubClassOf
+- (BOOL (^)( __unsafe_unretained Class))objIsMemberOfClass
 {
     return ^(Class classKind){
         LinkHandle_VAL_IFNOT(NSObject){
             return NO;
         }
-        LinkGroupHandle_VAL(isSubClassOf,classKind)
-        if(!classKind)
-            return NO;
-        return [[_self class] isSubclassOfClass:classKind];
+        LinkGroupHandle_VAL(objIsMemberOfClass,classKind)
+        if(!classKind) return NO;
+        return [_self.linkEnd isMemberOfClass:classKind];
     };
 }
 
-- (NSNumber *(^)(__unsafe_unretained Class))isSubClassOf_n
+- (NSNumber *(^)(__unsafe_unretained Class))objIsMemberOfClass_n
 {
     return ^id(Class classKind){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(isSubClassOf_n,classKind)
+        LinkGroupHandle_REF(objIsMemberOfClass_n,classKind)
+        if(!classKind) return @NO;
+        return @([_self.linkEnd isMemberOfClass:classKind]);
+    };
+}
+
+- (BOOL (^)(__unsafe_unretained Class))objIsSubClassOf
+{
+    return ^(Class classKind){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        LinkGroupHandle_VAL(objIsSubClassOf,classKind)
+        if(!classKind) return NO;
+        return [[_self.linkEnd class] isSubclassOfClass:classKind];
+    };
+}
+
+- (NSNumber *(^)(__unsafe_unretained Class))objIsSubClassOf_n
+{
+    return ^id(Class classKind){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsSubClassOf_n,classKind)
         if(!classKind)
             return @(NO);
-        return @([[_self class] isSubclassOfClass:classKind]);
+        return @([[_self.linkEnd class] isSubclassOfClass:classKind]);
     };
 }
 
@@ -1300,24 +1279,11 @@
     };
 }
 
-- (NSObject *(^)(id))objSetDelegate
-{
-    return ^id(id delegate){
-        LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetDelegate,delegate)
-        @try {
-            [self setValue:delegate forKey:@"delegate"];
-        } @finally {
-            return _self;
-        }
-    };
-}
-
-- (NSObject *(^)())objValueRandom
+- (NSObject *(^)())objValuesRandom
 {
     return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objValueRandom)
+        LinkGroupHandle_REF(objValuesRandom)
         
         unsigned int outCount, i;
         objc_property_t* properties = class_copyPropertyList([self class], &outCount);
@@ -1326,12 +1292,20 @@
             NSString* pName = @(property_getName(properties[i]));
             NSString *attrs = @(property_getAttributes(properties[i]));
             NSUInteger dotLoc = [attrs rangeOfString:@","].location;
+            NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
             NSString *code = nil;
             NSUInteger loc = 1;
             if (dotLoc == NSNotFound) { // 没有
                 code = [attrs substringFromIndex:loc];
             } else {
                 code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+            }
+            
+            if([attrInfos containsObject:@"R"]){//只读属性
+                continue;
+            }
+            else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){//无值
+                continue;
             }
             
             if ([code isEqualToString:@"@"]) {
@@ -1346,11 +1320,25 @@
                 Class clazz = NSClassFromString(code);
                 
                 if([clazz isSubclassOfClass:[NSNumber class]]){//数字
-                    [_self setValue:@(arc4random_uniform(10001)) forKey:pName];
+                    [_self setValue:@(arc4random_uniform(10000)) forKey:pName];
                 }else if ([clazz isSubclassOfClass:[NSMutableString class]]){//字符串
                     [_self setValue:[[NSUUID UUID].UUIDString substringToIndex:4].mutableCopy forKey:pName];
                 }else if ([clazz isSubclassOfClass:[NSString class]]){
                     [_self setValue:[[NSUUID UUID].UUIDString substringToIndex:4] forKey:pName];
+                }else if ([clazz isSubclassOfClass:[NSDate class]]){//日期
+                    [_self setValue:[NSDate dateWithTimeIntervalSince1970:arc4random_uniform(MAXFLOAT)] forKey:pName];
+                }else if ([clazz isSubclassOfClass:[UILabel class]] ||
+                          [clazz isSubclassOfClass:[UITextView class]] ||
+                          [clazz isSubclassOfClass:[UITextField class]]){
+                    
+                    UIView* titleView = [clazz new];
+                    [titleView setValue:[[NSUUID UUID].UUIDString substringToIndex:4] forKeyPath:@"text"];
+                    [_self setValue:titleView forKey:pName];
+                }else if ([clazz isSubclassOfClass:[UIButton class]]){
+                    
+                    UIButton* btn = [clazz new];
+                    [btn setTitle:[[NSUUID UUID].UUIDString substringToIndex:4] forState:UIControlStateNormal];
+                    [_self setValue:btn forKey:pName];
                 }
             } else if ([code isEqualToString:@":"] ||//SEL
                        [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
@@ -1359,6 +1347,31 @@
                 //KVCDisabled
                 continue;
             }
+//暂不对UI位置做改变
+//            else if([code isEqualToString:@(@encode(CGRect))]){
+//                [_self setValue:[NSValue valueWithCGRect:CGRectZero] forKey:pName];
+//                continue;
+//            }else if([code isEqualToString:@(@encode(CGPoint))]){
+//                [_self setValue:[NSValue valueWithCGPoint:CGPointZero] forKey:pName];
+//                continue;
+//            }else if([code isEqualToString:@(@encode(CGSize))]){
+//                [_self setValue:[NSValue valueWithCGSize:CGSizeZero] forKey:pName];
+//                continue;
+//            }else if([code isEqualToString:@(@encode(NSRange))]){
+//                [_self setValue:[NSValue valueWithRange:NSMakeRange(0, 0)] forKey:pName];
+//                continue;
+//            }else if([code isEqualToString:@(@encode(UIEdgeInsets))]){
+//                [_self setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:pName];
+//                continue;
+//            }else if([code isEqualToString:@(@encode(UIOffset))]){
+//                [_self setValue:[NSValue valueWithUIOffset:UIOffsetZero] forKey:pName];
+//                continue;
+//            }else if([code isEqualToString:@(@encode(CGVector))]){
+//                [_self setValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)] forKey:pName];
+//                continue;
+//            }
+            
+            
             // 是否为数字类型
             NSString *lowerCode = code.lowercaseString;
             NSArray *numberTypes = @[@"i", @"s", @"c", @"b", @"f", @"d", @"l", @"q", @"c"];
@@ -1377,13 +1390,13 @@
     };
 }
 
-- (BOOL (^)(SEL))isRespondsSEL
+- (BOOL (^)(SEL))objIsRespondsSEL
 {
     return ^(SEL theSEL){
         LinkHandle_VAL_IFNOT(NSObject){
             return NO;
         }
-        LinkGroupHandle_VAL(isRespondsSEL,theSEL)
+        LinkGroupHandle_VAL(objIsRespondsSEL,theSEL)
         if(theSEL){
             if([_self respondsToSelector:theSEL])
                 return YES;
@@ -1392,16 +1405,13 @@
     };
 }
 
-- (NSNumber *(^)(SEL))isRespondsSEL_n
+- (NSNumber *(^)(SEL))objIsRespondsSEL_n
 {
     return ^id(SEL theSEL){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(isRespondsSEL_n,theSEL)
-        if(theSEL){
-            if([_self respondsToSelector:theSEL])
-                return @(YES);
-        }
-        return @(NO);
+        LinkGroupHandle_REF(objIsRespondsSEL_n,theSEL)
+        if(theSEL && [_self respondsToSelector:theSEL]) return @YES;
+        return @NO;
     };
 }
 
@@ -1690,33 +1700,33 @@
             return nil;
         }
         LinkGroupHandle_VAL(objClass)
-        return [_self class];
+        return [_self.linkEnd class];
     };
 }
 
-- (NSString *(^)())className
+- (NSString *(^)())objClassName
 {
     return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(className)
-        return NSStringFromClass(_self.class);
+        LinkGroupHandle_REF(objClassName)
+        return linkObjDefault(NSStringFromClass([_self class]) , @"");
     };
 }
 
-- (NSString *(^)())superclassName
+- (NSString *(^)())objSuperclassName
 {
     return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(superclassName)
-        return NSStringFromClass(_self.superclass);
+        LinkGroupHandle_REF(objSuperclassName)
+        return linkObjDefault(NSStringFromClass([_self superclass]),@"");
     };
 }
 
-- (NSObject *(^)(id*))setTo
+- (NSObject *(^)(id*))objSetTo
 {
     return ^id(id* toObject){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(setTo,toObject)
+        LinkGroupHandle_REF(objSetTo,toObject)
         *toObject= _self;
         return _self;
     };
@@ -1741,6 +1751,7 @@
 - (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block
 {
     LinkHandle_REF(NSObject)
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if(block)   block(_self);
     });
@@ -2080,8 +2091,6 @@
             
             return ((LinkReturn*)self).returnValue;
         }
-    }else if (self == [NSNull null]){
-        return nil;
     }
     return self;
 }
@@ -2115,8 +2124,6 @@
                 return reVal.linkEnds;
             return reVal.linkEnd;
         }
-    }else if (self == [NSNull null]){
-        return nil;
     }
     return (id)self;
 }
@@ -2154,52 +2161,79 @@
                     return nil;
                 }
             }
-        }else if (self == [NSNull null]){
-            return nil;
         }
         return self;
     };
 }
 
-- (id (^)(NSString *))valueForKey
+- (NSObject* (^)(NSString *))objValueForKey
 {
     return ^id(NSString* key){
         LinkHandle_VAL_IFNOT(NSObject){
             return nil;
         }
-        LinkGroupHandle_VAL(valueForKey,key)
-        return [_self valueForKey:key];
+        LinkGroupHandle_VAL(objValueForKey,key)
+        return linkObjNotNil([_self valueForKey:key]);
     };
 }
 
-- (NSObject *(^)(id, NSString* ))setValueForKey
+- (NSObject *(^)(id, NSString* ))objSetValueForKey
 {
     return ^id(id value, NSString* key){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(setValueForKey,value,key)
+        LinkGroupHandle_REF(objSetValueForKey,value,key)
         [_self setValue:value forKey:key];
         return _self;
     };
 }
 
-- (id (^)(NSString *))valueForKeyPath
+- (NSObject *(^)(NSString *))objValueForKeyPath
 {
     return ^id(NSString* key){
         LinkHandle_VAL_IFNOT(NSObject){
             return nil;
         }
-        LinkGroupHandle_VAL(valueForKeyPath,key)
-        return [_self valueForKeyPath:key];
+        LinkGroupHandle_VAL(objValueForKeyPath,key)
+        return linkObjNotNil([_self valueForKeyPath:key]);
     };
 }
 
-- (NSObject *(^)(id , NSString* ))setValueForKeyPath
+- (NSObject *(^)(id , NSString* ))objSetValueForKeyPath
 {
     return ^id(id value, NSString* key){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(setValueForKeyPath,value,key)
+        LinkGroupHandle_REF(objSetValueForKeyPath,value,key)
         [_self setValue:value forKeyPath:key];
         return self;
+    };
+}
+
+- (NSObject *(^)(NSDictionary<NSString *,id> *))objSetValuesWithKeyValues
+{
+    return ^id(NSDictionary<NSString *,id> * kvs){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSetValuesWithKeyValues,kvs)
+        [_self setValuesForKeysWithDictionary:kvs];
+        return self;
+    };
+}
+
+- (NSDictionary<NSString *,id> *(^)(NSArray<NSString *> *))objKeyValueWithKeys
+{
+    return ^id(NSArray<NSString *> * keys){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objKeyValueWithKeys,keys)
+        return [_self dictionaryWithValuesForKeys:keys];
+    };
+}
+
+- (NSObject *(^)(NSString *))objSetNilForKey
+{
+    return ^id(NSString * key){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSetNilForKey,key)
+        [_self setValue:nil forKey:key];
+        return _self;
     };
 }
 
@@ -2270,6 +2304,393 @@
     };
 }
 
+#define Link_objSetValueForKey_(key) \
+- (NSObject *(^)(id))objSetValueForKey_##key\
+{\
+    return ^id(id value){\
+        LinkHandle_REF(NSObject)\
+        LinkGroupHandle_REF(objSetValueForKey_##key, value)\
+        [_self setValue:value forKey:@""#key""];\
+        return _self;\
+    };\
+}
+
+Link_objSetValueForKey_(delegate)
+Link_objSetValueForKey_(dataSource)
+Link_objSetValueForKey_(text)
+
+- (NSObject *(^)())objValuesClean
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objValuesClean)
+        
+        unsigned int outCount, i;
+        objc_property_t* properties = class_copyPropertyList([self class], &outCount);
+        for(i=0 ; i< outCount; i++){
+            
+            NSString* pName = @(property_getName(properties[i]));
+            NSString *attrs = @(property_getAttributes(properties[i]));
+            NSUInteger dotLoc = [attrs rangeOfString:@","].location;
+            NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
+            NSString *code = nil;
+            NSUInteger loc = 1;
+            if (dotLoc == NSNotFound) { // 没有
+                code = [attrs substringFromIndex:loc];
+            } else {
+                code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+            }
+            
+            if([attrInfos containsObject:@"R"]){//只读属性
+                continue;
+            }
+            else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){//无值
+                continue;
+            }
+            
+            if ([code isEqualToString:@"@"]) {
+                //id
+                [_self setValue:nil forKey:pName];
+                continue;
+            } else if (code.length == 0) {
+                //KVCDisabled
+                continue;
+            } else if (code.length > 3 && [code hasPrefix:@"@\""]) {//类型
+                [_self setValue:nil forKey:pName];
+            } else if ([code isEqualToString:@":"] ||//SEL
+                       [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
+                       [code isEqualToString:@"^{objc_method=}"] ||//Method
+                       [code isEqualToString:@"@?"]) {//block
+                //KVCDisabled
+                continue;
+            }else if([code isEqualToString:@(@encode(CGRect))]){
+                [_self setValue:[NSValue valueWithCGRect:CGRectZero] forKey:pName];
+                continue;
+            }else if([code isEqualToString:@(@encode(CGPoint))]){
+                [_self setValue:[NSValue valueWithCGPoint:CGPointZero] forKey:pName];
+                continue;
+            }else if([code isEqualToString:@(@encode(CGSize))]){
+                [_self setValue:[NSValue valueWithCGSize:CGSizeZero] forKey:pName];
+                continue;
+            }else if([code isEqualToString:@(@encode(NSRange))]){
+                [_self setValue:[NSValue valueWithRange:NSMakeRange(0, 0)] forKey:pName];
+                continue;
+            }else if([code isEqualToString:@(@encode(UIEdgeInsets))]){
+                [_self setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:pName];
+                continue;
+            }else if([code isEqualToString:@(@encode(UIOffset))]){
+                [_self setValue:[NSValue valueWithUIOffset:UIOffsetZero] forKey:pName];
+                continue;
+            }else if([code isEqualToString:@(@encode(CGVector))]){
+                [_self setValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)] forKey:pName];
+                continue;
+            }
+            
+            
+            // 是否为数字类型
+            NSString *lowerCode = code.lowercaseString;
+            NSArray *numberTypes = @[@"i", @"s", @"c", @"b", @"f", @"d", @"l", @"q", @"c"];
+            if ([numberTypes containsObject:lowerCode]) {
+                //numberType
+                [_self setValue:@0 forKey:pName];
+                if ([lowerCode isEqualToString:@"c"]  || [lowerCode isEqualToString:@"b"]) {
+                    //boolType
+                    [_self setValue:@NO forKey:pName];
+                }
+            }
+        }
+        
+        free(properties);
+        return _self;
+    };
+}
+
+- (NSObject *(^)(SEL sel))objPerformSelector
+{
+    return ^id(SEL sel){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objPerformSelector, sel)
+        if([_self respondsToSelector:sel]){
+            [_self performSelector:sel];
+        }else{
+            NSLog(@"LinkBlock:%@未能找到方法:%@",self,NSStringFromSelector(sel));
+        }
+        return _self;
+    };
+}
+
+- (NSObject *(^)(SEL))objPerformSelector_linkToReturnValue
+{
+    return ^id(SEL sel){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objPerformSelector_linkToReturnValue, sel)
+        if(![_self respondsToSelector:sel]){
+            NSLog(@"LinkBlock:%@不能响应方法:%@",self,NSStringFromSelector(sel));
+        }
+        return LBObjcValue([_self _lb_performSelector:sel withArg:nil]);
+    };
+}
+
+- (NSObject *(^)(SEL, id))objPerformSelectorWithArg
+{
+    return ^id(SEL sel , id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objPerformSelectorWithArg, sel , obj)
+        if([_self respondsToSelector:sel]){
+            [_self performSelector:sel withObject:obj];
+        }else{
+            NSLog(@"LinkBlock:%@不能响应方法:%@",self,NSStringFromSelector(sel));
+        }
+        return _self;
+    };
+}
+
+- (NSObject *(^)(SEL, id))objPerformSelectorWithArg_linkToReturnValue
+{
+    return ^id(SEL sel , id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objPerformSelectorWithArg_linkToReturnValue, sel , obj)
+        if(![_self respondsToSelector:sel]){
+            NSLog(@"LinkBlock:%@不能响应方法:%@",self,NSStringFromSelector(sel));
+        }
+        return LBObjcValue([_self _lb_performSelector:sel withArg:obj]);
+    };
+}
+
+- (NSObject *(^)(SEL , ...))objPerformSelectors
+{
+    return ^id(SEL sel , ...){
+        LinkHandle_REF(NSObject)
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            if([group.linkObjects.firstObject respondsToSelector:sel]){
+                [group.linkObjects.firstObject performSelector:sel];
+            }else{
+                
+                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",group.linkObjects.firstObject,NSStringFromSelector(sel)]] logError];
+            }
+            va_list args;
+            va_start(args, sel);
+            SEL parm;
+            while ((parm = va_arg(args, SEL))) {
+                for (int i=1; i<group.linkObjects.count; i++) {
+                    if([group.linkObjects[i] respondsToSelector:parm]){
+                        [group.linkObjects[i] performSelector:parm];
+                    }else{
+                        [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",group.linkObjects[i],NSStringFromSelector(sel)]] logError];
+                    }
+                }
+            }
+            va_end(args);
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        if([_self respondsToSelector:sel]){
+            [_self performSelector:sel];
+        }else{
+            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",self,NSStringFromSelector(sel)]] logError];
+        }
+        va_list args;
+        va_start(args, sel);
+        SEL parm;
+        while ((parm = va_arg(args, SEL))) {
+            if([_self respondsToSelector:parm]){
+                [_self performSelector:parm];
+            }else{
+                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",self,NSStringFromSelector(sel)]] logError];
+            }
+        }
+        va_end(args);
+        
+        return _self;
+    };
+}
+
+- (NSArray *(^)(SEL, ...))objPerformSelectors_linkToReturnValues
+{
+    return ^id(SEL sel , ...){
+        LinkHandle_REF(NSObject)
+        NSMutableArray* results = NSMutableArrayNew;
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            [results addObject: LBObjcValue([group.linkObjects.firstObject _lb_performSelector:sel withArg:nil])];
+            va_list args;
+            va_start(args, sel);
+            SEL parm;
+            while ((parm = va_arg(args, SEL))) {
+                for (int i=1; i<group.linkObjects.count; i++) {
+                    [results addObject: LBObjcValue([group.linkObjects[i] _lb_performSelector:parm withArg:nil])];
+                }
+            }
+            va_end(args);
+            [group.linkObjects setArray:results];
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        [results addObject: LBObjcValue([_self _lb_performSelector:sel withArg:nil])];
+        va_list args;
+        va_start(args, sel);
+        SEL parm;
+        while ((parm = va_arg(args, SEL))) {
+            [results addObject: LBObjcValue([_self _lb_performSelector:parm withArg:nil])];
+        }
+        va_end(args);
+        
+        return results;
+    };
+}
+
+- (NSObject *(^)(SEL , NSArray* , ...))objPerformSelectorsWithArgs
+{
+    return ^id(SEL sel0 , NSArray* args0 , ...){
+        LinkHandle_REF(NSObject)
+        SEL currentSEL;
+        NSArray* currentArgs;
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            currentSEL = sel0; currentArgs = args0;
+            [group.linkObjects.firstObject _lb_performSelector:currentSEL withArgs:currentArgs];
+            currentSEL = nil; currentArgs = nil;
+            for (int idx=1 ; idx<group.linkObjects.count; idx++) {
+                
+                va_list args;
+                va_start(args , args0);
+                int i = 0;
+                while (true) {
+                    
+                    if(i%2 == 0){//偶数取方法
+                        
+                        if(currentSEL && currentArgs){
+                            [group.linkObjects[i] _lb_performSelector:currentSEL withArgs:currentArgs];
+                            currentArgs = nil;
+                        }
+                        currentSEL = va_arg(args, SEL);
+                        if(!currentSEL) break;
+                    }else{//取参数
+                        
+                        currentArgs = va_arg(args, NSArray*);
+                        if(!currentArgs) break;
+                    }
+                    ++i;
+                }
+                va_end(args);
+            }
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        currentSEL = sel0; currentArgs = args0;
+        [_self _lb_performSelector:currentSEL withArgs:currentArgs];
+        currentSEL = nil; currentArgs = nil;
+        
+        va_list args;
+        va_start(args , args0);
+        int i = 0;
+        while (true) {
+            
+            if(i%2 == 0){//偶数取方法
+                
+                if(currentSEL && currentArgs){
+                    [_self _lb_performSelector:currentSEL withArgs:currentArgs];
+                    currentArgs = nil;
+                }
+                currentSEL = va_arg(args, SEL);
+                if(!currentSEL) break;
+            }else{//取参数
+                
+                currentArgs = va_arg(args, NSArray*);
+                if(!currentArgs) break;
+            }
+            ++i;
+        }
+        va_end(args);
+        return self;
+    };
+}
+
+- (NSArray *(^)(SEL , NSArray* , ...))objPerformSelectorsWithArgs_linkToReturnValues
+{
+    return ^id(SEL sel0 , NSArray* args0 , ...){
+        
+        LinkHandle_REF(NSObject)
+        NSMutableArray* result = NSMutableArrayNew;
+        SEL currentSEL;
+        NSArray* currentArgs;
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            currentSEL = sel0; currentArgs = args0;
+            [group.linkObjects.firstObject _lb_performSelector:currentSEL withArgs:currentArgs];
+            currentSEL = nil; currentArgs = nil;
+            for (int idx=1 ; idx<group.linkObjects.count; idx++) {
+                
+                va_list args;
+                va_start(args , args0);
+                int i = 0;
+                while (true) {
+                    
+                    if(i%2 == 0){//偶数取方法
+                        
+                        if(currentSEL && currentArgs){
+                            [result addObject: LBObjcValue([group.linkObjects[i] _lb_performSelector:currentSEL withArgs:currentArgs])];
+                            currentArgs = nil;
+                        }
+                        currentSEL = va_arg(args, SEL);
+                        if(!currentSEL) break;
+                    }else{//取参数
+                        
+                        currentArgs = va_arg(args, NSArray*);
+                        if(!currentArgs) break;
+                    }
+                    ++i;
+                }
+                va_end(args);
+            }
+            [group.linkObjects setArray:result];
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        currentSEL = sel0; currentArgs = args0;
+        [result addObject: LBObjcValue([_self _lb_performSelector:currentSEL withArgs:currentArgs])];
+        currentSEL = nil; currentArgs = nil;
+        
+        va_list args;
+        va_start(args , args0);
+        int i = 0;
+        while (true) {
+            
+            if(i%2 == 0){//偶数取方法
+                
+                if(currentSEL && currentArgs){
+                    [result addObject: LBObjcValue([_self _lb_performSelector:currentSEL withArgs:currentArgs])];
+                    currentArgs = nil;
+                }
+                currentSEL = va_arg(args, SEL);
+                if(!currentSEL) break;
+            }else{//奇数取参数
+                
+                currentArgs = va_arg(args, NSArray*);
+                if(!currentArgs) break;
+            }
+            ++i;
+        }
+        va_end(args);
+        return result;
+    };
+}
 #pragma mark - 类型转换
 
 #ifndef Link_TransType_Maro
@@ -2310,4 +2731,49 @@ Link_TransType_Maro(UIWebView)
 Link_TransType_Maro(NSMutableSet)
 Link_TransType_Maro(NSSet)
 
+- (id)_lb_performSelector:(SEL)aSelector withArg:(id)arg
+{
+    NSMethodSignature *signature = [[self class] instanceMethodSignatureForSelector:aSelector];
+    if (signature == nil) {
+        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@未能找到方法:%@",self,NSStringFromSelector(aSelector)]] logError];
+    }
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+    invocation.selector = aSelector;
+    if(signature.numberOfArguments>2)
+        [invocation setArgument:&arg atIndex:2];//去掉self,_cmd所以从2开始
+    [invocation invoke];
+    id __unsafe_unretained returnValue;
+    if (signature.methodReturnLength) {
+        [invocation getReturnValue:&returnValue];
+    }
+    return returnValue;
+}
+
+- (id)_lb_performSelector:(SEL)aSelector withArgs:(NSArray*)args
+{
+    NSMethodSignature *signature = [[self class] instanceMethodSignatureForSelector:aSelector];
+    if (signature == nil) {
+        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@未能找到方法:%@",self,NSStringFromSelector(aSelector)]] logError];
+    }
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+    invocation.selector = aSelector;
+    NSInteger paramsCount = signature.numberOfArguments - 2;// 获取除去self、_cmd以外的参数个数
+    for (NSInteger idx = 0; idx < paramsCount; idx++) {
+        if(idx >= paramsCount) break ;//越界检测
+        id arg = nil;
+        if(args.count && idx<args.count && args[idx] != [NSNull null]){
+            arg = args[idx];
+        }
+        [invocation setArgument:&arg atIndex:idx+2];// 去掉self、_cmd所以从2开始
+        [invocation retainArguments];
+    }
+    [invocation invoke];
+    id __unsafe_unretained returnValue;
+    if (signature.methodReturnLength) {
+        [invocation getReturnValue:&returnValue];
+    }
+    return returnValue;
+}
 @end

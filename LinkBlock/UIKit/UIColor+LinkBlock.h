@@ -6,58 +6,58 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 @interface NSObject(UIColorLinkBlock)
-/** <^(NSString* prefix)>颜色转16进制字符串，返回为：prefix+颜色 */
-@property (nonatomic,copy,readonly) NSString*        (^colorToHexStrByPrefix)(NSString* prefix);
+/** <^(NSString* prefix)>颜色转16进制字符串，返回为：prefix+颜色。发生错误时返回NSNull */
+LBDeclare NSString*        (^colorToHexStrByPrefix)(NSString* prefix);
 /** <^(CGSize size)>根据颜色创建图片 */
-@property (nonatomic,copy,readonly) UIImage*         (^colorToUIImage)(CGSize size);
+LBDeclare UIImage*         (^colorToUIImage)(CGSize size);
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^colorRed)();
+LBDeclare CGFloat          (^colorRed)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^colorGreen)();
+LBDeclare CGFloat          (^colorGreen)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^colorBlue)();
+LBDeclare CGFloat          (^colorBlue)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^colorAlpha)();
+LBDeclare CGFloat          (^colorAlpha)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^colorHue)();
+LBDeclare CGFloat          (^colorHue)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^colorSaturation)();
+LBDeclare CGFloat          (^colorSaturation)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^colorBrightness)();
+LBDeclare CGFloat          (^colorBrightness)();
 /** <^(CGFloat value)>设置红色，返回新对象 */
-@property (nonatomic,copy,readonly) UIColor*         (^colorRedSet)(CGFloat value);
+LBDeclare UIColor*         (^colorRedSet)(CGFloat value);
 /** <^(CGFloat value)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorGreenSet)(CGFloat value);
+LBDeclare UIColor*         (^colorGreenSet)(CGFloat value);
 /** <^(CGFloat value)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorBlueSet)(CGFloat value);
+LBDeclare UIColor*         (^colorBlueSet)(CGFloat value);
 /** <^(CGFloat value)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorAlphaSet)(CGFloat value);
+LBDeclare UIColor*         (^colorAlphaSet)(CGFloat value);
 /** <^(double percent)>调节亮度,percent ∈ [-1,1] */
-@property (nonatomic,copy,readonly) UIColor*         (^colorBrightnessPercent)(double percent);
+LBDeclare UIColor*         (^colorBrightnessPercent)(double percent);
 /** <^()>变暗38.2%，接近系统变暗效果 */
-@property (nonatomic,copy,readonly) UIColor*         (^colorHighlightDarkColor)();
+LBDeclare UIColor*         (^colorHighlightDarkColor)();
 /** <^()>变亮38.2% */
-@property (nonatomic,copy,readonly) UIColor*         (^colorHighlightLightColor)();
+LBDeclare UIColor*         (^colorHighlightLightColor)();
 /** <^(CGFloat value)>设置色调，返回新对象 */
-@property (nonatomic,copy,readonly) UIColor*         (^colorHueSet)(CGFloat value);
+LBDeclare UIColor*         (^colorHueSet)(CGFloat value);
 /** <^(CGFloat value)>设置饱和度，返回新对象 */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSaturationSet)(CGFloat value);
+LBDeclare UIColor*         (^colorSaturationSet)(CGFloat value);
 /** <^(CGFloat value)>设置亮度，返回新对象 */
-@property (nonatomic,copy,readonly) UIColor*         (^colorBrightnessSet)(CGFloat value);
+LBDeclare UIColor*         (^colorBrightnessSet)(CGFloat value);
 
 /** <^(UIView* view)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetToViewBG)(UIView* view);
+LBDeclare UIColor*         (^colorSetToViewBG)(UIView* view);
 /** <^(NSArray<UIView*>* views)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetToViewsBG)(NSArray<UIView*>* views);
+LBDeclare UIColor*         (^colorSetToViewsBG)(NSArray<UIView*>* views);
 /** <^(UILabel* lab)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetToLabText)(UILabel* lab);
+LBDeclare UIColor*         (^colorSetToLabText)(UILabel* lab);
 /** <^(UITextView* txtView)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetToTxtViewText)(UITextView* txtView);
+LBDeclare UIColor*         (^colorSetToTxtViewText)(UITextView* txtView);
 /** <^(UITextField* txtField)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetToTxtFieldText)(UITextField* txtField);
+LBDeclare UIColor*         (^colorSetToTxtFieldText)(UITextField* txtField);
 /** <^(UIButton* btn, UIControlState state)> */
-@property (nonatomic,copy,readonly) UIColor*         (^colorSetToBtnTitle)(UIButton* btn, UIControlState state);
+LBDeclare UIColor*         (^colorSetToBtnTitle)(UIButton* btn, UIControlState state);
 @end

@@ -10,9 +10,9 @@
 
 @interface NSObject(JSValueLinkBlock)
 /** <^(id owner)> */
-@property (nonatomic,copy,readonly) JSManagedValue*      (^jsValueToManagedValue)(id owner);
+LBDeclare JSManagedValue*      (^jsValueToManagedValue)(id owner);
 /** <^(id owner)> */
-@property (nonatomic,copy,readonly) JSValue*             (^jsValueAddToSelfManagedRef)(id owner);
+LBDeclare JSValue*             (^jsValueAddToSelfManagedRef)(id owner);
 /** <^(NSArray* args)> */
-@property (nonatomic,copy,readonly) JSValue*             (^jsValueCallFunc)(NSArray* args);
+LBDeclare JSValue*             (^jsValueCallFunc)(NSArray* args);
 @end

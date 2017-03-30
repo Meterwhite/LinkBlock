@@ -579,7 +579,23 @@
         LinkHandle_REF(NSDate)
         LinkGroupHandle_REF(dateComponentsAll)
         return [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:_self];
+        UITableViewNew.delegate;
     };
 }
 
+- (NSString *(^)())dateAstrology
+{
+    return ^id(){
+        LinkHandle_REF(NSDate)
+        LinkGroupHandle_REF(dateAstrology)
+        NSString *astroString = @"魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
+        NSString *astroFormat = @"102123444543";
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:_self];
+        
+        NSInteger month = [components month];
+        NSInteger day = [components day];
+        
+        return [NSString stringWithFormat:@"%@座",[astroString substringWithRange:NSMakeRange(month * 2-(day < [[astroFormat substringWithRange:NSMakeRange((month-1), 1)] intValue] - (-19)) * 2,2)]];
+    };
+}
 @end

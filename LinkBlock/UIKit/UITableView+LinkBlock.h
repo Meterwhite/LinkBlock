@@ -6,17 +6,18 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "LinkBlockDefine.h"
+
 #ifndef UITableViewNew
-#define UITableViewNew ([UITableViewNew new])
+#define UITableViewNew ([UITableView new])
 #endif
 @interface NSObject(UITableViewLinkBlock)
 /** <^(id<UITableViewDelegate> delegate)> */
-@property (nonatomic,copy,readonly) UITableView*       (^tab_viewDelegate)(id<UITableViewDelegate> delegate);
+LBDeclare UITableView*       (^tab_viewDelegate)(id<UITableViewDelegate> delegate);
 /** <^(id<UITableViewDataSource> datasource)> */
-@property (nonatomic,copy,readonly) UITableView*       (^tab_viewDataSource)(id<UITableViewDataSource> datasource);
+LBDeclare UITableView*       (^tab_viewDataSource)(id<UITableViewDataSource> datasource);
 /** <^(BOOL b)> */
-@property (nonatomic,copy,readonly) UITableView*       (^tab_viewShowsHorizontal)(BOOL b);
+LBDeclare UITableView*       (^tab_viewShowsHorizontal)(BOOL b);
 /** <^(BOOL b)> */
-@property (nonatomic,copy,readonly) UITableView*       (^tab_viewShowsVertical)(BOOL b);
+LBDeclare UITableView*       (^tab_viewShowsVertical)(BOOL b);
 @end

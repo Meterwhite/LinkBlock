@@ -6,43 +6,43 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "LinkBlockDefine.h"
 
 #ifndef NSValueNew
 #define NSValueNew(...) ((NSValue*)(LBBoxValue((__VA_ARGS__))))
 #endif
 @interface NSObject(NSValueLinkBlock)
 /** <^()> */
-@property (nonatomic,copy,readonly) NSUInteger       (^valueNSRangeLocation)();
+LBDeclare NSUInteger       (^valueNSRangeLocation)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSUInteger       (^valueNSRangeLength)();
+LBDeclare NSUInteger       (^valueNSRangeLength)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGPointX)();
+LBDeclare CGFloat          (^valueCGPointX)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGPointY)();
+LBDeclare CGFloat          (^valueCGPointY)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGSizeWidth)();
+LBDeclare CGFloat          (^valueCGSizeWidth)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGSizeHeight)();
+LBDeclare CGFloat          (^valueCGSizeHeight)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGRectX)();
+LBDeclare CGFloat          (^valueCGRectX)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGRectY)();
+LBDeclare CGFloat          (^valueCGRectY)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGRectWidth)();
+LBDeclare CGFloat          (^valueCGRectWidth)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGRectHeight)();
+LBDeclare CGFloat          (^valueCGRectHeight)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGSize           (^valueCGRectSize)();
+LBDeclare CGSize           (^valueCGRectSize)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGPoint          (^valueCGRectOrigin)();
+LBDeclare CGPoint          (^valueCGRectOrigin)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGVectorX)();
+LBDeclare CGFloat          (^valueCGVectorX)();
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^valueCGVectorY)();
+LBDeclare CGFloat          (^valueCGVectorY)();
 /** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) NSValue*         (^valueCGSizeSetToViews)(NSArray* views);
+LBDeclare NSValue*         (^valueCGSizeSetToViews)(NSArray* views);
 /** <^(NSArray* views)> */
-@property (nonatomic,copy,readonly) NSValue*         (^valueCGPointSetToViews)(NSArray* views);
+LBDeclare NSValue*         (^valueCGPointSetToViews)(NSArray* views);
 
 @end

@@ -5,17 +5,17 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 @interface NSObject(UIControlLinkBlock)
 /** <^(BOOL enable)> */
-@property (nonatomic,copy,readonly) UIControl*  (^controlEnable)(BOOL enable);
+LBDeclare UIControl*  (^controlEnable)(BOOL enable);
 /** <^(BOOL enable)> */
-@property (nonatomic,copy,readonly) UIControl*  (^controlSelected)(BOOL enable);
+LBDeclare UIControl*  (^controlSelected)(BOOL enable);
 /** <^(BOOL enable)> */
-@property (nonatomic,copy,readonly) UIControl*  (^controlHighlighted)(BOOL enable);
+LBDeclare UIControl*  (^controlHighlighted)(BOOL enable);
 /** <^(UIControlContentHorizontalAlignment alignment)> */
-@property (nonatomic,copy,readonly) UIControl*  (^controlContentHorizontalAlignment)(UIControlContentHorizontalAlignment alignment);
+LBDeclare UIControl*  (^controlContentHorizontalAlignment)(UIControlContentHorizontalAlignment alignment);
 /** <^(UIControlContentVerticalAlignment alignment)> */
-@property (nonatomic,copy,readonly) UIControl*  (^controlContentVerticalAlignment)(UIControlContentVerticalAlignment alignment);
+LBDeclare UIControl*  (^controlContentVerticalAlignment)(UIControlContentVerticalAlignment alignment);
 @end

@@ -5,259 +5,279 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 @interface NSObject(NSStringLinkBlock)
 /** <^(NSUInteger index)> */
-@property (nonatomic,copy,readonly) NSString*    (^strAt)(NSUInteger index);
+LBDeclare NSString*    (^strAt)(NSUInteger index);
 /** <^(NSUInteger index)>元字符 */
-@property (nonatomic,copy,readonly) NSString*    (^strComposeAt)(NSUInteger index);
+LBDeclare NSString*    (^strComposeAt)(NSUInteger index);
 /** <^(NSString* str)> */
-@property (nonatomic,copy,readonly) BOOL         (^strIsEqualStr)(NSString* str);
-@property (nonatomic,copy,readonly) NSNumber*    (^strIsEqualStr_n)(NSString* str);
+LBDeclare BOOL         (^strIsEqualStr)(NSString* str);
+LBDeclare NSNumber*    (^strIsEqualStr_n)(NSString* str);
 /** <^()> */
-@property (nonatomic,copy,readonly) NSMutableString* (^strMutableCopy)();
+LBDeclare NSMutableString* (^strMutableCopy)();
 /** <^(NSString* str)> */
-@property (nonatomic,copy,readonly) NSString*    (^strAppend)(NSString* str);
+LBDeclare NSString*    (^strAppend)(NSString* str);
+/** <^(id obj)> */
+LBDeclare NSString*    (^strAppendObj)(id obj);
 /** <^(NSString* str)> */
-@property (nonatomic,copy,readonly) NSString*    (^strAppendTo)(NSString* str);
+LBDeclare NSString*    (^strAppendTo)(NSString* str);
 /** <^(NSString* formatStr , ...)> */
-@property (nonatomic,copy,readonly) NSString*    (^strAppendFormat)(NSString* formatStr , ...);
+LBDeclare NSString*    (^strAppendFormat)(NSString* formatStr , ...);
 /** <^(NSString* str)> */
-@property (nonatomic,copy,readonly) NSString*    (^strAppendLine)(NSString* str);
+LBDeclare NSString*    (^strAppendLine)(NSString* str);
 /** <^(NSString* str, NSUInteger index)> */
-@property (nonatomic,copy,readonly) NSString*    (^strInsertAt)(NSString* str, NSUInteger index);
+LBDeclare NSString*    (^strInsertAt)(NSString* str, NSUInteger index);
 /** <^(NSRange range)> */
-@property (nonatomic,copy,readonly) NSString*    (^strDeleteInRange)(NSRange range);
+LBDeclare NSString*    (^strDeleteInRange)(NSRange range);
 /** <^(NSString* str)> */
-@property (nonatomic,copy,readonly) NSString*    (^strDeleteStr)(NSString* str);
+LBDeclare NSString*    (^strDeleteStr)(NSString* str);
 /** <^(NSString* str, NSRange range)> */
-@property (nonatomic,copy,readonly) NSString*    (^strReplaceInRange)(NSString* str, NSRange range);
+LBDeclare NSString*    (^strReplaceInRange)(NSString* str, NSRange range);
 /** <^(NSString* replaceStr, NSString* withStr)> */
-@property (nonatomic,copy,readonly) NSString*    (^strReplace)(NSString* replaceStr, NSString* withStr);
+LBDeclare NSString*    (^strReplace)(NSString* replaceStr, NSString* withStr);
 /** <^(NSString* str)> */
-@property (nonatomic,copy,readonly) BOOL         (^strContain)(NSString* str);
-@property (nonatomic,copy,readonly) NSNumber*    (^strContain_n)(NSString* str);
+LBDeclare BOOL         (^strContain)(NSString* str);
+LBDeclare NSNumber*    (^strContain_n)(NSString* str);
 /** <^()>字符串是否含有汉字 */
-@property (nonatomic,copy,readonly) BOOL         (^strContainzh_CN)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strContainzh_CN_n)();
+LBDeclare BOOL         (^strContainzh_CN)();
+LBDeclare NSNumber*    (^strContainzh_CN_n)();
 /** <^(NSRange range)>范围内是否是汉字 */
-@property (nonatomic,copy,readonly) BOOL         (^strIszh_CNInRange)(NSRange range);
-@property (nonatomic,copy,readonly) NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
+LBDeclare BOOL         (^strIszh_CNInRange)(NSRange range);
+LBDeclare NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
 /** <^(NSString* str)>无结果时返回NSNotFound */
-@property (nonatomic,copy,readonly) NSRange      (^strRangeOfStr)(NSString* str);
+LBDeclare NSRange      (^strRangeOfStr)(NSString* str);
 /** <^(NSString* str)>无结果时返回NSNotFound */
-@property (nonatomic,copy,readonly) NSInteger    (^strIndexOfStr)(NSString* str);
+LBDeclare NSInteger    (^strIndexOfStr)(NSString* str);
 /** <^(NSString* str, NSUInteger startIndex)>从某处开始的某字符串的位置。无结果时返回NSNotFound */
-@property (nonatomic,copy,readonly) NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIndex);
+LBDeclare NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIndex);
 
 /** <^()>是否是表示空的字符串，包括全部空白符和字符串以及"<null>"，"(null)" */
-@property (nonatomic,copy,readonly) BOOL         (^strIsBlank)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strIsBlank_n)();
+LBDeclare BOOL         (^strIsBlank)();
+LBDeclare NSNumber*    (^strIsBlank_n)();
 /** <^()>判断emoji */
-@property (nonatomic,copy,readonly) BOOL         (^strIsEmoji)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strIsEmoji_n)();
+LBDeclare BOOL         (^strIsEmoji)();
+LBDeclare NSNumber*    (^strIsEmoji_n)();
 /** <^()> */
-@property (nonatomic,copy,readonly) BOOL         (^strContainEmoji)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strContainEmoji_n)();
+LBDeclare BOOL         (^strContainEmoji)();
+LBDeclare NSNumber*    (^strContainEmoji_n)();
 /** <^(UIFont* font)>通用视图排版中计算字符串尺寸 */
-@property (nonatomic,copy,readonly) CGSize       (^strSizeWithFont)(UIFont* font);
-@property (nonatomic,copy,readonly) NSValue*     (^strSizeWithFont_n)(UIFont* font);
+LBDeclare CGSize       (^strSizeWithFont)(UIFont* font);
+LBDeclare NSValue*     (^strSizeWithFont_n)(UIFont* font);
 /** <^(UIFont* font , CGFloat maxWidth)>通用视图排版中计算字符串尺寸 */
-@property (nonatomic,copy,readonly) CGSize       (^strSizeWithFontAndMaxWidth)(UIFont* font , CGFloat maxWidth);
-@property (nonatomic,copy,readonly) NSValue*     (^strSizeWithFontAndMaxWidth_n)(UIFont* font , CGFloat maxWidth);
+LBDeclare CGSize       (^strSizeWithFontAndMaxWidth)(UIFont* font , CGFloat maxWidth);
+LBDeclare NSValue*     (^strSizeWithFontAndMaxWidth_n)(UIFont* font , CGFloat maxWidth);
 /** <^(UIFont* font, CGSize maxSize)>通用视图排版中计算字符串尺寸 */
-@property (nonatomic,copy,readonly) CGSize       (^strSizeWithFontAndMaxSize)(UIFont* font, CGSize maxSize);
-@property (nonatomic,copy,readonly) NSValue*     (^strSizeWithFontAndMaxSize_n)(UIFont* font, CGSize maxSize);
+LBDeclare CGSize       (^strSizeWithFontAndMaxSize)(UIFont* font, CGSize maxSize);
+LBDeclare NSValue*     (^strSizeWithFontAndMaxSize_n)(UIFont* font, CGSize maxSize);
 /** <^(NSDictionary* attrDict)>计算字符串本身高度 */
-@property (nonatomic,copy,readonly) CGFloat      (^strHeight)(NSDictionary* attrDict);
+LBDeclare CGFloat      (^strHeight)(NSDictionary* attrDict);
 /** <^(NSDictionary* attrDict)>计算字符串的行高 */
-@property (nonatomic,copy,readonly) CGFloat      (^strLineHeight)(NSDictionary* attrDict);
+LBDeclare CGFloat      (^strLineHeight)(NSDictionary* attrDict);
 /** <^(CGFloat maxWidth,NSDictionary* attrDict)>视图排版中的文字的行数 */
-@property (nonatomic,copy,readonly) NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary* attrDict);
+LBDeclare NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary* attrDict);
 /** <^()>字符串的行数 */
-@property (nonatomic,copy,readonly) NSUInteger   (^strLinesCount)();
+LBDeclare NSUInteger   (^strLinesCount)();
 /** <^(NSInteger toLine截取行数, CGFloat maxWidth,NSDictionary* attrDict)>视图排版中截一定视觉行数的字符串 */
-@property (nonatomic,copy,readonly) NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict);
+LBDeclare NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict);
 /** <^(NSUInteger toLine截取行数)>截取到一定行数（换行符）的字符串 */
-@property (nonatomic,copy,readonly) NSString*    (^strSubToLine)(NSUInteger toLine);
+LBDeclare NSString*    (^strSubToLine)(NSUInteger toLine);
 /** <^()> */
-@property (nonatomic,copy,readonly) NSUInteger   (^strLength)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strLength_n)();
+LBDeclare NSUInteger   (^strLength)();
+LBDeclare NSNumber*    (^strLength_n)();
 /** <^()>字符串按ASCII的长度 */
-@property (nonatomic,copy,readonly) NSUInteger   (^strLengthASCII)();
+LBDeclare NSUInteger   (^strLengthASCII)();
 /** <^()>字符串按Unicode的长度 */
-@property (nonatomic,copy,readonly) NSUInteger   (^strLengthUnicode)();
+LBDeclare NSUInteger   (^strLengthUnicode)();
 /** <^()>字符串按元字符组成的序列的长度，即汉字，emoji等都作为一个字符 */
-@property (nonatomic,copy,readonly) NSUInteger   (^strLengthComposed)();
+LBDeclare NSUInteger   (^strLengthComposed)();
 /** <^(NSString* reg元字符正则)>字符串按元字符组成的序列和自定义正则规则元字符的长度，即每个字符，汉字，emoji，匹配，都视为一个元字符；参数传nil时和strLengthComposed()相同 */
-@property (nonatomic,copy,readonly) NSUInteger   (^strLengthComposedAndCustom)(NSString* reg);
+LBDeclare NSUInteger   (^strLengthComposedAndCustom)(NSString* reg);
 /** <^()> */
-@property (nonatomic,copy,readonly) NSString*    (^strClearSpaceAndWrap)();
+LBDeclare NSString*    (^strClearSpaceAndWrap)();
 /** <^(NSString* str)>对数字敏感的比较两个字符串：12.3 < 12.4; Foo2.txt < Foo7.txt ; */
-@property (nonatomic,copy,readonly) NSComparisonResult (^strCompareNumberSensitive)(NSString* str);
+LBDeclare NSComparisonResult (^strCompareNumberSensitive)(NSString* str);
 /** <^(NSString* str)>通用字符串比较 */
-@property (nonatomic,copy,readonly) NSComparisonResult (^strCompare)(NSString* str);
+LBDeclare NSComparisonResult (^strCompare)(NSString* str);
 /** <^()>是否是整型字符串 */
-@property (nonatomic,copy,readonly) BOOL         (^strIsInteger)();
+LBDeclare BOOL         (^strIsInteger)();
 /** <^()>是否是浮点数字符串 */
-@property (nonatomic,copy,readonly) BOOL         (^strIsFloating)();
+LBDeclare BOOL         (^strIsFloating)();
 /** <^()>是否是数字类型 */
-@property (nonatomic,copy,readonly) BOOL         (^strIsNumber)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strIsNumber_n)();
+LBDeclare BOOL         (^strIsNumber)();
+LBDeclare NSNumber*    (^strIsNumber_n)();
 /** <^()>反转字符串 */
-@property (nonatomic,copy,readonly) NSString*    (^strReversed)();
+LBDeclare NSString*    (^strReversed)();
 /** <^(NSString* str)>从左删除第一次匹配的字符串 */
-@property (nonatomic,copy,readonly) NSString*    (^strDeleteLeft)(NSString* str);
+LBDeclare NSString*    (^strDeleteLeft)(NSString* str);
 /** <^(NSString* str)>从右删除第一次匹配的字符串 */
-@property (nonatomic,copy,readonly) NSString*    (^strDeleteRight)(NSString* str);
+LBDeclare NSString*    (^strDeleteRight)(NSString* str);
 /** <^(NSString* str)>从左删除所有匹配的字符串，直到第一次不匹配 */
-@property (nonatomic,copy,readonly) NSString*    (^strTrimLeft)(NSString* str);
+LBDeclare NSString*    (^strTrimLeft)(NSString* str);
 /** <^(NSString* str)>从右删除所有匹配的字符串，直到第一次不匹配 */
-@property (nonatomic,copy,readonly) NSString*    (^strTrimRight)(NSString* str);
+LBDeclare NSString*    (^strTrimRight)(NSString* str);
 /** <^(NSString* str)>删除首尾字符 */
-@property (nonatomic,copy,readonly) NSString*    (^strTrim)(NSString* str);
+LBDeclare NSString*    (^strTrim)(NSString* str);
 /** <^(NSString* splitStr)>分割字符串， 传入 "." ，"0-a.b.c.e-0" 变为  "0-a" "b" "c" "d" "e-0" */
-@property (nonatomic,copy,readonly) NSArray<NSString*>*     (^strSplitWithStr)(NSString* splitStr);
+LBDeclare NSArray<NSString*>*     (^strSplitWithStr)(NSString* splitStr);
 /** <^(NSString* splitStr)>分割字符串，传入字符集类似@".-_" */
-@property (nonatomic,copy,readonly) NSArray<NSString*>*     (^strSplitWithCharsStr)(NSString* splitStr);
+LBDeclare NSArray<NSString*>*     (^strSplitWithCharsStr)(NSString* splitStr);
 /** <^(NSString* prefix)>是否包含开头 */
-@property (nonatomic,copy,readonly) BOOL         (^strHasPrefix)(NSString* prefix);
-@property (nonatomic,copy,readonly) NSNumber*    (^strHasPrefix_n)(NSString* prefix);
+LBDeclare BOOL         (^strHasPrefix)(NSString* prefix);
+LBDeclare NSNumber*    (^strHasPrefix_n)(NSString* prefix);
 /** <^(NSString* suffix)>是否包含结尾 */
-@property (nonatomic,copy,readonly) BOOL         (^strHasSuffix)(NSString* suffix);
-@property (nonatomic,copy,readonly) NSNumber*    (^strHasSuffix_n)(NSString* suffix);
+LBDeclare BOOL         (^strHasSuffix)(NSString* suffix);
+LBDeclare NSNumber*    (^strHasSuffix_n)(NSString* suffix);
 /** <^(NSUInteger from)> */
-@property (nonatomic,copy,readonly) NSString*    (^strSubFrom)(NSUInteger from);
+LBDeclare NSString*    (^strSubFrom)(NSUInteger from);
 /** <^(NSUInteger to)不能取到to> */
-@property (nonatomic,copy,readonly) NSString*    (^strSubTo)(NSUInteger to);
+LBDeclare NSString*    (^strSubTo)(NSUInteger to);
 /** <^(NSUInteger from , NSUInteger to)包含to> */
-@property (nonatomic,copy,readonly) NSString*    (^strSubFromTo)(NSUInteger from , NSUInteger to);
+LBDeclare NSString*    (^strSubFromTo)(NSUInteger from , NSUInteger to);
 /** <^(NSUInteger from)>按元字符截取字符串 */
-@property (nonatomic,copy,readonly) NSString*    (^strSubComposeFrom)(NSUInteger from);
+LBDeclare NSString*    (^strSubComposeFrom)(NSUInteger from);
 /** <^(NSUInteger to)不能取到to>按元字符截取字符串 */
-@property (nonatomic,copy,readonly) NSString*    (^strSubComposeTo)(NSUInteger to);
+LBDeclare NSString*    (^strSubComposeTo)(NSUInteger to);
 /** <^(NSUInteger from , NSUInteger to)包含to>按元字符截取字符串 */
-@property (nonatomic,copy,readonly) NSString*    (^strSubComposeFromTo)(NSUInteger from , NSUInteger to);
-
+LBDeclare NSString*    (^strSubComposeFromTo)(NSUInteger from , NSUInteger to);
+/** <^()>将字符串复制到通用剪贴板 */
+LBDeclare NSString*    (^strCopyToGeneralPasteboard)();
+#pragma mark - 文件
 /** <^(NSString* type)>根据文件名获取Bundle中的文件 */
-@property (nonatomic,copy,readonly) NSString*    (^strPathByFileNameInBundle)(NSString* type);
-@property (nonatomic,copy,readonly) NSString*    (^strPathAppendingComponent)(NSString* component);
+LBDeclare NSString*    (^strPathByFileNameInBundle)(NSString* type);
+LBDeclare NSString*    (^strPathAppendingComponent)(NSString* component);
 /** <^()>路径下文件是否存在 */
-@property (nonatomic,copy,readonly) BOOL         (^strPathFileExists)();
-@property (nonatomic,copy,readonly) NSNumber*    (^strPathFileExists_n)();
+LBDeclare BOOL         (^strPathFileExists)();
+LBDeclare NSNumber*    (^strPathFileExists_n)();
 /** 
- <^()>播放路径下音效并释放；
+ <^()>播放路径下音效并释放
  播放系统键盘音：@"/System/Library/Audio/UISounds/Tock.caf".strPathSoundPlay();
  */
-@property (nonatomic,copy,readonly) NSString*    (^strPathSoundPlay)();
+LBDeclare NSString*    (^strPathSoundPlay)();
 /** <^(id<NSCoding>obj)>解档 */
-@property (nonatomic,copy,readonly) NSString*    (^strPathArchiveObject)(id<NSCoding>obj);
+LBDeclare NSString*    (^strPathArchiveObject)(id<NSCoding>obj);
 /** <^()>归档，并以归档对象作为链条 */
-@property (nonatomic,copy,readonly) NSObject*    (^strPathUnarchiveObject_linkTo)();
-/** <^()>将字符串复制到通用剪贴板 */
-@property (nonatomic,copy,readonly) NSString*    (^strCopyToGeneralPasteboard)();
-/** <^(NSUInteger index)>加载XIB */
-@property (nonatomic,copy,readonly) __kindof UIView*     (^strLoadNibNamedAt)(NSUInteger index);
-/** <^(NSUInteger index)>加载第一个XIB */
-@property (nonatomic,copy,readonly) __kindof UIView*     (^strLoadNibNamedFirst)();
-/** <^(NSUInteger index)>加载最后一个XIB */
-@property (nonatomic,copy,readonly) __kindof UIView*     (^strLoadNibNamedLast)();
-#pragma mrak - 转换
-/** <^()>根据字符串类名调用new方法创建对象 */
-@property (nonatomic,copy,readonly) NSObject*            (^strToObjectFromName)();
+LBDeclare NSObject*    (^strPathUnarchiveObject_linkTo)();
+/** <^(NSUInteger index)>加载XIB，越界时返回NSNull */
+LBDeclare __kindof UIView*     (^strLoadNibNamedAt)(NSUInteger index);
+/** <^(NSUInteger index)>加载第一个XIB，越界时返回NSNull */
+LBDeclare __kindof UIView*     (^strLoadNibNamedFirst)();
+/** <^(NSUInteger index)>加载最后一个XIB，越界时返回NSNull */
+LBDeclare __kindof UIView*     (^strLoadNibNamedLast)();
+#pragma mark - 转换
+/** <^()>根据字符串类名调用new方法创建对象，没有该类型时返回NSNull */
+LBDeclare NSObject*            (^strToObjectFromName)();
 /** <^()>字符串转颜色；包含格式：0xcccccc , #cccccc , cccccc */
-@property (nonatomic,copy,readonly) UIColor*             (^strToUIColorFromHex)();
+LBDeclare UIColor*             (^strToUIColorFromHex)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSURL*               (^strToNSURL)();
-/** <^()>根据文件名创建UIImage */
-@property (nonatomic,copy,readonly) UIImage*             (^strToUIImage)();
+LBDeclare NSURL*               (^strToNSURL)();
+/** <^()>根据文件名创建UIImage，不存在图片时返回NSNull */
+LBDeclare UIImage*             (^strToUIImage)();
 /** <^()>根据文件名创建UIImageView，控件尺寸与图片原尺寸相同 */
-@property (nonatomic,copy,readonly) UIImageView*         (^strToUIImageView)();
+LBDeclare UIImageView*         (^strToUIImageView)();
 /** <^()>十六进制字符串转double */
-@property (nonatomic,copy,readonly) double               (^strToDoubleFromHex)();
+LBDeclare double               (^strToDoubleFromHex)();
 /** <^()>十六进制字符串转unsigned int */
-@property (nonatomic,copy,readonly) unsigned int         (^strToIntFromHex)();
+LBDeclare unsigned int         (^strToIntFromHex)();
 /** <^()>@"{{x,y},{w,h}}".strToCGRect() */
-@property (nonatomic,copy,readonly) CGRect               (^strToCGRect)();
+LBDeclare CGRect               (^strToCGRect)();
 /** <^()>@"{x,y}".strToCGVector() */
-@property (nonatomic,copy,readonly) CGVector             (^strToCGVector)();
+LBDeclare CGVector             (^strToCGVector)();
 /** <^()>@"{w,h}".strToCGSize() */
-@property (nonatomic,copy,readonly) CGSize               (^strToCGSize)();
+LBDeclare CGSize               (^strToCGSize)();
 /** <^()>@"{x,y}".strToCGPoint() */
-@property (nonatomic,copy,readonly) CGPoint              (^strToCGPoint)();
+LBDeclare CGPoint              (^strToCGPoint)();
 /** <^()>@"{a, b, c, d, tx, ty}".strToCGAffineTransform() */
-@property (nonatomic,copy,readonly) CGAffineTransform    (^strToCGAffineTransform)();
+LBDeclare CGAffineTransform    (^strToCGAffineTransform)();
 /** <^()>@"{top, left, bottom, right}".strToUIEdgeInsets() */
-@property (nonatomic,copy,readonly) UIEdgeInsets         (^strToUIEdgeInsets)();
+LBDeclare UIEdgeInsets         (^strToUIEdgeInsets)();
 /** <^()>@"{x,y}".strToUIOffset() */
-@property (nonatomic,copy,readonly) UIOffset             (^strToUIOffset)();
+LBDeclare UIOffset             (^strToUIOffset)();
 /** <^()>路径转NSData */
-@property (nonatomic,copy,readonly) NSData*              (^strToNSDataWithContentsOfFile)();
+LBDeclare NSData*              (^strToNSDataWithContentsOfFile)();
 /** <^(NSStringEncoding encodeing)>转NSData */
-@property (nonatomic,copy,readonly) NSData*              (^strToNSDataUseEncoding)(NSStringEncoding encodeing);
+LBDeclare NSData*              (^strToNSDataUseEncoding)(NSStringEncoding encodeing);
 /** <^(NSString* formatStr)>日期字符串转日期 */
-@property (nonatomic,copy,readonly) NSDate*              (^strToNSDateWithFormat)(NSString* formatStr);
+LBDeclare NSDate*              (^strToNSDateWithFormat)(NSString* formatStr);
 /** <^()>数字字符串转日期 */
-@property (nonatomic,copy,readonly) NSDate*              (^strToNSDateSince1970)();
+LBDeclare NSDate*              (^strToNSDateSince1970)();
 /** <^(NSStringEncoding encoding)>json形式字符串转字典 */
-@property (nonatomic,copy,readonly) NSDictionary*        (^strToNSDictionary)(NSStringEncoding encoding);
+LBDeclare NSDictionary*        (^strToNSDictionary)(NSStringEncoding encoding);
 /** <^(NSStringEncoding encoding)>json形式字符串转数组 */
-@property (nonatomic,copy,readonly) NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
-/** <^()>路径转系统音效ID；注意释放； */
-@property (nonatomic,copy,readonly) UInt32               (^strToSystemSoundID)();
+LBDeclare NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
+/** <^()>字符串转谓词 */
+LBDeclare NSPredicate*         (^strToPredicate)();
+/** <^(id obj1 , ...)>字符串转谓词，可带参数 */
+LBDeclare NSPredicate*         (^strToPredicateWidthFormatArgs)(id obj1 , ...);
+/** <^()>路径转系统音效ID；注意释放 */
+LBDeclare UInt32               (^strToSystemSoundID)();
+#pragma mark - 设置到
 /** <^(UILabel* lab)> */
-@property (nonatomic,copy,readonly) UILabel*             (^strSetToLab_linkTo)(UILabel* lab);
+LBDeclare UILabel*             (^strSetToLab_linkTo)(UILabel* lab);
 /** <^(UIButton* btn)> */
-@property (nonatomic,copy,readonly) UIButton*            (^strSetToBtn_linkTo)(UIButton* btn, UIControlState state);
+LBDeclare UIButton*            (^strSetToBtn_linkTo)(UIButton* btn, UIControlState state);
 /** <^(UITextField* txtField)> */
-@property (nonatomic,copy,readonly) UITextField*         (^strSetToTxtField_linkTo)(UITextField* txtField);
+LBDeclare UITextField*         (^strSetToTxtField_linkTo)(UITextField* txtField);
 /** <^(UITextView* txtView)> */
-@property (nonatomic,copy,readonly) UITextView*          (^strSetToTxtView_linkTo)(UITextView* txtView);
-
+LBDeclare UITextView*          (^strSetToTxtView_linkTo)(UITextView* txtView);
+#pragma mark - 正则
 /** <^(NSString* regex)> */
-@property (nonatomic,copy,readonly) BOOL                 (^strRegexIsMatch)(NSString* regex);
-@property (nonatomic,copy,readonly) NSNumber*            (^strRegexIsMatch_n)(NSString* regex);
+LBDeclare BOOL                 (^strRegexIsMatch)(NSString* regex);
+LBDeclare NSNumber*            (^strRegexIsMatch_n)(NSString* regex);
+/** <^(NSString* regex)>正则匹配，返回多个匹配结果 */
+LBDeclare NSMutableArray<NSString*>* (^strRegexMatchs)(NSString* regex);
 /**
  *  <^(NSString* regex, NSString* replaceTemplate)>
  *  正则表达式替换字符串子串
  *  regex : "http://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?".
  *  replaceTemplate : "<a href=\"$0\">$0</a>".
  */
-@property (nonatomic,copy,readonly) NSString*            (^strRegexReplace)(NSString* regex, NSString* replaceTemplate);
+LBDeclare NSString*            (^strRegexReplace)(NSString* regex, NSString* replaceTemplate);
 /** <^()>查找字符串中的第一组数字 */
-@property (nonatomic,copy,readonly) double               (^strFindNumber)();
-
+LBDeclare double               (^strFindNumber)();
+#pragma mark - 键
+/** <^(id obj)>KVC取值 */
+LBDeclare NSObject*            (^strKeyForValueWith)(id obj);
+/** <^(id obj)>KVC取值 */
+LBDeclare NSObject*            (^strKeyPathForValueWith)(id obj);
+#pragma mark - 谓词
+/** <^(id obj)>谓词 */
+LBDeclare BOOL                 (^strPredicateEvaluate)(id obj);
+LBDeclare NSNumber*            (^strPredicateEvaluate_n)(id obj);
+/** <^(id obj)>谓词 过滤数组；返回结果 */
+LBDeclare NSArray*             (^strPredicateFilteredArray)(NSArray* arr);
+/** <^(id obj)>谓词 过滤可变集合 NSMutableArray,NSMutableSet,NSMutableOrderedSet；返回谓词语句 */
+LBDeclare NSString*            (^strPredicateFilterMutable)(id collection);
 #pragma mark - URL字符串操作
 //** <^()>获取URL上键值对前的部分，可用于获取BaseURL，获取参数前的URL（即?前部分），但不对内容做验证 */
-@property (nonatomic,copy,readonly) NSString*            (^strURLBeforeKeyValues)();
+LBDeclare NSString*            (^strURLBeforeKeyValues)();
 /** <^(NSString* key)>URL取值 */
-@property (nonatomic,copy,readonly) NSString*            (^strURLValueForKey)(NSString* key);
+LBDeclare NSString*            (^strURLValueForKey)(NSString* key);
 /** <^(NSString* value,NSString* key)> */
-@property (nonatomic,copy,readonly) NSString*            (^strURLSetValueForKey)(NSString* value,NSString* key);
+LBDeclare NSString*            (^strURLSetValueForKey)(NSString* value,NSString* key);
 /** <^(NSDictionary<NSString* key,NSString* value>* keyValues)> */
-@property (nonatomic,copy,readonly) NSString*            (^strURLSetKeyValueWithDict)(NSDictionary<NSString*,NSString*>* keyValues);
+LBDeclare NSString*            (^strURLSetKeyValueWithDict)(NSDictionary<NSString*,NSString*>* keyValues);
 /** <^()>URL键值对转字典 */
-@property (nonatomic,copy,readonly) NSDictionary*        (^strURLKeyValues)();
+LBDeclare NSDictionary*        (^strURLKeyValues)();
 /** <^()>获取URL上所有键 */
-@property (nonatomic,copy,readonly) NSArray*             (^strURLAllKeys)();
+LBDeclare NSArray*             (^strURLAllKeys)();
 /** <^()>获取URL上所有值 */
-@property (nonatomic,copy,readonly) NSArray*             (^strURLAllValues)();
+LBDeclare NSArray*             (^strURLAllValues)();
 /** <^(NSString* key)>移除相关键及参数 */
-@property (nonatomic,copy,readonly) NSString*            (^strURLRemoveValueForKey)(NSString* key);
+LBDeclare NSString*            (^strURLRemoveValueForKey)(NSString* key);
 /** <^(NSString* replaceKey,NSString* withKey)>替换键 */
-@property (nonatomic,copy,readonly) NSString*            (^strURLReplaceKeyWithKey)(NSString* replaceKey,NSString* withKey);
+LBDeclare NSString*            (^strURLReplaceKeyWithKey)(NSString* replaceKey,NSString* withKey);
 /** <^(NSDictionary<NSString* key,NSString* value>* replaceKey_withKey)>替换键，字典结构为:key = replacedKey ;value = newKey */
-@property (nonatomic,copy,readonly) NSString*            (^strURLReplaceKeyWithDict)(NSDictionary<NSString*,NSString*>* replaceKey_withKey);
+LBDeclare NSString*            (^strURLReplaceKeyWithDict)(NSDictionary<NSString*,NSString*>* replaceKey_withKey);
 /** <^()> */
-@property (nonatomic,copy,readonly) NSString*            (^strURLEncodeUTF8)();
+LBDeclare NSString*            (^strURLEncodeUTF8)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSString*            (^strURLDecodeUTF8)();
+LBDeclare NSString*            (^strURLDecodeUTF8)();
 /** <^(NSStringEncoding encode)> */
-@property (nonatomic,copy,readonly) NSString*            (^strURLEncode)(NSStringEncoding encode);
+LBDeclare NSString*            (^strURLEncode)(NSStringEncoding encode);
 /** <^(NSStringEncoding encode)> */
-@property (nonatomic,copy,readonly) NSString*            (^strURLDecode)(NSStringEncoding encode);
+LBDeclare NSString*            (^strURLDecode)(NSStringEncoding encode);
 
 @end
 

@@ -10,5 +10,5 @@
 
 @interface NSObject(JSManagedValueLinkBlock)
 /** <^(JSVirtualMachine* virtualMachine, id owner)> */
-@property (nonatomic,copy,readonly) JSManagedValue* (^jsManagedValueAddToManagedRef)(JSVirtualMachine* virtualMachine, id owner);
+LBDeclare JSManagedValue* (^jsManagedValueAddToManagedRef)(JSVirtualMachine* virtualMachine, id owner);
 @end

@@ -5,28 +5,28 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 #ifndef UILabelNew
 #define UILabelNew ([UILabel new])
 #endif
 @interface NSObject(UILabelLinkBlock)
 /** <^()>即时的文本顶部对齐 */
-@property (nonatomic,copy,readonly) UILabel*         (^labAlignTop)();
+LBDeclare UILabel*         (^labAlignTop)();
 /** <^()>即时的文本底部对齐 */
-@property (nonatomic,copy,readonly) UILabel*         (^labAlignBottom)();
+LBDeclare UILabel*         (^labAlignBottom)();
 /** <^(NSTextAlignment alighment)> */
-@property (nonatomic,copy,readonly) UILabel*         (^labAlignment)(NSTextAlignment alighment);
+LBDeclare UILabel*         (^labAlignment)(NSTextAlignment alighment);
 /** <^(NSInteger lines)> */
-@property (nonatomic,copy,readonly) UILabel*         (^labNumberOfLines)(NSInteger lines);
+LBDeclare UILabel*         (^labNumberOfLines)(NSInteger lines);
 /** <^(NSString* txt)> */
-@property (nonatomic,copy,readonly) UILabel*         (^labText)(NSString* txt);
+LBDeclare UILabel*         (^labText)(NSString* txt);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) UILabel*         (^labTextColor)(UIColor* color);
+LBDeclare UILabel*         (^labTextColor)(UIColor* color);
 /** <^(UIFont* font)> */
-@property (nonatomic,copy,readonly) UILabel*         (^labFont)(UIFont* font);
+LBDeclare UILabel*         (^labFont)(UIFont* font);
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat          (^labFontSystemSizeGet)();
+LBDeclare CGFloat          (^labFontSystemSizeGet)();
 /** <^(CGFloat fontSize)> */
-@property (nonatomic,copy,readonly) UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
+LBDeclare UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
 @end

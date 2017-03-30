@@ -48,9 +48,14 @@
         if([str isKindOfClass:[NSString class]]){
             return [_self stringByAppendingString:str];
         }else{
-            return _self;
+            return [_self stringByAppendingString:[str description]];
         }
     };
+}
+
+- (NSString *(^)(id))strAppendObj
+{
+    return self.strAppendObj;
 }
 
 - (NSString *(^)(NSString *))strAppendTo
@@ -1174,22 +1179,14 @@
         LinkGroupHandle_REF(strToNSDictionary,encoding)
         NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
                                                             withString:@""];
-        
-        newStr = [newStr stringByReplacingOccurrencesOfString:@"\n"
-                                                   withString:@""];
-        
-        newStr = [newStr stringByReplacingOccurrencesOfString:@"\r"
-                                                   withString:@""];
+        newStr = [newStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        newStr = [newStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         
         NSData* strIsData = [newStr dataUsingEncoding:encoding];
-        
-        
         NSDictionary* re = [NSJSONSerialization JSONObjectWithData:strIsData
                                                            options:NSJSONReadingMutableContainers
                                                              error:nil];
-        if([re isKindOfClass:[NSDictionary class]]){
-            return re;
-        }
+        if([re isKindOfClass:[NSDictionary class]]) return re;
         return @{};
     };
 }
@@ -1214,6 +1211,59 @@
             return re;
         }
         return @[];
+    };
+}
+
+- (NSPredicate *(^)())strToPredicate
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strToPredicate)
+        return [NSPredicate predicateWithFormat:_self];
+    };
+}
+
+- (NSPredicate *(^)(id, ...))strToPredicateWidthFormatArgs
+{
+    return ^id(id obj1, ...){
+        LinkHandle_REF(NSString)
+        NSPredicate* re;
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            NSMutableArray* returnObjs = [NSMutableArray new];
+            if(obj1){
+                va_list args;
+                va_start(args, obj1);
+                for (int i=0; i<group.linkObjects.count; i++) {
+                    id re = [NSPredicate predicateWithFormat:group.linkObjects[i].ofNSString arguments:args];
+                    [returnObjs addObject:re];
+                }
+                va_end(args);
+            }else{
+                for (int i=0; i<group.linkObjects.count; i++) {
+                    id re = [NSPredicate predicateWithFormat:group.linkObjects[i].ofNSString];
+                    [returnObjs addObject:re];
+                }
+            }
+            [group.linkObjects setArray:returnObjs];
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        if(obj1){
+            
+            va_list args;
+            va_start(args, obj1);
+            re = [NSPredicate predicateWithFormat:_self arguments:args];
+            va_end(args);
+        }else{
+            
+            re = [NSPredicate predicateWithFormat:_self];
+        }
+        return re;
     };
 }
 
@@ -1461,11 +1511,7 @@
             return NO;
         }
         LinkGroupHandle_VAL(strRegexIsMatch,regex)
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-        if([predicate evaluateWithObject:_self] == YES){
-            return YES;
-        }
-        return NO;
+        return (BOOL)[_self rangeOfString:regex options:NSRegularExpressionSearch].length;
     };
 }
 
@@ -1474,11 +1520,26 @@
     return ^id(NSString* regex){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strRegexIsMatch_n,regex)
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-        if([predicate evaluateWithObject:_self] == YES){
-            return @YES;
+        return @((BOOL)[_self rangeOfString:regex options:NSRegularExpressionSearch].length);
+    };
+}
+
+- (NSMutableArray<NSString*>*(^)(NSString *))strRegexMatchs
+{
+    return ^id(NSString* regex){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strRegexMatchs,regex)
+        NSError* error;
+        NSRegularExpression* reg = [NSRegularExpression regularExpressionWithPattern:regex options:0 error:&error];
+        NSMutableArray* re = [NSMutableArray new];
+        if(!error){
+            [reg enumerateMatchesInString:regex options:0 range:NSMakeRange(0, _self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+                [re addObject:[_self substringWithRange:result.range]];
+            }];
+        }else{
+            NSLog(@"Not RegEx:%@",regex);
         }
-        return @NO;
+        return re;
     };
 }
 
@@ -1512,6 +1573,63 @@
         NSScanner* scaner= [[NSScanner alloc] initWithString:_self];
         [scaner scanDouble:&re];
         return re;
+    };
+}
+
+- (NSObject *(^)(id))strKeyForValueWith
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strKeyForValueWith, obj)
+        return [obj valueForKey:_self];
+    };
+}
+
+- (NSObject *(^)(id))strKeyPathForValueWith
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strKeyPathForValueWith, obj)
+        return [obj valueForKeyPath:_self];
+    };
+}
+
+- (BOOL (^)(id))strPredicateEvaluate
+{
+    return ^(id obj){
+        LinkHandle_VAL_IFNOT(NSString){
+            return NO;
+        }
+        return [[NSPredicate predicateWithFormat:_self] evaluateWithObject:obj];
+    };
+}
+- (NSNumber *(^)(id))strPredicateEvaluate_n
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPredicateEvaluate_n , obj)
+        return @([[NSPredicate predicateWithFormat:_self] evaluateWithObject:obj]);
+    };
+}
+
+- (NSArray *(^)(NSArray *))strPredicateFilteredArray
+{
+    return ^id(NSArray* arr){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPredicateFilteredArray , arr)
+        return [arr filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:_self]];
+    };
+}
+
+- (NSString *(^)(id))strPredicateFilterMutable
+{
+    return ^id(id collection){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPredicateFilterMutable , collection)
+        if([collection respondsToSelector:@selector(filterUsingPredicate:)]){
+            [collection filterUsingPredicate:[NSPredicate predicateWithFormat:_self]];
+        }
+        return _self;
     };
 }
 
@@ -1753,7 +1871,7 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLAllKeys)
         NSDictionary* kvs = _self.strURLKeyValues();
-        if(!kvs) return [NSNull null];
+        if(!kvs) return @[];
         return [kvs allKeys];
     };
 }
@@ -1764,7 +1882,7 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLAllValues)
         NSDictionary* kvs = _self.strURLKeyValues();
-        if(!kvs) return [NSNull null];
+        if(!kvs) return @[];
         return [kvs allValues];
     };
 }
@@ -1958,8 +2076,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     return ^id(){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strPathUnarchiveObject_linkTo)
-        id obj = [NSKeyedUnarchiver unarchiveObjectWithFile:_self];
-        return obj?obj:[NSNull null];
+        return linkObj([NSKeyedUnarchiver unarchiveObjectWithFile:_self]);
     };
 }
 
@@ -1979,7 +2096,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetToLab_linkTo, lab)
         lab.text = _self;
-        return lab?lab:[NSNull null];
+        return linkObj(lab);
     };
 }
 
@@ -1989,7 +2106,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetToBtn_linkTo, btn, state)
         [btn setTitle:_self forState:state];
-        return btn?btn:[NSNull null];
+        return linkObj(btn);
     };
 }
 
@@ -1999,7 +2116,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetToTxtField_linkTo, txtField)
         txtField.text = _self;
-        return txtField?txtField:[NSNull null];
+        return linkObj(txtField);
     };
 }
 
@@ -2009,7 +2126,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSetToTxtView_linkTo, txtView)
         txtView.text = _self;
-        return txtView?txtView:[NSNull null];
+        return linkObj(txtView);
     };
 }
 

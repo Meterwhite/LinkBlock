@@ -30,4 +30,13 @@
     };
 }
 
+- (UIViewController *(^)(UIViewController *))vcNavigationControllerPushVC
+{
+    return ^id(UIViewController* vc){
+        LinkHandle_REF(UIViewController)
+        LinkGroupHandle_REF(vcNavigationControllerPushVC,vc)
+        [_self.navigationController pushViewController:vc animated:YES];
+        return _self;
+    };
+}
 @end

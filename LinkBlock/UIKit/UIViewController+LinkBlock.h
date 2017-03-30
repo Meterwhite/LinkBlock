@@ -6,14 +6,16 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 #ifndef UIViewControllerNew
 #define UIViewControllerNew ([UIViewController new])
 #endif
 @interface NSObject(UIViewControllerLinkBlock)
 /** <^(UIViewController* childVC)> */
-@property (nonatomic,copy,readonly) UIViewController*    (^vcAddChildVC)(UIViewController* childVC);
+LBDeclare UIViewController*    (^vcAddChildVC)(UIViewController* childVC);
 /** <^(NSString* title)> */
-@property (nonatomic,copy,readonly) UIViewController*    (^vcTitle)(NSString* title);
+LBDeclare UIViewController*    (^vcTitle)(NSString* title);
+/** <^(UIViewController* vc)>push控制器 动画YES */
+LBDeclare UIViewController*    (^vcNavigationControllerPushVC)(UIViewController* vc);
 @end

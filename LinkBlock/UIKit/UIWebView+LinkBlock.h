@@ -6,21 +6,21 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <JavaScriptCore/JavaScriptCore.h>
+#import "LinkBlockDefine.h"
 
 #ifndef UIWebViewNew
 #define UIWebViewNew ([UIWebView new])
 #endif
+@class JSContext;
 @interface NSObject(UIWebViewLinkBlock)
 /** <^()> */
-@property (nonatomic,copy,readonly) JSContext*      (^webViewContext)();
+LBDeclare JSContext*      (^webViewContext)();
 /** <^(NSString* script)> */
-@property (nonatomic,copy,readonly) NSString*       (^webViewEvalScript)(NSString* script);
+LBDeclare NSString*       (^webViewEvalScript)(NSString* script);
 /** <^()> */
-@property (nonatomic,copy,readonly) NSString*       (^webViewTitle)();
+LBDeclare NSString*       (^webViewTitle)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSString*       (^webViewLocationHref)();
+LBDeclare NSString*       (^webViewLocationHref)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSString*       (^webViewHTML)();
+LBDeclare NSString*       (^webViewHTML)();
 @end

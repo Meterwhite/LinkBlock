@@ -214,12 +214,33 @@
     };
 }
 
-- (NSMutableArray *(^)(NSString *))m_arrFilter
+- (NSMutableArray *(^)(NSString *,...))m_arrFilter
 {
-    return ^id(NSString* predicateFormat){
+    return ^id(NSString* predicateFormat,...){
         LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrFilter,predicateFormat)
-        [_self filterUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat]];
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            
+            va_list args;
+            va_start(args, predicateFormat);
+            for (int i=0; i<group.linkObjects.count; i++) {
+                
+                [(id)group.linkObjects[i]
+                         filterUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+            }
+            va_end(args);
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        va_list args;
+        va_start(args, predicateFormat);
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
+        va_end(args);
+        [_self filterUsingPredicate:predicate];
         return _self;
     };
 }

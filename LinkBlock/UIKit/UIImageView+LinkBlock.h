@@ -6,21 +6,20 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 #ifndef UIImageViewNew
 #define UIImageViewNew ([UIImageView new])
 #endif
 @interface NSObject(UIImageViewLinkBlock)
 /** <^(UIImage* image)> */
-@property (nonatomic,copy,readonly) UIImageView*         (^img_viewImage)(UIImage* image);
+LBDeclare UIImageView*         (^img_viewImage)(UIImage* image);
 /** <^(UIImage* image)> */
-@property (nonatomic,copy,readonly) UIImageView*         (^img_viewImageHighlight)(UIImage* image);
+LBDeclare UIImageView*         (^img_viewImageHighlight)(UIImage* image);
 /** <^(NSString* imageStr)> */
-@property (nonatomic,copy,readonly) UIImageView*         (^img_viewImageStr)(NSString* imageStr);
+LBDeclare UIImageView*         (^img_viewImageStr)(NSString* imageStr);
 /** <^(NSString* imageStr)> */
-@property (nonatomic,copy,readonly) UIImageView*         (^img_viewImageStrHighlight)(NSString* imageStr);
+LBDeclare UIImageView*         (^img_viewImageStrHighlight)(NSString* imageStr);
 /** <^(BOOL b)> */
-@property (nonatomic,copy,readonly) UIImageView*         (^img_viewHighlight)(BOOL b);
+LBDeclare UIImageView*         (^img_viewHighlight)(BOOL b);
 @end

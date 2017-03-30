@@ -5,95 +5,95 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 #ifndef UIButtonNew
 #define UIButtonNew ([UIButton buttonWithType:UIButtonTypeCustom])
 #endif
 @interface NSObject(UIButtonLinkBlock)
 /** <^(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
+LBDeclare UIButton* (^btnTitleEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
 /** <^(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImageEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
+LBDeclare UIButton* (^btnImageEdgeInsets)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
 
 #pragma mark - Title
 /** <^(NSString* title, UIControlState state)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitle)(NSString* title, UIControlState state);
+LBDeclare UIButton* (^btnTitle)(NSString* title, UIControlState state);
 /** <^(NSString* title)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleUIControlStateNormal)(NSString* title);
+LBDeclare UIButton* (^btnTitleUIControlStateNormal)(NSString* title);
 /** <^(NSString* title)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleUIControlStateHighlighted)(NSString* title);
+LBDeclare UIButton* (^btnTitleUIControlStateHighlighted)(NSString* title);
 /** <^(NSString* title)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleUIControlStateDisabled)(NSString* title);
+LBDeclare UIButton* (^btnTitleUIControlStateDisabled)(NSString* title);
 /** <^(NSString* title)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleUIControlStateSelected)(NSString* title);
+LBDeclare UIButton* (^btnTitleUIControlStateSelected)(NSString* title);
 /** <^(NSString* title)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleUIControlStateFocused)(NSString* title);
+LBDeclare UIButton* (^btnTitleUIControlStateFocused)(NSString* title);
 /** <^(NSString* title)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleUIControlStateApplication)(NSString* title);
+LBDeclare UIButton* (^btnTitleUIControlStateApplication)(NSString* title);
 /** <^(NSString* title)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleUIControlStateReserved)(NSString* title);
+LBDeclare UIButton* (^btnTitleUIControlStateReserved)(NSString* title);
 #pragma mark - Title Color
 /** <^(UIColor* color , UIControlState state)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleColor)(UIColor* color , UIControlState state);
+LBDeclare UIButton* (^btnTitleColor)(UIColor* color , UIControlState state);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleColorUIControlStateNormal)(UIColor* color);
+LBDeclare UIButton* (^btnTitleColorUIControlStateNormal)(UIColor* color);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleColorUIControlStateHighlighted)(UIColor* color);
+LBDeclare UIButton* (^btnTitleColorUIControlStateHighlighted)(UIColor* color);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleColorUIControlStateDisabled)(UIColor* color);
+LBDeclare UIButton* (^btnTitleColorUIControlStateDisabled)(UIColor* color);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleColorUIControlStateSelected)(UIColor* color);
+LBDeclare UIButton* (^btnTitleColorUIControlStateSelected)(UIColor* color);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleColorUIControlStateFocused)(UIColor* color);
+LBDeclare UIButton* (^btnTitleColorUIControlStateFocused)(UIColor* color);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleColorUIControlStateApplication)(UIColor* color);
+LBDeclare UIButton* (^btnTitleColorUIControlStateApplication)(UIColor* color);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleColorUIControlStateReserved)(UIColor* color);
+LBDeclare UIButton* (^btnTitleColorUIControlStateReserved)(UIColor* color);
 #pragma mark - AttributedString
 /** <^(NSAttributedString* attrStr, UIControlState state)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnAttributeTitle)(NSAttributedString* attrStr, UIControlState state);
+LBDeclare UIButton* (^btnAttributeTitle)(NSAttributedString* attrStr, UIControlState state);
 
 #pragma mark - Image
 /** <^(UIImage* img, UIControlState state)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImage)(UIImage* img, UIControlState state);
+LBDeclare UIButton* (^btnImage)(UIImage* img, UIControlState state);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImageUIControlStateNormal)(UIImage* img);
+LBDeclare UIButton* (^btnImageUIControlStateNormal)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImageUIControlStateHighlighted)(UIImage* img);
+LBDeclare UIButton* (^btnImageUIControlStateHighlighted)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImageUIControlStateDisabled)(UIImage* img);
+LBDeclare UIButton* (^btnImageUIControlStateDisabled)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImageUIControlStateSelected)(UIImage* img);
+LBDeclare UIButton* (^btnImageUIControlStateSelected)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImageUIControlStateFocused)(UIImage* img);
+LBDeclare UIButton* (^btnImageUIControlStateFocused)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImageUIControlStateApplication)(UIImage* img);
+LBDeclare UIButton* (^btnImageUIControlStateApplication)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnImageUIControlStateReserved)(UIImage* img);
+LBDeclare UIButton* (^btnImageUIControlStateReserved)(UIImage* img);
 
 #pragma mark - BG Image
 /** <^(UIImage* img, UIControlState state)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnBGImage)(UIImage* img, UIControlState state);
+LBDeclare UIButton* (^btnBGImage)(UIImage* img, UIControlState state);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnBGImageUIControlStateNormal)(UIImage* img);
+LBDeclare UIButton* (^btnBGImageUIControlStateNormal)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnBGImageUIControlStateHighlighted)(UIImage* img);
+LBDeclare UIButton* (^btnBGImageUIControlStateHighlighted)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnBGImageUIControlStateDisabled)(UIImage* img);
+LBDeclare UIButton* (^btnBGImageUIControlStateDisabled)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnBGImageUIControlStateSelected)(UIImage* img);
+LBDeclare UIButton* (^btnBGImageUIControlStateSelected)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnBGImageUIControlStateFocused)(UIImage* img);
+LBDeclare UIButton* (^btnBGImageUIControlStateFocused)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnBGImageUIControlStateApplication)(UIImage* img);
+LBDeclare UIButton* (^btnBGImageUIControlStateApplication)(UIImage* img);
 /** <^(UIImage* img)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnBGImageUIControlStateReserved)(UIImage* img);
+LBDeclare UIButton* (^btnBGImageUIControlStateReserved)(UIImage* img);
 
 /** <^(UIFont* font)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleFont)(UIFont* font);
+LBDeclare UIButton* (^btnTitleFont)(UIFont* font);
 /** <^(CGFloat size)> */
-@property (nonatomic,copy,readonly) UIButton* (^btnTitleFontSystemSizeSet)(CGFloat size);
+LBDeclare UIButton* (^btnTitleFontSystemSizeSet)(CGFloat size);
 /** <^()> */
-@property (nonatomic,copy,readonly) CGFloat   (^btnTitleFontSystemSizeGet)();
+LBDeclare CGFloat   (^btnTitleFontSystemSizeGet)();
 @end

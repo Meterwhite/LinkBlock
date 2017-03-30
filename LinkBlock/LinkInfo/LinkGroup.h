@@ -6,7 +6,7 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "LinkBlockDefine.h"
 
 typedef NS_OPTIONS(NSUInteger, LinkGroupHandleType) {
     LinkGroupHandleTypeNone                 = 0,
@@ -19,5 +19,6 @@ typedef NS_OPTIONS(NSUInteger, LinkGroupHandleType) {
 
 + (LinkGroup*)group;
 + (LinkGroup*)groupWithObjs:(id)obj,...;
++ (LinkGroup*)groupWithObjs:(id)obj0 args:(va_list)args;
 + (LinkGroup*)groupWithArr:(NSArray*)obj;
 @end

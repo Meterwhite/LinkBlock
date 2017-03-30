@@ -299,6 +299,9 @@
     };
 }
 
-
+- (UILabel *(^)(UILabel *))m_attr_strSetToLabel_linkTo
+{
+    return self.attr_strSetToLabel_linkTo;
+}
 
 @end

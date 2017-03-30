@@ -191,7 +191,7 @@
         LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictObjsValueRandom)
         [_self.allValues enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            obj.objValueRandom();
+            obj.objValuesRandom();
         }];
         return _self;
     };

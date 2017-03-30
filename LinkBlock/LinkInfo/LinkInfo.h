@@ -6,7 +6,7 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "LinkBlockDefine.h"
 
 typedef enum LinkInfoType{
     LinkInfoNone,

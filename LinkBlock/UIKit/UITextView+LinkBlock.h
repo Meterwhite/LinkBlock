@@ -6,14 +6,14 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 #ifndef UITextViewNew
 #define UITextViewNew ([UITextView new])
 #endif
 @interface NSObject(UITextViewLinkBlock)
 /** <^(NSRange range)> */
-@property (nonatomic,copy,readonly) UITextView*         (^txtViewSelectRangeSet)(NSRange range);
+LBDeclare UITextView*         (^txtViewSelectRangeSet)(NSRange range);
 /** <^()> */
-@property (nonatomic,copy,readonly) NSRange             (^txtViewSelectRangeGet)();
+LBDeclare NSRange             (^txtViewSelectRangeGet)();
 @end

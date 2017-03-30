@@ -68,18 +68,27 @@
     };
 }
 
-- (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
+- (UIImage *(^)(UIImage *, CGRect))attr_strDrawToImg_linkTo
 {
     return ^id(UIImage* image, CGRect rect){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strDrawImgRect,image,rect)
+        LinkGroupHandle_REF(attr_strDrawToImg_linkTo,image,rect)
         UIGraphicsBeginImageContext(image.size);
         [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
         [_self drawInRect:rect];
         UIImage *newImg = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        return newImg;
+        return linkObj(newImg);
     };
 }
 
+- (UILabel *(^)(UILabel *))attr_strSetToLabel_linkTo
+{
+    return ^id(UILabel* lab){
+        LinkHandle_REF(NSAttributedString)
+        LinkGroupHandle_REF(attr_strSetToLabel_linkTo,lab)
+        lab.attributedText = _self;
+        return linkObj(lab);
+    };
+}
 @end

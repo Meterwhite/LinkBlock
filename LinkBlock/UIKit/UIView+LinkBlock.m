@@ -104,6 +104,16 @@
     };
 }
 
+- (UIView *(^)(NSInteger))viewSetTag
+{
+    return ^id(NSInteger tag){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewSetTag,tag)
+        _self.tag = tag;
+        return _self;
+    };
+}
+
 - (UIView *(^)(CGFloat,CGFloat))viewSetOrigin
 {
     return ^id(CGFloat x,CGFloat y){
@@ -489,6 +499,19 @@
     };
 }
 
+- (NSMutableArray *(^)(__unsafe_unretained Class))viewFindSubviews
+{
+    return ^id(Class clazz){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewFindSubviews,clazz)
+        NSMutableArray* re = [NSMutableArray new];
+        [_self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull v, NSUInteger idx, BOOL * _Nonnull stop) {
+            if([v isKindOfClass:clazz]) [re addObject:v];
+        }];
+        return re;
+    };
+}
+
 - (UIView *(^)())viewSetNeedsLayout
 {
     return ^id(){
@@ -835,9 +858,7 @@
         pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         pulseAnimation.autoreverses = YES;
         pulseAnimation.repeatCount = repeat ? HUGE_VALF : 0;
-        
-        [_self.layer addAnimation:pulseAnimation
-                          forKey:@"pulse"];
+        [_self.layer addAnimation:pulseAnimation forKey:@"pulse"];
         return _self;
     };
 }
@@ -847,39 +868,30 @@
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateFlipFromTop,duration,repeatCount,shouldAutoreverse)
-        NSString *subtype = @"fromTop";
+        
         CATransition *transition = [CATransition animation];
-        transition.startProgress = 0;
-        transition.endProgress = 1.0;
-        transition.type = @"flip";
-        transition.subtype = subtype;
+        transition.type = @"oglFlip";
+        transition.subtype = kCATransitionFromTop;
         transition.duration = duration;
         transition.repeatCount = repeatCount;
         transition.autoreverses = shouldAutoreverse;
-        
-        [_self.layer addAnimation:transition
-                          forKey:@"spin"];
+        [_self.layer addAnimation:transition forKey:@"oglFlipAnimation"];
         return _self;
     };
 }
 
-- (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromBotton
+- (UIView *(^)(NSTimeInterval, NSUInteger, BOOL))viewAnimateFlipFromBottom
 {
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewAnimateFlipFromBotton,duration,repeatCount,shouldAutoreverse)
-        NSString *subtype = @"fromBottom";
+        LinkGroupHandle_REF(viewAnimateFlipFromBottom,duration,repeatCount,shouldAutoreverse)
         CATransition *transition = [CATransition animation];
-        transition.startProgress = 0;
-        transition.endProgress = 1.0;
-        transition.type = @"flip";
-        transition.subtype = subtype;
-        transition.duration = duration;
+        transition.type = @"oglFlip";
+        transition.subtype = kCATransitionFromBottom;
+        transition.duration = 1.0;
         transition.repeatCount = repeatCount;
         transition.autoreverses = shouldAutoreverse;
-        
-        [_self.layer addAnimation:transition
-                           forKey:@"spin"];
+        [_self.layer addAnimation:transition forKey:@"oglFlipAnimation"];
         return _self;
     };
 }
@@ -889,18 +901,13 @@
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateFlipFromLeft,duration,repeatCount,shouldAutoreverse)
-        NSString *subtype = @"fromLeft";
         CATransition *transition = [CATransition animation];
-        transition.startProgress = 0;
-        transition.endProgress = 1.0;
-        transition.type = @"flip";
-        transition.subtype = subtype;
+        transition.type = @"oglFlip";
+        transition.subtype = kCATransitionFromLeft;
         transition.duration = duration;
         transition.repeatCount = repeatCount;
         transition.autoreverses = shouldAutoreverse;
-        
-        [_self.layer addAnimation:transition
-                           forKey:@"spin"];
+        [_self.layer addAnimation:transition forKey:@"oglFlipAnimation"];
         return _self;
     };
 }
@@ -910,16 +917,13 @@
     return ^id(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateFlipFromRight,duration,repeatCount,shouldAutoreverse)
-        NSString *subtype = @"fromRight";
+        
         CATransition *transition = [CATransition animation];
-        transition.startProgress = 0;
-        transition.endProgress = 1.0;
-        transition.type = @"flip";
-        transition.subtype = subtype;
+        transition.type = @"oglFlip";
+        transition.subtype = kCATransitionFromRight;
         transition.duration = duration;
         transition.repeatCount = repeatCount;
         transition.autoreverses = shouldAutoreverse;
-        
         [_self.layer addAnimation:transition
                            forKey:@"spin"];
         return _self;
@@ -937,9 +941,22 @@
         rotationAnimation.autoreverses = shouldAutoreverse;
         rotationAnimation.repeatCount = repeatCount;
         rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        
         [_self.layer addAnimation:rotationAnimation
                           forKey:@"transform.rotation.z"];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat, CGFloat, NSTimeInterval))viewAnimateOpacity
+{
+    return ^id(CGFloat from , CGFloat to , NSTimeInterval duration){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewAnimateOpacity,from,to,duration);
+        CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        anima.fromValue = @(from);
+        anima.toValue = @(to);
+        anima.duration = duration;
+        [_self.layer addAnimation:anima forKey:@"opacityAniamtion"];
         return _self;
     };
 }
@@ -955,7 +972,6 @@
         rotationAnimation.autoreverses = shouldAutoreverse;
         rotationAnimation.repeatCount = repeatCount;
         rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        
         [_self.layer addAnimation:rotationAnimation
                            forKey:@"transform.rotation.z"];
         return _self;

@@ -6,96 +6,99 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "LinkBlockDefine.h"
 
 #ifndef NSDateNew
 #define NSDateNew ([NSDate date])
 #endif
 @interface NSObject(NSDateLinkBlock)
 /** <^(NSString* formatStr)>日期转字符串 formatStr:yyyy-MM-dd */
-@property (nonatomic,copy,readonly) NSString*        (^dateToStrWithFormat)(NSString* formatStr);
+LBDeclare NSString*        (^dateToStrWithFormat)(NSString* formatStr);
 /** <^()> */
-@property (nonatomic,copy,readonly) NSTimeInterval   (^dateTimeIntervalSince1970)();
-@property (nonatomic,copy,readonly) NSNumber*        (^dateTimeIntervalSince1970_n)();
+LBDeclare NSTimeInterval   (^dateTimeIntervalSince1970)();
+LBDeclare NSNumber*        (^dateTimeIntervalSince1970_n)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSDateComponents*(^dateComponentsAll)();
+LBDeclare NSDateComponents*(^dateComponentsAll)();
 
 #pragma mark - 获取日期项的值
 /** <^()> */
-@property (nonatomic,copy,readonly) NSInteger         (^dateYear)();
-@property (nonatomic,copy,readonly) NSNumber*         (^dateYear_n)();
+LBDeclare NSInteger         (^dateYear)();
+LBDeclare NSNumber*         (^dateYear_n)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSInteger         (^dateMonth)();
-@property (nonatomic,copy,readonly) NSNumber*         (^dateMonth_n)();
+LBDeclare NSInteger         (^dateMonth)();
+LBDeclare NSNumber*         (^dateMonth_n)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSInteger         (^dateDay)();
-@property (nonatomic,copy,readonly) NSNumber*         (^dateDay_n)();
+LBDeclare NSInteger         (^dateDay)();
+LBDeclare NSNumber*         (^dateDay_n)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSInteger         (^dateHour)();
-@property (nonatomic,copy,readonly) NSNumber*         (^dateHour_n)();
+LBDeclare NSInteger         (^dateHour)();
+LBDeclare NSNumber*         (^dateHour_n)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSInteger         (^dateMinut)();
-@property (nonatomic,copy,readonly) NSNumber*         (^dateMinut_n)();
+LBDeclare NSInteger         (^dateMinut)();
+LBDeclare NSNumber*         (^dateMinut_n)();
 /** <^()> */
-@property (nonatomic,copy,readonly) NSInteger         (^dateSec)();
-@property (nonatomic,copy,readonly) NSNumber*         (^dateSec_n)();
+LBDeclare NSInteger         (^dateSec)();
+LBDeclare NSNumber*         (^dateSec_n)();
 
 #pragma mark - 计算年月日时分秒的差
 /** <^(NSDate* date)> */
-@property (nonatomic,copy,readonly) NSInteger        (^dateMinusYear)(NSDate* date);
+LBDeclare NSInteger        (^dateMinusYear)(NSDate* date);
 /** <^(NSDate* date)> */
-@property (nonatomic,copy,readonly) NSInteger        (^dateMinusMonth)(NSDate* date);
+LBDeclare NSInteger        (^dateMinusMonth)(NSDate* date);
 /** <^(NSDate* date)> */
-@property (nonatomic,copy,readonly) NSInteger        (^dateMinusDay)(NSDate* date);
+LBDeclare NSInteger        (^dateMinusDay)(NSDate* date);
 /** <^(NSDate* date)> */
-@property (nonatomic,copy,readonly) NSInteger        (^dateMinusHour)(NSDate* date);
+LBDeclare NSInteger        (^dateMinusHour)(NSDate* date);
 /** <^(NSDate* date)> */
-@property (nonatomic,copy,readonly) NSInteger        (^dateMinusMinut)(NSDate* date);
+LBDeclare NSInteger        (^dateMinusMinut)(NSDate* date);
 /** <^(NSDate* date)> */
-@property (nonatomic,copy,readonly) NSInteger        (^dateMinusSec)(NSDate* date);
+LBDeclare NSInteger        (^dateMinusSec)(NSDate* date);
 
 #pragma mark - 增/减年月日时分秒
 /** <^(NSTimeInterval timeInterval)> */
-@property (nonatomic,copy,readonly) NSDate*          (^dateAddTimeInterval)(NSTimeInterval timeInterval);
+LBDeclare NSDate*          (^dateAddTimeInterval)(NSTimeInterval timeInterval);
 /** <^(NSInteger year)> */
-@property (nonatomic,copy,readonly) NSDate*          (^dateAddYear)(NSInteger year);
+LBDeclare NSDate*          (^dateAddYear)(NSInteger year);
 /** <^(NSInteger month)> */
-@property (nonatomic,copy,readonly) NSDate*          (^dateAddMonth)(NSInteger month);
+LBDeclare NSDate*          (^dateAddMonth)(NSInteger month);
 /** <^(NSInteger day)> */
-@property (nonatomic,copy,readonly) NSDate*          (^dateAddDay)(NSInteger day);
+LBDeclare NSDate*          (^dateAddDay)(NSInteger day);
 /** <^(NSInteger hour)> */
-@property (nonatomic,copy,readonly) NSDate*          (^dateAddHour)(NSInteger hour);
+LBDeclare NSDate*          (^dateAddHour)(NSInteger hour);
 /** <^(NSInteger minut)> */
-@property (nonatomic,copy,readonly) NSDate*          (^dateAddMinut)(NSInteger minut);
+LBDeclare NSDate*          (^dateAddMinut)(NSInteger minut);
 /** <^(NSInteger sec)> */
-@property (nonatomic,copy,readonly) NSDate*          (^dateAddSec)(NSInteger sec);
+LBDeclare NSDate*          (^dateAddSec)(NSInteger sec);
 
 #pragma mark - 设置年月日时分秒
 /** <^(NSInteger year)> */
-@property (nonatomic,copy,readonly) NSDate*        (^dateSetYear)(NSInteger year);
+LBDeclare NSDate*        (^dateSetYear)(NSInteger year);
 /** <^(NSInteger month)> */
-@property (nonatomic,copy,readonly) NSDate*        (^dateSetMonth)(NSInteger month);
+LBDeclare NSDate*        (^dateSetMonth)(NSInteger month);
 /** <^(NSInteger day)> */
-@property (nonatomic,copy,readonly) NSDate*        (^dateSetDay)(NSInteger day);
+LBDeclare NSDate*        (^dateSetDay)(NSInteger day);
 /** <^(NSInteger hour)> */
-@property (nonatomic,copy,readonly) NSDate*        (^dateSetHour)(NSInteger hour);
+LBDeclare NSDate*        (^dateSetHour)(NSInteger hour);
 /** <^(NSInteger minut)> */
-@property (nonatomic,copy,readonly) NSDate*        (^dateSetMinut)(NSInteger minut);
+LBDeclare NSDate*        (^dateSetMinut)(NSInteger minut);
 /** <^(NSInteger sec)> */
-@property (nonatomic,copy,readonly) NSDate*        (^dateSetSec)(NSInteger sec);
+LBDeclare NSDate*        (^dateSetSec)(NSInteger sec);
+#pragma mark - 其它
 /** <^()>获取日期的当天起点时间，相对GMT（格林威尼），24小时制 */
-@property (nonatomic,copy,readonly) NSDate*          (^dateDayAtStart)();
+LBDeclare NSDate*          (^dateDayAtStart)();
 /** <^()>获取日期的当天结束时间，相对GMT（格林威尼），24小时制 */
-@property (nonatomic,copy,readonly) NSDate*          (^dateDayAtEnd)();
+LBDeclare NSDate*          (^dateDayAtEnd)();
 /** <^()>获取当前时区下补充了于GTM（格林威尼）时差后的日期对象 */
-@property (nonatomic,copy,readonly) NSDate*          (^dateCurrentZone)();
+LBDeclare NSDate*          (^dateCurrentZone)();
 /** <^()>判断闰年 */
-@property (nonatomic,copy,readonly) BOOL             (^dateIsLeapYear)();
-@property (nonatomic,copy,readonly) NSNumber*        (^dateIsLeapYear_n)();
+LBDeclare BOOL             (^dateIsLeapYear)();
+LBDeclare NSNumber*        (^dateIsLeapYear_n)();
 /** <^()>判断是否在本日 */
-@property (nonatomic,copy,readonly) BOOL             (^dateIsInToday)();
-@property (nonatomic,copy,readonly) NSNumber*        (^dateIsInToday_n)();
+LBDeclare BOOL             (^dateIsInToday)();
+LBDeclare NSNumber*        (^dateIsInToday_n)();
 /** <^()>判断是否为本月 */
-@property (nonatomic,copy,readonly) BOOL             (^dateIsInMonth)();
-@property (nonatomic,copy,readonly) NSNumber*        (^dateIsInMonth_n)();
+LBDeclare BOOL             (^dateIsInMonth)();
+LBDeclare NSNumber*        (^dateIsInMonth_n)();
+/** <^()>星座 */
+LBDeclare NSString*        (^dateAstrology)();
 @end

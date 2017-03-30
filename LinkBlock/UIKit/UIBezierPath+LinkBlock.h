@@ -6,47 +6,46 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 #ifndef UIBezierPathNew
 #define UIBezierPathNew ([UIBezierPath bezierPath])
 #endif
 @interface NSObject(UIBezierPathLinkBlock)
 /** <^(CGFloat lineWidth)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathSetLineWidth)(CGFloat lineWidth);
+LBDeclare UIBezierPath*    (^bezierPathSetLineWidth)(CGFloat lineWidth);
 /** <^(CGLineCap lineCapStyle)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathSetLineCapStyle)(CGLineCap lineCapStyle);
+LBDeclare UIBezierPath*    (^bezierPathSetLineCapStyle)(CGLineCap lineCapStyle);
 /** <^(CGLineJoin lineJoinStyle)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathSetLineJoinStyle)(CGLineJoin lineJoinStyle);
+LBDeclare UIBezierPath*    (^bezierPathSetLineJoinStyle)(CGLineJoin lineJoinStyle);
 /** <^(CGFloat miterLimit)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathSetMiterLimit)(CGFloat miterLimit);
+LBDeclare UIBezierPath*    (^bezierPathSetMiterLimit)(CGFloat miterLimit);
 /** <^(CGFloat flatness)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathSetFlatness)(CGFloat flatness);
+LBDeclare UIBezierPath*    (^bezierPathSetFlatness)(CGFloat flatness);
 /** <^(CGPoint point)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathMoveToPoint)(CGPoint point);
+LBDeclare UIBezierPath*    (^bezierPathMoveToPoint)(CGPoint point);
 /** <^(CGPoint point)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathAddLineToPoint)(CGPoint point);
+LBDeclare UIBezierPath*    (^bezierPathAddLineToPoint)(CGPoint point);
 /** <^(CGPoint point)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathAddCurveToPoint)(CGPoint endPoint,CGPoint controlPoint1,CGPoint controlPoint2);
+LBDeclare UIBezierPath*    (^bezierPathAddCurveToPoint)(CGPoint endPoint,CGPoint controlPoint1,CGPoint controlPoint2);
 /** <^(CGPoint endPoint,CGPoint controlPoint)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathAddQuadCurveToPoint)(CGPoint endPoint,CGPoint controlPoint);
+LBDeclare UIBezierPath*    (^bezierPathAddQuadCurveToPoint)(CGPoint endPoint,CGPoint controlPoint);
 /** <^(CGPoint center,CGFloat radius,CGFloat startAngle,CGFloat endAngle,BOOL clockwise)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathAddArcWithCenter)(CGPoint center,CGFloat radius,CGFloat startAngle,CGFloat endAngle,BOOL clockwise);
+LBDeclare UIBezierPath*    (^bezierPathAddArcWithCenter)(CGPoint center,CGFloat radius,CGFloat startAngle,CGFloat endAngle,BOOL clockwise);
 /** <^()> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathClosePath)();
+LBDeclare UIBezierPath*    (^bezierPathClosePath)();
 /** <^()> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathRemoveAllPoints)();
+LBDeclare UIBezierPath*    (^bezierPathRemoveAllPoints)();
 /** <^(UIBezierPath* aPath)> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathAppendPath)(UIBezierPath* aPath);
+LBDeclare UIBezierPath*    (^bezierPathAppendPath)(UIBezierPath* aPath);
 /** <^()> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathByReversingPath)() NS_AVAILABLE_IOS(6_0);
+LBDeclare UIBezierPath*    (^bezierPathByReversingPath)() NS_AVAILABLE_IOS(6_0);
 /** <^(CGPoint point)> */
-@property (nonatomic,copy,readonly) BOOL             (^bezierPathContainsPoint)(CGPoint point);
+LBDeclare BOOL             (^bezierPathContainsPoint)(CGPoint point);
 /** <^()> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathFill)();
+LBDeclare UIBezierPath*    (^bezierPathFill)();
 /** <^()> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathStroke)();
+LBDeclare UIBezierPath*    (^bezierPathStroke)();
 /** <^()> */
-@property (nonatomic,copy,readonly) UIBezierPath*    (^bezierPathAddClip)();
+LBDeclare UIBezierPath*    (^bezierPathAddClip)();
 @end

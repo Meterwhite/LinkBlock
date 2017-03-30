@@ -6,35 +6,34 @@
 //  Copyright © 2016年 NOVO. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "LinkBlockDefine.h"
 
 #ifndef CAShapeLayerNew
 #define CAShapeLayerNew ([CAShapeLayer layer])
 #endif
 @interface  NSObject(CAShapeLayerLinkBlock)
 /** <^(UIBezierPath* path)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetPath)(UIBezierPath* path);
+LBDeclare CAShapeLayer*    (^sharpLayerSetPath)(UIBezierPath* path);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetFillColor)(UIColor* color);
+LBDeclare CAShapeLayer*    (^sharpLayerSetFillColor)(UIColor* color);
 /** <^(UIColor* color)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetStrokeColor)(UIColor* color);
+LBDeclare CAShapeLayer*    (^sharpLayerSetStrokeColor)(UIColor* color);
 /** <^(NSString *fillRule)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetFillRule)(NSString *fillRule);
+LBDeclare CAShapeLayer*    (^sharpLayerSetFillRule)(NSString *fillRule);
 /** <^(CGFloat strokeStart)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetStrokeStart)(CGFloat strokeStart);
+LBDeclare CAShapeLayer*    (^sharpLayerSetStrokeStart)(CGFloat strokeStart);
 /** <^(CGFloat strokeEnd)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetStrokeEnd)(CGFloat strokeEnd);
+LBDeclare CAShapeLayer*    (^sharpLayerSetStrokeEnd)(CGFloat strokeEnd);
 /** <^(CGFloat lineWidth)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetLineWidth)(CGFloat lineWidth);
+LBDeclare CAShapeLayer*    (^sharpLayerSetLineWidth)(CGFloat lineWidth);
 /** <^(CGFloat miterLimit)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetMiterLimit)(CGFloat miterLimit);
+LBDeclare CAShapeLayer*    (^sharpLayerSetMiterLimit)(CGFloat miterLimit);
 /** <^(NSString* lineCap)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetLineCap)(NSString* lineCap);
+LBDeclare CAShapeLayer*    (^sharpLayerSetLineCap)(NSString* lineCap);
 /** <^(NSString* lineJoin)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetLineJoin)(NSString* lineJoin);
+LBDeclare CAShapeLayer*    (^sharpLayerSetLineJoin)(NSString* lineJoin);
 /** <^(CGFloat lineDashPhase)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetLineDashPhase)(CGFloat lineDashPhase);
+LBDeclare CAShapeLayer*    (^sharpLayerSetLineDashPhase)(CGFloat lineDashPhase);
 /** <^(NSArray<NSNumber *> *lineDashPattern)> */
-@property (nonatomic,copy,readonly) CAShapeLayer*    (^sharpLayerSetLineDashPattern)(NSArray<NSNumber *> *lineDashPattern);
+LBDeclare CAShapeLayer*    (^sharpLayerSetLineDashPattern)(NSArray<NSNumber *> *lineDashPattern);
 @end
