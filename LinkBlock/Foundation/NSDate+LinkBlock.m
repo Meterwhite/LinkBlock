@@ -579,7 +579,6 @@
         LinkHandle_REF(NSDate)
         LinkGroupHandle_REF(dateComponentsAll)
         return [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:_self];
-        UITableViewNew.delegate;
     };
 }
 

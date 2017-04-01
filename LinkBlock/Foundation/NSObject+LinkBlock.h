@@ -138,9 +138,9 @@ LBDeclare NSObject*    (^nslogValueForKey)(NSString* key);
 LBDeclare NSObject*    (^nslogValueForKeyPath)(NSString* key);
 
 #pragma mark - Runtime
-/** <^(NSString* key)> */
+/** <^(NSString* key)>返回值为nil时返回NSNull，可使用linkEnd获取nil值 */
 LBDeclare NSObject*    (^objValueForKey)(NSString* key);
-/** <^(NSString* key)> */
+/** <^(NSString* key)>返回值为nil时返回NSNull，可使用linkEnd获取nil值 */
 LBDeclare NSObject*    (^objValueForKeyPath)(NSString* key);
 /** <^(id value,NSString* key)> */
 LBDeclare NSObject*    (^objSetValueForKey)(id value,NSString* key);
@@ -175,7 +175,7 @@ LBDeclare NSObject*    (^objSetValueForKey_delegate)(id value);
 LBDeclare NSObject*    (^objSetValueForKey_dataSource)(id value);
 /** <^(id value)>文本设置text */
 LBDeclare NSObject*    (^objSetValueForKey_text)(id value);
-/** <^(SEL sel)> */
+/** <^(SEL sel)>  */
 LBDeclare NSObject*    (^objPerformSelector)(SEL sel);
 /** <^(SEL sel , id arg)> */
 LBDeclare NSObject*    (^objPerformSelectorWithArg)(SEL sel , id arg);
@@ -340,7 +340,6 @@ LBDeclare NSDictionary*(^objToNSDictionaryNoDeep)(BOOL includeFoundation);
 LBDeclare NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
 
 
-
 //MARK: 明确对象类型
 -                  (NSString*)                  ofNSString;
 -                  (NSMutableString*)           ofNSMutableString;
@@ -358,6 +357,7 @@ LBDeclare NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
 -                  (NSData*)                    ofNSData;
 -                  (NSSet*)                     ofNSSet;
 -                  (NSMutableSet*)              ofNSMutableSet;
+-                  (NSCalendar*)                ofNSCalendar;
 -                  (UIView*)                    ofUIView;
 -                  (UIImage*)                   ofUIImage;
 -                  (UILabel*)                   ofUILabel;
