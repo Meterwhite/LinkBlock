@@ -2725,6 +2725,7 @@ Link_TransType_Maro(UITextView)
 Link_TransType_Maro(UIWebView)
 Link_TransType_Maro(NSMutableSet)
 Link_TransType_Maro(NSSet)
+Link_TransType_Maro(NSCalendar)
 
 - (id)_lb_performSelector:(SEL)aSelector withArg:(id)arg
 {
