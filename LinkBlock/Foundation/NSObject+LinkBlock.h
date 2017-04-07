@@ -22,7 +22,7 @@
  */
 LBDeclare_F id              linkEnd;
 /**
- <- ends>多对象链式编程获取多个链条返回值，并将错误转nil
+ <- linkEnds>多对象链式编程获取多个链条返回值，并将错误转nil
  ... = linkObj(...)...linkLoop(...)...linkEnds;
  */
 LBDeclare_F NSArray*        linkEnds;
@@ -69,18 +69,18 @@ LBDeclare_F NSObject*       linkLastObj;
  */
 LBDeclare NSObject*         (^linkLoop)(NSUInteger count);
 /** 
- <^()>根据条件是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行；取值需使用end
+ <^()>根据条件是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行；取值需使用linkEnd
  ...linkIf(...)...linkIf(...)...linkElse...
  ... = ...linkLoop(...)...linkIf(...)...linkEnds();
  */
 LBDeclare NSObject*         (^linkIf)(BOOL condition);
 /** 
- <^()>从中断语句中恢复执行其后语句，与前一个linkIf配合使用；取值需使用end
+ <^()>从中断语句中恢复执行其后语句，与前一个linkIf配合使用；取值需使用linkEnd
  ...linkIf(...)...linkIf(...)...linkElse...
  */
 LBDeclare_F NSObject*       linkElse;
 /**
- <^()>使其后语句跳空至末尾（优先级高于其他条件）；可与分支配合；取值需使用end
+ <^()>使其后语句跳空至末尾（优先级高于其他条件）；可与分支配合；取值需使用linkEnd
  ...[linkInBlock:^(NSObject* fromObj){
     if(...){
         ...linkReturn;
@@ -296,7 +296,7 @@ LBDeclare NSNumber*    (^objIsEqualToSomeoneInArray_n)(NSArray* arr);
 /** <^(Class theCalss)>必须获取该类型的对象，若类型不符则返回该类型的初始化对象 */
 LBDeclare NSObject*    (^objMustType)(Class theCalss);
 /** <^(NSString* key)>将BOOL或NSNumber(BOOL)属性字段值反转 */
-LBDeclare NSObject*    (^objBoolReverseForKey)(NSString* key);
+LBDeclare NSObject*    (^objBOOLNegationForKey)(NSString* key);
 /** <^(NSArray* withoutKeys)>将自定义对象随机赋值，只包含字符串类型和数字类型，排除readonly和无'_成员变量'的属性 */
 LBDeclare NSObject*    (^objValuesRandom)();
 /** <^()> 清空所有可访问的属性的值为默认值，排除readonly和无'_成员变量'的属性 */
@@ -310,9 +310,9 @@ LBDeclare NSString*    (^objToJsonString)();
 LBDeclare NSObject*    (^objAddToArr)(NSMutableArray* arr);
 /** <^(NSMutableArray* arr)> */
 LBDeclare NSObject*    (^objRemoveFromArr)(NSMutableArray* arr);
-/** <^(NSArray* inArr)>在数组中的前一个元素，越界返回NSNuull */
+/** <^(NSArray* inArr)>在数组中的前一个元素 */
 LBDeclare NSObject*    (^objBeforeInArr)(NSArray* inArr);
-/** <^(NSArray* inArr)>在数组中的后一个元素,空数组或越界返回NSNuull */
+/** <^(NSArray* inArr)>在数组中的后一个元素 */
 LBDeclare NSObject*    (^objNextInArr)(NSArray* inArr);
 /** <^(NSArray* inArr)>对象是否在数组中 */
 LBDeclare BOOL         (^objIsInArr)(NSArray* inArr);

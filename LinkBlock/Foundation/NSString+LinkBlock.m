@@ -1287,7 +1287,9 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strLoadNibNamedAt , index)
         NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
-        if(index >= xibs.count) return [NSNull null];
+        if(index >= xibs.count){
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"加载xib时数组%p越界",xibs]] logError];
+        }
         return xibs[index];
     };
 }
@@ -1298,7 +1300,9 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strLoadNibNamedFirst , index)
         NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
-        if(!xibs.count) return [NSNull null];
+        if(!xibs.count){
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"加载xib时数组%p越界",xibs]] logError];
+        }
         return xibs.firstObject;
     };
 }
@@ -1309,7 +1313,9 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strLoadNibNamedLast , index)
         NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
-        if(!xibs.count) return [NSNull null];
+        if(!xibs.count){
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"加载xib时数组%p越界",xibs]] logError];
+        }
         return xibs.lastObject;
     };
 }
@@ -1333,7 +1339,9 @@
             
             reImg = [UIImage imageWithContentsOfFile:_self.strPathByFileNameInBundle(nil)];
         }
-        if(!reImg)  return [NSNull null];
+        if(!reImg){
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"未能找到图片%@",_self]] logError];
+        };
         return reImg;
     };
 }
@@ -1468,12 +1476,14 @@
     return ^id(NSUInteger from, NSUInteger to){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubComposeFromTo,from,to)
-        NSAssert(from <= to, @"范围错误");
+        if(from<to){
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"截取字符串错误:from=%@<to=%@",@(from),@(to)]] logError];
+        }
         NSUInteger composeCurrentIdx=0;
         NSRange range = NSMakeRange(NSNotFound,0);
         NSRange rangeFrom = range;
         NSRange rangeTo = range;
-        for(int i=0; i<_self.length; i+=range.length){
+        for(int i=0; i<_self.length; i+=range.length , composeCurrentIdx++){
             
             range = [_self rangeOfComposedCharacterSequenceAtIndex:i];
             
@@ -1481,9 +1491,7 @@
                 rangeFrom = range;
             }
             rangeTo = range;
-            
             if(composeCurrentIdx == to) break;
-            composeCurrentIdx++;
         }
         if(!rangeFrom.length) return @"";
         return [_self substringWithRange:NSMakeRange(rangeFrom.location, rangeTo.location-rangeFrom.location)];
@@ -1497,9 +1505,9 @@
         LinkGroupHandle_REF(strToObjectFromName)
         Class class= NSClassFromString(_self);
         if(class){
-            return [class new];
+            return [[class alloc] init];
         }else{
-            return [NSNull null];
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"未能找到类型%@",_self]] logError];
         }
     };
 }
@@ -1733,8 +1741,7 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLKeyValues)
         NSArray<NSString*>* splitedArr = [_self componentsSeparatedByString:@"?"];
-        if(splitedArr.count!=2)
-            return @{};
+        if(splitedArr.count!=2) return @{};
         NSArray<NSString*>* kvStrArr = [splitedArr[1] componentsSeparatedByString:@"&"];
         NSMutableDictionary* kvDict = [NSMutableDictionary new];
         [kvStrArr enumerateObjectsUsingBlock:^(NSString * _Nonnull kvStr, NSUInteger idx, BOOL * _Nonnull stop) {

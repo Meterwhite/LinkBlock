@@ -410,9 +410,8 @@
     return ^id(NSUInteger index){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSubviewAt,index)
-        if(index< _self.subviews.count)
-            return _self.subviews[index];
-        return [NSNull null];
+        if(index< _self.subviews.count) return _self.subviews[index];
+        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",_self.subviews]] logError];
     };
 }
 

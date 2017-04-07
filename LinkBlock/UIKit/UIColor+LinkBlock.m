@@ -22,7 +22,7 @@
             [reStr appendFormat:@"%02x",(int)(g*255.0)];
             [reStr appendFormat:@"%02x",(int)(g*255.0)];
         }else{
-            return [NSNull null];
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@获取颜色时出错",_self]] logError];
         }
         return reStr.copy;
     };

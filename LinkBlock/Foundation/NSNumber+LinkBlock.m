@@ -684,7 +684,7 @@
         LinkGroupHandle_REF(numIndexObjInArr,arr)
         NSInteger idx = _self.integerValue;
         if(idx>0 && idx<arr.count-1) return arr[idx];
-        return [NSNull null];
+        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",arr]] logError];
     };
 }
 

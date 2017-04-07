@@ -13,9 +13,7 @@
     return ^id(id<NSCopying> key  , id value){
         LinkHandle_REF(NSMutableDictionary)
         LinkGroupHandle_REF(m_dictSetValue,key,value)
-        if(!value || !key )
-            return _self;
-        _self[key]= value;
+        if(value && key ) _self[key]= value;
         return _self;
     };
 }

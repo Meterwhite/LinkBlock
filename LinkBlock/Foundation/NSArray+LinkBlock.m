@@ -261,7 +261,9 @@
     return ^id(NSUInteger idx){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_VAL(arrAt,idx)
-        NSAssert(idx < _self.count-1, @"数组索引越界");
+        if(idx>_self.count-1){
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",_self]] logError];
+        }
         return [_self objectAtIndex:idx];
     };
 }

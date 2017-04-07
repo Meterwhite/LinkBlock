@@ -177,6 +177,9 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetValueForKey_delegate代替");
 
 LBDeclare NSObject*    (^objRemove)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objRemoveAll代替");
+
+LBDeclare NSObject*    (^objBoolReverseForKey)(NSString * key)
+NS_DEPRECATED_IOS(2_0, 2_0, "使用objBOOLNegationForKey代替");
 @end
 
 

@@ -523,6 +523,11 @@
 {
     return self.objSetValueForKey_delegate;
 }
+
+- (NSObject *(^)(NSString *))objBoolReverseForKey
+{
+    return self.objBOOLNegationForKey;
+}
 @end
 
 @implementation NSMutableString (OtherLinkBlock)

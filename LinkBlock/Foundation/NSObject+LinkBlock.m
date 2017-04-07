@@ -683,7 +683,9 @@
     return ^id(){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objCopyByArchive)
-        NSAssert([self conformsToProtocol:@protocol(NSCoding)], @"必须实现NSCoding协议");
+        if(![self conformsToProtocol:@protocol(NSCoding)]){
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@必须实现NSCoding协议",_self]] logError];
+        }
         NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:self];
         return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
     };
@@ -761,9 +763,8 @@
 
 - (BOOL (^)())objIsNSNull
 {
-    return ^(){
-        if(self == [NSNull null]) return YES;
-        return NO;
+    return ^BOOL(){
+        return self == [NSNull null];
     };
 }
 - (NSNumber *(^)())objIsNSNull_n
@@ -1245,7 +1246,7 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objIsSubClassOf_n,classKind)
         if(!classKind)
-            return @(NO);
+            return @NO;
         return @([[_self.linkEnd class] isSubclassOfClass:classKind]);
     };
 }
@@ -1263,19 +1264,14 @@
     };
 }
 
-- (NSObject *(^)(NSString *))objBoolReverseForKey
+- (NSObject *(^)(NSString *))objBOOLNegationForKey
 {
     return ^id(NSString* key){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objBoolReverseForKey,key)
-        @try {
-            NSNumber* value = [_self valueForKey:key];
-            if([value isKindOfClass:[NSNumber class]]){
-                [_self setValue:@(!value.boolValue) forKey:key];
-            }
-        } @finally {
-            return _self;
-        }
+        LinkGroupHandle_REF(objBOOLNegationForKey,key)
+        
+        [_self setValue:@(![[_self valueForKey:key] boolValue]) forKey:key];
+        return _self;
     };
 }
 
@@ -2266,7 +2262,7 @@
         if(idx!=NSNotFound && (idx-1)>0){
             return [inArr objectAtIndex:idx];
         }else{
-            return [NSNull null];
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",_self]] logError];
         }
     };
 }
@@ -2280,7 +2276,7 @@
         if(idx!=NSNotFound && (idx+1) <inArr.count){
             return [inArr objectAtIndex:idx];
         }else{
-            return [NSNull null];
+            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",_self]] logError];
         }
     };
 }
