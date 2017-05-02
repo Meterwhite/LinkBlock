@@ -40,9 +40,27 @@
         
         const NSInteger location = [_self offsetFromPosition:beginning toPosition:selectionStart];
         const NSInteger length = [_self offsetFromPosition:selectionStart toPosition:selectionEnd];
-        
         return NSMakeRange(location, length);
     };
 }
 
+- (UITextView *(^)(BOOL))txtViewEditable
+{
+    return ^id(BOOL b){
+        LinkHandle_REF(UITextView)
+        LinkGroupHandle_REF(txtViewEditable,b)
+        _self.editable = b;
+        return _self;
+    };
+}
+
+- (UITextView *(^)(BOOL))txtViewSelectable
+{
+    return ^id(BOOL b){
+        LinkHandle_REF(UITextView)
+        LinkGroupHandle_REF(txtViewSelectable,b)
+        _self.selectable = b;
+        return _self;
+    };
+}
 @end

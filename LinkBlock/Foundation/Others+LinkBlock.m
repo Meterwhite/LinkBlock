@@ -658,4 +658,43 @@
     }
     return self;
 }
+
+#ifndef ________TransType_Maro
+#define ________TransType_Maro(ReType) \
+- (ReType *)of##ReType \
+{ \
+return (id)self; \
+}
+#endif
+
+________TransType_Maro(NSString)
+________TransType_Maro(NSMutableString)
+________TransType_Maro(NSArray)
+________TransType_Maro(NSMutableArray)
+________TransType_Maro(NSDictionary)
+________TransType_Maro(NSMutableDictionary)
+________TransType_Maro(NSAttributedString)
+________TransType_Maro(NSMutableAttributedString)
+________TransType_Maro(NSURL)
+________TransType_Maro(NSUserDefaults)
+________TransType_Maro(NSNumber)
+________TransType_Maro(NSValue)
+________TransType_Maro(NSDate)
+________TransType_Maro(NSData)
+________TransType_Maro(UIView)
+________TransType_Maro(UILabel)
+________TransType_Maro(UIControl)
+________TransType_Maro(UIButton)
+________TransType_Maro(UIScrollView)
+________TransType_Maro(UIImage)
+________TransType_Maro(UIColor)
+________TransType_Maro(UIViewController)
+________TransType_Maro(UIImageView)
+________TransType_Maro(UITableView)
+________TransType_Maro(UITextField)
+________TransType_Maro(UITextView)
+________TransType_Maro(UIWebView)
+________TransType_Maro(NSMutableSet)
+________TransType_Maro(NSSet)
+________TransType_Maro(NSCalendar)
 @end

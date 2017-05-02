@@ -196,4 +196,31 @@
         return _self;
     };
 }
+
+- (NSMutableDictionary *(^)(id<NSCopying>  , id))dictSetValue
+{
+    return ^id(id<NSCopying> key  , id value){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictSetValue,key,value)
+        if(![_self isKindOfClass:[NSMutableDictionary class]]){
+            _self = [_self mutableCopy];
+        }
+        if(value && key ){
+            [_self setObject:value forKey:key];
+        }
+        return _self;
+    };
+}
+
+- (NSMutableDictionary *(^)(NSDictionary *))dictUnionDict
+{
+    return ^id(NSDictionary* dict){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictUnionDict,dict)
+        if(![_self isKindOfClass:[NSMutableDictionary class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_dictUnionDict(dict);
+    };
+}
 @end

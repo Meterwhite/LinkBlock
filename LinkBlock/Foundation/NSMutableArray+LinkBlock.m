@@ -54,8 +54,9 @@
             return _self;
         if(!_self.count){
            [_self addObject:obj];
+        }else{
+            [_self insertObject:obj atIndex:index];
         }
-        [_self insertObject:obj atIndex:index];
         return _self;
     };
 }

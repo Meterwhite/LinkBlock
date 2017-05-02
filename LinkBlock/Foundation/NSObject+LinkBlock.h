@@ -341,36 +341,37 @@ LBDeclare NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
 
 
 //MARK: 明确对象类型
--                  (NSString*)                  ofNSString;
--                  (NSMutableString*)           ofNSMutableString;
--                  (NSArray*)                   ofNSArray;
--                  (NSMutableArray*)            ofNSMutableArray;
--                  (NSDictionary*)              ofNSDictionary;
--                  (NSMutableDictionary*)       ofNSMutableDictionary;
--                  (NSAttributedString*)        ofNSAttributedString;
--                  (NSMutableAttributedString*) ofNSMutableAttributedString;
--                  (NSURL*)                     ofNSURL;
--                  (NSUserDefaults*)            ofNSUserDefaults;
--                  (NSNumber*)                  ofNSNumber;
--                  (NSValue*)                   ofNSValue;
--                  (NSDate*)                    ofNSDate;
--                  (NSData*)                    ofNSData;
--                  (NSSet*)                     ofNSSet;
--                  (NSMutableSet*)              ofNSMutableSet;
--                  (NSCalendar*)                ofNSCalendar;
--                  (UIView*)                    ofUIView;
--                  (UIImage*)                   ofUIImage;
--                  (UILabel*)                   ofUILabel;
--                  (UIControl*)                 ofUIControl;
--                  (UIButton*)                  ofUIButton;
--                  (UIScrollView*)              ofUIScrollView;
--                  (UIImageView*)               ofUIImageView;
--                  (UITableView*)               ofUITableView;
--                  (UIColor*)                   ofUIColor;
--                  (UIViewController*)          ofUIViewController;
--                  (UITextField*)               ofUITextField;
--                  (UITextView*)                ofUITextView;
--                  (UIWebView*)                 ofUIWebView;
+-                  (NSString*)                  asNSString;
+-                  (NSMutableString*)           asNSMutableString;
+-                  (NSArray*)                   asNSArray;
+-                  (NSMutableArray*)            asNSMutableArray;
+-                  (NSDictionary*)              asNSDictionary;
+-                  (NSMutableDictionary*)       asNSMutableDictionary;
+-                  (NSAttributedString*)        asNSAttributedString;
+-                  (NSMutableAttributedString*) asNSMutableAttributedString;
+-                  (NSURL*)                     asNSURL;
+-                  (NSUserDefaults*)            asNSUserDefaults;
+-                  (NSNumber*)                  asNSNumber;
+-                  (NSValue*)                   asNSValue;
+-                  (NSDate*)                    asNSDate;
+-                  (NSData*)                    asNSData;
+-                  (NSSet*)                     asNSSet;
+-                  (NSMutableSet*)              asNSMutableSet;
+-                  (NSCalendar*)                asNSCalendar;
+-                  (UIView*)                    asUIView;
+-                  (UIImage*)                   asUIImage;
+-                  (UILabel*)                   asUILabel;
+-                  (UIControl*)                 asUIControl;
+-                  (UIButton*)                  asUIButton;
+-                  (UIScrollView*)              asUIScrollView;
+-                  (UIImageView*)               asUIImageView;
+-                  (UITableView*)               asUITableView;
+-                  (UIColor*)                   asUIColor;
+-                  (UIViewController*)          asUIViewController;
+-                  (UITextField*)               asUITextField;
+-                  (UITextView*)                asUITextView;
+-                  (UIWebView*)                 asUIWebView;
+-                  (CALayer*)                   asCALayer;
 @end
 
 /**

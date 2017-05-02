@@ -36,6 +36,8 @@ LBDeclare CGSize       (^viewSize)();
 
 /** <^(CGFloat x,CGFloat y, CGFloat width,CGFloat height)> */
 LBDeclare UIView*      (^viewSetFrame)(CGFloat x,CGFloat y, CGFloat width,CGFloat height);
+/** <^(CGFloat x,CGFloat y, CGFloat width,CGFloat height)> */
+LBDeclare UIView*      (^viewSetBounds)(CGFloat x,CGFloat y, CGFloat width,CGFloat height);
 /** <^(CGFloat x)> */
 LBDeclare UIView*      (^viewSetX)(CGFloat x);
 /** <^(CGFloat y)> */
@@ -150,6 +152,8 @@ LBDeclare UIView*      (^viewInsertToViewBelow)(UIView* toView, UIView* belowVie
 LBDeclare UIView*      (^viewExchangeSubviewByIndex)(NSUInteger index1, NSUInteger index2);
 /** <^(UIView* subview)> */
 LBDeclare UIView*      (^viewAddSubview)(UIView* subview);
+
+LBDeclare UIView*      (^viewAddSubviews)(UIView* view0 , ...);
 /** <^(__weak UIView* view)> */
 LBDeclare UIView*      (^viewAddToView)(__weak UIView* view);
 /** <^(Class clazz)> */

@@ -7,6 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 /**
  定义LinkBlock属性

@@ -19,6 +19,16 @@
     };
 }
 
+- (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))viewSetBounds
+{
+    return ^id(CGFloat x,CGFloat y, CGFloat width, CGFloat height){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewSetBounds,x,y,width,height)
+        _self.bounds= CGRectMake(x, y, width, height);
+        return _self;
+    };
+}
+
 - (UIView *(^)(CGFloat))viewSetX
 {
     return ^id(CGFloat x){
@@ -482,6 +492,60 @@
         if([subview isKindOfClass:[UIView class]]){
             [_self addSubview:subview];
         }
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *, ...))viewAddSubviews
+{
+    return ^id(UIView* view0,...){
+        LinkHandle_REF(UIView)
+        
+        NSMutableArray* argList = [NSMutableArray new];
+        if(view0){
+            [argList addObject:view0];
+            va_list args;
+            va_start(args, view0);
+            id parm;
+            while (( parm = va_arg(args, UIView*)) ) {
+                [argList addObject:parm];
+            }
+            va_end(args);
+        }
+        
+        ///////////////////////
+        //LinkGroupHandle_VAL
+        if([self isKindOfClass:[LinkGroup class]]){
+            
+            LinkGroup* group = (LinkGroup*)self;
+            NSMutableArray* newObjs = [NSMutableArray new];
+            [group.linkObjects enumerateObjectsUsingBlock:^(id view, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if([view isKindOfClass:[UIView class]]){
+                    
+                    [argList enumerateObjectsUsingBlock:^(id  _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [view addSubview:subView];
+                    }];
+                }else{
+                    
+                    [argList enumerateObjectsUsingBlock:^(id  _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
+                        LinkError* error = [LinkError new];
+                        error.needClass = @"UIView";
+                        error.errorClass = NSStringFromClass([subView class]);
+                        error.inFunc = @(__func__);
+                        [newObjs addObject:error];
+                    }];
+                    group.linkObjects = newObjs;
+                }
+            }];
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        [argList enumerateObjectsUsingBlock:^(id  _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
+            [_self addSubview:subView];
+        }];
         return _self;
     };
 }

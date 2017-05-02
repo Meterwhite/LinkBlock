@@ -402,8 +402,7 @@
             return NO;
         }
         LinkGroupHandle_VAL(numHasDecimalValue)
-        if([_self doubleValue] - [_self integerValue])
-            return YES;
+        if([_self doubleValue] - [_self integerValue]) return YES;
         return NO;
     };
 }
@@ -412,8 +411,7 @@
     return ^id(){
         LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numHasDecimalValue_n)
-        if([_self doubleValue] - [_self integerValue])
-            return @YES;
+        if([_self doubleValue] - [_self integerValue]) return @YES;
         return @NO;
     };
 }
@@ -569,7 +567,6 @@
         LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numIsOdd_n)
         if(_self.numIsIntegerType() && ([_self integerValue]%2 == 1)){
-            
             return @YES;
         }
         return @NO;
@@ -612,8 +609,7 @@
         if(![arr isKindOfClass:[NSArray class]])
             return NO;
         NSInteger idx = [_self integerValue];
-        if(idx>=0 && idx<arr.count)
-            return YES;
+        if(idx>=0 && idx<arr.count) return YES;
         return NO;
     };
 }
@@ -626,8 +622,7 @@
         if(![arr isKindOfClass:[NSArray class]])
             return @NO;
         NSInteger idx = [_self integerValue];
-        if(idx>=0 && idx<arr.count)
-            return @YES;
+        if(idx>=0 && idx<arr.count) return @YES;
         return @NO;
     };
 }
@@ -643,8 +638,7 @@
         if(![str isKindOfClass:[NSString class]])
             return NO;
         NSInteger idx = [_self integerValue];
-        if(idx>=0 && idx<str.length)
-            return YES;
+        if(idx>=0 && idx<str.length) return YES;
         return NO;
     };
 }
@@ -654,11 +648,9 @@
         
         LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numIndexIsInStringRange_n,str)
-        if(![str isKindOfClass:[NSString class]])
-            return @NO;
+        if(![str isKindOfClass:[NSString class]]) return @NO;
         NSInteger idx = [_self integerValue];
-        if(idx>=0 && idx<str.length)
-            return @YES;
+        if(idx>=0 && idx<str.length) return @YES;
         return @NO;
     };
 }
@@ -670,8 +662,7 @@
         LinkHandle_REF(NSNumber)
         LinkGroupHandle_REF(numIndexObjRemoveFromArr,arr)
         NSInteger idx = _self.integerValue;
-        if(idx>0 && idx<arr.count-1)
-            [arr removeObjectAtIndex:idx];
+        if(idx>0 && idx<arr.count-1) [arr removeObjectAtIndex:idx];
         return _self;
     };
 }

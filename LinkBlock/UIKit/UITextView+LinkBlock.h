@@ -16,4 +16,8 @@
 LBDeclare UITextView*         (^txtViewSelectRangeSet)(NSRange range);
 /** <^()> */
 LBDeclare NSRange             (^txtViewSelectRangeGet)();
+/** <^(BOOL b)> */
+LBDeclare UITextView*         (^txtViewEditable)(BOOL b);
+/** <^(BOOL b)> */
+LBDeclare UITextView*         (^txtViewSelectable)(BOOL b);
 @end

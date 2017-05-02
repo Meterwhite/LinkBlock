@@ -2690,7 +2690,7 @@ Link_objSetValueForKey_(text)
 
 #ifndef Link_TransType_Maro
 #define Link_TransType_Maro(ReType) \
-- (ReType *)of##ReType \
+- (ReType *)as##ReType \
 { \
     return (id)self; \
 }
@@ -2726,6 +2726,7 @@ Link_TransType_Maro(UIWebView)
 Link_TransType_Maro(NSMutableSet)
 Link_TransType_Maro(NSSet)
 Link_TransType_Maro(NSCalendar)
+Link_TransType_Maro(CALayer)
 
 - (id)_lb_performSelector:(SEL)aSelector withArg:(id)arg
 {

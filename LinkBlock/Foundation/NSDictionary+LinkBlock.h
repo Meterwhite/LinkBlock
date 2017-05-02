@@ -33,4 +33,11 @@ LBDeclare NSMutableDictionary* (^dictReplaceKey)(id<NSCopying> replaceKey, id<NS
 LBDeclare NSMutableDictionary* (^dictReplaceKeyWithoutDeep)(id<NSCopying> replaceKey, id<NSCopying> withKey);
 /** <^()>对字典中的值随机赋值，仅含字符串和数字类型 */
 LBDeclare NSDictionary*        (^dictObjsValueRandom)();
+
+#pragma mark - NSMutableDictionary
+/** <^(id<NSCopying> key , id value)>赋值 */
+LBDeclare NSMutableDictionary* (^dictSetValue)(id<NSCopying> key , id value);
+/* <^(id<NSCopying> replaceKey, id<NSCopying> withKey)>替换字典中的key，层次遍历字典和数组 */
+/** <^(NSDictionary* dict)>并集，由传入参数覆盖原来数据 */
+LBDeclare NSMutableDictionary* (^dictUnionDict)(NSDictionary* dict);
 @end

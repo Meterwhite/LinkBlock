@@ -35,4 +35,8 @@ LBDeclare UIImageView*     (^imgSetToImgView_linkTo)(UIImageView* imgView);
 LBDeclare UIButton*        (^imgSetToBtnBGImg_linkTo)(UIButton* btn,UIControlState state);
 /** <UIButton* ^(UIButton* btn,UIControlState state)>图片设置到控件并返回控件 */
 LBDeclare UIButton*        (^imgSetToBtn_linkTo)(UIButton* btn,UIControlState state);
+/** <^(CGFloat lWidth,CGFloat tHeight)>图片拉伸 */
+LBDeclare UIImage*        (^imgStretchableImageWithLeftCapWidthAndTopCapHeight)(CGFloat lWidth,CGFloat tHeight);
+/** <^(CGFloat top,CGFloat left,CGFloat bottom, CGFloat right)>图片拉伸 */
+LBDeclare UIImage*        (^imgResizableWithCapInsets)(CGFloat top,CGFloat left,CGFloat bottom, CGFloat right);
 @end

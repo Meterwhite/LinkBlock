@@ -206,4 +206,35 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用objBOOLNegationForKey代替");
 - (NSMutableString*)SQLIf:(BOOL)b
                     using:(void(^)(NSMutableString* makeSQL))usingBlock
                 elseUsing:(void(^)(NSMutableString* makeSQL))elseUsingBlock  NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+
+-(NSString*)ofNSString NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSMutableString*)ofNSMutableString NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSArray*)ofNSArray NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSMutableArray*)ofNSMutableArray NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSDictionary*)ofNSDictionary NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSMutableDictionary*)ofNSMutableDictionary NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSAttributedString*)ofNSAttributedString NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSMutableAttributedString*)ofNSMutableAttributedString NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSURL*)ofNSURL NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSUserDefaults*)ofNSUserDefaults NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSNumber*)ofNSNumber NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSValue*)ofNSValue NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSDate*)ofNSDate NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSData*)ofNSData NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSSet*)ofNSSet NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSMutableSet*)ofNSMutableSet NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(NSCalendar*)ofNSCalendar NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIView*)ofUIView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIImage*)ofUIImage NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UILabel*)ofUILabel NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIControl*)ofUIControl NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIButton*)ofUIButton NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIScrollView*)ofUIScrollView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIImageView*)ofUIImageView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UITableView*)ofUITableView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIColor*)ofUIColor NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIViewController*)ofUIViewController NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UITextField*)ofUITextField NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UITextView*)ofUITextView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+-(UIWebView*)ofUIWebView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
 @end

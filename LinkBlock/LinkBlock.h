@@ -36,6 +36,7 @@
 #import "UITextField+LinkBlock.h"
 #import "CALayer+LinkBlock.h"
 #import "CAShapeLayer+LinkBlock.h"
+#import "CAAnimations+LinkBlock.h"
 #import "UIBezierPath+LinkBlock.h"
 #import "UIWebView+LinkBlock.h"
 #import "UITableView+LinkBlock.h"
@@ -286,4 +287,9 @@
  */
 #ifndef objPerformSelectorsWithArgs_linkToReturnValues
 #define objPerformSelectorsWithArgs_linkToReturnValues(sel0,arg0,args...) objPerformSelectorsWithArgs_linkToReturnValues(sel0,arg0,##args,nil)
+#endif
+
+/** <^(UIView view0 , ...)>宏定义下该方法无需手工以nil结尾 */
+#ifndef viewAddSubviews
+#define viewAddSubviews(view0,args...) viewAddSubviews(view0,args...,nil)
 #endif

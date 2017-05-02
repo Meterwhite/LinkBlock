@@ -229,7 +229,7 @@
         LinkGroupHandle_REF(arrSubFrom,idx)
         NSUInteger count = _self.count;
         if(idx >= count ) return _self;
-        return [_self subarrayWithRange:NSMakeRange(idx, count - idx)];
+        return [[_self subarrayWithRange:NSMakeRange(idx, count - idx)] mutableCopy];
     };
 }
 
@@ -240,8 +240,7 @@
         LinkGroupHandle_REF(arrSubTo,idx)
         NSUInteger count = _self.count;
         if(idx >= count ) return _self;
-        [_self subarrayWithRange:NSMakeRange(0, idx)];
-        return _self;
+        return [[_self subarrayWithRange:NSMakeRange(0, idx)] mutableCopy];
     };
 }
 
@@ -268,7 +267,7 @@
     };
 }
 
-- (NSArray *(^)(NSString * , ...))arrFilter
+- (NSMutableArray *(^)(NSString * , ...))arrFilter
 {
     return ^id(NSString* predicateFormat , ...){
         
@@ -285,7 +284,7 @@
                 
                 id re = [(id)group.linkObjects[i]
                          filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
-                [returnObjs addObject:re];
+                [returnObjs addObject:[re mutableCopy]];
             }
             va_end(args);
             [group.linkObjects setArray:returnObjs];
@@ -298,7 +297,7 @@
         va_start(args, predicateFormat);
         NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
         va_end(args);
-        return [_self filteredArrayUsingPredicate:predicate];
+        return [[_self filteredArrayUsingPredicate:predicate] mutableCopy];
     };
 }
 
@@ -394,7 +393,7 @@
     };
 }
 
-- (NSArray *(^)())arrObjsValueRandom
+- (NSMutableArray *(^)())arrObjsValueRandom
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -403,7 +402,7 @@
         [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             obj.objValuesRandom();
         }];
-        return _self;
+        return [_self mutableCopy];
     };
 }
 
@@ -424,34 +423,116 @@
     };
 }
 
-- (NSArray *(^)(BOOL))arrSort
+- (NSMutableArray *(^)(BOOL))arrSort
 {
     return ^id(BOOL ascending){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrSort,ascending)
-        return [_self sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return [obj1 compare:obj2]*(ascending?1:-1);
-        }];
+        
+        if([self isKindOfClass:[NSMutableArray class]]){
+            [_self sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj1 compare:obj2]*(ascending?1:-1);
+            }];
+            return _self;
+        }else{
+            return [_self sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj1 compare:obj2]*(ascending?1:-1);
+            }];
+        }
     };
 }
 
-- (NSArray *(^)(NSString *, BOOL))arrSortByKey
+- (NSMutableArray *(^)(NSString *, BOOL))arrSortByKey
 {
     return ^id(NSString* key , BOOL ascending){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrSortByKey,key,ascending)
         NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key
                                                                ascending:ascending];
-        return [_self sortedArrayUsingDescriptors:@[sort]];
+        if([_self isKindOfClass:[NSMutableArray class]]){
+            [_self sortUsingDescriptors:@[sort]];
+            return _self;
+        }else{
+            return [_self sortedArrayUsingDescriptors:@[sort]];
+        }
     };
 }
 
-- (NSArray *(^)())arrReversed
+- (NSMutableArray *(^)())arrReversed
 {
     return ^id(){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrReversed)
-        return [[_self reverseObjectEnumerator] allObjects];
+        return [[[_self reverseObjectEnumerator] allObjects] mutableCopy];
+    };
+}
+
+- (NSMutableArray *(^)(NSArray *, NSString *))arrMinusArrByKey
+{
+    return ^id(NSArray* arr, NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrMinusArrByKey,arr,key)
+        NSMutableArray* re = [NSMutableArray new];
+        __block BOOL hasItem;
+        [_self enumerateObjectsUsingBlock:^(id fromItem, NSUInteger i, BOOL * stopI) {
+            hasItem = NO;
+            [arr enumerateObjectsUsingBlock:^(id toItem, NSUInteger j, BOOL * stopJ) {
+                
+                if(linkObj((NSObject*)[fromItem valueForKeyPath:key]).objIsEqual([toItem valueForKeyPath:key])){
+                    hasItem = YES; *stopJ = YES;
+                }
+            }];
+            if(!hasItem){
+                [re addObject:fromItem];
+            }
+        }];
+        return re;
+    };
+}
+
+- (NSMutableArray *(^)(NSArray *, NSString *))arrUnionArrByKey
+{
+    return ^id(NSArray* arr, NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrMinusArrByKey,arr,key)
+        NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
+        __block BOOL hasItem;
+        [_self enumerateObjectsUsingBlock:^(id fromItem, NSUInteger i, BOOL * stopI) {
+            hasItem = NO;
+            [arr enumerateObjectsUsingBlock:^(id toItem, NSUInteger j, BOOL * stopJ) {
+                
+                if(linkObj((NSObject*)[fromItem valueForKeyPath:key]).objIsEqual([toItem valueForKeyPath:key])){
+                    hasItem = YES; *stopJ = YES;
+                }
+            }];
+            if(!hasItem){
+                [re addObject:fromItem];
+            }
+        }];
+        return re;
+    };
+}
+
+- (NSMutableArray *(^)(NSArray *, NSString *))arrInterectArrByKey
+{
+    return ^id(NSArray* arr, NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrMinusArrByKey,arr,key)
+        NSMutableArray* re = [NSMutableArray new];
+        __block BOOL hasItem;
+        [_self enumerateObjectsUsingBlock:^(id fromItem, NSUInteger i, BOOL * stopI) {
+            hasItem = NO;
+            [arr enumerateObjectsUsingBlock:^(id toItem, NSUInteger j, BOOL * stopJ) {
+                
+                if(linkObj((NSObject*)[fromItem valueForKeyPath:key]).objIsEqual([toItem valueForKeyPath:key])){
+                    hasItem = YES; *stopJ = YES;
+                }
+            }];
+            if(hasItem){
+                [re addObject:fromItem];
+            }
+        }];
+        return re;
     };
 }
 
@@ -507,6 +588,209 @@
             [re addObject:item];
         }];
         return re;
+    };
+}
+
+- (NSMutableArray *(^)(id))arrAddObj
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrAddObj , obj)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrAddObj(obj);
+    };
+}
+
+- (NSMutableArray *(^)(id))arrAddObjNotContain
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrAddObjNotContain , obj)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrAddObjNotContain(obj);
+    };
+}
+
+- (NSMutableArray *(^)(NSArray *))arrAddObjs
+{
+    return ^id(NSArray *arr){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrAddObjs,arr)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrAddObjs(arr);
+    };
+}
+
+- (NSMutableArray *(^)(id, NSUInteger))arrInsertObjAt
+{
+    return ^id(id obj, NSUInteger index){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrInsertObjAt,obj,index)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrInsertObjAt(obj,index);
+    };
+}
+
+- (NSMutableArray *(^)(NSArray *, NSUInteger))arrInsertArrayAt
+{
+    return ^id(NSArray * arr, NSUInteger index){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrInsertArrayAt,arr,index)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrInsertArrayAt(arr,index);
+    };
+}
+
+- (NSMutableArray *(^)(id, id))arrInsertBefore
+{
+    return ^id(id obj, id beforObj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrInsertBefore,obj,beforObj)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrInsertBefore(obj,beforObj);
+    };
+}
+
+- (NSMutableArray *(^)(id, id))arrInsertBehind
+{
+    return ^id(id obj, id behindObj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrInsertBehind,obj,behindObj)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrInsertBehind(obj,behindObj);
+    };
+}
+
+- (NSMutableArray *(^)(id))arrRemoveObj
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrRemoveObj,obj)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrRemoveObj(obj);
+    };
+}
+
+- (NSMutableArray *(^)(NSUInteger))arrRemoveAt
+{
+    return ^id(NSUInteger index){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrRemoveAt,index)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrRemoveAt(index);
+    };
+}
+- (NSMutableArray *(^)(NSUInteger, NSUInteger))arrRemoveObjsFromTo
+{
+    return ^id(NSUInteger from, NSUInteger to){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrRemoveObjsFromTo,from,to)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrRemoveObjsFromTo(from,to);
+    };
+}
+
+- (NSMutableArray *(^)())arrRemoveAll
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrRemoveAll)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrRemoveAll();
+    };
+}
+
+- (NSMutableArray *(^)(id, id))arrReplaceObjWith
+{
+    return ^id(id obj, id withObj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrReplaceObjWith,obj,withObj)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrReplaceObjWith(obj,withObj);
+    };
+}
+
+- (NSMutableArray<NSValue *> *(^)(BOOL, BOOL))arrSortRange
+{
+    return ^id(BOOL ascending, BOOL isCombine){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrSortRange,ascending,isCombine)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrSortRange(ascending,isCombine);
+    };
+}
+
+- (NSMutableArray *(^)(id, NSString *))arrAddOrReplaceObjByKey
+{
+    return ^id(id obj , NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrAddOrReplaceObjByKey,obj,key)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrAddOrReplaceObjByKey(obj,key);
+    };
+}
+
+- (NSMutableArray *(^)(id, NSString *, NSUInteger))arrInsertOrReplaceObjByKeyAt
+{
+    return ^id(id obj , NSString* key , NSUInteger idx){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrInsertOrReplaceObjByKeyAt,obj,key,idx)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrInsertOrReplaceObjByKeyAt(obj,key,idx);
+    };
+}
+
+- (NSMutableArray *(^)(id, NSString *))arrTryReplaceObjByKey
+{
+    return ^id(id obj , NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrTryReplaceObjByKey,obj,key)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrTryReplaceObjByKey(obj,key);
+    };
+}
+
+- (NSMutableArray *(^)(NSArray *, NSString *))arrTryReplaceObjsByKey
+{
+    return ^id(NSArray* objs , NSString* key){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(arrTryReplaceObjsByKey,objs,key)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrTryReplaceObjsByKey(objs,key);
     };
 }
 @end

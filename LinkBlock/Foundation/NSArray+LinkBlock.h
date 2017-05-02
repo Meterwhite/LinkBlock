@@ -10,14 +10,18 @@
 #define NSArrayNew ([NSArray new])
 #endif
 @interface NSObject(NSArraryLinkBlock)
+
+#pragma mark - 多链条
 /**
  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
  Arrary.makeLinkObjs....
  */
 LBDeclare_F NSObject*              makeLinkObjs;
+#pragma mark - NSArray
 /** <^(NSUInteger idx)> */
 LBDeclare NSObject*                (^arrAt)(NSUInteger idx);
+
 /** <^(id obj)>是否包含某个对象 */
 LBDeclare BOOL                     (^arrContain)(id obj);
 LBDeclare NSNumber*                (^arrContain_n)(id obj);
@@ -56,7 +60,7 @@ LBDeclare NSObject*                (^arrLast)();
 /** <^()>第一个对象 */
 LBDeclare NSObject*                (^arrFirst)();
 /**<^(NSString* predicateFormat,...)>组数过滤，如age>20 */
-LBDeclare NSArray*                 (^arrFilter)(NSString* predicateFormat , ...);
+LBDeclare NSMutableArray*          (^arrFilter)(NSString* predicateFormat , ...);
 /**<^(id value)>获取数组中某个值的所有索引 */
 LBDeclare NSIndexSet*              (^arrIndexSetOfValue)(id value);
 /**<^(id<NSCopying> replaceKey,id<NSCopying> withKey)>替换数组中字典的key，深度遍历的 */
@@ -68,15 +72,29 @@ LBDeclare NSNumber*                (^arrMaxNumber)();
 /**<^()>找到数组中最小的数字类型，可容纳其他类型对象 */
 LBDeclare NSNumber*                (^arrMinNumber)();
 /** <^()>对数组中对象随机赋值，仅含字符串和数字类型 */
-LBDeclare NSArray*                 (^arrObjsValueRandom)();
+LBDeclare NSMutableArray*          (^arrObjsValueRandom)();
 /** <^(Class typeClass)>获取数组中所有该类型的对象 */
 LBDeclare NSMutableArray*          (^arrObjsOfType)(Class typeClass);
 /** <^(BOOL ascending)>对数组中的值使用compare:进行排序 */
-LBDeclare NSArray*                 (^arrSort)(BOOL ascending);
+LBDeclare NSMutableArray*          (^arrSort)(BOOL ascending);
 /** <^(NSString* key, BOOL ascending)>以数组中对象的Key的值进行排序,ascending：升序 */
-LBDeclare NSArray*                 (^arrSortByKey)(NSString* key, BOOL ascending);
+LBDeclare NSMutableArray*          (^arrSortByKey)(NSString* key, BOOL ascending);
 /** <^()>倒序，返回新数组 */
-LBDeclare NSArray*                 (^arrReversed)();
+LBDeclare NSMutableArray*          (^arrReversed)();
+/** 
+ <^(NSArray* arr, NSString* key)>根据key或keyPath对应的value，返回当前数组与某数组做'差集'后的结果；(数组每项必须含字段key)；返回做差后的集合；
+ 例如:找出新旧数据源中的新增对象；
+ */
+LBDeclare NSMutableArray*          (^arrMinusArrByKey)(NSArray* arr, NSString* key);
+
+/**
+ <^(NSArray* arr, NSString* key)>根据key或keyPath对应的value，返回当前数组与某数组做'并集'后的结果；(数组每项必须含字段key)；返回做并集后的集合；
+ */
+LBDeclare NSMutableArray*          (^arrUnionArrByKey)(NSArray* arr, NSString* key);
+/**
+ <^(NSArray* arr, NSString* key)>根据key或keyPath对应的value，返回当前数组与某数组做'交集'后的结果；(数组每项必须含字段key)；返回做交集的集合；
+ */
+LBDeclare NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString* key);
 
 #pragma mark - 键值
 /** <^(NSString* key,id value)>数组项是否有匹配键相等的值 */
@@ -86,6 +104,45 @@ LBDeclare NSNumber*                (^arrKeyValueContain_n)(NSString* key,id valu
 LBDeclare NSMutableArray*          (^arrKeyValueMatchObjs)(NSString* key,id value);
 /** <^(NSString* key,id value)>返回能与数组项的多个键值匹配的对象的集合 */
 LBDeclare NSMutableArray*          (^arrKeyValuesMatchObjs)(NSDictionary<NSString*,id>* kv);
+
+//
+//  NSArray调用下面方法会转为NSMutableArray调用
+//
+#pragma mark - NSMutableArray or NSArray
+/** <^(id obj)>插入一个元素,安全的 */
+LBDeclare NSMutableArray*  (^arrAddObj)(id obj);
+/** <^(id obj)>插入一个元素,如果不包含的话 */
+LBDeclare NSMutableArray*  (^arrAddObjNotContain)(id obj);
+/** <^(NSArray* arr)>插入一个数组,安全的 */
+LBDeclare NSMutableArray*  (^arrAddObjs)(NSArray* arr);
+/** <^(id obj, NSUInteger index)>在指定Index处插入一个元素,安全的 */
+LBDeclare NSMutableArray*  (^arrInsertObjAt)(id obj, NSUInteger index);
+/** <^(NSArray* arr, NSUInteger index)>在指定Index处插入一个数组,安全的 */
+LBDeclare NSMutableArray*  (^arrInsertArrayAt)(NSArray* arr, NSUInteger index);
+/** <^(id obj, id beforeObj)>插入一个对象在另一个对象之前 */
+LBDeclare NSMutableArray*  (^arrInsertBefore)(id obj, id beforeObj);
+/** <^(id obj, id behindObj)>插入一个对象在另一个对象之后 */
+LBDeclare NSMutableArray*  (^arrInsertBehind)(id obj, id behindObj);
+/** <^(id obj)> */
+LBDeclare NSMutableArray*  (^arrRemoveObj)(id obj);
+/** <^(NSUInteger index)>移除指定Index处的元素,不会溢出 */
+LBDeclare NSMutableArray*  (^arrRemoveAt)(NSUInteger index);
+/** <^(NSUInteger fromIndex,NSUInteger toIndex)>移除一段元素，在指定Index范围内,不会溢出 */
+LBDeclare NSMutableArray*  (^arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
+/** <^()>移除所有数组元素,安全的 */
+LBDeclare NSMutableArray*  (^arrRemoveAll)();
+/** <^(id obj,id withObj)>替换数组中的一个对象，如果存在的话 */
+LBDeclare NSMutableArray*  (^arrReplaceObjWith)(id obj,id withObj);
+/** <^(BOOL ascending, BOOL isCombine)>对数组子项为NSRange值的NSValue对象进行排序；isCombine：NSRange(0,2)会合并NSRange(0,1) */
+LBDeclare NSMutableArray<NSValue*>* (^arrSortRange)(BOOL ascending, BOOL isCombine);
+/** <^(id obj , NSString* key)>插入对象或者替换对象（如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后） */
+LBDeclare NSMutableArray*          (^arrAddOrReplaceObjByKey)(id obj , NSString* key);
+/** <^(id obj , NSString* key, NSUInteger idx)>在指定索引处插入对象或者替换对象（如果数组中存在对象的Key对应的value比较相等则全部替换） */
+LBDeclare NSMutableArray*          (^arrInsertOrReplaceObjByKeyAt)(id obj , NSString* key, NSUInteger idx);
+/** <^(id obj , NSString* key)>尝试替换一个对象（如果数组中对象与obj参数的key的值相等的对象） */
+LBDeclare NSMutableArray*          (^arrTryReplaceObjByKey)(id obj , NSString* key);
+/** <^(NSArray* objs , NSString* key)>替换如果数组中对象与obj参数的key的值相等的对象 */
+LBDeclare NSMutableArray*          (^arrTryReplaceObjsByKey)(NSArray* objs , NSString* key);
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

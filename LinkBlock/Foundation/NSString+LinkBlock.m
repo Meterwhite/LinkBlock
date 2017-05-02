@@ -1237,13 +1237,13 @@
                 va_list args;
                 va_start(args, obj1);
                 for (int i=0; i<group.linkObjects.count; i++) {
-                    id re = [NSPredicate predicateWithFormat:group.linkObjects[i].ofNSString arguments:args];
+                    id re = [NSPredicate predicateWithFormat:group.linkObjects[i].asNSString arguments:args];
                     [returnObjs addObject:re];
                 }
                 va_end(args);
             }else{
                 for (int i=0; i<group.linkObjects.count; i++) {
-                    id re = [NSPredicate predicateWithFormat:group.linkObjects[i].ofNSString];
+                    id re = [NSPredicate predicateWithFormat:group.linkObjects[i].asNSString];
                     [returnObjs addObject:re];
                 }
             }

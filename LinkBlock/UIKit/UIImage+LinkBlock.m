@@ -275,4 +275,21 @@
     };
 }
 
+- (UIImage *(^)(CGFloat,CGFloat))imgStretchableImageWithLeftCapWidthAndTopCapHeight
+{
+    return ^id(CGFloat lWidth , CGFloat tHeight){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgStretchableImageWithLeftCapWidthAndTopCapHeight,lWidth,tHeight)
+        return [_self stretchableImageWithLeftCapWidth:lWidth topCapHeight:tHeight];
+    };
+}
+
+- (UIImage *(^)(CGFloat, CGFloat, CGFloat, CGFloat))imgResizableWithCapInsets
+{
+    return ^id(CGFloat top,CGFloat left,CGFloat bottom, CGFloat right){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgResizableWithCapInsets,top,left,bottom,right)
+        return [_self resizableImageWithCapInsets:UIEdgeInsetsMake(top, left, bottom, right)];
+    };
+}
 @end
