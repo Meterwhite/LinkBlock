@@ -70,6 +70,8 @@ LBDeclare UIView*      (^viewBGColorRandom)();
 LBDeclare UIView*      (^viewBorderColor)(UIColor* color);
 /** <^(CGFloat w)> */
 LBDeclare UIView*      (^viewBorderWidth)(CGFloat w);
+/** <^(UIColor* color,CGFloat w)> */
+LBDeclare UIView*      (^viewBorderColorAndWidth)(UIColor* color,CGFloat w);
 /** <^(CGFloat radius)>view.layer.cornerRadius */
 LBDeclare UIView*      (^viewCornerRadius)(CGFloat radius);
 /** <^(UIRectCorner side , CGSize radius)>方位组合的圆角 */
@@ -124,6 +126,10 @@ LBDeclare UIView*      (^viewAlpha)(CGFloat alpha);
 LBDeclare UIView*      (^viewOpaque)(CGFloat opaque);
 /** <^(BOOL hidden)> */
 LBDeclare UIView*      (^viewHidden)(BOOL hidden);
+/** <^()> */
+LBDeclare UIView*      (^viewHiddenYES)();
+/** <^()> */
+LBDeclare UIView*      (^viewHiddenNO)();
 /** <^(UIViewContentMode contentMode)> */
 LBDeclare UIView*      (^viewContentMode)(UIViewContentMode contentMode);
 /** <^(NSUInteger index)>越界时返回NSNull */

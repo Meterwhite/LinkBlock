@@ -269,6 +269,14 @@ LBDeclare NSObject*    (^objMutableCopy)();
 LBDeclare NSObject*    (^objCopyByArchive)();
 /** <^()> 是否是可变类型*/
 LBDeclare BOOL         (^objIsMutableType)();
+/** <^()> */
+LBDeclare NSNumber*    (^objIsKindOfNSString)();
+/** <^()> */
+LBDeclare NSNumber*    (^objIsKindOfNSArray)();
+/** <^()> */
+LBDeclare NSNumber*    (^objIsKindOfNSDictionary)();
+/** <^()> */
+LBDeclare NSNumber*    (^objIsKindOfUIView)();
 /**
  *  <^()>
  *  对象及可能包含的子项全部转为json相关的可变类型(String,Array,Dictionary)

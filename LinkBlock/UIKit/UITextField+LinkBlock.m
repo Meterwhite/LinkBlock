@@ -54,4 +54,64 @@
     };
 }
 
+- (UITextField *(^)(NSString *))txtFieldText
+{
+    return ^id(NSString* text){
+        LinkHandle_REF(UITextField)
+        LinkGroupHandle_REF(txtFieldText,text)
+        _self.text = text;
+        return _self;
+    };
+}
+
+- (UITextField *(^)(NSAttributedString *))txtFieldAttributedText
+{
+    return ^id(NSAttributedString* attributedText){
+        LinkHandle_REF(UITextField)
+        LinkGroupHandle_REF(txtFieldAttributedText,attributedText)
+        _self.attributedText = attributedText;
+        return _self;
+    };
+}
+
+- (UITextField *(^)(UIColor *))txtFieldTextColor
+{
+    return ^id(UIColor* textColor){
+        LinkHandle_REF(UITextField)
+        LinkGroupHandle_REF(txtFieldTextColor,textColor)
+        _self.textColor = textColor;
+        return _self;
+    };
+}
+
+-(UITextField *(^)(UIFont *))txtFieldFont
+{
+    return ^id(UIFont* font){
+        LinkHandle_REF(UITextField)
+        LinkGroupHandle_REF(txtFieldFont,font)
+        _self.font = font;
+        return _self;
+    };
+}
+
+- (UITextField *(^)(NSString *))txtFieldPlaceholder
+{
+    return ^id(NSString* placeholder){
+        LinkHandle_REF(UITextField)
+        LinkGroupHandle_REF(txtFieldPlaceholder,placeholder)
+        _self.placeholder = placeholder;
+        return _self;
+    };
+}
+
+- (UITextField *(^)(NSAttributedString *))txtFieldAttributedPlaceholder
+{
+    return ^id(NSAttributedString* attributedPlaceholder){
+        LinkHandle_REF(UITextField)
+        LinkGroupHandle_REF(txtFieldAttributedPlaceholder,attributedPlaceholder)
+        _self.attributedPlaceholder = attributedPlaceholder;
+        return _self;
+    };
+}
+
 @end

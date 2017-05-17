@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4503466B1EC04B4500F6066A /* UISearchBar+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503466A1EC04B4500F6066A /* UISearchBar+LinkBlock.m */; };
 		450856C21D62B3230015E24A /* UITextView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 450856C11D62B3230015E24A /* UITextView+LinkBlock.m */; };
 		452047671CED65310092ED18 /* CAShapeLayer+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 452047661CED65310092ED18 /* CAShapeLayer+LinkBlock.m */; };
 		4520476A1CEDB8D30092ED18 /* CALayer+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 452047691CEDB8D30092ED18 /* CALayer+LinkBlock.m */; };
@@ -68,6 +69,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		450346691EC04B4500F6066A /* UISearchBar+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+LinkBlock.h"; sourceTree = "<group>"; };
+		4503466A1EC04B4500F6066A /* UISearchBar+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+LinkBlock.m"; sourceTree = "<group>"; };
 		450856C01D62B3230015E24A /* UITextView+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "UITextView+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		450856C11D62B3230015E24A /* UITextView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+LinkBlock.m"; sourceTree = "<group>"; };
 		452047651CED65310092ED18 /* CAShapeLayer+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "CAShapeLayer+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -301,6 +304,8 @@
 				EEEF93371C5B5C0900A9ADBF /* UITextField+LinkBlock.m */,
 				450856C01D62B3230015E24A /* UITextView+LinkBlock.h */,
 				450856C11D62B3230015E24A /* UITextView+LinkBlock.m */,
+				450346691EC04B4500F6066A /* UISearchBar+LinkBlock.h */,
+				4503466A1EC04B4500F6066A /* UISearchBar+LinkBlock.m */,
 				45DEF2C31CEB0B950000E453 /* UIBezierPath+LinkBlock.h */,
 				45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */,
 				452047651CED65310092ED18 /* CAShapeLayer+LinkBlock.h */,
@@ -478,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4503466B1EC04B4500F6066A /* UISearchBar+LinkBlock.m in Sources */,
 				9FBD174B1BDB91D500C2F402 /* UIScrollView+LinkBlock.m in Sources */,
 				45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */,
 				453AFBCA1D6EFB4E00012095 /* Person.m in Sources */,

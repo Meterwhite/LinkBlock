@@ -719,6 +719,42 @@
     };
 }
 
+- (NSNumber *(^)())objIsKindOfNSString
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsKindOfNSString)
+        return @([_self isKindOfClass:[NSString class]]);
+    };
+}
+
+- (NSNumber *(^)())objIsKindOfNSArray
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsKindOfNSArray)
+        return @([_self isKindOfClass:[NSArray class]]);
+    };
+}
+
+- (NSNumber *(^)())objIsKindOfNSDictionary
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsKindOfNSDictionary)
+        return @([_self isKindOfClass:[NSDictionary class]]);
+    };
+}
+
+- (NSNumber *(^)())objIsKindOfUIView
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsKindOfUIView)
+        return @([_self isKindOfClass:[UIView class]]);
+    };
+}
+
 - (NSObject *(^)())objMutableCopyDeep
 {
     return ^id(){

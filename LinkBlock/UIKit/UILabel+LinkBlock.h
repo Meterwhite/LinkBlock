@@ -15,6 +15,13 @@
 LBDeclare UILabel*         (^labAlignTop)();
 /** <^()>即时的文本底部对齐 */
 LBDeclare UILabel*         (^labAlignBottom)();
+/** <^()> */
+LBDeclare UILabel*         (^labAlignmentCenter)();
+/** <^()> */
+LBDeclare UILabel*         (^labAlignmentRight)();
+/** <^()> */
+LBDeclare UILabel*         (^labAlignmentLeft)();
+
 /** <^(NSTextAlignment alighment)> */
 LBDeclare UILabel*         (^labAlignment)(NSTextAlignment alighment);
 /** <^(NSInteger lines)> */

@@ -189,6 +189,17 @@
     };
 }
 
+- (UIView *(^)(UIColor *, CGFloat))viewBorderColorAndWidth
+{
+    return ^id(UIColor* color,CGFloat w){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewBorderColorAndWidth,color,w)
+        _self.layer.borderWidth= w;
+        _self.layer.borderColor= color.CGColor;
+        return _self;
+    };
+}
+
 - (UIView *(^)(CGFloat))viewCornerRadius
 {
     return ^id(CGFloat cornerRadius){
@@ -401,6 +412,26 @@
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewHidden,b)
         _self.hidden= b;
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewHiddenYES
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewHiddenYES)
+        _self.hidden= YES;
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewHiddenNO
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewHiddenNO)
+        _self.hidden= NO;
         return _self;
     };
 }

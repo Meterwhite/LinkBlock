@@ -79,6 +79,36 @@
     };
 }
 
+- (UILabel *(^)())labAlignmentRight
+{
+    return ^id(){
+        LinkHandle_REF(UILabel)
+        LinkGroupHandle_REF(labAlignmentRight)
+        _self.textAlignment= NSTextAlignmentRight;
+        return _self;
+    };
+}
+
+- (UILabel *(^)())labAlignmentLeft
+{
+    return ^id(){
+        LinkHandle_REF(UILabel)
+        LinkGroupHandle_REF(labAlignmentLeft)
+        _self.textAlignment= NSTextAlignmentLeft;
+        return _self;
+    };
+}
+
+- (UILabel *(^)())labAlignmentCenter
+{
+    return ^id(){
+        LinkHandle_REF(UILabel)
+        LinkGroupHandle_REF(labAlignmentCenter)
+        _self.textAlignment= NSTextAlignmentCenter;
+        return _self;
+    };
+}
+
 - (UILabel *(^)(NSInteger))labNumberOfLines
 {
     return ^id(NSInteger lines){

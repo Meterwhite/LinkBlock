@@ -63,4 +63,45 @@
         return _self;
     };
 }
+
+- (UITextView *(^)(NSString *))txtViewText
+{
+    return ^id(NSString* text){
+        LinkHandle_REF(UITextView)
+        LinkGroupHandle_REF(txtViewText,text)
+        _self.text = text;
+        return _self;
+    };
+}
+
+- (UITextView *(^)(NSAttributedString *))txtViewAttributedText
+{
+    return ^id(NSAttributedString* attributedText){
+        LinkHandle_REF(UITextView)
+        LinkGroupHandle_REF(txtViewAttributedText,attributedText)
+        _self.attributedText = attributedText;
+        return _self;
+    };
+}
+
+- (UITextView *(^)(UIColor *))txtViewTextColor
+{
+    return ^id(UIColor* textColor){
+        LinkHandle_REF(UITextView)
+        LinkGroupHandle_REF(txtViewTextColor,textColor)
+        _self.textColor = textColor;
+        return _self;
+    };
+}
+
+-(UITextView *(^)(UIFont *))txtViewFont
+{
+    return ^id(UIFont* font){
+        LinkHandle_REF(UITextView)
+        LinkGroupHandle_REF(txtViewFont,font)
+        _self.font = font;
+        return _self;
+    };
+}
+
 @end
