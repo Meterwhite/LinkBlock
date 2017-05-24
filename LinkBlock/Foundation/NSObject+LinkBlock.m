@@ -1458,7 +1458,7 @@
         NSData * jsonData;
         if([self isKindOfClass:[NSString class]]){
             
-            jsonData = [NSJSONSerialization JSONObjectWithData:[((NSString *)self) dataUsingEncoding:NSUTF8StringEncoding]
+            jsonData = [NSJSONSerialization JSONObjectWithData:[((id)_self) dataUsingEncoding:NSUTF8StringEncoding]
                                                        options:kNilOptions
                                                          error:&error];
         } else{
@@ -1467,8 +1467,7 @@
                                                        options:kNilOptions
                                                          error:&error];
         }
-        if(error) return @"";
-        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        return error?[NSString new]:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     };
 }
 

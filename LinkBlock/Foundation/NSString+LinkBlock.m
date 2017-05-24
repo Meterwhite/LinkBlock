@@ -1186,8 +1186,7 @@
         NSDictionary* re = [NSJSONSerialization JSONObjectWithData:strIsData
                                                            options:NSJSONReadingMutableContainers
                                                              error:nil];
-        if([re isKindOfClass:[NSDictionary class]]) return re;
-        return @{};
+        return [re isKindOfClass:[NSDictionary class]] ? re : [NSDictionary new];
     };
 }
 
@@ -1196,21 +1195,15 @@
     return ^id(NSStringEncoding encoding){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSArrary,encoding)
-        NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" "
-                                                            withString:@""];
-        newStr = [newStr stringByReplacingOccurrencesOfString:@"\n"
-                                                   withString:@""];
-        newStr = [newStr stringByReplacingOccurrencesOfString:@"\r"
-                                                   withString:@""];
+        NSString* newStr = [_self stringByReplacingOccurrencesOfString:@" " withString:@""];
+        newStr = [newStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        newStr = [newStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         
         NSData* strIsData = [newStr dataUsingEncoding:encoding];
         NSArray* re = [NSJSONSerialization JSONObjectWithData:strIsData
                                                       options:NSJSONReadingMutableContainers
                                                         error:nil];
-        if([re isKindOfClass:[NSArray class]]){
-            return re;
-        }
-        return @[];
+        return [re isKindOfClass:[NSArray class]] ? re : [NSArray new];
     };
 }
 
