@@ -49,7 +49,7 @@ LBDeclare NSObject*         (^linkTo)(id obj);
  */
 LBDeclare NSObject*         (^linkOut)(NSUInteger idx);
 /** 
- <^(NSUInteger idx)>取出多链条中一个
+ <^(NSUInteger idx)>取出多链条中一个对象作为当前链条对象
  linkObjs(,,,)...linkAt(index)...
  */
 LBDeclare NSObject*         (^linkAt)(NSUInteger idx);
@@ -116,6 +116,27 @@ LBDeclare_F NSObject*       linkReturn;
  */
 - (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block;
 
+
+/**
+ 该方法不会像linkFirstObj，linkLastObj，linkAt一样中断多链条
+
+ @param from 设置多链条中的对象起始索引
+ @param to 设置多链条中的结束对象的索引
+ @param block code...
+ @return 原对象
+ */
+- (NSObject*)linkFrom:(NSUInteger)from to:(NSUInteger)to block:(void(^)(NSUInteger idx , NSObject* obj))block;
+
+
+/**
+ 该方法不会像linkFirstObj，linkLastObj，linkAt一样中断多链条
+
+ @param idx 对象索引
+ @param block code...
+ @return 原对象
+ */
+- (NSObject*)linkAt:(NSUInteger)idx block:(void(^)(NSObject* obj))block;
+
 #pragma mark - 功能
 /**
  <^(id* toObject)>将当前对象赋值到变量
@@ -124,9 +145,9 @@ LBDeclare_F NSObject*       linkReturn;
 LBDeclare NSObject*    (^objSetTo)(id* toObject);
 /** <^()>NSLog() */
 LBDeclare NSObject*    (^nslog)();
-/** <^(NSString* title)>输出对象前增加标识语 */
+/** <^(NSString* title)>输出对象前增加标识语'title+self' */
 LBDeclare NSObject*    (^nslogTitle)(NSString* title);
-/** <^(NSString* title)>独立在语句中输出信息，并不打印对象 */
+/** <^(NSString* title)>单独调用NSLog(info) */
 LBDeclare NSObject*    (^logInfo)(NSString* info);
 /** <^()>将对象以字典的形式进行打印，其中对所有容器类型进行遍历转换 */
 LBDeclare NSObject*    (^po)();

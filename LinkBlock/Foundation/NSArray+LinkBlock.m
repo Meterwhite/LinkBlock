@@ -77,12 +77,9 @@
     return ^id(NSUInteger idx1, NSUInteger idx2){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrObjsFromIndexTo,idx1,idx2)
-        if(!_self.count ||idx1>idx2 || idx1> _self.count-1) return @[];
+        if(!_self.count ||idx1>idx2 || idx1> _self.count-1) return [NSArray new];
         if(idx2> _self.count-1) idx2= _self.count - 1;
-
-        NSUInteger loc = idx1;
-        NSUInteger len = idx2 - idx1 + 1;
-        return [_self subarrayWithRange:NSMakeRange(loc, len)];
+        return [_self subarrayWithRange:NSMakeRange(idx1, idx2 - idx1 + 1)];
     };
 }
 

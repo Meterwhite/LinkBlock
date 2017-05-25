@@ -1789,6 +1789,34 @@
     return _self;
 }
 
+- (NSObject *)linkFrom:(NSUInteger)from to:(NSUInteger)to block:(void (^)(NSUInteger, NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    if([self isKindOfClass:[LinkGroup class]]){
+        LinkGroup* group = (LinkGroup*)self;
+        [group.linkObjects.arrObjsFromIndexTo(from,to) enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(block){
+                block(idx,obj);
+            }
+        }];
+    }
+    return self;
+}
+
+- (NSObject *)linkAt:(NSUInteger)idx block:(void (^)(NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    if([self isKindOfClass:[LinkGroup class]]){
+        if(block){
+            LinkGroup* group = (id)self;
+            if(idx<group.linkObjects.count-1){
+                block(group.linkObjects[idx]);
+            }
+        }
+    }
+    return self;
+}
+
 - (NSObject *)linkAsy_main_queue:(void (^)(NSObject *))block
 {
     LinkHandle_REF(NSObject)
