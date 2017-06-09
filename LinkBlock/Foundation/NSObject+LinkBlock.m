@@ -315,7 +315,6 @@
         if([self isKindOfClass:[NSMutableArray class]] ||
            [self isKindOfClass:[NSMutableSet class]] ||
            [self isKindOfClass:[NSHashTable class]] ||
-           [self isKindOfClass:[NSCountedSet class]] ||
            [self isKindOfClass:[NSMutableOrderedSet class]]){
             
             [_self addObject:obj];
@@ -353,7 +352,6 @@
         if([obj isKindOfClass:[NSMutableArray class]] ||
            [obj isKindOfClass:[NSMutableSet class]] ||
            [obj isKindOfClass:[NSHashTable class]] ||
-           [obj isKindOfClass:[NSCountedSet class]] ||
            [obj isKindOfClass:[NSMutableOrderedSet class]]){
             
             [obj addObject:_self];
@@ -384,7 +382,6 @@
         if([obj isKindOfClass:[NSMutableArray class]] ||
            [obj isKindOfClass:[NSMutableSet class]] ||
            [obj isKindOfClass:[NSHashTable class]] ||
-           [obj isKindOfClass:[NSCountedSet class]] ||
            [obj isKindOfClass:[NSMutableOrderedSet class]]){
             
             [obj addObject:_self];
@@ -511,16 +508,46 @@
     };
 }
 
-- (NSObject *(^)(id))objRemoveAll
+- (NSObject *(^)())objRemoveAll
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objRemoveAll)
+        
+        if([self isKindOfClass:[NSMutableArray class]] ||
+           [self isKindOfClass:[NSMutableDictionary class]] ||
+           [self isKindOfClass:[NSMutableSet class]] ||
+           [self isKindOfClass:[NSHashTable class]] ||
+           [self isKindOfClass:[NSMutableOrderedSet class]] ||
+           [self isKindOfClass:[NSCache class]] ||
+           [self isKindOfClass:[NSMapTable class]]){
+            
+            [((id)_self) removeAllObjects];
+            
+        }else if ([self isKindOfClass:[NSString class]]){
+            
+            _self = [NSMutableString new];
+        }else if ([self isKindOfClass:[UIView class]]){
+            
+            [((UIView*)_self).subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        }else if ([self isKindOfClass:[CALayer class]]){
+            
+            [((CALayer*)_self).sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+        }
+        
+        return _self;
+    };
+}
+
+- (NSObject *(^)(id))objRemove
 {
     return ^id(id obj){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objRemoveAll , obj)
+        LinkGroupHandle_REF(objRemove , obj)
         
         if([self isKindOfClass:[NSMutableArray class]] ||
            [self isKindOfClass:[NSMutableSet class]] ||
            [self isKindOfClass:[NSHashTable class]] ||
-           [self isKindOfClass:[NSCountedSet class]] ||
            [self isKindOfClass:[NSMutableOrderedSet class]]){
             
             [_self removeObject:obj];
@@ -573,7 +600,6 @@
         if([obj isKindOfClass:[NSMutableArray class]] ||
            [obj isKindOfClass:[NSMutableSet class]]   ||
            [obj isKindOfClass:[NSHashTable class]]    ||
-           [obj isKindOfClass:[NSCountedSet class]]   ||
            [obj isKindOfClass:[NSMutableOrderedSet class]]){
             
             [obj removeObject:_self];
@@ -616,7 +642,6 @@
         if([obj isKindOfClass:[NSMutableArray class]] ||
            [obj isKindOfClass:[NSMutableSet class]] ||
            [obj isKindOfClass:[NSHashTable class]] ||
-           [obj isKindOfClass:[NSCountedSet class]] ||
            [obj isKindOfClass:[NSMutableOrderedSet class]]){
             
             [obj removeObject:_self];

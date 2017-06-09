@@ -277,7 +277,9 @@ LBDeclare NSObject*    (^objInsertTo)(id obj , NSUInteger idx);
 /** <^(id obj , NSUInteger idx)>复合功能的添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项，返回为入参对象 */
 LBDeclare NSObject*    (^objInsertTo_linkTo)(id obj , NSUInteger idx);
 /** <^(id obj)>复合功能的移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
-LBDeclare NSObject*    (^objRemoveAll)(id obj);
+LBDeclare NSObject*    (^objRemoveAll)();
+/** <^(id obj)>复合功能的移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
+LBDeclare NSObject*    (^objRemove)(id obj);
 /** <^(id obj)>复合功能的移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
 LBDeclare NSObject*    (^objRemoveFrom)(id obj);
 /** <^(id obj)>复合功能的移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项，返回为入参对象 */
