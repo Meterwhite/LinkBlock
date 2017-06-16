@@ -358,7 +358,7 @@
     return ^id(){
         LinkHandle_REF(UIColor)
         LinkGroupHandle_REF(colorHighlightDarkColor)
-        return _self.colorBrightnessPercent(-0.382);
+        return _self.colorBrightnessPercent(-0.4);
     };
 }
 
@@ -367,7 +367,7 @@
     return ^id(){
         LinkHandle_REF(UIColor)
         LinkGroupHandle_REF(colorHighlightLightColor)
-        return _self.colorBrightnessPercent(0.382);
+        return _self.colorBrightnessPercent(0.4);
     };
 }
 
