@@ -522,19 +522,17 @@
            [self isKindOfClass:[NSCache class]] ||
            [self isKindOfClass:[NSMapTable class]]){
             
-            [((id)_self) removeAllObjects];
-            
+            [_self removeAllObjects];
         }else if ([self isKindOfClass:[NSString class]]){
             
             _self = [NSMutableString new];
         }else if ([self isKindOfClass:[UIView class]]){
             
-            [((UIView*)_self).subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            [[_self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
         }else if ([self isKindOfClass:[CALayer class]]){
             
-            [((CALayer*)_self).sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+            [[_self sublayers] makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
         }
-        
         return _self;
     };
 }

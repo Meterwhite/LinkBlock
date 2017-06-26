@@ -31,8 +31,18 @@ LBDeclare NSArray*     (^dictKeysForValue)(id value);
 LBDeclare NSMutableDictionary* (^dictReplaceKey)(id<NSCopying> replaceKey, id<NSCopying> withKey);
 /** <^(id<NSCopying> replaceKey, id<NSCopying> withKey)>替换字典中的key，非层次遍历的 */
 LBDeclare NSMutableDictionary* (^dictReplaceKeyWithoutDeep)(id<NSCopying> replaceKey, id<NSCopying> withKey);
-/** <^()>对字典中的值随机赋值，仅含字符串和数字类型 */
+/** <^()>对字典中的对象随机赋值，仅含字符串和数字类型 */
 LBDeclare NSDictionary*        (^dictObjsValueRandom)();
+
+#pragma mark - 取值
+LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaType)();
+LBDeclare UIImage*     (^dictForUIImagePickerControllerOriginalImage)();
+LBDeclare UIImage*     (^dictForUIImagePickerControllerEditedImage)();
+LBDeclare UIImage*     (^dictForUIImagePickerControllerCropRect)();
+LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaURL)();
+LBDeclare UIImage*     (^dictForUIImagePickerControllerReferenceURL)();
+LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaMetadata)();
+LBDeclare UIImage*     (^dictForUIImagePickerControllerLivePhoto)();
 
 #pragma mark - NSMutableDictionary
 /** <^(id<NSCopying> key , id value)>赋值 */

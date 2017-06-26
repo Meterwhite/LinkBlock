@@ -223,4 +223,69 @@
         return _self.m_dictUnionDict(dict);
     };
 }
+
+- (UIImage *(^)())dictForUIImagePickerControllerMediaType
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForUIImagePickerControllerMediaType)
+        return _self[UIImagePickerControllerMediaType];
+    };
+}
+- (UIImage *(^)())dictForUIImagePickerControllerOriginalImage
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForUIImagePickerControllerOriginalImage)
+        return _self[UIImagePickerControllerOriginalImage];
+    };
+}
+- (UIImage *(^)())dictForUIImagePickerControllerEditedImage
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForUIImagePickerControllerEditedImage)
+        return _self[UIImagePickerControllerEditedImage];
+    };
+}
+- (UIImage *(^)())dictForUIImagePickerControllerCropRect
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForUIImagePickerControllerCropRect)
+        return _self[UIImagePickerControllerCropRect];
+    };
+}
+- (UIImage *(^)())dictForUIImagePickerControllerMediaURL
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForUIImagePickerControllerMediaURL)
+        return _self[UIImagePickerControllerMediaURL];
+    };
+}
+- (UIImage *(^)())dictForUIImagePickerControllerReferenceURL
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForUIImagePickerControllerReferenceURL)
+        return _self[UIImagePickerControllerReferenceURL];
+    };
+}
+- (UIImage *(^)())dictForUIImagePickerControllerMediaMetadata
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForUIImagePickerControllerMediaMetadata)
+        return _self[UIImagePickerControllerMediaMetadata];
+    };
+}
+- (UIImage *(^)())dictForUIImagePickerControllerLivePhoto
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForUIImagePickerControllerLivePhoto)
+        return _self[UIImagePickerControllerLivePhoto];
+    };
+}
 @end
