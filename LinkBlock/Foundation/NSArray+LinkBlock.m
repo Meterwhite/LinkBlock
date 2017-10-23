@@ -406,7 +406,7 @@
 - (NSMutableArray *(^)(__unsafe_unretained Class))arrObjsOfType
 {
     return ^id(__unsafe_unretained Class typeClass){
-        LinkHandle_REF(NSMutableArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrObjsOfType,typeClass)
         if(!typeClass)
             return _self;
@@ -782,7 +782,7 @@
 - (NSMutableArray *(^)(NSArray *, NSString *))arrTryReplaceObjsByKey
 {
     return ^id(NSArray* objs , NSString* key){
-        LinkHandle_REF(NSMutableArray)
+        LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrTryReplaceObjsByKey,objs,key)
         if(![_self isKindOfClass:[NSMutableArray class]]){
             _self = [_self mutableCopy];
