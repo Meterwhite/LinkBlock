@@ -857,7 +857,7 @@
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateMoveUp,distance,time)
         [UIView animateWithDuration:time animations:^{
-            _self.transform = CGAffineTransformTranslate(_self.transform,0 , distance);
+            _self.transform = CGAffineTransformTranslate(_self.transform,0 , -distance);
         }];
         return _self;
     };
@@ -869,7 +869,7 @@
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAnimateMoveDown,distance,time)
         [UIView animateWithDuration:time animations:^{
-            _self.transform = CGAffineTransformTranslate(_self.transform,0 , -distance);
+            _self.transform = CGAffineTransformTranslate(_self.transform,0 , distance);
         }];
         return _self;
     };
