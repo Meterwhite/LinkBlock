@@ -41,6 +41,7 @@
 #import "UIBezierPath+LinkBlock.h"
 #import "UIWebView+LinkBlock.h"
 #import "UITableView+LinkBlock.h"
+#import "UIFont+LinkBlock.h"
 
 //////////////////////////////////////////////////////////////////////
 //MARK:基础

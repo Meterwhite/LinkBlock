@@ -180,6 +180,14 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用objRemoveAll代替");
 
 LBDeclare NSObject*    (^objBoolReverseForKey)(NSString * key)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objBOOLNegationForKey代替");
+
+LBDeclare UIImage*         (^imgBlur)(float percent)
+NS_DEPRECATED_IOS(2_0, 2_0, "使用imgBlurXXX代替");
+
+LBDeclare UILabel*         (^labAlignTop)()
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+LBDeclare UILabel*         (^labAlignBottom)()
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
 @end
 
 

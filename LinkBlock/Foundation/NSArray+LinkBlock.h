@@ -98,10 +98,10 @@ LBDeclare NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString
 
 #pragma mark - 键值
 /** <^(NSString* key,id value)>数组项是否有匹配键相等的值 */
-LBDeclare BOOL                     (^arrKeyValueContain)(NSString* key,id value);
-LBDeclare NSNumber*                (^arrKeyValueContain_n)(NSString* key,id value);
+LBDeclare BOOL                     (^arrKeyValueContain)(NSString* key,id eqValue);
+LBDeclare NSNumber*                (^arrKeyValueContain_n)(NSString* key,id eqValue);
 /** <^(NSString* key,id value)>返回能与数组项的键值匹配的对象的集合 */
-LBDeclare NSMutableArray*          (^arrKeyValueMatchObjs)(NSString* key,id value);
+LBDeclare NSMutableArray*          (^arrKeyValueMatchObjs)(NSString* key,id eqValue);
 /** <^(NSString* key,id value)>返回能与数组项的多个键值匹配的对象的集合 */
 LBDeclare NSMutableArray*          (^arrKeyValuesMatchObjs)(NSDictionary<NSString*,id>* kv);
 

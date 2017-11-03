@@ -11,10 +11,6 @@
 #define UILabelNew ([UILabel new])
 #endif
 @interface NSObject(UILabelLinkBlock)
-/** <^()>即时的文本顶部对齐 */
-LBDeclare UILabel*         (^labAlignTop)();
-/** <^()>即时的文本底部对齐 */
-LBDeclare UILabel*         (^labAlignBottom)();
 /** <^()> */
 LBDeclare UILabel*         (^labAlignmentCenter)();
 /** <^()> */
@@ -36,4 +32,6 @@ LBDeclare UILabel*         (^labFont)(UIFont* font);
 LBDeclare CGFloat          (^labFontSystemSizeGet)();
 /** <^(CGFloat fontSize)> */
 LBDeclare UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
+/** <^(CGFloat fontSize)> maxWidth为空时使用空间的宽度为最大宽度 */
+LBDeclare CGSize           (^labTextSize)(NSNumber* maxWidth);
 @end

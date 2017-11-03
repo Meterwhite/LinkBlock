@@ -535,33 +535,33 @@
 
 - (BOOL (^)(NSString *, id))arrKeyValueContain
 {
-    return ^(NSString* key , id value){
+    return ^(NSString* key , id eqValue){
         LinkHandle_VAL_IFNOT(NSArray){
             return NO;
         }
-        LinkGroupHandle_VAL(arrKeyValueContain,key,value)
-        return [[_self valueForKeyPath:key] containsObject:value];
+        LinkGroupHandle_VAL(arrKeyValueContain,key,eqValue)
+        return [[_self valueForKeyPath:key] containsObject:eqValue];
     };
 }
 
 - (NSNumber *(^)(NSString *, id))arrKeyValueContain_n
 {
-    return ^id(NSString* key , id value){
+    return ^id(NSString* key , id eqValue){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrKeyValueContain_n,key,value)
-        return @((BOOL)[[_self valueForKeyPath:key] containsObject:value]);
+        LinkGroupHandle_REF(arrKeyValueContain_n,key,eqValue)
+        return @((BOOL)[[_self valueForKeyPath:key] containsObject:eqValue]);
     };
 }
 
 - (NSMutableArray *(^)(NSString *, id))arrKeyValueMatchObjs
 {
-    return ^id(NSString* key , id value){
+    return ^id(NSString* key , id eqValue){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrKeyValueMatchObjs,key,value)
+        LinkGroupHandle_REF(arrKeyValueMatchObjs,key,eqValue)
         NSMutableArray* re = [NSMutableArray new];
         [_self enumerateObjectsUsingBlock:^(id  _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            if([[item valueForKeyPath:key] isEqual:value]) [re addObject:item];
+            if([[item valueForKeyPath:key] isEqual:eqValue]) [re addObject:item];
         }];
         return re;
     };
@@ -849,7 +849,7 @@
                 range = [string rangeOfComposedCharacterSequenceAtIndex:i];
                 isCustom = NO;
             }
-            block([string substringWithRange:range], range, isCustom , &stop);
+            block([string substringWithRange:range], range , isCustom , &stop);
         }
     }
 }

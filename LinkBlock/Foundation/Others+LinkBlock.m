@@ -528,6 +528,83 @@
 {
     return self.objBOOLNegationForKey;
 }
+
+- (UIImage *(^)(float))imgBlur
+{
+    return ^id(float percent){
+        return self.imgBlurLightRadius(percent*(20.0/0.6));
+    };
+}
+
+- (UILabel *(^)())labAlignTop
+{
+    return ^id(){
+        LinkHandle_REF(UILabel)
+        LinkGroupHandle_REF(labAlignTop)
+        CGSize fontSize = linkObj(_self.text).strSizeWithFont(_self.font);
+        double finalHeight = fontSize.height *_self.numberOfLines;
+        if(!finalHeight){
+            finalHeight= _self.bounds.size.height;
+        }
+        double finalWidth =_self.bounds.size.width;//expected width of label
+        CGSize theStringSize;
+        //        if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
+        NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+        CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
+        attrs.makeAttrDictFont(_self.font);
+        theStringSize = [_self.text boundingRectWithSize: maxSize
+                                                 options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                              attributes:attrs
+                                                 context:nil].size;//NSStringDrawingUsesFontLeading
+        //        }
+        //        else{
+        //            theStringSize =[_self.text sizeWithFont:_self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:_self.lineBreakMode];
+        //        }
+        
+        int newLinesToPad =(finalHeight - theStringSize.height)/ fontSize.height;
+        for(int i=0; i<newLinesToPad; i++)
+            _self.text =[_self.text stringByAppendingString:@"\n "];
+        return _self;
+    };
+}
+
+- (UILabel *(^)())labAlignBottom
+{
+    return ^id(){
+        LinkHandle_REF(UILabel)
+        LinkGroupHandle_REF(labAlignBottom)
+        if(!_self.text)
+            return _self;
+        CGSize fontSize =linkObj(_self.text).strSizeWithFont(_self.font);
+        double finalHeight = fontSize.height *_self.numberOfLines;
+        if(!finalHeight){
+            finalHeight = _self.bounds.size.height;
+        }
+        double finalWidth =_self.bounds.size.width;//expected width of label
+        CGSize theStringSize;
+        //        if([[UIDevice currentDevice].systemVersion floatValue]>=7.0){
+        NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+        CGSize maxSize= CGSizeMake(finalWidth, finalHeight);
+        attrs.makeAttrDictFont(_self.font);
+        theStringSize = [_self.text boundingRectWithSize: maxSize
+                                                 options:
+                         NSStringDrawingTruncatesLastVisibleLine    |
+                         NSStringDrawingUsesLineFragmentOrigin      |
+                         NSStringDrawingUsesFontLeading
+                                              attributes:attrs
+                                                 context:nil].size;//NSStringDrawingUsesFontLeading
+        //        }
+        //        else{
+        //            theStringSize =[_self.text sizeWithFont:_self.font
+        //                                 constrainedToSize:CGSizeMake(finalWidth, finalHeight)
+        //                                     lineBreakMode:_self.lineBreakMode];
+        //        }
+        int newLinesToPad =(finalHeight - theStringSize.height) / fontSize.height;
+        for(int i=0; i<newLinesToPad; i++)
+            _self.text =[NSString stringWithFormat:@" \n%@",_self.text];
+        return _self;
+    };
+}
 @end
 
 @implementation NSMutableString (OtherLinkBlock)

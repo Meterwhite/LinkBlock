@@ -16,10 +16,10 @@
             return 0;
         }
         LinkGroupHandle_VAL(dateMinusYear,date)
-        NSDateComponents* comps = [[NSCalendar currentCalendar]
-                                   components:NSCalendarUnitYear
-                                   fromDate:_self toDate:date
-                                   options:0];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear
+                                                                  fromDate:_self
+                                                                    toDate:date
+                                                                   options:0];
         return [comps year];
     };
 }
@@ -31,10 +31,10 @@
             return 0;
         }
         LinkGroupHandle_VAL(dateMinusMonth,date)
-        NSDateComponents* comps = [[NSCalendar currentCalendar]
-                                   components:NSCalendarUnitMonth
-                                   fromDate:_self toDate:date
-                                   options:0];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth
+                                                                  fromDate:_self
+                                                                    toDate:date
+                                                                   options:0];
         return [comps month];
     };
 }
@@ -46,10 +46,10 @@
             return 0;
         }
         LinkGroupHandle_VAL(dateMinusDay,date)
-        NSDateComponents* comps = [[NSCalendar currentCalendar]
-                                   components:NSCalendarUnitDay
-                                   fromDate:_self toDate:date
-                                   options:0];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitDay
+                                                                  fromDate:_self
+                                                                    toDate:date
+                                                                   options:0];
         return [comps day];
     };
 }
@@ -61,10 +61,10 @@
             return 0;
         }
         LinkGroupHandle_VAL(dateMinusHour,date)
-        NSDateComponents* comps = [[NSCalendar currentCalendar]
-                                   components:NSCalendarUnitHour
-                                   fromDate:_self toDate:date
-                                   options:0];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitHour
+                                                                  fromDate:_self
+                                                                    toDate:date
+                                                                   options:0];
         return [comps hour];
     };
 }
@@ -76,10 +76,10 @@
             return 0;
         }
         LinkGroupHandle_VAL(dateMinusMinut,date)
-        NSDateComponents* comps = [[NSCalendar currentCalendar]
-                                   components:NSCalendarUnitMinute
-                                   fromDate:_self toDate:date
-                                   options:0];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitMinute
+                                                                  fromDate:_self
+                                                                    toDate:date
+                                                                   options:0];
         return [comps minute];
     };
 }
@@ -91,10 +91,10 @@
             return 0;
         }
         LinkGroupHandle_VAL(dateMinusSec,date)
-        NSDateComponents* comps = [[NSCalendar currentCalendar]
-                                   components:NSCalendarUnitSecond
-                                   fromDate:_self toDate:date
-                                   options:0];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitSecond
+                                                                  fromDate:_self
+                                                                    toDate:date
+                                                                   options:0];
         return [comps second];
     };
 }

@@ -183,7 +183,7 @@ LBDeclare UIView*      (^viewAnimateMoveLeft)(CGFloat distance, NSTimeInterval t
 LBDeclare UIView*      (^viewAnimateShakeHorizental)(double duration);
 /** <^(double duration)>垂直摇晃 */
 LBDeclare UIView*      (^viewAnimateShakeVertical)(double duration);
-/** <^()>苹果桌面视差效果，大于iOS7系统有效 */
+/** <^()>苹果桌面视差效果 */
 LBDeclare UIView*      (^viewAnimateAppleMotionEffects)() NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective"); //
 /** <^(CGFloat scale,NSTimeInterval duration,BOOL repeat)>脉冲形式的放大缩小 */
 LBDeclare UIView*      (^viewAnimatePulse)(CGFloat scale,NSTimeInterval duration,BOOL repeat);

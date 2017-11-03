@@ -434,7 +434,7 @@
             return CGSizeZero;
         }
         LinkGroupHandle_VAL(strSizeWithFont,font)
-        return _self.strSizeWithFontAndMaxWidth(font , MAXFLOAT);
+        return _self.strSizeWithFontAndMaxWidth(font , CGFLOAT_MAX);
     };
 }
 
@@ -443,7 +443,7 @@
     return ^id(UIFont* font){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSizeWithFont_n,font)
-        return [NSValue valueWithCGSize:_self.strSizeWithFontAndMaxWidth(font , MAXFLOAT)];
+        return [NSValue valueWithCGSize:_self.strSizeWithFontAndMaxWidth(font , CGFLOAT_MAX)];
     };
 }
 
@@ -454,7 +454,7 @@
             return CGSizeZero;
         }
         LinkGroupHandle_VAL(strSizeWithFontAndMaxWidth,font,maxWidth)
-        return _self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, MAXFLOAT));
+        return _self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, CGFLOAT_MAX));
     };
 }
 
@@ -463,7 +463,7 @@
     return ^id(UIFont* font, CGFloat maxWidth){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSizeWithFontAndMaxWidth_n,font,maxWidth)
-        return [NSValue valueWithCGSize:_self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, MAXFLOAT))];
+        return [NSValue valueWithCGSize:_self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, CGFLOAT_MAX))];
     };
 }
 
@@ -505,7 +505,7 @@
             return 0.0;
         }
         LinkGroupHandle_VAL(strHeight,attrDict)
-        CGRect rect = [_self boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+        CGRect rect = [_self boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                           options:NSStringDrawingUsesDeviceMetrics
                                        attributes:attrDict
                                           context:nil];
@@ -521,7 +521,7 @@
             return 0.0;
         }
         LinkGroupHandle_VAL(strLineHeight,attrDict)
-        CGRect rect = [_self boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+        CGRect rect = [_self boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                           options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                        attributes:attrDict
                                           context:nil];
@@ -545,12 +545,12 @@
         
         originStr = [originStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];//去换行符
         originStr = [originStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-        CGFloat lineHeight = [originStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+        CGFloat lineHeight = [originStr boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                                      options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                                   attributes:attrDict
                                                      context:nil].size.height;
         //无换行符
-        CGFloat allHeight = [originStr boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT)
+        CGFloat allHeight = [originStr boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
                                                     options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                                  attributes:attrDict
                                                     context:nil].size.height;
@@ -1319,6 +1319,24 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSURL)
         return [NSURL URLWithString:_self];
+    };
+}
+
+- (NSAttributedString *(^)(NSDictionary<NSAttributedStringKey,id> *))strToNSAttributedString
+{
+    return ^id(NSDictionary<NSAttributedStringKey,id>* attrbute){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strToNSAttributedString,attrbute)
+        return [[NSAttributedString alloc] initWithString:_self attributes:attrbute];
+    };
+}
+
+- (NSMutableAttributedString *(^)(NSDictionary<NSAttributedStringKey,id> *))strToNSMutableAttributedString
+{
+    return ^id(NSDictionary<NSAttributedStringKey,id>* attrbute){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strToNSMutableAttributedString,attrbute)
+        return [[NSMutableAttributedString alloc] initWithString:_self attributes:attrbute];
     };
 }
 

@@ -37,9 +37,9 @@ LBDeclare UIColor*         (^colorBlueSet)(CGFloat value);
 LBDeclare UIColor*         (^colorAlphaSet)(CGFloat value);
 /** <^(double percent)>调节亮度,percent ∈ [-1,1] */
 LBDeclare UIColor*         (^colorBrightnessPercent)(double percent);
-/** <^()>变暗38.2%，接近系统变暗效果 */
+/** <^()>变暗40%，接近系统变暗效果 */
 LBDeclare UIColor*         (^colorHighlightDarkColor)();
-/** <^()>变亮38.2% */
+/** <^()>变亮40% */
 LBDeclare UIColor*         (^colorHighlightLightColor)();
 /** <^(CGFloat value)>设置色调，返回新对象 */
 LBDeclare UIColor*         (^colorHueSet)(CGFloat value);

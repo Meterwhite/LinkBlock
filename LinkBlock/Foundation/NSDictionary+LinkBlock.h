@@ -34,7 +34,7 @@ LBDeclare NSMutableDictionary* (^dictReplaceKeyWithoutDeep)(id<NSCopying> replac
 /** <^()>对字典中的对象随机赋值，仅含字符串和数字类型 */
 LBDeclare NSDictionary*        (^dictObjsValueRandom)();
 
-#pragma mark - 取值
+#pragma mark - 获取dictForXXX中XXX的为键的字典值
 LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaType)();
 LBDeclare UIImage*     (^dictForUIImagePickerControllerOriginalImage)();
 LBDeclare UIImage*     (^dictForUIImagePickerControllerEditedImage)();

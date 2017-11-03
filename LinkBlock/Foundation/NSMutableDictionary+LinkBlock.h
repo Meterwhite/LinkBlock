@@ -22,7 +22,16 @@ LBDeclare NSMutableDictionary* (^m_dictUnionDict)(NSDictionary* dict);
 
 /** ********************NSAttributeString设置部分******************** */
 
+#ifndef AttrDictNew
 #define AttrDictNew NSMutableDictionaryNew
+#endif
+
+#ifdef AttrDictNewWithSize
+#define AttrDictNewWithSize(size) (NSMutableDictionaryNew.makeAttrDictFontSizeAndTextColor(15, [UIColor blackColor]))
+#endif
+
+/** <^(CGFloat fontSize , UIColor* titleColor)>titleColor默认为黑色 */
+LBDeclare NSMutableDictionary* (^makeAttrDictFontSizeAndTextColor)(CGFloat fontSize , UIColor* titleColor);
 /** <^(UIFont* font)> */
 LBDeclare NSMutableDictionary* (^makeAttrDictFont)(UIFont* font);
 /** <^(UIColor* textColor)> */

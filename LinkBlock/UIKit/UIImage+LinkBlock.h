@@ -8,6 +8,9 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(UIImageLinkBlock)
+
+/** <^()>图片转控件 */
+LBDeclare UIImageView*     (^imgToUIImageView)();
 /**
  *  <^(float ratio)>
  *  图片转NSData
@@ -18,8 +21,20 @@ LBDeclare NSData*          (^imgToData)(float ratio);
 LBDeclare UIImage*         (^imgResizeAspect)(CGSize maxSize);
 /** <^(CGRect frame)>剪切 */
 LBDeclare UIImage*         (^imgCut)(CGRect frame);
-/** <^(float percent)>高斯模糊 #import <Accelerate/Accelerate.h> */
-LBDeclare UIImage*         (^imgBlur)(float percent);
+/** <^(float tintColor)>高斯模糊 注意：项目应当引用库'Accelerate.framework' */
+LBDeclare UIImage*         (^imgBlurColor)(UIColor* tintColor);
+/** <^(float tintColor)>高斯模糊 效果亮 注意：项目应当引用库'Accelerate.framework' */
+LBDeclare UIImage*         (^imgBlurLight)();
+/**
+ <^(float blurRadius)>可改变模糊程度的效果亮模糊；注意：项目应当引用库'Accelerate.framework'
+
+ @param blurRadius 该值为正数,在imgBlurLight()中的值为20
+ */
+LBDeclare UIImage*         (^imgBlurLightRadius)(float blurRadius);
+/** <^(float tintColor)>高斯模糊 效果暗效果明亮 注意：项目应当引用库'Accelerate.framework' */
+LBDeclare UIImage*         (^imgBlurExtraLight)();
+/** <^(float tintColor)>高斯模糊 效果暗 注意：项目应当引用库'Accelerate.framework' */
+LBDeclare UIImage*         (^imgBlurDarkEffect)();
 /** <^(UIImageRenderingMode mode)>渲染模式 */
 LBDeclare UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
 /** <^(UIImage* aImg , CGRect rect)>水印；图片合并到图片； */
