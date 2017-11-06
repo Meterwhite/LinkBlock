@@ -477,12 +477,7 @@
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSFontAttributeName] = font;
         
-        //        if ([[UIDevice currentDevice].systemVersion floatValue]>= 7.0) {
         return [_self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil].size;
-        //        }
-        //        else {
-        //            return [_self sizeWithFont:font constrainedToSize:maxSize];
-        //        }
     };
 }
 
@@ -497,14 +492,18 @@
     };
 }
 
-- (CGFloat (^)(NSDictionary *))strHeight
+- (CGFloat (^)(NSDictionary<NSAttributedStringKey,id> *))strHeight
 {
-    return ^CGFloat(NSDictionary* attrDict){
+    return ^CGFloat(NSDictionary<NSAttributedStringKey,id>* attrDict){
         
         LinkHandle_VAL_IFNOT(NSString){
             return 0.0;
         }
         LinkGroupHandle_VAL(strHeight,attrDict)
+        if([[attrDict allKeys] containsObject:NSAttachmentAttributeName]){
+            NSLog(@"LinkBlock：The calculation of NSAttachment does not support");
+            return 0.0;
+        }
         CGRect rect = [_self boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                           options:NSStringDrawingUsesDeviceMetrics
                                        attributes:attrDict
@@ -513,11 +512,15 @@
     };
 }
 
-- (CGFloat (^)(NSDictionary *))strLineHeight
+- (CGFloat (^)(NSDictionary<NSAttributedStringKey,id> *))strLineHeight
 {
-    return ^CGFloat(NSDictionary* attrDict){
+    return ^CGFloat(NSDictionary<NSAttributedStringKey,id>* attrDict){
         
         LinkHandle_VAL_IFNOT(NSString){
+            return 0.0;
+        }
+        if([[attrDict allKeys] containsObject:NSAttachmentAttributeName]){
+            NSLog(@"LinkBlock：The calculation of NSAttachment does not support");
             return 0.0;
         }
         LinkGroupHandle_VAL(strLineHeight,attrDict)
@@ -529,13 +532,19 @@
     };
 }
 
-- (NSInteger (^)(CGFloat, NSDictionary *))strLinesCountAboutView
+- (NSInteger (^)(CGFloat, NSDictionary<NSAttributedStringKey,id> *))strLinesCountAboutView
 {
-    return ^NSInteger(CGFloat maxWidth,NSDictionary* attrDict){
+    return ^NSInteger(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict){
         LinkHandle_VAL_IFNOT(NSString){
             return 0;
         }
         LinkGroupHandle_VAL(strLinesCountAboutView,maxWidth,attrDict)
+        
+        if([[attrDict allKeys] containsObject:NSAttachmentAttributeName]){
+            NSLog(@"LinkBlock：The calculation of NSAttachment does not support");
+            return 0;
+        }
+        
         NSString* originStr= _self;
         
         NSInteger enterCount=0;
@@ -559,12 +568,17 @@
     };
 }
 
-- (NSString* (^)(NSInteger, CGFloat,NSDictionary*))strSubToLineAboutView
+- (NSString* (^)(NSInteger, CGFloat,NSDictionary<NSAttributedStringKey,id>*))strSubToLineAboutView
 {
-    return ^id(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict){
+    return ^id(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict){
         
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strSubToLineAboutView,toLine,maxWidth,attrDict)
+        
+        if([[attrDict allKeys] containsObject:NSAttachmentAttributeName]){
+            NSLog(@"LinkBlock：The calculation of NSAttachment does not support");
+            return @"";
+        }
         //折半查找
         NSRange forRange = NSMakeRange(0 , _self.length);
         NSInteger start,mid,end,midLineCount;
@@ -574,9 +588,7 @@
             return @"";
         }else if (forRange.length==1){
             
-            if(_self.strLinesCountAboutView(maxWidth,attrDict) > toLine){//1 123
-                return @"";
-            }
+            return _self;
         }else{
             
             while (forRange.length>1) {//范围缩小至1前
@@ -608,6 +620,78 @@
             }
         }
         return [_self substringToIndex:forRange.location+1];
+    };
+}
+
+- (NSRange (^)(NSUInteger, CGFloat, NSString *, NSDictionary<NSAttributedStringKey,id> *,BOOL*))strSubRangeToMaxLineIfAppendStrAboutView
+{
+    return ^NSRange(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict,BOOL* isFullOfLines){
+        LinkHandle_VAL_IFNOT(NSString){
+            return NSMakeRange(NSNotFound, 0);
+        }
+        LinkGroupHandle_VAL(strSubRangeToMaxLineIfAppendStrAboutView,maxLine,maxWidth,ifAppendStr,attrDict,isFullOfLines)
+        
+        if([[attrDict allKeys] containsObject:NSAttachmentAttributeName]){
+            NSLog(@"LinkBlock：The calculation of NSAttachment does not support");
+            return NSMakeRange(NSNotFound, 0);
+        }
+        
+        //宽度极其窄的场景，只有一列宽，连ifAppendStr都不能完全放进去
+        if(ifAppendStr.strLinesCountAboutView(maxWidth, attrDict) > maxLine){
+            *isFullOfLines = YES;
+            return NSMakeRange(NSNotFound, 0);
+        }
+        
+        if(_self.strAppend(ifAppendStr).strLinesCountAboutView(maxWidth,attrDict) < maxLine){//完全可以展示
+            *isFullOfLines = NO;
+            return NSMakeRange(0, _self.length);
+        }
+        
+        *isFullOfLines = YES;
+        
+        NSString* newIfAppend = [NSString stringWithFormat:@"...%@",ifAppendStr];
+        
+        //折半查找
+        NSRange forRange = NSMakeRange(0 , _self.length);
+        NSInteger start,mid,end,midLineCount;
+        
+        if(!forRange.length||maxLine<1){
+            
+            return NSMakeRange(NSNotFound, 0);
+        }else if (forRange.length==1){
+            
+            return NSMakeRange(0, _self.length);
+        }else{
+            
+            while (forRange.length>1) {//范围缩小至1前
+                
+                start=forRange.location;
+                end=start+forRange.length-1;
+                mid=(start+end)/2;
+                midLineCount = [_self substringToIndex:mid+1].strAppend(newIfAppend).strLinesCountAboutView(maxWidth,attrDict);
+                if(midLineCount<maxLine){//不包含当前，向右区间
+                    
+                    forRange=NSMakeRange(mid+1, end-mid);
+                    continue;
+                }else if (midLineCount>maxLine){//不包含当前，向左区间
+                    
+                    forRange=NSMakeRange(start, mid-start);
+                    continue;
+                }else{//==
+                    
+                    if(midLineCount<[_self substringToIndex:mid+2].strAppend(newIfAppend).strLinesCountAboutView(maxWidth,attrDict)){//临界
+                        
+                        forRange=NSMakeRange(mid, 1);
+                        break;
+                    }else{//不包含当前，向右区间
+                        
+                        forRange=NSMakeRange(mid+1, end-mid);
+                        continue;
+                    }
+                }
+            }
+        }
+        return NSMakeRange(0, forRange.location+1);
     };
 }
 

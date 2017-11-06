@@ -71,16 +71,32 @@ LBDeclare NSValue*     (^strSizeWithFontAndMaxWidth_n)(UIFont* font , CGFloat ma
 /** <^(UIFont* font, CGSize maxSize)>通用视图排版中计算字符串尺寸 */
 LBDeclare CGSize       (^strSizeWithFontAndMaxSize)(UIFont* font, CGSize maxSize);
 LBDeclare NSValue*     (^strSizeWithFontAndMaxSize_n)(UIFont* font, CGSize maxSize);
-/** <^(NSDictionary* attrDict)>计算字符串本身高度 */
-LBDeclare CGFloat      (^strHeight)(NSDictionary* attrDict);
-/** <^(NSDictionary* attrDict)>计算字符串的行高 */
-LBDeclare CGFloat      (^strLineHeight)(NSDictionary* attrDict);
-/** <^(CGFloat maxWidth,NSDictionary* attrDict)>视图排版中的文字的行数 */
-LBDeclare NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary* attrDict);
+/** <^(NSDictionary* attrDict)>计算字符串本身高度，不支持包含图片的计算 */
+LBDeclare CGFloat      (^strHeight)(NSDictionary<NSAttributedStringKey,id>* attrDict);
+/** <^(NSDictionary* attrDict)>计算字符串的行高，不支持包含图片的计算 */
+LBDeclare CGFloat      (^strLineHeight)(NSDictionary<NSAttributedStringKey,id>* attrDict);
+/** <^(CGFloat maxWidth,NSDictionary* attrDict)>视图排版中的文字的行数，不支持包含图片的计算 */
+LBDeclare NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict);
 /** <^()>字符串的行数 */
 LBDeclare NSUInteger   (^strLinesCount)();
-/** <^(NSInteger toLine截取行数, CGFloat maxWidth,NSDictionary* attrDict)>视图排版中截一定视觉行数的字符串 */
-LBDeclare NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary* attrDict);
+/** <^(NSInteger toLine截取行数, CGFloat maxWidth,NSDictionary* attrDict)>视图排版中截一定视觉行数的字符串，不支持包含图片的计算；内部使用折半查找效率尚可 */
+LBDeclare NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict);
+/**
+ 获取特定的文本长度，指定最大宽度下满足:
+ 如果指定结尾字符，例如：@"全文"（可以做点击功能）、@""（可以去掉末尾省略号刚好显示完整，也可以传空）
+ ，那么返回文本在指定行高下不会截断以展示系统省略号，而是刚好排满指定行数或者未能排满最后一行，如果内容已经超出指定行数则计算时应用'...XXX'，如果未排满则应用'XXX'；根据isFullOfLines的返回值来判断用哪种形式拼接
+ 应用场景1：在文本最后做：...全文
+ 应用场景2：不展示系统省略号
+ 不支持包含图片的计算!
+ 内部使用折半查找效率尚可
+ 
+ @param maxLine 最大行数
+ @param ifAppendStr 结尾文本
+ @param isFullOfLines 是否填满指定行数，如果返回YES则用户在拼接时使用@"..."+ifAppendStr形式
+ 
+ @return 返回需要的内容范围
+ */
+LBDeclare NSRange (^strSubRangeToMaxLineIfAppendStrAboutView)(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict , BOOL* isFullOfLines);
 /** <^(NSUInteger toLine截取行数)>截取到一定行数（换行符）的字符串 */
 LBDeclare NSString*    (^strSubToLine)(NSUInteger toLine);
 /** <^()> */
@@ -94,7 +110,7 @@ LBDeclare NSUInteger   (^strLengthUnicode)();
 LBDeclare NSUInteger   (^strLengthComposed)();
 /** <^(NSString* reg元字符正则)>字符串按元字符组成的序列和自定义正则规则元字符的长度，即每个字符，汉字，emoji，匹配，都视为一个元字符；参数传nil时和strLengthComposed()相同 */
 LBDeclare NSUInteger   (^strLengthComposedAndCustom)(NSString* reg);
-/** <^()> */
+/** <^()>去除所有空白符 */
 LBDeclare NSString*    (^strClearSpaceAndWrap)();
 /** <^(NSString* str)>对数字敏感的比较两个字符串：12.3 < 12.4; Foo2.txt < Foo7.txt ; */
 LBDeclare NSComparisonResult (^strCompareNumberSensitive)(NSString* str);

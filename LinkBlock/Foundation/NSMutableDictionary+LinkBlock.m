@@ -46,11 +46,11 @@
 /** ********************NSAttributeString部分******************** */
 #pragma mark - NSAttributeString部分
 
-- (NSMutableDictionary *(^)(CGFloat, UIColor *))makeAttrDictFontSizeAndColor
+- (NSMutableDictionary *(^)(CGFloat, UIColor *))makeAttrDictFontSizeAndTextColor
 {
     return ^id(CGFloat fontSize , UIColor* titleColor){
         LinkHandle_REF(NSMutableDictionary)
-        LinkGroupHandle_REF(makeAttrDictFontSizeAndColor,fontSize,titleColor)
+        LinkGroupHandle_REF(makeAttrDictFontSizeAndTextColor,fontSize,titleColor)
         if([titleColor isKindOfClass:[UIColor class]]){
             _self[NSForegroundColorAttributeName]= titleColor;
         }
