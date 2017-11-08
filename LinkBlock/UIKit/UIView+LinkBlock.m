@@ -1501,12 +1501,10 @@
         return _self;
     };
 }
-
 @end
 
 
 @implementation UIView (UIViewLinkBlock)
-
 - (UIButton*)viewAddTestBtn:(CGRect)frame block:(void(^)(NSInteger idx, UIButton* testButton))block
 {
     UIButton* btn=UIButtonNew.viewBGColor([UIColor lightGrayColor])
@@ -1569,23 +1567,23 @@
 }
 
 /** 回调block */
-static char _lb_ClickTestBtnBlock_Key;
+static char _lb_key_clickTestBtnBlock;
 - (void)lb_SetBlock_ClickTestBtnBlock:(id)block
 {
-    objc_setAssociatedObject(self, &_lb_ClickTestBtnBlock_Key, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, &_lb_key_clickTestBtnBlock, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 - (id)lb_GetBlock_ClickTestBtnBlock
 {
-    return objc_getAssociatedObject(self, &_lb_ClickTestBtnBlock_Key);
+    return objc_getAssociatedObject(self, &_lb_key_clickTestBtnBlock);
 }
 /** 点击次数 */
-static char _lb_ClickTestBtnNumFlag_Key;
+static char _lb_key_clickTestBtnNumFlag;
 - (void)lb_SetBlock_ClickTestBtnNumFlag:(NSInteger)num
 {
-    objc_setAssociatedObject(self, &_lb_ClickTestBtnNumFlag_Key, @(num), OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, &_lb_key_clickTestBtnNumFlag, @(num), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 - (NSInteger)lb_GetBlock_ClickTestBtnNumFlag
 {
-    return [objc_getAssociatedObject(self, &_lb_ClickTestBtnNumFlag_Key) integerValue];
+    return [objc_getAssociatedObject(self, &_lb_key_clickTestBtnNumFlag) integerValue];
 }
 @end

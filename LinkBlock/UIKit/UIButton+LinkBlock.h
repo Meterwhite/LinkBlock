@@ -97,3 +97,8 @@ LBDeclare UIButton* (^btnTitleFontSystemSizeSet)(CGFloat size);
 /** <^()> */
 LBDeclare CGFloat   (^btnTitleFontSystemSizeGet)();
 @end
+
+@interface UIButton(UIButtonLinkBlock)
+/** 扩展触摸识别区域 */
+LBDeclare UIButton* (^btnExtensionOfTouchSide)(UIEdgeInsets insets);
+@end

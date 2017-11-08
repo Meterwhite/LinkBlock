@@ -6,6 +6,7 @@
 //
 
 #import "LinkBlock.h"
+#import <objc/runtime.h>
 
 @implementation NSObject(UIButtonLinkBlock)
 - (UIButton *(^)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right))btnTitleEdgeInsets
@@ -361,5 +362,31 @@
         return _self.titleLabel.font.pointSize;
     };
 }
+@end
 
+@implementation UIButton(UIButtonLinkBlock)
+static const char _lb_key_btnExtensionOfTouchSide;
+- (UIButton *(^)(UIEdgeInsets))btnExtensionOfTouchSide
+{
+    return ^UIButton*(UIEdgeInsets insets){
+        NSValue* vaule = [NSValue valueWithUIEdgeInsets:insets];
+        objc_setAssociatedObject(self, &_lb_key_btnExtensionOfTouchSide, vaule, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        return self;
+    };
+}
+
+-(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if (event.type != UIEventTypeTouches||self.userInteractionEnabled == NO||self.hidden||self.alpha<0.01||self.enabled == NO) {
+        return [super pointInside:point withEvent:event];
+    }
+    NSValue* vaule = objc_getAssociatedObject(self, &_lb_key_btnExtensionOfTouchSide);
+    if (vaule) {
+        UIEdgeInsets edgeinsets = UIEdgeInsetsZero;
+        [vaule getValue:&edgeinsets];
+        return CGRectContainsPoint(LB_CGRectInsetMargin(self.bounds , edgeinsets) , point);
+    }else{
+        return [super pointInside:point withEvent:event];
+    }
+}
 @end

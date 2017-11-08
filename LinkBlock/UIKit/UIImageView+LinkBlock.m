@@ -80,3 +80,34 @@
 }
 
 @end
+
+@implementation UIImageView(UIImageViewLinkBlock)
+static const char _lb_key_img_viewExtensionOfTouchSide;
+- (UIImageView *(^)(UIEdgeInsets))img_viewExtensionOfTouchSide
+{
+    return ^UIImageView*(UIEdgeInsets insets){
+        
+        objc_setAssociatedObject(self,
+                                 &_lb_key_img_viewExtensionOfTouchSide,
+                                 [NSValue valueWithUIEdgeInsets:insets],
+                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        return self;
+    };
+}
+
+-(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event{
+    
+    if (event.type != UIEventTypeTouches||self.userInteractionEnabled == NO||self.hidden||self.alpha<0.01) {
+        return [super pointInside:point withEvent:event];
+    }
+    NSValue* vaule = objc_getAssociatedObject(self,
+                                              &_lb_key_img_viewExtensionOfTouchSide);
+    if (vaule) {
+        UIEdgeInsets edgeinsets = UIEdgeInsetsZero;
+        [vaule getValue:&edgeinsets];
+        return CGRectContainsPoint(LB_CGRectInsetMargin(self.bounds , edgeinsets) , point);
+    }else{
+        return [super pointInside:point withEvent:event];
+    }
+}
+@end

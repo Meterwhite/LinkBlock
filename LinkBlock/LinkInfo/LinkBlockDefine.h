@@ -193,3 +193,11 @@ static inline id _LinkObjcValue(const char *type, ...) {
     va_end(v);
     return obj?obj:[NSNull null];
 }
+
+static inline  CGRect LB_CGRectInsetMargin(CGRect rect, UIEdgeInsets insets) {
+    rect.origin.x    -= insets.left;
+    rect.origin.y    -= insets.top;
+    rect.size.width  += (insets.left + insets.right);
+    rect.size.height += (insets.top  + insets.bottom);
+    return rect;
+}

@@ -32,15 +32,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jPN-e9-eVx">
+                                <rect key="frame" x="313" y="587" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rDg-bq-bUa" secondAttribute="bottom" constant="100" id="0Sq-tt-1y0"/>
+                            <constraint firstItem="jPN-e9-eVx" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9PU-Fl-c4U"/>
                             <constraint firstItem="rDg-bq-bUa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ARG-na-bdY"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rDg-bq-bUa" secondAttribute="trailingMargin" id="OKR-wM-TNP"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jPN-e9-eVx" secondAttribute="bottom" constant="50" id="jlN-9p-i3I"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnTest" destination="jPN-e9-eVx" id="8Rt-Vo-BDJ"/>
                         <outlet property="labelOfABC" destination="rDg-bq-bUa" id="NTv-oX-FuB"/>
                     </connections>
                 </viewController>

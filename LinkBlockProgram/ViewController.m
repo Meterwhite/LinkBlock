@@ -16,6 +16,9 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelOfABC;
 @property (nonatomic,strong) dispatch_source_t timer;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnTest;
+
 @end
 
 @implementation ViewController
@@ -103,6 +106,9 @@
     
     @"1990.10.25".strToNSDateWithFormat(@"yyyy.MM.dd").dateAstrology().nslogTitle(@"星座是:");
     
+    //扩展点击范围
+    self.btnTest.btnExtensionOfTouchSide(UIEdgeInsetsMake(20, 20, 20, 20)).btnTitleUIControlStateNormal(@"扩展可触摸区域");
+    
     //////////////////////////////////////////////////////////////////////
     //【五】与项目外交互
     //////////////////////////////////////////////////////////////////////
@@ -150,5 +156,6 @@
         });
     });
     dispatch_resume(self.timer);
+
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "LinkBlockDefine.h"
+#import <objc/runtime.h>
 
 #ifndef UIImageViewNew
 #define UIImageViewNew ([UIImageView new])
@@ -26,4 +27,9 @@ LBDeclare UIImageView*         (^img_viewHighlight)(BOOL b);
 LBDeclare UIImageView*         (^img_viewAnimationImages)( NSArray<UIImage *>* imgs);
 /** <^(NSArray<UIImage *>* imgs)> */
 LBDeclare UIImageView*         (^img_viewHighlightedAnimationImages)( NSArray<UIImage *>* imgs);
+@end
+
+@interface UIImageView(UIImageViewLinkBlock)
+/** 扩展触摸识别区域 */
+LBDeclare UIImageView* (^img_viewExtensionOfTouchSide)(UIEdgeInsets insets);
 @end
