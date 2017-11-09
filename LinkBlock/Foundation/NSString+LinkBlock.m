@@ -636,13 +636,13 @@
             return NSMakeRange(NSNotFound, 0);
         }
         
-        //宽度极其窄的场景，只有一列宽，连ifAppendStr都不能完全放进去
+        //连ifAppendStr都不能完全放进去
         if(ifAppendStr.strLinesCountAboutView(maxWidth, attrDict) > maxLine){
             *isFullOfLines = YES;
             return NSMakeRange(NSNotFound, 0);
         }
         
-        if(_self.strAppend(ifAppendStr).strLinesCountAboutView(maxWidth,attrDict) < maxLine){//完全可以展示
+        if(_self.strAppend(ifAppendStr).strLinesCountAboutView(maxWidth,attrDict) <= maxLine){//完全可以展示
             *isFullOfLines = NO;
             return NSMakeRange(0, _self.length);
         }
