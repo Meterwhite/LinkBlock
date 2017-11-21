@@ -366,6 +366,7 @@
 
 @implementation UIButton(UIButtonLinkBlock)
 static const char _lb_key_btnExtensionOfTouchSide;
+static const char _lb_key_btnExtensionOfTouchRects;
 - (UIButton *(^)(UIEdgeInsets))btnExtensionOfTouchSide
 {
     return ^UIButton*(UIEdgeInsets insets){
@@ -375,18 +376,41 @@ static const char _lb_key_btnExtensionOfTouchSide;
     };
 }
 
+- (UIButton *(^)(NSArray<NSString *> *))btnExtensionOfTouchRects
+{
+    return ^UIButton*(NSArray<NSString*>* rects){
+        objc_setAssociatedObject(self,
+                                 &_lb_key_btnExtensionOfTouchRects,
+                                 [rects copy],
+                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        return self;
+    };
+}
+
 -(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
     if (event.type != UIEventTypeTouches||self.userInteractionEnabled == NO||self.hidden||self.alpha<0.01||self.enabled == NO) {
         return [super pointInside:point withEvent:event];
     }
-    NSValue* vaule = objc_getAssociatedObject(self, &_lb_key_btnExtensionOfTouchSide);
-    if (vaule) {
-        UIEdgeInsets edgeinsets = UIEdgeInsetsZero;
-        [vaule getValue:&edgeinsets];
-        return CGRectContainsPoint(LB_CGRectInsetMargin(self.bounds , edgeinsets) , point);
-    }else{
+    NSValue* valueSide = objc_getAssociatedObject(self,
+                                                  &_lb_key_btnExtensionOfTouchSide);
+    NSArray<NSString*>* valueRects = objc_getAssociatedObject(self,
+                                                              &_lb_key_btnExtensionOfTouchRects);
+    if(!valueSide && !valueRects){
         return [super pointInside:point withEvent:event];
+    }else if (valueSide) {
+        UIEdgeInsets edgeinsets = UIEdgeInsetsZero;
+        [valueSide getValue:&edgeinsets];
+        if(CGRectContainsPoint(LB_CGRectInsetMargin(self.bounds , edgeinsets) , point)){
+            return YES;
+        }
+    }else if(valueRects){
+        for (NSString* rectStr in valueRects) {
+            if(CGRectContainsPoint(CGRectFromString(rectStr) , point)){
+                return YES;
+            }
+        }
     }
+    return NO;
 }
 @end

@@ -32,4 +32,7 @@ LBDeclare UIImageView*         (^img_viewHighlightedAnimationImages)( NSArray<UI
 @interface UIImageView(UIImageViewLinkBlock)
 /** 扩展触摸识别区域；如果扩展范围和其它控件重叠，应该禁用它的交互或者将本控件置于它之上； */
 LBDeclare UIImageView* (^img_viewExtensionOfTouchSide)(UIEdgeInsets insets);
+
+/** 扩展出没识别区域；rects内是参考自身坐标系的相对位置 */
+LBDeclare UIImageView* (^img_viewExtensionOfTouchRects)(NSArray<NSString*>* rects);
 @end
