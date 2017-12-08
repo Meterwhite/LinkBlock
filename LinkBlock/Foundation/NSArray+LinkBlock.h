@@ -122,7 +122,11 @@ LBDeclare NSMutableArray*  (^arrInsertArrayAt)(NSArray* arr, NSUInteger index);
 /** <^(id obj, id beforeObj)>插入一个对象在另一个对象之前 */
 LBDeclare NSMutableArray*  (^arrInsertBefore)(id obj, id beforeObj);
 /** <^(id obj, id behindObj)>插入一个对象在另一个对象之后 */
-LBDeclare NSMutableArray*  (^arrInsertBehind)(id obj, id behindObj);
+LBDeclare NSMutableArray*  (^arrInsertNext)(id obj, id nextObj);
+/** <^(id obj)>数组中前一个对象 */
+LBDeclare NSObject*        (^arrBefore)(id obj);
+/** <^(id obj)>数组中后一个对象 */
+LBDeclare NSObject*        (^arrNext)(id obj);
 /** <^(id obj)> */
 LBDeclare NSMutableArray*  (^arrRemoveObj)(id obj);
 /** <^(NSUInteger index)>移除指定Index处的元素,不会溢出 */

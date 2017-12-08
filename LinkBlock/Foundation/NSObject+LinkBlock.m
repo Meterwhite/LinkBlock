@@ -2344,11 +2344,11 @@
     return ^id(NSArray* inArr){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objBeforeInArr,inArr)
-        NSUInteger idx = [inArr indexOfObject:_self];
-        if(idx!=NSNotFound && (idx-1)>0){
-            return [inArr objectAtIndex:idx];
+        NSInteger idx = [inArr indexOfObject:_self];
+        if(idx!=NSNotFound && idx-1>=0){
+            return [inArr objectAtIndex:idx-1];
         }else{
-            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",_self]] logError];
+            return [NSNull null];
         }
     };
 }
@@ -2359,10 +2359,10 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objNextInArr,inArr)
         NSUInteger idx = [inArr indexOfObject:_self];
-        if(idx!=NSNotFound && (idx+1) <inArr.count){
-            return [inArr objectAtIndex:idx];
+        if(idx!=NSNotFound && idx+1<=inArr.count-1){
+            return [inArr objectAtIndex:idx+1];
         }else{
-            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",_self]] logError];
+            return [NSNull null];
         }
     };
 }

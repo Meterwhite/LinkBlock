@@ -46,9 +46,14 @@
 //////////////////////////////////////////////////////////////////////
 //MARK:基础
 //////////////////////////////////////////////////////////////////////
-//包装一个对象为安全链条起始对象（需要取值时）
+//包装一个对象为安全链条起始对象（需要取值时），参数为id类型时使用linkObj_id(obj)来实现.语法
 #ifndef linkObj
 #define linkObj(object) ((typeof(object))_LK_MakeObj(object))
+#endif
+
+//包装一个对象为安全链条起始对象（需要取值时），并指定类型为NSObject
+#ifndef linkObj_id
+#define linkObj_id(object) ((NSObject*)_LK_MakeObj(object))
 #endif
 
 /**
@@ -190,6 +195,7 @@
 #ifndef linkEndsAt
 #define linkEndsAt linkEndsAt
 #endif
+
 
 
 //////////////////////////////////////////////////////////////////////

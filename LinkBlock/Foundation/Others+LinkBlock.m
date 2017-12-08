@@ -605,6 +605,18 @@
         return _self;
     };
 }
+
+- (NSMutableArray *(^)(id, id))arrInsertBehind
+{
+    return ^id(id obj, id behindObj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrInsertBehind,obj,behindObj)
+        if(![_self isKindOfClass:[NSMutableArray class]]){
+            _self = [_self mutableCopy];
+        }
+        return _self.m_arrInsertBehind(obj,behindObj);
+    };
+}
 @end
 
 @implementation NSMutableString (OtherLinkBlock)

@@ -141,6 +141,17 @@ static const char _lb_key_labExtensionOfTouchRects;
     };
 }
 
+- (UILabel *(^)(NSArray<NSString *> *))labExtensionOfTouchRects
+{
+    return ^UILabel*(NSArray<NSString*>* rects){
+        objc_setAssociatedObject(self,
+                                 &_lb_key_labExtensionOfTouchRects,
+                                 [rects copy],
+                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        return self;
+    };
+}
+
 - (UILabel *(^)(NSArray<NSString *> *))img_viewExtensionOfTouchRects
 {
     return ^UILabel*(NSArray<NSString*>* rects){

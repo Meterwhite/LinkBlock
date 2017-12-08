@@ -660,15 +660,33 @@
     };
 }
 
-- (NSMutableArray *(^)(id, id))arrInsertBehind
+- (NSMutableArray *(^)(id, id))arrInsertNext
 {
-    return ^id(id obj, id behindObj){
+    return ^id(id obj, id nextObj){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrInsertBehind,obj,behindObj)
+        LinkGroupHandle_REF(arrInsertNext,obj,nextObj)
         if(![_self isKindOfClass:[NSMutableArray class]]){
             _self = [_self mutableCopy];
         }
-        return _self.m_arrInsertBehind(obj,behindObj);
+        return _self.m_arrInsertNext(obj,nextObj);
+    };
+}
+
+- (NSObject *(^)(id))arrBefore
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrBefore,obj)
+        return linkObj_id(obj).objBeforeInArr(_self);
+    };
+}
+
+- (NSObject *(^)(id))arrNext
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrNext,obj)
+        return linkObj_id(obj).objNextInArr(_self);
     };
 }
 

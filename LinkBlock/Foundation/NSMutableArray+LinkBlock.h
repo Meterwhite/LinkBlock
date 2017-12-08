@@ -24,7 +24,7 @@ LBDeclare NSMutableArray*  (^m_arrInsertArrayAt)(NSArray* arr, NSUInteger index)
 /** <^(id obj, id beforeObj)>插入一个对象在另一个对象之前 */
 LBDeclare NSMutableArray*  (^m_arrInsertBefore)(id obj, id beforeObj);
 /** <^(id obj, id behindObj)>插入一个对象在另一个对象之后 */
-LBDeclare NSMutableArray*  (^m_arrInsertBehind)(id obj, id behindObj);
+LBDeclare NSMutableArray*  (^m_arrInsertNext)(id obj, id nexObj);
 /** <^(id obj)> */
 LBDeclare NSMutableArray*  (^m_arrRemoveObj)(id obj);
 /** <^(NSUInteger index)>移除指定Index处的元素,不会溢出 */

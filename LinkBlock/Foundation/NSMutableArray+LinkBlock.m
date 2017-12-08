@@ -79,9 +79,9 @@
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertBefore,obj,beforObj)
         if(!obj || !beforObj) goto END;
-        long idx= [_self indexOfObject:beforObj];
+        NSInteger idx= [_self indexOfObject:beforObj];
         if(idx != NSNotFound){
-            idx= idx-1<0 ? 0: idx;
+            idx = idx-1<0 ? 0: idx;
             [_self insertObject:obj atIndex:idx];
         }
     END:
@@ -89,14 +89,15 @@
     };
 }
 
-- (NSMutableArray *(^)(id, id))m_arrInsertBehind
+- (NSMutableArray *(^)(id, id))m_arrInsertNext
 {
-    return ^id(id obj, id behindObj){
+    return ^id(id obj, id nexObj){
         LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrInsertBehind,obj,behindObj)
-        if(!obj || !behindObj) goto END;
-        NSUInteger idx= [_self indexOfObject:behindObj];
+        LinkGroupHandle_REF(m_arrInsertNext,obj,nexObj)
+        if(!obj || !nexObj) goto END;
+        NSUInteger idx= [_self indexOfObject:nexObj];
         if(idx != NSNotFound){
+            idx = (idx+1 > _self.count-1) ? _self.count-1 : idx+1;
             [_self insertObject:obj atIndex:idx];
         }
     END:

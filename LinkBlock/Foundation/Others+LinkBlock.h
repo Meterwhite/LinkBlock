@@ -188,6 +188,12 @@ LBDeclare UILabel*         (^labAlignTop)()
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
 LBDeclare UILabel*         (^labAlignBottom)()
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+
+LBDeclare NSMutableArray*  (^arrInsertBehind)(id obj, id behindObj)
+NS_DEPRECATED_IOS(2_0, 2_0, "重命名方法为arrInsertNext");
+
+LBDeclare NSMutableArray*  (^m_arrInsertBehind)(id obj, id behindObj)
+NS_DEPRECATED_IOS(2_0, 2_0, "重命名方法为m_arrInsertNext");
 @end
 
 
