@@ -49,12 +49,12 @@
 //////////////////////////////////////////////////////////////////////
 //包装一个对象为安全链条起始对象（需要取值时），参数为id类型时使用linkObj_id(obj)来实现.语法
 #ifndef linkObj
-#define linkObj(object) ((typeof(object))_LK_MakeObj(object))
+#define linkObj(object) ((typeof(object))_LB_MakeObj(object))
 #endif
 
 //包装一个对象为安全链条起始对象（需要取值时），并指定类型为NSObject
 #ifndef linkObj_id
-#define linkObj_id(object) ((NSObject*)_LK_MakeObj(object))
+#define linkObj_id(object) ((NSObject*)_LB_MakeObj(object))
 #endif
 
 /**
@@ -128,7 +128,7 @@
  包装多个对象为多链条起始对象
  */
 #ifndef linkObjs
-#define linkObjs(object,args...) _LK_MakeObjs(object,##args,nil)
+#define linkObjs(object,args...) _LB_MakeObjs(object,##args,nil)
 #endif
 
 /**
@@ -204,12 +204,12 @@
 //////////////////////////////////////////////////////////////////////
 /** 如果对象为空使用默认值替代 */
 #ifndef linkObjDefault
-#define linkObjDefault(object,default) ((typeof(object))_LK_DefaultObj(object,default))
+#define linkObjDefault(object,default) ((typeof(object))_LB_DefaultObj(object,default))
 #endif
 
 /** 非空对象 */
 #ifndef linkObjNotNil
-#define linkObjNotNil(object) ((typeof(object))_LK_NotNilObj(object))
+#define linkObjNotNil(object) ((typeof(object))_LB_NotNilObj(object))
 #endif
 
 #ifndef objIsEqualToEach

@@ -408,7 +408,7 @@ LBDeclare NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
 /**
  包装一个对象为安全链条起始对象
  */
-static inline id _LK_MakeObj(id object){
+static inline id _LB_MakeObj(id object){
     return object?object:[LinkError new];
 }
 /**
@@ -417,20 +417,20 @@ static inline id _LK_MakeObj(id object){
  @param object0 必要的参数
  @param ... 该函数需要以nil作为结尾
  */
-static inline LinkInfo* _LK_MakeObjs(id object0, ...){
+static inline LinkInfo* _LB_MakeObjs(id object0, ...){
     va_list args;
     return object0?(va_start(args, object0),[LinkGroup groupWithObjs:object0 args:args]):[LinkError new];
 }
 /**
  默认对象
  */
-static inline id _LK_DefaultObj(id obj , id instead){
+static inline id _LB_DefaultObj(id obj , id instead){
     return obj?obj:instead;
 }
 
 /**
  非空对象
  */
-static inline id _LK_NotNilObj(id obj){
+static inline id _LB_NotNilObj(id obj){
     return obj?obj:[NSNull null];
 }
