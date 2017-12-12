@@ -19,6 +19,7 @@
 #import "NSDate+LinkBlock.h"
 #import "NSURL+LinkBlock.h"
 #import "NSValue+LinkBlock.h"
+#import "NSIndexPath+LinkBlock.h"
 #import "NSError+LinkBlock.h"
 
 #import "JavaScriptCore+LinkBlock.h"

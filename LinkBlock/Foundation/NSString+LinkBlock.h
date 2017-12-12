@@ -192,6 +192,8 @@ LBDeclare NSURL*               (^strToNSURL)();
 LBDeclare NSAttributedString*  (^strToNSAttributedString)(NSDictionary<NSAttributedStringKey,id>* attrbute);
 /** <^(NSDictionary<NSAttributedStringKey,id>* attrbute)> */
 LBDeclare NSMutableAttributedString*  (^strToNSMutableAttributedString)(NSDictionary<NSAttributedStringKey,id>* attrbute);
+/** <^(NSStringEncoding encoding)> */
+LBDeclare NSIndexPath*         (^strToNSIndexPathFromJsonArray)(NSStringEncoding encoding);
 /** <^()>根据文件名创建UIImage，不存在图片时返回NSNull */
 LBDeclare UIImage*             (^strToUIImage)();
 /** <^()>根据文件名创建UIImageView，控件尺寸与图片原尺寸相同 */

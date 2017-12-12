@@ -92,7 +92,7 @@
     linkResults = arrA.linkLoop(100).m_arrAddObj(@"F").linkEnds;
     
     //多个控件一个显示其他隐藏
-    //linkObjs(viewA,viewB,...).viewHidden(YES).linkAt(selectedIndex).viewHidden(NO);
+    //linkObjs(viewA,viewB,...).viewHiddeYES().linkAt(selectedIndex).viewHiddenNO();
     
     //////////////////////////////////////////////////////////////////////
     //【四】快捷语法

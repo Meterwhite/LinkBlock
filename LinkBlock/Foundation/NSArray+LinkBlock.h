@@ -53,6 +53,8 @@ LBDeclare NSMutableArray*          (^arrAddToArr)(NSMutableArray* arr);
 LBDeclare NSDictionary*            (^arrToDictByKeyNumber)();
 /** <^()>数组转字典，键为NSString类型 */
 LBDeclare NSDictionary*            (^arrToDictByKeyString)();
+/** <^()>数组转路径 */
+LBDeclare NSIndexPath*             (^arrToNSIndexPath)();
 /** <^()>获取任意一个对象，空数组返回NSNull */
 LBDeclare NSObject*                (^arrAny)();
 /** <^()>最后一个对象 */

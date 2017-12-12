@@ -199,6 +199,20 @@
     };
 }
 
+- (NSIndexPath *(^)())arrToNSIndexPath
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrToNSIndexPath)
+        if(!_self.count) return [NSNull null];
+        NSUInteger* idxs = malloc(sizeof(NSUInteger)*_self.count);
+        for (NSUInteger i = 0; i<_self.count; i++) {
+            idxs[i] = [_self[i] unsignedIntegerValue];
+        }
+        return [NSIndexPath indexPathWithIndexes:idxs length:_self.count];
+    };
+}
+
 - (BOOL (^)(id))arrContain
 {
     return ^(id obj){

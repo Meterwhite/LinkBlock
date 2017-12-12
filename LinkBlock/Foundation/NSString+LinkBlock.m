@@ -55,7 +55,7 @@
 
 - (NSString *(^)(id))strAppendObj
 {
-    return self.strAppendObj;
+    return self.strAppend;
 }
 
 - (NSString *(^)(NSString *))strAppendTo
@@ -1421,6 +1421,15 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strToNSMutableAttributedString,attrbute)
         return [[NSMutableAttributedString alloc] initWithString:_self attributes:attrbute];
+    };
+}
+
+- (NSIndexPath *(^)(NSStringEncoding encoding))strToNSIndexPathFromJsonArray
+{
+    return ^id(NSStringEncoding encoding){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strToNSIndexPathFromJsonArray,encoding)
+        return _self.strToNSArrary(encoding).arrToNSIndexPath();
     };
 }
 

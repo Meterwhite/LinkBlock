@@ -24,6 +24,7 @@
 		45BFEBEA1D34F186007B83B5 /* LinkInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFEBE91D34F186007B83B5 /* LinkInfo.m */; };
 		45BFEBED1D34F225007B83B5 /* LinkGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFEBEC1D34F225007B83B5 /* LinkGroup.m */; };
 		45BFEBF01D34F728007B83B5 /* LinkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFEBEF1D34F728007B83B5 /* LinkError.m */; };
+		45C239BF1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C239BE1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m */; };
 		45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */; };
 		45EB72F41FAAC793004984E0 /* UIFont+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EB72F31FAAC793004984E0 /* UIFont+LinkBlock.m */; };
 		9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */; };
@@ -106,6 +107,8 @@
 		45BFEBEC1D34F225007B83B5 /* LinkGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkGroup.m; sourceTree = "<group>"; };
 		45BFEBEE1D34F728007B83B5 /* LinkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkError.h; sourceTree = "<group>"; };
 		45BFEBEF1D34F728007B83B5 /* LinkError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkError.m; sourceTree = "<group>"; };
+		45C239BD1FDA943E00E08D01 /* NSIndexPath+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+LinkBlock.h"; sourceTree = "<group>"; };
+		45C239BE1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+LinkBlock.m"; sourceTree = "<group>"; };
 		45DEF2C31CEB0B950000E453 /* UIBezierPath+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+LinkBlock.h"; sourceTree = "<group>"; };
 		45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIBezierPath+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		45EB72F21FAAC793004984E0 /* UIFont+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+LinkBlock.h"; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 				9FBD171E1BDB91D500C2F402 /* NSURL+LinkBlock.m */,
 				9FBD171F1BDB91D500C2F402 /* NSValue+LinkBlock.h */,
 				9FBD17201BDB91D500C2F402 /* NSValue+LinkBlock.m */,
+				45C239BD1FDA943E00E08D01 /* NSIndexPath+LinkBlock.h */,
+				45C239BE1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m */,
 				453ED88B1D86B47F00B4A4C4 /* NSError+LinkBlock.h */,
 				453ED88C1D86B47F00B4A4C4 /* NSError+LinkBlock.m */,
 				9FF373E81D9ED3F300E5AAEA /* Others+LinkBlock.h */,
@@ -521,6 +526,7 @@
 				4540E41F1EB034A100AC87F1 /* CAAnimations+LinkBlock.m in Sources */,
 				9FFDA2151B835E2F0044097D /* AppDelegate.m in Sources */,
 				45EB72F41FAAC793004984E0 /* UIFont+LinkBlock.m in Sources */,
+				45C239BF1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m in Sources */,
 				453AFBC91D6EFB4E00012095 /* Man.m in Sources */,
 				9FBD174A1BDB91D500C2F402 /* UILabel+LinkBlock.m in Sources */,
 				459388C11D9BCB6600F3DA61 /* UITableView+LinkBlock.m in Sources */,
