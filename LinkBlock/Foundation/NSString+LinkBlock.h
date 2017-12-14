@@ -8,6 +8,8 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(NSStringLinkBlock)
+
+LBDeclare id           (^linkEvalCodeWithArgs)(id obj , ...);
 /** <^(NSUInteger index)> */
 LBDeclare NSString*    (^strAt)(NSUInteger index);
 /** <^(NSUInteger index)>元字符 */
