@@ -2324,7 +2324,9 @@
     return ^id(NSMutableArray* arr){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objAddToArr,arr)
-        [arr addObject:_self];
+        if([arr isKindOfClass:[NSMutableArray class]]){
+            [arr addObject:_self];
+        }
         return _self;
     };
 }
@@ -2334,7 +2336,9 @@
     return ^id(NSMutableArray* arr){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objRemoveFromArr,arr)
-        [arr removeObject:_self];
+        if([arr isKindOfClass:[NSMutableArray class]]){
+            [arr removeObject:_self];
+        }
         return _self;
     };
 }
@@ -2344,6 +2348,8 @@
     return ^id(NSArray* inArr){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objBeforeInArr,inArr)
+        if(![inArr isKindOfClass:[NSMutableArray class]])
+            return [NSNull null];
         NSInteger idx = [inArr indexOfObject:_self];
         if(idx!=NSNotFound && idx-1>=0){
             return [inArr objectAtIndex:idx-1];
@@ -2358,6 +2364,8 @@
     return ^id(NSArray* inArr){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objNextInArr,inArr)
+        if(![inArr isKindOfClass:[NSMutableArray class]])
+            return [NSNull null];
         NSUInteger idx = [inArr indexOfObject:_self];
         if(idx!=NSNotFound && idx+1<=inArr.count-1){
             return [inArr objectAtIndex:idx+1];
@@ -2374,6 +2382,8 @@
             return NO;
         }
         LinkGroupHandle_VAL(objIsInArr, inArr)
+        if(![inArr isKindOfClass:[NSMutableArray class]])
+            return [NSNull null];
         return [inArr containsObject:_self];
     };
 }
@@ -2382,6 +2392,8 @@
     return ^id(NSArray* inArr){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objIsInArr_n, inArr)
+        if(![inArr isKindOfClass:[NSMutableArray class]])
+            return [NSNull null];
         return @([inArr containsObject:_self]);
     };
 }
