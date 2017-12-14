@@ -7,6 +7,7 @@
 //
 
 #import "LinkBlock.h"
+#import "LinkHelper.h"
 #import <AVFoundation/AVFoundation.h>
 
 @implementation NSObject(NSStringLinkBlock)
@@ -2238,6 +2239,48 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         LinkGroupHandle_REF(strSetToTxtView_linkTo, txtView)
         txtView.text = _self;
         return linkObj(txtView);
+    };
+}
+
+#pragma mark - 动态解析
+
+- (NSObject *(^)(BOOL, id))strEvalCodeFromObj
+{
+    return ^id(BOOL flag,id obj){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strEvalCodeFromObj,flag,obj)
+        return self.strEvalCodeFromObjWithArgs(flag,obj);
+    };
+}
+
+- (NSObject *(^)(BOOL , id , ...))strEvalCodeFromObjWithArgs
+{
+    return ^id(BOOL flag,id obj, ...){
+        LinkHandle_REF(NSString)
+        
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            NSMutableArray* returnObjs = [NSMutableArray new];
+            va_list args;
+            va_start(args, obj);
+            for (int i=0; i<group.linkObjects.count; i++) {
+                id re =[LinkHelper linkObj:_self evalCode:_self args:args flag:flag];
+                [returnObjs addObject:linkObj(re)];
+            }
+            va_end(args);
+            [group.linkObjects setArray:returnObjs];
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        va_list args;
+        va_start(args , obj);
+        id re =[LinkHelper linkObj:obj evalCode:_self args:args flag:flag];
+        va_end(args);
+        return re;
     };
 }
 

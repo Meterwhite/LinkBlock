@@ -9,7 +9,6 @@
 
 @interface NSObject(NSStringLinkBlock)
 
-LBDeclare id           (^linkEvalCodeWithArgs)(id obj , ...);
 /** <^(NSUInteger index)> */
 LBDeclare NSString*    (^strAt)(NSUInteger index);
 /** <^(NSUInteger index)>元字符 */
@@ -302,7 +301,9 @@ LBDeclare NSString*            (^strURLDecodeUTF8)();
 LBDeclare NSString*            (^strURLEncode)(NSStringEncoding encode);
 /** <^(NSStringEncoding encode)> */
 LBDeclare NSString*            (^strURLDecode)(NSStringEncoding encode);
-
+#pragma mark - 动态解析
+LBDeclare NSObject*            (^strEvalCodeFromObj)(BOOL flag,id obj);
+LBDeclare NSObject*            (^strEvalCodeFromObjWithArgs)(BOOL flag,id obj, ...);
 @end
 
 @interface NSString (NSStringLinkBlock)

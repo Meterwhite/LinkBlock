@@ -30,7 +30,7 @@ static inline NSInvocation* invocationFromBlock(id block)
 
  @param invocation 装箱的block
  @param args 参数列表
- @return 装箱的返回值SEL->NSString，char* -> NSString，……
+ @return 装箱的返回值SEL->NSString，char*->NSString，……
  */
 + (id)invokeAndReturnBoxedWithBlockInvocation:(NSInvocation*)invocation args:(va_list)args
 {

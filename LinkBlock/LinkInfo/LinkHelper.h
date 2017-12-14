@@ -10,6 +10,8 @@
 
 @interface LinkHelper : NSProxy
 
++ (id)linkObj:(id)linkObj evalCode:(NSString*)code args:(va_list)args flag:(int)flag;
+
 
 
 @end
