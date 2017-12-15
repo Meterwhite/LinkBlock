@@ -14,6 +14,9 @@
 #import "Others+LinkBlock.h"
 
 @interface NSObject(LinkBlock)
+#pragma mark - LinkCode
+LBDeclare NSObject*            (^linkEvalCode)(NSString* code , ...);
+
 #pragma mark - 方式
 /** 
  <- linkEnd>获取链条返回值，并将错误转nil

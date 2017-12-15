@@ -45,6 +45,22 @@
 #import "UIFont+LinkBlock.h"
 
 //////////////////////////////////////////////////////////////////////
+//MARK:最新！动态解析LinkCode
+//////////////////////////////////////////////////////////////////////
+#ifndef linkEvalCode
+#define linkEvalCode(code , args...) linkEvalCode(code , ##args , nil)
+#endif
+
+#ifndef linkCodeEvalFrom
+#define linkCodeEvalFrom(obj , args...) linkCodeEvalFrom(obj , ##args , nil)
+#endif
+
+#ifndef linkArgsToEvalCode
+#define linkArgsToEvalCode linkArgsToEvalCode
+#endif
+
+
+//////////////////////////////////////////////////////////////////////
 //MARK:基础
 //////////////////////////////////////////////////////////////////////
 //包装一个对象为安全链条起始对象（需要取值时），参数为id类型时使用linkObj_id(obj)来实现.语法

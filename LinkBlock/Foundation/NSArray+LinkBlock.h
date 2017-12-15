@@ -10,6 +10,8 @@
 #define NSArrayNew ([NSArray new])
 #endif
 @interface NSObject(NSArraryLinkBlock)
+#pragma mark - LinkCode
+LBDeclare NSObject*            (^linkArgsToEvalCode)(id obj,NSString* code);
 
 #pragma mark - 多链条
 /**

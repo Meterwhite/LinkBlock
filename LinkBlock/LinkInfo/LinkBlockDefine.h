@@ -202,9 +202,14 @@ static inline  CGRect LB_CGRectInsetMargin(CGRect rect, UIEdgeInsets insets) {
     return rect;
 }
 
+typedef NS_OPTIONS(int, LB_BlockFlags) {
+    BKBlockFlagsHasCopyDisposeHelpers = (1 << 25),
+    BKBlockFlagsHasSignature          = (1 << 30)
+};
+
 struct LB_Block_literal {
     void *isa; // initialized to &_NSConcreteStackBlock or &_NSConcreteGlobalBlock
-    int flags;
+    LB_BlockFlags flags;
     int reserved;
     void (*invoke)(void *, ...);
     struct LB_Block_descriptor {

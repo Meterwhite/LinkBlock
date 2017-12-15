@@ -323,7 +323,6 @@
         }
         //LinkGroupHandle_VAL
         ///////////////////////
-        
         if([formatStr isKindOfClass:[NSString class]]){
             va_list args;
             va_start(args, formatStr);
@@ -2242,20 +2241,12 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     };
 }
 
-#pragma mark - 动态解析
+#pragma mark - LinkCode
 
-- (NSObject *(^)(BOOL, id))strEvalCodeFromObj
-{
-    return ^id(BOOL flag,id obj){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strEvalCodeFromObj,flag,obj)
-        return self.strEvalCodeFromObjWithArgs(flag,obj);
-    };
-}
 
-- (NSObject *(^)(BOOL , id , ...))strEvalCodeFromObjWithArgs
+- (NSObject *(^)(id , ...))linkCodeEvalFrom
 {
-    return ^id(BOOL flag,id obj, ...){
+    return ^id(id obj, ...){
         LinkHandle_REF(NSString)
         
         ///////////////////////
@@ -2266,7 +2257,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
             va_list args;
             va_start(args, obj);
             for (int i=0; i<group.linkObjects.count; i++) {
-                id re =[LinkHelper linkObj:_self evalCode:_self args:args flag:flag];
+                id re =[LinkHelper linkObj:_self evalCode:_self args:args];
                 [returnObjs addObject:linkObj(re)];
             }
             va_end(args);
@@ -2278,7 +2269,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         
         va_list args;
         va_start(args , obj);
-        id re =[LinkHelper linkObj:obj evalCode:_self args:args flag:flag];
+        id re =[LinkHelper linkObj:obj evalCode:_self args:args];
         va_end(args);
         return re;
     };

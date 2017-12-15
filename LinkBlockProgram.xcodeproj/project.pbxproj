@@ -17,6 +17,9 @@
 		453ED88D1D86B47F00B4A4C4 /* NSError+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 453ED88C1D86B47F00B4A4C4 /* NSError+LinkBlock.m */; };
 		4540E41F1EB034A100AC87F1 /* CAAnimations+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4540E41E1EB034A100AC87F1 /* CAAnimations+LinkBlock.m */; };
 		454A9E301FE26D8800CEE102 /* LinkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E2F1FE26D8700CEE102 /* LinkHelper.m */; };
+		454A9E341FE3B95600CEE102 /* DynamicLinkArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */; };
+		454A9E371FE3BB3400CEE102 /* DynamicLinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E361FE3BB3400CEE102 /* DynamicLinkBlock.m */; };
+		454A9E3A1FE3BC1A00CEE102 /* DynamicLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E391FE3BC1A00CEE102 /* DynamicLink.m */; };
 		4559E86A1D952B580034D221 /* LinkReturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E8691D952B580034D221 /* LinkReturn.m */; };
 		458AD6001D193BDC00D5B931 /* JSContext+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FD1D193BDC00D5B931 /* JSContext+LinkBlock.m */; };
 		458AD6011D193BDC00D5B931 /* JSValue+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FF1D193BDC00D5B931 /* JSValue+LinkBlock.m */; };
@@ -92,6 +95,12 @@
 		4540E41E1EB034A100AC87F1 /* CAAnimations+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimations+LinkBlock.m"; sourceTree = "<group>"; };
 		454A9E2E1FE26D8700CEE102 /* LinkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkHelper.h; sourceTree = "<group>"; };
 		454A9E2F1FE26D8700CEE102 /* LinkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkHelper.m; sourceTree = "<group>"; };
+		454A9E321FE3B95600CEE102 /* DynamicLinkArgument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLinkArgument.h; sourceTree = "<group>"; };
+		454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLinkArgument.m; sourceTree = "<group>"; };
+		454A9E351FE3BB3400CEE102 /* DynamicLinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLinkBlock.h; sourceTree = "<group>"; };
+		454A9E361FE3BB3400CEE102 /* DynamicLinkBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLinkBlock.m; sourceTree = "<group>"; };
+		454A9E381FE3BC1A00CEE102 /* DynamicLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLink.h; sourceTree = "<group>"; };
+		454A9E391FE3BC1A00CEE102 /* DynamicLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLink.m; sourceTree = "<group>"; };
 		4559E8681D952B580034D221 /* LinkReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkReturn.h; sourceTree = "<group>"; };
 		4559E8691D952B580034D221 /* LinkReturn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkReturn.m; sourceTree = "<group>"; };
 		456366091E77DD0900C1ABE2 /* LinkBlockDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LinkBlockDefine.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -209,6 +218,19 @@
 			path = TestClass;
 			sourceTree = "<group>";
 		};
+		454A9E311FE3B80C00CEE102 /* DynamicBlock */ = {
+			isa = PBXGroup;
+			children = (
+				454A9E381FE3BC1A00CEE102 /* DynamicLink.h */,
+				454A9E391FE3BC1A00CEE102 /* DynamicLink.m */,
+				454A9E351FE3BB3400CEE102 /* DynamicLinkBlock.h */,
+				454A9E361FE3BB3400CEE102 /* DynamicLinkBlock.m */,
+				454A9E321FE3B95600CEE102 /* DynamicLinkArgument.h */,
+				454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */,
+			);
+			path = DynamicBlock;
+			sourceTree = "<group>";
+		};
 		458AD5FB1D193BBB00D5B931 /* JavaScriptCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +266,7 @@
 		9FBD17051BDB91D500C2F402 /* LinkBlock */ = {
 			isa = PBXGroup;
 			children = (
+				454A9E311FE3B80C00CEE102 /* DynamicBlock */,
 				45BFEBE71D34F153007B83B5 /* LinkInfo */,
 				9FBD17061BDB91D500C2F402 /* Foundation */,
 				9FBD17241BDB91D500C2F402 /* UIKit */,
@@ -499,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4503466B1EC04B4500F6066A /* UISearchBar+LinkBlock.m in Sources */,
+				454A9E371FE3BB3400CEE102 /* DynamicLinkBlock.m in Sources */,
 				9FBD174B1BDB91D500C2F402 /* UIScrollView+LinkBlock.m in Sources */,
 				45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */,
 				453AFBCA1D6EFB4E00012095 /* Person.m in Sources */,
@@ -507,6 +531,7 @@
 				9FBD17401BDB91D500C2F402 /* NSObject+LinkBlock.m in Sources */,
 				9FBD173F1BDB91D500C2F402 /* NSNumber+LinkBlock.m in Sources */,
 				9FFDA2181B835E2F0044097D /* ViewController.m in Sources */,
+				454A9E341FE3B95600CEE102 /* DynamicLinkArgument.m in Sources */,
 				9FBD17421BDB91D500C2F402 /* NSURL+LinkBlock.m in Sources */,
 				9FBD173D1BDB91D500C2F402 /* NSMutableDictionary+LinkBlock.m in Sources */,
 				452047671CED65310092ED18 /* CAShapeLayer+LinkBlock.m in Sources */,
@@ -544,6 +569,7 @@
 				9FFDA2121B835E2F0044097D /* main.m in Sources */,
 				458AD6011D193BDC00D5B931 /* JSValue+LinkBlock.m in Sources */,
 				9FBD17431BDB91D500C2F402 /* NSValue+LinkBlock.m in Sources */,
+				454A9E3A1FE3BC1A00CEE102 /* DynamicLink.m in Sources */,
 				EEEF93381C5B5C0900A9ADBF /* UITextField+LinkBlock.m in Sources */,
 				9FBD173A1BDB91D500C2F402 /* NSDictionary+LinkBlock.m in Sources */,
 			);

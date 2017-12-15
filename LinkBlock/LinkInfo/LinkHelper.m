@@ -10,7 +10,6 @@
 #import "LinkHelper.h"
 #import <objc/runtime.h>
 
-
 /**
  block装箱
  */
@@ -22,7 +21,50 @@ static inline NSInvocation* invocationFromBlock(id block)
 }
 
 
+
 @implementation LinkHelper
+
++ (id)linkObj:(id)linkObj evalCode:(NSString*)code args:(va_list)args
+{
+    //无对象返回空
+    if(!linkObj) goto END;
+    
+    //无code返回对象本身
+    if(!code) return linkObj;
+    
+    //解析code，得到blocks和更多的信息
+    /*
+     信息体数组
+     信息体 = (函数名,参数描述体数组)
+     参数描述体 = (索引,字符串值,类型,值)
+     
+     for(信息体数组){
+        函数名,参数描述体数组
+        调用体 = (函数名)
+     
+     
+     }
+     
+     
+     
+     for(va_list,i){
+     
+        函数参数和=(invocation)
+     
+     }
+     
+     */
+    
+    //执行每一个block
+    /*
+     args,
+     */
+    
+    //返回结果
+END:
+    return [NSNull null];
+}
+
 
 
 /**
