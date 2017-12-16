@@ -9,18 +9,7 @@
 #import "LinkBlock.h"
 #import "LinkHelper.h"
 #import <objc/runtime.h>
-
-/**
- block装箱
- */
-static inline NSInvocation* invocationFromBlock(id block)
-{
-    NSInvocation* invocation = [NSInvocation invocationWithMethodSignature:[NSMethodSignature signatureWithObjCTypes:LB_BlockSignature(block)]];
-    invocation.target = block;
-    return invocation;
-}
-
-
+#import "LinkBlockInvocation.h"
 
 @implementation LinkHelper
 
