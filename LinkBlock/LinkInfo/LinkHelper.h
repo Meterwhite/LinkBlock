@@ -8,9 +8,7 @@
 
 #import "LinkBlockDefine.h"
 
-@interface LinkHelper : NSProxy
-
-+ (id)linkObj:(id)linkObj evalCode:(NSString*)code args:(va_list)args;
+@interface LinkHelper<__covariant ObjectType> : NSProxy
 
 
 

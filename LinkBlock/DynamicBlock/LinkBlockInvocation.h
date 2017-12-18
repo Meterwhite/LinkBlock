@@ -27,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
  - Block 签名 of `"@@?i"`
  - 方法签名 of `"@:i"` or `"@i"`
  */
-//@property (readonly) NSMethodSignature *methodSignatureOfFunction;
+///@property (readonly) NSMethodSignature *methodSignatureOfFunction;
 
 /**
  完全匹配block的方法的签名的调用者
  */
-//- (NSInvocation*)invocationOfFunction;
+///- (NSInvocation*)invocationOfFunction;
 
 #pragma mark - override NSInvocation
 @property (nonatomic , readonly) NSMethodSignature *methodSignature;

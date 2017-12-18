@@ -14,9 +14,11 @@
 @interface DynamicLink : NSObject
 
 + (instancetype)dynamicLinkWithCode:(NSString*)code;
-
-@property (nonatomic,assign,readonly) NSUInteger countOItem;
+@property (nonatomic,readonly) NSString* code;
+@property (nonatomic,assign,readonly) NSUInteger countOfItem;
 
 - (DynamicLinkBlock*)blockAtIndexPath:(NSIndexPath*)indexPath;
 - (DynamicLinkArgument*)argumentAtIndexPath:(NSIndexPath*)indexPath;
+
+- (id)invokeLinkWith:(id)linkObj args:(va_list)args;
 @end

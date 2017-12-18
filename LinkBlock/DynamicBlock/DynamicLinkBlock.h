@@ -12,6 +12,7 @@
 
 @interface DynamicLinkBlock : NSObject
 
+@property (nonatomic,strong) NSArray* objcTypesOfBlock;
 @property (nonatomic,assign,readonly) NSUInteger index;
 @property (nonatomic,strong) NSIndexPath* indexPath;
 @property (nonatomic,assign) NSUInteger countOfItem;
@@ -19,4 +20,6 @@
 
 - (BOOL)containsIndexPathOfItem:(NSIndexPath*)indexPath;
 - (DynamicLinkArgument*)argumentAt:(NSUInteger*)idx;
+
+- (id)invokeBlockWith:(id)obj args:(va_list)args atIndex:(NSUInteger*)idx;
 @end
