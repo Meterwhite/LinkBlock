@@ -9,15 +9,133 @@
 #import "LinkBlock.h"
 #import "LinkHelper.h"
 #import <objc/runtime.h>
-#import "LinkBlockInvocation.h"
 
-@interface LinkHelper()
+@interface LinkHelper<__covariant ObjectType>()
+@property (nonatomic,weak) id target;
 @end
 
 @implementation LinkHelper
 
+#pragma mark - 功能
+- (NSArray<NSString *> *)linkCodeSplite
+{
+    NSString* code = [self.target copy];
+    NSMutableArray<NSString*>* blocksString = [[code componentsSeparatedByString:@"."] mutableCopy];
+    //排除@".a.b.c"，@"a.b.c."
+    [blocksString removeObject:@""];
+    return blocksString;
+}
 
 
+/**
+ 所有数字包括十六进制数字定为double类型
+
+ @return objcType
+ */
+- (const char *)linkCodeType
+{
+    if(!self.target) return nil;
+    const char* objcType = @encode(id);
+    NSString* code = [self.target copy];
+    
+    //数字
+    NSScanner* scanner = [[NSScanner alloc] initWithString:code];
+    if([scanner scanDouble:NULL] && [scanner isAtEnd]){
+        objcType = @encode(double);
+    }
+    //十六进制
+    scanner.scanLocation = 0;
+    if([scanner scanHexDouble:NULL] && [scanner isAtEnd]){
+        objcType = @encode(double);
+    }
+    
+//    //字符串
+//    if([self.target rangeOfString:@"@\"[\\s\\S]*\"" options:NSRegularExpressionSearch].length){
+//        objcType = @encode(id);
+//    }
+    
+    
+    
+    return objcType;
+}
+
+
+#pragma mark - 构造
+- (instancetype)initWithTarget:(id)target
+{
+    _target = target;
+    return self;
+}
++ (id)help:(id)target
+{
+    return [[self alloc] initWithTarget:target];
+}
+//+ (BOOL)resolveInstanceMethod:(SEL)sel
+//+ (BOOL)resolveClassMethod:(SEL)sel
+
+#pragma mark - 消息转发
+//快速转发
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+    return self.target;
+}
+
+//普通转发
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [self.target methodSignatureForSelector:aSelector];
+}
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    //...
+}
+
+#pragma mark - NSObject
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    return [_target respondsToSelector:aSelector];
+}
+
+- (BOOL)isEqual:(id)object {
+    return [_target isEqual:object];
+}
+
+- (NSUInteger)hash {
+    return [_target hash];
+}
+
+- (Class)superclass {
+    return [_target superclass];
+}
+
+- (Class)class {
+    return [_target class];
+}
+
+- (BOOL)isKindOfClass:(Class)aClass {
+    return [_target isKindOfClass:aClass];
+}
+
+- (BOOL)isMemberOfClass:(Class)aClass {
+    return [_target isMemberOfClass:aClass];
+}
+
+- (BOOL)conformsToProtocol:(Protocol *)aProtocol {
+    return [_target conformsToProtocol:aProtocol];
+}
+
+- (BOOL)isProxy {
+    return YES;
+}
+
+- (NSString *)description {
+    return [_target description];
+}
+
+- (NSString *)debugDescription {
+    return [_target debugDescription];
+}
+
+#pragma mark - 临时
 /**
  执行装箱的block并返回装箱的返回值
 

@@ -2259,8 +2259,8 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
             va_list args;
             va_start(args, obj);
             for (int i=0; i<group.linkObjects.count; i++) {
-                id re =[LinkHelper linkObj:_self evalCode:_self args:args];
-                [returnObjs addObject:linkObj(re)];
+//                id re = [LinkHelper linkObj:_self evalCode:_self args:args];
+//                [returnObjs addObject:linkObj(re)];
             }
             va_end(args);
             [group.linkObjects setArray:returnObjs];
@@ -2271,9 +2271,9 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         
         va_list args;
         va_start(args , obj);
-        id re =[LinkHelper linkObj:obj evalCode:_self args:args];
+
         va_end(args);
-        return re;
+        return nil;
     };
 }
 

@@ -10,6 +10,9 @@
 
 @interface LinkHelper<__covariant ObjectType> : NSProxy
 
++ (id)help:(id)target;
 
+- (const char*)objcTypeFromValueCodeOfNSString;
+- (NSArray<NSString*>*)linkCodeSplite;
 
 @end

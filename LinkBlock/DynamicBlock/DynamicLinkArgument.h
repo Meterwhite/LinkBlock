@@ -12,9 +12,9 @@
 
 @interface DynamicLinkArgument : NSObject
 
-@property (nonatomic,strong) NSIndexPath* indexPath;
-@property (nonatomic,assign) NSUInteger index;
-@property (nonatomic,copy) NSString* stringValue;
+@property (nonatomic,strong,readonly) NSIndexPath* indexPath;
+@property (nonatomic,assign,readonly) NSUInteger index;
+@property (nonatomic,copy,readonly) NSString* stringValue;
 
 - (const char*)objcType;
 - (void)getValue:(void*)value;

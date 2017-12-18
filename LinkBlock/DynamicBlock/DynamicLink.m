@@ -7,10 +7,17 @@
 //
 
 #import "DynamicLink.h"
+#import "DynamicLinkBlock.h"
+#import "DynamicLinkArgument.h"
+#import "LinkHelper.h"
+
+@interface DynamicLink()
+@property (nonatomic,strong) NSMutableArray<DynamicLinkBlock*>* items;
+@end
 
 @implementation DynamicLink
 
-- (id)invokeLinkWith:(id)linkObj args:(va_list)args0
+- (id)invokeLinkWith:(id)linkObj args:(va_list)args_fp
 {
     //无对象返回空
     if(!linkObj) goto END;
@@ -19,39 +26,76 @@
     if(!self.code) return linkObj;
     
     va_list args;
-    va_copy(args0, args);
+    va_copy(args_fp, args);
     
-    //解析code，得到blocks和更多的信息
-    /*
-     信息体数组
-     信息体 = (函数名,参数描述体数组)
-     参数描述体 = (索引,字符串值,类型,值)
-     
-     for(信息体数组){
-     函数名,参数描述体数组
-     调用体 = (函数名)
-     
-     
-     }
-     
-     
-     
-     for(va_list,i){
-     
-     函数参数和=(invocation)
-     
-     }
-     
-     */
-    
-    //执行每一个block
-    /*
-     args,
-     */
-    
-    //返回结果
+    for (NSUInteger idxOfBlock = 0; idxOfBlock < self.countOfItems-1; idxOfBlock++) {
+        
+        DynamicLinkBlock* block = self.items[idxOfBlock];
+        for (NSUInteger idxOfArgument = 0; idxOfArgument < block.countOfItems; idxOfArgument++) {
+            DynamicLinkArgument* argument = [block argumentAt:idxOfArgument];
+            
+        }
+        
+    }
+
     
 END:
     return [NSNull null];
 }
+
+#pragma mark - 构造
+- (instancetype)initWithCode:(NSString*)code
+{
+    self = [super init];
+    if (self) {
+        _code = code;
+        [self codeSplitting];
+    }
+    return self;
+}
++ (instancetype)dynamicLinkWithCode:(NSString *)code
+{
+    return [[self alloc] initWithCode:code];
+}
+
+- (NSMutableArray<DynamicLinkBlock *> *)items
+{
+    if(!_items){
+        _items = [NSMutableArray new];
+    }
+    return _items;
+}
+
+- (NSUInteger)countOfItems
+{
+    return self.items.count;
+}
+
+- (void)codeSplitting
+{
+    NSArray* blockStrings = [[LinkHelper help:_code] linkCodeSplite];
+    [blockStrings enumerateObjectsUsingBlock:^(NSString*  _Nonnull blockString, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        DynamicLinkBlock* dyLinkBlock = [DynamicLinkBlock dynamicLinkBlockWithCode:blockString];
+        NSIndexPath* path0 = [NSIndexPath indexPathWithIndex:idx];
+        [dyLinkBlock setValue:path0 forKey:@"indexPath"];
+        [self.items addObject:dyLinkBlock];
+    }];
+}
+
+- (DynamicLinkBlock *)blockAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger idx = [indexPath indexAtPosition:0];
+    if(idx > self.items.count-1 ) return nil;
+    return self.items[idx];
+}
+
+- (DynamicLinkArgument *)argumentAtIndexPath:(NSIndexPath *)indexPath
+{
+    DynamicLinkBlock* block = [self blockAtIndexPath:indexPath];
+    if(!block) return nil;
+    NSUInteger idx = [indexPath indexAtPosition:1];
+    return  [block argumentAt:idx];
+}
+
 @end

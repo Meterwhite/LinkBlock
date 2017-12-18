@@ -10,6 +10,10 @@
 #import "Person.h"
 #import "Man.h"
 
+
+#import "LinkHelper.h"
+#import "DynamicLinkBlock.h"
+
 #define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
 
@@ -26,8 +30,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    @"123".strAppendFormat(@"%@%@%@",@"123",@"456",@"789");
+//    @"123".strAppendFormat(@"%@%@%@",@"123",@"456",@"789");
     
+//    [[LinkHelper help:@"strAppend"] linkCodeSplite];
+    
+    NSString* test = @"123123.3232";
+    NSScanner* sc = [[NSScanner alloc] initWithString:test];
+    
+    double d2;
+    BOOL b3 = [sc scanDouble:&d2];
+    BOOL b4 = [sc isAtEnd];
+    
+    int d;
+    sc.scanLocation = 0;
+    BOOL b1 = [sc scanInt:&d];
+    BOOL b2 = [sc isAtEnd];
+    
+    
+    @"End of test".nslog();
     return;
     //////////////////////////////////////////////////////////////////////
     //【一】基础语法

@@ -12,14 +12,16 @@
 
 @interface DynamicLinkBlock : NSObject
 
-@property (nonatomic,strong) NSArray* objcTypesOfBlock;
++ (instancetype)dynamicLinkBlockWithCode:(NSString*)code;
+
+@property (nonatomic,strong,readonly) NSArray* objcTypesOfBlock;
 @property (nonatomic,assign,readonly) NSUInteger index;
-@property (nonatomic,strong) NSIndexPath* indexPath;
-@property (nonatomic,assign) NSUInteger countOfItem;
-@property (nonatomic,copy) NSString* stringValue;
+@property (nonatomic,strong,readonly) NSIndexPath* indexPath;
+@property (nonatomic,assign,readonly) NSUInteger countOfItems;
+@property (nonatomic,copy,readonly) NSString* code;
 
 - (BOOL)containsIndexPathOfItem:(NSIndexPath*)indexPath;
-- (DynamicLinkArgument*)argumentAt:(NSUInteger*)idx;
+- (DynamicLinkArgument*)argumentAt:(NSUInteger)idx;
 
-- (id)invokeBlockWith:(id)obj args:(va_list)args atIndex:(NSUInteger*)idx;
+- (id)invoke:(id)target args:(va_list)args atIndex:(NSUInteger*)idx;
 @end
