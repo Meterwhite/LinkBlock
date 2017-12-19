@@ -18,44 +18,36 @@
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
 
 @interface ViewController ()
-{
-    void* _value;
-}
+
 @property (weak, nonatomic) IBOutlet UILabel *labelOfABC;
 @property (nonatomic,strong) dispatch_source_t timer;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnTest;
 
+@property (nonatomic,strong) NSValue* value;
 @end
 
 @implementation ViewController
 
-- (void)getXX:( void**)ptr
+- (NSValue*)getXX
 {
+//     void* man = (__bridge_retained void*)[Man new];
 //    Man* man = [Man new];
-//    *ptr = (__bridge_retained void*)man;
-    int intV = 123;
-    *((int*)*ptr) = intV;
+    
+    char* man = "123456789";
+    
     @"call getXX:".nslog();
+    return [NSValue valueWithBytes:&man objCType:@encode(char*)];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSString* value =@"'A1'";
-//    const char* ocType = [[LinkHelper help:value] objcTypeFromValueCodeOfNSString];
+    NSValue* val = [self getXX];
+//    self.value = val;
     
-//    Man* ptr;
-    {
-        [self getXX:&_value];
-        @"call {...}".nslog();
-    }
-    
-    int xxx = *(int*)_value;
-    
-//    free(_value);
-    CFRelease(_value);
-    _value = nil;
+    char* data;
+    [val getValue:&data];
     
     @"End of test".nslog();
     return;

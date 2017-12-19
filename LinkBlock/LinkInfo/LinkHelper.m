@@ -149,17 +149,13 @@
     return NULL;
 }
 
-- (void)valueCodeObjcValue:(void **)value objcType:(const char**)objcType
+- (NSValue*)valueFromValueCodeOfNSString
 {
     if(![self checkTargetType:[NSString class]]){
-        value = NULL;
-        *objcType = NULL;
-        return;
+        return nil;
     }
     if(!self.target){
-        value = NULL;
-        *objcType = NULL;
-        return;
+        return nil;
     };
     
     NSString* code = [self.target copy];
@@ -167,33 +163,25 @@
     //整型
     int intV;
     if([scanner scanInt:&intV] && [scanner isAtEnd]){
-        *objcType = @encode(int);
-        *value = &intV;
-        return;
+        return [NSNumber numberWithInt:intV];
     }
     //double
     double doubleV;
     scanner.scanLocation = 0;
     if([scanner scanDouble:&doubleV] && [scanner isAtEnd]){
-        *objcType = @encode(double);
-        value = &doubleV;
-        return;
+        return [NSNumber numberWithDouble:doubleV];
     }
     //十六进制整型
     unsigned unsignedV;
     scanner.scanLocation = 0;
     if([scanner scanHexInt:&unsignedV] && [scanner isAtEnd]){
-        *objcType = @encode(unsigned);
-        value = &unsignedV;
-        return;
+        return [NSNumber numberWithUnsignedInt:unsignedV];
     }
     //十六进制浮点
     doubleV = 0.0;
     scanner.scanLocation = 0;
     if([scanner scanHexDouble:&doubleV] && [scanner isAtEnd]){
-        *objcType = @encode(double);
-        value = &doubleV;
-        return;
+        return [NSNumber numberWithDouble:doubleV];
     }
     
     //布尔值
@@ -202,73 +190,62 @@
        [self.target isEqualToString:@"NO"]      ||
        [self.target isEqualToString:@"true"]    ||
        [self.target isEqualToString:@"false"]) {
-        *objcType = @encode(BOOL);
         boolV = [self.target isEqualToString:@"YES"]||[self.target isEqualToString:@"true"];
-        value = &boolV;
-        return;
+        return [NSNumber numberWithBool:boolV];
     }
     
     //NSString @"..."
     if([self.target rangeOfString:@"^@\"[\\s\\S]*\"$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(id);
         NSString* stringV = [self.target substringWithRange:NSMakeRange(2, [self.target length]-3)];
-//        value = &stringV;
-        return;
+        return [NSValue value:&stringV withObjCType:@encode(NSString)];
     }
     
     //char* "..."
     if([self.target rangeOfString:@"^\"[\\s\\S]*\"$" options:NSRegularExpressionSearch].length){
         const char* charV = [[self.target substringWithRange:NSMakeRange(1, [self.target length]-2)] UTF8String];
-        *objcType = @encode(char*);
-//        value = &charV;
-        return;
+        
+        return nil;
     }
     
     //char 'A'
     if([self.target rangeOfString:@"^'\\w'$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(char);
         char charV = [self.target characterAtIndex:1];
-//        value = &charV;
-        return;
+        return nil;
     }
     
     //NSNumber @(number)
     if([self.target rangeOfString:@"^@\\([\\s\\S]*\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(id);
         NSNumber* numberV = [NSNumber numberWithDouble:
                          [[self.target substringWithRange:NSMakeRange(2, [self.target length]-3)]
                           doubleValue]];
 //        value = &numberV;
-        return;
+        return nil;
     }
     //NSNumber @number
     if([self.target rangeOfString:@"^@\\d+$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(id);
         NSNumber* numberV = [NSNumber numberWithDouble:
                              [[self.target substringWithRange:NSMakeRange(1, [self.target length]-1)]
                               doubleValue]];
 //        value = &numberV;
-        return;
+        return nil;
     }
     //NSNumber @YES
     if([self.target isEqualToString:@"@YES"] || [self.target isEqualToString:@"@NO"] ||
        [self.target isEqualToString:@"@true"] || [self.target isEqualToString:@"@false"]){
-        *objcType = @encode(id);
         NSNumber* numberV = [NSNumber numberWithBool:
                              [self.target isEqualToString:@"@YES"]||[self.target isEqualToString:@"@true"]];
 //        value = &numberV;
-        return;
+        return nil;
     }
     
     //SEL
     if([self.target rangeOfString:@"^@selector\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(SEL);
         //@selector(xxxx)
         NSString* selectorString = [self.target substringWithRange:NSMakeRange(10, [self.target length]-11)];
         selectorString = [selectorString stringByReplacingOccurrencesOfString:@" " withString:@""];
         SEL selectorV = NSSelectorFromString(selectorString);
-        value = &selectorV;
-        return;
+//        value = &selectorV;
+        return nil;
     }
     
     
@@ -276,59 +253,49 @@
      NSValue支持的结构体
      *********************/
     if([self.target rangeOfString:@"^CGRectMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(CGRect);
-        return;
+        return nil;
     }
     
     if([self.target rangeOfString:@"^CGSizeMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(CGSize);
-        return;
+        return nil;
     }
     
     if([self.target rangeOfString:@"^CGPoint\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(CGPoint);
-        return;
+        return nil;
     }
     
     if([self.target rangeOfString:@"^NSMakeRange\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(NSRange);
-        return;
+        return nil;
     }
     
     if([self.target rangeOfString:@"^UIEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(UIEdgeInsets);
-        return;
+        return nil;
     }
     
     if([self.target rangeOfString:@"^CGVectorMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(CGVector);
-        return;
+        return nil;
     }
     
     if([self.target rangeOfString:@"^UIOffsetMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(UIOffset);
-        return;
+        return nil;
     }
     
     //CATransform3D无构造器和NSString形式所以都不支持识别
     
     if([self.target rangeOfString:@"^CGAffineTransformMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        *objcType = @encode(CGAffineTransform);
-        return;
+        return nil;
     }
     
     if (@available(iOS 11.0, *)){
         if([self.target rangeOfString:@"^NSDirectionalEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-            *objcType = @encode(NSDirectionalEdgeInsets);
-            return;
+            return nil;
         }
     }
     
     if(NSClassFromString(self.target)){
-        *objcType = @encode(Class);
-        return;
+        return nil;
     }
-    
+    return nil;
 }
 
 + (void) helpSwitchObjcType:(const char*)objcType
