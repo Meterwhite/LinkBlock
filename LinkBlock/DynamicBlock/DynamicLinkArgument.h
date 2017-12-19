@@ -12,10 +12,16 @@
 
 @interface DynamicLinkArgument : NSObject
 
+
+/**
+ 构造失败返回nil
+ */
++ (instancetype)dynamicLinkArgumentFromVlueCode:(NSString*)code;
+
 @property (nonatomic,strong,readonly) NSIndexPath* indexPath;
 @property (nonatomic,assign,readonly) NSUInteger index;
 @property (nonatomic,copy,readonly) NSString* stringValue;
 
-- (const char*)objcType;
+@property (nonatomic,assign,readonly) const char* objcType;
 - (void)getValue:(void*)value;
 @end

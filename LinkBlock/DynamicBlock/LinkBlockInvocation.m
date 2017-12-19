@@ -17,7 +17,7 @@ typedef NS_OPTIONS(int, LBBlockFlags) {
 };
 
 /**
- block构造
+ block结构体
  */
 typedef struct _lb_block_literal {
     __unused Class isa;
@@ -39,7 +39,7 @@ typedef struct _lb_block_literal {
 
 
 /**
- objcType比较
+ 比较objcType
  */
 NS_INLINE BOOL LBTypesCompatible(const char *a, const char *b) {
     if (a[0] == b[0]) { return YES; }

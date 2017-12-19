@@ -17,8 +17,15 @@
 @implementation LinkHelper
 
 #pragma mark - 功能
+- (BOOL)checkTargetType:(Class)type
+{
+    return [self.target isKindOfClass:type];
+}
+
 - (NSArray<NSString *> *)linkCodeSplite
 {
+    if(![self checkTargetType:[NSString class]]) return nil;
+    
     NSString* code = [self.target copy];
     NSMutableArray<NSString*>* blocksString = [[code componentsSeparatedByString:@"."] mutableCopy];
     //排除@".a.b.c"，@"a.b.c."
@@ -32,31 +39,432 @@
 
  @return objcType
  */
-- (const char *)linkCodeType
+- (const char *)objcTypeFromValueCodeOfNSString
 {
+    if(![self checkTargetType:[NSString class]]) return nil;
     if(!self.target) return nil;
-    const char* objcType = @encode(id);
-    NSString* code = [self.target copy];
     
-    //数字
+    NSString* code = [self.target copy];
     NSScanner* scanner = [[NSScanner alloc] initWithString:code];
-    if([scanner scanDouble:NULL] && [scanner isAtEnd]){
-        objcType = @encode(double);
+    //整型
+    if([scanner scanInt:NULL] && [scanner isAtEnd]){
+        return @encode(int);
     }
-    //十六进制
+    //double
+    scanner.scanLocation = 0;
+    if([scanner scanDouble:NULL] && [scanner isAtEnd]){
+        return @encode(double);
+    }
+    //十六进制整型
+    scanner.scanLocation = 0;
+    if([scanner scanHexInt:NULL] && [scanner isAtEnd]){
+        return @encode(unsigned);
+    }
+    //十六进制浮点
     scanner.scanLocation = 0;
     if([scanner scanHexDouble:NULL] && [scanner isAtEnd]){
-        objcType = @encode(double);
+        return @encode(double);
     }
     
-//    //字符串
-//    if([self.target rangeOfString:@"@\"[\\s\\S]*\"" options:NSRegularExpressionSearch].length){
-//        objcType = @encode(id);
-//    }
+    if([self.target isEqualToString:@"YES"]     ||
+       [self.target isEqualToString:@"NO"]      ||
+       [self.target isEqualToString:@"true"]    ||
+       [self.target isEqualToString:@"false"]){
+        return @encode(BOOL);
+    }
+    
+    //NSString
+    if([self.target rangeOfString:@"^@\"[\\s\\S]*\"$" options:NSRegularExpressionSearch].length){
+        return @encode(id);
+    }
+    
+    //char*
+    if([self.target rangeOfString:@"^\"[\\s\\S]*\"$" options:NSRegularExpressionSearch].length){
+        return @encode(char*);
+    }
+    
+    //char
+    if([self.target rangeOfString:@"^'\\w'$" options:NSRegularExpressionSearch].length){
+        return @encode(char);
+    }
+    
+    //NSNumber
+    if([self.target rangeOfString:@"^@\\([\\s\\S]*\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(id);
+    }
+    
+    //SEL
+    if([self.target rangeOfString:@"^@selector\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(SEL);
+    }
     
     
+    /*********************
+      NSValue支持的结构体
+     *********************/
+    if([self.target rangeOfString:@"^CGRectMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(CGRect);
+    }
     
-    return objcType;
+    if([self.target rangeOfString:@"^CGSizeMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(CGSize);
+    }
+    
+    if([self.target rangeOfString:@"^CGPoint\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(CGPoint);
+    }
+    
+    if([self.target rangeOfString:@"^NSMakeRange\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(NSRange);
+    }
+    
+    if([self.target rangeOfString:@"^UIEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(UIEdgeInsets);
+    }
+    
+    if([self.target rangeOfString:@"^CGVectorMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(CGVector);
+    }
+    
+    if([self.target rangeOfString:@"^UIOffsetMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(UIOffset);
+    }
+    
+    //CATransform3D无构造器和NSString形式所以都不支持识别
+    
+    if([self.target rangeOfString:@"^CGAffineTransformMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        return @encode(CGAffineTransform);
+    }
+    
+    if (@available(iOS 11.0, *)){
+        if([self.target rangeOfString:@"^NSDirectionalEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+            return @encode(NSDirectionalEdgeInsets);
+        }
+    }
+    
+    if(NSClassFromString(self.target)){
+        return @encode(Class);
+    }
+    
+    return NULL;
+}
+
+- (void)valueCodeObjcValue:(void **)value objcType:(const char**)objcType
+{
+    if(![self checkTargetType:[NSString class]]){
+        value = NULL;
+        *objcType = NULL;
+        return;
+    }
+    if(!self.target){
+        value = NULL;
+        *objcType = NULL;
+        return;
+    };
+    
+    NSString* code = [self.target copy];
+    NSScanner* scanner = [[NSScanner alloc] initWithString:code];
+    //整型
+    int intV;
+    if([scanner scanInt:&intV] && [scanner isAtEnd]){
+        *objcType = @encode(int);
+        *value = &intV;
+        return;
+    }
+    //double
+    double doubleV;
+    scanner.scanLocation = 0;
+    if([scanner scanDouble:&doubleV] && [scanner isAtEnd]){
+        *objcType = @encode(double);
+        value = &doubleV;
+        return;
+    }
+    //十六进制整型
+    unsigned unsignedV;
+    scanner.scanLocation = 0;
+    if([scanner scanHexInt:&unsignedV] && [scanner isAtEnd]){
+        *objcType = @encode(unsigned);
+        value = &unsignedV;
+        return;
+    }
+    //十六进制浮点
+    doubleV = 0.0;
+    scanner.scanLocation = 0;
+    if([scanner scanHexDouble:&doubleV] && [scanner isAtEnd]){
+        *objcType = @encode(double);
+        value = &doubleV;
+        return;
+    }
+    
+    //布尔值
+    BOOL boolV;
+    if([self.target isEqualToString:@"YES"]     ||
+       [self.target isEqualToString:@"NO"]      ||
+       [self.target isEqualToString:@"true"]    ||
+       [self.target isEqualToString:@"false"]) {
+        *objcType = @encode(BOOL);
+        boolV = [self.target isEqualToString:@"YES"]||[self.target isEqualToString:@"true"];
+        value = &boolV;
+        return;
+    }
+    
+    //NSString @"..."
+    if([self.target rangeOfString:@"^@\"[\\s\\S]*\"$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(id);
+        NSString* stringV = [self.target substringWithRange:NSMakeRange(2, [self.target length]-3)];
+//        value = &stringV;
+        return;
+    }
+    
+    //char* "..."
+    if([self.target rangeOfString:@"^\"[\\s\\S]*\"$" options:NSRegularExpressionSearch].length){
+        const char* charV = [[self.target substringWithRange:NSMakeRange(1, [self.target length]-2)] UTF8String];
+        *objcType = @encode(char*);
+//        value = &charV;
+        return;
+    }
+    
+    //char 'A'
+    if([self.target rangeOfString:@"^'\\w'$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(char);
+        char charV = [self.target characterAtIndex:1];
+//        value = &charV;
+        return;
+    }
+    
+    //NSNumber @(number)
+    if([self.target rangeOfString:@"^@\\([\\s\\S]*\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(id);
+        NSNumber* numberV = [NSNumber numberWithDouble:
+                         [[self.target substringWithRange:NSMakeRange(2, [self.target length]-3)]
+                          doubleValue]];
+//        value = &numberV;
+        return;
+    }
+    //NSNumber @number
+    if([self.target rangeOfString:@"^@\\d+$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(id);
+        NSNumber* numberV = [NSNumber numberWithDouble:
+                             [[self.target substringWithRange:NSMakeRange(1, [self.target length]-1)]
+                              doubleValue]];
+//        value = &numberV;
+        return;
+    }
+    //NSNumber @YES
+    if([self.target isEqualToString:@"@YES"] || [self.target isEqualToString:@"@NO"] ||
+       [self.target isEqualToString:@"@true"] || [self.target isEqualToString:@"@false"]){
+        *objcType = @encode(id);
+        NSNumber* numberV = [NSNumber numberWithBool:
+                             [self.target isEqualToString:@"@YES"]||[self.target isEqualToString:@"@true"]];
+//        value = &numberV;
+        return;
+    }
+    
+    //SEL
+    if([self.target rangeOfString:@"^@selector\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(SEL);
+        //@selector(xxxx)
+        NSString* selectorString = [self.target substringWithRange:NSMakeRange(10, [self.target length]-11)];
+        selectorString = [selectorString stringByReplacingOccurrencesOfString:@" " withString:@""];
+        SEL selectorV = NSSelectorFromString(selectorString);
+        value = &selectorV;
+        return;
+    }
+    
+    
+    /*********************
+     NSValue支持的结构体
+     *********************/
+    if([self.target rangeOfString:@"^CGRectMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(CGRect);
+        return;
+    }
+    
+    if([self.target rangeOfString:@"^CGSizeMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(CGSize);
+        return;
+    }
+    
+    if([self.target rangeOfString:@"^CGPoint\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(CGPoint);
+        return;
+    }
+    
+    if([self.target rangeOfString:@"^NSMakeRange\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(NSRange);
+        return;
+    }
+    
+    if([self.target rangeOfString:@"^UIEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(UIEdgeInsets);
+        return;
+    }
+    
+    if([self.target rangeOfString:@"^CGVectorMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(CGVector);
+        return;
+    }
+    
+    if([self.target rangeOfString:@"^UIOffsetMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(UIOffset);
+        return;
+    }
+    
+    //CATransform3D无构造器和NSString形式所以都不支持识别
+    
+    if([self.target rangeOfString:@"^CGAffineTransformMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        *objcType = @encode(CGAffineTransform);
+        return;
+    }
+    
+    if (@available(iOS 11.0, *)){
+        if([self.target rangeOfString:@"^NSDirectionalEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+            *objcType = @encode(NSDirectionalEdgeInsets);
+            return;
+        }
+    }
+    
+    if(NSClassFromString(self.target)){
+        *objcType = @encode(Class);
+        return;
+    }
+    
+}
+
++ (void) helpSwitchObjcType:(const char*)objcType
+                   caseVoid:(void(^)())caseVoid
+                     caseId:(void(^)())caseId
+                  caseClass:(void(^)())caseClass
+                    caseIMP:(void(^)())caseIMP
+                    caseSEL:(void(^)())caseSEL
+                 caseDouble:(void(^)())caseDouble
+                  caseFloat:(void(^)())caseFloat
+                casePointer:(void(^)())casePointer
+            caseCharPointer:(void(^)())caseCharPointer
+           caseUnsignedLong:(void(^)())caseUnsignedLong
+       caseUnsignedLongLong:(void(^)())caseUnsignedLongLong
+                   caseLong:(void(^)())caseLong
+               caseLongLong:(void(^)())caseLongLong
+                    caseInt:(void(^)())caseInt
+            caseUnsignedInt:(void(^)())caseUnsignedInt
+      caseBOOL_Char_xyShort:(void(^)())casecaseBOOL_Char_xyShort
+                 caseCGRect:(void(^)())caseCGRect
+                caseNSRange:(void(^)())caseNSRange
+                 caseCGSize:(void(^)())caseCGSize
+                caseCGPoint:(void(^)())caseCGPoint
+               caseCGVector:(void(^)())caseCGVector
+           caseUIEdgeInsets:(void(^)())caseUIEdgeInsets
+               caseUIOffset:(void(^)())caseUIOffset
+          caseCATransform3D:(void(^)())caseCATransform3D
+      caseCGAffineTransform:(void(^)())caseCGAffineTransform
+caseNSDirectionalEdgeInsets:(void(^)())caseNSDirectionalEdgeInsets
+                    defaule:(void(^)())defaule
+{
+    if(!objcType) return;
+    
+    do{
+        if(caseVoid && strcmp(objcType, @encode(void)) == 0){
+            caseVoid();
+            break;
+        };
+        //常量则位移到类型符
+        if (objcType[0] == _C_CONST) objcType++;
+        
+        if (objcType[0] == '@') {                                //id and block
+            caseId();
+            break;
+        }else if (caseClass && strcmp(objcType, @encode(Class)) == 0){       //Class
+            caseClass();
+            break;
+        }else if (caseIMP && strcmp(objcType, @encode(IMP)) == 0 ){         //IMP
+            caseIMP();
+            break;
+        }else if (caseSEL && strcmp(objcType, @encode(SEL)) == 0) {         //SEL
+            caseSEL();
+            break;
+        }else if (caseDouble && strcmp(objcType, @encode(double)) == 0){       //double
+            caseDouble();
+            break;
+        }else if (caseFloat && strcmp(objcType, @encode(float)) == 0){       //float
+            caseFloat();
+            break;
+        }else if (casePointer && objcType[0] == '^'){                           //pointer ( and const pointer)
+            casePointer();
+            break;
+        }else if (caseCharPointer && strcmp(objcType, @encode(char *)) == 0) {      //char* (and const char*)
+            caseCharPointer();
+            break;
+        }else if (caseUnsignedLong && strcmp(objcType, @encode(unsigned long)) == 0) {
+            caseUnsignedLong();
+            break;
+        }else if (caseUnsignedLongLong && strcmp(objcType, @encode(unsigned long long)) == 0) {
+            caseUnsignedLongLong();
+            break;
+        }else if (caseLong && strcmp(objcType, @encode(long)) == 0) {
+            caseLong();
+            break;
+        }else if (caseLongLong && strcmp(objcType, @encode(long long)) == 0) {
+            caseLongLong();
+            break;
+        }else if (caseInt && strcmp(objcType, @encode(int)) == 0) {
+            caseInt();
+            break;
+        }else if (caseUnsignedInt && strcmp(objcType, @encode(unsigned int)) == 0) {
+            caseUnsignedInt();
+            break;
+        }else if (casecaseBOOL_Char_xyShort &&
+                  (strcmp(objcType, @encode(BOOL)) == 0           ||
+                   strcmp(objcType, @encode(bool)) == 0           ||
+                   strcmp(objcType, @encode(char)) == 0           ||
+                   strcmp(objcType, @encode(short)) == 0          ||
+                   strcmp(objcType, @encode(unsigned char)) == 0  ||
+                   strcmp(objcType, @encode(unsigned short)) == 0) ){
+                      casecaseBOOL_Char_xyShort();
+                      break;
+                  }else{                  //struct union and array
+                      
+                      if (caseCGRect && strcmp(objcType, @encode(CGRect)) == 0){
+                          caseCGRect();
+                          break;
+                      }else if(caseCGPoint && strcmp(objcType, @encode(CGPoint)) == 0){
+                          caseCGPoint();
+                          break;
+                      }else if (caseCGSize && strcmp(objcType, @encode(CGSize)) == 0){
+                          caseCGSize();
+                          break;
+                      }else if (caseNSRange && strcmp(objcType, @encode(NSRange)) == 0){
+                          caseNSRange();
+                          break;
+                      }else if (caseUIEdgeInsets && strcmp(objcType, @encode(UIEdgeInsets)) == 0){
+                          caseUIEdgeInsets();
+                          break;
+                      }else if (caseCGVector && strcmp(objcType, @encode(CGVector)) == 0){
+                          caseCGVector();
+                          break;
+                      }else if (caseUIOffset && strcmp(objcType, @encode(UIOffset)) == 0){
+                          caseUIOffset();
+                          break;
+                      }else if(caseCATransform3D && strcmp(objcType, @encode(CATransform3D)) == 0){
+                          caseCATransform3D();
+                          break;
+                      }else if(caseCGAffineTransform && strcmp(objcType, @encode(CGAffineTransform)) == 0){
+                          caseCGAffineTransform();
+                          break;
+                      }
+                      
+                      if (@available(iOS 11.0, *)){
+                          if(strcmp(objcType, @encode(NSDirectionalEdgeInsets)) == 0){
+                              caseNSDirectionalEdgeInsets();
+                              break;
+                          }
+                      }
+                      
+                      if(defaule){
+                          defaule();
+                          break;
+                      }
+                  }
+    }while(0);
 }
 
 

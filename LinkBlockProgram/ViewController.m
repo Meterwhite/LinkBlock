@@ -18,6 +18,9 @@
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
 
 @interface ViewController ()
+{
+    void* _value;
+}
 @property (weak, nonatomic) IBOutlet UILabel *labelOfABC;
 @property (nonatomic,strong) dispatch_source_t timer;
 
@@ -27,25 +30,32 @@
 
 @implementation ViewController
 
+- (void)getXX:( void**)ptr
+{
+//    Man* man = [Man new];
+//    *ptr = (__bridge_retained void*)man;
+    int intV = 123;
+    *((int*)*ptr) = intV;
+    @"call getXX:".nslog();
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    @"123".strAppendFormat(@"%@%@%@",@"123",@"456",@"789");
+//    NSString* value =@"'A1'";
+//    const char* ocType = [[LinkHelper help:value] objcTypeFromValueCodeOfNSString];
     
-//    [[LinkHelper help:@"strAppend"] linkCodeSplite];
+//    Man* ptr;
+    {
+        [self getXX:&_value];
+        @"call {...}".nslog();
+    }
     
-    NSString* test = @"123123.3232";
-    NSScanner* sc = [[NSScanner alloc] initWithString:test];
+    int xxx = *(int*)_value;
     
-    double d2;
-    BOOL b3 = [sc scanDouble:&d2];
-    BOOL b4 = [sc isAtEnd];
-    
-    int d;
-    sc.scanLocation = 0;
-    BOOL b1 = [sc scanInt:&d];
-    BOOL b2 = [sc isAtEnd];
-    
+//    free(_value);
+    CFRelease(_value);
+    _value = nil;
     
     @"End of test".nslog();
     return;

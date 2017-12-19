@@ -7,7 +7,11 @@
 //
 
 #import "Man.h"
+#import "LinkBlock.h"
 
 @implementation Man
-
+- (void)dealloc
+{
+    @"Man call dealloc".nslog();
+}
 @end
