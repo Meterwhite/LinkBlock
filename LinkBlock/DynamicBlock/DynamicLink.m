@@ -17,7 +17,7 @@
 
 @implementation DynamicLink
 
-- (id)invokeLinkWith:(id)linkObj args:(va_list)args_fp
+- (id)invokeLinkWith:(id)linkObj args:(va_list)args_f
 {
     //无对象返回空
     if(!linkObj) goto END;
@@ -26,19 +26,23 @@
     if(!self.code) return linkObj;
     
     va_list args;
-    va_copy(args_fp, args);
+    va_copy(args_f, args);
     
-    for (NSUInteger idxOfBlock = 0; idxOfBlock < self.countOfItems-1; idxOfBlock++) {
+//    while (<#condition#>) {
+//        <#statements#>
+//    }
+    
+    for (NSUInteger idx_bk = 0; idx_bk < self.countOfItems-1; idx_bk++) {
         
-        DynamicLinkBlock* block = self.items[idxOfBlock];
-        for (NSUInteger idxOfArgument = 0; idxOfArgument < block.countOfItems; idxOfArgument++) {
-            DynamicLinkArgument* argument = [block argumentAt:idxOfArgument];
+        DynamicLinkBlock* block = self.items[idx_bk];
+        for (NSUInteger idx_arg = 0; idx_arg < block.countOfItems; idx_arg++) {
+            DynamicLinkArgument* argument = [block argumentAt:idx_arg];
+            
             
         }
-        
     }
 
-    
+    va_end(args);
 END:
     return [NSNull null];
 }

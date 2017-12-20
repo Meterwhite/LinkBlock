@@ -21,7 +21,7 @@
     
     arg->_objcValue = [[LinkHelper help:code] valueFromValueCodeOfNSString];
     if(!arg.objcValue){
-        NSAssert(arg.objcValue, @"LinkError:构造失败的字符串值定义%@，检查并核对文档；",code);
+        NSLog(@"DynamicLink Error:构造失败的字符串值定义%@，检查并核对文档；",code);
         return nil;
     }
     arg->_stringValue = code;

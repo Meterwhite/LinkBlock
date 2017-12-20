@@ -14,6 +14,7 @@
 #import "LinkHelper.h"
 #import "DynamicLinkBlock.h"
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "LinkBlockInvocation.h"
 
 #define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
@@ -33,28 +34,42 @@
 - (NSValue*)getXX
 {
 //     void* man = (__bridge_retained void*)[Man new];
-//    Man* man = [Man new];
+    NSNumber* man = [NSNumber numberWithDouble:123.456];
     
 //    NSString* man = [@"123456ABCDEFG" substringWithRange:NSMakeRange(0, 3)];
 //    man = reallocf(man, sizeof(man));
-//    CFBridgingRetain(man);
-    
-    char* man = "123456789";
+    CFBridgingRetain(man);
     @"call getXX:".nslog();
     
-    NSValue* re = [NSValue valueWithBytes:&man objCType:@encode(char*)];
+    NSValue* re = [NSValue valueWithBytes:&man objCType:@encode(NSNumber*)];
 //    free(man);
     return re;
 }
 
+//    NSValue* v = [self getXX];
+//
+//    NSNumber* rect;
+//    [v getValue:&rect];
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSValue* v = [[LinkHelper help:@"CGSizeMake(-0x42a7f4, 1+ Math.PI )"] valueFromValueCodeOfNSString];
-    const char* ocTyp = v.objCType;
-    CGSize rect;
-    [v getValue:&rect];
+//    NSValue* v = [[LinkHelper help:@" @\"我 的 你 的 妈 的\" "] valueFromValueCodeOfNSString];
+//    const char* ocTyp = v.objCType;
+//    NSString* rect;
+//    [v getValue:&rect];
     
+    //[a-zA-Z_]+\\d*\\s*\(
+    
+    id block = [NSObject valueForKey:@"strSubFromTo"];
+    BOOL contain = [NSObject classContainProperty:@"strSubFromTo"];
+    LinkBlockInvocation* inoke =[LinkBlockInvocation invocationWithBlock:block];
+    NSMethodSignature* sig = inoke.methodSignature;
+    NSMutableArray* objcTypesArr = [NSMutableArray new];
+    for (NSUInteger i=1; i<sig.numberOfArguments; i++) {
+        
+        const char* objcType = [sig getArgumentTypeAtIndex:i];
+        [objcTypesArr addObject:[NSString stringWithUTF8String:objcType]];
+    }
     
     @"End of test".nslog();
     return;
