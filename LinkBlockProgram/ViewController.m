@@ -13,6 +13,7 @@
 
 #import "LinkHelper.h"
 #import "DynamicLinkBlock.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 
 #define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
@@ -34,20 +35,26 @@
 //     void* man = (__bridge_retained void*)[Man new];
 //    Man* man = [Man new];
     
-    char* man = "123456789";
+//    NSString* man = [@"123456ABCDEFG" substringWithRange:NSMakeRange(0, 3)];
+//    man = reallocf(man, sizeof(man));
+//    CFBridgingRetain(man);
     
+    char* man = "123456789";
     @"call getXX:".nslog();
-    return [NSValue valueWithBytes:&man objCType:@encode(char*)];
+    
+    NSValue* re = [NSValue valueWithBytes:&man objCType:@encode(char*)];
+//    free(man);
+    return re;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSValue* val = [self getXX];
-//    self.value = val;
+    NSValue* v = [[LinkHelper help:@"CGSizeMake(-0x42a7f4, 1+ Math.PI )"] valueFromValueCodeOfNSString];
+    const char* ocTyp = v.objCType;
+    CGSize rect;
+    [v getValue:&rect];
     
-    char* data;
-    [val getValue:&data];
     
     @"End of test".nslog();
     return;

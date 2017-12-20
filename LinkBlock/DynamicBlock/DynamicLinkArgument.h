@@ -12,7 +12,6 @@
 
 @interface DynamicLinkArgument : NSObject
 
-
 /**
  构造失败返回nil
  */
@@ -23,5 +22,5 @@
 @property (nonatomic,copy,readonly) NSString* stringValue;
 
 @property (nonatomic,assign,readonly) const char* objcType;
-- (void)getValue:(void*)value;
+@property (nonatomic,strong,readonly) NSValue* objcValue;
 @end

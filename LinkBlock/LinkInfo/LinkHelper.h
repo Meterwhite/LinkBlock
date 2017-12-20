@@ -15,6 +15,8 @@
 - (NSArray<NSString*>*)linkCodeSplite;
 - (const char*)objcTypeFromValueCodeOfNSString;
 - (NSValue*)valueFromValueCodeOfNSString;
+- (NSArray<NSString*>*)functionArgumentsStringValueFromCode;
+- (NSNumber*)numberEvalFromCode;
 
 + (void)  helpSwitchObjcType:(const char*)objcType
                     caseVoid:(void(^)())caseVoid

@@ -10,42 +10,35 @@
 #import "LinkHelper.h"
 
 @interface DynamicLinkArgument()
-{
-     void* _objcValue;
-}
+
 @end
 
 @implementation DynamicLinkArgument
 
-- (void)dealloc
-{
-    //测试后删除
-    free(_objcValue);
-    _objcValue = NULL;
-}
-
-+ (instancetype)linkArgumentFromVlueCode:(NSString *)code
++ (instancetype)dynamicLinkArgumentFromVlueCode:(NSString *)code
 {
     DynamicLinkArgument* arg = [DynamicLinkArgument new];
     
-    const char* objcType = [[LinkHelper help:code] objcTypeFromValueCodeOfNSString];
-    if(!objcType){
-        NSAssert(objcType, @"LinkError:构造失败的字符串值定义%@，检查并核对文档；",code);
+    arg->_objcValue = [[LinkHelper help:code] valueFromValueCodeOfNSString];
+    if(!arg.objcValue){
+        NSAssert(arg.objcValue, @"LinkError:构造失败的字符串值定义%@，检查并核对文档；",code);
         return nil;
     }
-    
     arg->_stringValue = code;
-    arg->_objcType = objcType;
-    [arg setObjcValue];
     return arg;
 }
 
-- (void)setObjcValue
+- (const char *)objcType
 {
-    if(!_stringValue || !_objcType){
-        _objcValue = NULL;
-        return;
-    }
+    return _objcValue.objCType;
+}
+
+//- (void)setObjcValue
+//{
+//    if(!_stringValue || !_objcType){
+//        _objcValue = NULL;
+//        return;
+//    }
     
     
 //    void(^blockOfInteger)() = ^(){
@@ -87,7 +80,7 @@
 //    } defaule:^{
 //
 //    }];
-}
+//}
 
 
 @end

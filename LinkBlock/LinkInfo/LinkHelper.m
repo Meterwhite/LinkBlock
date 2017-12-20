@@ -9,9 +9,12 @@
 #import "LinkBlock.h"
 #import "LinkHelper.h"
 #import <objc/runtime.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @interface LinkHelper<__covariant ObjectType>()
 @property (nonatomic,weak) id target;
+
+@property (nonatomic,strong) JSContext* jscontext;
 @end
 
 @implementation LinkHelper
@@ -159,6 +162,13 @@
     };
     
     NSString* code = [self.target copy];
+    
+    //NSString <可空白@"..."可空白>
+    if([self.target rangeOfString:@"@\"[\\s\\S]*\"" options:NSRegularExpressionSearch].length){
+        NSString* stringV = [self.target substringWithRange:NSMakeRange(2, [self.target length]-3)];
+        return [NSValue value:&stringV withObjCType:@encode(NSString*)];
+    }
+    
     NSScanner* scanner = [[NSScanner alloc] initWithString:code];
     //整型
     int intV;
@@ -194,48 +204,32 @@
         return [NSNumber numberWithBool:boolV];
     }
     
-    //NSString @"..."
-    if([self.target rangeOfString:@"^@\"[\\s\\S]*\"$" options:NSRegularExpressionSearch].length){
-        NSString* stringV = [self.target substringWithRange:NSMakeRange(2, [self.target length]-3)];
-        return [NSValue value:&stringV withObjCType:@encode(NSString)];
-    }
-    
     //char* "..."
     if([self.target rangeOfString:@"^\"[\\s\\S]*\"$" options:NSRegularExpressionSearch].length){
         const char* charV = [[self.target substringWithRange:NSMakeRange(1, [self.target length]-2)] UTF8String];
-        
-        return nil;
+        return [NSValue valueWithBytes:&charV objCType:@encode(char*)];
     }
     
     //char 'A'
     if([self.target rangeOfString:@"^'\\w'$" options:NSRegularExpressionSearch].length){
         char charV = [self.target characterAtIndex:1];
-        return nil;
+        return [NSNumber numberWithChar:charV];
     }
     
     //NSNumber @(number)
     if([self.target rangeOfString:@"^@\\([\\s\\S]*\\)$" options:NSRegularExpressionSearch].length){
-        NSNumber* numberV = [NSNumber numberWithDouble:
-                         [[self.target substringWithRange:NSMakeRange(2, [self.target length]-3)]
-                          doubleValue]];
-//        value = &numberV;
-        return nil;
+        return [NSNumber numberWithDouble:[[self.target substringWithRange:NSMakeRange(2, [self.target length]-3)] doubleValue]];
     }
     //NSNumber @number
     if([self.target rangeOfString:@"^@\\d+$" options:NSRegularExpressionSearch].length){
-        NSNumber* numberV = [NSNumber numberWithDouble:
+        return [NSNumber numberWithDouble:
                              [[self.target substringWithRange:NSMakeRange(1, [self.target length]-1)]
                               doubleValue]];
-//        value = &numberV;
-        return nil;
     }
     //NSNumber @YES
     if([self.target isEqualToString:@"@YES"] || [self.target isEqualToString:@"@NO"] ||
        [self.target isEqualToString:@"@true"] || [self.target isEqualToString:@"@false"]){
-        NSNumber* numberV = [NSNumber numberWithBool:
-                             [self.target isEqualToString:@"@YES"]||[self.target isEqualToString:@"@true"]];
-//        value = &numberV;
-        return nil;
+        return [NSNumber numberWithBool:[self.target isEqualToString:@"@YES"]||[self.target isEqualToString:@"@true"]];
     }
     
     //SEL
@@ -244,8 +238,7 @@
         NSString* selectorString = [self.target substringWithRange:NSMakeRange(10, [self.target length]-11)];
         selectorString = [selectorString stringByReplacingOccurrencesOfString:@" " withString:@""];
         SEL selectorV = NSSelectorFromString(selectorString);
-//        value = &selectorV;
-        return nil;
+        return [NSValue valueWithBytes:&selectorV objCType:@encode(SEL)];
     }
     
     
@@ -253,48 +246,157 @@
      NSValue支持的结构体
      *********************/
     if([self.target rangeOfString:@"^CGRectMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        return nil;
+        
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+        if(argsOfStringV.count!=4) return nil;
+        CGRect rect =
+        CGRectMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                   [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue],
+                   [[[LinkHelper help:argsOfStringV[2]] numberEvalFromCode] doubleValue],
+                   [[[LinkHelper help:argsOfStringV[3]] numberEvalFromCode] doubleValue]);
+        return [NSValue value:&rect withObjCType:@encode(CGRect)];
     }
     
     if([self.target rangeOfString:@"^CGSizeMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        return nil;
+        
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+        if(argsOfStringV.count!=2) return nil;
+        CGSize size =
+        CGSizeMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                   [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue]);
+        return [NSValue value:&size withObjCType:@encode(CGSize)];
     }
     
-    if([self.target rangeOfString:@"^CGPoint\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        return nil;
+    if([self.target rangeOfString:@"^CGPointMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
+        
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+        if(argsOfStringV.count!=2) return nil;
+        CGPoint point =
+        CGPointMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                    [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue]);
+        return [NSValue value:&point withObjCType:@encode(CGPoint)];
     }
     
     if([self.target rangeOfString:@"^NSMakeRange\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        return nil;
+        
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+        if(argsOfStringV.count!=2) return nil;
+        NSRange range
+        = NSMakeRange([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                      [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue]);
+        return [NSValue value:&range withObjCType:@encode(NSRange)];
     }
     
     if([self.target rangeOfString:@"^UIEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        return nil;
+        
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+        if(argsOfStringV.count!=4) return nil;
+        UIEdgeInsets edgeInsets =
+        UIEdgeInsetsMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                         [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue],
+                         [[[LinkHelper help:argsOfStringV[2]] numberEvalFromCode] doubleValue],
+                         [[[LinkHelper help:argsOfStringV[3]] numberEvalFromCode] doubleValue]);
+        return [NSValue value:&edgeInsets withObjCType:@encode(UIEdgeInsets)];
     }
     
     if([self.target rangeOfString:@"^CGVectorMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        return nil;
+        
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+        if(argsOfStringV.count!=2) return nil;
+        CGVector vector =
+        CGVectorMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                     [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue]);
+        return [NSValue value:&vector withObjCType:@encode(CGVector)];
     }
     
     if([self.target rangeOfString:@"^UIOffsetMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        return nil;
+        
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+        if(argsOfStringV.count!=2) return nil;
+        UIOffset offset =
+        UIOffsetMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                     [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue]);
+        return [NSValue value:&offset withObjCType:@encode(UIOffset)];
     }
     
     //CATransform3D无构造器和NSString形式所以都不支持识别
     
     if([self.target rangeOfString:@"^CGAffineTransformMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-        return nil;
+        
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+        if(argsOfStringV.count!=6) return nil;
+        CGAffineTransform affineTransform =
+        CGAffineTransformMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                              [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue],
+                              [[[LinkHelper help:argsOfStringV[2]] numberEvalFromCode] doubleValue],
+                              [[[LinkHelper help:argsOfStringV[3]] numberEvalFromCode] doubleValue],
+                              [[[LinkHelper help:argsOfStringV[4]] numberEvalFromCode] doubleValue],
+                              [[[LinkHelper help:argsOfStringV[5]] numberEvalFromCode] doubleValue]);
+        return [NSValue value:&affineTransform withObjCType:@encode(CGAffineTransform)];
     }
     
     if (@available(iOS 11.0, *)){
         if([self.target rangeOfString:@"^NSDirectionalEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
-            return nil;
+            
+            NSArray<NSString*>* argsOfStringV = [[LinkHelper help:self.target] functionArgumentsStringValueFromCode];
+            if(argsOfStringV.count!=4) return nil;
+            NSDirectionalEdgeInsets directionalEdgeInsets
+            = NSDirectionalEdgeInsetsMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
+                                          [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue],
+                                          [[[LinkHelper help:argsOfStringV[2]] numberEvalFromCode] doubleValue],
+                                          [[[LinkHelper help:argsOfStringV[3]] numberEvalFromCode] doubleValue]);
+            return [NSValue value:&directionalEdgeInsets withObjCType:@encode(NSDirectionalEdgeInsets)];
         }
     }
     
     if(NSClassFromString(self.target)){
+        Class clz = NSClassFromString(self.target);
+        return [NSValue valueWithBytes:&clz objCType:@encode(Class)];
+    }
+    return nil;
+}
+
+- (NSArray<NSString *> *)functionArgumentsStringValueFromCode
+{
+    //去空白
+    NSMutableArray* args = [NSMutableArray new];
+    NSString* code = [self.target stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSRange range = [code rangeOfString:@"\\(.+\\)" options:NSRegularExpressionSearch];
+    
+    if(!range.length) goto END;
+    
+    code = [code substringWithRange:NSMakeRange(range.location+1, range.length-2)];
+    
+    [args addObjectsFromArray:[code componentsSeparatedByString:@","]];
+END:
+    return args;
+}
+
+- (NSNumber *)numberEvalFromCode
+{
+    //纯数字
+    NSScanner* scanner = [[NSScanner alloc] initWithString:self.target];
+    if([scanner scanInt:NULL] && [scanner isAtEnd]){
+        return [NSNumber numberWithInt:[self.target intValue]];
+    }
+    scanner.scanLocation = 0;
+    if([scanner scanDouble:NULL] && [scanner isAtEnd]){
+        return [NSNumber numberWithDouble:[self.target doubleValue]];
+    }
+    
+    //不能出现 } ; { 防止定义函数
+    if([self.target containsString:@"{"]||
+       [self.target containsString:@"}"]||
+       [self.target containsString:@";"]){
         return nil;
     }
+    
+    //需要计算的情况交给JSCore
+    JSValue* jsV = [self.jscontext evaluateScript:self.target];
+    if(jsV.isNumber){
+        return jsV.toNumber;
+    }
+    NSLog(@"DynamicLink Error:不能识别的值%@",self.target);
     return nil;
 }
 
@@ -445,10 +547,17 @@ caseNSDirectionalEdgeInsets:(void(^)())caseNSDirectionalEdgeInsets
 {
     return [[self alloc] initWithTarget:target];
 }
-//+ (BOOL)resolveInstanceMethod:(SEL)sel
-//+ (BOOL)resolveClassMethod:(SEL)sel
+- (JSContext *)jscontext
+{
+    if(!_jscontext){
+        _jscontext = [[JSContext alloc] init];
+    }
+    return _jscontext;
+}
 
 #pragma mark - 消息转发
+//+ (BOOL)resolveInstanceMethod:(SEL)sel
+//+ (BOOL)resolveClassMethod:(SEL)sel
 //快速转发
 - (id)forwardingTargetForSelector:(SEL)aSelector
 {

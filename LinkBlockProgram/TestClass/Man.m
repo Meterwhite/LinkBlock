@@ -10,8 +10,8 @@
 #import "LinkBlock.h"
 
 @implementation Man
-//- (void)dealloc
-//{
-//    @"Man call dealloc".nslog();
-//}
+- (void)dealloc
+{
+    @"Man call dealloc".nslog();
+}
 @end
