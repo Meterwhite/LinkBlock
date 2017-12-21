@@ -14,18 +14,21 @@
 
 + (instancetype)dynamicLinkBlockWithCode:(NSString*)code;
 
-@property (nonatomic,assign,readonly) BOOL validate;
 @property (nonatomic,strong,readonly) NSArray<NSString*>* objcTypesOfBlockArgs;
 @property (nonatomic,assign,readonly) const char* objcTypeOfBlockReturn;
+@property (nonatomic,assign,readonly) NSUInteger numberOfArguments;
 @property (nonatomic,assign,readonly) NSUInteger lengthOfBlockReturn;
-@property (nonatomic,assign,readonly) NSUInteger index;
-@property (nonatomic,strong,readonly) NSIndexPath* indexPath;
-@property (nonatomic,assign,readonly) NSUInteger countOfItems;
+
+- (id)invoke:(id)origin args:(va_list)vlist end:(BOOL*)end;
+
+@property (nonatomic,assign,readonly) BOOL validate;
 @property (nonatomic,copy,readonly) NSString* stringValue;
 @property (nonatomic,copy,readonly) NSString* blockName;
 
-- (BOOL)containsIndexPathOfItem:(NSIndexPath*)indexPath;
-- (DynamicLinkArgument*)argumentAt:(NSUInteger)idx;
+@property (nonatomic,assign,readonly) NSUInteger index;
+@property (nonatomic,strong,readonly) NSIndexPath* indexPath;
+@property (nonatomic,assign,readonly) NSUInteger countOfItems;
 
-- (id)invoke:(id)target args:(va_list)args atIndex:(NSUInteger*)idx;
+- (BOOL)containsIndexPathOfItem:(NSIndexPath*)indexPath;
+- (DynamicLinkArgument*)argumentAtIndexPath:(NSIndexPath*)indexPath;
 @end

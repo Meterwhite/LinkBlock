@@ -27,49 +27,84 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnTest;
 
 @property (nonatomic,strong) NSValue* value;
+
+@property (nonatomic,strong) NSString*  origin;
+
+@property (nonatomic,strong) NSPointerArray* pointsOfBridgingRetain;
+
+@property (nonatomic,strong) id  result;
 @end
 
 @implementation ViewController
 
+- (NSPointerArray *)pointsOfBridgingRetain
+{
+    if(!_pointsOfBridgingRetain){
+        _pointsOfBridgingRetain = [NSPointerArray weakObjectsPointerArray];
+    }
+    return _pointsOfBridgingRetain;
+}
+
 - (NSValue*)getXX
 {
-//     void* man = (__bridge_retained void*)[Man new];
-    NSNumber* man = [NSNumber numberWithDouble:123.456];
+    @"call getXX:".nslog();
+    
+    void* man = (__bridge_retained void*)[Man new];
+    
+//    Man* man = [Man new];
+//    NSNumber* man = [NSNumber numberWithDouble:123.456];
     
 //    NSString* man = [@"123456ABCDEFG" substringWithRange:NSMakeRange(0, 3)];
 //    man = reallocf(man, sizeof(man));
-    CFBridgingRetain(man);
-    @"call getXX:".nslog();
+//    CFBridgingRetain(man);
     
-    NSValue* re = [NSValue valueWithBytes:&man objCType:@encode(NSNumber*)];
-//    free(man);
+//    NSValue* re = [NSValue valueWithNonretainedObject:man];
+    NSValue* re = [NSValue valueWithBytes:&man objCType:@encode(Man*)];
     return re;
+}
+
+- (LinkBlockInvocation*)invok:(NSValue*)val
+{
+    id block = [self.origin valueForKey:@"strAppend"];
+    LinkBlockInvocation* invoke =[LinkBlockInvocation invocationWithBlock:block];
+    
+//    NSUInteger argSize;
+//    NSGetSizeAndAlignment([invoke.methodSignature getArgumentTypeAtIndex:1], &argSize, NULL);
+    
+    void* temp = NULL;
+    [val getValue:&temp];
+    [invoke setArgument:&temp atIndex:1];
+    [self.pointsOfBridgingRetain addPointer:temp];
+    
+    return invoke;
 }
 
 //    NSValue* v = [self getXX];
 //
 //    NSNumber* rect;
 //    [v getValue:&rect];
+
+- (id)doIt
+{
+    CGRect rect = NULL;
+    self.origin = @"ABC";
+    
+    LinkBlockInvocation* invoke = [self invok:[self getXX]];
+    [invoke invoke];
+    
+    id re;
+    [invoke getReturnValue:&re];
+    CFBridgingRetain(re);//使用
+    
+//    CFBridgingRelease([self.pointsOfBridgingRetain pointerAtIndex:0]);
+    
+    return re;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSValue* v = [[LinkHelper help:@" @\"我 的 你 的 妈 的\" "] valueFromValueCodeOfNSString];
-//    const char* ocTyp = v.objCType;
-//    NSString* rect;
-//    [v getValue:&rect];
-    
-    //[a-zA-Z_]+\\d*\\s*\(
-    
-    id block = [NSObject valueForKey:@"strSubFromTo"];
-    BOOL contain = [NSObject classContainProperty:@"strSubFromTo"];
-    LinkBlockInvocation* inoke =[LinkBlockInvocation invocationWithBlock:block];
-    NSMethodSignature* sig = inoke.methodSignature;
-    NSMutableArray* objcTypesArr = [NSMutableArray new];
-    for (NSUInteger i=1; i<sig.numberOfArguments; i++) {
-        
-        const char* objcType = [sig getArgumentTypeAtIndex:i];
-        [objcTypesArr addObject:[NSString stringWithUTF8String:objcType]];
-    }
+    id re = [self doIt];
     
     @"End of test".nslog();
     return;

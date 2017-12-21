@@ -17,32 +17,23 @@
 
 @implementation DynamicLink
 
-- (id)invokeLinkWith:(id)linkObj args:(va_list)args_f
+- (id)invoke:(id)origin args:(va_list)list
 {
     //无对象返回空
-    if(!linkObj) goto END;
+    if(!origin) goto END;
     
     //无code返回对象本身
-    if(!self.code) return linkObj;
+    if(!self.code) return origin;
     
-    va_list args;
-    va_copy(args_f, args);
+
     
-//    while (<#condition#>) {
-//        <#statements#>
-//    }
-    
-    for (NSUInteger idx_bk = 0; idx_bk < self.countOfItems-1; idx_bk++) {
+    NSUInteger idx_va_list;
+    for (NSUInteger idx_bk = 0; idx_bk < self.countOfItems; idx_bk++) {
         
         DynamicLinkBlock* block = self.items[idx_bk];
-        for (NSUInteger idx_arg = 0; idx_arg < block.countOfItems; idx_arg++) {
-            DynamicLinkArgument* argument = [block argumentAt:idx_arg];
-            
-            
-        }
+        [block invoke:origin args:list last:&idx_va_list];
     }
 
-    va_end(args);
 END:
     return [NSNull null];
 }
@@ -98,8 +89,7 @@ END:
 {
     DynamicLinkBlock* block = [self blockAtIndexPath:indexPath];
     if(!block) return nil;
-    NSUInteger idx = [indexPath indexAtPosition:1];
-    return  [block argumentAt:idx];
+    return  [block argumentAtIndexPath:indexPath];
 }
 
 @end

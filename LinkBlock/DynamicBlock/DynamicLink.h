@@ -22,5 +22,5 @@
 - (DynamicLinkBlock*)blockAtIndexPath:(NSIndexPath*)indexPath;
 - (DynamicLinkArgument*)argumentAtIndexPath:(NSIndexPath*)indexPath;
 
-- (id)invoke:(id)target args:(va_list)args;
+- (id)invoke:(id)origin args:(va_list)list;
 @end
