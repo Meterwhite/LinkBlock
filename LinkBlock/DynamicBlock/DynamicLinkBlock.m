@@ -98,26 +98,32 @@
 
 - (id)invoke:(id)origin args:(va_list)vlist end:(BOOL*)end
 {
+    //验证的对象
     if(!self.validate) return [NSNull null];
-    
+    //是否响应block
     if(![origin classContainProperty:_blockName]) return [NSNull null];
-    
+    //block是否具有路径
     if(self.indexPath.length != 1) return [NSNull null];
     
+    //构造block调用者
     id block = [origin valueForKey:_blockName];
     LinkBlockInvocation* invok =[LinkBlockInvocation invocationWithBlock:block];
     NSMethodSignature* signature = invok.methodSignature;
     
-    //idxPath 去找自己的
+    //验证是否有返回值
+    if(strcmp(signature.methodReturnType, @encode(void)) == 0) return nil;
     
+    //入参
     for (NSUInteger idx_arg = 0; idx_arg < self.numberOfArguments; idx_arg++) {
+        
+        if(*end == NO) break;
         
         NSIndexPath* currentIndexPath = [NSIndexPath indexPathWithIndex:[self.indexPath indexAtPosition:0]];
         [currentIndexPath indexPathByAddingIndex:idx_arg];
         
         if([self containsIndexPathOfItem:currentIndexPath]){
             
-            //use code value
+            //脚本传参
             DynamicLinkArgument* arg = [self argumentAtIndexPath:currentIndexPath];
             [LinkHelper helpSwitchObjcType:arg.objcType caseVoid:nil caseId:^{
                 void* val;
@@ -224,8 +230,7 @@
                 }
             } defaule:nil];
         }else{
-            
-            //use args value
+            //方法传参
             
             const char* objcType = [signature getArgumentTypeAtIndex:idx_arg+1];
             
@@ -290,53 +295,238 @@
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGRect:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 CGRect val = va_arg(vlist, CGRect);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseNSRange:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 NSRange val = va_arg(vlist, NSRange);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGSize:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 CGSize val = va_arg(vlist, CGSize);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGPoint:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 CGPoint val = va_arg(vlist, CGPoint);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGVector:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 CGVector val = va_arg(vlist, CGVector);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUIEdgeInsets:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 UIEdgeInsets val = va_arg(vlist, UIEdgeInsets);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUIOffset:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 UIOffset val = va_arg(vlist, UIOffset);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCATransform3D:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 CATransform3D val = va_arg(vlist, CATransform3D);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGAffineTransform:^{
+                va_list check_list;
+                va_copy(check_list, vlist);
+                if(!va_arg(check_list, void*)){
+                    *end = YES;return;
+                }
                 CGAffineTransform val = va_arg(vlist, CGAffineTransform);
-//                if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseNSDirectionalEdgeInsets:^{
                 if (@available(iOS 11.0, *)) {
+                    va_list check_list;
+                    va_copy(check_list, vlist);
+                    if(!va_arg(check_list, void*)){
+                        *end = YES;return;
+                    }
                     NSDirectionalEdgeInsets val = va_arg(vlist, NSDirectionalEdgeInsets);
-//                    if(!val){ *end = YES; return;}
                     [invok setArgument:&val atIndex:idx_arg + 1];
                 }
             } defaule:nil];
         }
     }
     
+    //调用
+    [invok invoke];
     
-    return [NSNull null];
+    __block BOOL returnID = NO;
+    __block id re_id;
+    __block BOOL returnNSNumber = NO;
+    __block NSNumber* re_nsnumber;
+    __block BOOL returnNSValue = NO;
+    __block NSValue* re_nsvalue;
+    //取返回值
+    [LinkHelper helpSwitchObjcType:self.objcTypeOfBlockReturn caseVoid:nil caseId:^{
+        returnID = YES;
+        [invok getReturnValue:&re_id];
+    } caseClass:^{
+        returnNSValue = YES;
+        Class re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(Class)];
+    } caseIMP:^{
+        returnNSValue = YES;
+        IMP re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(IMP)];
+    } caseSEL:^{
+        returnNSValue = YES;
+        SEL re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(SEL)];
+    } caseDouble:^{
+        returnNSNumber = YES;
+        double re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithDouble:re];
+    } caseFloat:^{
+        returnNSNumber = YES;
+        float re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithFloat:re];
+    } casePointer:^{
+        returnNSValue = YES;
+        void* re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(void*)];
+    } caseCharPointer:^{
+        returnNSValue = YES;
+        char* re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(char*)];
+    } caseUnsignedLong:^{
+        returnNSNumber = YES;
+        unsigned long re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithUnsignedLong:re];
+    } caseUnsignedLongLong:^{
+        returnNSNumber = YES;
+        unsigned long long re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithUnsignedLongLong:re];
+    } caseLong:^{
+        returnNSNumber = YES;
+        long re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithLong:re];
+    } caseLongLong:^{
+        returnNSNumber = YES;
+        long long re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithLongLong:re];
+    } caseInt:^{
+        returnNSNumber = YES;
+        int re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithInt:re];
+    } caseUnsignedInt:^{
+        returnNSNumber = YES;
+        unsigned int re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithUnsignedInt:re];
+    } caseBOOL_Char_xyShort:^{
+        returnNSNumber = YES;
+        int re;
+        [invok getReturnValue:&re];
+        re_nsnumber = [NSNumber numberWithInt:re];
+    } caseCGRect:^{
+        returnNSValue = YES;
+        CGRect re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(CGRect)];
+    } caseNSRange:^{
+        returnNSValue = YES;
+        NSRange re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(NSRange)];
+    } caseCGSize:^{
+        returnNSValue = YES;
+        CGSize re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(CGSize)];
+    } caseCGPoint:^{
+        returnNSValue = YES;
+        CGPoint re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(CGPoint)];
+    } caseCGVector:^{
+        returnNSValue = YES;
+        CGVector re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(CGVector)];
+    } caseUIEdgeInsets:^{
+        returnNSValue = YES;
+        UIEdgeInsets re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(UIEdgeInsets)];
+    } caseUIOffset:^{
+        returnNSValue = YES;
+        UIOffset re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(UIOffset)];
+    } caseCATransform3D:^{
+        returnNSValue = YES;
+        CATransform3D re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(CATransform3D)];
+    } caseCGAffineTransform:^{
+        returnNSValue = YES;
+        CGAffineTransform re;
+        [invok getReturnValue:&re];
+        re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(CGAffineTransform)];
+    } caseNSDirectionalEdgeInsets:^{
+        returnNSValue = YES;
+        if (@available(iOS 11.0, *)) {
+            NSDirectionalEdgeInsets re;
+            [invok getReturnValue:&re];
+            re_nsvalue = [NSValue valueWithBytes:&re objCType:@encode(NSDirectionalEdgeInsets)];
+        }
+    } defaule:nil];
+    
+    if(returnID){
+        CFBridgingRetain(re_id);
+        return re_id;
+    }else if (returnNSValue){
+        return re_nsvalue;
+    }else if (returnNSNumber){
+        return re_nsnumber;
+    }
+    //其他结构体和共用体
+    return nil;
 }
 
 - (NSPointerArray *)pointsOfBridgingRetain

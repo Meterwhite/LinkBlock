@@ -86,25 +86,57 @@
 
 - (id)doIt
 {
-    CGRect rect = NULL;
-    self.origin = @"ABC";
+
     
+    self.origin = @"ABC";
+
     LinkBlockInvocation* invoke = [self invok:[self getXX]];
     [invoke invoke];
-    
+
     id re;
     [invoke getReturnValue:&re];
     CFBridgingRetain(re);//使用
     
-//    CFBridgingRelease([self.pointsOfBridgingRetain pointerAtIndex:0]);
+    CFBridgingRelease([self.pointsOfBridgingRetain pointerAtIndex:0]);
     
     return re;
+}
+
+- (void)doStruct:(id)obj ,...
+{
+    va_list list;
+    va_start(list, obj);
+    
+    //check
+    va_list list_copy;
+    va_copy(list_copy , list);
+    void* check = va_arg(list_copy, void*);
+    NSRange st = va_arg(list, NSRange);
+    
+    va_list list_copy1;
+    va_copy(list_copy1 , list);
+    void* check1 = va_arg(list_copy, void*);
+    NSRange st1 = va_arg(list, NSRange);
+    
+    va_list list_copy2;
+    va_copy(list_copy2 , list);
+    void* check2 = va_arg(list_copy2, void*);
+    void* check3 = va_arg(list_copy2, void*);
+    void* check4 = va_arg(list_copy2, void*);
+    NSRange st2 = va_arg(list, NSRange);
+    
+    
+    va_end(list);
+    
+    @"".nslog();
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    id re = [self doIt];
+//    id re = [self doIt];
+    
+    [self doStruct:@"",NSMakeRange(1, 2),NSMakeRange(3, 4),nil];
     
     @"End of test".nslog();
     return;

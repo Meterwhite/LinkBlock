@@ -31,7 +31,7 @@
     for (NSUInteger idx_bk = 0; idx_bk < self.countOfItems; idx_bk++) {
         
         DynamicLinkBlock* block = self.items[idx_bk];
-        [block invoke:origin args:list last:&idx_va_list];
+//        [block invoke:origin args:list last:&idx_va_list];
     }
 
 END:

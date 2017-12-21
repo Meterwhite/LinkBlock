@@ -20,12 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LinkBlockProgram/ViewController.m"
-            timestampString = "535482874.171601"
+            timestampString = "535562465.81389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "-doStruct:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

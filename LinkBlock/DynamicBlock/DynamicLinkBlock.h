@@ -19,6 +19,15 @@
 @property (nonatomic,assign,readonly) NSUInteger numberOfArguments;
 @property (nonatomic,assign,readonly) NSUInteger lengthOfBlockReturn;
 
+
+/**
+ void类型返回nil；其他空类型都返回NSNull;
+
+ @param origin <#origin description#>
+ @param vlist <#vlist description#>
+ @param end <#end description#>
+ @return <#return value description#>
+ */
 - (id)invoke:(id)origin args:(va_list)vlist end:(BOOL*)end;
 
 @property (nonatomic,assign,readonly) BOOL validate;
