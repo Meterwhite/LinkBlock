@@ -20,22 +20,21 @@
 - (id)invoke:(id)origin args:(va_list)list
 {
     //无对象返回空
-    if(!origin) goto END;
+    if(!origin) return nil;
     
     //无code返回对象本身
     if(!self.code) return origin;
     
-
-    
-    NSUInteger idx_va_list;
+    BOOL isEnd = NO;
+    id currentOrigin = origin;
     for (NSUInteger idx_bk = 0; idx_bk < self.countOfItems; idx_bk++) {
         
         DynamicLinkBlock* block = self.items[idx_bk];
-//        [block invoke:origin args:list last:&idx_va_list];
+        currentOrigin = [block invoke:currentOrigin args:list end:&isEnd];
+        if(isEnd == YES) break;
     }
-
-END:
-    return [NSNull null];
+    
+    return currentOrigin;
 }
 
 #pragma mark - 构造
@@ -43,8 +42,20 @@ END:
 {
     self = [super init];
     if (self) {
+        
         _code = code;
-        [self codeSplitting];
+        
+        NSArray* blockStrings = [[LinkHelper help:_code] blocksSplitFromLinkCode];
+        [blockStrings enumerateObjectsUsingBlock:^(NSString*  _Nonnull blockString, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            //构造block
+            DynamicLinkBlock* dyLinkBlock = [DynamicLinkBlock dynamicLinkBlockWithCode:blockString];
+            NSIndexPath* path0 = [NSIndexPath indexPathWithIndex:idx];
+            //block.indexPath
+            [dyLinkBlock setValue:path0 forKey:@"indexPath"];
+            //block.items
+            [self.items addObject:dyLinkBlock];
+        }];
     }
     return self;
 }
@@ -52,7 +63,22 @@ END:
 {
     return [[self alloc] initWithCode:code];
 }
-
+- (NSUInteger)countOfItems
+{
+    return self.items.count;
+}
+- (DynamicLinkBlock *)blockAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger idx = [indexPath indexAtPosition:0];
+    if(idx > self.items.count-1 ) return nil;
+    return self.items[idx];
+}
+- (DynamicLinkArgument *)argumentAtIndexPath:(NSIndexPath *)indexPath
+{
+    DynamicLinkBlock* block = [self blockAtIndexPath:indexPath];
+    if(!block) return nil;
+    return  [block argumentAtIndexPath:indexPath];
+}
 - (NSMutableArray<DynamicLinkBlock *> *)items
 {
     if(!_items){
@@ -60,36 +86,4 @@ END:
     }
     return _items;
 }
-
-- (NSUInteger)countOfItems
-{
-    return self.items.count;
-}
-
-- (void)codeSplitting
-{
-    NSArray* blockStrings = [[LinkHelper help:_code] linkCodeSplite];
-    [blockStrings enumerateObjectsUsingBlock:^(NSString*  _Nonnull blockString, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        DynamicLinkBlock* dyLinkBlock = [DynamicLinkBlock dynamicLinkBlockWithCode:blockString];
-        NSIndexPath* path0 = [NSIndexPath indexPathWithIndex:idx];
-        [dyLinkBlock setValue:path0 forKey:@"indexPath"];
-        [self.items addObject:dyLinkBlock];
-    }];
-}
-
-- (DynamicLinkBlock *)blockAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger idx = [indexPath indexAtPosition:0];
-    if(idx > self.items.count-1 ) return nil;
-    return self.items[idx];
-}
-
-- (DynamicLinkArgument *)argumentAtIndexPath:(NSIndexPath *)indexPath
-{
-    DynamicLinkBlock* block = [self blockAtIndexPath:indexPath];
-    if(!block) return nil;
-    return  [block argumentAtIndexPath:indexPath];
-}
-
 @end

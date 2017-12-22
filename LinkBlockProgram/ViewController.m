@@ -15,6 +15,7 @@
 #import "DynamicLinkBlock.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "LinkBlockInvocation.h"
+#import "DynamicLink.h"
 
 #define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
@@ -92,12 +93,13 @@
 
     LinkBlockInvocation* invoke = [self invok:[self getXX]];
     [invoke invoke];
+//    [invoke retainArguments];
 
     id re;
     [invoke getReturnValue:&re];
     CFBridgingRetain(re);//使用
     
-    CFBridgingRelease([self.pointsOfBridgingRetain pointerAtIndex:0]);
+//    CFBridgingRelease([self.pointsOfBridgingRetain pointerAtIndex:0]);
     
     return re;
 }
@@ -131,12 +133,29 @@
     @"".nslog();
 }
 
+- (id)invokEnd:(id)origin,...
+{
+    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strAppend()"];
+    
+    va_list list;
+    va_start(list, origin);
+    id re = [link invoke:origin args:list];
+    va_end(list);
+    
+    return re;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
 //    id re = [self doIt];
     
-    [self doStruct:@"",NSMakeRange(1, 2),NSMakeRange(3, 4),nil];
+//    [self doStruct:@"",NSMakeRange(1, 2),NSMakeRange(3, 4),nil];
+    
+    
+    id ret = [self invokEnd:@"123",@"456"];
+    
+    
     
     @"End of test".nslog();
     return;

@@ -10,34 +10,87 @@
 
 @class DynamicLinkArgument;
 
+
+/**
+ 动态链条block的定义
+ */
 @interface DynamicLinkBlock : NSObject
 
+/**
+ 使用block脚本代码创建动态block
+
+ @param code "strAppend()"
+ @return 返回DynamicLinkBlock对象，而错误的脚本代码会返回nil
+ */
 + (instancetype)dynamicLinkBlockWithCode:(NSString*)code;
 
+
+/**
+ block的每个参数类型在这个数组中
+ */
 @property (nonatomic,strong,readonly) NSArray<NSString*>* objcTypesOfBlockArgs;
+
+/**
+ block的返回值类型
+ */
 @property (nonatomic,assign,readonly) const char* objcTypeOfBlockReturn;
+
+/**
+ block的参数总数
+ */
 @property (nonatomic,assign,readonly) NSUInteger numberOfArguments;
+
+/**
+ block返回值的内存大小
+ */
 @property (nonatomic,assign,readonly) NSUInteger lengthOfBlockReturn;
 
 
 /**
- void类型返回nil；其他空类型都返回NSNull;
+ 执行当前block并返回执行结果
 
- @param origin <#origin description#>
- @param vlist <#vlist description#>
- @param end <#end description#>
- @return <#return value description#>
+ @param origin 执行链条的对象
+ @param vlist 输入参数的参数列表
+ @param end 参数列表遍历状态的指针
+ @return 返回值（装箱的），如果void返回类型才会返回nil否则是NSNull形式的装箱结果
  */
 - (id)invoke:(id)origin args:(va_list)vlist end:(BOOL*)end;
 
+
+/**
+ 验证状态，未验证的block是不可调用的，会导致程序崩溃
+ */
 @property (nonatomic,assign,readonly) BOOL validate;
+
+/**
+ 用户的block的脚本代码
+ */
 @property (nonatomic,copy,readonly) NSString* stringValue;
 @property (nonatomic,copy,readonly) NSString* blockName;
 
-@property (nonatomic,assign,readonly) NSUInteger index;
+/**
+ 当前动态block在整个链条中的的路径，长度至少为1，索引是0
+ */
 @property (nonatomic,strong,readonly) NSIndexPath* indexPath;
+/**
+ 当前动态block在整个链条中的的位置，等同于self.indexPath的索引0处
+ 例如："block0().block1()...blockN(0,1,x)"，blockN的路径为 NSIndexPath(N,...);
+ */
+@property (nonatomic,assign,readonly) NSUInteger index;
+
+/**
+ 动态链条上参数的个数
+ */
 @property (nonatomic,assign,readonly) NSUInteger countOfItems;
 
+
+/**
+ block中是否有该路径的子节点
+ */
 - (BOOL)containsIndexPathOfItem:(NSIndexPath*)indexPath;
+
+/**
+ 尝试获取一个路径下的子节点，没有匹配时返回nil
+ */
 - (DynamicLinkArgument*)argumentAtIndexPath:(NSIndexPath*)indexPath;
 @end

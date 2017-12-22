@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - override NSInvocation
 @property (nonatomic , readonly) NSMethodSignature *methodSignature;
-
+//手动管理内存不需要设置
 - (void)retainArguments;
 @property (readonly) BOOL argumentsRetained;
 

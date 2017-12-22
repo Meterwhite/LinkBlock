@@ -17,15 +17,25 @@
 
 + (instancetype)dynamicLinkArgumentFromVlueCode:(NSString *)code
 {
-    DynamicLinkArgument* arg = [DynamicLinkArgument new];
-    
-    arg->_objcValue = [[LinkHelper help:code] valueFromValueCodeOfNSString];
-    if(!arg.objcValue){
-        NSLog(@"DynamicLink Error:构造失败的字符串值定义%@，检查并核对文档；",code);
-        return nil;
+    DynamicLinkArgument* _self = [[self alloc] initWithCode:code];
+    if(!_self.validate) return nil;
+    return _self;
+}
+
+- (instancetype)initWithCode:(NSString *)code
+{
+    self = [super init];
+    if (self) {
+        _objcValue = [[LinkHelper help:code] valueFromValueCode];
+        if(!_objcValue){
+            NSLog(@"DynamicLink Error:构造失败的字符串值定义%@，检查并核对文档；",code);
+            _validate = NO;
+        }else{
+            _validate = YES;
+        }
+        _stringValue = code;
     }
-    arg->_stringValue = code;
-    return arg;
+    return self;
 }
 
 - (const char *)objcType
@@ -33,54 +43,14 @@
     return _objcValue.objCType;
 }
 
-//- (void)setObjcValue
-//{
-//    if(!_stringValue || !_objcType){
-//        _objcValue = NULL;
-//        return;
-//    }
-    
-    
-//    void(^blockOfInteger)() = ^(){
-//
-//    };
-//
-//    void(^blockOfFloat)() = ^(){
-//
-//    };
-//
-//    [LinkHelper helpSwitchObjcType:_objcType caseVoid:nil caseId:^{
-//
-//    } caseClass:^{
-//
-//    } caseIMP:nil caseSEL:^{
-//
-//    } caseDouble:blockOfFloat caseFloat:blockOfFloat casePointer:nil caseCharPointer:^{
-//
-//    } caseUnsignedLong:blockOfInteger caseUnsignedLongLong:blockOfInteger caseLong:blockOfInteger caseLongLong:blockOfInteger caseInt:blockOfInteger caseUnsignedInt:blockOfInteger caseBOOL_Char_xyShort:^{
-//
-//    } caseCGRect:^{
-//
-//    } caseNSRange:^{
-//        
-//    } caseCGSize:^{
-//
-//    } caseCGPoint:^{
-//
-//    } caseCGVector:^{
-//
-//    } caseUIEdgeInsets:^{
-//
-//    } caseUIOffset:^{
-//
-//    } caseCATransform3D:nil caseCGAffineTransform:^{
-//
-//    } caseNSDirectionalEdgeInsets:^{
-//
-//    } defaule:^{
-//
-//    }];
-//}
+- (NSUInteger)index
+{
+    if(_indexPath.length == 2){
+        return [_indexPath indexAtPosition:1];
+    }
+    return 0;
+}
+
 
 
 @end

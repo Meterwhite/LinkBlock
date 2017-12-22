@@ -25,7 +25,7 @@
     return [self.target isKindOfClass:type];
 }
 
-- (NSArray<NSString *> *)linkCodeSplite
+- (NSArray<NSString *> *)blocksSplitFromLinkCode
 {
     if(![self checkTargetType:[NSString class]]) return nil;
     
@@ -36,7 +36,18 @@
     return blocksString;
 }
 
-- (NSValue*)valueFromValueCodeOfNSString
+- (NSString *)functionNameSplitFromFunctionCode
+{
+    if(![self checkTargetType:[NSString class]]) return nil;
+    
+    NSRange rangeOfBlockName = [self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(" options:NSRegularExpressionSearch];
+    NSString* functionName = [self.target substringWithRange:rangeOfBlockName];
+    functionName = [functionName stringByReplacingOccurrencesOfString:@" " withString:@""];
+    functionName = [functionName substringToIndex:functionName.length-1];
+    return functionName;
+}
+
+- (NSValue*)valueFromValueCode
 {
     if(![self checkTargetType:[NSString class]]){
         return nil;
@@ -144,7 +155,7 @@
      *********************/
     if([code rangeOfString:@"^CGRectMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
         if(argsOfStringV.count!=4) return nil;
         CGRect rect =
         CGRectMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -156,7 +167,7 @@
     
     if([code rangeOfString:@"^CGSizeMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
         if(argsOfStringV.count!=2) return nil;
         CGSize size =
         CGSizeMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -166,7 +177,7 @@
     
     if([code rangeOfString:@"^CGPointMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
         if(argsOfStringV.count!=2) return nil;
         CGPoint point =
         CGPointMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -176,7 +187,7 @@
     
     if([code rangeOfString:@"^NSMakeRange\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
         if(argsOfStringV.count!=2) return nil;
         NSRange range
         = NSMakeRange([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -186,7 +197,7 @@
     
     if([code rangeOfString:@"^UIEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
         if(argsOfStringV.count!=4) return nil;
         UIEdgeInsets edgeInsets =
         UIEdgeInsetsMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -198,7 +209,7 @@
     
     if([code rangeOfString:@"^CGVectorMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
         if(argsOfStringV.count!=2) return nil;
         CGVector vector =
         CGVectorMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -208,7 +219,7 @@
     
     if([code rangeOfString:@"^UIOffsetMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
         if(argsOfStringV.count!=2) return nil;
         UIOffset offset =
         UIOffsetMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -220,7 +231,7 @@
     
     if([code rangeOfString:@"^CGAffineTransformMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
         if(argsOfStringV.count!=6) return nil;
         CGAffineTransform affineTransform =
         CGAffineTransformMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -235,7 +246,7 @@
     if (@available(iOS 11.0, *)){
         if([code rangeOfString:@"^NSDirectionalEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
             
-            NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentsStringValueFromCode];
+            NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
             if(argsOfStringV.count!=4) return nil;
             NSDirectionalEdgeInsets directionalEdgeInsets
             = NSDirectionalEdgeInsetsMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -253,19 +264,18 @@
     return nil;
 }
 
-- (NSArray<NSString *> *)functionArgumentsStringValueFromCode
+- (NSArray<NSString *> *)functionArgumentSplitFromFunctionCode
 {
-    //去空白
-    NSMutableArray* args = [NSMutableArray new];
-    NSString* code = [self.target stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString* code = [self.target copy];
+    
     NSRange range = [code rangeOfString:@"\\(.+\\)" options:NSRegularExpressionSearch];
     
-    if(!range.length) goto END;
-    
-    code = [code substringWithRange:NSMakeRange(range.location+1, range.length-2)];
-    
-    [args addObjectsFromArray:[code componentsSeparatedByString:@","]];
-END:
+    NSMutableArray* args = [NSMutableArray new];
+    if(range.length){
+        
+        code = [code substringWithRange:NSMakeRange(range.location+1, range.length-2)];
+        [args addObjectsFromArray:[code componentsSeparatedByString:@","]];
+    }
     return args;
 }
 

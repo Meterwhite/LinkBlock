@@ -37,14 +37,9 @@
         
         _validate = NO;
         _stringValue = code;
-        //blockName 字母+数字*空白*(
-        NSRange rangeOfBlockName = [self.stringValue rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(" options:NSRegularExpressionSearch];
-        NSString* blockName = [_stringValue substringWithRange:rangeOfBlockName];
-        blockName = [blockName stringByReplacingOccurrencesOfString:@" " withString:@""];
-        blockName = [blockName substringToIndex:blockName.length-1];
-        _blockName = blockName;
+        _blockName = [[LinkHelper help:code] functionNameSplitFromFunctionCode];
         
-        //block args
+        //property of runtime
         if([NSObject classContainProperty:_blockName]){
             
             id block = [NSObject valueForKey:_blockName];
@@ -64,6 +59,24 @@
             _numberOfArguments = sig.numberOfArguments <= 1 ? 0 : sig.numberOfArguments;
             _validate = YES;
         }
+        
+        //items
+        NSArray<NSString*>* argsAsString = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        [argsAsString enumerateObjectsUsingBlock:^(NSString * _Nonnull argAsString, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if(argAsString.length){
+                
+                DynamicLinkArgument* arg = [DynamicLinkArgument dynamicLinkArgumentFromVlueCode:argAsString];
+                if(arg){
+                    [self.items addObject:arg];
+                    NSIndexPath* indexPathOfArg = [NSIndexPath indexPathWithIndex:self.index];
+                    [indexPathOfArg indexPathByAddingIndex:idx];
+                    [arg setValue:indexPathOfArg forKey:@"indexPath"];
+                    [self.items addObject:arg];
+                }
+            }
+        }];
+        
     }
     return self;
 }
@@ -71,10 +84,9 @@
 - (void)setIndexPath:(NSIndexPath *)indexPath
 {
     _indexPath = indexPath;
-    [self reSetItemsIndexPath];
+    [self indexPathDidChanged];
 }
-
-- (void)reSetItemsIndexPath
+- (void)indexPathDidChanged
 {
     if(self.countOfItems != 0){
         
@@ -96,12 +108,52 @@
     }
 }
 
+- (NSUInteger)index
+{
+    return [self.indexPath indexAtPosition:0];
+}
+
+- (BOOL)containsIndexPathOfItem:(NSIndexPath *)indexPath
+{
+    //子节点路径至少为2
+    if(indexPath.length<2)
+        return NO;
+    
+    if(self.index != [indexPath indexAtPosition:0])
+        return NO;
+    
+    return [[self.items valueForKey:@"index"] containsObject:@([indexPath indexAtPosition:1])];
+}
+
+- (DynamicLinkArgument *)argumentAtIndexPath:(NSIndexPath *)indexPath
+{
+    //子节点路径至少为2
+    if(indexPath.length<2)
+        return nil;
+    
+    if(self.index != [indexPath indexAtPosition:0])
+        return nil;
+    
+    NSUInteger idxMatched = [[self.items valueForKey:@"index"]
+                             indexOfObject:@([indexPath indexAtPosition:0])];
+    if(idxMatched == NSNotFound)
+        return nil;
+    
+    return self.items[idxMatched];
+}
+
+
 - (id)invoke:(id)origin args:(va_list)vlist end:(BOOL*)end
 {
     //验证的对象
     if(!self.validate) return [NSNull null];
     //是否响应block
-    if(![origin classContainProperty:_blockName]) return [NSNull null];
+    
+    
+    if(![origin isKindOfClass:[NSObject class]] || ![NSObject classContainProperty:_blockName]){
+        return [NSNull null];
+    }
+         
     //block是否具有路径
     if(self.indexPath.length != 1) return [NSNull null];
     

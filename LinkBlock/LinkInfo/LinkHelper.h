@@ -10,12 +10,20 @@
 
 @interface LinkHelper<__covariant ObjectType> : NSProxy
 
+
+/**
+ 获取被帮助形式的对象；该对象可以调用对象本身的方法；也可以调用求助功能；
+ 这个形式避免了多余的扩展方法，扩展文件和多余的工具类类型定义；
+
+ @param target 要寻求帮助的对象
+ */
 + (id)help:(id)target;
 
-- (NSArray<NSString*>*)linkCodeSplite;
-- (const char*)objcTypeFromValueCodeOfNSString;
-- (NSValue*)valueFromValueCodeOfNSString;
-- (NSArray<NSString*>*)functionArgumentsStringValueFromCode;
+
+- (NSArray<NSString*>*)blocksSplitFromLinkCode;
+- (NSString*)functionNameSplitFromFunctionCode;
+- (NSArray<NSString*>*)functionArgumentSplitFromFunctionCode;
+- (NSValue*)valueFromValueCode;
 - (NSNumber*)numberEvalFromCode;
 
 + (void)  helpSwitchObjcType:(const char*)objcType

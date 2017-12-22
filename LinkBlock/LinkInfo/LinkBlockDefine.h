@@ -79,7 +79,7 @@ if([self isKindOfClass:[LinkGroup class]]){\
 
 //MARK:装箱
 #define LBBoxValue(value) _LinkBoxValue(@encode(__typeof__((value))), (value))
-static inline id _LinkBoxValue(const char *type, ...) {
+NS_INLINE id _LinkBoxValue(const char *type, ...) {
     va_list v;
     va_start(v, type);
     id obj = nil;
@@ -137,7 +137,7 @@ static inline id _LinkBoxValue(const char *type, ...) {
 }
 
 #define LBObjcValue(value) _LinkObjcValue(@encode(__typeof__((value))), (value))
-static inline id _LinkObjcValue(const char *type, ...) {
+NS_INLINE id _LinkObjcValue(const char *type, ...) {
     va_list v;
     va_start(v, type);
     id obj;
@@ -194,7 +194,7 @@ static inline id _LinkObjcValue(const char *type, ...) {
     return obj?obj:[NSNull null];
 }
 
-static inline  CGRect LB_CGRectInsetMargin(CGRect rect, UIEdgeInsets insets) {
+NS_INLINE CGRect LB_CGRectInsetMargin(CGRect rect, UIEdgeInsets insets) {
     rect.origin.x    -= insets.left;
     rect.origin.y    -= insets.top;
     rect.size.width  += (insets.left + insets.right);
