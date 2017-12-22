@@ -104,38 +104,38 @@
     return re;
 }
 
-- (void)doStruct:(id)obj ,...
-{
-    va_list list;
-    va_start(list, obj);
-    
-    //check
-    va_list list_copy;
-    va_copy(list_copy , list);
-    void* check = va_arg(list_copy, void*);
-    NSRange st = va_arg(list, NSRange);
-    
-    va_list list_copy1;
-    va_copy(list_copy1 , list);
-    void* check1 = va_arg(list_copy, void*);
-    NSRange st1 = va_arg(list, NSRange);
-    
-    va_list list_copy2;
-    va_copy(list_copy2 , list);
-    void* check2 = va_arg(list_copy2, void*);
-    void* check3 = va_arg(list_copy2, void*);
-    void* check4 = va_arg(list_copy2, void*);
-    NSRange st2 = va_arg(list, NSRange);
-    
-    
-    va_end(list);
-    
-    @"".nslog();
-}
+//- (void)doStruct:(id)obj ,...
+//{
+//    va_list list;
+//    va_start(list, obj);
+//
+//    //check
+//    va_list list_copy;
+//    va_copy(list_copy , list);
+//    void* check = va_arg(list_copy, void*);
+//    NSRange st = va_arg(list, NSRange);
+//
+//    va_list list_copy1;
+//    va_copy(list_copy1 , list);
+//    void* check1 = va_arg(list_copy, void*);
+//    NSRange st1 = va_arg(list, NSRange);
+//
+//    va_list list_copy2;
+//    va_copy(list_copy2 , list);
+//    void* check2 = va_arg(list_copy2, void*);
+//    void* check3 = va_arg(list_copy2, void*);
+//    void* check4 = va_arg(list_copy2, void*);
+//    NSRange st2 = va_arg(list, NSRange);
+//
+//
+//    va_end(list);
+//
+//    @"".nslog();
+//}
 
 - (id)invokEnd:(id)origin,...
 {
-    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strAppend()"];
+    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strDeleteInRange(NSMakeRange(0, 5))"];
     
     va_list list;
     va_start(list, origin);
@@ -152,10 +152,22 @@
     
 //    [self doStruct:@"",NSMakeRange(1, 2),NSMakeRange(3, 4),nil];
     
+//    Man* man = [Man new];
+//    id ret = [self invokEnd:@"123",NSMakeRange(0, 2),nil,NSNotFound];//
     
-    id ret = [self invokEnd:@"123",@"456"];
-    
-    
+    //@"[a-zA-Z_]+\\d*\\s*\\(.*\\)\\s*(?=,|\\b)"
+    //@"(\\)\\s*,)|(,\\s*[a-zA-Z_]+\\d*\\s*\\()"
+    NSString *code = @" NSMakeRange(12, 35) , max(3,5) ,  123+456.65 , 123";
+    NSRegularExpression* regx = [[NSRegularExpression alloc] initWithPattern:
+                                 @"(?:\\)\\s*),"
+                                                                     options:0
+                                                                       error:nil];
+    ;
+    [regx enumerateMatchesInString:code options:0 range:NSMakeRange(0, code.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        
+        NSString* str = [code substringWithRange:result.range];
+        str.nslog();
+    }];
     
     @"End of test".nslog();
     return;

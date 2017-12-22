@@ -150,7 +150,8 @@
     //是否响应block
     
     
-    if(![origin isKindOfClass:[NSObject class]] || ![NSObject classContainProperty:_blockName]){
+    if(![origin isKindOfClass:[NSObject class]] ||
+       ![NSObject classContainProperty:_blockName]){
         return [NSNull null];
     }
          
@@ -163,7 +164,9 @@
     NSMethodSignature* signature = invok.methodSignature;
     
     //验证是否有返回值
-    if(strcmp(signature.methodReturnType, @encode(void)) == 0) return nil;
+    if(strcmp(signature.methodReturnType, @encode(void)) == 0){
+        return nil;
+    }
     
     //入参
     for (NSUInteger idx_arg = 0; idx_arg < self.numberOfArguments-1; idx_arg++) {
@@ -349,80 +352,89 @@
             } caseCGRect:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 CGRect val = va_arg(vlist, CGRect);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseNSRange:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 NSRange val = va_arg(vlist, NSRange);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGSize:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 CGSize val = va_arg(vlist, CGSize);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGPoint:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 CGPoint val = va_arg(vlist, CGPoint);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGVector:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 CGVector val = va_arg(vlist, CGVector);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUIEdgeInsets:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 UIEdgeInsets val = va_arg(vlist, UIEdgeInsets);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUIOffset:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 UIOffset val = va_arg(vlist, UIOffset);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCATransform3D:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 CATransform3D val = va_arg(vlist, CATransform3D);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGAffineTransform:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
-                if(!va_arg(check_list, void*)){
-                    *end = YES;return;
+                if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
+                    *end = YES;va_end(check_list);return;
                 }
+                va_end(check_list);
                 CGAffineTransform val = va_arg(vlist, CGAffineTransform);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseNSDirectionalEdgeInsets:^{
                 if (@available(iOS 11.0, *)) {
                     va_list check_list;
                     va_copy(check_list, vlist);
-                    if(!va_arg(check_list, void*)){
+                    if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                         *end = YES;return;
                     }
                     NSDirectionalEdgeInsets val = va_arg(vlist, NSDirectionalEdgeInsets);
@@ -578,6 +590,7 @@
         return re_nsnumber;
     }
     //其他结构体和共用体
+    NSLog(@"DynamicLink Error:不支持的结构体类型或共用体");
     return nil;
 }
 

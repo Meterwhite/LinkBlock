@@ -28,7 +28,7 @@
     if (self) {
         _objcValue = [[LinkHelper help:code] valueFromValueCode];
         if(!_objcValue){
-            NSLog(@"DynamicLink Error:构造失败的字符串值定义%@，检查并核对文档；",code);
+            NSLog(@"DynamicLink Error:失败的直接量定义%@，检查并核对文档；",code);
             _validate = NO;
         }else{
             _validate = YES;

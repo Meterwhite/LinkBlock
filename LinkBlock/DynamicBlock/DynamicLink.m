@@ -31,7 +31,14 @@
         
         DynamicLinkBlock* block = self.items[idx_bk];
         currentOrigin = [block invoke:currentOrigin args:list end:&isEnd];
-        if(isEnd == YES) break;
+        if(isEnd == YES){
+            break;
+        }
+        if(!currentOrigin){
+            //void返回类型后不能再有链条
+            NSLog(@"DynamicLink Error:%@不可接受的返回类型",self.items[idx_bk].blockName);
+            break;
+        }
     }
     
     return currentOrigin;
@@ -50,6 +57,10 @@
             
             //构造block
             DynamicLinkBlock* dyLinkBlock = [DynamicLinkBlock dynamicLinkBlockWithCode:blockString];
+            if(!dyLinkBlock){
+                *stop = YES;
+                return;
+            }
             NSIndexPath* path0 = [NSIndexPath indexPathWithIndex:idx];
             //block.indexPath
             [dyLinkBlock setValue:path0 forKey:@"indexPath"];

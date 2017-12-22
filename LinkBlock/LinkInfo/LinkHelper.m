@@ -274,6 +274,17 @@
     if(range.length){
         
         code = [code substringWithRange:NSMakeRange(range.location+1, range.length-2)];
+        //函数 数字 数字表达式
+        // "NaMakeRange(2"  ,  "Math.max(3"  ,   "4))"  ,  "?"  ,  "?"
+        
+        NSRegularExpression* regx = [[NSRegularExpression alloc] initWithPattern:@"([a-zA-Z_]+\\d*\\s*\\(.*\\))|([^,]*)" options:0 error:nil];
+        
+        [regx enumerateMatchesInString:code options:0 range:NSMakeRange(0, code.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+            
+            NSString* str = [code substringWithRange:result.range];
+            str.nslog();
+        }];
+        
         [args addObjectsFromArray:[code componentsSeparatedByString:@","]];
     }
     return args;
