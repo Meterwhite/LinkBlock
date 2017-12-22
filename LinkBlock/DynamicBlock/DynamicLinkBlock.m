@@ -166,9 +166,9 @@
     if(strcmp(signature.methodReturnType, @encode(void)) == 0) return nil;
     
     //入参
-    for (NSUInteger idx_arg = 0; idx_arg < self.numberOfArguments; idx_arg++) {
+    for (NSUInteger idx_arg = 0; idx_arg < self.numberOfArguments-1; idx_arg++) {
         
-        if(*end == NO) break;
+        if(*end == YES) break;
         
         NSIndexPath* currentIndexPath = [NSIndexPath indexPathWithIndex:[self.indexPath indexAtPosition:0]];
         [currentIndexPath indexPathByAddingIndex:idx_arg];
