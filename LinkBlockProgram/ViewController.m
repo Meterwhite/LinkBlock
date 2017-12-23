@@ -158,16 +158,7 @@
     //@"[a-zA-Z_]+\\d*\\s*\\(.*\\)\\s*(?=,|\\b)"
     //@"(\\)\\s*,)|(,\\s*[a-zA-Z_]+\\d*\\s*\\()"
     NSString *code = @" NSMakeRange(12, 35) , max(3,5) ,  123+456.65 , 123";
-    NSRegularExpression* regx = [[NSRegularExpression alloc] initWithPattern:
-                                 @"(?:\\)\\s*),"
-                                                                     options:0
-                                                                       error:nil];
-    ;
-    [regx enumerateMatchesInString:code options:0 range:NSMakeRange(0, code.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-        
-        NSString* str = [code substringWithRange:result.range];
-        str.nslog();
-    }];
+    
     
     @"End of test".nslog();
     return;

@@ -274,18 +274,40 @@
     if(range.length){
         
         code = [code substringWithRange:NSMakeRange(range.location+1, range.length-2)];
-        //函数 数字 数字表达式
-        // "NaMakeRange(2"  ,  "Math.max(3"  ,   "4))"  ,  "?"  ,  "?"
-        
-        NSRegularExpression* regx = [[NSRegularExpression alloc] initWithPattern:@"([a-zA-Z_]+\\d*\\s*\\(.*\\))|([^,]*)" options:0 error:nil];
-        
-        [regx enumerateMatchesInString:code options:0 range:NSMakeRange(0, code.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        NSMutableArray<NSString*>* arrOfArgs = [[code componentsSeparatedByString:@","] mutableCopy];
+        NSRegularExpression* leftRegex = [NSRegularExpression regularExpressionWithPattern:@"\\(" options:0 error:0];
+        NSRegularExpression* rightRegex = [NSRegularExpression regularExpressionWithPattern:@"\\)" options:0 error:0];
+        NSMutableString* stackString = [NSMutableString new];
+        __block NSInteger flag = 0;//左括号 = -1，右括号 = 1
+        [arrOfArgs enumerateObjectsUsingBlock:^(NSString * _Nonnull stringV, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            NSString* str = [code substringWithRange:result.range];
-            str.nslog();
+            NSInteger rightCount = [rightRegex numberOfMatchesInString:stringV options:0 range:NSMakeRange(0, stringV.length)];
+            NSInteger leftCount = [leftRegex numberOfMatchesInString:stringV options:0 range:NSMakeRange(0, stringV.length)];
+            NSInteger currentFlag = rightCount - leftCount;
+            if(flag==0){
+                //之前没有需要匹配的括号
+                if(currentFlag==0){
+                    //当前没有需要匹配的括号推出
+                    [arrOfArgs addObject:stringV];
+                }else{
+                    //当前有需要匹配的括号
+                    [stackString appendString:stringV];
+                }
+            }else{
+                //之前有需要匹配的括号
+                //合并
+                [stackString appendString:stringV];
+                if(flag + currentFlag){
+                    //合并后无需要匹配的括号
+                    [arrOfArgs addObject:[stackString copy]];
+                    [stackString setString:@""];//出栈
+                }else{
+                    //合并后还需要匹配括号
+                    //合并括号值
+                    flag += currentFlag;
+                }
+            }
         }];
-        
-        [args addObjectsFromArray:[code componentsSeparatedByString:@","]];
     }
     return args;
 }
