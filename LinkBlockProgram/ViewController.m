@@ -135,7 +135,8 @@
 
 - (id)invokEnd:(id)origin,...
 {
-    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strDeleteInRange(NSMakeRange(0, 5))"];
+    //strDeleteInRange(NSMakeRange(0, 5),NSMakeRange(0, 1)).strAppendFormat(@\"%@%@\",@\"aaa\",\"bbb\")
+    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strAppendFormat(@\"abc.abc\")"];
     
     va_list list;
     va_start(list, origin);
@@ -153,12 +154,16 @@
 //    [self doStruct:@"",NSMakeRange(1, 2),NSMakeRange(3, 4),nil];
     
 //    Man* man = [Man new];
-//    id ret = [self invokEnd:@"123",NSMakeRange(0, 2),nil,NSNotFound];//
     
-    //@"[a-zA-Z_]+\\d*\\s*\\(.*\\)\\s*(?=,|\\b)"
-    //@"(\\)\\s*,)|(,\\s*[a-zA-Z_]+\\d*\\s*\\()"
-    NSString *code = @" NSMakeRange(12, 35) , max(3,5) ,  123+456.65 , 123";
+    id ret = [self invokEnd:@"123456789",nil,NSNotFound];//
     
+//    id man =[Man new];
+//    id xx = [LinkHelper help:[Man new]];
+//    NSLog(@"%@",xx);
+//    man = [LinkHelper helpAndRef:man];
+//    NSLog(@"%@",man);
+//    man = [LinkHelper helpAndRef:man];
+//    NSLog(@"%@",man);
     
     @"End of test".nslog();
     return;

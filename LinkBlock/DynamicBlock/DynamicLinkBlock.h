@@ -20,9 +20,10 @@
  使用block脚本代码创建动态block
 
  @param code "strAppend()"
+ @param index 如果时用NSNotFound替代
  @return 返回DynamicLinkBlock对象，而错误的脚本代码会返回nil
  */
-+ (instancetype)dynamicLinkBlockWithCode:(NSString*)code;
++ (instancetype)dynamicLinkBlockWithCode:(NSString*)code index:(NSUInteger)index;
 
 
 /**

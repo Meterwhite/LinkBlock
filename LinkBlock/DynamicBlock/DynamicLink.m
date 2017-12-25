@@ -10,6 +10,7 @@
 #import "DynamicLinkBlock.h"
 #import "DynamicLinkArgument.h"
 #import "LinkHelper.h"
+#import "NSObject+LinkBlock.h"
 
 @interface DynamicLink()
 @property (nonatomic,strong) NSMutableArray<DynamicLinkBlock*>* items;
@@ -19,11 +20,11 @@
 
 - (id)invoke:(id)origin args:(va_list)list
 {
-    //无对象返回空
-    if(!origin) return nil;
-    
     //无code返回对象本身
     if(!self.code) return origin;
+    
+    //包装起始对象
+    origin = _LB_MakeObj(origin);
     
     BOOL isEnd = NO;
     id currentOrigin = origin;
@@ -52,19 +53,15 @@
         
         _code = code;
         
-        NSArray* blockStrings = [[LinkHelper help:_code] blocksSplitFromLinkCode];
+        NSArray* blockStrings = [[LinkHelper help:_code] blockCommandSplitFromLinkCode];
         [blockStrings enumerateObjectsUsingBlock:^(NSString*  _Nonnull blockString, NSUInteger idx, BOOL * _Nonnull stop) {
             
             //构造block
-            DynamicLinkBlock* dyLinkBlock = [DynamicLinkBlock dynamicLinkBlockWithCode:blockString];
+            DynamicLinkBlock* dyLinkBlock = [DynamicLinkBlock dynamicLinkBlockWithCode:blockString index:idx];
             if(!dyLinkBlock){
                 *stop = YES;
                 return;
             }
-            NSIndexPath* path0 = [NSIndexPath indexPathWithIndex:idx];
-            //block.indexPath
-            [dyLinkBlock setValue:path0 forKey:@"indexPath"];
-            //block.items
             [self.items addObject:dyLinkBlock];
         }];
     }

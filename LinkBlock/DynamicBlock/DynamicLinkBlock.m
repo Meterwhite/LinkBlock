@@ -23,21 +23,30 @@
 @implementation DynamicLinkBlock
 @synthesize objcTypesOfBlockArgs = _objcTypesOfBlockArgs;
 
-+ (instancetype)dynamicLinkBlockWithCode:(NSString *)code
++ (instancetype)dynamicLinkBlockWithCode:(NSString *)code index:(NSUInteger)index
 {
-    DynamicLinkBlock * block = [[self alloc] initWithCode:code];
+    DynamicLinkBlock * block = [[self alloc] initWithCode:code index:index];
     if(!block.validate) return nil;
     return block;
 }
 
-- (instancetype)initWithCode:(NSString*)code
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        
         _validate = NO;
+    }
+    return self;
+}
+
+- (instancetype)initWithCode:(NSString*)code index:(NSUInteger)index0
+{
+    self = [self init];
+    if (self) {
+        
         _stringValue = code;
         _blockName = [[LinkHelper help:code] functionNameSplitFromFunctionCode];
+        _indexPath = [NSIndexPath indexPathWithIndex:index0];
         
         //property of runtime
         if([NSObject classContainProperty:_blockName]){
@@ -56,27 +65,28 @@
             }
             _objcTypeOfBlockReturn = sig.methodReturnType;
             _lengthOfBlockReturn = sig.methodReturnLength;
-            _numberOfArguments = sig.numberOfArguments <= 1 ? 0 : sig.numberOfArguments;
+            _numberOfArguments = sig.numberOfArguments - 1;
             _validate = YES;
         }
         
         //items
-        NSArray<NSString*>* argsAsString = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
-        [argsAsString enumerateObjectsUsingBlock:^(NSString * _Nonnull argAsString, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray<NSString*>* argsAsString = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
+        [argsAsString enumerateObjectsUsingBlock:^(NSString * _Nonnull argAsString, NSUInteger index1, BOOL * _Nonnull stop) {
             
             if(argAsString.length){
                 
                 DynamicLinkArgument* arg = [DynamicLinkArgument dynamicLinkArgumentFromVlueCode:argAsString];
                 if(arg){
-                    [self.items addObject:arg];
-                    NSIndexPath* indexPathOfArg = [NSIndexPath indexPathWithIndex:self.index];
-                    [indexPathOfArg indexPathByAddingIndex:idx];
+                    NSIndexPath* indexPathOfArg = [NSIndexPath indexPathWithIndex:index0];
+                    indexPathOfArg = [indexPathOfArg indexPathByAddingIndex:index1];
                     [arg setValue:indexPathOfArg forKey:@"indexPath"];
                     [self.items addObject:arg];
                 }
             }
         }];
-        
+        if(argsAsString.count > _numberOfArguments){
+            NSLog(@"DynamicLink Warning:%@()中存在过多的%@个参数！如果这种做法有明确意义，请忽略该条警告",_blockName,@(argsAsString.count-_numberOfArguments));
+        }
     }
     return self;
 }
@@ -93,17 +103,16 @@
         __weak typeof(self) _self = self;
         [self.items enumerateObjectsUsingBlock:^(DynamicLinkArgument * _Nonnull argument, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            NSIndexPath* pathOfArgument = argument.indexPath;
-            NSIndexPath* newPathOfArgument;
-            NSUInteger idxOfBlock , idxOfArgument;
-            if(pathOfArgument.length>0){
-                idxOfBlock = [_self.indexPath indexAtPosition:0];
-                newPathOfArgument = [NSIndexPath indexPathWithIndex:idxOfBlock];
+            NSIndexPath* toPath;
+            if(argument.indexPath.length>0){
+                NSUInteger idxOfBlock = [_self.indexPath indexAtPosition:0];
+                toPath = [NSIndexPath indexPathWithIndex:idxOfBlock];
             }
-            if(pathOfArgument.length>1){
-                idxOfArgument = [argument.indexPath indexAtPosition:1];
-                [newPathOfArgument indexPathByAddingIndex:idxOfArgument];
+            if(argument.indexPath.length>1){
+                NSUInteger idxOfArgument = [argument.indexPath indexAtPosition:1];
+                toPath = [toPath indexPathByAddingIndex:idxOfArgument];
             }
+            [argument setValue:toPath forKey:@"indexPath"];
         }];
     }
 }
@@ -111,6 +120,11 @@
 - (NSUInteger)index
 {
     return [self.indexPath indexAtPosition:0];
+}
+
+- (NSUInteger)countOfItems
+{
+    return self.items.count;
 }
 
 - (BOOL)containsIndexPathOfItem:(NSIndexPath *)indexPath
@@ -150,8 +164,7 @@
     //是否响应block
     
     
-    if(![origin isKindOfClass:[NSObject class]] ||
-       ![NSObject classContainProperty:_blockName]){
+    if(![origin isKindOfClass:[NSObject class]]){
         return [NSNull null];
     }
          
@@ -169,12 +182,12 @@
     }
     
     //入参
-    for (NSUInteger idx_arg = 0; idx_arg < self.numberOfArguments-1; idx_arg++) {
+    for (NSUInteger idx_arg = 0; idx_arg < self.numberOfArguments; idx_arg++) {
         
         if(*end == YES) break;
         
         NSIndexPath* currentIndexPath = [NSIndexPath indexPathWithIndex:[self.indexPath indexAtPosition:0]];
-        [currentIndexPath indexPathByAddingIndex:idx_arg];
+        currentIndexPath = [currentIndexPath indexPathByAddingIndex:idx_arg];
         
         if([self containsIndexPathOfItem:currentIndexPath]){
             
@@ -600,6 +613,14 @@
         _pointsOfBridgingRetain = [NSPointerArray weakObjectsPointerArray];
     }
     return _pointsOfBridgingRetain;
+}
+
+- (NSMutableArray<DynamicLinkArgument*>*)items
+{
+    if(!_items){
+        _items = [NSMutableArray new];
+    }
+    return _items;
 }
 
 - (void)dealloc

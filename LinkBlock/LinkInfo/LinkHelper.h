@@ -15,14 +15,13 @@
  获取被帮助形式的对象；该对象可以调用对象本身的方法；也可以调用求助功能；
  这个形式避免了多余的扩展方法，扩展文件和多余的工具类类型定义；
 
- @param target 要寻求帮助的对象
+ @param target 要寻求帮助的对象，该方法不会引用目标对象，确保目标在使用前不被释放，或者使用helpAndRef
  */
 + (id)help:(id)target;
 
-
-- (NSArray<NSString*>*)blocksSplitFromLinkCode;
+- (NSArray<NSString*>*)blockCommandSplitFromLinkCode;
 - (NSString*)functionNameSplitFromFunctionCode;
-- (NSArray<NSString*>*)functionArgumentSplitFromFunctionCode;
+- (NSArray<NSString*>*)functionArgumentSplitFromFunctionCallCode;
 - (NSValue*)valueFromValueCode;
 - (NSNumber*)numberEvalFromCode;
 

@@ -12,8 +12,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 @interface LinkHelper<__covariant ObjectType>()
-@property (nonatomic,weak) id target;
-
+@property (nonatomic,strong) id target;
 @property (nonatomic,strong) JSContext* jscontext;
 @end
 
@@ -25,12 +24,22 @@
     return [self.target isKindOfClass:type];
 }
 
-- (NSArray<NSString *> *)blocksSplitFromLinkCode
+- (NSArray<NSString *> *)blockCommandSplitFromLinkCode
 {
     if(![self checkTargetType:[NSString class]]) return nil;
     
     NSString* code = [self.target copy];
-    NSMutableArray<NSString*>* blocksString = [[code componentsSeparatedByString:@"."] mutableCopy];
+    NSMutableArray<NSString*>* blocksString = [NSMutableArray new];
+#error <#message#>
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"[a-zA-Z_]+\\d*\\s*\\(.*\\)\\."
+                                                                           options:0
+                                                                             error:nil];
+    [regex enumerateMatchesInString:code options:0 range:NSMakeRange(0, code.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        
+        [blocksString addObject: [code substringWithRange:result.range]];
+    }];
+    
+    //= [[code componentsSeparatedByString:@"."] mutableCopy];
     //排除@".a.b.c"，@"a.b.c."
     [blocksString removeObject:@""];
     return blocksString;
@@ -155,7 +164,7 @@
      *********************/
     if([code rangeOfString:@"^CGRectMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
         if(argsOfStringV.count!=4) return nil;
         CGRect rect =
         CGRectMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -167,7 +176,7 @@
     
     if([code rangeOfString:@"^CGSizeMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
         if(argsOfStringV.count!=2) return nil;
         CGSize size =
         CGSizeMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -177,7 +186,7 @@
     
     if([code rangeOfString:@"^CGPointMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
         if(argsOfStringV.count!=2) return nil;
         CGPoint point =
         CGPointMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -187,17 +196,17 @@
     
     if([code rangeOfString:@"^NSMakeRange\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
         if(argsOfStringV.count!=2) return nil;
         NSRange range
-        = NSMakeRange([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
-                      [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] doubleValue]);
+        = NSMakeRange([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] unsignedIntegerValue],
+                      [[[LinkHelper help:argsOfStringV[1]] numberEvalFromCode] unsignedIntegerValue]);
         return [NSValue value:&range withObjCType:@encode(NSRange)];
     }
     
     if([code rangeOfString:@"^UIEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
         if(argsOfStringV.count!=4) return nil;
         UIEdgeInsets edgeInsets =
         UIEdgeInsetsMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -209,7 +218,7 @@
     
     if([code rangeOfString:@"^CGVectorMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
         if(argsOfStringV.count!=2) return nil;
         CGVector vector =
         CGVectorMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -219,7 +228,7 @@
     
     if([code rangeOfString:@"^UIOffsetMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
         if(argsOfStringV.count!=2) return nil;
         UIOffset offset =
         UIOffsetMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -231,7 +240,7 @@
     
     if([code rangeOfString:@"^CGAffineTransformMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
         
-        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+        NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
         if(argsOfStringV.count!=6) return nil;
         CGAffineTransform affineTransform =
         CGAffineTransformMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -246,7 +255,7 @@
     if (@available(iOS 11.0, *)){
         if([code rangeOfString:@"^NSDirectionalEdgeInsetsMake\\(.+\\)$" options:NSRegularExpressionSearch].length){
             
-            NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCode];
+            NSArray<NSString*>* argsOfStringV = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
             if(argsOfStringV.count!=4) return nil;
             NSDirectionalEdgeInsets directionalEdgeInsets
             = NSDirectionalEdgeInsetsMake([[[LinkHelper help:argsOfStringV[0]] numberEvalFromCode] doubleValue],
@@ -264,16 +273,20 @@
     return nil;
 }
 
-- (NSArray<NSString *> *)functionArgumentSplitFromFunctionCode
+- (NSArray<NSString *> *)functionArgumentSplitFromFunctionCallCode
 {
+    //检查格式
+    //函数调用格式  字母[数字](...)
+    if([self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(.+\\)" options:NSRegularExpressionSearch].location == NSNotFound){
+        return nil;
+    }
+    
     NSString* code = [self.target copy];
-    
     NSRange range = [code rangeOfString:@"\\(.+\\)" options:NSRegularExpressionSearch];
-    
-    NSMutableArray* args = [NSMutableArray new];
+    NSMutableArray* argsOfReturn = [NSMutableArray new];
     if(range.length){
         
-        code = [code substringWithRange:NSMakeRange(range.location+1, range.length-2)];
+        code = [code substringWithRange:NSMakeRange(range.location+1, range.length-2)];//去外层括号
         NSMutableArray<NSString*>* arrOfArgs = [[code componentsSeparatedByString:@","] mutableCopy];
         NSRegularExpression* leftRegex = [NSRegularExpression regularExpressionWithPattern:@"\\(" options:0 error:0];
         NSRegularExpression* rightRegex = [NSRegularExpression regularExpressionWithPattern:@"\\)" options:0 error:0];
@@ -281,35 +294,35 @@
         __block NSInteger flag = 0;//左括号 = -1，右括号 = 1
         [arrOfArgs enumerateObjectsUsingBlock:^(NSString * _Nonnull stringV, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            NSInteger rightCount = [rightRegex numberOfMatchesInString:stringV options:0 range:NSMakeRange(0, stringV.length)];
-            NSInteger leftCount = [leftRegex numberOfMatchesInString:stringV options:0 range:NSMakeRange(0, stringV.length)];
-            NSInteger currentFlag = rightCount - leftCount;
-            if(flag==0){
+            NSInteger rightFlag = [rightRegex numberOfMatchesInString:stringV options:0 range:NSMakeRange(0, stringV.length)];
+            NSInteger leftFlag = [leftRegex numberOfMatchesInString:stringV options:0 range:NSMakeRange(0, stringV.length)];
+            NSInteger currentFlag = rightFlag - leftFlag;
+            if(flag == 0){
+                
                 //之前没有需要匹配的括号
-                if(currentFlag==0){
-                    //当前没有需要匹配的括号推出
-                    [arrOfArgs addObject:stringV];
+                if(currentFlag == 0){
+                    //当前没有需要匹配的括号 输出
+                    [argsOfReturn addObject:stringV];
                 }else{
-                    //当前有需要匹配的括号
+                    //当前有需要匹配的括号 入栈
                     [stackString appendString:stringV];
+                    [stackString appendString:@","];
                 }
             }else{
                 //之前有需要匹配的括号
-                //合并
+                //入栈继续匹配
                 [stackString appendString:stringV];
-                if(flag + currentFlag){
-                    //合并后无需要匹配的括号
-                    [arrOfArgs addObject:[stackString copy]];
+                if(flag + currentFlag == 0){
+                    //一次匹配完成
+                    [argsOfReturn addObject:[stackString copy]];//输出
                     [stackString setString:@""];//出栈
-                }else{
-                    //合并后还需要匹配括号
-                    //合并括号值
-                    flag += currentFlag;
                 }
             }
+            //更新括号值
+            flag += currentFlag;
         }];
     }
-    return args;
+    return argsOfReturn;
 }
 
 - (NSNumber *)numberEvalFromCode
@@ -558,5 +571,13 @@ caseNSDirectionalEdgeInsets:(void(^)())caseNSDirectionalEdgeInsets
 - (NSString *)debugDescription {
     return [_target debugDescription];
 }
+
+
+
+
+//- (void)dealloc
+//{
+//    @"end of help".nslog();
+//}
 
 @end
