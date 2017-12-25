@@ -8,8 +8,10 @@
 
 #import "LinkBlock.h"
 #import "LinkHelper.h"
+#import "DynamicLink.h"
 #import <objc/runtime.h>
 #import <JavaScriptCore/JavaScriptCore.h>
+
 
 @interface LinkHelper<__covariant ObjectType>()
 @property (nonatomic,strong) id target;
@@ -29,19 +31,20 @@
     if(![self checkTargetType:[NSString class]]) return nil;
     
     NSString* code = [self.target copy];
+    if([code characterAtIndex:code.length-1] != '.'){
+        code = [code stringByAppendingString:@"."];
+    }
     NSMutableArray<NSString*>* blocksString = [NSMutableArray new];
-#error <#message#>
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"[a-zA-Z_]+\\d*\\s*\\(.*\\)\\."
-                                                                           options:0
-                                                                             error:nil];
+    
+    //函数名可空白(非贪婪个任意字符).
+    //函数名.
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:
+                                  @"[a-zA-Z_]+\\d*(\\s*\\(.*?\\)\\.|\\.)" options:0 error:nil];
     [regex enumerateMatchesInString:code options:0 range:NSMakeRange(0, code.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         
-        [blocksString addObject: [code substringWithRange:result.range]];
+        [blocksString addObject: [code substringWithRange:NSMakeRange(result.range.location, result.range.length-1)]];
     }];
     
-    //= [[code componentsSeparatedByString:@"."] mutableCopy];
-    //排除@".a.b.c"，@"a.b.c."
-    [blocksString removeObject:@""];
     return blocksString;
 }
 
@@ -266,10 +269,19 @@
         }
     }
     
+    //类型
     if(NSClassFromString(code)){
         Class clz = NSClassFromString(code);
         return [NSValue valueWithBytes:&clz objCType:@encode(Class)];
     }
+    
+    //LinkBlock脚本代码
+    NSArray<NSString*>* blockCommands = [[LinkHelper help:code] blockCommandSplitFromLinkCode];
+    if(blockCommands.count){
+        DynamicLink* link = [DynamicLink dynamicLinkWithCode:code];
+        return [link invoke:[NSNull null] args:nil];
+    }
+    
     return nil;
 }
 

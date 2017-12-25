@@ -25,6 +25,11 @@
 - (NSValue*)valueFromValueCode;
 - (NSNumber*)numberEvalFromCode;
 
+
+- (id)dynamicLinkBlockForwardInvocation:(NSString*)invocation
+                                  vList:(va_list)vList
+                                 vRange:(NSRange)vRange;
+
 + (void)  helpSwitchObjcType:(const char*)objcType
                     caseVoid:(void(^)())caseVoid
                       caseId:(void(^)())caseId

@@ -19,46 +19,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LinkBlock/DynamicBlock/DynamicLinkBlock.m"
-            timestampString = "535659585.007244"
+            filePath = "LinkBlockProgram/ViewController.m"
+            timestampString = "535909993.817736"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "-invoke:args:end:"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-viewDidLoad"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[DynamicLinkBlock invoke:args:end:]"
-                  moduleName = "LinkBlockProgram"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/novo/Desktop/Program2/QProgram/LinkBlock/LinkBlock/DynamicBlock/DynamicLinkBlock.m"
-                  timestampString = "535659585.05327"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "183"
-                  endingLineNumber = "183"
-                  offsetFromSymbolStart = "1247">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[DynamicLinkBlock invoke:args:end:]_block_invoke"
-                  moduleName = "LinkBlockProgram"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/novo/Desktop/Program2/QProgram/LinkBlock/LinkBlock/DynamicBlock/DynamicLinkBlock.m"
-                  timestampString = "535659585.056163"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "183"
-                  endingLineNumber = "183"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

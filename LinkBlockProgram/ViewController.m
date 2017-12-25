@@ -135,8 +135,8 @@
 
 - (id)invokEnd:(id)origin,...
 {
-    //strDeleteInRange(NSMakeRange(0, 5),NSMakeRange(0, 1)).strAppendFormat(@\"%@%@\",@\"aaa\",\"bbb\")
-    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strAppendFormat(@\"abc.abc\")"];
+    //
+    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strDeleteInRange(NSMakeRange(0, 5),NSMakeRange(0, 1)).strAppendFormat(@\"%@%@\",@\"aaa\",\"bbb\").linkEnds"];
     
     va_list list;
     va_start(list, origin);
