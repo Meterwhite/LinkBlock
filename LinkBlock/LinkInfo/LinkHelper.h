@@ -25,12 +25,6 @@
 - (NSValue*)valueFromValueCode;
 - (NSNumber*)numberEvalFromCode;
 
-- (BOOL)isLinkBlockCommand;
-
-- (id)commandInvoke:(id)target;
-
-- (NSMethodSignature *)linkBlockCommandTomethodSignature;
-
 + (void)  helpSwitchObjcType:(const char*)objcType
                     caseVoid:(void(^)())caseVoid
                       caseId:(void(^)())caseId

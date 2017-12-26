@@ -152,8 +152,8 @@
     
 //    id ret = [self invokEnd:@"123456789",nil,NSNotFound];//
     
-    LinkCommandInvocation* invok =[LinkCommandInvocation invocationWithCommand:@"UIViewNew"];
-    id re = [invok invokeWithTarget:nil];
+    LinkCommandInvocation* invok =[LinkCommandInvocation invocationWithCommand:@"doIt"];
+    id re = [invok invokeWithTarget:self];
     
     @"End of test".nslog();
     return;
