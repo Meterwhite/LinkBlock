@@ -32,7 +32,7 @@
 		45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */; };
 		45EB72F41FAAC793004984E0 /* UIFont+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EB72F31FAAC793004984E0 /* UIFont+LinkBlock.m */; };
 		9F6508821FE59C2E0039BA9E /* LinkBlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */; };
-		9F8D65DD1FF1601700EBDE5A /* LinkFunctionInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D65DC1FF1601700EBDE5A /* LinkFunctionInvocation.m */; };
+		9F8D65DD1FF1601700EBDE5A /* LinkCommandInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D65DC1FF1601700EBDE5A /* LinkCommandInvocation.m */; };
 		9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */; };
 		9FBD17381BDB91D500C2F402 /* NSAttributedString+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD170A1BDB91D500C2F402 /* NSAttributedString+LinkBlock.m */; };
 		9FBD17391BDB91D500C2F402 /* NSDate+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD170C1BDB91D500C2F402 /* NSDate+LinkBlock.m */; };
@@ -129,8 +129,8 @@
 		45EB72F31FAAC793004984E0 /* UIFont+LinkBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+LinkBlock.m"; sourceTree = "<group>"; };
 		9F6508801FE59C2E0039BA9E /* LinkBlockInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkBlockInvocation.h; sourceTree = "<group>"; };
 		9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkBlockInvocation.m; sourceTree = "<group>"; };
-		9F8D65DB1FF1601700EBDE5A /* LinkFunctionInvocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkFunctionInvocation.h; sourceTree = "<group>"; };
-		9F8D65DC1FF1601700EBDE5A /* LinkFunctionInvocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinkFunctionInvocation.m; sourceTree = "<group>"; };
+		9F8D65DB1FF1601700EBDE5A /* LinkCommandInvocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkCommandInvocation.h; sourceTree = "<group>"; };
+		9F8D65DC1FF1601700EBDE5A /* LinkCommandInvocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinkCommandInvocation.m; sourceTree = "<group>"; };
 		9FBD17071BDB91D500C2F402 /* NSArray+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSArray+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSArray+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		9FBD17091BDB91D500C2F402 /* NSAttributedString+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+LinkBlock.h"; sourceTree = "<group>"; };
@@ -233,8 +233,8 @@
 				454A9E361FE3BB3400CEE102 /* DynamicLinkBlock.m */,
 				454A9E321FE3B95600CEE102 /* DynamicLinkArgument.h */,
 				454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */,
-				9F8D65DB1FF1601700EBDE5A /* LinkFunctionInvocation.h */,
-				9F8D65DC1FF1601700EBDE5A /* LinkFunctionInvocation.m */,
+				9F8D65DB1FF1601700EBDE5A /* LinkCommandInvocation.h */,
+				9F8D65DC1FF1601700EBDE5A /* LinkCommandInvocation.m */,
 				9F6508801FE59C2E0039BA9E /* LinkBlockInvocation.h */,
 				9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */,
 			);
@@ -566,7 +566,7 @@
 				4540E41F1EB034A100AC87F1 /* CAAnimations+LinkBlock.m in Sources */,
 				9FFDA2151B835E2F0044097D /* AppDelegate.m in Sources */,
 				45EB72F41FAAC793004984E0 /* UIFont+LinkBlock.m in Sources */,
-				9F8D65DD1FF1601700EBDE5A /* LinkFunctionInvocation.m in Sources */,
+				9F8D65DD1FF1601700EBDE5A /* LinkCommandInvocation.m in Sources */,
 				45C239BF1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m in Sources */,
 				453AFBC91D6EFB4E00012095 /* Man.m in Sources */,
 				9FBD174A1BDB91D500C2F402 /* UILabel+LinkBlock.m in Sources */,

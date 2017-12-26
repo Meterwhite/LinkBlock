@@ -16,6 +16,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "LinkBlockInvocation.h"
 #import "DynamicLink.h"
+#import "LinkCommandInvocation.h"
 
 #define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
@@ -149,21 +150,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    id re = [self doIt];
+//    id ret = [self invokEnd:@"123456789",nil,NSNotFound];//
     
-//    [self doStruct:@"",NSMakeRange(1, 2),NSMakeRange(3, 4),nil];
-    
-//    Man* man = [Man new];
-    
-    id ret = [self invokEnd:@"123456789",nil,NSNotFound];//
-    
-//    id man =[Man new];
-//    id xx = [LinkHelper help:[Man new]];
-//    NSLog(@"%@",xx);
-//    man = [LinkHelper helpAndRef:man];
-//    NSLog(@"%@",man);
-//    man = [LinkHelper helpAndRef:man];
-//    NSLog(@"%@",man);
+    LinkCommandInvocation* invok =[LinkCommandInvocation invocationWithCommand:@"UIViewNew"];
+    id re = [invok invokeWithTarget:nil];
     
     @"End of test".nslog();
     return;

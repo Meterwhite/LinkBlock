@@ -25,10 +25,11 @@
 - (NSValue*)valueFromValueCode;
 - (NSNumber*)numberEvalFromCode;
 
+- (BOOL)isLinkBlockCommand;
 
-- (id)dynamicLinkBlockForwardInvocation:(NSString*)invocation
-                                  vList:(va_list)vList
-                                 vRange:(NSRange)vRange;
+- (id)commandInvoke:(id)target;
+
+- (NSMethodSignature *)linkBlockCommandTomethodSignature;
 
 + (void)  helpSwitchObjcType:(const char*)objcType
                     caseVoid:(void(^)())caseVoid
