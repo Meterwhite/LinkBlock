@@ -47,6 +47,7 @@
     return ^id(NSString *str){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strAppend,str)
+        if(!str) return _self;
         
         if([_self isKindOfClass:[NSString class]]&&
            [_self isMemberOfClass:NSClassFromString(@"__NSCFString")]){

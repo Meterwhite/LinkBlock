@@ -61,7 +61,7 @@
         [target methodSignatureForSelector:sel];
         
         NSMethodSignature* sig = [target methodSignatureForSelector:sel];
-        if(sig.numberOfArguments>2){
+        if(sig.numberOfArguments>2 && LinkHelper.link_block_configuration_get_is_show_warning){
             NSLog(@"DynamicLink Warning:%@,没有入参的方法调用!",self.command);
         };
         NSInvocation* invok = [NSInvocation invocationWithMethodSignature:sig];
@@ -178,8 +178,9 @@
     }
     
 END:
-    return [LinkError errorWithCustomDescription:[NSString stringWithFormat:@"无法计算%@；不能识别的属性、命令或者无参方法"
-                                                  ,self.command]];
+    NSLog(@"DynamicLink Error:无法计算%@；不能识别的属性、命令或者无参方法"
+          ,self.command);
+    return nil;
 }
 
 static NSDictionary* _linkBlockCommandReflectList;

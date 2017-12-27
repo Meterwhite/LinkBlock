@@ -64,9 +64,13 @@
 @property (nonatomic,assign,readonly) BOOL validate;
 
 /**
- 用户的block的脚本代码
+ 用户的脚本代码
  */
 @property (nonatomic,copy,readonly) NSString* stringValue;
+
+/**
+ 调用名
+ */
 @property (nonatomic,copy,readonly) NSString* actionName;
 
 /**

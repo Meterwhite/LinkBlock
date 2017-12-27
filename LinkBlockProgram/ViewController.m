@@ -150,10 +150,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    id ret = [self invokEnd:@"123456789",nil,NSNotFound];//
+//    id ret = [self invokEnd:@"123456789",nil,NSNotFound];//
     
 //    LinkPropertyInvocation* invok =[LinkPropertyInvocation invocationWithCommand:@"UIViewNew.nslog()"];
 //    id re = [invok invokeWithTarget:nil];
+//    [LinkHelper link_block_configuration_set_is_show_warning:NO];
+    
+    id re = @"NSStringNew.strAppend(@YES3).linkObj(nil)".linkCodeEval([NSNull null]).nslog();
     
     @"End of test".nslog();
     return;

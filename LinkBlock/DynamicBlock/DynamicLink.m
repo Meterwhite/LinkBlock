@@ -28,16 +28,16 @@
     
     BOOL isEnd = NO;
     id currentOrigin = origin;
-    for (NSUInteger idx_bk = 0; idx_bk < self.countOfItems; idx_bk++) {
+    for (NSUInteger idx_action = 0; idx_action < self.countOfItems; idx_action++) {
         
-        DynamicLinkAction* block = self.items[idx_bk];
+        DynamicLinkAction* block = self.items[idx_action];
         currentOrigin = [block invoke:currentOrigin args:list end:&isEnd];
         if(isEnd == YES){
             break;
         }
-        if(!currentOrigin){
-            //void返回类型后不能再有链条
-            NSLog(@"DynamicLink Error:%@不可接受的返回类型",self.items[idx_bk].actionName);
+        if(!currentOrigin && idx_action<self.countOfItems-1){
+            //void返回值类型或未知返回值类型后不能再调用
+            currentOrigin = [LinkError errorWithCustomDescription:[NSString stringWithFormat:@"DynamicLink Error:%@不可接受的返回类型；动态链条的解析在第%@处断裂，其后无法调用！",self.items[idx_action].actionName,@(idx_action+1)]];
             break;
         }
     }
@@ -53,12 +53,16 @@
         
         _code = code;
         
-        NSArray* blockStrings = [[LinkHelper help:_code] actionCommandSplitFromLinkCode];
-        [blockStrings enumerateObjectsUsingBlock:^(NSString*  _Nonnull blockString, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray* actionStrings = [[LinkHelper help:_code] actionCommandSplitFromLinkCode];
+        [actionStrings enumerateObjectsUsingBlock:^(NSString*  _Nonnull blockString, NSUInteger idx, BOOL * _Nonnull stop) {
             
             //构造block
             DynamicLinkAction* dyLinkBlock = [DynamicLinkAction dynamicLinkBlockWithCode:blockString index:idx];
             if(!dyLinkBlock){
+                
+                if(LinkHelper.link_block_configuration_get_is_show_warning){
+                    NSLog(@"DynamicLink Warning:无法解析%@；动态链条的解析在第%@处断裂，其后无法调用！",blockString,@(idx+1));
+                }
                 *stop = YES;
                 return;
             }

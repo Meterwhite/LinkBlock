@@ -21,7 +21,15 @@
 @implementation LinkHelper
 
 #pragma mark - 功能
-
+static bool _link_block_configuration_get_is_show_warning = true;
++ (BOOL)link_block_configuration_get_is_show_warning
+{
+    return _link_block_configuration_get_is_show_warning;
+}
++ (void)link_block_configuration_set_is_show_warning:(BOOL)b
+{
+    _link_block_configuration_get_is_show_warning = b;
+}
 
 - (BOOL)checkTargetType:(Class)type
 {
@@ -82,6 +90,12 @@
     };
     
     NSString* code = [self.target copy];
+    
+    if([code isEqualToString:@"nil"] ||
+       [[code lowercaseString] isEqualToString:@"null"]){
+        id _nil = nil;
+        return [NSValue valueWithBytes:&_nil objCType:@encode(id)];
+    }
     
     //NSString <可空白@"..."可空白>
     if([code rangeOfString:@"[\\s\\S]*@\"[\\s\\S]*\"[\\s\\S]*" options:NSRegularExpressionSearch].length){
@@ -378,6 +392,16 @@
     return nil;
 }
 
+- (BOOL)linkBlockIsIndefiniteParameters
+{
+    return [[self listOfLinkBlockIsIndefiniteParameters] containsObject:self.target];
+}
+
+- (BOOL)isUnavailableActionName
+{
+    return [[self listOfLinkBlockUnavailableAction] containsObject:self.target];
+}
+
 + (void) helpSwitchObjcType:(const char*)objcType
                    caseVoid:(void(^)())caseVoid
                      caseId:(void(^)())caseId
@@ -531,6 +555,31 @@ caseNSDirectionalEdgeInsets:(void(^)())caseNSDirectionalEdgeInsets
         _jscontext = [[JSContext alloc] init];
     }
     return _jscontext;
+}
+static NSArray* _listOfLinkBlockIsIndefiniteParameters;
+- (NSArray*)listOfLinkBlockIsIndefiniteParameters
+{
+    if(!_listOfLinkBlockIsIndefiniteParameters){
+        _listOfLinkBlockIsIndefiniteParameters
+        = @[@"objPerformSelectors",@"objPerformSelectorsWithArgs",
+            @"strToPredicateWidthFormatArgs",@"viewAddSubviews",
+            @"strAppendFormat",@"linkEvalCode",@"linkCodeEval",
+            @"objPerformSelectorsWithArgs_linkToReturnValues",
+            @"objIsEqualToSomeone",@"objIsEqualToSomeone_n",
+            @"objPerformSelectors_linkToReturnValues",
+            @"objIsEqualToEach",@"objIsEqualToEach_n",
+            @"arrFilter",@"m_arrFilter"];
+    }
+    return _listOfLinkBlockIsIndefiniteParameters;
+}
+
+static NSArray* _listOfLinkBlockUnavailableAction;
+- (NSArray*)listOfLinkBlockUnavailableAction{
+    if(!_listOfLinkBlockUnavailableAction){
+        _listOfLinkBlockUnavailableAction
+        = @[@"linkObj",@"linkObj_id",@"linkObjs"];
+    }
+    return _listOfLinkBlockUnavailableAction;
 }
 
 #pragma mark - 消息转发

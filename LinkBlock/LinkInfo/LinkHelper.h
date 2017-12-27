@@ -10,6 +10,10 @@
 
 @interface LinkHelper<__covariant ObjectType> : NSProxy
 
+
++ (BOOL)link_block_configuration_get_is_show_warning;
++ (void)link_block_configuration_set_is_show_warning:(BOOL)b;
+
 /**
  获取被帮助形式的对象；该对象可以调用对象本身的方法；也可以调用求助功能；
  这个形式避免了多余的扩展方法，扩展文件和多余的工具类类型定义；
@@ -18,12 +22,16 @@
  */
 + (id)help:(id)target;
 
+
 - (NSArray<NSString*>*)actionCommandSplitFromLinkCode;
 - (NSString*)functionNameSplitFromFunctionCode;
 - (NSString *)propertyNameFromPropertyCode;
 - (NSArray<NSString*>*)functionArgumentSplitFromFunctionCallCode;
 - (NSValue*)valueFromValueCode;
 - (NSNumber*)numberEvalFromCode;
+
+- (BOOL)linkBlockIsIndefiniteParameters;
+- (BOOL)isUnavailableActionName;
 
 + (void)  helpSwitchObjcType:(const char*)objcType
                     caseVoid:(void(^)())caseVoid
