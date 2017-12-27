@@ -1,5 +1,5 @@
 //
-//  LinkCommandInvocation.h
+//  LinkPropertyInvocation.h
 //  LinkBlockProgram
 //
 //  Created by NOVO on 2017/12/26.
@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
-@interface LinkCommandInvocation : NSObject
+
 
 /**
- 构造方法
+ 属性格式调用
+ */
+@interface LinkPropertyInvocation : NSObject
+
+/**
+ 构造方法，运行时报错
  */
 + (instancetype)invocationWithCommand:(NSString*)command;
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class DynamicLinkBlock;
+@class DynamicLinkAction;
 @class DynamicLinkArgument;
 
 
@@ -42,7 +42,7 @@
 
  @param indexPath 至少需要长度为1的路径
  */
-- (DynamicLinkBlock*)blockAtIndexPath:(NSIndexPath*)indexPath;
+- (DynamicLinkAction*)blockAtIndexPath:(NSIndexPath*)indexPath;
 
 /**
  获取indexPath处的动态链条上的参数

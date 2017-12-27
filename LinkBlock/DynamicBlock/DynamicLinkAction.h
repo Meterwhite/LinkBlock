@@ -1,5 +1,5 @@
 //
-//  DynamicLinkBlock.h
+//  DynamicLinkAction.h
 //  LinkBlockProgram
 //
 //  Created by NOVO on 2017/12/15.
@@ -12,9 +12,9 @@
 
 
 /**
- 动态链条block的定义
+ 动态链条一次调用的定义
  */
-@interface DynamicLinkBlock : NSObject
+@interface DynamicLinkAction : NSObject
 
 /**
  使用block脚本代码创建动态block
@@ -29,12 +29,12 @@
 /**
  block的每个参数类型在这个数组中
  */
-@property (nonatomic,strong,readonly) NSArray<NSString*>* objcTypesOfBlockArgs;
+@property (nonatomic,strong,readonly) NSArray<NSString*>* objcTypeOfArguments;
 
 /**
  block的返回值类型
  */
-@property (nonatomic,assign,readonly) const char* objcTypeOfBlockReturn;
+@property (nonatomic,assign,readonly) const char* objcTypeOfActionReturn;
 
 /**
  block的参数总数
@@ -44,7 +44,7 @@
 /**
  block返回值的内存大小
  */
-@property (nonatomic,assign,readonly) NSUInteger lengthOfBlockReturn;
+@property (nonatomic,assign,readonly) NSUInteger lengthOfActionReturn;
 
 
 /**
@@ -67,7 +67,7 @@
  用户的block的脚本代码
  */
 @property (nonatomic,copy,readonly) NSString* stringValue;
-@property (nonatomic,copy,readonly) NSString* blockName;
+@property (nonatomic,copy,readonly) NSString* actionName;
 
 /**
  当前动态block在整个链条中的的路径，长度至少为1，索引是0

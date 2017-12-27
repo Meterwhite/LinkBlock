@@ -7,13 +7,13 @@
 //
 
 #import "DynamicLink.h"
-#import "DynamicLinkBlock.h"
+#import "DynamicLinkAction.h"
 #import "DynamicLinkArgument.h"
 #import "LinkHelper.h"
 #import "NSObject+LinkBlock.h"
 
 @interface DynamicLink()
-@property (nonatomic,strong) NSMutableArray<DynamicLinkBlock*>* items;
+@property (nonatomic,strong) NSMutableArray<DynamicLinkAction*>* items;
 @end
 
 @implementation DynamicLink
@@ -30,14 +30,14 @@
     id currentOrigin = origin;
     for (NSUInteger idx_bk = 0; idx_bk < self.countOfItems; idx_bk++) {
         
-        DynamicLinkBlock* block = self.items[idx_bk];
+        DynamicLinkAction* block = self.items[idx_bk];
         currentOrigin = [block invoke:currentOrigin args:list end:&isEnd];
         if(isEnd == YES){
             break;
         }
         if(!currentOrigin){
             //void返回类型后不能再有链条
-            NSLog(@"DynamicLink Error:%@不可接受的返回类型",self.items[idx_bk].blockName);
+            NSLog(@"DynamicLink Error:%@不可接受的返回类型",self.items[idx_bk].actionName);
             break;
         }
     }
@@ -53,11 +53,11 @@
         
         _code = code;
         
-        NSArray* blockStrings = [[LinkHelper help:_code] blockCommandSplitFromLinkCode];
+        NSArray* blockStrings = [[LinkHelper help:_code] actionCommandSplitFromLinkCode];
         [blockStrings enumerateObjectsUsingBlock:^(NSString*  _Nonnull blockString, NSUInteger idx, BOOL * _Nonnull stop) {
             
             //构造block
-            DynamicLinkBlock* dyLinkBlock = [DynamicLinkBlock dynamicLinkBlockWithCode:blockString index:idx];
+            DynamicLinkAction* dyLinkBlock = [DynamicLinkAction dynamicLinkBlockWithCode:blockString index:idx];
             if(!dyLinkBlock){
                 *stop = YES;
                 return;
@@ -75,7 +75,7 @@
 {
     return self.items.count;
 }
-- (DynamicLinkBlock *)blockAtIndexPath:(NSIndexPath *)indexPath
+- (DynamicLinkAction *)blockAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger idx = [indexPath indexAtPosition:0];
     if(idx > self.items.count-1 ) return nil;
@@ -83,11 +83,11 @@
 }
 - (DynamicLinkArgument *)argumentAtIndexPath:(NSIndexPath *)indexPath
 {
-    DynamicLinkBlock* block = [self blockAtIndexPath:indexPath];
+    DynamicLinkAction* block = [self blockAtIndexPath:indexPath];
     if(!block) return nil;
     return  [block argumentAtIndexPath:indexPath];
 }
-- (NSMutableArray<DynamicLinkBlock *> *)items
+- (NSMutableArray<DynamicLinkAction *> *)items
 {
     if(!_items){
         _items = [NSMutableArray new];

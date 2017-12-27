@@ -1,21 +1,22 @@
 //
-//  LinkCommandInvocation.m
+//  LinkPropertyInvocation.m
 //  LinkBlockProgram
 //
 //  Created by NOVO on 2017/12/26.
 //  Copyright © 2017年 NOVO. All rights reserved.
 //
 
-#import "LinkCommandInvocation.h"
+#import "LinkPropertyInvocation.h"
 #import "LinkHelper.h"
 #import "LinkBlock.h"
+#import "LinkError.h"
 
-@interface LinkCommandInvocation()
+@interface LinkPropertyInvocation()
 @property (nonatomic,strong) NSInvocation* invocation;
 @property (nonatomic,copy) NSString* command;
 @end
 
-@implementation LinkCommandInvocation
+@implementation LinkPropertyInvocation
 + (instancetype)invocationWithCommand:(NSString*)command
 {
     return [[self alloc] initWithCommand:command];
@@ -25,11 +26,9 @@
 {
     self = [super init];
     if (self) {
-        [NSObject instanceMethodSignatureForSelector:nil];
         NSMethodSignature* sig = [self methodSignatureForSelector:@selector(commandInvoke:)];
         self.invocation = [NSInvocation invocationWithMethodSignature:sig];
-        __weak typeof(self) _self = self;
-        self.invocation.target = _self;
+        self.invocation.target = self;
         self.invocation.selector = @selector(commandInvoke:);
         self.command = command;
     }
@@ -178,9 +177,9 @@
         return reV;
     }
     
-OTHERS:
-    
-    return nil;
+END:
+    return [LinkError errorWithCustomDescription:[NSString stringWithFormat:@"无法计算%@；不能识别的属性、命令或者无参方法"
+                                                  ,self.command]];
 }
 
 static NSDictionary* _linkBlockCommandReflectList;

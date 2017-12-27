@@ -9,6 +9,7 @@
 #import "LinkBlock.h"
 #import "LinkHelper.h"
 #import <AVFoundation/AVFoundation.h>
+#import "DynamicLink.h"
 
 @implementation NSObject(NSStringLinkBlock)
 
@@ -2246,7 +2247,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
 #pragma mark - LinkCode
 
 
-- (NSObject *(^)(id , ...))linkCodeEvalFrom
+- (NSObject *(^)(id , ...))linkCodeEval
 {
     return ^id(id obj, ...){
         LinkHandle_REF(NSString)
@@ -2259,8 +2260,9 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
             va_list args;
             va_start(args, obj);
             for (int i=0; i<group.linkObjects.count; i++) {
-//                id re = [LinkHelper linkObj:_self evalCode:_self args:args];
-//                [returnObjs addObject:linkObj(re)];
+                DynamicLink* link = [DynamicLink dynamicLinkWithCode:_self];
+                id result = [link invoke:obj args:args];
+                [returnObjs addObject:result];
             }
             va_end(args);
             [group.linkObjects setArray:returnObjs];
@@ -2271,9 +2273,11 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         
         va_list args;
         va_start(args , obj);
-
+        DynamicLink* link = [DynamicLink dynamicLinkWithCode:_self];
+        id result = [link invoke:obj args:args];
         va_end(args);
-        return nil;
+        
+        return result;
     };
 }
 

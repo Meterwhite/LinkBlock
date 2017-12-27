@@ -45,14 +45,14 @@
 #import "UIFont+LinkBlock.h"
 
 //////////////////////////////////////////////////////////////////////
-//MARK:最新！动态解析LinkCode
+//MARK:新增！动态解析LinkCode
 //////////////////////////////////////////////////////////////////////
 #ifndef linkEvalCode
-#define linkEvalCode(code , args...) linkEvalCode(code , ##args , nil)
+#define linkEvalCode(code , args...) linkEvalCode(code , ##args, nil, NSNotFound)
 #endif
 
-#ifndef linkCodeEvalFrom
-#define linkCodeEvalFrom(obj , args...) linkCodeEvalFrom(obj , ##args , nil)
+#ifndef linkCodeEval
+#define linkCodeEval(obj , args...) linkCodeEval(obj, ##args, nil, NSNotFound)
 #endif
 
 #ifndef linkArgsToEvalCode

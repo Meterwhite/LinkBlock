@@ -28,7 +28,7 @@
     return [self.target isKindOfClass:type];
 }
 
-- (NSArray<NSString *> *)blockCommandSplitFromLinkCode
+- (NSArray<NSString *> *)actionCommandSplitFromLinkCode
 {
     if(![self checkTargetType:[NSString class]]) return nil;
     
@@ -55,10 +55,21 @@
     if(![self checkTargetType:[NSString class]]) return nil;
     
     NSRange rangeOfBlockName = [self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(" options:NSRegularExpressionSearch];
+    if(!rangeOfBlockName.length) return nil;
     NSString* functionName = [self.target substringWithRange:rangeOfBlockName];
     functionName = [functionName stringByReplacingOccurrencesOfString:@" " withString:@""];
     functionName = [functionName substringToIndex:functionName.length-1];
     return functionName;
+}
+
+- (NSString *)propertyNameFromPropertyCode
+{
+    if(![self checkTargetType:[NSString class]]) return nil;
+    NSRange rangeOfPropertyName = [self.target rangeOfString:@"[a-zA-Z_]+\\d*" options:NSRegularExpressionSearch];
+    if(!rangeOfPropertyName.length) return nil;
+    NSString* propertyName = [self.target substringWithRange:rangeOfPropertyName];
+    propertyName = [propertyName stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return propertyName;
 }
 
 - (NSValue*)valueFromValueCode
@@ -278,7 +289,7 @@
     }
     
     //LinkBlock脚本代码
-    NSArray<NSString*>* blockCommands = [[LinkHelper help:code] blockCommandSplitFromLinkCode];
+    NSArray<NSString*>* blockCommands = [[LinkHelper help:code] actionCommandSplitFromLinkCode];
     if(blockCommands.count){
         DynamicLink* link = [DynamicLink dynamicLinkWithCode:code];
         return [link invoke:[NSNull null] args:nil];

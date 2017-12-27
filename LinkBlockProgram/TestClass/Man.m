@@ -14,4 +14,10 @@
 {
     @"Man call dealloc".nslog();
 }
+
+- (id)copy
+{
+    @"Man call copy".nslog();
+    return [super copy];
+}
 @end

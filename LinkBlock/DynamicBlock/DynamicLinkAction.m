@@ -1,31 +1,41 @@
 //
-//  DynamicLinkBlock.m
+//  DynamicLinkAction.m
 //  LinkBlockProgram
 //
 //  Created by NOVO on 2017/12/15.
 //  Copyright © 2017年 NOVO. All rights reserved.
 //
 
-#import "DynamicLinkBlock.h"
+#import "DynamicLinkAction.h"
 #import "DynamicLinkArgument.h"
-#import "NSObject+LinkBlock.h"
 #import "LinkBlockInvocation.h"
+#import "LinkPropertyInvocation.h"
+#import "NSObject+LinkBlock.h"
 #import "LinkHelper.h"
 
-@interface DynamicLinkBlock()
+typedef enum LinkActionStyle{
+    LinkActionStyleUnknown  = 0,
+    LinkActionStyleBlock    = 1,
+    //暂不支持的样式
+    LinkActionStyleFunction = 1 << 2,
+    LinkActionStyleProperty = 1 << 3
+}LinkActionStyle;
+
+@interface DynamicLinkAction()
 {
-    
+    LinkActionStyle _mark;
 }
 @property (nonatomic,strong) NSMutableArray<DynamicLinkArgument*>* items;
 @property (nonatomic,strong) NSPointerArray* pointsOfBridgingRetain;
+
 @end
 
-@implementation DynamicLinkBlock
-@synthesize objcTypesOfBlockArgs = _objcTypesOfBlockArgs;
+@implementation DynamicLinkAction
+@synthesize objcTypeOfArguments = _objcTypeOfArguments;
 
 + (instancetype)dynamicLinkBlockWithCode:(NSString *)code index:(NSUInteger)index
 {
-    DynamicLinkBlock * block = [[self alloc] initWithCode:code index:index];
+    DynamicLinkAction * block = [[self alloc] initWithCode:code index:index];
     if(!block.validate) return nil;
     return block;
 }
@@ -44,14 +54,19 @@
     self = [self init];
     if (self) {
         
+        //items
+        NSArray<NSString*>* argsAsString = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
+        NSString* blockName = [[LinkHelper help:code] functionNameSplitFromFunctionCode];
+        NSString* propertyName = [[LinkHelper help:code] propertyNameFromPropertyCode];
+        
         _stringValue = code;
-        _blockName = [[LinkHelper help:code] functionNameSplitFromFunctionCode];
         _indexPath = [NSIndexPath indexPathWithIndex:index0];
         
-        //property of runtime
-        if([NSObject classContainProperty:_blockName]){
+        //是否是可调用的block属性
+        if(blockName && [NSObject classContainProperty:blockName]){
             
-            id block = [NSObject valueForKey:_blockName];
+            
+            id block = [NSObject valueForKey:blockName];
             LinkBlockInvocation* inoke =[LinkBlockInvocation invocationWithBlock:block];
             NSMethodSignature* sig = inoke.methodSignature;
             NSMutableArray* objcTypesArr = [NSMutableArray new];
@@ -61,32 +76,52 @@
                 [objcTypesArr addObject:[NSString stringWithUTF8String:objcType]];
             }
             if(objcTypesArr.count){
-                _objcTypesOfBlockArgs = [objcTypesArr copy];
+                _objcTypeOfArguments = [objcTypesArr copy];
             }
-            _objcTypeOfBlockReturn = sig.methodReturnType;
-            _lengthOfBlockReturn = sig.methodReturnLength;
+            _actionName = blockName;
+            _objcTypeOfActionReturn = sig.methodReturnType;
+            _lengthOfActionReturn = sig.methodReturnLength;
             _numberOfArguments = sig.numberOfArguments - 1;
             _validate = YES;
-        }
-        
-        //items
-        NSArray<NSString*>* argsAsString = [[LinkHelper help:code] functionArgumentSplitFromFunctionCallCode];
-        [argsAsString enumerateObjectsUsingBlock:^(NSString * _Nonnull argAsString, NSUInteger index1, BOOL * _Nonnull stop) {
+            _mark = LinkActionStyleBlock;
             
-            if(argAsString.length){
+            
+            [argsAsString enumerateObjectsUsingBlock:^(NSString * _Nonnull argAsString, NSUInteger index1, BOOL * _Nonnull stop) {
                 
-                DynamicLinkArgument* arg = [DynamicLinkArgument dynamicLinkArgumentFromVlueCode:argAsString];
-                if(arg){
-                    NSIndexPath* indexPathOfArg = [NSIndexPath indexPathWithIndex:index0];
-                    indexPathOfArg = [indexPathOfArg indexPathByAddingIndex:index1];
-                    [arg setValue:indexPathOfArg forKey:@"indexPath"];
-                    [self.items addObject:arg];
+                if(argAsString.length){
+                    
+                    DynamicLinkArgument* arg = [DynamicLinkArgument dynamicLinkArgumentFromVlueCode:argAsString];
+                    if(arg){
+                        NSIndexPath* indexPathOfArg = [NSIndexPath indexPathWithIndex:index0];
+                        indexPathOfArg = [indexPathOfArg indexPathByAddingIndex:index1];
+                        [arg setValue:indexPathOfArg forKey:@"indexPath"];
+                        [self.items addObject:arg];
+                    }
                 }
+            }];
+            if(argsAsString.count > _numberOfArguments){
+                NSLog(@"DynamicLink Warning:%@()中存在过多的%@个参数！如果这种做法有明确意义，请忽略该条警告",_actionName,@(argsAsString.count-_numberOfArguments));
             }
-        }];
-        if(argsAsString.count > _numberOfArguments){
-            NSLog(@"DynamicLink Warning:%@()中存在过多的%@个参数！如果这种做法有明确意义，请忽略该条警告",_blockName,@(argsAsString.count-_numberOfArguments));
+        }else if(!argsAsString && propertyName){
+            //属性格式调用
+            
+            _actionName = propertyName;
+            _objcTypeOfActionReturn = @encode(id);
+            _lengthOfActionReturn = sizeof(id);
+            _numberOfArguments = 0;
+            _objcTypeOfArguments = nil;
+            _validate = YES;
+            _mark = LinkActionStyleProperty;
+        }else if (blockName){
+            
+//            _objcTypeOfBlockReturn = @encode(void);
+//            _lengthOfActionReturn = 0;
+//            _numberOfArguments = 0;
+//            _objcTypeOfArguments = nil;
+            _validate = NO;
+            _mark = LinkActionStyleFunction;
         }
+
     }
     return self;
 }
@@ -161,18 +196,33 @@
 {
     //验证的对象
     if(!self.validate) return [NSNull null];
-    //是否响应block
     
     
     if(![origin isKindOfClass:[NSObject class]]){
         return [NSNull null];
     }
-         
-    //block是否具有路径
+    
+    //action是否具有路径
     if(self.indexPath.length != 1) return [NSNull null];
     
+    va_list*  list_copy = malloc(sizeof(va_list));
+    va_copy(*list_copy, vlist);
+    
+    if(_mark & LinkActionStyleBlock){
+        goto CODE_BLOCK_TYPE;
+    }else if (_mark & LinkActionStyleProperty){
+        goto CODE_PROPERTY_TYPE;
+    }else if (_mark & LinkActionStyleFunction){
+        goto CODE_FUNCTION_TYPE;
+    }else{
+        goto CODE_UNKNOWN_TYPE;
+    }
+    
+    
+CODE_BLOCK_TYPE:{
+    
     //构造block调用者
-    id block = [origin valueForKey:_blockName];
+    id block = [origin valueForKey:_actionName];
     LinkBlockInvocation* invok =[LinkBlockInvocation invocationWithBlock:block];
     NSMethodSignature* signature = invok.methodSignature;
     
@@ -303,154 +353,154 @@
             const char* objcType = [signature getArgumentTypeAtIndex:idx_arg+1];
             
             [LinkHelper helpSwitchObjcType:objcType caseVoid:nil caseId:^{
-                id val = va_arg(vlist, id);
+                id val = va_arg(*list_copy, id);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseClass:^{
-                Class val = va_arg(vlist, Class);
+                Class val = va_arg(*list_copy, Class);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseIMP:^{
-                IMP val = va_arg(vlist, IMP);
+                IMP val = va_arg(*list_copy, IMP);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseSEL:^{
-                SEL val = va_arg(vlist, SEL);
+                SEL val = va_arg(*list_copy, SEL);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseDouble:^{
-                double val = va_arg(vlist, double);
+                double val = va_arg(*list_copy, double);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseFloat:^{
-                float val = va_arg(vlist, double);
+                float val = va_arg(*list_copy, double);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } casePointer:^{
-                void* val = va_arg(vlist, void*);
+                void* val = va_arg(*list_copy, void*);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCharPointer:^{
-                char* val = va_arg(vlist, char*);
+                char* val = va_arg(*list_copy, char*);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedLong:^{
-                unsigned long val = va_arg(vlist, unsigned long);
+                unsigned long val = va_arg(*list_copy, unsigned long);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedLongLong:^{
-                unsigned long long val = va_arg(vlist, unsigned long long);
+                unsigned long long val = va_arg(*list_copy, unsigned long long);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseLong:^{
-                long val = va_arg(vlist, long);
+                long val = va_arg(*list_copy, long);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseLongLong:^{
-                long long val = va_arg(vlist, long long);
+                long long val = va_arg(*list_copy, long long);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseInt:^{
-                int val = va_arg(vlist, int);
+                int val = va_arg(*list_copy, int);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedInt:^{
-                unsigned int val = va_arg(vlist, unsigned int);
+                unsigned int val = va_arg(*list_copy, unsigned int);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseBOOL_Char_xyShort:^{
-                int val = va_arg(vlist, int);
+                int val = va_arg(*list_copy, int);
                 if(!val){ *end = YES; return;}
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGRect:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                CGRect val = va_arg(vlist, CGRect);
+                CGRect val = va_arg(*list_copy, CGRect);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseNSRange:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                NSRange val = va_arg(vlist, NSRange);
+                NSRange val = va_arg(*list_copy, NSRange);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGSize:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                CGSize val = va_arg(vlist, CGSize);
+                CGSize val = va_arg(*list_copy, CGSize);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGPoint:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                CGPoint val = va_arg(vlist, CGPoint);
+                CGPoint val = va_arg(*list_copy, CGPoint);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGVector:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                CGVector val = va_arg(vlist, CGVector);
+                CGVector val = va_arg(*list_copy, CGVector);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUIEdgeInsets:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                UIEdgeInsets val = va_arg(vlist, UIEdgeInsets);
+                UIEdgeInsets val = va_arg(*list_copy, UIEdgeInsets);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseUIOffset:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                UIOffset val = va_arg(vlist, UIOffset);
+                UIOffset val = va_arg(*list_copy, UIOffset);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCATransform3D:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                CATransform3D val = va_arg(vlist, CATransform3D);
+                CATransform3D val = va_arg(*list_copy, CATransform3D);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseCGAffineTransform:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                va_copy(check_list, *list_copy);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;va_end(check_list);return;
                 }
                 va_end(check_list);
-                CGAffineTransform val = va_arg(vlist, CGAffineTransform);
+                CGAffineTransform val = va_arg(*list_copy, CGAffineTransform);
                 [invok setArgument:&val atIndex:idx_arg + 1];
             } caseNSDirectionalEdgeInsets:^{
                 if (@available(iOS 11.0, *)) {
                     va_list check_list;
-                    va_copy(check_list, vlist);
+                    va_copy(check_list, *list_copy);
                     if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                         *end = YES;return;
                     }
-                    NSDirectionalEdgeInsets val = va_arg(vlist, NSDirectionalEdgeInsets);
+                    NSDirectionalEdgeInsets val = va_arg(*list_copy, NSDirectionalEdgeInsets);
                     [invok setArgument:&val atIndex:idx_arg + 1];
                 }
             } defaule:nil];
@@ -467,7 +517,7 @@
     __block BOOL returnNSValue = NO;
     __block NSValue* re_nsvalue;
     //取返回值
-    [LinkHelper helpSwitchObjcType:self.objcTypeOfBlockReturn caseVoid:nil caseId:^{
+    [LinkHelper helpSwitchObjcType:self.objcTypeOfActionReturn caseVoid:nil caseId:^{
         returnID = YES;
         [invok getReturnValue:&re_id];
     } caseClass:^{
@@ -594,6 +644,10 @@
         }
     } defaule:nil];
     
+    
+    free(list_copy);
+    va_end(*list_copy);
+    
     if(returnID){
         CFBridgingRetain(re_id);
         return re_id;
@@ -604,6 +658,32 @@
     }
     //其他结构体和共用体
     NSLog(@"DynamicLink Error:不支持的结构体类型或共用体");
+    return nil;
+}
+    
+    //****************属性格式****************
+CODE_PROPERTY_TYPE:{
+    
+    free(list_copy);
+    va_end(*list_copy);
+    LinkPropertyInvocation* invocation = [LinkPropertyInvocation invocationWithCommand:_actionName];
+    return [invocation invokeWithTarget:origin];
+}
+    
+    //****************方法调用****************
+CODE_FUNCTION_TYPE:{
+    
+    free(list_copy);
+    va_end(*list_copy);
+    goto CODE_UNKNOWN_TYPE;
+}
+    
+    //****************未知类型****************
+CODE_UNKNOWN_TYPE:
+    
+    free(list_copy);
+    va_end(*list_copy);
+    NSLog(@"DynamicLink Error:不能识别或不支持的调用%@", _actionName);
     return nil;
 }
 

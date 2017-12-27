@@ -9,7 +9,7 @@
 
 @interface NSObject(NSStringLinkBlock)
 #pragma mark - LinkCode
-LBDeclare NSObject*            (^linkCodeEvalFrom)(id obj, ...);
+LBDeclare NSObject*            (^linkCodeEval)(id obj, ...);
 
 #pragma mark - 通用
 /** <^(NSUInteger index)> */
