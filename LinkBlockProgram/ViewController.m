@@ -157,12 +157,12 @@
 //    id re = [invok invokeWithTarget:nil];
 //    [LinkHelper link_block_configuration_set_is_show_warning:NO];
     
-//    id re = @"NSStringNew.strAppend(@YES3).linkObj(nil)".linkCodeEval([NSNull null]).nslog();
+    id re = @"NSStringNew.strAppend(@YES3).linkObj(nil)".linkCodeEval([NSNull null]).nslog();
     
-    id xx = [NSNil copy];
-    if(NSNil == nil){
-        @"is nil".nslog();
-    }
+//    id xx = [NSNil copy];
+//    if(NSNil == nil){
+//        @"is nil".nslog();
+//    }
     
     @"End of test".nslog();
     return;
