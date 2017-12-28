@@ -8,6 +8,7 @@
 
 #import "DynamicLinkArgument.h"
 #import "LinkHelper.h"
+#import "NSNil.h"
 
 @interface DynamicLinkArgument()
 
@@ -27,7 +28,7 @@
     self = [super init];
     if (self) {
         _objcValue = [[LinkHelper help:code] valueFromValueCode];
-        if(!_objcValue){
+        if(NSEqualNil(_objcValue)){
             NSLog(@"DynamicLink Error:无法解析的值%@！",code);
             _validate = NO;
         }else{

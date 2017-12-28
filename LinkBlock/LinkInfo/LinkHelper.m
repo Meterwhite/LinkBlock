@@ -85,9 +85,6 @@ static bool _link_block_configuration_get_is_show_warning = true;
     if(![self checkTargetType:[NSString class]]){
         return nil;
     }
-    if(!self.target){
-        return nil;
-    };
     
     NSString* code = [self.target copy];
     

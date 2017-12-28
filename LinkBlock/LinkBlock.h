@@ -5,6 +5,7 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
+#import "NSNil.h"
 #import "NSObject+LinkBlock.h"
 #import "NSArray+LinkBlock.h"
 #import "NSAttributedString+LinkBlock.h"

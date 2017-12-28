@@ -47,7 +47,7 @@
     return ^id(NSString *str){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strAppend,str)
-        if(!str) return _self;
+        if([str isEqual:nil]) return _self;
         
         if([_self isKindOfClass:[NSString class]]&&
            [_self isMemberOfClass:NSClassFromString(@"__NSCFString")]){
@@ -1986,7 +1986,7 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLAllKeys)
         NSDictionary* kvs = _self.strURLKeyValues();
-        if(!kvs) return @[];
+        if(!kvs) return NSArrayNew;
         return [kvs allKeys];
     };
 }
@@ -1997,7 +1997,7 @@
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLAllValues)
         NSDictionary* kvs = _self.strURLKeyValues();
-        if(!kvs) return @[];
+        if(!kvs) return NSArrayNew;
         return [kvs allValues];
     };
 }
@@ -2398,7 +2398,8 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
             NSArray* kvArr = [kvStrArr[i] componentsSeparatedByString:@"="];
             if(kvArr.count == 2){
                 
-                NSString* k = kvArr[0]; NSString* v = kvArr[1];
+                NSString* k = kvArr[0];
+                NSString* v = kvArr[1];
                 if(!isStop)
                     block(&baseURL , &k , &v , &isStop);
                 if(baseURL && k && v)

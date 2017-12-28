@@ -10,6 +10,7 @@
 #import "LinkHelper.h"
 #import "LinkBlock.h"
 #import "LinkError.h"
+#import "NSNil.h"
 
 @interface LinkPropertyInvocation()
 @property (nonatomic,strong) NSInvocation* invocation;
@@ -54,14 +55,21 @@
         }
     }
     
+    //类名
+    Class clzz = NSClassFromString(self.command);
+    if(clzz){
+        return [NSValue valueWithBytes:&clzz objCType:@encode(Class)];
+    }
     
-    //直接响应方法
     SEL sel = NSSelectorFromString(self.command);
+    NSMethodSignature* sig = [target methodSignatureForSelector:sel];
+    
+PROPERTY_TYPE:{
+    //直接响应方法
     if([target respondsToSelector:sel]){
-        [target methodSignatureForSelector:sel];
         
-        NSMethodSignature* sig = [target methodSignatureForSelector:sel];
-        if(sig.numberOfArguments>2 && LinkHelper.link_block_configuration_get_is_show_warning){
+    CALL_SIGNATURE:
+        if(sig.numberOfArguments > 2 && LinkHelper.link_block_configuration_get_is_show_warning){
             NSLog(@"DynamicLink Warning:%@,没有入参的方法调用!",self.command);
         };
         NSInvocation* invok = [NSInvocation invocationWithMethodSignature:sig];
@@ -176,6 +184,30 @@
         }];
         return reV;
     }
+}
+    
+NSVALUE_TYPE:{
+    if([target isKindOfClass:[NSValue class]]){
+        const char* objcType = [target objCType];
+        if(strcmp(objcType, @encode(Class)) == 0){
+            //装箱的Clss
+            Class val;
+            [target getValue:&val];
+            clzz = val;
+            if([val respondsToSelector:sel]){
+                sig = [val methodSignatureForSelector:sel];
+                target = val;
+                goto CALL_SIGNATURE;
+            }
+        }else if (strcmp(objcType, @encode(id)) == 0){
+            //装箱的对象
+            id val;
+            [target getValue:&val];
+            target = val;
+            goto PROPERTY_TYPE;
+        }
+    }
+}
     
 END:
     NSLog(@"DynamicLink Error:无法计算%@；不能识别的属性、命令或者无参方法"
@@ -188,7 +220,8 @@ static NSDictionary* _linkBlockCommandReflectList;
 {
     if(!_linkBlockCommandReflectList){
         _linkBlockCommandReflectList = @{
-                                         @"AttrDictNew":NSMutableDictionaryNew
+                                         @"AttrDictNew":NSMutableDictionaryNew,
+                                         @"NSNil":NSNil
                                          };
     }
     return _linkBlockCommandReflectList;
@@ -207,10 +240,10 @@ static NSArray* _linkBlockUsingListOfva_list;
 #pragma mark - override
 - (id)invokeWithTarget:(id)target
 {
-    if(target){
+    if(!NSEqualNil(target)){
         [self.invocation setArgument:&target atIndex:2];
     }
-
+    
     [self.invocation invoke];
     
     id reV;

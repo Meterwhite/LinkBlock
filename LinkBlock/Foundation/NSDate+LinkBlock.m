@@ -104,7 +104,7 @@
     return ^id(NSString* formatStr){
         LinkHandle_REF(NSDate)
         LinkGroupHandle_REF(dateToStrWithFormat,formatStr)
-        if(!formatStr || ![formatStr isKindOfClass:[NSString class]])
+        if(NSEqualNil(formatStr) || ![formatStr isKindOfClass:[NSString class]])
             return [_self description];
         NSDateFormatter* fmt=  [NSDateFormatter new];
         fmt.dateFormat= formatStr;

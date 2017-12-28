@@ -12,6 +12,7 @@
 #import "LinkPropertyInvocation.h"
 #import "NSObject+LinkBlock.h"
 #import "LinkHelper.h"
+#import "NSNil.h"
 
 //调用类型
 typedef enum LinkActionStyle{
@@ -207,11 +208,6 @@ typedef enum LinkActionStyle{
     //验证的对象
     if(!self.validate) return [NSNull null];
     
-    
-    if(![origin isKindOfClass:[NSObject class]]){
-        return [NSNull null];
-    }
-    
     //action是否具有路径
     if(self.indexPath.length != 1) return [NSNull null];
     
@@ -234,8 +230,13 @@ typedef enum LinkActionStyle{
     
 CODE_BLOCK_TYPE:{
     
+    if(![origin isKindOfClass:[NSObject class]]){
+        return [NSNull null];
+    }
+    
     //构造block调用者
-    id block = [origin valueForKey:_actionName];
+    id block = [origin valueForKeyPath:_actionName];
+#error <#message#>
     LinkBlockInvocation* invocation =[LinkBlockInvocation invocationWithBlock:block];
     NSMethodSignature* signature = invocation.methodSignature;
     
@@ -368,11 +369,11 @@ CODE_BLOCK_TYPE:{
             
             [LinkHelper helpSwitchObjcType:objcType caseVoid:nil caseId:^{
                 id val = va_arg(*list_copy, id);
-                if(!val){ *end = YES; return;}
+                if(NSEqualNil(val)){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseClass:^{
                 Class val = va_arg(*list_copy, Class);
-                if(!val){ *end = YES; return;}
+                if(NSEqualNil(val)){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseIMP:^{
                 IMP val = va_arg(*list_copy, IMP);
@@ -689,7 +690,7 @@ CODE_FUNCTION_TYPE:{
     
     free(list_copy);
     va_end(*list_copy);
-    goto CODE_UNKNOWN_TYPE;
+    return nil;
 }
     
     //****************未知类型****************

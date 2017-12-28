@@ -594,7 +594,7 @@
     return ^id(id obj){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objRemoveFrom , obj)
-        if(!obj) return _self;
+        if(NSEqualNil(obj)) return _self;
         if([obj isKindOfClass:[NSMutableArray class]] ||
            [obj isKindOfClass:[NSMutableSet class]]   ||
            [obj isKindOfClass:[NSHashTable class]]    ||

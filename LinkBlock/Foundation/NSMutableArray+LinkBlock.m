@@ -14,9 +14,9 @@
     return ^id(id obj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrAddObj , obj)
-        if(!obj)goto END;
-        [_self addObject:obj];
-    END:
+        if(obj){
+            [_self addObject:obj];
+        }
         return _self;
     };
 }
@@ -156,10 +156,11 @@
     return ^id(id obj, id withObj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrReplaceObjWith,obj,withObj)
-        if(!obj|| !withObj)goto END;
-        NSInteger idx= [_self indexOfObject:obj];
-        if(idx != NSNotFound){
-            [_self replaceObjectAtIndex:idx withObject:withObj];
+        if(!obj || !withObj)goto END;
+        for (NSUInteger i = 0; i < _self.count; i++) {
+            if([_self[i] isEqual:obj]){
+                _self[i] = withObj;
+            }
         }
     END:
         return _self;

@@ -175,6 +175,26 @@ static id _self = nil;
     return _self;
 }
 
++ (id)new
+{
+    return nil;
+}
+
+- (id)init
+{
+    return nil;
+}
+
+- (NSString *)description
+{
+    return nil;
+}
+
+- (NSString *)debugDescription
+{
+    return nil;
+}
+
 #pragma mark 消息转发
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
@@ -214,7 +234,7 @@ static id _self = nil;
 
 - (BOOL)isEqual:(id)obj
 {
-    return !obj || obj == self ;
+    return obj == nil || obj == _self ;
 }
 
 - (BOOL)isKindOfClass:(Class)class
