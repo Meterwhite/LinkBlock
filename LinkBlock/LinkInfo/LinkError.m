@@ -7,6 +7,7 @@
 
 #import "LinkBlock.h"
 #import "LinkHelper.h"
+#import "NSNil.h"
 
 @interface LinkError ()
 @property (nonatomic,copy) NSString* customDescription;
@@ -64,6 +65,6 @@
 - (id)forwardingTargetForSelector:(SEL)aSelector
 {
     [self logError];
-    return [super forwardingTargetForSelector:aSelector];
+    return NSNil;
 }
 @end

@@ -20,6 +20,7 @@
 		454A9E341FE3B95600CEE102 /* DynamicLinkArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */; };
 		454A9E371FE3BB3400CEE102 /* DynamicLinkAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E361FE3BB3400CEE102 /* DynamicLinkAction.m */; };
 		454A9E3A1FE3BC1A00CEE102 /* DynamicLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E391FE3BC1A00CEE102 /* DynamicLink.m */; };
+		455595C31FF4DEB400C88FB7 /* NSBlackHole.m in Sources */ = {isa = PBXBuildFile; fileRef = 455595C11FF4DEB400C88FB7 /* NSBlackHole.m */; };
 		4559E86A1D952B580034D221 /* LinkReturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E8691D952B580034D221 /* LinkReturn.m */; };
 		458AD6001D193BDC00D5B931 /* JSContext+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FD1D193BDC00D5B931 /* JSContext+LinkBlock.m */; };
 		458AD6011D193BDC00D5B931 /* JSValue+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FF1D193BDC00D5B931 /* JSValue+LinkBlock.m */; };
@@ -103,6 +104,9 @@
 		454A9E361FE3BB3400CEE102 /* DynamicLinkAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLinkAction.m; sourceTree = "<group>"; };
 		454A9E381FE3BC1A00CEE102 /* DynamicLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLink.h; sourceTree = "<group>"; };
 		454A9E391FE3BC1A00CEE102 /* DynamicLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLink.m; sourceTree = "<group>"; };
+		455595C01FF4DEB400C88FB7 /* NSNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNil.h; sourceTree = "<group>"; };
+		455595C11FF4DEB400C88FB7 /* NSBlackHole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBlackHole.m; sourceTree = "<group>"; };
+		455595C21FF4DEB400C88FB7 /* NSBlackHole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBlackHole.h; sourceTree = "<group>"; };
 		4559E8681D952B580034D221 /* LinkReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkReturn.h; sourceTree = "<group>"; };
 		4559E8691D952B580034D221 /* LinkReturn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkReturn.m; sourceTree = "<group>"; };
 		456366091E77DD0900C1ABE2 /* LinkBlockDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LinkBlockDefine.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -241,6 +245,16 @@
 			path = DynamicBlock;
 			sourceTree = "<group>";
 		};
+		455595BF1FF4DEB400C88FB7 /* NSBlackHole */ = {
+			isa = PBXGroup;
+			children = (
+				455595C01FF4DEB400C88FB7 /* NSNil.h */,
+				455595C21FF4DEB400C88FB7 /* NSBlackHole.h */,
+				455595C11FF4DEB400C88FB7 /* NSBlackHole.m */,
+			);
+			path = NSBlackHole;
+			sourceTree = "<group>";
+		};
 		458AD5FB1D193BBB00D5B931 /* JavaScriptCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +272,7 @@
 		45BFEBE71D34F153007B83B5 /* LinkInfo */ = {
 			isa = PBXGroup;
 			children = (
+				455595BF1FF4DEB400C88FB7 /* NSBlackHole */,
 				456366091E77DD0900C1ABE2 /* LinkBlockDefine.h */,
 				45BFEBE81D34F186007B83B5 /* LinkInfo.h */,
 				45BFEBE91D34F186007B83B5 /* LinkInfo.m */,
@@ -561,6 +576,7 @@
 				9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */,
 				9FBD173B1BDB91D500C2F402 /* NSMutableArray+LinkBlock.m in Sources */,
 				4528C60C1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m in Sources */,
+				455595C31FF4DEB400C88FB7 /* NSBlackHole.m in Sources */,
 				458AD6041D194D9200D5B931 /* JSManagedValue+LinkBlock.m in Sources */,
 				453ED88D1D86B47F00B4A4C4 /* NSError+LinkBlock.m in Sources */,
 				4540E41F1EB034A100AC87F1 /* CAAnimations+LinkBlock.m in Sources */,
