@@ -67,11 +67,11 @@ typedef enum LinkActionStyle{
         _stringValue = code;
         _indexPath = [NSIndexPath indexPathWithIndex:index0];
         
+        id block = [[LinkHelper help:[NSObject class]] blockPropertyFromObjectByPropertyName:functionName];
         //是否是可调用的block属性
-        if(functionName && [NSObject classContainProperty:functionName]){
+        if(functionName && block){
             
             
-            id block = [NSObject valueForKey:functionName];
             LinkBlockInvocation* inoke =[LinkBlockInvocation invocationWithBlock:block];
             NSMethodSignature* sig = inoke.methodSignature;
             NSMutableArray* objcTypesArr = [NSMutableArray new];
@@ -235,8 +235,7 @@ CODE_BLOCK_TYPE:{
     }
     
     //构造block调用者
-    id block = [origin valueForKeyPath:_actionName];
-#error <#message#>
+    id block = [[LinkHelper help:origin] blockPropertyFromObjectByPropertyName:_actionName];
     LinkBlockInvocation* invocation =[LinkBlockInvocation invocationWithBlock:block];
     NSMethodSignature* signature = invocation.methodSignature;
     

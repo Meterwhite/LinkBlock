@@ -10,28 +10,58 @@
 
 @interface LinkHelper<__covariant ObjectType> : NSProxy
 
-
-+ (BOOL)link_block_configuration_get_is_show_warning;
-+ (void)link_block_configuration_set_is_show_warning:(BOOL)b;
-
-/**
- 获取被帮助形式的对象；该对象可以调用对象本身的方法；也可以调用求助功能；
- 这个形式避免了多余的扩展方法，扩展文件和多余的工具类类型定义；
-
- @param target 要寻求帮助的对象，该方法不会引用目标对象，确保目标在使用前不被释放，或者使用helpAndRef
- */
 + (id)help:(id)target;
 
 
+/**
+ 拆分调用命令
+ */
 - (NSArray<NSString*>*)actionCommandSplitFromLinkCode;
+
+/**
+ 截取函数名
+ */
 - (NSString*)functionNameSplitFromFunctionCode;
+
+/**
+ 截取属性明
+ */
 - (NSString *)propertyNameFromPropertyCode;
+
+/**
+ 函数参数拆分
+ */
 - (NSArray<NSString*>*)functionArgumentSplitFromFunctionCallCode;
+
+
+/**
+ 字符串字面量解析并装箱
+ */
 - (NSValue*)valueFromValueCode;
+
+/**
+ 字符串数学表达式计算
+ */
 - (NSNumber*)numberEvalFromCode;
 
-- (BOOL)linkBlockIsIndefiniteParameters;
+/**
+ 获取对象的block属性
+
+ @param propertyName block属性名称
+ */
+- (id)blockPropertyFromObjectByPropertyName:(NSString*)propertyName;
+
+
+/**
+ 是否是不定参数的block属性
+ */
+- (BOOL)isIndefiniteParametersLinkBlockName;
+
+/**
+ 是否是禁止的调用名称
+ */
 - (BOOL)isUnavailableActionName;
+
 
 + (void)  helpSwitchObjcType:(const char*)objcType
                     caseVoid:(void(^)())caseVoid
@@ -62,4 +92,12 @@
  caseNSDirectionalEdgeInsets:(void(^)())caseNSDirectionalEdgeInsets
                      defaule:(void(^)())defaule;
 
+
+#pragma mark - 配置
++ (BOOL)link_block_configuration_get_is_show_warning;
+
+/**
+ 运行时是否显示警告
+ */
++ (void)link_block_configuration_set_is_show_warning:(BOOL)b;
 @end

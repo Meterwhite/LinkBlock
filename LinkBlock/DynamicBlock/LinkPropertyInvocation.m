@@ -64,11 +64,11 @@
     SEL sel = NSSelectorFromString(self.command);
     NSMethodSignature* sig = [target methodSignatureForSelector:sel];
     
-PROPERTY_TYPE:{
+CODE_PROPERTY_TYPE:{
     //直接响应方法
     if([target respondsToSelector:sel]){
         
-    CALL_SIGNATURE:
+    CODE_CALL_SIGNATURE:
         if(sig.numberOfArguments > 2 && LinkHelper.link_block_configuration_get_is_show_warning){
             NSLog(@"DynamicLink Warning:%@,没有入参的方法调用!",self.command);
         };
@@ -185,8 +185,7 @@ PROPERTY_TYPE:{
         return reV;
     }
 }
-    
-NSVALUE_TYPE:{
+
     if([target isKindOfClass:[NSValue class]]){
         const char* objcType = [target objCType];
         if(strcmp(objcType, @encode(Class)) == 0){
@@ -197,19 +196,18 @@ NSVALUE_TYPE:{
             if([val respondsToSelector:sel]){
                 sig = [val methodSignatureForSelector:sel];
                 target = val;
-                goto CALL_SIGNATURE;
+                goto CODE_CALL_SIGNATURE;
             }
         }else if (strcmp(objcType, @encode(id)) == 0){
             //装箱的对象
             id val;
             [target getValue:&val];
             target = val;
-            goto PROPERTY_TYPE;
+            goto CODE_PROPERTY_TYPE;
         }
     }
-}
+
     
-END:
     NSLog(@"DynamicLink Error:无法计算%@；不能识别的属性、命令或者无参方法"
           ,self.command);
     return nil;

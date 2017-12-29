@@ -20,25 +20,41 @@
 
 @implementation LinkHelper
 
-#pragma mark - 功能
-static bool _link_block_configuration_get_is_show_warning = true;
-+ (BOOL)link_block_configuration_get_is_show_warning
-{
-    return _link_block_configuration_get_is_show_warning;
-}
-+ (void)link_block_configuration_set_is_show_warning:(BOOL)b
-{
-    _link_block_configuration_get_is_show_warning = b;
-}
+#define self_target_is_type(type) ([self.target isKindOfClass:[type class]])
 
-- (BOOL)checkTargetType:(Class)type
+#pragma mark - 功能
+
+- (id)blockPropertyFromObjectByPropertyName:(NSString *)propertyName
 {
-    return [self.target isKindOfClass:type];
+    if(!self_target_is_type(NSString)) return nil;
+    
+    SEL sel = NSSelectorFromString(propertyName);
+    //可响应
+    if(![self.target respondsToSelector:sel]) return nil;
+    
+    NSMethodSignature* signature = [self.target methodSignatureForSelector:sel];
+    
+    //无参的
+    if(signature.numberOfArguments != 2) return nil;
+    //block的
+    const char* returnType =  signature.methodReturnType;
+    if(returnType[strlen(returnType) - 1] != '?') return nil;
+    
+    NSInvocation* blockPropertyInvocation = [NSInvocation invocationWithMethodSignature:signature];
+    blockPropertyInvocation.target = self.target;
+    blockPropertyInvocation.selector = sel;
+    
+    [blockPropertyInvocation invoke];
+    
+    id block;
+    [blockPropertyInvocation getReturnValue:&block];
+    CFBridgingRetain(block);
+    return block;
 }
 
 - (NSArray<NSString *> *)actionCommandSplitFromLinkCode
 {
-    if(![self checkTargetType:[NSString class]]) return nil;
+    if(!self_target_is_type(NSString)) return nil;
     
     NSString* code = [self.target copy];
     if([code characterAtIndex:code.length-1] != '.'){
@@ -60,7 +76,7 @@ static bool _link_block_configuration_get_is_show_warning = true;
 
 - (NSString *)functionNameSplitFromFunctionCode
 {
-    if(![self checkTargetType:[NSString class]]) return nil;
+    if(!self_target_is_type(NSString)) return nil;
     
     NSRange rangeOfBlockName = [self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(" options:NSRegularExpressionSearch];
     if(!rangeOfBlockName.length) return nil;
@@ -72,7 +88,7 @@ static bool _link_block_configuration_get_is_show_warning = true;
 
 - (NSString *)propertyNameFromPropertyCode
 {
-    if(![self checkTargetType:[NSString class]]) return nil;
+    if(!self_target_is_type(NSString)) return nil;
     NSRange rangeOfPropertyName = [self.target rangeOfString:@"[a-zA-Z_]+\\d*" options:NSRegularExpressionSearch];
     if(!rangeOfPropertyName.length) return nil;
     NSString* propertyName = [self.target substringWithRange:rangeOfPropertyName];
@@ -82,9 +98,7 @@ static bool _link_block_configuration_get_is_show_warning = true;
 
 - (NSValue*)valueFromValueCode
 {
-    if(![self checkTargetType:[NSString class]]){
-        return nil;
-    }
+    if(!self_target_is_type(NSString)) return nil;
     
     NSString* code = [self.target copy];
     
@@ -311,6 +325,7 @@ static bool _link_block_configuration_get_is_show_warning = true;
 
 - (NSArray<NSString *> *)functionArgumentSplitFromFunctionCallCode
 {
+    if(!self_target_is_type(NSString)) return nil;
     //检查格式
     //函数调用格式  字母[数字](...)
     if([self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(.+\\)" options:NSRegularExpressionSearch].location == NSNotFound){
@@ -363,6 +378,7 @@ static bool _link_block_configuration_get_is_show_warning = true;
 
 - (NSNumber *)numberEvalFromCode
 {
+    if(!self_target_is_type(NSString)) return nil;
     //纯数字
     NSScanner* scanner = [[NSScanner alloc] initWithString:self.target];
     if([scanner scanInt:NULL] && [scanner isAtEnd]){
@@ -389,13 +405,15 @@ static bool _link_block_configuration_get_is_show_warning = true;
     return nil;
 }
 
-- (BOOL)linkBlockIsIndefiniteParameters
+- (BOOL)isIndefiniteParametersLinkBlockName
 {
+    if(!self_target_is_type(NSString)) return NO;
     return [[self listOfLinkBlockIsIndefiniteParameters] containsObject:self.target];
 }
 
 - (BOOL)isUnavailableActionName
 {
+    if(!self_target_is_type(NSString)) return NO;
     return [[self listOfLinkBlockUnavailableAction] containsObject:self.target];
 }
 
@@ -643,8 +661,16 @@ static NSArray* _listOfLinkBlockUnavailableAction;
     return [_target debugDescription];
 }
 
-
-
+#pragma mark - 配置
+static bool _link_block_configuration_get_is_show_warning = true;
++ (BOOL)link_block_configuration_get_is_show_warning
+{
+    return _link_block_configuration_get_is_show_warning;
+}
++ (void)link_block_configuration_set_is_show_warning:(BOOL)b
+{
+    _link_block_configuration_get_is_show_warning = b;
+}
 
 //- (void)dealloc
 //{

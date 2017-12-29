@@ -18,6 +18,7 @@
 #import "DynamicLink.h"
 #import "LinkPropertyInvocation.h"
 #import "NSNil.h"
+#import <objc/runtime.h>
 
 #define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
