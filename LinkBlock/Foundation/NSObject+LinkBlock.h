@@ -14,7 +14,7 @@
 #import "Others+LinkBlock.h"
 
 @interface NSObject(LinkBlock)
-#pragma mark - LinkCode
+#pragma mark - DynamicLink
 LBDeclare NSObject*            (^linkEvalCode)(NSString* code , ...);
 
 #pragma mark - 方式

@@ -37,7 +37,7 @@
 @property (nonatomic,assign,readonly) const char* objcTypeOfActionReturn;
 
 /**
- block的参数总数
+ block的参数总数（区别于NSInvocation的计数方式）
  */
 @property (nonatomic,assign,readonly) NSUInteger numberOfArguments;
 

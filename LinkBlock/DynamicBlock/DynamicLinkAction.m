@@ -66,51 +66,14 @@ typedef enum LinkActionStyle{
         
         _stringValue = code;
         _indexPath = [NSIndexPath indexPathWithIndex:index0];
-        
-        id block = [[LinkHelper help:[NSObject class]] blockPropertyFromObjectByPropertyName:functionName];
-        //是否是可调用的block属性
-        if(functionName && block){
+        if(!argsAsString && propertyName){
             
-            
-            LinkBlockInvocation* inoke =[LinkBlockInvocation invocationWithBlock:block];
-            NSMethodSignature* sig = inoke.methodSignature;
-            NSMutableArray* objcTypesArr = [NSMutableArray new];
-            for (NSUInteger i=1; i<sig.numberOfArguments; i++) {
-                
-                const char* objcType = [sig getArgumentTypeAtIndex:i];
-                [objcTypesArr addObject:[NSString stringWithUTF8String:objcType]];
-            }
-            if(objcTypesArr.count){
-                _objcTypeOfArguments = [objcTypesArr copy];
-            }
-            _actionName = functionName;
-            _objcTypeOfActionReturn = sig.methodReturnType;
-            _lengthOfActionReturn = sig.methodReturnLength;
-            _numberOfArguments = sig.numberOfArguments - 1;
-            _validate = YES;
-            _mark = LinkActionStyleBlock;
-            
-            
-            [argsAsString enumerateObjectsUsingBlock:^(NSString * _Nonnull argAsString, NSUInteger index1, BOOL * _Nonnull stop) {
-                
-                if(argAsString.length){
-                    
-                    DynamicLinkArgument* arg = [DynamicLinkArgument dynamicLinkArgumentFromVlueCode:argAsString];
-                    if(arg){
-                        NSIndexPath* indexPathOfArg = [NSIndexPath indexPathWithIndex:index0];
-                        indexPathOfArg = [indexPathOfArg indexPathByAddingIndex:index1];
-                        [arg setValue:indexPathOfArg forKey:@"indexPath"];
-                        [self.items addObject:arg];
-                    }
-                }
-            }];
-            if(argsAsString.count > _numberOfArguments && LinkHelper.link_block_configuration_get_is_show_warning){
-                
-                NSLog(@"DynamicLink Warning:%@()中存在过多的%@个参数！如果这种做法有明确意义，请忽略该条警告",_actionName,@(argsAsString.count-_numberOfArguments));
-            }
-        }else if(!argsAsString && propertyName){
             //属性格式调用
-            
+            if([[LinkHelper help:propertyName] isUnavailableActionName]){
+                _validate = NO;
+                NSLog(@"DynamicLink Error:%@是明确禁止的调用!",functionName);
+                goto CODE_RETURN;
+            }
             _actionName = propertyName;
             _objcTypeOfActionReturn = @encode(id);
             _lengthOfActionReturn = sizeof(id);
@@ -118,21 +81,70 @@ typedef enum LinkActionStyle{
             _objcTypeOfArguments = nil;
             _validate = YES;
             _mark = LinkActionStyleProperty;
+            goto CODE_RETURN;
         }else if (functionName){
             
-//            _objcTypeOfBlockReturn = @encode(void);
-//            _lengthOfActionReturn = 0;
-//            _numberOfArguments = 0;
-//            _objcTypeOfArguments = nil;
-//            _mark = LinkActionStyleFunction;
-            if([[LinkHelper help:functionName] isUnavailableActionName]
-               && LinkHelper.link_block_configuration_get_is_show_warning){
-                NSLog(@"DynamicLink Warning:%@()明确禁止的调用!",functionName);
+            id block = [[LinkHelper help:[NSObject class]] blockPropertyFromObjectByPropertyName:functionName];
+            
+            if(block){
+                
+                if([[LinkHelper help:propertyName] isUnavailableActionName]){
+                    _validate = NO;
+                    NSLog(@"DynamicLink Error:%@是明确禁止的调用!",functionName);
+                    goto CODE_RETURN;
+                }
+                
+                if([[LinkHelper help:propertyName] isIndefiniteParametersLinkBlockName]){
+                    if(LinkHelper.link_block_configuration_get_is_show_warning)
+                        NSLog(@"DynamicLink Warning:使用不定参数的block属性可能会造成非预期的行为！，DynamicLink下不定参数的block属性只能接受1个参数！");
+                }
+                
+                //block属性调用
+                LinkBlockInvocation* inoke =[LinkBlockInvocation invocationWithBlock:block];
+                NSMethodSignature* sig = inoke.methodSignature;
+                NSMutableArray* objcTypesArr = [NSMutableArray new];
+                for (NSUInteger i=1; i<sig.numberOfArguments; i++) {
+                    
+                    const char* objcType = [sig getArgumentTypeAtIndex:i];
+                    [objcTypesArr addObject:[NSString stringWithUTF8String:objcType]];
+                }
+                _actionName = functionName;
+                _objcTypeOfActionReturn = sig.methodReturnType;
+                _lengthOfActionReturn = sig.methodReturnLength;
+                _numberOfArguments = sig.numberOfArguments - 1;
+                _validate = YES;
+                _mark = LinkActionStyleBlock;
+                if(objcTypesArr.count){
+                    _objcTypeOfArguments = [objcTypesArr copy];
+                }
+                [argsAsString enumerateObjectsUsingBlock:^(NSString * _Nonnull argAsString, NSUInteger index1, BOOL * _Nonnull stop) {
+                    
+                    if(argAsString.length){
+                        
+                        DynamicLinkArgument* arg = [DynamicLinkArgument dynamicLinkArgumentFromVlueCode:argAsString];
+                        if(arg){
+                            NSIndexPath* indexPathOfArg = [NSIndexPath indexPathWithIndex:index0];
+                            indexPathOfArg = [indexPathOfArg indexPathByAddingIndex:index1];
+                            [arg setValue:indexPathOfArg forKey:@"indexPath"];
+                            [self.items addObject:arg];
+                        }
+                    }
+                }];
+                if(argsAsString.count > _numberOfArguments && LinkHelper.link_block_configuration_get_is_show_warning){
+                    NSLog(@"DynamicLink Warning:%@()中存在过多的%@个参数！如果这种做法有明确意义，请忽略这个条警告",_actionName,@(argsAsString.count-_numberOfArguments));
+                }
+            }else{
+                
+                //函数调用
+                if([[LinkHelper help:functionName] isUnavailableActionName]){
+                    _validate = NO;
+                    NSLog(@"DynamicLink Error:%@是明确禁止的调用!",functionName);
+                }
             }
-            _validate = NO;
         }
-
     }
+    
+CODE_RETURN:
     return self;
 }
 

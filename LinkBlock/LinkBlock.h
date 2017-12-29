@@ -56,8 +56,8 @@
 #define linkCodeEval(obj , args...) linkCodeEval(obj, ##args, nil, NSNotFound)
 #endif
 
-#ifndef linkArgsToEvalCode
-#define linkArgsToEvalCode linkArgsToEvalCode
+#ifndef linkArgumentsEvalCode
+#define linkArgumentsEvalCode linkArgumentsEvalCode
 #endif
 
 

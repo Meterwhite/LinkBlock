@@ -39,127 +39,46 @@
 @property (nonatomic,strong) id  result;
 @end
 
+typedef struct {
+    unsigned int i0;
+    unsigned int i1;
+    void* p0;
+    void* p1;
+}__va_list_tag;
 @implementation ViewController
 
-- (NSPointerArray *)pointsOfBridgingRetain
-{
-    if(!_pointsOfBridgingRetain){
-        _pointsOfBridgingRetain = [NSPointerArray weakObjectsPointerArray];
-    }
-    return _pointsOfBridgingRetain;
-}
 
-- (NSValue*)getXX
-{
-    @"call getXX:".nslog();
-    
-    void* man = (__bridge_retained void*)[Man new];
-    
-//    Man* man = [Man new];
-//    NSNumber* man = [NSNumber numberWithDouble:123.456];
-    
-//    NSString* man = [@"123456ABCDEFG" substringWithRange:NSMakeRange(0, 3)];
-//    man = reallocf(man, sizeof(man));
-//    CFBridgingRetain(man);
-    
-//    NSValue* re = [NSValue valueWithNonretainedObject:man];
-    NSValue* re = [NSValue valueWithBytes:&man objCType:@encode(Man*)];
-    return re;
-}
-
-- (LinkBlockInvocation*)invok:(NSValue*)val
-{
-    id block = [self.origin valueForKey:@"strAppend"];
-    LinkBlockInvocation* invoke =[LinkBlockInvocation invocationWithBlock:block];
-    
-//    NSUInteger argSize;
-//    NSGetSizeAndAlignment([invoke.methodSignature getArgumentTypeAtIndex:1], &argSize, NULL);
-    
-    void* temp = NULL;
-    [val getValue:&temp];
-    [invoke setArgument:&temp atIndex:1];
-    [self.pointsOfBridgingRetain addPointer:temp];
-    
-    return invoke;
-}
-
-//    NSValue* v = [self getXX];
-//
-//    NSNumber* rect;
-//    [v getValue:&rect];
-
-- (id)doIt
-{
-
-    
-    self.origin = @"ABC";
-
-    LinkBlockInvocation* invoke = [self invok:[self getXX]];
-    [invoke invoke];
-//    [invoke retainArguments];
-
-    id re;
-    [invoke getReturnValue:&re];
-    CFBridgingRetain(re);//使用
-    
-//    CFBridgingRelease([self.pointsOfBridgingRetain pointerAtIndex:0]);
-    
-    return re;
-}
-
-//- (void)doStruct:(id)obj ,...
-//{
-//    va_list list;
-//    va_start(list, obj);
-//
-//    //check
-//    va_list list_copy;
-//    va_copy(list_copy , list);
-//    void* check = va_arg(list_copy, void*);
-//    NSRange st = va_arg(list, NSRange);
-//
-//    va_list list_copy1;
-//    va_copy(list_copy1 , list);
-//    void* check1 = va_arg(list_copy, void*);
-//    NSRange st1 = va_arg(list, NSRange);
-//
-//    va_list list_copy2;
-//    va_copy(list_copy2 , list);
-//    void* check2 = va_arg(list_copy2, void*);
-//    void* check3 = va_arg(list_copy2, void*);
-//    void* check4 = va_arg(list_copy2, void*);
-//    NSRange st2 = va_arg(list, NSRange);
-//
-//
-//    va_end(list);
-//
-//    @"".nslog();
-//}
 
 - (id)invokEnd:(id)origin,...
 {
-    //
-    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strDeleteInRange(NSMakeRange(0, 5),NSMakeRange(0, 1)).strAppendFormat(@\"%@%@\",@\"aaa\",\"bbb\").linkEnds"];
     
-    va_list list;
-    va_start(list, origin);
-    id re = [link invoke:origin args:list];
-    va_end(list);
+//    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strDeleteInRange(NSMakeRange(0, 5),NSMakeRange(0, 1)).strAppendFormat(@\"%@%@\",@\"aaa\",\"bbb\").linkEnds"];
+//
+//    va_list list;
+//    va_start(list, origin);
+//    id re = [link invoke:origin args:list];
+//    va_end(list);
+//
+//    return re;
     
-    return re;
+    __va_list_tag list[1] ;
+    
+    
+    
+    return nil;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    id ret = [self invokEnd:@"123456789",nil,NSNotFound];//
+    id ret = [self invokEnd:@"123456789",[NSObject class],nil,NSNotFound];//
     
 //    LinkPropertyInvocation* invok =[LinkPropertyInvocation invocationWithCommand:@"UIViewNew.nslog()"];
 //    id re = [invok invokeWithTarget:nil];
 //    [LinkHelper link_block_configuration_set_is_show_warning:NO];
     
 //    id re = @"NSStringNew.strAppend(@YES3).linkObj(nil)".linkCodeEval([NSNull null]).nslog();
-    id re = @"NSArray.alloc.init.mutableCopy.arrAddObj(@YES)".linkCodeEval(NSNil);
+//    id re = @"NSArray.alloc.init.mutableCopy.arrAddObj(@YES)".linkCodeEval(NSNil);
     
     @"End of test".nslog();
     return;
