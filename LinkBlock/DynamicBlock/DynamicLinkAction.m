@@ -753,10 +753,6 @@ CODE_BLOCK_TYPE:{
         }
     } defaule:nil];
     
-    
-//    free(list_copy);
-//    va_end(vlist);
-    
     if(returnID){
         //self持有返回值
         CFBridgingRetain(re_id);
@@ -774,8 +770,6 @@ CODE_BLOCK_TYPE:{
     //****************属性格式****************
 CODE_PROPERTY_TYPE:{
     
-//    free(list_copy);
-//    va_end(vlist);
     LinkPropertyInvocation* invocation = [LinkPropertyInvocation invocationWithCode:_actionName];
     return [invocation invokeWithTarget:origin];
 }
@@ -783,16 +777,12 @@ CODE_PROPERTY_TYPE:{
     //****************方法调用****************
 CODE_FUNCTION_TYPE:{
     
-//    free(list_copy);
-//    va_end(vlist);
     return nil;
 }
     
     //****************未知类型****************
 CODE_UNKNOWN_TYPE:
     
-//    free(list_copy);
-//    va_end(vlist);
     NSLog(@"DynamicLink Error:不能识别或不支持的调用%@", _actionName);
     return nil;
 }

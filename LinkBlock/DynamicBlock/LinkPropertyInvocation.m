@@ -189,7 +189,6 @@ CODE_PROPERTY_TYPE:{
         } defaule:^{
             NSLog(@"DynamicLink Error:不支持的结构体类型或共用体");
         }];
-//        linkObj_id(reV).logRetainCount;
         return reV;
     }
 }

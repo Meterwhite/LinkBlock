@@ -134,8 +134,8 @@ NS_INLINE BOOL LBTypesCompatible(const char *a, const char *b) {
         return blockSignature;
     }
     
-    // initial capacity is num. arguments - 1 (@? -> @) + 1 (:) + 1 (ret type)
-    // optimistically assuming most signature components are char[1]
+    //容量num.arguments - 1 (@? -> @) + 1 (:) + 1 (ret type)
+    //大部分方法方法签名部分在[1]
     NSMutableString *signature = [[NSMutableString alloc] initWithCapacity:blockSignature.numberOfArguments + 1];
     
     const char *retTypeStr = blockSignature.methodReturnType;
