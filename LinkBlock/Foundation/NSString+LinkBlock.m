@@ -2272,11 +2272,11 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         //LinkGroupHandle_VAL
         ///////////////////////
         
-        va_list args;
-        va_start(args , obj);
+        va_list vList;
+        va_start(vList , obj);
         DynamicLink* link = [DynamicLink dynamicLinkWithCode:_self];
-        id result = [link invoke:obj args:args];
-        va_end(args);
+        id result = [link invoke:obj args:vList];
+        va_end(vList);
         
         return result;
     };

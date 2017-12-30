@@ -48,7 +48,7 @@
     //////////////////////////////////////////////////////////////////////
     //【新增！】DynamicLink动态脚本解析
     //////////////////////////////////////////////////////////////////////
-    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj().nslog()"
+    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj()"
     .linkCodeEval(NSMutableArrayNew,@"123",[NSObject new]).nslog();
     
     //@"UIViewNew.viewSetFrame(50+8,50+8,50*20,50+Math.PI)"...

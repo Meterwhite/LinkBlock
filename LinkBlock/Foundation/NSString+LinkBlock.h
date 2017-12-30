@@ -12,7 +12,7 @@
 /**
  @param ... 参数以nll,NSNotFond结尾，以其可以区分结构体
  */
-LBDeclare NSObject*            (^linkCodeEval)(id obj, ...);
+LBDeclare NSObject*    (^linkCodeEval)(id obj, ...);
 
 #pragma mark - 通用
 /** <^(NSUInteger index)> */

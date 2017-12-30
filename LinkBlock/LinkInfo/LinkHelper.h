@@ -29,13 +29,14 @@
 - (NSString *)propertyNameFromPropertyCode;
 
 /**
- 函数参数拆分
+ 函数参数拆分；不是函数结构返回nil；否则返回数组；
  */
 - (NSArray<NSString*>*)functionArgumentSplitFromFunctionCallCode;
 
 
 /**
  字符串字面量解析并装箱
+ *空白和不能识别的内容将会返回nil
  */
 - (NSValue*)valueFromValueCode;
 

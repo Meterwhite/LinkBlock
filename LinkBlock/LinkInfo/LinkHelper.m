@@ -98,10 +98,15 @@
 
 - (NSValue*)valueFromValueCode
 {
-    if(!self_target_is_type(NSString)) return nil;
+    if(!self_target_is_type(NSString))
+        return nil;
+    
+    if(![self.target length] || [[self.target stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0)
+    {
+        return nil;
+    }
     
     NSString* code = [self.target copy];
-    
     if([code isEqualToString:@"nil"]||
        [[code lowercaseString] isEqualToString:@"null"]){
         id _nil = nil;
@@ -172,10 +177,11 @@
         return [NSValue valueWithBytes:&numberV objCType:@encode(NSNumber*)];
     }
     
-    //NSNumber @(number)
+    //NSNumber @(number of expresion)
     if([code rangeOfString:@"^@\\([\\s\\S]*\\)$" options:NSRegularExpressionSearch].length){
         
-        NSNumber* numberV = [NSNumber numberWithDouble:[[code substringWithRange:NSMakeRange(2, [code length]-3)] doubleValue]];
+        NSString* numberContent = [code substringWithRange:NSMakeRange(2, [code length]-3)];
+        NSNumber* numberV = [[LinkHelper help:numberContent] numberEvalFromCode];
         CFBridgingRetain(numberV);
         return [NSValue valueWithBytes:&numberV objCType:@encode(NSNumber*)];
     }
@@ -345,6 +351,10 @@
     if(range.length){
         
         code = [code substringWithRange:NSMakeRange(range.location+1, range.length-2)];//去外层括号
+        //无内容直接返回
+        if (!code.length || [[code stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0) {
+            return argsOfReturn;
+        }
         NSMutableArray<NSString*>* arrOfArgs = [[code componentsSeparatedByString:@","] mutableCopy];
         NSRegularExpression* leftRegex = [NSRegularExpression regularExpressionWithPattern:@"\\(" options:0 error:0];
         NSRegularExpression* rightRegex = [NSRegularExpression regularExpressionWithPattern:@"\\)" options:0 error:0];
