@@ -10,9 +10,6 @@
 #define NSArrayNew ([NSArray new])
 #endif
 @interface NSObject(NSArraryLinkBlock)
-#pragma mark - DynamicLink
-LBDeclare NSObject*            (^linkArgumentsEvalCode)(id obj,NSString* code);
-
 #pragma mark - 多链条
 /**
  使数组内对象执行多个链式编程，使用ends()可获取结果集合，

@@ -15,6 +15,10 @@
 
 @interface NSObject(LinkBlock)
 #pragma mark - DynamicLink
+
+/**
+ @param ... 参数以nll,NSNotFond结尾，以其可以区分结构体
+ */
 LBDeclare NSObject*            (^linkEvalCode)(NSString* code , ...);
 
 #pragma mark - 方式
@@ -152,6 +156,8 @@ LBDeclare NSObject*    (^nslog)();
 LBDeclare NSObject*    (^nslogTitle)(NSString* title);
 /** <^(NSString* title)>单独调用NSLog(info) */
 LBDeclare NSObject*    (^logInfo)(NSString* info);
+/** <^()>打印对象引用计数器 */
+LBDeclare_F NSObject*  logRetainCount;
 /** <^()>将对象以字典的形式进行打印，其中对所有容器类型进行遍历转换 */
 LBDeclare NSObject*    (^po)();
 /** <^()>将对象以字典的形式进行打印 */
@@ -219,6 +225,8 @@ LBDeclare NSArray*     (^objPerformSelectors_linkToReturnValues)(SEL sel0 , ...)
  <^(SEL sel0 , NSArray* args0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；方法内会自动适配参数个数；在参数数组中使用NSNull来代替nil。不应在参数中间位置传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组；宏定义下该方法无需手工以nil结尾；
  */
 LBDeclare NSArray*     (^objPerformSelectorsWithArgs_linkToReturnValues)(SEL sel0 , NSArray* args0 , ...);
+/** <^()>获取对象的引用计数器 */
+LBDeclare_F CFIndex    objRetainCount;
 
 /** 是否是常见基础类型 */
 + (BOOL)classIsFoundation;

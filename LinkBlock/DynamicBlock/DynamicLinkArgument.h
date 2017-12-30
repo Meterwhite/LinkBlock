@@ -10,8 +10,8 @@
 @class DynamicLinkArgument;
 
 /**
- 动态链条上的直接量参数
- "block(直接量参数,,,,)".linkCodeEvalFrom(target , arg1 , arg2 ,...)
+ DynamicLink字面参数
+ "actionName(字面参数,,,,)".linkCodeEvalFrom(target , arg1 , arg2 ,...)
  在调用的时候'直接量参数'作为第一个参数被block使用而不是使用第一个传入的参数arg1作为第一个入参的值；
  
  直接量参数的形式
@@ -63,7 +63,13 @@
  */
 @property (nonatomic,copy,readonly) NSString* stringValue;
 
-
+/**
+ 值类型
+ */
 @property (nonatomic,assign,readonly) const char* objcType;
+
+/**
+ 装箱值
+ */
 @property (nonatomic,strong,readonly) NSValue* objcValue;
 @end

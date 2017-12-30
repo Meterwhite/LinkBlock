@@ -19,6 +19,14 @@
     return self;
 }
 
+- (NSNumber *)tall
+{
+    if(!_tall){
+        _tall = @170;
+    }
+    return _tall;
+}
+
 - (void)say
 {
     NSLog(@"call %@", NSStringFromSelector(_cmd));

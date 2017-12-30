@@ -9,23 +9,6 @@
 #import <stdarg.h>
 
 @implementation NSObject(NSArraryLinkBlock)
-
-- (NSObject *(^)(id, NSString *))linkArgumentsEvalCode
-{
-    return ^id(id origin , NSString* code){
-        LinkHandle_REF(NSArray)
-        
-        
-//        va_list list;
-//        
-////        ( ap = (va_list)&v + _INTSIZEOF(v) )
-//        id firstObject = _self.firstObject;
-//        list = ((__builtin_va_list)&firstObject + sizeof(firstObject));
-        
-        return nil;
-    };
-}
-
 - (NSObject *)makeLinkObjs
 {
     LinkHandle_REF(NSArray)

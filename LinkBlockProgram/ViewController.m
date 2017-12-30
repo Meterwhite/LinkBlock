@@ -39,46 +39,23 @@
 @property (nonatomic,strong) id  result;
 @end
 
-typedef struct {
-    unsigned int i0;
-    unsigned int i1;
-    void* p0;
-    void* p1;
-}__va_list_tag;
 @implementation ViewController
 
-
-
-- (id)invokEnd:(id)origin,...
-{
-    
-//    DynamicLink* link = [DynamicLink dynamicLinkWithCode:@"strDeleteInRange(NSMakeRange(0, 5),NSMakeRange(0, 1)).strAppendFormat(@\"%@%@\",@\"aaa\",\"bbb\").linkEnds"];
-//
-//    va_list list;
-//    va_start(list, origin);
-//    id re = [link invoke:origin args:list];
-//    va_end(list);
-//
-//    return re;
-    
-    __va_list_tag list[1] ;
-    
-    
-    
-    return nil;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    id ret = [self invokEnd:@"123456789",[NSObject class],nil,NSNotFound];//
+    //////////////////////////////////////////////////////////////////////
+    //【新增！】DynamicLink动态脚本解析
+    //////////////////////////////////////////////////////////////////////
+    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj().nslog()"
+    .linkCodeEval(NSMutableArrayNew,@"123",[NSObject new]).nslog();
     
-//    LinkPropertyInvocation* invok =[LinkPropertyInvocation invocationWithCommand:@"UIViewNew.nslog()"];
-//    id re = [invok invokeWithTarget:nil];
-//    [LinkHelper link_block_configuration_set_is_show_warning:NO];
+    //@"UIViewNew.viewSetFrame(50+8,50+8,50*20,50+Math.PI)"...
+    //@"...arrAddObj(@\"ABVD\")..."...
+    //@"...strDeleteInRange(NSMakeRange(156, 4))..."...
+    //@"...objPerformSelector(@selector(viewDidLoad))..."...
     
-//    id re = @"NSStringNew.strAppend(@YES3).linkObj(nil)".linkCodeEval([NSNull null]).nslog();
-//    id re = @"NSArray.alloc.init.mutableCopy.arrAddObj(@YES)".linkCodeEval(NSNil);
     
     @"End of test".nslog();
     return;

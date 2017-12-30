@@ -8,7 +8,10 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(NSStringLinkBlock)
-#pragma mark - LinkCode
+#pragma mark - DynamicLink
+/**
+ @param ... 参数以nll,NSNotFond结尾，以其可以区分结构体
+ */
 LBDeclare NSObject*            (^linkCodeEval)(id obj, ...);
 
 #pragma mark - 通用

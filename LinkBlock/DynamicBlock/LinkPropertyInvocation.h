@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  构造方法，运行时报错
  */
-+ (instancetype)invocationWithCommand:(NSString*)command;
++ (instancetype)invocationWithCode:(NSString*)code;
 
 #pragma mark - override NSInvocation
 - (id)invokeWithTarget:(id)target;

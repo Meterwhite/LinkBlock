@@ -66,7 +66,7 @@ typedef enum LinkActionStyle{
         
         _stringValue = code;
         _indexPath = [NSIndexPath indexPathWithIndex:index0];
-        if(!argsAsString && propertyName){
+        if(!argsAsString.count && propertyName){
             
             //属性格式调用
             if([[LinkHelper help:propertyName] isUnavailableActionName]){
@@ -675,6 +675,7 @@ CODE_BLOCK_TYPE:{
     va_end(*list_copy);
     
     if(returnID){
+        //self持有返回值
         CFBridgingRetain(re_id);
         return re_id;
     }else if (returnNSValue){
@@ -692,7 +693,7 @@ CODE_PROPERTY_TYPE:{
     
     free(list_copy);
     va_end(*list_copy);
-    LinkPropertyInvocation* invocation = [LinkPropertyInvocation invocationWithCommand:_actionName];
+    LinkPropertyInvocation* invocation = [LinkPropertyInvocation invocationWithCode:_actionName];
     return [invocation invokeWithTarget:origin];
 }
     

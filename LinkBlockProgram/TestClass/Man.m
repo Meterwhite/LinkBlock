@@ -10,14 +10,21 @@
 #import "LinkBlock.h"
 
 @implementation Man
+
 - (void)dealloc
 {
     @"Man call dealloc".nslog();
 }
 
-- (id)copy
+- (id)copyWithZone:(NSZone *)zone
 {
-    @"Man call copy".nslog();
-    return [super copy];
+    return [[[self class] alloc] init];
+//    return self;
 }
+
+//- (id)copy
+//{
+//    @"Man call copy".nslog();
+//    return [super copy];
+//}
 @end

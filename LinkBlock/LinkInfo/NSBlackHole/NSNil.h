@@ -22,5 +22,5 @@
  *NSNil在和nil进行比较的时候返回YES。如果使用==则比较地址，结果返回NO。
  */
 #ifndef NSEqualNil
-#define NSEqualNil(value) ([value isEqual:nil])
+#define NSEqualNil(value) (value?[value isEqual:nil]:YES)
 #endif

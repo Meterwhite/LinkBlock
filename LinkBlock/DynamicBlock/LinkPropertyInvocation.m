@@ -14,16 +14,16 @@
 
 @interface LinkPropertyInvocation()
 @property (nonatomic,strong) NSInvocation* invocation;
-@property (nonatomic,copy) NSString* command;
+@property (nonatomic,copy) NSString* code;
 @end
 
 @implementation LinkPropertyInvocation
-+ (instancetype)invocationWithCommand:(NSString*)command
++ (instancetype)invocationWithCode:(NSString*)code
 {
-    return [[self alloc] initWithCommand:command];
+    return [[self alloc] initWithCode:code];
 }
 
-- (instancetype)initWithCommand:(NSString*)command
+- (instancetype)initWithCode:(NSString*)code
 {
     self = [super init];
     if (self) {
@@ -31,7 +31,7 @@
         self.invocation = [NSInvocation invocationWithMethodSignature:sig];
         self.invocation.target = self;
         self.invocation.selector = @selector(commandInvoke:);
-        self.command = command;
+        self.code = code;
     }
     return self;
 }
@@ -39,29 +39,29 @@
 - (id)commandInvoke:(id)target
 {
     
-    NSAssert([self.command isKindOfClass:[NSString class]], @"LinkBlock命令必须是objc字符串");
+    NSAssert([self.code isKindOfClass:[NSString class]], @"LinkBlock命令必须是objc字符串");
     
     //new 命令
     NSRegularExpression* regexOfNew = [NSRegularExpression regularExpressionWithPattern:@"[a-zA-Z_]+\\d*New" options:0 error:0];
-    NSRange rangeOfMatch = [regexOfNew rangeOfFirstMatchInString:self.command options:0 range:NSMakeRange(0, self.command.length)];
+    NSRange rangeOfMatch = [regexOfNew rangeOfFirstMatchInString:self.code options:0 range:NSMakeRange(0, self.code.length)];
     if(rangeOfMatch.length){
-        NSString* clzName = [self.command substringWithRange:rangeOfMatch];
+        NSString* clzName = [self.code substringWithRange:rangeOfMatch];
         clzName = clzName.strTrimRight(@"New");
         Class clzz = NSClassFromString(clzName);
         if(clzz){
             return [[clzz alloc] init];
-        }else if([[[self linkBlockCommandReflectList] allKeys] containsObject:self.command]){
-            return [[self linkBlockCommandReflectList] objectForKey:self.command];
+        }else if([[[self linkBlockCommandReflectList] allKeys] containsObject:self.code]){
+            return [[self linkBlockCommandReflectList] objectForKey:self.code];
         }
     }
     
     //类名
-    Class clzz = NSClassFromString(self.command);
+    Class clzz = NSClassFromString(self.code);
     if(clzz){
         return [NSValue valueWithBytes:&clzz objCType:@encode(Class)];
     }
     
-    SEL sel = NSSelectorFromString(self.command);
+    SEL sel = NSSelectorFromString(self.code);
     NSMethodSignature* sig = [target methodSignatureForSelector:sel];
     
 CODE_PROPERTY_TYPE:{
@@ -70,17 +70,24 @@ CODE_PROPERTY_TYPE:{
         
     CODE_CALL_SIGNATURE:
         if(sig.numberOfArguments > 2 && LinkHelper.link_block_configuration_get_is_show_warning){
-            NSLog(@"DynamicLink Warning:%@,没有入参的方法调用!",self.command);
+            NSLog(@"DynamicLink Warning:%@,没有入参的方法调用!",self.code);
         };
         NSInvocation* invok = [NSInvocation invocationWithMethodSignature:sig];
         invok.selector = sel;
         [invok invokeWithTarget:target];
         __block id reV;
         [LinkHelper helpSwitchObjcType:sig.methodReturnType caseVoid:nil caseId:^{
-            id val;
-            [invok getReturnValue:&val];
-            CFBridgingRetain(val);
-            reV = val;
+            
+            [invok getReturnValue:&reV];//会操作返回值引用计数器+1
+            if(sel == @selector(alloc) ||
+               sel == @selector(new)   ||
+               sel == @selector(copy)  ||
+               sel == @selector(mutableCopy)){
+                //方法已经操作过返回值引用计数器
+                return;
+            }
+            //使self持有该返回值
+            CFBridgingRetain(reV);
         } caseClass:^{
             Class val;
             [invok getReturnValue:&val];
@@ -182,6 +189,7 @@ CODE_PROPERTY_TYPE:{
         } defaule:^{
             NSLog(@"DynamicLink Error:不支持的结构体类型或共用体");
         }];
+//        linkObj_id(reV).logRetainCount;
         return reV;
     }
 }
@@ -209,7 +217,7 @@ CODE_PROPERTY_TYPE:{
 
     
     NSLog(@"DynamicLink Error:无法计算%@；不能识别的属性、命令或者无参方法"
-          ,self.command);
+          ,self.code);
     return nil;
 }
 

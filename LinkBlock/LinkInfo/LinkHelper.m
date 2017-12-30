@@ -26,7 +26,7 @@
 
 - (id)blockPropertyFromObjectByPropertyName:(NSString *)propertyName
 {
-    if(!self_target_is_type(NSString)) return nil;
+    if(NSEqualNil(self.target)) return nil;
     
     SEL sel = NSSelectorFromString(propertyName);
     //可响应
@@ -102,10 +102,15 @@
     
     NSString* code = [self.target copy];
     
-    if([code isEqualToString:@"nil"] ||
+    if([code isEqualToString:@"nil"]||
        [[code lowercaseString] isEqualToString:@"null"]){
         id _nil = nil;
         return [NSValue valueWithBytes:&_nil objCType:@encode(id)];
+    }
+    
+    if([code isEqualToString:@"NSNil"]){
+        id nsil = NSNil;
+        return [NSValue valueWithBytes:&nsil objCType:@encode(id)];
     }
     
     //NSString <可空白@"..."可空白>
@@ -317,7 +322,9 @@
     NSArray<NSString*>* blockCommands = [[LinkHelper help:code] actionCommandSplitFromLinkCode];
     if(blockCommands.count){
         DynamicLink* link = [DynamicLink dynamicLinkWithCode:code];
-        return [link invoke:[NSNull null] args:nil];
+        id val = [link invoke:NSNil args:nil];
+        CFBridgingRetain(val);
+        return [NSValue valueWithBytes:&val objCType:@encode(id)];
     }
     
     return nil;
@@ -328,12 +335,12 @@
     if(!self_target_is_type(NSString)) return nil;
     //检查格式
     //函数调用格式  字母[数字](...)
-    if([self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(.+\\)" options:NSRegularExpressionSearch].location == NSNotFound){
+    if([self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(.*\\)" options:NSRegularExpressionSearch].location == NSNotFound){
         return nil;
     }
     
     NSString* code = [self.target copy];
-    NSRange range = [code rangeOfString:@"\\(.+\\)" options:NSRegularExpressionSearch];
+    NSRange range = [code rangeOfString:@"\\(.*\\)" options:NSRegularExpressionSearch];
     NSMutableArray* argsOfReturn = [NSMutableArray new];
     if(range.length){
         

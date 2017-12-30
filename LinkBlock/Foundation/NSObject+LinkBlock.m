@@ -2153,6 +2153,12 @@
     };
 }
 
+- (NSObject *)logRetainCount
+{
+    NSLog(@"%@",[self valueForKey:@"retainCount"]);
+    return self;
+}
+
 - (NSObject *(^)())poNoDeep
 {
     return ^id(){
@@ -2818,6 +2824,11 @@ Link_objSetValueForKey_(text)
         va_end(args);
         return result;
     };
+}
+
+- (CFIndex)objRetainCount
+{
+    return [[self valueForKey:@"retainCount"] longValue];
 }
 #pragma mark - 类型转换
 
