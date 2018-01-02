@@ -54,10 +54,13 @@
     //UIViewNew.viewBGColor(Make(NSNumber,0x42a7f4).numToUIColorFromHex())
     
     /*
-     UIViewNew.
-     viewBGColor(Make(NSNumber,0x42a7f4).
-     numToUIColorFromHex()).
-     Fun(@"..).".")
+     函数名.
+     viewBGColor(Make(NSNumber,0x42a7f4).numToUIColorFromHex()).
+     Fun(@"..).
+     ".
+     ")
+     
+     
     */
     
     //f0 . f1 ( f2 ( f3 , f4 ) . f5 ( ) )
