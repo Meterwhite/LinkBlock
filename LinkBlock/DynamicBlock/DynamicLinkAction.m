@@ -96,7 +96,7 @@ typedef enum LinkActionStyle{
                 
                 if([[LinkHelper help:propertyName] isIndefiniteParametersLinkBlockName]){
                     if(LinkHelper.link_block_configuration_get_is_show_warning)
-                        NSLog(@"DynamicLink Warning:使用不定参数的block属性可能会造成非预期的行为！，DynamicLink下不定参数的block属性只能接受1个参数！");
+                        NSLog(@"DynamicLink Warning:使用不定参数的linkBlock可能会造成非预期的行为！，DynamicLink下不定参数的linkBlock只能接受1个参数！");
                 }
                 
                 //block属性调用
@@ -211,7 +211,6 @@ CODE_RETURN:
     return self.items[idxMatched];
 }
 
-
 - (id)invoke:(id)origin args:(va_list)vlist end:(BOOL*)end
 {
     //验证的对象
@@ -251,8 +250,6 @@ CODE_BLOCK_TYPE:{
     
     //入参
     for (NSUInteger idx_arg = 0; idx_arg < self.numberOfArguments; idx_arg++) {
-        
-        if(*end == YES) break;
         
         NSIndexPath* currentIndexPath = [NSIndexPath indexPathWithIndex:[self.indexPath indexAtPosition:0]];
         currentIndexPath = [currentIndexPath indexPathByAddingIndex:idx_arg];
@@ -366,7 +363,14 @@ CODE_BLOCK_TYPE:{
                 }
             } defaule:nil];
         }else{
-            //方法传参
+            //参数列表传参
+            
+            if(*end == YES){
+                if(LinkHelper.link_block_configuration_get_is_show_warning){
+                    NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                }
+                break;
+            }
             
             const char* objcType = [signature getArgumentTypeAtIndex:idx_arg+1];
             
@@ -374,17 +378,30 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 id val = va_arg(vlist, id);
-                if(NSEqualNil(val)){ *end = YES; return;}
+                if(NSEqualNil(val)) {
+                    //NSNil的参数认为是空参数，这里做轮空处理
+                    *end = YES;return;
+                }
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseClass:^{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 Class val = va_arg(vlist, Class);
@@ -394,7 +411,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 IMP val = va_arg(vlist, IMP);
@@ -404,7 +426,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 SEL val = va_arg(vlist, SEL);
@@ -414,7 +441,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 double val = va_arg(vlist, double);
@@ -424,7 +456,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 float val = va_arg(vlist, double);
@@ -434,7 +471,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 void* val = va_arg(vlist, void*);
@@ -444,7 +486,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 char* val = va_arg(vlist, char*);
@@ -454,7 +501,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 unsigned long val = va_arg(vlist, unsigned long);
@@ -464,7 +516,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 unsigned long long val = va_arg(vlist, unsigned long long);
@@ -474,7 +531,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 long val = va_arg(vlist, long);
@@ -484,7 +546,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 long long val = va_arg(vlist, long long);
@@ -494,7 +561,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 int val = va_arg(vlist, int);
@@ -504,7 +576,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 unsigned int val = va_arg(vlist, unsigned int);
@@ -514,7 +591,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 int val = va_arg(vlist, int);
@@ -524,7 +606,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 CGRect val = va_arg(vlist, CGRect);
@@ -533,7 +620,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 NSRange val = va_arg(vlist, NSRange);
@@ -542,7 +634,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 CGSize val = va_arg(vlist, CGSize);
@@ -551,7 +648,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 CGPoint val = va_arg(vlist, CGPoint);
@@ -560,7 +662,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 CGVector val = va_arg(vlist, CGVector);
@@ -569,7 +676,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 UIEdgeInsets val = va_arg(vlist, UIEdgeInsets);
@@ -578,7 +690,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 UIOffset val = va_arg(vlist, UIOffset);
@@ -587,7 +704,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 CATransform3D val = va_arg(vlist, CATransform3D);
@@ -596,7 +718,12 @@ CODE_BLOCK_TYPE:{
                 va_list check_list;
                 va_copy(check_list, vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                    *end = YES;va_end(check_list);return;
+                    *end = YES;
+                    if(LinkHelper.link_block_configuration_get_is_show_warning){
+                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                    }
+                    va_end(check_list);
+                    return;
                 }
                 va_end(check_list);
                 CGAffineTransform val = va_arg(vlist, CGAffineTransform);
@@ -606,7 +733,12 @@ CODE_BLOCK_TYPE:{
                     va_list check_list;
                     va_copy(check_list, vlist);
                     if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
-                        *end = YES;va_end(check_list);return;
+                        *end = YES;
+                        if(LinkHelper.link_block_configuration_get_is_show_warning){
+                            NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
+                        }
+                        va_end(check_list);
+                        return;
                     }
                     va_end(check_list);
                     NSDirectionalEdgeInsets val = va_arg(vlist, NSDirectionalEdgeInsets);

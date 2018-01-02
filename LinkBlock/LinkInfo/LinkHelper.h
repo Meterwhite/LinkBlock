@@ -54,7 +54,7 @@
 
 
 /**
- 是否是不定参数的block属性
+ 是否是不定参数的linkBlock
  */
 - (BOOL)isIndefiniteParametersLinkBlockName;
 

@@ -16,6 +16,11 @@
 ```objc
 #import "LinkBlock.h"
 ```
+
+## New!【新增！】
+### DynamicLink - Call linkBlock using scriptDynamicLink-使用脚本的形式执行linkBlock】
+- Add a label to view【添加一个标签到视图上】
+
 ## Basic grammar【基础语法】
 ### Does not get value:【不需要取值的情况如：】
 - Add a label to view【添加一个标签到视图上】

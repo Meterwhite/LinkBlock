@@ -131,9 +131,9 @@
     
     NSScanner* scanner = [[NSScanner alloc] initWithString:code];
     //整型
-    int intV;
-    if([scanner scanInt:&intV] && [scanner isAtEnd]){
-        return [NSNumber numberWithInt:intV];
+    NSInteger intV;
+    if([scanner scanInteger:&intV] && [scanner isAtEnd]){
+        return [NSNumber numberWithInteger:intV];
     }
     //double
     double doubleV;
@@ -145,7 +145,7 @@
     unsigned unsignedV;
     scanner.scanLocation = 0;
     if([scanner scanHexInt:&unsignedV] && [scanner isAtEnd]){
-        return [NSNumber numberWithUnsignedInt:unsignedV];
+        return [NSNumber numberWithInteger:unsignedV];
     }
     //十六进制浮点
     doubleV = 0.0;
@@ -398,8 +398,8 @@
     if(!self_target_is_type(NSString)) return nil;
     //纯数字
     NSScanner* scanner = [[NSScanner alloc] initWithString:self.target];
-    if([scanner scanInt:NULL] && [scanner isAtEnd]){
-        return [NSNumber numberWithInt:[self.target intValue]];
+    if([scanner scanInteger:NULL] && [scanner isAtEnd]){
+        return [NSNumber numberWithInteger:[self.target intValue]];
     }
     scanner.scanLocation = 0;
     if([scanner scanDouble:NULL] && [scanner isAtEnd]){

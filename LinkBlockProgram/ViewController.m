@@ -48,10 +48,26 @@
     //////////////////////////////////////////////////////////////////////
     //【新增！】DynamicLink动态脚本解析
     //////////////////////////////////////////////////////////////////////
-    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj()"
-    .linkCodeEval(NSMutableArrayNew,@"123",[NSObject new]).nslog();
+//    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj().arrAddObj()"
+//    .linkCodeEval(NSMutableArrayNew,@"ABC",[NSObject new]).nslog();
     
-    //@"UIViewNew.viewSetFrame(50+8,50+8,50*20,50+Math.PI)"...
+    //UIViewNew.viewBGColor(Make(NSNumber,0x42a7f4).numToUIColorFromHex())
+    
+    /*
+     UIViewNew.
+     viewBGColor(Make(NSNumber,0x42a7f4).
+     numToUIColorFromHex()).
+     Fun(@"..).".")
+    */
+    
+    //f0 . f1 ( f2 ( f3 , f4 ) . f5 ( ) )
+    //
+    
+    
+    @"UIViewNew.viewBGColor(@(0x42a7f4).numToUIColorFromHex())"
+    .linkCodeEval(NSNil).viewSetFrame(50, 50, 50, 50).viewAddToView(self.view);
+    
+    //@"UIViewNew.viewSetFrame(50+8,0,50*20,50+Math.PI)"...
     //@"...arrAddObj(@\"ABVD\")..."...
     //@"...strDeleteInRange(NSMakeRange(156, 4))..."...
     //@"...objPerformSelector(@selector(viewDidLoad))..."...

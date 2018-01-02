@@ -51,7 +51,7 @@
 /*
  *命令：
  *DynamicLink脚本使用linkBlock的原生调用方式，还支持属性样式的调用
- *1.当调用名称后跟随"()"时："actionName().actionName()..."，系统会把actionName当成block属性去调用
+ *1.当调用名称后跟随"()"时："actionName().actionName()..."，系统会把actionName当成linkBlock去调用
  *2.如果调用中没有"()"，"actionName.actionName..."会被系统解释为属性样式的调用；将调用当成对象的属性、对象的无参方法、类名、或者LinkBlock命令
  *其中LinkBlock命令目前包括:1.创建对象命令："ClassName+New";2.LinkBlock宏定义:"NSNil","AttrDictNew"
  *
@@ -61,12 +61,13 @@
  *字面参数：
  *字面参数是在DynamicLink中通过字面创建的值，它写在"()"内；形如："actionName(3.1415926)"
  *支持类型：数字，十六进制的数字，字符串，布尔值，c字符串，字符，NSNumber，SEL，struct in NSValue，Class；参考:DynamicLinkArgument.h
+ *字面量参数暂时不能是可以接受参数的linkBlock调用
  *
  *
  *入参顺序：
  *参数的入参顺序和脚本中调用的入参顺序完全一一对应；
  *如果脚本中存在一个字面参数则参数列表中不再需要传递这个参数；
- *如果要通过参数列表传递nil，可以使用NSNil。或者在脚本中使用字面量nil,NULL
+ *如果要通过参数列表传递nil，可以使用NSNil。或者在脚本中使用字面量"nil","NULL"
  *
  */
 
