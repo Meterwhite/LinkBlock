@@ -71,22 +71,22 @@
     };
 }
 
-- (BOOL (^)(id<NSCopying>))dictContainerKey
+- (BOOL (^)(id<NSCopying>))dictContaineKey
 {
     return ^(id<NSCopying> key){
         LinkHandle_VAL_IFNOT(NSDictionary){
             return NO;
         }
-        LinkGroupHandle_VAL(dictContainerKey,key)
+        LinkGroupHandle_VAL(dictContaineKey,key)
         return [[_self allKeys] containsObject:key];
     };
 }
 
-- (NSNumber* (^)(id<NSCopying>))dictContainerKey_n
+- (NSNumber* (^)(id<NSCopying>))dictContaineKey_n
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictContainerKey_n,key)
+        LinkGroupHandle_REF(dictContaineKey_n,key)
         return @([[_self allKeys] containsObject:key]);
     };
 }

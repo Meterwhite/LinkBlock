@@ -62,6 +62,7 @@
  *字面参数是在DynamicLink中通过字面创建的值，它写在"()"内；形如："actionName(3.1415926)"
  *支持类型：数字，十六进制的数字，字符串，布尔值，c字符串，字符，NSNumber，SEL，struct in NSValue，Class；参考:DynamicLinkArgument.h
  *字面量参数暂时不能是可以接受参数的linkBlock调用
+ *字符串中不能再有双引号
  *
  *
  *入参顺序：

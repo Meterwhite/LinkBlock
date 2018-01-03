@@ -20,7 +20,7 @@ typedef enum LinkActionStyle{
     LinkActionStyleUnknown  = 0,
     //block调用
     LinkActionStyleBlock    = 1,
-    //暂不支持的函数调用
+    //函数调用（暂不支持）
     LinkActionStyleFunction = 1 << 2,
     //属性调用，无参方法调用，指定命令调用
     LinkActionStyleProperty = 1 << 3

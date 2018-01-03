@@ -74,6 +74,91 @@
     return blocksString;
 }
 
+- (NSString*)linkBlockEncodingFromCode
+{
+    NSString* code = self.target;
+    
+    //@可空白"
+    BOOL hasNSString = ![self.target rangeOfString:@"@\\s*\"" options:NSRegularExpressionSearch].length;
+    
+    //@可空白(
+    BOOL hasNSNumber = [self.target rangeOfString:@"@\\s*\\(" options:NSRegularExpressionSearch].length;
+    
+    if(!hasNSString && !hasNSNumber)
+        return self.target;
+    
+    if(hasNSString){
+        
+    }
+
+    if(hasNSNumber){
+        // @(NN.fdb(@"321(((31"))
+    }
+    /*
+     UIViewNew.viewBGColor(@"adf...(())\"\"\"".strToUIColorFromHex()).
+     =>
+     UIViewNew.viewBGColor(NSString_LB0001_LB0001_LB0001.strToUIColorFromHex()).
+     =>
+     UIViewNew.
+     viewBGColor(NSString_LB0001_LB0001_LB0001.
+     strToUIColorFromHex()).
+     =>
+     根据括号值合并
+     
+     */
+    
+    //检查是否存在异常的字符串
+    if(![self checkLinkCodeString]){
+        return nil;
+    }
+
+    //LinkBlock编码
+    //@"..."=>NSString_LB0001__LB0001__LB0001_
+    //@(...)=>NSNumber_LB0001__LB0001__LB0001_
+    //"..."=>chars_LB0001__LB0001__LB0001_
+    
+    //@"\".\".\".".
+    //@"\",\",\",",
+    return nil;
+}
+
+static NSDictionary<NSString*,NSString*>* _dictionaryOfLinkBlockEncoding;
+- (NSDictionary<NSString*,NSString*>*)dictionaryOfLinkBlockEncoding
+{
+    if(!_dictionaryOfLinkBlockEncoding){
+        _dictionaryOfLinkBlockEncoding = @{
+                                           @"."     :@"_LB0001_",
+                                           @"("     :@"_LB0002_",
+                                           @")"     :@"_LB0003_",
+                                           @"\""    :@"_LB0004_",
+                                           @"\\\""  :@"_LB0005_"
+                                           };
+    }
+    return _dictionaryOfLinkBlockEncoding;
+}
+- (NSString*)linkBlockEncodingString
+{
+    if(!self.target) return nil;
+    return self.dictionaryOfLinkBlockEncoding[self.target];
+}
+
+- (NSString*)linkBlockDecodingString
+{
+    if(!self.target) return nil;
+    return [self.dictionaryOfLinkBlockEncoding allKeysForObject:self.target].firstObject;
+}
+
+- (BOOL)checkLinkCodeString
+{
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"@\".*\"" options:0 error:nil];
+    
+    [regex enumerateMatchesInString:self.target options:0 range:NSMakeRange(0, [self.target length]) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+//        NSString*
+    }];
+    
+    return NO;
+}
+
 - (NSString *)functionNameSplitFromFunctionCode
 {
     if(!self_target_is_type(NSString)) return nil;

@@ -54,11 +54,9 @@
     //UIViewNew.viewBGColor(Make(NSNumber,0x42a7f4).numToUIColorFromHex())
     
     /*
-     函数名.
+     UIViewNew.
      viewBGColor(Make(NSNumber,0x42a7f4).numToUIColorFromHex()).
-     Fun(@"..).
-     ".
-     ")
+     Fun(@"..))).")
      
      
     */
@@ -66,6 +64,7 @@
     //f0 . f1 ( f2 ( f3 , f4 ) . f5 ( ) )
     //
     
+    @"NSString(@\"123\"123\"123\")"
     
     @"UIViewNew.viewBGColor(@(0x42a7f4).numToUIColorFromHex())"
     .linkCodeEval(NSNil).viewSetFrame(50, 50, 50, 50).viewAddToView(self.view);
