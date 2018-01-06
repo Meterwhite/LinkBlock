@@ -76,8 +76,8 @@
 
 - (NSString*)linkBlockEncodingFromCode
 {
+    static NSString* lbEncodeFormate = @"_LB%@_";
     NSString* code = self.target;
-    
     //@可空白"
     BOOL hasNSString = ![self.target rangeOfString:@"@\\s*\"" options:NSRegularExpressionSearch].length;
     
@@ -87,65 +87,43 @@
     if(!hasNSString && !hasNSNumber)
         return self.target;
     
-    if(hasNSString){
-        
-    }
-
-    if(hasNSNumber){
-        // @(NN.fdb(@"321(((31"))
-    }
+    NSMutableString* stackString = [NSMutableString new];
+    __block BOOL encoding = NO;
+    __block NSInteger state= 0 ;//0-Non,1-NSString,2-NSNumber,3-chars
+    __block BOOL badReturn = NO;
     /*
-     UIViewNew.viewBGColor(@"adf...(())\"\"\"".strToUIColorFromHex()).
-     =>
-     UIViewNew.viewBGColor(NSString_LB0001_LB0001_LB0001.strToUIColorFromHex()).
-     =>
-     UIViewNew.
-     viewBGColor(NSString_LB0001_LB0001_LB0001.
-     strToUIColorFromHex()).
-     =>
-     根据括号值合并
-     
+     *encode
+     [0-9]=>[48-57]
+     [A-Z]=>[65-90]
+     [a-z]=>[97-122]
+     _ => 95
+     */
+    /*
+     * 识别
+     * " => 34
+     * ( => 40
+     * ) => 41
+     * @ => 64
      */
     
-    //检查是否存在异常的字符串
-    if(![self checkLinkCodeString]){
+    [code enumerateSubstringsInRange:NSMakeRange(0, code.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
+        const char* chs = [substring UTF8String];
+        if(strlen(chs)>1){
+            *stop = YES;
+            badReturn = YES;
+        }
+    }];
+    
+    if(badReturn){
         return nil;
     }
-
+    
     //LinkBlock编码
     //@"..."=>NSString_LB0001__LB0001__LB0001_
     //@(...)=>NSNumber_LB0001__LB0001__LB0001_
     //"..."=>chars_LB0001__LB0001__LB0001_
     
-    //@"\".\".\".".
-    //@"\",\",\",",
     return nil;
-}
-
-static NSDictionary<NSString*,NSString*>* _dictionaryOfLinkBlockEncoding;
-- (NSDictionary<NSString*,NSString*>*)dictionaryOfLinkBlockEncoding
-{
-    if(!_dictionaryOfLinkBlockEncoding){
-        _dictionaryOfLinkBlockEncoding = @{
-                                           @"."     :@"_LB0001_",
-                                           @"("     :@"_LB0002_",
-                                           @")"     :@"_LB0003_",
-                                           @"\""    :@"_LB0004_",
-                                           @"\\\""  :@"_LB0005_"
-                                           };
-    }
-    return _dictionaryOfLinkBlockEncoding;
-}
-- (NSString*)linkBlockEncodingString
-{
-    if(!self.target) return nil;
-    return self.dictionaryOfLinkBlockEncoding[self.target];
-}
-
-- (NSString*)linkBlockDecodingString
-{
-    if(!self.target) return nil;
-    return [self.dictionaryOfLinkBlockEncoding allKeysForObject:self.target].firstObject;
 }
 
 - (BOOL)checkLinkCodeString
