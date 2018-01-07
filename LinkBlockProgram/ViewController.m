@@ -44,7 +44,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSString* str = [[LinkHelper help:@"func(@\"a.b_c\"+@\"NN\")"] linkBlockEncodingNSStringFromCode];
+    @"end".nslog();
+    return;
     //////////////////////////////////////////////////////////////////////
     //【新增！】DynamicLink动态脚本解析
     //////////////////////////////////////////////////////////////////////

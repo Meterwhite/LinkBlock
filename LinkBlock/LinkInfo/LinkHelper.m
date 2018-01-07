@@ -74,56 +74,142 @@
     return blocksString;
 }
 
-- (NSString*)linkBlockEncodingFromCode
+static NSString* _lbEncodeFormate = @"_LB%ld_";
+- (NSString*)linkBlockEncodingNSStringFromCode
 {
-    static NSString* lbEncodeFormate = @"_LB%@_";
-    NSString* code = self.target;
-    //@可空白"
-    BOOL hasNSString = ![self.target rangeOfString:@"@\\s*\"" options:NSRegularExpressionSearch].length;
+    //LinkBlock编码
+    //@"..." => NSString_LB0000__LB0000__LB0000_
+    //@(...) => NSNumber_LB0000__LB0000__LB0000_
+    //@(@(123).numberToInt.fd(23))
     
-    //@可空白(
+    NSString* code = self.target;
+    //NSString: @可空白"
+    BOOL hasNSString = [self.target rangeOfString:@"@\\s*\"" options:NSRegularExpressionSearch].length;
+    
+    //NSNumber: @可空白(
     BOOL hasNSNumber = [self.target rangeOfString:@"@\\s*\\(" options:NSRegularExpressionSearch].length;
     
     if(!hasNSString && !hasNSNumber)
         return self.target;
     
-    NSMutableString* stackString = [NSMutableString new];
-    __block BOOL encoding = NO;
-    __block NSInteger state= 0 ;//0-Non,1-NSString,2-NSNumber,3-chars
-    __block BOOL badReturn = NO;
-    /*
-     *encode
-     [0-9]=>[48-57]
-     [A-Z]=>[65-90]
-     [a-z]=>[97-122]
-     _ => 95
-     */
-    /*
-     * 识别
-     * " => 34
-     * ( => 40
-     * ) => 41
-     * @ => 64
-     */
-    
+    NSMutableArray<NSString*>* stack = [NSMutableArray new];
+//    __block BOOL encoding = NO;
+    __block NSInteger state= 0 ;//0-Non,1-NSString,2-chars,3-NSNumber
+    __block BOOL checkASCII = NO;
+
+    __block NSInteger idx = 0;
     [code enumerateSubstringsInRange:NSMakeRange(0, code.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
+        
         const char* chs = [substring UTF8String];
+        
         if(strlen(chs)>1){
+            //非ASCII
             *stop = YES;
-            badReturn = YES;
+            checkASCII = YES;
+            return;
         }
+        
+        //普通状态
+        if(state == 0){
+            
+            if(chs[0] == '"'){
+                
+                if(idx > 0){
+                    
+                    if([code characterAtIndex:idx-1] == '@'){
+                        //NSString
+                        state = 1;
+                        [stack removeLastObject];
+                        [stack addObject:@"NSString"];
+                        idx++;
+                        return;
+                    }else{
+                        //chars
+                        [stack addObject:@"chars"];
+                        state = 2;
+                        idx++;
+                        return;
+                    }
+                }else{
+                    //chars
+                    state = 2;
+                    idx++;
+                    return;
+                }
+            }
+            [stack addObject:substring];
+            idx++;
+            return;
+        }
+        /*
+         *encode
+         [0-9]=>[48-57]
+         [A-Z]=>[65-90]
+         _ => 95
+         [a-z]=>[97-122]
+         */
+        /*
+         * 识别
+         * " => 34
+         * ( => 40
+         * ) => 41
+         * @ => 64
+         * \ => 92
+         */
+
+        //转码中
+        if(state == 1 || state == 2){
+            
+            //是否是字符串结束符号"
+            if(chs[0] == '"'){
+                
+                NSUInteger countOf92 = 0;
+                for (NSInteger i = idx-1; i>-1; i--) {
+                    if([code characterAtIndex:i] == '\\'){
+                        countOf92++;
+                    }else{
+                        break;
+                    }
+                }
+                //转码字符串中遇到",前面是偶数个\时结束转码
+                if(countOf92%2 == 0){
+                    state = 0;
+                    //转码结束
+                    idx++;
+                    return;
+                }else{
+                    
+                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                }
+            }else{
+                
+                if(chs[0]<48 ||
+                   (chs[0]>57 && chs[0]<65) ||
+                   (chs[0]>90 && chs[0]<95) ||
+                   chs[0]==96 || chs[0]>122
+                   ){
+                    //需要转码
+                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                }else{
+                    //不需要转码
+                    [stack addObject:substring];
+                }
+            }
+        }
+
+        idx++;
     }];
     
-    if(badReturn){
+    if(checkASCII){
         return nil;
     }
     
-    //LinkBlock编码
-    //@"..."=>NSString_LB0001__LB0001__LB0001_
-    //@(...)=>NSNumber_LB0001__LB0001__LB0001_
-    //"..."=>chars_LB0001__LB0001__LB0001_
+    NSMutableString* stackString = [NSMutableString new];
+    [stack enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [stackString appendString:obj];
+    }];
     
-    return nil;
+    return stackString.copy;
 }
 
 - (BOOL)checkLinkCodeString

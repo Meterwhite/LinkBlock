@@ -9,7 +9,7 @@
 #import "LinkBlockDefine.h"
 
 @interface LinkHelper<__covariant ObjectType> : NSProxy
-
+- (NSString*)linkBlockEncodingNSStringFromCode;
 + (id)help:(id)target;
 
 
