@@ -92,12 +92,143 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
     if(!hasNSString && !hasNSNumber)
         return self.target;
     
-    NSMutableArray<NSString*>* stack = [NSMutableArray new];
-//    __block BOOL encoding = NO;
     __block NSInteger state= 0 ;//0-Non,1-NSString,2-chars,3-NSNumber
-    __block BOOL checkASCII = NO;
-
     __block NSInteger idx = 0;
+    __block BOOL checkASCII = NO;
+    NSMutableArray<NSString*>* stack = [NSMutableArray new];
+    
+    if(hasNSString){
+        
+        [code enumerateSubstringsInRange:NSMakeRange(0, code.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
+            
+            const char* chs = [substring UTF8String];
+            
+            if(strlen(chs)>1){
+                //非ASCII
+                *stop = YES;
+                checkASCII = YES;
+                NSLog(@"DynamicLink Error:%s非法字符，请使用ASCII！",chs);
+                return;
+            }
+            
+            //普通状态
+            if(state == 0){
+                
+                if(chs[0] == '"'){
+                    
+                    if(idx > 0){
+                        
+                        if([code characterAtIndex:idx-1] == '@'){
+                            //NSString
+                            state = 1;
+                            [stack removeLastObject];
+                            [stack addObject:@"NSString"];
+                            idx++;
+                            return;
+                        }else{
+                            //chars
+                            [stack addObject:@"chars"];
+                            state = 2;
+                            idx++;
+                            return;
+                        }
+                    }else{
+                        //chars
+                        state = 2;
+                        idx++;
+                        return;
+                    }
+                }
+                [stack addObject:substring];
+                idx++;
+                return;
+            }
+            /*
+             *encode
+             [0-9]=>[48-57]
+             [A-Z]=>[65-90]
+             _ => 95
+             [a-z]=>[97-122]
+             */
+            /*
+             * 识别
+             * " => 34
+             * ( => 40
+             * ) => 41
+             * @ => 64
+             * \ => 92
+             */
+            
+            //转码中
+            if(state == 1 || state == 2){
+                
+                //是否是字符串结束符号"
+                if(chs[0] == '"'){
+                    
+                    NSUInteger countOf92 = 0;
+                    for (NSInteger i = idx-1; i>-1; i--) {
+                        if([code characterAtIndex:i] == '\\'){
+                            countOf92++;
+                        }else{
+                            break;
+                        }
+                    }
+                    //转码字符串中遇到",前面是偶数个\时结束转码
+                    if(countOf92%2 == 0){
+                        //转码结束
+                        state = 0;
+                        idx++;
+                        return;
+                    }else{
+                        
+                        [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                    }
+                }else{
+                    
+                    if(chs[0]<48 ||
+                       (chs[0]>57 && chs[0]<65) ||
+                       (chs[0]>90 && chs[0]<95) ||
+                       chs[0]==96 || chs[0]>122
+                       ){
+                        //需要转码
+                        [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                    }else{
+                        //不需要转码
+                        [stack addObject:substring];
+                    }
+                }
+            }
+            
+            idx++;
+        }];
+        
+        if(checkASCII){
+            return nil;
+        }
+        
+        if(state != 0){
+            NSLog(@"DynamicLink Error:检查%@是否中存在不完整的字符串！",code);
+            return nil;
+        }
+        
+        NSMutableString* stackString = [NSMutableString new];
+        [stack enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [stackString appendString:obj];
+        }];
+        
+        code = stackString.copy;
+        if(!hasNSNumber){
+            return code;
+        }
+    }
+    
+    [stack removeAllObjects];
+    state= 0 ;//0-Non,1-NSString,2-chars,3-NSNumber
+    idx = 0;
+    checkASCII = NO;
+    /*
+     * @(fun(@(123)).fun())
+     */
     [code enumerateSubstringsInRange:NSMakeRange(0, code.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
         
         const char* chs = [substring UTF8String];
@@ -106,122 +237,28 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
             //非ASCII
             *stop = YES;
             checkASCII = YES;
+            NSLog(@"DynamicLink Error:%s非法字符，请使用ASCII！",chs);
             return;
         }
         
         //普通状态
         if(state == 0){
             
-            if(chs[0] == '"'){
+            if(chs[0] == '('){
                 
                 if(idx > 0){
-                    
-                    if([code characterAtIndex:idx-1] == '@'){
-                        //NSString
-                        state = 1;
-                        [stack removeLastObject];
-                        [stack addObject:@"NSString"];
-                        idx++;
-                        return;
-                    }else{
-                        //chars
-                        [stack addObject:@"chars"];
-                        state = 2;
-                        idx++;
-                        return;
-                    }
-                }else{
-                    //chars
-                    state = 2;
-                    idx++;
-                    return;
-                }
-            }
-            [stack addObject:substring];
-            idx++;
-            return;
-        }
-        /*
-         *encode
-         [0-9]=>[48-57]
-         [A-Z]=>[65-90]
-         _ => 95
-         [a-z]=>[97-122]
-         */
-        /*
-         * 识别
-         * " => 34
-         * ( => 40
-         * ) => 41
-         * @ => 64
-         * \ => 92
-         */
-
-        //转码中
-        if(state == 1 || state == 2){
-            
-            //是否是字符串结束符号"
-            if(chs[0] == '"'){
-                
-                NSUInteger countOf92 = 0;
-                for (NSInteger i = idx-1; i>-1; i--) {
-                    if([code characterAtIndex:i] == '\\'){
-                        countOf92++;
-                    }else{
-                        break;
-                    }
-                }
-                //转码字符串中遇到",前面是偶数个\时结束转码
-                if(countOf92%2 == 0){
-                    state = 0;
-                    //转码结束
-                    idx++;
-                    return;
-                }else{
-                    
-                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
-                }
-            }else{
-                
-                if(chs[0]<48 ||
-                   (chs[0]>57 && chs[0]<65) ||
-                   (chs[0]>90 && chs[0]<95) ||
-                   chs[0]==96 || chs[0]>122
-                   ){
-                    //需要转码
-                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
-                }else{
-                    //不需要转码
-                    [stack addObject:substring];
                 }
             }
         }
-
-        idx++;
+        
     }];
     
-    if(checkASCII){
-        return nil;
-    }
     
-    NSMutableString* stackString = [NSMutableString new];
-    [stack enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [stackString appendString:obj];
-    }];
     
-    return stackString.copy;
+    
+    return self.target;
 }
 
-- (BOOL)checkLinkCodeString
-{
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"@\".*\"" options:0 error:nil];
-    
-    [regex enumerateMatchesInString:self.target options:0 range:NSMakeRange(0, [self.target length]) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-//        NSString*
-    }];
-    
-    return NO;
-}
 
 - (NSString *)functionNameSplitFromFunctionCode
 {

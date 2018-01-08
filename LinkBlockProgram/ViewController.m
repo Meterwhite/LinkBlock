@@ -44,7 +44,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSString* str = [[LinkHelper help:@"func(@\"a.b_c\"+@\"NN\")"] linkBlockEncodingNSStringFromCode];
+    NSString* str = [[LinkHelper help:@"func(@\"a.b_c\"+@\"NN\\\")"] linkBlockEncodingNSStringFromCode];
+    NSLog(@"%@",str);
     @"end".nslog();
     return;
     //////////////////////////////////////////////////////////////////////
