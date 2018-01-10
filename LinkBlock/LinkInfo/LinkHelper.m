@@ -135,6 +135,7 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
                     }else{
                         //chars
                         state = 2;
+                        [stack addObject:@"chars"];
                         idx++;
                         return;
                     }
@@ -198,7 +199,6 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
                     }
                 }
             }
-            
             idx++;
         }];
         
@@ -226,8 +226,9 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
     state= 0 ;//0-Non,1-NSString,2-chars,3-NSNumber
     idx = 0;
     checkASCII = NO;
+    __block NSInteger pairValue = 0;
     /*
-     * @(fun(@(123)).fun())
+     * (@(fun(@(123)).fun())..)
      */
     [code enumerateSubstringsInRange:NSMakeRange(0, code.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
         
@@ -246,17 +247,79 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
             
             if(chs[0] == '('){
                 
-                if(idx > 0){
+                pairValue -= 1;
+                if(idx > 0 && [code characterAtIndex:idx-1] == '@'){
+                    
+                    //NSNumber
+                    state = 3;
+                    [stack removeLastObject];
+                    [stack addObject:@"NSNumber"];
+                    idx++;
+                    return;
+                }else{
+                    
+                    [stack addObject:substring];
+                    idx++;
+                    return;
                 }
+            }else{
+                
+                [stack addObject:substring];
+                idx++;
+                return;
             }
         }
         
+        //转码中
+        if(state == 3){
+            
+            //是否是字符串结束符号"
+            if(chs[0] == ')'){
+                
+                pairValue += 1;
+                if(pairValue == 0){//匹配完成的)
+                    //转码结束
+                    state = 0;
+                    idx++;
+                    return;
+                }else{
+                    
+                    //匹配途中的)
+                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                }
+            }else{
+                
+                if(chs[0]<48 ||
+                   (chs[0]>57 && chs[0]<65) ||
+                   (chs[0]>90 && chs[0]<95) ||
+                   chs[0]==96 || chs[0]>122
+                   ){
+                    //需要转码
+                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                }else{
+                    //不需要转码
+                    [stack addObject:substring];
+                }
+            }
+        }
+        idx++;
     }];
     
+    if(checkASCII){
+        return nil;
+    }
     
+    if(state != 0){
+        NSLog(@"DynamicLink Error:检查%@是否中存在未完成的括号对！",code);
+        return nil;
+    }
     
+    NSMutableString* stackString = [NSMutableString new];
+    [stack enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [stackString appendString:obj];
+    }];
     
-    return self.target;
+    return stackString.copy;
 }
 
 
