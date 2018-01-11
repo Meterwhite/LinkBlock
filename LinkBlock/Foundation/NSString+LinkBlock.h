@@ -55,6 +55,8 @@ LBDeclare BOOL         (^strIszh_CNInRange)(NSRange range);
 LBDeclare NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
 /** <^(NSString* str)>无结果时返回NSNotFound */
 LBDeclare NSRange      (^strRangeOfStr)(NSString* str);
+/** <^()> */
+LBDeclare NSRange      (^strRange)();
 /** <^(NSString* str)>无结果时返回NSNotFound */
 LBDeclare NSInteger    (^strIndexOfStr)(NSString* str);
 /** <^(NSString* str, NSUInteger startIndex)>从某处开始的某字符串的位置。无结果时返回NSNotFound */

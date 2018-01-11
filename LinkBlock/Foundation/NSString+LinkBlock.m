@@ -306,6 +306,20 @@
     };
 }
 
+- (NSRange (^)())strRange
+{
+    return ^(){
+        NSRange range = NSMakeRange(NSNotFound, 0);
+        LinkHandle_VAL_IFNOT(NSString){
+            return range;
+        }
+        LinkGroupHandle_VAL(strRange)
+        range.location = 0;
+        range.length = _self.length;
+        return range;
+    };
+}
+
 - (NSString *(^)(NSString *, ...))strAppendFormat
 {
     return ^id(NSString *formatStr, ...){
@@ -1037,12 +1051,12 @@
     return ^id(NSString* str){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strTrimLeft,str)
-        NSMutableString * reIsStrM= _self.strMutableCopy();
-        [reIsStrM replaceOccurrencesOfString:str
+        NSMutableString * str_m = _self.strMutableCopy();
+        [str_m replaceOccurrencesOfString:str
                                   withString:@""
                                      options:NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
-        return reIsStrM.copy;
+        return str_m.copy;
     };
 }
 
@@ -1051,12 +1065,12 @@
     return ^id(NSString* str){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strTrimRight,str)
-        NSMutableString * reIsStrM= [_self mutableCopy];
-        [reIsStrM replaceOccurrencesOfString:str
+        NSMutableString * str_m= [_self mutableCopy];
+        [str_m replaceOccurrencesOfString:str
                                   withString:@""
                                      options:NSBackwardsSearch|NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
-        return reIsStrM.copy;
+        return str_m.copy;
     };
 }
 
@@ -1065,16 +1079,16 @@
     return ^id(NSString* str){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strTrim,str)
-        NSMutableString * reIsStrM= _self.strMutableCopy();
-        [reIsStrM replaceOccurrencesOfString:str
+        NSMutableString * str_m= _self.strMutableCopy();
+        [str_m replaceOccurrencesOfString:str
                                   withString:@""
                                      options:NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
-        [reIsStrM replaceOccurrencesOfString:str
+        [str_m replaceOccurrencesOfString:str
                                   withString:@""
                                      options:NSBackwardsSearch|NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
-        return reIsStrM.copy;
+        return str_m.copy;
     };
 }
 

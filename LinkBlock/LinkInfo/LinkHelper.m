@@ -75,13 +75,69 @@
 }
 
 static NSString* _lbEncodeFormate = @"_LB%ld_";
-- (NSString*)linkBlockEncodingNSStringFromCode
+- (id)valueFromLinkBlockDecodingCodeAction
 {
-    //LinkBlock编码
-    //@"..." => NSString_LB0000__LB0000__LB0000_
-    //@(...) => NSNumber_LB0000__LB0000__LB0000_
-    //@(@(123).numberToInt.fd(23))
+    if(!self_target_is_type(NSString)) return nil;
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"_LB\\d+_"
+                                                                           options:0
+                                                                             error:nil];
+    NSString* preString = self.target;
+    preString = preString.strTrimLeft(@" ").strTrimRight(@" ");
+    NSInteger typeFlag = 0;//0-non,1-nsstring,2-nsnumber
+    if([preString rangeOfString:@"NSString"].location == 0){
+        typeFlag = 1;
+        preString = [preString substringFromIndex:8];
+    }else if ([preString rangeOfString:@"NSNumber"].location == 0){
+        typeFlag = 2;
+        preString = [preString substringFromIndex:8];
+    }
     
+    NSMutableString* code = [preString mutableCopy];
+    
+    NSInteger offset = 0;
+    NSArray<NSTextCheckingResult*>* results = [regex matchesInString:code
+                                                             options:0
+                                                               range:code.strRange()];
+    for (NSTextCheckingResult* result in results) {
+        
+        NSRange rangeOfResult = result.range;
+        rangeOfResult.location += offset;
+        NSString* matchString = [regex replacementStringForResult:result
+                                                         inString:code
+                                                           offset:offset
+                                                         template:@"$0"];
+        
+        NSString* replacementString = [NSString stringWithFormat:@"%c",(char)[[matchString substringWithRange:NSMakeRange(3, matchString.length-4)] integerValue]];
+        [code replaceCharactersInRange:rangeOfResult withString:replacementString];
+        offset += (replacementString.length - rangeOfResult.length);
+    }
+    
+    if(typeFlag == 1){
+        return [NSString stringWithFormat:@"@\"%@\"",code];
+    }else if (typeFlag == 2){
+        NSScanner *scaner= [[NSScanner alloc] initWithString:code];
+        if([scaner scanDouble:nil] && [scaner isAtEnd]){
+            return [[LinkHelper help:code] numberEvalFromCode];
+        }else{
+            id number = [[LinkHelper help:code] valueFromValueCode];
+            if([number isKindOfClass:[NSNumber class]]){
+                return number;
+            }
+        }
+    }
+    
+    return nil;
+}
+- (NSString*)linkBlockEncodingNSStringAndNSNumberFromCode
+{
+    /*
+     *LinkBlock编码
+     *原理:将字符串和装箱数字的直接量@"..."和@(...)，硬编码成字母和下划线组成的编码形式
+     *其中非函数名字符转为:_LB + ASCIIIntegerValue + _
+     *如：@"..." => NSString_LB46__LB46__LB46_ 和 @(...) => NSNumber_LB46__LB46__LB46_
+     */
+    if(!self_target_is_type(NSString)) return nil;
+    //预匹配
     NSString* code = self.target;
     //NSString: @可空白"
     BOOL hasNSString = [self.target rangeOfString:@"@\\s*\"" options:NSRegularExpressionSearch].length;
@@ -221,15 +277,13 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
             return code;
         }
     }
-    
+    //NSNumber
     [stack removeAllObjects];
     state= 0 ;//0-Non,1-NSString,2-chars,3-NSNumber
     idx = 0;
     checkASCII = NO;
     __block NSInteger pairValue = 0;
-    /*
-     * (@(fun(@(123)).fun())..)
-     */
+
     [code enumerateSubstringsInRange:NSMakeRange(0, code.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
         
         const char* chs = [substring UTF8String];
@@ -582,7 +636,8 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
         return [NSValue valueWithBytes:&val objCType:@encode(id)];
     }
     
-    return nil;
+    //尝试解析为算数表达式
+    return [[LinkHelper help:code] numberEvalFromCode];
 }
 
 - (NSArray<NSString *> *)functionArgumentSplitFromFunctionCallCode

@@ -9,7 +9,8 @@
 #import "LinkBlockDefine.h"
 
 @interface LinkHelper<__covariant ObjectType> : NSProxy
-- (NSString*)linkBlockEncodingNSStringFromCode;
+- (id)valueFromLinkBlockDecodingCodeAction;
+- (NSString*)linkBlockEncodingNSStringAndNSNumberFromCode;
 + (id)help:(id)target;
 
 
@@ -35,7 +36,7 @@
 
 
 /**
- 字符串字面量解析并装箱
+ *字符串字面量解析并装箱
  *空白和不能识别的内容将会返回nil
  */
 - (NSValue*)valueFromValueCode;
