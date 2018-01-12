@@ -9,7 +9,20 @@
 #import "LinkBlockDefine.h"
 
 @interface LinkHelper<__covariant ObjectType> : NSProxy
-- (id)valueFromLinkBlockDecodingCodeAction;
+
+/**
+ 是否是硬编码的直接量
+ */
+- (BOOL)isCodeLinkBlockEncoded;
+
+/**
+ <#Description#>
+ */
+- (id)valueFromLinkBlockEncodingCodeAction;
+
+/**
+ <#Description#>
+ */
 - (NSString*)linkBlockEncodingNSStringAndNSNumberFromCode;
 + (id)help:(id)target;
 

@@ -65,7 +65,7 @@
     //函数名可空白(非贪婪个任意字符).
     //函数名.
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:
-                                  @"[a-zA-Z_]+\\d*(\\s*\\(.*?\\)\\.|\\.)" options:0 error:nil];
+                                  @"[a-zA-Z_]+\\w*(\\s*\\(.*?\\)\\.|\\.)" options:0 error:nil];
     [regex enumerateMatchesInString:code options:0 range:NSMakeRange(0, code.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         
         [blocksString addObject: [code substringWithRange:NSMakeRange(result.range.location, result.range.length-1)]];
@@ -75,7 +75,30 @@
 }
 
 static NSString* _lbEncodeFormate = @"_LB%ld_";
-- (id)valueFromLinkBlockDecodingCodeAction
+- (BOOL)isCodeLinkBlockEncoded
+{
+    
+    if(!self_target_is_type(NSString)) return NO;
+
+    NSString* preString = self.target;
+    preString = preString.strTrimLeft(@" ").strTrimRight(@" ");
+    const char* chs = [preString UTF8String];
+    for (NSInteger i = 0; i<strlen(chs); i++) {
+        
+        if(chs[0]<48 ||
+           (chs[0]>57 && chs[0]<65) ||
+           (chs[0]>90 && chs[0]<95) ||
+           chs[0]==96 || chs[0]>122
+           ){
+            
+            return NO;
+        }
+    }
+    if([preString rangeOfString:@"NSString"].location == 0) return YES;
+    if([preString rangeOfString:@"NSNumber"].location == 0) return YES;
+    return NO;
+}
+- (id)valueFromLinkBlockEncodingCodeAction
 {
     if(!self_target_is_type(NSString)) return nil;
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"_LB\\d+_"
@@ -301,10 +324,10 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
             
             if(chs[0] == '('){
                 
-                pairValue -= 1;
                 if(idx > 0 && [code characterAtIndex:idx-1] == '@'){
                     
                     //NSNumber
+                    pairValue -= 1;
                     state = 3;
                     [stack removeLastObject];
                     [stack addObject:@"NSNumber"];
@@ -327,9 +350,16 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
         //转码中
         if(state == 3){
             
-            //是否是字符串结束符号"
-            if(chs[0] == ')'){
+            if(chs[0] == '('){
                 
+                //需要转码
+                [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                pairValue -= 1;
+                idx++;
+                return;
+            }else if(chs[0] == ')'){
+                
+                //是否是字符串结束符号"
                 pairValue += 1;
                 if(pairValue == 0){//匹配完成的)
                     //转码结束
@@ -381,7 +411,7 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
 {
     if(!self_target_is_type(NSString)) return nil;
     
-    NSRange rangeOfBlockName = [self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(" options:NSRegularExpressionSearch];
+    NSRange rangeOfBlockName = [self.target rangeOfString:@"[a-zA-Z_]+\\w*\\s*\\(" options:NSRegularExpressionSearch];
     if(!rangeOfBlockName.length) return nil;
     NSString* functionName = [self.target substringWithRange:rangeOfBlockName];
     functionName = [functionName stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -392,7 +422,7 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
 - (NSString *)propertyNameFromPropertyCode
 {
     if(!self_target_is_type(NSString)) return nil;
-    NSRange rangeOfPropertyName = [self.target rangeOfString:@"[a-zA-Z_]+\\d*" options:NSRegularExpressionSearch];
+    NSRange rangeOfPropertyName = [self.target rangeOfString:@"[a-zA-Z_]+\\w*" options:NSRegularExpressionSearch];
     if(!rangeOfPropertyName.length) return nil;
     NSString* propertyName = [self.target substringWithRange:rangeOfPropertyName];
     propertyName = [propertyName stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -645,7 +675,7 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
     if(!self_target_is_type(NSString)) return nil;
     //检查格式
     //函数调用格式  字母[数字](...)
-    if([self.target rangeOfString:@"[a-zA-Z_]+\\d*\\s*\\(.*\\)" options:NSRegularExpressionSearch].location == NSNotFound){
+    if([self.target rangeOfString:@"[a-zA-Z_]+\\w*\\s*\\(.*\\)" options:NSRegularExpressionSearch].location == NSNotFound){
         return nil;
     }
     

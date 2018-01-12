@@ -39,7 +39,7 @@
 - (id)commandInvoke:(id)target
 {
     
-    NSAssert([self.code isKindOfClass:[NSString class]], @"LinkBlock命令必须是objc字符串");
+    NSAssert([self.code isKindOfClass:[NSString class]], @"LinkBlock脚本必须是objc字符串");
     
     //new 命令
     NSRegularExpression* regexOfNew = [NSRegularExpression regularExpressionWithPattern:@"[a-zA-Z_]+\\d*New" options:0 error:0];
@@ -53,6 +53,11 @@
         }else if([[[self linkBlockCommandReflectList] allKeys] containsObject:self.code]){
             return [[self linkBlockCommandReflectList] objectForKey:self.code];
         }
+    }
+    
+    //硬编码的直接量
+    if([[LinkHelper help:self.code] isCodeLinkBlockEncoded]){
+        return [[LinkHelper help:self.code] valueFromLinkBlockEncodingCodeAction];
     }
     
     //类名

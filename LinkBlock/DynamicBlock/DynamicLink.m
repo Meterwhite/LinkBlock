@@ -49,7 +49,7 @@
     self = [super init];
     if (self) {
         
-        _code = code;
+        _code = [[LinkHelper help:code] linkBlockEncodingNSStringAndNSNumberFromCode];
         
         NSArray* actionStrings = [[LinkHelper help:_code] actionCommandSplitFromLinkCode];
         [actionStrings enumerateObjectsUsingBlock:^(NSString*  _Nonnull blockString, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -44,19 +44,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    NSString* str = [[LinkHelper help:@"func(@\"a.b_c\"+@\"NN\\\")"] linkBlockEncodingNSStringFromCode];
-    NSString* str = [[LinkHelper help:@"   @(  12+21  )   "] linkBlockEncodingNSStringAndNSNumberFromCode];
-    id str2 = [[LinkHelper help:str] valueFromLinkBlockDecodingCodeAction];
-    NSLog(@"%@",str);
-    @"end".nslog();
-    return;
+////    NSString* str = [[LinkHelper help:@"func(@\"a.b_c\"+@\"NN\\\")"] linkBlockEncodingNSStringFromCode];
+//    NSString* str = [[LinkHelper help:@"   @(  12+21  )   "] linkBlockEncodingNSStringAndNSNumberFromCode];
+//    id str2 = [[LinkHelper help:str] valueFromLinkBlockEncodingCodeAction];
+//    NSLog(@"%@",str);
+//    @"end".nslog();
+//    return;
     //////////////////////////////////////////////////////////////////////
     //【新增！】DynamicLink动态脚本解析
     //////////////////////////////////////////////////////////////////////
 //    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj().arrAddObj()"
 //    .linkCodeEval(NSMutableArrayNew,@"ABC",[NSObject new]).nslog();
     
-    //UIViewNew.viewBGColor(Make(NSNumber,0x42a7f4).numToUIColorFromHex())
+//    UIViewNew.viewBGColor(@(0x42a7f4).numToUIColorFromHex())
     
     /*
      UIViewNew.
@@ -66,10 +66,6 @@
      
     */
     
-    //f0 . f1 ( f2 ( f3 , f4 ) . f5 ( ) )
-    //
-    
-    @"NSString(@\"123\"123\"123\")"
     
     @"UIViewNew.viewBGColor(@(0x42a7f4).numToUIColorFromHex())"
     .linkCodeEval(NSNil).viewSetFrame(50, 50, 50, 50).viewAddToView(self.view);
