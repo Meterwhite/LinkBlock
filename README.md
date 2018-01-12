@@ -2,19 +2,20 @@
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
 ## Introduce【介绍】
-* LinkBlock是objc`链式编程`语法糖扩展，便于折叠冗余逻辑。
-* 整合Fundation最基本功能。
-* 持续维护，向后兼容。
-* LinkBlock is objective-c Syntactic sugar , to `chain programming`.
-* Frame encapsulation of native Foundation is the most basic and the most common functions...
-* Continuously updated.Backward compatibility.
+* LinkBlock是objc`链式编程`语法糖扩展，逻辑简明，结构清晰
+* 整理Fundation常用功能
+* 持续维护，向后兼容
+* LinkBlock is objective-c Syntactic sugar , to `chain programming`
+* Organize Fundation functions.
+* Continuously updated.Backward compatibility
 
-## Manually【手动导入】
+## Manually【导入】
 - Drag all source files under floder `LinkBlock` to your project.【将`LinkBlock`文件夹中的所有源代码拽入项目中】
 - Import the main header file：`#import "LinkBlock.h"`【导入主头文件：`#import "LinkBlock.h"`】
 - PS：Best not to use pch. to avoid the pollution of the entire project propertys tips.【提示：最好不要在pch文件中引用，避免污染整个项目的属性提示；在.h文件中查看注释；】
 ```objc
 #import "LinkBlock.h"
+//or use pod
 ```
 
 ## New!【新增！】
