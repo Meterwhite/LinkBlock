@@ -7,6 +7,11 @@
 
 #import "LinkBlockDefine.h"
 
+
+/**
+ *链条错误
+ *可以响应未知方法，响应未知方法时会打印错误信息
+ */
 @interface LinkError : LinkInfo
 /** 需要类型 */
 @property (nonatomic,copy) NSString* needClass;

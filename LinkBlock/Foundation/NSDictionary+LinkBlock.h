@@ -16,11 +16,11 @@ LBDeclare id           (^dictGetNoNSNull)(id<NSCopying> key);
 LBDeclare BOOL         (^dictGetBOOL)(id<NSCopying> key);
 LBDeclare NSNumber*    (^dictGetBOOL_n)(id<NSCopying> key);
 /** <^(id<NSCopying> key)>是否包含key */
-LBDeclare BOOL         (^dictContainerKey)(id<NSCopying> key);
-LBDeclare NSNumber*    (^dictContainerKey_n)(id<NSCopying> key);
+LBDeclare BOOL         (^dictContaineKey)(id<NSCopying> key);
+LBDeclare NSNumber*    (^dictContaineKey_n)(id<NSCopying> key);
 /** <^(id value)>是否包含value */
-LBDeclare BOOL         (^dictContainerValue)(id value);
-LBDeclare NSNumber*    (^dictContainerValue_n)(id value);
+LBDeclare BOOL         (^dictContaineValue)(id value);
+LBDeclare NSNumber*    (^dictContaineValue_n)(id value);
 /** <^()> */
 LBDeclare NSArray*     (^dictAllKeys)();
 /** <^()> */

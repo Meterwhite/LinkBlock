@@ -26,8 +26,8 @@ LBDeclare NSMutableDictionary* (^m_dictUnionDict)(NSDictionary* dict);
 #define AttrDictNew NSMutableDictionaryNew
 #endif
 
-#ifdef AttrDictNewWithSize
-#define AttrDictNewWithSize(size) (NSMutableDictionaryNew.makeAttrDictFontSizeAndTextColor(15, [UIColor blackColor]))
+#ifndef AttrDictNewWithSize
+#define AttrDictNewWithSize(size) (NSMutableDictionaryNew.makeAttrDictFontSizeAndTextColor(size, [UIColor blackColor]))
 #endif
 
 /** <^(CGFloat fontSize , UIColor* titleColor)>titleColor默认为黑色 */

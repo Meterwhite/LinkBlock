@@ -18,5 +18,8 @@ LBDeclare UIViewController*    (^vcAddChildVC)(UIViewController* childVC);
 LBDeclare UIViewController*    (^vcTitle)(NSString* title);
 /** <^(UIViewController* vc)>push控制器 动画YES */
 LBDeclare UIViewController*    (^vcNavigationControllerPushVC)(UIViewController* vc);
+/** <^(UIViewController* vc)> */
 LBDeclare UIViewController*    (^vcNavigationControllerPopTo)(UIViewController* vc);
+/** <^()> */
+LBDeclare UIViewController*    (^vcNavigationControllerPop)();
 @end

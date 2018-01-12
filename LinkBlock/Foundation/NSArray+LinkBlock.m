@@ -6,9 +6,9 @@
 //
 
 #import "LinkBlock.h"
+#import <stdarg.h>
 
 @implementation NSObject(NSArraryLinkBlock)
-
 - (NSObject *)makeLinkObjs
 {
     LinkHandle_REF(NSArray)

@@ -8,7 +8,7 @@
 
 #import "LinkBlockDefine.h"
 
-#ifdef UISearchBarNew
+#ifndef UISearchBarNew
 #define UISearchBarNew ([UISearchBar new])
 #endif
 

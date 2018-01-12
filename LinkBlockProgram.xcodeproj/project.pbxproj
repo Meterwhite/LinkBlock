@@ -16,6 +16,11 @@
 		453AFBCA1D6EFB4E00012095 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AFBC81D6EFB4E00012095 /* Person.m */; };
 		453ED88D1D86B47F00B4A4C4 /* NSError+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 453ED88C1D86B47F00B4A4C4 /* NSError+LinkBlock.m */; };
 		4540E41F1EB034A100AC87F1 /* CAAnimations+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4540E41E1EB034A100AC87F1 /* CAAnimations+LinkBlock.m */; };
+		454A9E301FE26D8800CEE102 /* LinkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E2F1FE26D8700CEE102 /* LinkHelper.m */; };
+		454A9E341FE3B95600CEE102 /* DynamicLinkArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */; };
+		454A9E371FE3BB3400CEE102 /* DynamicLinkAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E361FE3BB3400CEE102 /* DynamicLinkAction.m */; };
+		454A9E3A1FE3BC1A00CEE102 /* DynamicLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A9E391FE3BC1A00CEE102 /* DynamicLink.m */; };
+		455595C31FF4DEB400C88FB7 /* NSBlackHole.m in Sources */ = {isa = PBXBuildFile; fileRef = 455595C11FF4DEB400C88FB7 /* NSBlackHole.m */; };
 		4559E86A1D952B580034D221 /* LinkReturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E8691D952B580034D221 /* LinkReturn.m */; };
 		458AD6001D193BDC00D5B931 /* JSContext+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FD1D193BDC00D5B931 /* JSContext+LinkBlock.m */; };
 		458AD6011D193BDC00D5B931 /* JSValue+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FF1D193BDC00D5B931 /* JSValue+LinkBlock.m */; };
@@ -27,6 +32,8 @@
 		45C239BF1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C239BE1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m */; };
 		45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */; };
 		45EB72F41FAAC793004984E0 /* UIFont+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EB72F31FAAC793004984E0 /* UIFont+LinkBlock.m */; };
+		9F6508821FE59C2E0039BA9E /* LinkBlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */; };
+		9F8D65DD1FF1601700EBDE5A /* LinkPropertyInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D65DC1FF1601700EBDE5A /* LinkPropertyInvocation.m */; };
 		9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */; };
 		9FBD17381BDB91D500C2F402 /* NSAttributedString+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD170A1BDB91D500C2F402 /* NSAttributedString+LinkBlock.m */; };
 		9FBD17391BDB91D500C2F402 /* NSDate+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD170C1BDB91D500C2F402 /* NSDate+LinkBlock.m */; };
@@ -89,6 +96,17 @@
 		453ED88C1D86B47F00B4A4C4 /* NSError+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+LinkBlock.m"; sourceTree = "<group>"; };
 		4540E41D1EB034A100AC87F1 /* CAAnimations+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimations+LinkBlock.h"; sourceTree = "<group>"; };
 		4540E41E1EB034A100AC87F1 /* CAAnimations+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimations+LinkBlock.m"; sourceTree = "<group>"; };
+		454A9E2E1FE26D8700CEE102 /* LinkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkHelper.h; sourceTree = "<group>"; };
+		454A9E2F1FE26D8700CEE102 /* LinkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkHelper.m; sourceTree = "<group>"; };
+		454A9E321FE3B95600CEE102 /* DynamicLinkArgument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLinkArgument.h; sourceTree = "<group>"; };
+		454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLinkArgument.m; sourceTree = "<group>"; };
+		454A9E351FE3BB3400CEE102 /* DynamicLinkAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLinkAction.h; sourceTree = "<group>"; };
+		454A9E361FE3BB3400CEE102 /* DynamicLinkAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLinkAction.m; sourceTree = "<group>"; };
+		454A9E381FE3BC1A00CEE102 /* DynamicLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLink.h; sourceTree = "<group>"; };
+		454A9E391FE3BC1A00CEE102 /* DynamicLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLink.m; sourceTree = "<group>"; };
+		455595C01FF4DEB400C88FB7 /* NSNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNil.h; sourceTree = "<group>"; };
+		455595C11FF4DEB400C88FB7 /* NSBlackHole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBlackHole.m; sourceTree = "<group>"; };
+		455595C21FF4DEB400C88FB7 /* NSBlackHole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBlackHole.h; sourceTree = "<group>"; };
 		4559E8681D952B580034D221 /* LinkReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkReturn.h; sourceTree = "<group>"; };
 		4559E8691D952B580034D221 /* LinkReturn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkReturn.m; sourceTree = "<group>"; };
 		456366091E77DD0900C1ABE2 /* LinkBlockDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LinkBlockDefine.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -113,6 +131,10 @@
 		45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIBezierPath+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		45EB72F21FAAC793004984E0 /* UIFont+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+LinkBlock.h"; sourceTree = "<group>"; };
 		45EB72F31FAAC793004984E0 /* UIFont+LinkBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+LinkBlock.m"; sourceTree = "<group>"; };
+		9F6508801FE59C2E0039BA9E /* LinkBlockInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkBlockInvocation.h; sourceTree = "<group>"; };
+		9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkBlockInvocation.m; sourceTree = "<group>"; };
+		9F8D65DB1FF1601700EBDE5A /* LinkPropertyInvocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkPropertyInvocation.h; sourceTree = "<group>"; };
+		9F8D65DC1FF1601700EBDE5A /* LinkPropertyInvocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinkPropertyInvocation.m; sourceTree = "<group>"; };
 		9FBD17071BDB91D500C2F402 /* NSArray+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSArray+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSArray+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		9FBD17091BDB91D500C2F402 /* NSAttributedString+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+LinkBlock.h"; sourceTree = "<group>"; };
@@ -206,6 +228,33 @@
 			path = TestClass;
 			sourceTree = "<group>";
 		};
+		454A9E311FE3B80C00CEE102 /* DynamicBlock */ = {
+			isa = PBXGroup;
+			children = (
+				454A9E381FE3BC1A00CEE102 /* DynamicLink.h */,
+				454A9E391FE3BC1A00CEE102 /* DynamicLink.m */,
+				454A9E351FE3BB3400CEE102 /* DynamicLinkAction.h */,
+				454A9E361FE3BB3400CEE102 /* DynamicLinkAction.m */,
+				454A9E321FE3B95600CEE102 /* DynamicLinkArgument.h */,
+				454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */,
+				9F8D65DB1FF1601700EBDE5A /* LinkPropertyInvocation.h */,
+				9F8D65DC1FF1601700EBDE5A /* LinkPropertyInvocation.m */,
+				9F6508801FE59C2E0039BA9E /* LinkBlockInvocation.h */,
+				9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */,
+			);
+			path = DynamicBlock;
+			sourceTree = "<group>";
+		};
+		455595BF1FF4DEB400C88FB7 /* NSBlackHole */ = {
+			isa = PBXGroup;
+			children = (
+				455595C01FF4DEB400C88FB7 /* NSNil.h */,
+				455595C21FF4DEB400C88FB7 /* NSBlackHole.h */,
+				455595C11FF4DEB400C88FB7 /* NSBlackHole.m */,
+			);
+			path = NSBlackHole;
+			sourceTree = "<group>";
+		};
 		458AD5FB1D193BBB00D5B931 /* JavaScriptCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +272,8 @@
 		45BFEBE71D34F153007B83B5 /* LinkInfo */ = {
 			isa = PBXGroup;
 			children = (
+				455595BF1FF4DEB400C88FB7 /* NSBlackHole */,
+				456366091E77DD0900C1ABE2 /* LinkBlockDefine.h */,
 				45BFEBE81D34F186007B83B5 /* LinkInfo.h */,
 				45BFEBE91D34F186007B83B5 /* LinkInfo.m */,
 				45BFEBEE1D34F728007B83B5 /* LinkError.h */,
@@ -231,7 +282,8 @@
 				45BFEBEC1D34F225007B83B5 /* LinkGroup.m */,
 				4559E8681D952B580034D221 /* LinkReturn.h */,
 				4559E8691D952B580034D221 /* LinkReturn.m */,
-				456366091E77DD0900C1ABE2 /* LinkBlockDefine.h */,
+				454A9E2E1FE26D8700CEE102 /* LinkHelper.h */,
+				454A9E2F1FE26D8700CEE102 /* LinkHelper.m */,
 			);
 			path = LinkInfo;
 			sourceTree = "<group>";
@@ -239,6 +291,7 @@
 		9FBD17051BDB91D500C2F402 /* LinkBlock */ = {
 			isa = PBXGroup;
 			children = (
+				454A9E311FE3B80C00CEE102 /* DynamicBlock */,
 				45BFEBE71D34F153007B83B5 /* LinkInfo */,
 				9FBD17061BDB91D500C2F402 /* Foundation */,
 				9FBD17241BDB91D500C2F402 /* UIKit */,
@@ -494,6 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4503466B1EC04B4500F6066A /* UISearchBar+LinkBlock.m in Sources */,
+				454A9E371FE3BB3400CEE102 /* DynamicLinkAction.m in Sources */,
 				9FBD174B1BDB91D500C2F402 /* UIScrollView+LinkBlock.m in Sources */,
 				45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */,
 				453AFBCA1D6EFB4E00012095 /* Person.m in Sources */,
@@ -502,6 +556,7 @@
 				9FBD17401BDB91D500C2F402 /* NSObject+LinkBlock.m in Sources */,
 				9FBD173F1BDB91D500C2F402 /* NSNumber+LinkBlock.m in Sources */,
 				9FFDA2181B835E2F0044097D /* ViewController.m in Sources */,
+				454A9E341FE3B95600CEE102 /* DynamicLinkArgument.m in Sources */,
 				9FBD17421BDB91D500C2F402 /* NSURL+LinkBlock.m in Sources */,
 				9FBD173D1BDB91D500C2F402 /* NSMutableDictionary+LinkBlock.m in Sources */,
 				452047671CED65310092ED18 /* CAShapeLayer+LinkBlock.m in Sources */,
@@ -521,15 +576,18 @@
 				9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */,
 				9FBD173B1BDB91D500C2F402 /* NSMutableArray+LinkBlock.m in Sources */,
 				4528C60C1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m in Sources */,
+				455595C31FF4DEB400C88FB7 /* NSBlackHole.m in Sources */,
 				458AD6041D194D9200D5B931 /* JSManagedValue+LinkBlock.m in Sources */,
 				453ED88D1D86B47F00B4A4C4 /* NSError+LinkBlock.m in Sources */,
 				4540E41F1EB034A100AC87F1 /* CAAnimations+LinkBlock.m in Sources */,
 				9FFDA2151B835E2F0044097D /* AppDelegate.m in Sources */,
 				45EB72F41FAAC793004984E0 /* UIFont+LinkBlock.m in Sources */,
+				9F8D65DD1FF1601700EBDE5A /* LinkPropertyInvocation.m in Sources */,
 				45C239BF1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m in Sources */,
 				453AFBC91D6EFB4E00012095 /* Man.m in Sources */,
 				9FBD174A1BDB91D500C2F402 /* UILabel+LinkBlock.m in Sources */,
 				459388C11D9BCB6600F3DA61 /* UITableView+LinkBlock.m in Sources */,
+				454A9E301FE26D8800CEE102 /* LinkHelper.m in Sources */,
 				458AD6001D193BDC00D5B931 /* JSContext+LinkBlock.m in Sources */,
 				9FF373EA1D9ED3F300E5AAEA /* Others+LinkBlock.m in Sources */,
 				9FBD17471BDB91D500C2F402 /* UIControl+LinkBlock.m in Sources */,
@@ -537,7 +595,9 @@
 				9FBD173C1BDB91D500C2F402 /* NSMutableAttributedString+LinkBlock.m in Sources */,
 				9FFDA2121B835E2F0044097D /* main.m in Sources */,
 				458AD6011D193BDC00D5B931 /* JSValue+LinkBlock.m in Sources */,
+				9F6508821FE59C2E0039BA9E /* LinkBlockInvocation.m in Sources */,
 				9FBD17431BDB91D500C2F402 /* NSValue+LinkBlock.m in Sources */,
+				454A9E3A1FE3BC1A00CEE102 /* DynamicLink.m in Sources */,
 				EEEF93381C5B5C0900A9ADBF /* UITextField+LinkBlock.m in Sources */,
 				9FBD173A1BDB91D500C2F402 /* NSDictionary+LinkBlock.m in Sources */,
 			);

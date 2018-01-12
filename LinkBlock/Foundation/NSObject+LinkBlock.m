@@ -8,8 +8,43 @@
 #import <objc/runtime.h>
 #import <CoreData/CoreData.h>
 #import "LinkBlock.h"
+#import "DynamicLink.h"
 
 @implementation NSObject(LinkBlock)
+
+- (NSObject *(^)(NSString *, ...))linkEvalCode
+{
+    return ^id(NSString* code, ...){
+        LinkHandle_REF(NSObject)
+        
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            NSMutableArray* returnObjs = [NSMutableArray new];
+            va_list args;
+            va_start(args, code);
+            for (int i=0; i<group.linkObjects.count; i++) {
+                DynamicLink* link = [DynamicLink dynamicLinkWithCode:code];
+                id result = [link invoke:_self args:args];
+                [returnObjs addObject:result];
+            }
+            va_end(args);
+            [group.linkObjects setArray:returnObjs];
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        va_list args;
+        va_start(args , code);
+        DynamicLink* link = [DynamicLink dynamicLinkWithCode:code];
+        id result = [link invoke:_self args:args];
+        va_end(args);
+        
+        return result;
+    };
+}
 
 + (BOOL)classIsFoundation
 {
@@ -594,7 +629,7 @@
     return ^id(id obj){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objRemoveFrom , obj)
-        if(!obj) return _self;
+        if(NSEqualNil(obj)) return _self;
         if([obj isKindOfClass:[NSMutableArray class]] ||
            [obj isKindOfClass:[NSMutableSet class]]   ||
            [obj isKindOfClass:[NSHashTable class]]    ||
@@ -2118,6 +2153,12 @@
     };
 }
 
+- (NSObject *)logRetainCount
+{
+    NSLog(@"%@",[self valueForKey:@"retainCount"]);
+    return self;
+}
+
 - (NSObject *(^)())poNoDeep
 {
     return ^id(){
@@ -2783,6 +2824,11 @@ Link_objSetValueForKey_(text)
         va_end(args);
         return result;
     };
+}
+
+- (CFIndex)objRetainCount
+{
+    return [[self valueForKey:@"retainCount"] longValue];
 }
 #pragma mark - 类型转换
 

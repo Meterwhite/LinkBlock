@@ -14,9 +14,9 @@
     return ^id(id obj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrAddObj , obj)
-        if(!obj)goto END;
-        [_self addObject:obj];
-    END:
+        if(obj){
+            [_self addObject:obj];
+        }
         return _self;
     };
 }
@@ -26,9 +26,9 @@
     return ^id(id obj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrAddObjNotContain , obj)
-        if(!obj || [_self containsObject:obj])goto END;
+        if(!obj || [_self containsObject:obj])goto CODE_END;
         [_self addObject:obj];
-    END:
+    CODE_END:
         return _self;
     };
 }
@@ -38,9 +38,9 @@
     return ^id(NSArray *arr){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrAddObjs,arr)
-        if(!arr || ![arr isKindOfClass:[NSArray class]])goto END;
+        if(!arr || ![arr isKindOfClass:[NSArray class]])goto CODE_END;
         [_self addObjectsFromArray:arr];
-    END:
+    CODE_END:
         return _self;
     };
 }
@@ -66,9 +66,9 @@
     return ^id(NSArray * arr, NSUInteger index){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertArrayAt,arr,index)
-        if(![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto END;
+        if(![arr isKindOfClass:[NSArray class]] || index>_self.count-1)goto CODE_END;
         [_self insertObjects:arr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, arr.count)]];
-    END:
+    CODE_END:
         return _self;
     };
 }
@@ -78,13 +78,13 @@
     return ^id(id obj, id beforObj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertBefore,obj,beforObj)
-        if(!obj || !beforObj) goto END;
+        if(!obj || !beforObj) goto CODE_END;
         NSInteger idx= [_self indexOfObject:beforObj];
         if(idx != NSNotFound){
             idx = idx-1<0 ? 0: idx;
             [_self insertObject:obj atIndex:idx];
         }
-    END:
+    CODE_END:
         return _self;
     };
 }
@@ -94,13 +94,13 @@
     return ^id(id obj, id nexObj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrInsertNext,obj,nexObj)
-        if(!obj || !nexObj) goto END;
+        if(!obj || !nexObj) goto CODE_END;
         NSUInteger idx= [_self indexOfObject:nexObj];
         if(idx != NSNotFound){
             idx = (idx+1 > _self.count-1) ? _self.count-1 : idx+1;
             [_self insertObject:obj atIndex:idx];
         }
-    END:
+    CODE_END:
         return _self;
     };
 }
@@ -110,9 +110,9 @@
     return ^id(id obj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrRemoveObj,obj)
-        if(!obj)goto END;
+        if(!obj)goto CODE_END;
         [_self removeObject:obj];
-    END:
+    CODE_END:
         return _self;
     };
 }
@@ -122,9 +122,9 @@
     return ^id(NSUInteger index){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrRemoveAt,index)
-        if(index>_self.count)goto END;
+        if(index>_self.count)goto CODE_END;
         [_self removeObjectAtIndex:index];
-    END:
+    CODE_END:
         return _self;
     };
 }
@@ -134,9 +134,9 @@
     return ^id(NSUInteger from, NSUInteger to){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrRemoveObjsFromTo,from,to)
-        if( to>_self.count || from>to )goto END;
+        if( to>_self.count || from>to )goto CODE_END;
         [_self removeObjectsInRange:NSMakeRange(from, to - from + 1)];
-    END:
+    CODE_END:
         return _self;
     };
 }
@@ -156,12 +156,13 @@
     return ^id(id obj, id withObj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrReplaceObjWith,obj,withObj)
-        if(!obj|| !withObj)goto END;
-        NSInteger idx= [_self indexOfObject:obj];
-        if(idx != NSNotFound){
-            [_self replaceObjectAtIndex:idx withObject:withObj];
+        if(!obj || !withObj)goto CODE_END;
+        for (NSUInteger i = 0; i < _self.count; i++) {
+            if([_self[i] isEqual:obj]){
+                _self[i] = withObj;
+            }
         }
-    END:
+    CODE_END:
         return _self;
     };
 }

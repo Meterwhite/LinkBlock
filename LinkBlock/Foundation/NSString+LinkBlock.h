@@ -8,6 +8,13 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(NSStringLinkBlock)
+#pragma mark - DynamicLink
+/**
+ @param ... 参数以nll,NSNotFond结尾，以其可以区分结构体
+ */
+LBDeclare NSObject*    (^linkCodeEval)(id obj, ...);
+
+#pragma mark - 通用
 /** <^(NSUInteger index)> */
 LBDeclare NSString*    (^strAt)(NSUInteger index);
 /** <^(NSUInteger index)>元字符 */
@@ -46,8 +53,14 @@ LBDeclare NSNumber*    (^strContainzh_CN_n)();
 /** <^(NSRange range)>范围内是否是汉字 */
 LBDeclare BOOL         (^strIszh_CNInRange)(NSRange range);
 LBDeclare NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
+/** <^()>转unicode编码: @"我" => @"\u6211" */
+LBDeclare NSString*    (^strToUnicoding)();
+/** <^()>unicode编码转: @"\u6211" => @"我" */
+LBDeclare NSString*    (^strFromUnicoding)();
 /** <^(NSString* str)>无结果时返回NSNotFound */
 LBDeclare NSRange      (^strRangeOfStr)(NSString* str);
+/** <^()> */
+LBDeclare NSRange      (^strRange)();
 /** <^(NSString* str)>无结果时返回NSNotFound */
 LBDeclare NSInteger    (^strIndexOfStr)(NSString* str);
 /** <^(NSString* str, NSUInteger startIndex)>从某处开始的某字符串的位置。无结果时返回NSNotFound */
@@ -300,7 +313,6 @@ LBDeclare NSString*            (^strURLDecodeUTF8)();
 LBDeclare NSString*            (^strURLEncode)(NSStringEncoding encode);
 /** <^(NSStringEncoding encode)> */
 LBDeclare NSString*            (^strURLDecode)(NSStringEncoding encode);
-
 @end
 
 @interface NSString (NSStringLinkBlock)

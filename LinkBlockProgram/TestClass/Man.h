@@ -8,7 +8,7 @@
 
 #import "Person.h"
 
-@interface Man : Person
+@interface Man : Person<NSCopying>
 @property (nonatomic,strong) Man* son;
 @property (nonatomic,strong) NSArray<Person*>* family;
 @end

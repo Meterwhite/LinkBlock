@@ -39,4 +39,24 @@
         return _self;
     };
 }
+
+- (UIViewController *(^)(UIViewController *))vcNavigationControllerPopTo
+{
+    return ^id(UIViewController* vc){
+        LinkHandle_REF(UIViewController)
+        LinkGroupHandle_REF(vcNavigationControllerPopTo,vc)
+        [_self.navigationController popToViewController:vc animated:YES];
+        return _self;
+    };
+}
+
+- (UIViewController *(^)())vcNavigationControllerPop
+{
+    return ^id(){
+        LinkHandle_REF(UIViewController)
+        LinkGroupHandle_REF(vcNavigationControllerPop)
+        [_self.navigationController popViewControllerAnimated:YES];
+        return _self;
+    };
+}
 @end

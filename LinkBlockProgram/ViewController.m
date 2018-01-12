@@ -10,22 +10,52 @@
 #import "Person.h"
 #import "Man.h"
 
+
+#import "LinkHelper.h"
+#import "DynamicLinkAction.h"
+#import <JavaScriptCore/JavaScriptCore.h>
+#import "LinkBlockInvocation.h"
+#import "DynamicLink.h"
+#import "LinkPropertyInvocation.h"
+#import "NSNil.h"
+#import <objc/runtime.h>
+
 #define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
 
 @interface ViewController ()
+
 @property (weak, nonatomic) IBOutlet UILabel *labelOfABC;
 @property (nonatomic,strong) dispatch_source_t timer;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnTest;
 
+@property (nonatomic,strong) NSValue* value;
+
+@property (nonatomic,strong) NSString*  origin;
+
+@property (nonatomic,strong) NSPointerArray* pointsOfBridgingRetain;
+
+@property (nonatomic,strong) id  result;
 @end
 
 @implementation ViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    //////////////////////////////////////////////////////////////////////
+    //【新增！】DynamicLink动态脚本解析
+    //////////////////////////////////////////////////////////////////////
+    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj().arrAddObj()"
+    .linkCodeEval(NSMutableArrayNew,@"ABC",[NSObject new]).nslog();
+    //@"...viewBGColor(@(0x42a7f4).numToUIColorFromHex())..."
+    //@"...labText(@\"E0汉\")..."
+    //@"...viewSetFrame(50+8,0,50*20,50+Math.PI)..."
+    //@"...strDeleteInRange(NSMakeRange(156, 4))..."
+    //@"...objPerformSelector(@selector(viewDidLoad))..."
+
     //////////////////////////////////////////////////////////////////////
     //【一】基础语法
     //////////////////////////////////////////////////////////////////////
