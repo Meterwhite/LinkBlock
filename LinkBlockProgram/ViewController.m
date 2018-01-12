@@ -44,40 +44,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-////    NSString* str = [[LinkHelper help:@"func(@\"a.b_c\"+@\"NN\\\")"] linkBlockEncodingNSStringFromCode];
-//    NSString* str = [[LinkHelper help:@"   @(  12+21  )   "] linkBlockEncodingNSStringAndNSNumberFromCode];
-//    id str2 = [[LinkHelper help:str] valueFromLinkBlockEncodingCodeAction];
-//    NSLog(@"%@",str);
-//    @"end".nslog();
-//    return;
+
     //////////////////////////////////////////////////////////////////////
     //【新增！】DynamicLink动态脚本解析
     //////////////////////////////////////////////////////////////////////
-//    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj().arrAddObj()"
-//    .linkCodeEval(NSMutableArrayNew,@"ABC",[NSObject new]).nslog();
-    
-//    UIViewNew.viewBGColor(@(0x42a7f4).numToUIColorFromHex())
-    
-    /*
-     UIViewNew.
-     viewBGColor(Make(NSNumber,0x42a7f4).numToUIColorFromHex()).
-     Fun(@"..))).")
-     
-     
-    */
-    
-    
-    @"UIViewNew.viewBGColor(@(0x42a7f4).numToUIColorFromHex())"
-    .linkCodeEval(NSNil).viewSetFrame(50, 50, 50, 50).viewAddToView(self.view);
-    
-    //@"UIViewNew.viewSetFrame(50+8,0,50*20,50+Math.PI)"...
-    //@"...arrAddObj(@\"ABVD\")..."...
-    //@"...strDeleteInRange(NSMakeRange(156, 4))..."...
-    //@"...objPerformSelector(@selector(viewDidLoad))..."...
-    
-    
-    @"End of test".nslog();
-    return;
+    @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj().arrAddObj()"
+    .linkCodeEval(NSMutableArrayNew,@"ABC",[NSObject new]).nslog();
+    //@"...viewBGColor(@(0x42a7f4).numToUIColorFromHex())..."
+    //@"...labText(@\"E0汉\")..."
+    //@"...viewSetFrame(50+8,0,50*20,50+Math.PI)..."
+    //@"...strDeleteInRange(NSMakeRange(156, 4))..."
+    //@"...objPerformSelector(@selector(viewDidLoad))..."
+
     //////////////////////////////////////////////////////////////////////
     //【一】基础语法
     //////////////////////////////////////////////////////////////////////

@@ -53,6 +53,10 @@ LBDeclare NSNumber*    (^strContainzh_CN_n)();
 /** <^(NSRange range)>范围内是否是汉字 */
 LBDeclare BOOL         (^strIszh_CNInRange)(NSRange range);
 LBDeclare NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
+/** <^()>转unicode编码: @"我" => @"\u6211" */
+LBDeclare NSString*    (^strToUnicoding)();
+/** <^()>unicode编码转: @"\u6211" => @"我" */
+LBDeclare NSString*    (^strFromUnicoding)();
 /** <^(NSString* str)>无结果时返回NSNotFound */
 LBDeclare NSRange      (^strRangeOfStr)(NSString* str);
 /** <^()> */

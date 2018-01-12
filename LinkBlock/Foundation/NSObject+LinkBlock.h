@@ -21,7 +21,7 @@
  */
 LBDeclare NSObject*            (^linkEvalCode)(NSString* code , ...);
 
-#pragma mark - 方式
+#pragma mark - 基础Basic
 /** 
  <- linkEnd>获取链条返回值，并将错误转nil
  ... = linkObj(..)...linkEnd;

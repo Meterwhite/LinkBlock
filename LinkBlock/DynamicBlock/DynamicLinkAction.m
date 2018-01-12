@@ -258,7 +258,8 @@ CODE_BLOCK_TYPE:{
             
             //脚本传参
             DynamicLinkArgument* arg = [self argumentAtIndexPath:currentIndexPath];
-            [LinkHelper helpSwitchObjcType:arg.objcType caseVoid:nil caseId:^{
+            
+            [LinkHelper helpSwitchObjcType:self.objcTypeOfArguments[idx_arg].UTF8String caseVoid:nil caseId:^{
                 void* val;
                 [arg.objcValue getValue:&val];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
@@ -276,12 +277,10 @@ CODE_BLOCK_TYPE:{
                 [arg.objcValue getValue:&val];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseDouble:^{
-                double val;
-                [arg.objcValue getValue:&val];
+                double val = [(id)arg.objcValue doubleValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseFloat:^{
-                double val;
-                [arg.objcValue getValue:&val];
+                float val = [(id)arg.objcValue floatValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } casePointer:^{
                 void* val;
@@ -292,32 +291,25 @@ CODE_BLOCK_TYPE:{
                 [arg.objcValue getValue:&val];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedLong:^{
-                unsigned long val;
-                [arg.objcValue getValue:&val];
+                unsigned long val = [(id)arg.objcValue unsignedLongValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedLongLong:^{
-                unsigned long long val;
-                [arg.objcValue getValue:&val];
+                unsigned long long val = [(id)arg.objcValue unsignedLongLongValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseLong:^{
-                long val;
-                [arg.objcValue getValue:&val];
+                long val = [(id)arg.objcValue longValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseLongLong:^{
-                long long val;
-                [arg.objcValue getValue:&val];
+                long long val = [(id)arg.objcValue longLongValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseInt:^{
-                int val;
-                [arg.objcValue getValue:&val];
+                int val = [(id)arg.objcValue intValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedInt:^{
-                unsigned int val;
-                [arg.objcValue getValue:&val];
+                unsigned int val = [(id)arg.objcValue unsignedIntValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseBOOL_Char_xyShort:^{
-                int val;
-                [arg.objcValue getValue:&val];
+                int val = [(id)arg.objcValue intValue];
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseCGRect:^{
                 CGRect val;

@@ -10,22 +10,7 @@
 
 @interface LinkHelper<__covariant ObjectType> : NSProxy
 
-/**
- 是否是硬编码的直接量
- */
-- (BOOL)isCodeLinkBlockEncoded;
-
-/**
- <#Description#>
- */
-- (id)valueFromLinkBlockEncodingCodeAction;
-
-/**
- <#Description#>
- */
-- (NSString*)linkBlockEncodingNSStringAndNSNumberFromCode;
 + (id)help:(id)target;
-
 
 /**
  拆分调用命令
@@ -76,6 +61,24 @@
  是否是禁止的调用名称
  */
 - (BOOL)isUnavailableActionName;
+
+/**
+ 是否是硬编码的直接量
+ */
+- (BOOL)isCodeLinkBlockEncoded;
+
+/**
+ *硬编码的直接量转为Fundation对象
+ */
+- (id)valueFromLinkBlockEncodingCodeAction;
+
+/*
+ *LinkBlock编码(硬编码的直接量)
+ *原理:将字符串和装箱数字的直接量@"..."和@(...)，硬编码成字母和下划线组成的编码形式
+ *其中非函数名字符转为:_LB + Unicode编码数字部分 + _
+ *如：@"..." => NSString_LB002e__LB002e__LB002e_ 和 @(...) => NSNumber_LB002e__LB002e__LB002e_
+ */
+- (NSString*)linkBlockEncodingNSStringAndNSNumberFromCode;
 
 
 + (void)  helpSwitchObjcType:(const char*)objcType

@@ -7,6 +7,7 @@
 //
 
 #import "LinkBlock.h"
+#import "LinkHelper.h"
 
 @implementation LinkInfo
 - (instancetype)init
@@ -30,14 +31,14 @@
 - (void)cleanUserInfo
 {
     [self.userInfo removeAllObjects];
-    
-//    if([self isKindOfClass:[LinkInfo class]]){
-//        if(self.infoType == LinkInfoError){
-//            ((LinkError*)self).throwCount++;
-//            return (returnType *)self;
-//        }else if (self.infoType == LinkInfoReturn){
-//            return (returnType *)self;
-//        }
-//    }
+}
+
++ (void)linkBlockWarningClose
+{
+    [LinkHelper link_block_configuration_set_is_show_warning:NO];
+}
++ (void)linkBlockWarningOpen
+{
+    [LinkHelper link_block_configuration_set_is_show_warning:YES];
 }
 @end

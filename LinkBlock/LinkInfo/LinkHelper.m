@@ -74,7 +74,7 @@
     return blocksString;
 }
 
-static NSString* _lbEncodeFormate = @"_LB%ld_";
+static NSString* _lbEncodeFormate = @"_LB%@_";
 - (BOOL)isCodeLinkBlockEncoded
 {
     
@@ -82,18 +82,25 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
 
     NSString* preString = self.target;
     preString = preString.strTrimLeft(@" ").strTrimRight(@" ");
-    const char* chs = [preString UTF8String];
-    for (NSInteger i = 0; i<strlen(chs); i++) {
+    
+    __block BOOL hasNonWDString = NO;//是否含有非数字或字母的串
+    [self.target enumerateSubstringsInRange:NSMakeRange(0, [self.target length]) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
         
-        if(chs[0]<48 ||
+        const char* chs = substring.UTF8String;
+        if(strlen(chs)>1 ||
+           chs[0]<48 ||
            (chs[0]>57 && chs[0]<65) ||
            (chs[0]>90 && chs[0]<95) ||
            chs[0]==96 || chs[0]>122
            ){
-            
-            return NO;
+            hasNonWDString = YES;
+            *stop = YES;
         }
-    }
+    }];
+    
+    if(hasNonWDString) return NO;
+    
+
     if([preString rangeOfString:@"NSString"].location == 0) return YES;
     if([preString rangeOfString:@"NSNumber"].location == 0) return YES;
     return NO;
@@ -130,13 +137,15 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
                                                            offset:offset
                                                          template:@"$0"];
         
-        NSString* replacementString = [NSString stringWithFormat:@"%c",(char)[[matchString substringWithRange:NSMakeRange(3, matchString.length-4)] integerValue]];
+        NSString* replacementString = [NSString stringWithFormat:@"\\u%@",[matchString substringWithRange:NSMakeRange(3, matchString.length-4)]];
+        replacementString = replacementString.strFromUnicoding();//还原
+        
         [code replaceCharactersInRange:rangeOfResult withString:replacementString];
         offset += (replacementString.length - rangeOfResult.length);
     }
     
     if(typeFlag == 1){
-        return [NSString stringWithFormat:@"@\"%@\"",code];
+        return code.copy;
     }else if (typeFlag == 2){
         NSScanner *scaner= [[NSScanner alloc] initWithString:code];
         if([scaner scanDouble:nil] && [scaner isAtEnd]){
@@ -156,8 +165,8 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
     /*
      *LinkBlock编码
      *原理:将字符串和装箱数字的直接量@"..."和@(...)，硬编码成字母和下划线组成的编码形式
-     *其中非函数名字符转为:_LB + ASCIIIntegerValue + _
-     *如：@"..." => NSString_LB46__LB46__LB46_ 和 @(...) => NSNumber_LB46__LB46__LB46_
+     *其中非函数名字符转为:_LB + Unicode编码数字部分 + _
+     *如：@"..." => NSString_LB002e__LB002e__LB002e_ 和 @(...) => NSNumber_LB002e__LB002e__LB002e_
      */
     if(!self_target_is_type(NSString)) return nil;
     //预匹配
@@ -173,31 +182,19 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
     
     __block NSInteger state= 0 ;//0-Non,1-NSString,2-chars,3-NSNumber
     __block NSInteger idx = 0;
-    __block BOOL checkASCII = NO;
     NSMutableArray<NSString*>* stack = [NSMutableArray new];
-    
     if(hasNSString){
         
         [code enumerateSubstringsInRange:NSMakeRange(0, code.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
             
-            const char* chs = [substring UTF8String];
-            
-            if(strlen(chs)>1){
-                //非ASCII
-                *stop = YES;
-                checkASCII = YES;
-                NSLog(@"DynamicLink Error:%s非法字符，请使用ASCII！",chs);
-                return;
-            }
-            
             //普通状态
             if(state == 0){
                 
-                if(chs[0] == '"'){
+                if([substring isEqualToString:@"\""]){
                     
                     if(idx > 0){
                         
-                        if([code characterAtIndex:idx-1] == '@'){
+                        if([[code substringWithRange:[code rangeOfComposedCharacterSequenceAtIndex:idx-1]] isEqualToString:@"@"]){
                             //NSString
                             state = 1;
                             [stack removeLastObject];
@@ -243,11 +240,12 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
             if(state == 1 || state == 2){
                 
                 //是否是字符串结束符号"
-                if(chs[0] == '"'){
+                if([substring isEqualToString:@"\""]){
                     
                     NSUInteger countOf92 = 0;
                     for (NSInteger i = idx-1; i>-1; i--) {
-                        if([code characterAtIndex:i] == '\\'){
+                        
+                        if([[code substringWithRange:[code rangeOfComposedCharacterSequenceAtIndex:i]] isEqualToString:@"\\"]){
                             countOf92++;
                         }else{
                             break;
@@ -261,17 +259,19 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
                         return;
                     }else{
                         
-                        [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                        [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,[substring.strToUnicoding() substringFromIndex:2]]];
                     }
                 }else{
                     
-                    if(chs[0]<48 ||
+                    const char* chs = substring.UTF8String;
+                    if(strlen(chs)>1 ||
+                       chs[0]<48 ||
                        (chs[0]>57 && chs[0]<65) ||
                        (chs[0]>90 && chs[0]<95) ||
                        chs[0]==96 || chs[0]>122
                        ){
                         //需要转码
-                        [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                        [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,[substring.strToUnicoding() substringFromIndex:2]]];
                     }else{
                         //不需要转码
                         [stack addObject:substring];
@@ -281,9 +281,6 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
             idx++;
         }];
         
-        if(checkASCII){
-            return nil;
-        }
         
         if(state != 0){
             NSLog(@"DynamicLink Error:检查%@是否中存在不完整的字符串！",code);
@@ -304,27 +301,17 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
     [stack removeAllObjects];
     state= 0 ;//0-Non,1-NSString,2-chars,3-NSNumber
     idx = 0;
-    checkASCII = NO;
     __block NSInteger pairValue = 0;
 
     [code enumerateSubstringsInRange:NSMakeRange(0, code.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
         
-        const char* chs = [substring UTF8String];
-        
-        if(strlen(chs)>1){
-            //非ASCII
-            *stop = YES;
-            checkASCII = YES;
-            NSLog(@"DynamicLink Error:%s非法字符，请使用ASCII！",chs);
-            return;
-        }
-        
         //普通状态
         if(state == 0){
             
-            if(chs[0] == '('){
+            if([substring isEqualToString:@"("]){
                 
-                if(idx > 0 && [code characterAtIndex:idx-1] == '@'){
+                if(idx > 0 &&
+                   [[code substringWithRange:[code rangeOfComposedCharacterSequenceAtIndex:idx-1]] isEqualToString:@"@"]){
                     
                     //NSNumber
                     pairValue -= 1;
@@ -350,14 +337,14 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
         //转码中
         if(state == 3){
             
-            if(chs[0] == '('){
+            if([substring isEqualToString:@"("]){
                 
                 //需要转码
-                [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,[substring.strToUnicoding() substringFromIndex:2]]];
                 pairValue -= 1;
                 idx++;
                 return;
-            }else if(chs[0] == ')'){
+            }else if([substring isEqualToString:@")"]){
                 
                 //是否是字符串结束符号"
                 pairValue += 1;
@@ -369,17 +356,19 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
                 }else{
                     
                     //匹配途中的)
-                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,[substring.strToUnicoding() substringFromIndex:2]]];
                 }
             }else{
+                const char* chs = substring.UTF8String;
                 
-                if(chs[0]<48 ||
+                if(strlen(chs)>1 ||
+                   chs[0]<48 ||
                    (chs[0]>57 && chs[0]<65) ||
                    (chs[0]>90 && chs[0]<95) ||
                    chs[0]==96 || chs[0]>122
                    ){
                     //需要转码
-                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,(NSInteger)chs[0]]];
+                    [stack addObject:[NSString stringWithFormat:_lbEncodeFormate,[substring.strToUnicoding() substringFromIndex:2]]];
                 }else{
                     //不需要转码
                     [stack addObject:substring];
@@ -388,10 +377,6 @@ static NSString* _lbEncodeFormate = @"_LB%ld_";
         }
         idx++;
     }];
-    
-    if(checkASCII){
-        return nil;
-    }
     
     if(state != 0){
         NSLog(@"DynamicLink Error:检查%@是否中存在未完成的括号对！",code);

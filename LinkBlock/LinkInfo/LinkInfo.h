@@ -25,4 +25,8 @@ typedef enum LinkInfoType{
 @property (nonatomic,assign) NSInteger throwCount;
 @property (nonatomic,strong) NSMutableDictionary* userInfo;
 - (void)cleanUserInfo;
+
+#pragma mark - 配置Config
++ (void)linkBlockWarningClose;
++ (void)linkBlockWarningOpen;
 @end
