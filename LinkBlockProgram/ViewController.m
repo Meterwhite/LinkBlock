@@ -136,8 +136,6 @@
     
     @"1990.10.25".strToNSDateWithFormat(@"yyyy.MM.dd").dateAstrology().nslogTitle(@"星座是:");
     
-    //扩展点击范围
-    self.btnTest.btnExtensionOfTouchSide(UIEdgeInsetsMake(20, 20, 20, 20)).btnTitleUIControlStateNormal(@"扩展可触摸区域");
     
     //////////////////////////////////////////////////////////////////////
     //【五】与项目外交互
@@ -160,32 +158,5 @@
     //if( name.objIsEqualToEach(@"Jack" , @"Tom" , ...) )
     
     //... ...
-    
-    
-    
-    // MARK:-复杂示例1
-    NSString* contentTextABC = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    __block BOOL isFullOfLines;
-    __block NSUInteger maxLine = 4;
-    NSMutableDictionary* attrDict = AttrDictNew.makeAttrDictFontSizeAndTextColor(20,[UIColor blackColor]);
-    CGFloat maxWidth = 103;
-    
-    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(0, 0));
-    dispatch_source_set_timer(self.timer, dispatch_walltime(NULL, 0), 1.2 * NSEC_PER_SEC, 0);
-    dispatch_source_set_event_handler(self.timer, ^{
-        
-        maxLine += 1;
-        maxLine = maxLine>4 ? 1 : maxLine;//从1行截取到4行
-        //关键
-        NSRange rangeOfText = contentTextABC.strSubRangeToMaxLineIfAppendStrAboutView(maxLine , maxWidth, @"全文", attrDict, &isFullOfLines);
-        NSString* text = [contentTextABC substringWithRange:rangeOfText].strAppend(isFullOfLines?@"...全文":@"全文");
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            self.labelOfABC.attributedText = [[NSAttributedString alloc] initWithString:text attributes:attrDict];
-        });
-    });
-    dispatch_resume(self.timer);
-
 }
 @end
