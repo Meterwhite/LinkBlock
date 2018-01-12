@@ -19,11 +19,7 @@
 
 /**
  创建可执行的动态链条代码对象
-
  @param code 可执行的动态链条代码
- 
- "linkBlockFunction([空白|数字|],,,...)"
- 参数
  */
 + (instancetype)dynamicLinkWithCode:(NSString*)code;
 
@@ -33,12 +29,12 @@
 @property (nonatomic,readonly) NSString* code;
 
 /**
- block的数量
+ 调用的数量
  */
 @property (nonatomic,assign,readonly) NSUInteger countOfItems;
 
 /**
- 获取indexPath处的动态block对象
+ 获取indexPath处的动态调用对象
 
  @param indexPath 至少需要长度为1的路径
  */

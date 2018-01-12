@@ -10,9 +10,9 @@
 @class DynamicLinkArgument;
 
 /**
- DynamicLink字面参数
- "actionName(字面参数,,,,)".linkCodeEvalFrom(target , arg1 , arg2 ,...)
- 在调用的时候'直接量参数'作为第一个参数被block使用而不是使用第一个传入的参数arg1作为第一个入参的值；
+ DynamicLink上的字面量
+ "actionName(,,字面量,,)".linkCodeEvalFrom(target , arg1 , arg2 ,...)
+ 不通过字面量传值的参数位置则留下对应的逗号！上方样例中'字面量'作为第3个参数被block使用而不是使用第1个传入的参数arg1作为第一个入参的值。
  
  直接量参数的形式
  ********************************

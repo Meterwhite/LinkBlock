@@ -25,18 +25,6 @@
 
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *labelOfABC;
-@property (nonatomic,strong) dispatch_source_t timer;
-
-@property (weak, nonatomic) IBOutlet UIButton *btnTest;
-
-@property (nonatomic,strong) NSValue* value;
-
-@property (nonatomic,strong) NSString*  origin;
-
-@property (nonatomic,strong) NSPointerArray* pointsOfBridgingRetain;
-
-@property (nonatomic,strong) id  result;
 @end
 
 @implementation ViewController
