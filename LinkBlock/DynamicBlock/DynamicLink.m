@@ -59,7 +59,7 @@
             if(NSEqualNil(dyLinkBlock)){
                 
                 if(LinkHelper.link_block_configuration_get_is_show_warning){
-                    NSLog(@"DynamicLink Warning:无法解析%@；动态链条的解析在第%@处断裂，其后无法调用！",blockString,@(idx+1));
+                    NSLog(@"DynamicLink Warning:无法解析%@；动态链条的解析在第%@处断裂，其后不再调用！",blockString,@(idx+1));
                 }
                 *stop = YES;
                 return;

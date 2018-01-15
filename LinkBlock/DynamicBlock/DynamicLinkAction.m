@@ -358,10 +358,7 @@ CODE_BLOCK_TYPE:{
             //参数列表传参
             
             if(*end == YES){
-                if(LinkHelper.link_block_configuration_get_is_show_warning){
-                    NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数",[_indexPath indexAtPosition:0]+1,_stringValue);
-                }
-                break;
+                continue;
             }
             
             const char* objcType = [signature getArgumentTypeAtIndex:idx_arg+1];
@@ -737,7 +734,7 @@ CODE_BLOCK_TYPE:{
                     [invocation setArgument:&val atIndex:idx_arg + 1];
                 }
             } defaule:nil];
-        }
+        }//end of if
     }
     
     //调用

@@ -108,7 +108,7 @@ static NSString* _lbEncodeFormate = @"_LB%@_";
 - (id)valueFromLinkBlockEncodingCodeAction
 {
     if(!self_target_is_type(NSString)) return nil;
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"_LB\\d+_"
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"_LB[0-9A-Za-z]+_"
                                                                            options:0
                                                                              error:nil];
     NSString* preString = self.target;
