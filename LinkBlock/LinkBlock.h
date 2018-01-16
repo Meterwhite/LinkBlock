@@ -53,13 +53,13 @@
 #define linkObj(object) ((typeof(object))_LB_MakeObj(object))
 #endif
 
-//解决id不能使用.语法
+//解决id类型不能使用.语法
 #ifndef linkObj_id
 #define linkObj_id(object) ((NSObject*)_LB_MakeObj(object))
 #endif
 
 /**
- <- linkEnd>获取链条返回值，并将错误转nil
+ <- linkEnd>获取链条返回值，并将LinkError错误转nil
  ... = linkObj(... ...)...linkEnd;
  ... = linkObj(... ...)...linkIF(...)...linkEnd;
  */
@@ -139,7 +139,8 @@
 //////////////////////////////////////////////////////////////////////
 
 /**
- 包装多个对象为多链条起始对象
+ *包装多个对象为多链条起始对象
+ * linkObjs( obj0, obj1, obj2, ...)...
  */
 #ifndef linkObjs
 #define linkObjs(object,args...) _LB_MakeObjs(object,##args,nil)
@@ -148,7 +149,7 @@
 /**
  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
- NSArray*.makeLinkObjs....
+ NSArray*.makeLinkObjs...
  */
 #ifndef makeLinkObjs
 #define makeLinkObjs makeLinkObjs
@@ -213,7 +214,7 @@
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:条件
+//MARK:条件语法
 //////////////////////////////////////////////////////////////////////
 /**
  <^(id obj)>以新对象执行其后链条，可以与linkIf，linkElse配合
