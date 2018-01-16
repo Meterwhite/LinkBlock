@@ -10,16 +10,6 @@
 #import "Person.h"
 #import "Man.h"
 
-
-#import "LinkHelper.h"
-#import "DynamicLinkAction.h"
-#import <JavaScriptCore/JavaScriptCore.h>
-#import "LinkBlockInvocation.h"
-#import "DynamicLink.h"
-#import "LinkPropertyInvocation.h"
-#import "NSNil.h"
-#import <objc/runtime.h>
-
 #define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
 
@@ -32,18 +22,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     //////////////////////////////////////////////////////////////////////
     //【新增！】DynamicLink动态脚本解析
     //////////////////////////////////////////////////////////////////////
     @"arrAddObj(Man.alloc.init.copy.tall).arrAddObj().arrAddObj().arrAddObj()"
-    .linkCodeEval(NSMutableArrayNew,@"ABC",[NSObject new]).nslog();
+    .linkCodeEval(NSMutableArrayNew,@"ABC",[NSObject new]).nslog();//这里缺少一个参数，控制台会报警告
     //@"...viewBGColor(@(0x42a7f4).numToUIColorFromHex())..."
     //@"...labText(@\"E0汉\")..."
     //@"...viewSetFrame(50+8,0,50*20,50+Math.PI)..."
     //@"...strDeleteInRange(NSMakeRange(156, 4))..."
     //@"...objPerformSelector(@selector(viewDidLoad))..."
-
+    
     //////////////////////////////////////////////////////////////////////
     //【一】基础语法
     //////////////////////////////////////////////////////////////////////
@@ -81,7 +71,7 @@
     aNumber.description
     .linkIf(aNumber.numIsOdd()).strAppend(@"是奇数").nslog()
     .linkElse.strAppend(@"是偶数").nslog();
-
+    
     //////////////////////////////////////////////////////////////////////
     //【三】多链条语法
     //////////////////////////////////////////////////////////////////////
@@ -117,7 +107,7 @@
     //////////////////////////////////////////////////////////////////////
     //对象随机赋值，并将对象作为字典打印
     [Person new].objValuesClean().objValuesRandom().po();
-
+    
     //创建属性字典
     AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15])
     .makeAttrDictTextColor([UIColor blackColor]);

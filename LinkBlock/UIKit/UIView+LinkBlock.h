@@ -36,20 +36,28 @@ LBDeclare CGSize       (^viewSize)();
 
 /** <^(CGFloat x,CGFloat y, CGFloat width,CGFloat height)> */
 LBDeclare UIView*      (^viewSetFrame)(CGFloat x,CGFloat y, CGFloat width,CGFloat height);
+/** <^(CGRect frame)> */
+LBDeclare UIView*      (^viewSetFrameOfCGRect)(CGRect frame);
 /** <^(CGFloat x,CGFloat y, CGFloat width,CGFloat height)> */
 LBDeclare UIView*      (^viewSetBounds)(CGFloat x,CGFloat y, CGFloat width,CGFloat height);
+/** <^(CGRect bounds)> */
+LBDeclare UIView*      (^viewSetBoundsOfCGRect)(CGRect bounds);
 /** <^(CGFloat x)> */
 LBDeclare UIView*      (^viewSetX)(CGFloat x);
 /** <^(CGFloat y)> */
 LBDeclare UIView*      (^viewSetY)(CGFloat y);
 /** <^(CGFloat x,CGFloat y)> */
 LBDeclare UIView*      (^viewSetOrigin)(CGFloat x,CGFloat y);
+/** <^(CGPoint point)> */
+LBDeclare UIView*      (^viewSetOriginOfCGPoint)(CGPoint origin);
 /** <^(CGFloat centerX)> */
 LBDeclare UIView*      (^viewSetCenterX)(CGFloat centerX);
 /** <^(CGFloat centerY)> */
 LBDeclare UIView*      (^viewSetCenterY)(CGFloat centerY);
 /** <^(CGFloat x,CGFloat y)> */
 LBDeclare UIView*      (^viewSetCenter)(CGFloat x,CGFloat y);
+/** <^(CGPoint center)> */
+LBDeclare UIView*      (^viewSetCenterOfCGPoint)(CGPoint center);
 /** <^(CGFloat width)> */
 LBDeclare UIView*      (^viewSetWidth)(CGFloat width);
 /** <^(CGFloat height)> */
@@ -60,6 +68,8 @@ LBDeclare UIView*      (^viewSetWidthAspect)(CGFloat width);
 LBDeclare UIView*      (^viewSetHeightAspect)(CGFloat height);
 /** <^(CGFloat width, CGFloat height)> */
 LBDeclare UIView*      (^viewSetSize)(CGFloat width, CGFloat height);
+/** <^(CGSize size)> */
+LBDeclare UIView*      (^viewSetSizeOfCGSize)(CGSize size);
 /** <^(NSInteger tag)> */
 LBDeclare UIView*      (^viewSetTag)(NSInteger tag);
 /** <^(UIColor* color)>背景色 */
@@ -74,14 +84,20 @@ LBDeclare UIView*      (^viewBorderWidth)(CGFloat w);
 LBDeclare UIView*      (^viewBorderColorAndWidth)(UIColor* color,CGFloat w);
 /** <^(CGFloat radius)>view.layer.cornerRadius */
 LBDeclare UIView*      (^viewCornerRadius)(CGFloat radius);
-/** <^(UIRectCorner side , CGSize radius)>方位组合的圆角 */
+/** <^(CGFloat radius)> */
+LBDeclare UIView*      (^viewCornerRadiusAndClipsToBounds)(CGFloat radius);
+/** <^(UIRectCorner side , CGSize radius)>方位组合的圆角;在AutoLayout下使用，如果没有width和height这两个约束可以在改该方法调用前先设置frame来告知准确的尺寸; */
 LBDeclare UIView*      (^viewCornerRadiusSide)(UIRectCorner side , CGSize radius);
 /** <^(BOOL b)>view.layer.masksToBounds */
 LBDeclare UIView*      (^viewMasksToBounds)(BOOL b);
 /** <^(BOOL b)> */
 LBDeclare UIView*      (^viewClipsToBounds)(BOOL b);
+/** <^()> */
+LBDeclare UIView*      (^viewClipsToBoundsYES)();
 /** <^(BOOL force)> */
 LBDeclare UIView*      (^viewEndEditing)(BOOL force);
+/** <^()> */
+LBDeclare UIView*      (^viewEndEditingYES)();
 /** <^()> */
 LBDeclare UIView*      (^viewBecomeFirstResponder)();
 /** <^()> */
@@ -114,6 +130,10 @@ LBDeclare CGRect       (^viewConvertRectToWindow)();
 LBDeclare UIView*      (^viewConvertSuperverTo)(UIView* aView , BOOL isKeep);
 /** <^(BOOL b)> */
 LBDeclare UIView*      (^viewUserInteractionEnabled)(BOOL b);
+/** <^()> */
+LBDeclare UIView*      (^viewUserInteractionEnabledYES)();
+/** <^()> */
+LBDeclare UIView*      (^viewUserInteractionEnabledNO)();
 /** <^(BOOL b)> */
 LBDeclare UIView*      (^viewMultipleTouchEnabled)(BOOL b);
 /** <^(BOOL b)> */

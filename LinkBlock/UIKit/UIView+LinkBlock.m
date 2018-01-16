@@ -19,12 +19,32 @@
     };
 }
 
+- (UIView *(^)(CGRect))viewSetFrameOfCGRect
+{
+    return ^id(CGRect frame){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewSetFrameOfCGRect,frame)
+        _self.frame = frame;
+        return _self;
+    };
+}
+
 - (UIView *(^)(CGFloat, CGFloat, CGFloat, CGFloat))viewSetBounds
 {
     return ^id(CGFloat x,CGFloat y, CGFloat width, CGFloat height){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetBounds,x,y,width,height)
         _self.bounds= CGRectMake(x, y, width, height);
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGRect))viewSetBoundsOfCGRect
+{
+    return ^id(CGRect bounds){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewSetBoundsOfCGRect,bounds)
+        _self.bounds= bounds;
         return _self;
     };
 }
@@ -114,6 +134,18 @@
     };
 }
 
+- (UIView *(^)(CGSize))viewSetSizeOfCGSize
+{
+    return ^id(CGSize size){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewSetSizeOfCGSize,size)
+        CGRect frame= _self.frame;
+        frame.size = size;
+        _self.frame = frame;
+        return _self;
+    };
+}
+
 - (UIView *(^)(NSInteger))viewSetTag
 {
     return ^id(NSInteger tag){
@@ -132,6 +164,18 @@
         CGRect frame= _self.frame;
         frame.origin.x= x;
         frame.origin.y= y;
+        _self.frame= frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGPoint))viewSetOriginOfCGPoint
+{
+    return ^id(CGPoint origin){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewSetOriginOfCGPoint,origin)
+        CGRect frame= _self.frame;
+        frame.origin = origin;
         _self.frame= frame;
         return _self;
     };
@@ -163,6 +207,16 @@
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSetCenter,x,y)
         _self.center = CGPointMake(x, y);
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGPoint))viewSetCenterOfCGPoint
+{
+    return ^id(CGPoint center){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewSetCenterOfCGPoint,center)
+        _self.center = center;
         return _self;
     };
 }
@@ -210,6 +264,11 @@
     };
 }
 
+- (UIView *(^)(CGFloat))viewCornerRadiusAndClipsToBounds
+{
+    return self.viewClipsToBoundsYES().viewCornerRadius;
+}
+
 - (UIView *(^)(BOOL))viewMasksToBounds
 {
     return ^id(BOOL flag){
@@ -230,12 +289,32 @@
     };
 }
 
+- (UIView *(^)())viewClipsToBoundsYES
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewClipsToBoundsYES)
+        _self.clipsToBounds= YES;
+        return _self;
+    };
+}
+
 - (UIView *(^)(BOOL))viewEndEditing
 {
     return ^id(BOOL force){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewEndEditing,force)
         [_self endEditing:force];
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewEndEditingYES
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewEndEditingYES)
+        [_self endEditing:YES];
         return _self;
     };
 }
@@ -352,6 +431,26 @@
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewUserInteractionEnabled,b)
         _self.userInteractionEnabled = b;
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewUserInteractionEnabledYES
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewUserInteractionEnabledYES)
+        _self.userInteractionEnabled = YES;
+        return _self;
+    };
+}
+
+- (UIView *(^)())viewUserInteractionEnabledNO
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewUserInteractionEnabledNO)
+        _self.userInteractionEnabled = NO;
         return _self;
     };
 }

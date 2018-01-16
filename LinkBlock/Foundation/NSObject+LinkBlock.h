@@ -14,14 +14,14 @@
 #import "Others+LinkBlock.h"
 
 @interface NSObject(LinkBlock)
-#pragma mark - DynamicLink
 
+#pragma mark - 动态解析 DynamicLink
 /**
- @param ... 参数以nll,NSNotFond结尾，以其可以区分结构体
+ @param ... 参数以nil,NSNotFond结尾，以其可以区分结构体
  */
 LBDeclare NSObject*            (^linkEvalCode)(NSString* code , ...);
 
-#pragma mark - 基础Basic
+#pragma mark - 基础 Basic
 /** 
  <- linkEnd>获取链条返回值，并将错误转nil
  ... = linkObj(..)...linkEnd;

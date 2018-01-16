@@ -201,3 +201,85 @@ NS_INLINE CGRect LB_CGRectInsetMargin(CGRect rect, UIEdgeInsets insets) {
     rect.size.height += (insets.top  + insets.bottom);
     return rect;
 }
+
+/**
+ type encodings是否是数字类型
+ */
+NS_INLINE bool LB_ObjcTypeIsNumber(const char* objcType){
+    /*
+     *from:
+     *https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
+     */
+    if(strcmp(objcType, "c") == 0) return true;
+    if(strcmp(objcType, "i") == 0) return true;
+    if(strcmp(objcType, "s") == 0) return true;
+    if(strcmp(objcType, "l") == 0) return true;
+    if(strcmp(objcType, "q") == 0) return true;
+    if(strcmp(objcType, "C") == 0) return true;
+    if(strcmp(objcType, "I") == 0) return true;
+    if(strcmp(objcType, "S") == 0) return true;
+    if(strcmp(objcType, "L") == 0) return true;
+    if(strcmp(objcType, "Q") == 0) return true;
+    if(strcmp(objcType, "f") == 0) return true;
+    if(strcmp(objcType, "d") == 0) return true;
+    if(strcmp(objcType, "B") == 0) return true;
+    return false;
+}
+
+/**
+ *fromType类型传值给toType时的类型兼容检测
+ */
+NS_INLINE bool LB_TypeEncodingsPassingCheck(const char* fromType , const char* toType)
+{
+    if(strlen(fromType) == 0 || strlen(toType) == 0) return false;
+    if(strcmp(fromType, toType) == 0) return true;
+    if(LB_ObjcTypeIsNumber(fromType) && LB_ObjcTypeIsNumber(toType)) return true;
+    
+    NSMutableString* fromTypeStr = [[NSString stringWithUTF8String:fromType] mutableCopy];
+    NSMutableString* toTypeStr = [[NSString stringWithUTF8String:toType] mutableCopy];
+    
+    
+    /* https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html */
+    [@[@"r",@"n",@"N",@"o",@"O",@"R",@"V"] enumerateObjectsUsingBlock:^(NSString*  _Nonnull typeEncodeOfMethod, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [fromTypeStr replaceOccurrencesOfString:typeEncodeOfMethod
+                                    withString:@""
+                                       options:NSAnchoredSearch
+                                         range:NSMakeRange(0, 1)];
+        [toTypeStr replaceOccurrencesOfString:typeEncodeOfMethod
+                                    withString:@""
+                                       options:NSAnchoredSearch
+                                         range:NSMakeRange(0, 1)];
+    }];
+    //去方法部分
+    if([fromTypeStr isEqualToString:toTypeStr]) return true;
+    
+    
+    //objc类型
+    if([toTypeStr characterAtIndex:0]   == '@' &&
+       [fromTypeStr characterAtIndex:0] == '@'){
+        
+        if(toTypeStr.length < 3 || fromTypeStr.length < 3){//两者中有一个id类型
+            return true;
+        }
+        
+        //都不是id类型
+        [toTypeStr deleteCharactersInRange:NSMakeRange(2, toTypeStr.length-3)];
+        [fromTypeStr deleteCharactersInRange:NSMakeRange(2, fromTypeStr.length-3)];
+        
+        return [NSClassFromString(toTypeStr) isSubclassOfClass:NSClassFromString(fromTypeStr)];
+    }
+    
+    //指针
+    if([fromTypeStr characterAtIndex:0] == '^' && [toTypeStr characterAtIndex:0] == '^'){
+        return [fromTypeStr isEqualToString:@"^v"] || [toTypeStr isEqualToString:@"^v"];
+    }
+    
+    //id和void*
+    if([fromTypeStr isEqualToString:@"^v"] && [toTypeStr isEqualToString:@"@"]) return true;
+    if([fromTypeStr isEqualToString:@"@"] && [toTypeStr isEqualToString:@"^v"]) return true;
+    
+    //结构体 共用体 SEL IMP Class 数组 指针
+    return false;
+}
+
