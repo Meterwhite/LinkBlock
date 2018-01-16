@@ -31,8 +31,8 @@
     id currentOrigin = origin;
     for (NSUInteger idx_action = 0; idx_action < self.countOfItems; idx_action++) {
         
-        DynamicLinkAction* block = self.items[idx_action];
-        currentOrigin = [block invoke:currentOrigin args:list end:&isEnd];
+        DynamicLinkAction* action = self.items[idx_action];
+        currentOrigin = [action invoke:currentOrigin args:list end:&isEnd];
         if(NSEqualNil(currentOrigin) && idx_action<self.countOfItems-1){
             //void返回值类型或未知返回值类型后不能再调用
             currentOrigin = [LinkError errorWithCustomDescription:[NSString stringWithFormat:@"DynamicLink Error:%@不可接受的返回类型；动态链条的解析在第%@处断裂，其后无法调用！",self.items[idx_action].actionName,@(idx_action+1)]];
