@@ -91,22 +91,22 @@
     };
 }
 
-- (BOOL (^)(id))dictContainerValue
+- (BOOL (^)(id))dictContaineValue
 {
     return ^(id value){
         LinkHandle_VAL_IFNOT(NSDictionary){
             return NO;
         }
-        LinkGroupHandle_VAL(dictContainerValue,value)
+        LinkGroupHandle_VAL(dictContaineValue,value)
         return [[_self allValues] containsObject:value];
     };
 }
 
-- (NSNumber* (^)(id))dictContainerValue_n
+- (NSNumber* (^)(id))dictContaineValue_n
 {
     return ^id(id value){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictContainerValue_n,value)
+        LinkGroupHandle_REF(dictContaineValue_n,value)
         return @([[_self allValues] containsObject:value]);
     };
 }

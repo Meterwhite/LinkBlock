@@ -16,7 +16,6 @@
 #import "NSMutableString+LinkBlock.h"
 #import "NSString+LinkBlock.h"
 #import "NSNumber+LinkBlock.h"
-#import "NSObject+LinkBlock.h"
 #import "NSDate+LinkBlock.h"
 #import "NSURL+LinkBlock.h"
 #import "NSValue+LinkBlock.h"

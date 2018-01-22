@@ -1515,7 +1515,7 @@ NSString* decimalToHexString(u_char nValue)
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strLoadNibNamedFirst , index)
+        LinkGroupHandle_REF(strLoadNibNamedFirst)
         NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
         if(!xibs.count){
             return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"加载xib时数组%p越界",xibs]] logError];
@@ -1528,7 +1528,7 @@ NSString* decimalToHexString(u_char nValue)
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strLoadNibNamedLast , index)
+        LinkGroupHandle_REF(strLoadNibNamedLast)
         NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
         if(!xibs.count){
             return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"加载xib时数组%p越界",xibs]] logError];
