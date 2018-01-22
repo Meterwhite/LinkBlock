@@ -110,16 +110,18 @@ LBDeclare NSMutableArray*          (^arrKeyValuesMatchObjs)(NSDictionary<NSStrin
 //  NSArray调用下面方法会转为NSMutableArray调用
 //
 #pragma mark - NSMutableArray or NSArray
-/** <^(id obj)>插入一个元素,安全的 */
+/** <^(id obj)>插入一个元素 */
 LBDeclare NSMutableArray*  (^arrAddObj)(id obj);
 /** <^(id obj)>插入一个元素,如果不包含的话 */
 LBDeclare NSMutableArray*  (^arrAddObjNotContain)(id obj);
-/** <^(NSArray* arr)>插入一个数组,安全的 */
+/** <^(NSArray* arr)>插入一个数组 */
 LBDeclare NSMutableArray*  (^arrAddObjs)(NSArray* arr);
-/** <^(id obj, NSUInteger index)>在指定Index处插入一个元素,安全的 */
+/** <^(id obj, NSUInteger index)>在指定Index处插入一个元素 */
 LBDeclare NSMutableArray*  (^arrInsertObjAt)(id obj, NSUInteger index);
-/** <^(NSArray* arr, NSUInteger index)>在指定Index处插入一个数组,安全的 */
+/** <^(NSArray* arr, NSUInteger index)>在指定Index处插入一个数组 */
 LBDeclare NSMutableArray*  (^arrInsertArrayAt)(NSArray* arr, NSUInteger index);
+/** <^(NSArray* arr, NSUInteger index)>将处数组插入到其它数组，在指定Index */
+LBDeclare NSMutableArray*  (^arrInsertToArrayAt)(NSMutableArray* arr, NSUInteger index);
 /** <^(id obj, id beforeObj)>插入一个对象在另一个对象之前 */
 LBDeclare NSMutableArray*  (^arrInsertBefore)(id obj, id beforeObj);
 /** <^(id obj, id behindObj)>插入一个对象在另一个对象之后 */
@@ -134,7 +136,7 @@ LBDeclare NSMutableArray*  (^arrRemoveObj)(id obj);
 LBDeclare NSMutableArray*  (^arrRemoveAt)(NSUInteger index);
 /** <^(NSUInteger fromIndex,NSUInteger toIndex)>移除一段元素，在指定Index范围内,不会溢出 */
 LBDeclare NSMutableArray*  (^arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
-/** <^()>移除所有数组元素,安全的 */
+/** <^()>移除所有数组元素 */
 LBDeclare NSMutableArray*  (^arrRemoveAll)();
 /** <^(id obj,id withObj)>替换数组中的一个对象，如果存在的话 */
 LBDeclare NSMutableArray*  (^arrReplaceObjWith)(id obj,id withObj);

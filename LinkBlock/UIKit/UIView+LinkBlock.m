@@ -269,16 +269,6 @@
     return self.viewClipsToBoundsYES().viewCornerRadius;
 }
 
-- (UIView *(^)(BOOL))viewMasksToBounds
-{
-    return ^id(BOOL flag){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewMasksToBounds,flag)
-        _self.layer.masksToBounds= flag;
-        return _self;
-    };
-}
-
 - (UIView *(^)(BOOL))viewClipsToBounds
 {
     return ^id(BOOL flag){
@@ -1227,8 +1217,9 @@
     return ^id(){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSnapshot)
-        UIGraphicsBeginImageContextWithOptions(_self.bounds.size, YES, 0);
-        [_self drawViewHierarchyInRect:_self.bounds afterScreenUpdates:YES];
+        
+        UIGraphicsBeginImageContextWithOptions(_self.bounds.size, NO, YES);
+        [_self.layer renderInContext:UIGraphicsGetCurrentContext()];
         UIImage *re = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return re;

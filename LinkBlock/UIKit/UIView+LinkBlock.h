@@ -88,8 +88,6 @@ LBDeclare UIView*      (^viewCornerRadius)(CGFloat radius);
 LBDeclare UIView*      (^viewCornerRadiusAndClipsToBounds)(CGFloat radius);
 /** <^(UIRectCorner side , CGSize radius)>方位组合的圆角;在AutoLayout下使用，如果没有width和height这两个约束可以在改该方法调用前先设置frame来告知准确的尺寸; */
 LBDeclare UIView*      (^viewCornerRadiusSide)(UIRectCorner side , CGSize radius);
-/** <^(BOOL b)>view.layer.masksToBounds */
-LBDeclare UIView*      (^viewMasksToBounds)(BOOL b);
 /** <^(BOOL b)> */
 LBDeclare UIView*      (^viewClipsToBounds)(BOOL b);
 /** <^()> */

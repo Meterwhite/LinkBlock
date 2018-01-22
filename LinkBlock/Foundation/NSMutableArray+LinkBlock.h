@@ -11,15 +11,15 @@
 #endif
 @interface NSObject(NSMutableArrayLinkBlock)
 
-/** <^(id obj)>插入一个元素,安全的 */
+/** <^(id obj)>插入一个元素 */
 LBDeclare NSMutableArray*  (^m_arrAddObj)(id obj);
 /** <^(id obj)>插入一个元素,如果不包含的话 */
 LBDeclare NSMutableArray*  (^m_arrAddObjNotContain)(id obj);
-/** <^(NSArray* arr)>插入一个数组,安全的 */
+/** <^(NSArray* arr)>插入一个数组 */
 LBDeclare NSMutableArray*  (^m_arrAddObjs)(NSArray* arr);
-/** <^(id obj, NSUInteger index)>在指定Index处插入一个元素,安全的 */
+/** <^(id obj, NSUInteger index)>在指定Index处插入一个元素 */
 LBDeclare NSMutableArray*  (^m_arrInsertObjAt)(id obj, NSUInteger index);
-/** <^(NSArray* arr, NSUInteger index)>在指定Index处插入一个数组,安全的 */
+/** <^(NSArray* arr, NSUInteger index)>在指定Index处插入一个数组 */
 LBDeclare NSMutableArray*  (^m_arrInsertArrayAt)(NSArray* arr, NSUInteger index);
 /** <^(id obj, id beforeObj)>插入一个对象在另一个对象之前 */
 LBDeclare NSMutableArray*  (^m_arrInsertBefore)(id obj, id beforeObj);
@@ -31,7 +31,7 @@ LBDeclare NSMutableArray*  (^m_arrRemoveObj)(id obj);
 LBDeclare NSMutableArray*  (^m_arrRemoveAt)(NSUInteger index);
 /** <^(NSUInteger fromIndex,NSUInteger toIndex)>移除一段元素，在指定Index范围内,不会溢出 */
 LBDeclare NSMutableArray*  (^m_arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
-/** <^()>移除所有数组元素,安全的 */
+/** <^()>移除所有数组元素 */
 LBDeclare NSMutableArray*  (^m_arrRemoveAll)();
 /** <^(id obj,id withObj)>替换数组中的一个对象，如果存在的话 */
 LBDeclare NSMutableArray*  (^m_arrReplaceObjWith)(id obj,id withObj);

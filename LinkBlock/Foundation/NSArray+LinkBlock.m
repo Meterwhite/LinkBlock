@@ -8,6 +8,13 @@
 #import "LinkBlock.h"
 #import <stdarg.h>
 
+
+#define LBMacroCallToNSMutableArray(funcName) \
+if(![self isKindOfClass:[NSMutableArray class]] && [self isKindOfClass:[NSArray class]]){\
+return ((NSArray*)self.mutableCopy).funcName;\
+}\
+return self.funcName;
+
 @implementation NSObject(NSArraryLinkBlock)
 - (NSObject *)makeLinkObjs
 {
@@ -604,86 +611,46 @@
 
 - (NSMutableArray *(^)(id))arrAddObj
 {
-    return ^id(id obj){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrAddObj , obj)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrAddObj(obj);
-    };
+    LBMacroCallToNSMutableArray(m_arrAddObj)
 }
 
 - (NSMutableArray *(^)(id))arrAddObjNotContain
 {
-    return ^id(id obj){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrAddObjNotContain , obj)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrAddObjNotContain(obj);
-    };
+    LBMacroCallToNSMutableArray(m_arrAddObjNotContain)
 }
 
 - (NSMutableArray *(^)(NSArray *))arrAddObjs
 {
-    return ^id(NSArray *arr){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrAddObjs,arr)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrAddObjs(arr);
-    };
+    LBMacroCallToNSMutableArray(m_arrAddObjs)
 }
 
 - (NSMutableArray *(^)(id, NSUInteger))arrInsertObjAt
 {
-    return ^id(id obj, NSUInteger index){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrInsertObjAt,obj,index)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrInsertObjAt(obj,index);
-    };
+    LBMacroCallToNSMutableArray(m_arrInsertObjAt)
 }
 
 - (NSMutableArray *(^)(NSArray *, NSUInteger))arrInsertArrayAt
 {
-    return ^id(NSArray * arr, NSUInteger index){
+    LBMacroCallToNSMutableArray(m_arrInsertArrayAt)
+}
+
+- (NSMutableArray *(^)(NSMutableArray *, NSUInteger))arrInsertToArrayAt
+{
+    return ^id(NSMutableArray* arr, NSUInteger index){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrInsertArrayAt,arr,index)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrInsertArrayAt(arr,index);
+        LinkGroupHandle_REF(arrInsertToArrayAt,arr,index)
+        return linkObj(arr).m_arrInsertArrayAt(_self,index);
     };
 }
 
 - (NSMutableArray *(^)(id, id))arrInsertBefore
 {
-    return ^id(id obj, id beforObj){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrInsertBefore,obj,beforObj)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrInsertBefore(obj,beforObj);
-    };
+    LBMacroCallToNSMutableArray(m_arrInsertBefore)
 }
 
 - (NSMutableArray *(^)(id, id))arrInsertNext
 {
-    return ^id(id obj, id nextObj){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrInsertNext,obj,nextObj)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrInsertNext(obj,nextObj);
-    };
+    LBMacroCallToNSMutableArray(m_arrInsertNext)
 }
 
 - (NSObject *(^)(id))arrBefore
@@ -706,121 +673,51 @@
 
 - (NSMutableArray *(^)(id))arrRemoveObj
 {
-    return ^id(id obj){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrRemoveObj,obj)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrRemoveObj(obj);
-    };
+    LBMacroCallToNSMutableArray(m_arrRemoveObj)
 }
 
 - (NSMutableArray *(^)(NSUInteger))arrRemoveAt
 {
-    return ^id(NSUInteger index){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrRemoveAt,index)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrRemoveAt(index);
-    };
+    LBMacroCallToNSMutableArray(arrRemoveAt)
 }
 - (NSMutableArray *(^)(NSUInteger, NSUInteger))arrRemoveObjsFromTo
 {
-    return ^id(NSUInteger from, NSUInteger to){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrRemoveObjsFromTo,from,to)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrRemoveObjsFromTo(from,to);
-    };
+    LBMacroCallToNSMutableArray(m_arrRemoveObjsFromTo)
 }
 
 - (NSMutableArray *(^)())arrRemoveAll
 {
-    return ^id(){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrRemoveAll)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrRemoveAll();
-    };
+    LBMacroCallToNSMutableArray(m_arrRemoveAll)
 }
 
 - (NSMutableArray *(^)(id, id))arrReplaceObjWith
 {
-    return ^id(id obj, id withObj){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrReplaceObjWith,obj,withObj)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrReplaceObjWith(obj,withObj);
-    };
+    LBMacroCallToNSMutableArray(m_arrReplaceObjWith)
 }
 
 - (NSMutableArray<NSValue *> *(^)(BOOL, BOOL))arrSortRange
 {
-    return ^id(BOOL ascending, BOOL isCombine){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrSortRange,ascending,isCombine)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrSortRange(ascending,isCombine);
-    };
+    LBMacroCallToNSMutableArray(m_arrSortRange)
 }
 
 - (NSMutableArray *(^)(id, NSString *))arrAddOrReplaceObjByKey
 {
-    return ^id(id obj , NSString* key){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrAddOrReplaceObjByKey,obj,key)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrAddOrReplaceObjByKey(obj,key);
-    };
+    LBMacroCallToNSMutableArray(m_arrAddOrReplaceObjByKey)
 }
 
 - (NSMutableArray *(^)(id, NSString *, NSUInteger))arrInsertOrReplaceObjByKeyAt
 {
-    return ^id(id obj , NSString* key , NSUInteger idx){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrInsertOrReplaceObjByKeyAt,obj,key,idx)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrInsertOrReplaceObjByKeyAt(obj,key,idx);
-    };
+    LBMacroCallToNSMutableArray(m_arrInsertOrReplaceObjByKeyAt)
 }
 
 - (NSMutableArray *(^)(id, NSString *))arrTryReplaceObjByKey
 {
-    return ^id(id obj , NSString* key){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrTryReplaceObjByKey,obj,key)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrTryReplaceObjByKey(obj,key);
-    };
+    LBMacroCallToNSMutableArray(m_arrTryReplaceObjByKey)
 }
 
 - (NSMutableArray *(^)(NSArray *, NSString *))arrTryReplaceObjsByKey
 {
-    return ^id(NSArray* objs , NSString* key){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrTryReplaceObjsByKey,objs,key)
-        if(![_self isKindOfClass:[NSMutableArray class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_arrTryReplaceObjsByKey(objs,key);
-    };
+    LBMacroCallToNSMutableArray(m_arrTryReplaceObjsByKey)
 }
 @end
 

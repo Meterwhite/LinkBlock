@@ -11,13 +11,13 @@
 
 /**
  DynamicLink上的字面量
- "actionName(,,字面量,,)".linkCodeEvalFrom(target , arg1 , arg2 ,...)
+ "actionName(,,字面量,,)".linkCodeEval(target , arg1 , arg2 ,...)
  不通过字面量传值的参数位置则留下对应的逗号！上方样例中'字面量'作为第3个参数被block使用而不是使用第1个传入的参数arg1作为第一个入参的值。
  
  直接量参数的形式
  ********************************
  数字，十六进制的数字：       -123.456"，0xdcdcdc；
- 整数识别为int，浮点数识别double
+ 整数识别为long，浮点数识别double
  支持形如 1+Math.sin(-1) 这样的复杂算术表达式，数学函数支持javascript的Math库函数
  ********************************
  字符串：                    @\"短空长多\"
@@ -37,7 +37,9 @@
  UIEdgeInsetsMake,CGVectorMake,UIOffsetMake,CGAffineTransformMake,
  NSDirectionalEdgeInsetsMake
  ********************************
- Class：                    NSString
+ Class：                     NSString
+ ********************************
+ DynamicLinkCode:           参数可以再次是代码的形式，但是不能接受传参
  */
 @interface DynamicLinkArgument : NSObject
 
@@ -51,7 +53,7 @@
 @property (nonatomic,assign,readonly) BOOL validate;
 /**
  当前参数在整个链条中的的路径，长度至少为2，索引是1处
- 例如："block0().block1()...blockN(0,1,x)"，参数 x = NSIndexPath(N,2);
+ 例如："block0().block1()...blockN(0,1,x)"，参数 x = NSIndexPath*(N,2);
  */
 @property (nonatomic,strong,readonly) NSIndexPath* indexPath;
 /**

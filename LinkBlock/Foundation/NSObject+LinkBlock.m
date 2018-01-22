@@ -2832,45 +2832,45 @@ Link_objSetValueForKey_(text)
 }
 #pragma mark - 类型转换
 
-#ifndef Link_TransType_Maro
-#define Link_TransType_Maro(ReType) \
+#ifndef LBMarcoLinkTransType
+#define LBMarcoLinkTransType(ReType) \
 - (ReType *)as##ReType \
 { \
     return (id)self; \
 }
 #endif
 
-Link_TransType_Maro(NSString)
-Link_TransType_Maro(NSMutableString)
-Link_TransType_Maro(NSArray)
-Link_TransType_Maro(NSMutableArray)
-Link_TransType_Maro(NSDictionary)
-Link_TransType_Maro(NSMutableDictionary)
-Link_TransType_Maro(NSAttributedString)
-Link_TransType_Maro(NSMutableAttributedString)
-Link_TransType_Maro(NSURL)
-Link_TransType_Maro(NSUserDefaults)
-Link_TransType_Maro(NSNumber)
-Link_TransType_Maro(NSValue)
-Link_TransType_Maro(NSDate)
-Link_TransType_Maro(NSData)
-Link_TransType_Maro(UIView)
-Link_TransType_Maro(UILabel)
-Link_TransType_Maro(UIControl)
-Link_TransType_Maro(UIButton)
-Link_TransType_Maro(UIScrollView)
-Link_TransType_Maro(UIImage)
-Link_TransType_Maro(UIColor)
-Link_TransType_Maro(UIViewController)
-Link_TransType_Maro(UIImageView)
-Link_TransType_Maro(UITableView)
-Link_TransType_Maro(UITextField)
-Link_TransType_Maro(UITextView)
-Link_TransType_Maro(UIWebView)
-Link_TransType_Maro(NSMutableSet)
-Link_TransType_Maro(NSSet)
-Link_TransType_Maro(NSCalendar)
-Link_TransType_Maro(CALayer)
+LBMarcoLinkTransType(NSString)
+LBMarcoLinkTransType(NSMutableString)
+LBMarcoLinkTransType(NSArray)
+LBMarcoLinkTransType(NSMutableArray)
+LBMarcoLinkTransType(NSDictionary)
+LBMarcoLinkTransType(NSMutableDictionary)
+LBMarcoLinkTransType(NSAttributedString)
+LBMarcoLinkTransType(NSMutableAttributedString)
+LBMarcoLinkTransType(NSURL)
+LBMarcoLinkTransType(NSUserDefaults)
+LBMarcoLinkTransType(NSNumber)
+LBMarcoLinkTransType(NSValue)
+LBMarcoLinkTransType(NSDate)
+LBMarcoLinkTransType(NSData)
+LBMarcoLinkTransType(UIView)
+LBMarcoLinkTransType(UILabel)
+LBMarcoLinkTransType(UIControl)
+LBMarcoLinkTransType(UIButton)
+LBMarcoLinkTransType(UIScrollView)
+LBMarcoLinkTransType(UIImage)
+LBMarcoLinkTransType(UIColor)
+LBMarcoLinkTransType(UIViewController)
+LBMarcoLinkTransType(UIImageView)
+LBMarcoLinkTransType(UITableView)
+LBMarcoLinkTransType(UITextField)
+LBMarcoLinkTransType(UITextView)
+LBMarcoLinkTransType(UIWebView)
+LBMarcoLinkTransType(NSMutableSet)
+LBMarcoLinkTransType(NSSet)
+LBMarcoLinkTransType(NSCalendar)
+LBMarcoLinkTransType(CALayer)
 
 - (id)_lb_performSelector:(SEL)aSelector withArg:(id)arg
 {
