@@ -1715,6 +1715,14 @@ NSString* decimalToHexString(u_char nValue)
         return [_self substringWithRange:NSMakeRange(from, to- from+ 1)];
     };
 }
+- (NSString *(^)(NSRange ))strSubWithRange
+{
+    return ^id(NSRange range){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strSubWithRange,range)
+        return [_self substringWithRange:range];
+    };
+}
 - (NSString *(^)(NSUInteger, NSUInteger))strSubComposeFromTo
 {
     return ^id(NSUInteger from, NSUInteger to){

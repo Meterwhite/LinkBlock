@@ -164,6 +164,8 @@ LBDeclare NSString*    (^strSubFrom)(NSUInteger from);
 LBDeclare NSString*    (^strSubTo)(NSUInteger to);
 /** <^(NSUInteger from , NSUInteger to)包含to> */
 LBDeclare NSString*    (^strSubFromTo)(NSUInteger from , NSUInteger to);
+/** <^(NSRange range)> */
+LBDeclare NSString*    (^strSubWithRange)(NSRange range);
 /** <^(NSUInteger from)>按元字符截取字符串 */
 LBDeclare NSString*    (^strSubComposeFrom)(NSUInteger from);
 /** <^(NSUInteger to)不能取到to>按元字符截取字符串 */
