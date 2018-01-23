@@ -43,7 +43,7 @@
     };
 }
 
-- (CGFloat (^)())colorRed
+- (CGFloat (^)(void))colorRed
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
@@ -59,7 +59,7 @@
     };
 }
 
-- (CGFloat (^)())colorGreen
+- (CGFloat (^)(void))colorGreen
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
@@ -75,7 +75,7 @@
     };
 }
 
-- (CGFloat (^)())colorBlue
+- (CGFloat (^)(void))colorBlue
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
@@ -91,7 +91,7 @@
     };
 }
 
-- (CGFloat (^)())colorAlpha
+- (CGFloat (^)(void))colorAlpha
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
@@ -107,7 +107,7 @@
     };
 }
 
-- (CGFloat (^)())colorHue
+- (CGFloat (^)(void))colorHue
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
@@ -123,7 +123,7 @@
     };
 }
 
-- (CGFloat (^)())colorSaturation
+- (CGFloat (^)(void))colorSaturation
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
@@ -139,7 +139,7 @@
     };
 }
 
-- (CGFloat (^)())colorBrightness
+- (CGFloat (^)(void))colorBrightness
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIColor){
@@ -353,7 +353,7 @@
     };
 }
 
-- (UIColor *(^)())colorHighlightDarkColor
+- (UIColor *(^)(void))colorHighlightDarkColor
 {
     return ^id(){
         LinkHandle_REF(UIColor)
@@ -362,7 +362,7 @@
     };
 }
 
-- (UIColor *(^)())colorHighlightLightColor
+- (UIColor *(^)(void))colorHighlightLightColor
 {
     return ^id(){
         LinkHandle_REF(UIColor)

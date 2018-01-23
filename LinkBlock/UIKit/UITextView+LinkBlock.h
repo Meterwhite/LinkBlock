@@ -26,7 +26,7 @@ LBDeclare UITextView*        (^txtViewTextAlignment)(NSTextAlignment textAlignme
 /** <^(NSRange range)> */
 LBDeclare UITextView*         (^txtViewSelectRangeSet)(NSRange range);
 /** <^()> */
-LBDeclare NSRange             (^txtViewSelectRangeGet)();
+LBDeclare NSRange             (^txtViewSelectRangeGet)(void);
 /** <^(BOOL b)> */
 LBDeclare UITextView*         (^txtViewEditable)(BOOL b);
 /** <^(BOOL b)> */

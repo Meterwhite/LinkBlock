@@ -26,21 +26,21 @@ LBDeclare JSValue*     (^jsContextGetElementsByName)(NSString* name, NSString* a
 /** <^(NSString* tagName, NSString* appendScript)> */
 LBDeclare JSValue*     (^jsContextGetElementsByTagName)(NSString* tagName, NSString* appendScript);
 /** <^()> */
-LBDeclare NSString*    (^jsContextTitle)();
+LBDeclare NSString*    (^jsContextTitle)(void);
 /** <^()> */
-LBDeclare NSString*    (^jsContextHTML)();
+LBDeclare NSString*    (^jsContextHTML)(void);
 /** <^()> */
-LBDeclare NSString*    (^jsContextLocationHref)();
+LBDeclare NSString*    (^jsContextLocationHref)(void);
 /** <^()> */
-LBDeclare JSContext*   (^jsContextLocationReload)();
+LBDeclare JSContext*   (^jsContextLocationReload)(void);
 /** <^(NSString* str)> */
 LBDeclare JSContext*   (^jsContextWrite)(NSString* str);
 /** <^(NSString* str)> */
 LBDeclare JSContext*   (^jsContextAlert)(NSString* str);
 /** <^()> */
-LBDeclare JSContext*   (^jsContextHistoryBack)();
+LBDeclare JSContext*   (^jsContextHistoryBack)(void);
 /** <^()> */
-LBDeclare JSContext*   (^jsContextHistoryForward)();
+LBDeclare JSContext*   (^jsContextHistoryForward)(void);
 /** <^(NSString* page)>page = -1,0,1,2... */
 LBDeclare JSContext*   (^jsContextHistoryGo)(NSString* page);
 @end

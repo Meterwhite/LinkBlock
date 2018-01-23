@@ -50,7 +50,7 @@
     };
 }
 
-- (UIViewController *(^)())vcNavigationControllerPop
+- (UIViewController *(^)(void))vcNavigationControllerPop
 {
     return ^id(){
         LinkHandle_REF(UIViewController)

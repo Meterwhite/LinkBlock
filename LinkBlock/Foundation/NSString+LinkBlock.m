@@ -13,7 +13,7 @@
 
 @implementation NSObject(NSStringLinkBlock)
 
-- (NSMutableString *(^)())strMutableCopy
+- (NSMutableString *(^)(void))strMutableCopy
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -206,7 +206,7 @@
     };
 }
 
-- (BOOL (^)())strContainzh_CN
+- (BOOL (^)(void))strContainzh_CN
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -223,7 +223,7 @@
     };
 }
 
-- (NSNumber* (^)())strContainzh_CN_n
+- (NSNumber* (^)(void))strContainzh_CN_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -347,7 +347,7 @@ NSString* decimalToHexString(u_char nValue)
     }
     return tmp;
 }
-- (NSString* (^)())strToUnicoding
+- (NSString* (^)(void))strToUnicoding
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -384,7 +384,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSString *(^)())strFromUnicoding
+- (NSString *(^)(void))strFromUnicoding
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -428,7 +428,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSRange (^)())strRange
+- (NSRange (^)(void))strRange
 {
     return ^(){
         NSRange range = NSMakeRange(NSNotFound, 0);
@@ -483,7 +483,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (BOOL (^)())strIsEmoji
+- (BOOL (^)(void))strIsEmoji
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -526,7 +526,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)())strIsEmoji_n
+- (NSNumber* (^)(void))strIsEmoji_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -835,7 +835,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (BOOL (^)())strIsBlank{
+- (BOOL (^)(void))strIsBlank{
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
             return NO;
@@ -854,7 +854,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)())strIsBlank_n
+- (NSNumber* (^)(void))strIsBlank_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -872,7 +872,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSUInteger (^)())strLength
+- (NSUInteger (^)(void))strLength
 {
     return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -883,7 +883,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)())strLength_n
+- (NSNumber* (^)(void))strLength_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -892,7 +892,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSUInteger (^)())strLengthASCII
+- (NSUInteger (^)(void))strLengthASCII
 {
     return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -909,7 +909,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSUInteger (^)())strLengthUnicode
+- (NSUInteger (^)(void))strLengthUnicode
 {
     return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -931,7 +931,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSUInteger (^)())strLengthComposed
+- (NSUInteger (^)(void))strLengthComposed
 {
     return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -973,7 +973,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (BOOL (^)())strContainEmoji
+- (BOOL (^)(void))strContainEmoji
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1018,7 +1018,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)())strContainEmoji_n
+- (NSNumber* (^)(void))strContainEmoji_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1061,7 +1061,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSString* (^)())strClearSpaceAndWrap
+- (NSString* (^)(void))strClearSpaceAndWrap
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1095,7 +1095,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (BOOL (^)())strIsInteger
+- (BOOL (^)(void))strIsInteger
 {
     return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1108,7 +1108,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (BOOL (^)())strIsFloating
+- (BOOL (^)(void))strIsFloating
 {
     return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1121,7 +1121,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (BOOL (^)())strIsNumber
+- (BOOL (^)(void))strIsNumber
 {
     return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1131,7 +1131,7 @@ NSString* decimalToHexString(u_char nValue)
         return _self.strIsInteger() || _self.strIsFloating();
     };
 }
-- (NSNumber *(^)())strIsNumber_n
+- (NSNumber *(^)(void))strIsNumber_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1214,7 +1214,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (UIColor *(^)())strToUIColorFromHex
+- (UIColor *(^)(void))strToUIColorFromHex
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1245,7 +1245,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (double (^)())strToDoubleFromHex
+- (double (^)(void))strToDoubleFromHex
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1263,7 +1263,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (unsigned int (^)())strToIntFromHex
+- (unsigned int (^)(void))strToIntFromHex
 {
     return ^unsigned int(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1281,7 +1281,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (CGRect (^)())strToCGRect
+- (CGRect (^)(void))strToCGRect
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1292,7 +1292,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (CGPoint (^)())strToCGPoint
+- (CGPoint (^)(void))strToCGPoint
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1303,7 +1303,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (CGVector (^)())strToCGVector
+- (CGVector (^)(void))strToCGVector
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1314,7 +1314,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (CGSize (^)())strToCGSize
+- (CGSize (^)(void))strToCGSize
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1325,7 +1325,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (CGAffineTransform (^)())strToCGAffineTransform
+- (CGAffineTransform (^)(void))strToCGAffineTransform
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1336,7 +1336,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (UIEdgeInsets (^)())strToUIEdgeInsets
+- (UIEdgeInsets (^)(void))strToUIEdgeInsets
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1347,7 +1347,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (UIOffset (^)())strToUIOffset
+- (UIOffset (^)(void))strToUIOffset
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1358,7 +1358,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSData *(^)())strToNSDataWithContentsOfFile
+- (NSData *(^)(void))strToNSDataWithContentsOfFile
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1387,7 +1387,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSDate *(^)())strToNSDateSince1970
+- (NSDate *(^)(void))strToNSDateSince1970
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1431,7 +1431,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSPredicate *(^)())strToPredicate
+- (NSPredicate *(^)(void))strToPredicate
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1484,7 +1484,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (SystemSoundID (^)())strToSystemSoundID
+- (SystemSoundID (^)(void))strToSystemSoundID
 {
     return ^SystemSoundID(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1511,7 +1511,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (__kindof UIView *(^)())strLoadNibNamedFirst
+- (__kindof UIView *(^)(void))strLoadNibNamedFirst
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1524,7 +1524,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (__kindof UIView *(^)())strLoadNibNamedLast
+- (__kindof UIView *(^)(void))strLoadNibNamedLast
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1537,7 +1537,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
--(NSURL *(^)())strToNSURL
+-(NSURL *(^)(void))strToNSURL
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1573,7 +1573,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (UIImage *(^)())strToUIImage
+- (UIImage *(^)(void))strToUIImage
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1590,7 +1590,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (UIImageView *(^)())strToUIImageView
+- (UIImageView *(^)(void))strToUIImageView
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1742,7 +1742,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSObject *(^)())strToObjectFromName
+- (NSObject *(^)(void))strToObjectFromName
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1814,7 +1814,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (double (^)())strFindNumber
+- (double (^)(void))strFindNumber
 {
     return ^(){
         double re = 0.0;
@@ -1885,7 +1885,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSString *(^)())strReversed
+- (NSString *(^)(void))strReversed
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1906,7 +1906,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSUInteger (^)())strLinesCount
+- (NSUInteger (^)(void))strLinesCount
 {
     return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -1952,7 +1952,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSString *(^)())strURLEncodeUTF8
+- (NSString *(^)(void))strURLEncodeUTF8
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1961,7 +1961,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSString *(^)())strURLDecodeUTF8
+- (NSString *(^)(void))strURLDecodeUTF8
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1970,7 +1970,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSString *(^)())strURLBeforeKeyValues
+- (NSString *(^)(void))strURLBeforeKeyValues
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -1979,7 +1979,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSDictionary *(^)())strURLKeyValues
+- (NSDictionary *(^)(void))strURLKeyValues
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -2116,7 +2116,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSArray *(^)())strURLAllKeys
+- (NSArray *(^)(void))strURLAllKeys
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -2127,7 +2127,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSArray *(^)())strURLAllValues
+- (NSArray *(^)(void))strURLAllValues
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -2267,7 +2267,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (BOOL (^)())strPathFileExists
+- (BOOL (^)(void))strPathFileExists
 {
     return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSString){
@@ -2278,7 +2278,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)())strPathFileExists_n
+- (NSNumber* (^)(void))strPathFileExists_n
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -2287,7 +2287,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSString *(^)())strPathSoundPlay
+- (NSString *(^)(void))strPathSoundPlay
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -2322,7 +2322,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     };
 }
 
-- (NSObject *(^)())strPathUnarchiveObject_linkTo
+- (NSObject *(^)(void))strPathUnarchiveObject_linkTo
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -2331,7 +2331,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     };
 }
 
-- (NSString *(^)())strCopyToGeneralPasteboard
+- (NSString *(^)(void))strCopyToGeneralPasteboard
 {
     return ^id(){
         LinkHandle_REF(NSString)
@@ -2398,7 +2398,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
             va_start(args, obj);
             for (int i=0; i<group.linkObjects.count; i++) {
                 DynamicLink* link = [DynamicLink dynamicLinkWithCode:_self];
-                id result = [link invoke:obj args:args];
+                id result = [link invoke:obj args:&args];
                 [returnObjs addObject:result];
             }
             va_end(args);
@@ -2411,7 +2411,7 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
         va_list vList;
         va_start(vList , obj);
         DynamicLink* link = [DynamicLink dynamicLinkWithCode:_self];
-        id result = [link invoke:obj args:vList];
+        id result = [link invoke:obj args:&vList];
         va_end(vList);
         
         return result;

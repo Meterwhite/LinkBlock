@@ -23,7 +23,7 @@ LBDeclare NSString*    (^strComposeAt)(NSUInteger index);
 LBDeclare BOOL         (^strIsEqualStr)(NSString* str);
 LBDeclare NSNumber*    (^strIsEqualStr_n)(NSString* str);
 /** <^()> */
-LBDeclare NSMutableString* (^strMutableCopy)();
+LBDeclare NSMutableString* (^strMutableCopy)(void);
 /** <^(NSString* str)> */
 LBDeclare NSString*    (^strAppend)(NSString* str);
 /** <^(id obj)> */
@@ -48,33 +48,33 @@ LBDeclare NSString*    (^strReplace)(NSString* replaceStr, NSString* withStr);
 LBDeclare BOOL         (^strContain)(NSString* str);
 LBDeclare NSNumber*    (^strContain_n)(NSString* str);
 /** <^()>字符串是否含有汉字 */
-LBDeclare BOOL         (^strContainzh_CN)();
-LBDeclare NSNumber*    (^strContainzh_CN_n)();
+LBDeclare BOOL         (^strContainzh_CN)(void);
+LBDeclare NSNumber*    (^strContainzh_CN_n)(void);
 /** <^(NSRange range)>范围内是否是汉字 */
 LBDeclare BOOL         (^strIszh_CNInRange)(NSRange range);
 LBDeclare NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
 /** <^()>转unicode编码: @"我" => @"\u6211" */
-LBDeclare NSString*    (^strToUnicoding)();
+LBDeclare NSString*    (^strToUnicoding)(void);
 /** <^()>unicode编码转: @"\u6211" => @"我" */
-LBDeclare NSString*    (^strFromUnicoding)();
+LBDeclare NSString*    (^strFromUnicoding)(void);
 /** <^(NSString* str)>无结果时返回NSNotFound */
 LBDeclare NSRange      (^strRangeOfStr)(NSString* str);
 /** <^()> */
-LBDeclare NSRange      (^strRange)();
+LBDeclare NSRange      (^strRange)(void);
 /** <^(NSString* str)>无结果时返回NSNotFound */
 LBDeclare NSInteger    (^strIndexOfStr)(NSString* str);
 /** <^(NSString* str, NSUInteger startIndex)>从某处开始的某字符串的位置。无结果时返回NSNotFound */
 LBDeclare NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIndex);
 
 /** <^()>是否是表示空的字符串，包括全部空白符和字符串以及"<null>"，"(null)" */
-LBDeclare BOOL         (^strIsBlank)();
-LBDeclare NSNumber*    (^strIsBlank_n)();
+LBDeclare BOOL         (^strIsBlank)(void);
+LBDeclare NSNumber*    (^strIsBlank_n)(void);
 /** <^()>判断emoji */
-LBDeclare BOOL         (^strIsEmoji)();
-LBDeclare NSNumber*    (^strIsEmoji_n)();
+LBDeclare BOOL         (^strIsEmoji)(void);
+LBDeclare NSNumber*    (^strIsEmoji_n)(void);
 /** <^()> */
-LBDeclare BOOL         (^strContainEmoji)();
-LBDeclare NSNumber*    (^strContainEmoji_n)();
+LBDeclare BOOL         (^strContainEmoji)(void);
+LBDeclare NSNumber*    (^strContainEmoji_n)(void);
 /** <^(UIFont* font)>通用视图排版中计算字符串尺寸 */
 LBDeclare CGSize       (^strSizeWithFont)(UIFont* font);
 LBDeclare NSValue*     (^strSizeWithFont_n)(UIFont* font);
@@ -91,7 +91,7 @@ LBDeclare CGFloat      (^strLineHeight)(NSDictionary<NSAttributedStringKey,id>* 
 /** <^(CGFloat maxWidth,NSDictionary* attrDict)>视图排版中的文字的行数，不支持包含图片的计算 */
 LBDeclare NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict);
 /** <^()>字符串的行数 */
-LBDeclare NSUInteger   (^strLinesCount)();
+LBDeclare NSUInteger   (^strLinesCount)(void);
 /** <^(NSInteger toLine截取行数, CGFloat maxWidth,NSDictionary* attrDict)>视图排版中截一定视觉行数的字符串，不支持包含图片的计算；内部使用折半查找效率尚可 */
 LBDeclare NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict);
 /**
@@ -113,31 +113,31 @@ LBDeclare NSRange (^strSubRangeToMaxLineIfAppendStrAboutView)(NSUInteger maxLine
 /** <^(NSUInteger toLine截取行数)>截取到一定行数（换行符）的字符串 */
 LBDeclare NSString*    (^strSubToLine)(NSUInteger toLine);
 /** <^()> */
-LBDeclare NSUInteger   (^strLength)();
-LBDeclare NSNumber*    (^strLength_n)();
+LBDeclare NSUInteger   (^strLength)(void);
+LBDeclare NSNumber*    (^strLength_n)(void);
 /** <^()>字符串按ASCII的长度 */
-LBDeclare NSUInteger   (^strLengthASCII)();
+LBDeclare NSUInteger   (^strLengthASCII)(void);
 /** <^()>字符串按Unicode的长度 */
-LBDeclare NSUInteger   (^strLengthUnicode)();
+LBDeclare NSUInteger   (^strLengthUnicode)(void);
 /** <^()>字符串按元字符组成的序列的长度，即汉字，emoji等都作为一个字符 */
-LBDeclare NSUInteger   (^strLengthComposed)();
+LBDeclare NSUInteger   (^strLengthComposed)(void);
 /** <^(NSString* reg元字符正则)>字符串按元字符组成的序列和自定义正则规则元字符的长度，即每个字符，汉字，emoji，匹配，都视为一个元字符；参数传nil时和strLengthComposed()相同 */
 LBDeclare NSUInteger   (^strLengthComposedAndCustom)(NSString* reg);
 /** <^()>去除所有空白符 */
-LBDeclare NSString*    (^strClearSpaceAndWrap)();
+LBDeclare NSString*    (^strClearSpaceAndWrap)(void);
 /** <^(NSString* str)>对数字敏感的比较两个字符串：12.3 < 12.4; Foo2.txt < Foo7.txt ; */
 LBDeclare NSComparisonResult (^strCompareNumberSensitive)(NSString* str);
 /** <^(NSString* str)>通用字符串比较 */
 LBDeclare NSComparisonResult (^strCompare)(NSString* str);
 /** <^()>是否是整型字符串 */
-LBDeclare BOOL         (^strIsInteger)();
+LBDeclare BOOL         (^strIsInteger)(void);
 /** <^()>是否是浮点数字符串 */
-LBDeclare BOOL         (^strIsFloating)();
+LBDeclare BOOL         (^strIsFloating)(void);
 /** <^()>是否是数字类型 */
-LBDeclare BOOL         (^strIsNumber)();
-LBDeclare NSNumber*    (^strIsNumber_n)();
+LBDeclare BOOL         (^strIsNumber)(void);
+LBDeclare NSNumber*    (^strIsNumber_n)(void);
 /** <^()>反转字符串 */
-LBDeclare NSString*    (^strReversed)();
+LBDeclare NSString*    (^strReversed)(void);
 /** <^(NSString* str)>从左删除第一次匹配的字符串 */
 LBDeclare NSString*    (^strDeleteLeft)(NSString* str);
 /** <^(NSString* str)>从右删除第一次匹配的字符串 */
@@ -171,36 +171,36 @@ LBDeclare NSString*    (^strSubComposeTo)(NSUInteger to);
 /** <^(NSUInteger from , NSUInteger to)包含to>按元字符截取字符串 */
 LBDeclare NSString*    (^strSubComposeFromTo)(NSUInteger from , NSUInteger to);
 /** <^()>将字符串复制到通用剪贴板 */
-LBDeclare NSString*    (^strCopyToGeneralPasteboard)();
+LBDeclare NSString*    (^strCopyToGeneralPasteboard)(void);
 #pragma mark - 文件
 /** <^(NSString* type)>根据文件名获取Bundle中的文件 */
 LBDeclare NSString*    (^strPathByFileNameInBundle)(NSString* type);
 LBDeclare NSString*    (^strPathAppendingComponent)(NSString* component);
 /** <^()>路径下文件是否存在 */
-LBDeclare BOOL         (^strPathFileExists)();
-LBDeclare NSNumber*    (^strPathFileExists_n)();
+LBDeclare BOOL         (^strPathFileExists)(void);
+LBDeclare NSNumber*    (^strPathFileExists_n)(void);
 /** 
  <^()>播放路径下音效并释放
  播放系统键盘音：@"/System/Library/Audio/UISounds/Tock.caf".strPathSoundPlay();
  */
-LBDeclare NSString*    (^strPathSoundPlay)();
+LBDeclare NSString*    (^strPathSoundPlay)(void);
 /** <^(id<NSCoding>obj)>解档 */
 LBDeclare NSString*    (^strPathArchiveObject)(id<NSCoding>obj);
 /** <^()>归档，并以归档对象作为链条 */
-LBDeclare NSObject*    (^strPathUnarchiveObject_linkTo)();
+LBDeclare NSObject*    (^strPathUnarchiveObject_linkTo)(void);
 /** <^(NSUInteger index)>加载XIB，越界时返回NSNull */
 LBDeclare __kindof UIView*     (^strLoadNibNamedAt)(NSUInteger index);
 /** <^(NSUInteger index)>加载第一个XIB，越界时返回NSNull */
-LBDeclare __kindof UIView*     (^strLoadNibNamedFirst)();
+LBDeclare __kindof UIView*     (^strLoadNibNamedFirst)(void);
 /** <^(NSUInteger index)>加载最后一个XIB，越界时返回NSNull */
-LBDeclare __kindof UIView*     (^strLoadNibNamedLast)();
+LBDeclare __kindof UIView*     (^strLoadNibNamedLast)(void);
 #pragma mark - 转换
 /** <^()>根据字符串类名调用new方法创建对象，没有该类型时返回NSNull */
-LBDeclare NSObject*            (^strToObjectFromName)();
+LBDeclare NSObject*            (^strToObjectFromName)(void);
 /** <^()>字符串转颜色；包含格式：0xcccccc , #cccccc , cccccc */
-LBDeclare UIColor*             (^strToUIColorFromHex)();
+LBDeclare UIColor*             (^strToUIColorFromHex)(void);
 /** <^()> */
-LBDeclare NSURL*               (^strToNSURL)();
+LBDeclare NSURL*               (^strToNSURL)(void);
 /** <^(NSDictionary<NSAttributedStringKey,id>* attrbute)> */
 LBDeclare NSAttributedString*  (^strToNSAttributedString)(NSDictionary<NSAttributedStringKey,id>* attrbute);
 /** <^(NSDictionary<NSAttributedStringKey,id>* attrbute)> */
@@ -208,45 +208,45 @@ LBDeclare NSMutableAttributedString*  (^strToNSMutableAttributedString)(NSDictio
 /** <^(NSStringEncoding encoding)> */
 LBDeclare NSIndexPath*         (^strToNSIndexPathFromJsonArray)(NSStringEncoding encoding);
 /** <^()>根据文件名创建UIImage，不存在图片时返回NSNull */
-LBDeclare UIImage*             (^strToUIImage)();
+LBDeclare UIImage*             (^strToUIImage)(void);
 /** <^()>根据文件名创建UIImageView，控件尺寸与图片原尺寸相同 */
-LBDeclare UIImageView*         (^strToUIImageView)();
+LBDeclare UIImageView*         (^strToUIImageView)(void);
 /** <^()>十六进制字符串转double */
-LBDeclare double               (^strToDoubleFromHex)();
+LBDeclare double               (^strToDoubleFromHex)(void);
 /** <^()>十六进制字符串转unsigned int */
-LBDeclare unsigned int         (^strToIntFromHex)();
+LBDeclare unsigned int         (^strToIntFromHex)(void);
 /** <^()>@"{{x,y},{w,h}}".strToCGRect() */
-LBDeclare CGRect               (^strToCGRect)();
+LBDeclare CGRect               (^strToCGRect)(void);
 /** <^()>@"{x,y}".strToCGVector() */
-LBDeclare CGVector             (^strToCGVector)();
+LBDeclare CGVector             (^strToCGVector)(void);
 /** <^()>@"{w,h}".strToCGSize() */
-LBDeclare CGSize               (^strToCGSize)();
+LBDeclare CGSize               (^strToCGSize)(void);
 /** <^()>@"{x,y}".strToCGPoint() */
-LBDeclare CGPoint              (^strToCGPoint)();
+LBDeclare CGPoint              (^strToCGPoint)(void);
 /** <^()>@"{a, b, c, d, tx, ty}".strToCGAffineTransform() */
-LBDeclare CGAffineTransform    (^strToCGAffineTransform)();
+LBDeclare CGAffineTransform    (^strToCGAffineTransform)(void);
 /** <^()>@"{top, left, bottom, right}".strToUIEdgeInsets() */
-LBDeclare UIEdgeInsets         (^strToUIEdgeInsets)();
+LBDeclare UIEdgeInsets         (^strToUIEdgeInsets)(void);
 /** <^()>@"{x,y}".strToUIOffset() */
-LBDeclare UIOffset             (^strToUIOffset)();
+LBDeclare UIOffset             (^strToUIOffset)(void);
 /** <^()>路径转NSData */
-LBDeclare NSData*              (^strToNSDataWithContentsOfFile)();
+LBDeclare NSData*              (^strToNSDataWithContentsOfFile)(void);
 /** <^(NSStringEncoding encodeing)>转NSData */
 LBDeclare NSData*              (^strToNSDataUseEncoding)(NSStringEncoding encodeing);
 /** <^(NSString* formatStr)>日期字符串转日期 */
 LBDeclare NSDate*              (^strToNSDateWithFormat)(NSString* formatStr);
 /** <^()>数字字符串转日期 */
-LBDeclare NSDate*              (^strToNSDateSince1970)();
+LBDeclare NSDate*              (^strToNSDateSince1970)(void);
 /** <^(NSStringEncoding encoding)>json形式字符串转字典 */
 LBDeclare NSDictionary*        (^strToNSDictionary)(NSStringEncoding encoding);
 /** <^(NSStringEncoding encoding)>json形式字符串转数组 */
 LBDeclare NSArray*             (^strToNSArrary)(NSStringEncoding encoding);
 /** <^()>字符串转谓词 */
-LBDeclare NSPredicate*         (^strToPredicate)();
+LBDeclare NSPredicate*         (^strToPredicate)(void);
 /** <^(id obj1 , ...)>字符串转谓词，可带参数 */
 LBDeclare NSPredicate*         (^strToPredicateWidthFormatArgs)(id obj1 , ...);
 /** <^()>路径转系统音效ID；注意释放 */
-LBDeclare UInt32               (^strToSystemSoundID)();
+LBDeclare UInt32               (^strToSystemSoundID)(void);
 #pragma mark - 设置到
 /** <^(UILabel* lab)> */
 LBDeclare UILabel*             (^strSetToLab_linkTo)(UILabel* lab);
@@ -270,7 +270,7 @@ LBDeclare NSMutableArray<NSString*>* (^strRegexMatchs)(NSString* regex);
  */
 LBDeclare NSString*            (^strRegexReplace)(NSString* regex, NSString* replaceTemplate);
 /** <^()>查找字符串中的第一组数字 */
-LBDeclare double               (^strFindNumber)();
+LBDeclare double               (^strFindNumber)(void);
 #pragma mark - 键
 /** <^(id obj)>KVC取值 */
 LBDeclare NSObject*            (^strKeyForValueWith)(id obj);
@@ -286,7 +286,7 @@ LBDeclare NSArray*             (^strPredicateFilteredArray)(NSArray* arr);
 LBDeclare NSString*            (^strPredicateFilterMutable)(id collection);
 #pragma mark - URL字符串操作
 //** <^()>获取URL上键值对前的部分，可用于获取BaseURL，获取参数前的URL（即?前部分），但不对内容做验证 */
-LBDeclare NSString*            (^strURLBeforeKeyValues)();
+LBDeclare NSString*            (^strURLBeforeKeyValues)(void);
 /** <^(NSString* key)>URL取值 */
 LBDeclare NSString*            (^strURLValueForKey)(NSString* key);
 /** <^(NSString* value,NSString* key)> */
@@ -294,11 +294,11 @@ LBDeclare NSString*            (^strURLSetValueForKey)(NSString* value,NSString*
 /** <^(NSDictionary<NSString* key,NSString* value>* keyValues)> */
 LBDeclare NSString*            (^strURLSetKeyValueWithDict)(NSDictionary<NSString*,NSString*>* keyValues);
 /** <^()>URL键值对转字典 */
-LBDeclare NSDictionary*        (^strURLKeyValues)();
+LBDeclare NSDictionary*        (^strURLKeyValues)(void);
 /** <^()>获取URL上所有键 */
-LBDeclare NSArray*             (^strURLAllKeys)();
+LBDeclare NSArray*             (^strURLAllKeys)(void);
 /** <^()>获取URL上所有值 */
-LBDeclare NSArray*             (^strURLAllValues)();
+LBDeclare NSArray*             (^strURLAllValues)(void);
 /** <^(NSString* key)>移除相关键及参数 */
 LBDeclare NSString*            (^strURLRemoveValueForKey)(NSString* key);
 /** <^(NSString* replaceKey,NSString* withKey)>替换键 */
@@ -306,9 +306,9 @@ LBDeclare NSString*            (^strURLReplaceKeyWithKey)(NSString* replaceKey,N
 /** <^(NSDictionary<NSString* key,NSString* value>* replaceKey_withKey)>替换键，字典结构为:key = replacedKey ;value = newKey */
 LBDeclare NSString*            (^strURLReplaceKeyWithDict)(NSDictionary<NSString*,NSString*>* replaceKey_withKey);
 /** <^()> */
-LBDeclare NSString*            (^strURLEncodeUTF8)();
+LBDeclare NSString*            (^strURLEncodeUTF8)(void);
 /** <^()> */
-LBDeclare NSString*            (^strURLDecodeUTF8)();
+LBDeclare NSString*            (^strURLDecodeUTF8)(void);
 /** <^(NSStringEncoding encode)> */
 LBDeclare NSString*            (^strURLEncode)(NSStringEncoding encode);
 /** <^(NSStringEncoding encode)> */

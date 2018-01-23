@@ -27,7 +27,7 @@ LBDeclare CALayer*     (^layerAddAnimation)(CAAnimation* animation);
 /** <^(CAAnimation* animation , NSString* key)> */
 LBDeclare CALayer*     (^layerAddAnimationWithKey)(CAAnimation* animation , NSString* key);
 /** <^()> */
-LBDeclare CALayer*     (^layerRemoveAllAnimations)();
+LBDeclare CALayer*     (^layerRemoveAllAnimations)(void);
 /** <^(NSString* key)> */
 LBDeclare CALayer*     (^layerRemoveAnimationForKey)(NSString* key);
 /** <^(CGFloat cornerRadius)> */

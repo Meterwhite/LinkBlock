@@ -98,7 +98,7 @@
     };
 }
 
-- (UIImage *(^)())imgBlurLight
+- (UIImage *(^)(void))imgBlurLight
 {
     return ^id(){
         LinkHandle_REF(UIImage)
@@ -118,7 +118,7 @@
     };
 }
 
-- (UIImage *(^)())imgBlurExtraLight
+- (UIImage *(^)(void))imgBlurExtraLight
 {
     return ^id(){
         LinkHandle_REF(UIImage)
@@ -128,7 +128,7 @@
     };
 }
 
-- (UIImage *(^)())imgBlurDarkEffect
+- (UIImage *(^)(void))imgBlurDarkEffect
 {
     return ^id(){
         LinkHandle_REF(UIImage)
@@ -293,7 +293,7 @@
     };
 }
 
-- (UIColor *(^)())imgGetPatternColor
+- (UIColor *(^)(void))imgGetPatternColor
 {
     return ^id(){
         LinkHandle_REF(UIImage)
@@ -302,7 +302,7 @@
     };
 }
 
-- (UIImage *(^)())imgOrientationFix
+- (UIImage *(^)(void))imgOrientationFix
 {
     return ^id(){
         LinkHandle_REF(UIImage)
@@ -423,7 +423,7 @@
     };
 }
 
-- (UIImageView *(^)())imgToUIImageView
+- (UIImageView *(^)(void))imgToUIImageView
 {
     return ^id(){
         LinkHandle_REF(UIImage)

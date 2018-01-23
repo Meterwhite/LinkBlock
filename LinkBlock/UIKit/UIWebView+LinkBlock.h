@@ -14,13 +14,13 @@
 @class JSContext;
 @interface NSObject(UIWebViewLinkBlock)
 /** <^()> */
-LBDeclare JSContext*      (^webViewContext)();
+LBDeclare JSContext*      (^webViewContext)(void);
 /** <^(NSString* script)> */
 LBDeclare NSString*       (^webViewEvalScript)(NSString* script);
 /** <^()> */
-LBDeclare NSString*       (^webViewTitle)();
+LBDeclare NSString*       (^webViewTitle)(void);
 /** <^()> */
-LBDeclare NSString*       (^webViewLocationHref)();
+LBDeclare NSString*       (^webViewLocationHref)(void);
 /** <^()> */
-LBDeclare NSString*       (^webViewHTML)();
+LBDeclare NSString*       (^webViewHTML)(void);
 @end

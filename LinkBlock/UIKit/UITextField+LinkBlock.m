@@ -34,7 +34,7 @@
     };
 }
 
-- (NSRange (^)())txtFieldSelectRangeGet
+- (NSRange (^)(void))txtFieldSelectRangeGet
 {
     return ^NSRange(){
         LinkHandle_VAL_IFNOT(UITextField){
@@ -90,6 +90,16 @@
         LinkHandle_REF(UITextField)
         LinkGroupHandle_REF(txtFieldFont,font)
         _self.font = font;
+        return _self;
+    };
+}
+
+- (UITextField *(^)(NSTextAlignment))txtFieldTextAlignment
+{
+    return ^id(NSTextAlignment alignment){
+        LinkHandle_REF(UITextField)
+        LinkGroupHandle_REF(txtFieldTextAlignment,alignment)
+        _self.textAlignment = alignment;
         return _self;
     };
 }

@@ -110,7 +110,7 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)())arrJoinArr
+- (NSMutableArray *(^)(void))arrJoinArr
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -126,7 +126,7 @@ return self.funcName;
     };
 }
 
-- (NSMutableDictionary *(^)())arrJoinDict
+- (NSMutableDictionary *(^)(void))arrJoinDict
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -180,7 +180,7 @@ return self.funcName;
     };
 }
 
-- (NSDictionary *(^)())arrToDictByKeyNumber
+- (NSDictionary *(^)(void))arrToDictByKeyNumber
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -193,7 +193,7 @@ return self.funcName;
     };
 }
 
-- (NSDictionary *(^)())arrToDictByKeyString
+- (NSDictionary *(^)(void))arrToDictByKeyString
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -206,7 +206,7 @@ return self.funcName;
     };
 }
 
-- (NSIndexPath *(^)())arrToNSIndexPath
+- (NSIndexPath *(^)(void))arrToNSIndexPath
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -262,7 +262,7 @@ return self.funcName;
     };
 }
 
-- (NSObject* (^)())arrAny
+- (NSObject* (^)(void))arrAny
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -331,7 +331,7 @@ return self.funcName;
     };
 }
 
-- (NSNumber *(^)())arrMaxNumber
+- (NSNumber *(^)(void))arrMaxNumber
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -346,7 +346,7 @@ return self.funcName;
     };
 }
 
-- (NSNumber *(^)())arrMinNumber
+- (NSNumber *(^)(void))arrMinNumber
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -361,7 +361,7 @@ return self.funcName;
     };
 }
 
-- (NSObject *(^)())arrLast
+- (NSObject *(^)(void))arrLast
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -370,7 +370,7 @@ return self.funcName;
     };
 }
 
-- (NSObject *(^)())arrFirst
+- (NSObject *(^)(void))arrFirst
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -411,7 +411,7 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)())arrObjsValueRandom
+- (NSMutableArray *(^)(void))arrObjsValueRandom
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -476,7 +476,7 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)())arrReversed
+- (NSMutableArray *(^)(void))arrReversed
 {
     return ^id(){
         LinkHandle_REF(NSArray)
@@ -685,7 +685,7 @@ return self.funcName;
     LBMacroCallToNSMutableArray(m_arrRemoveObjsFromTo)
 }
 
-- (NSMutableArray *(^)())arrRemoveAll
+- (NSMutableArray *(^)(void))arrRemoveAll
 {
     LBMacroCallToNSMutableArray(m_arrRemoveAll)
 }

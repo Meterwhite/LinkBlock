@@ -10,5 +10,5 @@
 
 @interface NSObject(NSErrorLinkBlock)
 /** <^(id<NSCopying> key)> */
-LBDeclare NSObject*           (^errorValueInUserInfo)(id<NSCopying> key);
+LBDeclare NSObject*           (^errorValueInUserInfo)(id key);
 @end

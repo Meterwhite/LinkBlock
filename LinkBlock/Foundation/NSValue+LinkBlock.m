@@ -42,7 +42,7 @@
     };
 }
 
-- (NSUInteger (^)())valueNSRangeLocation
+- (NSUInteger (^)(void))valueNSRangeLocation
 {
     return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -53,7 +53,7 @@
     };
 }
 
-- (NSUInteger (^)())valueNSRangeLength
+- (NSUInteger (^)(void))valueNSRangeLength
 {
     return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -64,7 +64,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGPointX
+- (CGFloat (^)(void))valueCGPointX
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -75,7 +75,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGPointY
+- (CGFloat (^)(void))valueCGPointY
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -86,7 +86,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGSizeWidth
+- (CGFloat (^)(void))valueCGSizeWidth
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -97,7 +97,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGSizeHeight
+- (CGFloat (^)(void))valueCGSizeHeight
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -108,7 +108,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGRectX
+- (CGFloat (^)(void))valueCGRectX
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -119,7 +119,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGRectY
+- (CGFloat (^)(void))valueCGRectY
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -130,7 +130,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGRectWidth
+- (CGFloat (^)(void))valueCGRectWidth
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -141,7 +141,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGRectHeight
+- (CGFloat (^)(void))valueCGRectHeight
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -152,7 +152,7 @@
     };
 }
 
-- (CGPoint (^)())valueCGRectOrigin
+- (CGPoint (^)(void))valueCGRectOrigin
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -163,7 +163,7 @@
     };
 }
 
-- (CGSize (^)())valueCGRectSize
+- (CGSize (^)(void))valueCGRectSize
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -174,7 +174,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGVectorX
+- (CGFloat (^)(void))valueCGVectorX
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
@@ -185,7 +185,7 @@
     };
 }
 
-- (CGFloat (^)())valueCGVectorY
+- (CGFloat (^)(void))valueCGVectorY
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){

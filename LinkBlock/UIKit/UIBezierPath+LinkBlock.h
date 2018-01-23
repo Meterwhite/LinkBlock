@@ -33,19 +33,19 @@ LBDeclare UIBezierPath*    (^bezierPathAddQuadCurveToPoint)(CGPoint endPoint,CGP
 /** <^(CGPoint center,CGFloat radius,CGFloat startAngle,CGFloat endAngle,BOOL clockwise)> */
 LBDeclare UIBezierPath*    (^bezierPathAddArcWithCenter)(CGPoint center,CGFloat radius,CGFloat startAngle,CGFloat endAngle,BOOL clockwise);
 /** <^()> */
-LBDeclare UIBezierPath*    (^bezierPathClosePath)();
+LBDeclare UIBezierPath*    (^bezierPathClosePath)(void);
 /** <^()> */
-LBDeclare UIBezierPath*    (^bezierPathRemoveAllPoints)();
+LBDeclare UIBezierPath*    (^bezierPathRemoveAllPoints)(void);
 /** <^(UIBezierPath* aPath)> */
 LBDeclare UIBezierPath*    (^bezierPathAppendPath)(UIBezierPath* aPath);
 /** <^()> */
-LBDeclare UIBezierPath*    (^bezierPathByReversingPath)() NS_AVAILABLE_IOS(6_0);
+LBDeclare UIBezierPath*    (^bezierPathByReversingPath)(void) NS_AVAILABLE_IOS(6_0);
 /** <^(CGPoint point)> */
 LBDeclare BOOL             (^bezierPathContainsPoint)(CGPoint point);
 /** <^()> */
-LBDeclare UIBezierPath*    (^bezierPathFill)();
+LBDeclare UIBezierPath*    (^bezierPathFill)(void);
 /** <^()> */
-LBDeclare UIBezierPath*    (^bezierPathStroke)();
+LBDeclare UIBezierPath*    (^bezierPathStroke)(void);
 /** <^()> */
-LBDeclare UIBezierPath*    (^bezierPathAddClip)();
+LBDeclare UIBezierPath*    (^bezierPathAddClip)(void);
 @end

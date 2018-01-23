@@ -352,7 +352,7 @@
     };
 }
 
-- (CGFloat (^)())btnTitleFontSystemSizeGet
+- (CGFloat (^)(void))btnTitleFontSystemSizeGet
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIButton){

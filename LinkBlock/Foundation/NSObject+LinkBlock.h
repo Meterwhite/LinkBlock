@@ -151,7 +151,7 @@ LBDeclare_F NSObject*       linkReturn;
  */
 LBDeclare NSObject*    (^objSetTo)(id* toObject);
 /** <^()>NSLog() */
-LBDeclare NSObject*    (^nslog)();
+LBDeclare NSObject*    (^nslog)(void);
 /** <^(NSString* title)>输出对象前增加标识语'title+self' */
 LBDeclare NSObject*    (^nslogTitle)(NSString* title);
 /** <^(NSString* title)>单独调用NSLog(info) */
@@ -159,9 +159,9 @@ LBDeclare NSObject*    (^logInfo)(NSString* info);
 /** <^()>打印对象引用计数器 */
 LBDeclare_F NSObject*  logRetainCount;
 /** <^()>将对象以字典的形式进行打印，其中对所有容器类型进行遍历转换 */
-LBDeclare NSObject*    (^po)();
+LBDeclare NSObject*    (^po)(void);
 /** <^()>将对象以字典的形式进行打印 */
-LBDeclare NSObject*    (^poNoDeep)();
+LBDeclare NSObject*    (^poNoDeep)(void);
 /** <^(NSString* key)>输出对象Key对应的值 */
 LBDeclare NSObject*    (^nslogValueForKey)(NSString* key);
 /** <^(NSString* key)> */
@@ -195,9 +195,9 @@ LBDeclare NSNumber*    (^objIsMemberOfClass_n)( __unsafe_unretained Class classK
 LBDeclare BOOL         (^objIsRespondsSEL)(SEL theSEL);
 LBDeclare NSNumber*    (^objIsRespondsSEL_n)(SEL theSEL);
 /** <^()> */
-LBDeclare NSString*    (^objClassName)();
+LBDeclare NSString*    (^objClassName)(void);
 /** <^()> */
-LBDeclare NSString*    (^objSuperclassName)();
+LBDeclare NSString*    (^objSuperclassName)(void);
 
 /** <^(id value)>代理设置delegate */
 LBDeclare NSObject*    (^objSetValueForKey_delegate)(id value);
@@ -288,7 +288,7 @@ LBDeclare NSObject*    (^objInsertTo)(id obj , NSUInteger idx);
 /** <^(id obj , NSUInteger idx)>复合功能的添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项，返回为入参对象 */
 LBDeclare NSObject*    (^objInsertTo_linkTo)(id obj , NSUInteger idx);
 /** <^(id obj)>复合功能的移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
-LBDeclare NSObject*    (^objRemoveAll)();
+LBDeclare NSObject*    (^objRemoveAll)(void);
 /** <^(id obj)>复合功能的移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
 LBDeclare NSObject*    (^objRemove)(id obj);
 /** <^(id obj)>复合功能的移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
@@ -296,30 +296,30 @@ LBDeclare NSObject*    (^objRemoveFrom)(id obj);
 /** <^(id obj)>复合功能的移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项，返回为入参对象 */
 LBDeclare NSObject*    (^objRemoveFrom_linkTo)(id obj);
 /** <^()> */
-LBDeclare NSObject*    (^objCopy)();
+LBDeclare NSObject*    (^objCopy)(void);
 /** <^()> */
-LBDeclare NSObject*    (^objMutableCopy)();
+LBDeclare NSObject*    (^objMutableCopy)(void);
 /** <^()> 通过序列化的方式复制一份完全独立的对象 */
-LBDeclare NSObject*    (^objCopyByArchive)();
+LBDeclare NSObject*    (^objCopyByArchive)(void);
 /** <^()> 是否是可变类型*/
-LBDeclare BOOL         (^objIsMutableType)();
+LBDeclare BOOL         (^objIsMutableType)(void);
 /** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfNSString)();
+LBDeclare NSNumber*    (^objIsKindOfNSString)(void);
 /** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfNSArray)();
+LBDeclare NSNumber*    (^objIsKindOfNSArray)(void);
 /** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfNSDictionary)();
+LBDeclare NSNumber*    (^objIsKindOfNSDictionary)(void);
 /** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfUIView)();
+LBDeclare NSNumber*    (^objIsKindOfUIView)(void);
 /**
  *  <^()>
  *  对象及可能包含的子项全部转为json相关的可变类型(String,Array,Dictionary)
  * （NSMutableArray,NSMutableDictionary,NSMutableString）
  */
-LBDeclare NSObject*    (^objMutableCopyDeep)();
+LBDeclare NSObject*    (^objMutableCopyDeep)(void);
 /** <^()> */
-LBDeclare BOOL         (^objIsNSNull)();
-LBDeclare NSNumber*    (^objIsNSNull_n)();
+LBDeclare BOOL         (^objIsNSNull)(void);
+LBDeclare NSNumber*    (^objIsNSNull_n)(void);
 /** <^(id obj)> */
 LBDeclare BOOL         (^objIsEqual)(id obj);
 LBDeclare NSNumber*    (^objIsEqual_n)(id obj);
@@ -340,12 +340,12 @@ LBDeclare NSObject*    (^objMustType)(Class theCalss);
 /** <^(NSString* key)>将BOOL或NSNumber(BOOL)属性字段值反转 */
 LBDeclare NSObject*    (^objBOOLNegationForKey)(NSString* key);
 /** <^(NSArray* withoutKeys)>将自定义对象随机赋值，只包含字符串类型和数字类型，排除readonly和无'_成员变量'的属性 */
-LBDeclare NSObject*    (^objValuesRandom)();
+LBDeclare NSObject*    (^objValuesRandom)(void);
 /** <^()> 清空所有可访问的属性的值为默认值，排除readonly和无'_成员变量'的属性 */
-LBDeclare NSObject*    (^objValuesClean)();
+LBDeclare NSObject*    (^objValuesClean)(void);
 #pragma mark - About NSString
 /** <^()>NSDate,NSString,NSArray,NSDictionary等对象转成json的字符串 */
-LBDeclare NSString*    (^objToJsonString)();
+LBDeclare NSString*    (^objToJsonString)(void);
 
 #pragma mark - About NSMutableArray
 /** <^(NSMutableArray* arr)>将对象添加到 */

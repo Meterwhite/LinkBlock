@@ -14,19 +14,19 @@ LBDeclare NSString*        (^colorToHexStrByPrefix)(NSString* prefix);
 /** <^(CGSize size)>根据颜色创建图片 */
 LBDeclare UIImage*         (^colorToUIImage)(CGSize size);
 /** <^()> */
-LBDeclare CGFloat          (^colorRed)();
+LBDeclare CGFloat          (^colorRed)(void);
 /** <^()> */
-LBDeclare CGFloat          (^colorGreen)();
+LBDeclare CGFloat          (^colorGreen)(void);
 /** <^()> */
-LBDeclare CGFloat          (^colorBlue)();
+LBDeclare CGFloat          (^colorBlue)(void);
 /** <^()> */
-LBDeclare CGFloat          (^colorAlpha)();
+LBDeclare CGFloat          (^colorAlpha)(void);
 /** <^()> */
-LBDeclare CGFloat          (^colorHue)();
+LBDeclare CGFloat          (^colorHue)(void);
 /** <^()> */
-LBDeclare CGFloat          (^colorSaturation)();
+LBDeclare CGFloat          (^colorSaturation)(void);
 /** <^()> */
-LBDeclare CGFloat          (^colorBrightness)();
+LBDeclare CGFloat          (^colorBrightness)(void);
 /** <^(CGFloat value)>设置红色，返回新对象 */
 LBDeclare UIColor*         (^colorRedSet)(CGFloat value);
 /** <^(CGFloat value)> */
@@ -38,9 +38,9 @@ LBDeclare UIColor*         (^colorAlphaSet)(CGFloat value);
 /** <^(double percent)>调节亮度,percent ∈ [-1,1] */
 LBDeclare UIColor*         (^colorBrightnessPercent)(double percent);
 /** <^()>变暗40%，接近系统变暗效果 */
-LBDeclare UIColor*         (^colorHighlightDarkColor)();
+LBDeclare UIColor*         (^colorHighlightDarkColor)(void);
 /** <^()>变亮40% */
-LBDeclare UIColor*         (^colorHighlightLightColor)();
+LBDeclare UIColor*         (^colorHighlightLightColor)(void);
 /** <^(CGFloat value)>设置色调，返回新对象 */
 LBDeclare UIColor*         (^colorHueSet)(CGFloat value);
 /** <^(CGFloat value)>设置饱和度，返回新对象 */

@@ -29,7 +29,7 @@ LBDeclare       UISearchBar* (^searchBarShowsSearchResultsButton)(BOOL showsSear
 LBDeclare       UISearchBar* (^searchBarBackgroundImage)(UIImage* backgroundImage);
 #pragma mark - In LinkBlock
 /** <^()> 获取文本框对象 */
-LBDeclare       UITextField* (^searchBarSearchField)();
+LBDeclare       UITextField* (^searchBarSearchField)(void);
 /** <^(UIColor* color)> 可用于修改SearchBar边框颜色 */
 LBDeclare       UISearchBar* (^searchBarBackgroundImageColor)(UIColor* color);
 /** <^(UIColor* color)> 可用于修改placeholder颜色 */

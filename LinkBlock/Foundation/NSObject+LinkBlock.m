@@ -26,7 +26,7 @@
             va_start(args, code);
             for (int i=0; i<group.linkObjects.count; i++) {
                 DynamicLink* link = [DynamicLink dynamicLinkWithCode:code];
-                id result = [link invoke:_self args:args];
+                id result = [link invoke:_self args:&args];
                 [returnObjs addObject:result];
             }
             va_end(args);
@@ -39,7 +39,7 @@
         va_list args;
         va_start(args , code);
         DynamicLink* link = [DynamicLink dynamicLinkWithCode:code];
-        id result = [link invoke:_self args:args];
+        id result = [link invoke:_self args:&args];
         va_end(args);
         
         return result;
@@ -543,7 +543,7 @@
     };
 }
 
-- (NSObject *(^)())objRemoveAll
+- (NSObject *(^)(void))objRemoveAll
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -718,7 +718,7 @@
     };
 }
 
-- (NSObject *(^)())objCopy
+- (NSObject *(^)(void))objCopy
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -727,7 +727,7 @@
     };
 }
 
-- (NSObject *(^)())objMutableCopy
+- (NSObject *(^)(void))objMutableCopy
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -736,7 +736,7 @@
     };
 }
 
-- (NSObject *(^)())objCopyByArchive
+- (NSObject *(^)(void))objCopyByArchive
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -749,7 +749,7 @@
     };
 }
 
-- (BOOL (^)())objIsMutableType
+- (BOOL (^)(void))objIsMutableType
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSObject){
@@ -777,7 +777,7 @@
     };
 }
 
-- (NSNumber *(^)())objIsKindOfNSString
+- (NSNumber *(^)(void))objIsKindOfNSString
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -786,7 +786,7 @@
     };
 }
 
-- (NSNumber *(^)())objIsKindOfNSArray
+- (NSNumber *(^)(void))objIsKindOfNSArray
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -795,7 +795,7 @@
     };
 }
 
-- (NSNumber *(^)())objIsKindOfNSDictionary
+- (NSNumber *(^)(void))objIsKindOfNSDictionary
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -804,7 +804,7 @@
     };
 }
 
-- (NSNumber *(^)())objIsKindOfUIView
+- (NSNumber *(^)(void))objIsKindOfUIView
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -813,7 +813,7 @@
     };
 }
 
-- (NSObject *(^)())objMutableCopyDeep
+- (NSObject *(^)(void))objMutableCopyDeep
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -855,13 +855,13 @@
     };
 }
 
-- (BOOL (^)())objIsNSNull
+- (BOOL (^)(void))objIsNSNull
 {
     return ^BOOL(){
         return self == [NSNull null];
     };
 }
-- (NSNumber *(^)())objIsNSNull_n
+- (NSNumber *(^)(void))objIsNSNull_n
 {
     return ^(){
         return @(self.objIsNSNull());
@@ -1369,7 +1369,7 @@
     };
 }
 
-- (NSObject *(^)())objValuesRandom
+- (NSObject *(^)(void))objValuesRandom
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -1505,7 +1505,7 @@
     };
 }
 
-- (NSString *(^)())objToJsonString
+- (NSString *(^)(void))objToJsonString
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -1782,7 +1782,7 @@
     };
 }
 
-- (Class (^)())objClass
+- (Class (^)(void))objClass
 {
     return ^id(){
         LinkHandle_VAL_IFNOT(NSObject){
@@ -1793,7 +1793,7 @@
     };
 }
 
-- (NSString *(^)())objClassName
+- (NSString *(^)(void))objClassName
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -1802,7 +1802,7 @@
     };
 }
 
-- (NSString *(^)())objSuperclassName
+- (NSString *(^)(void))objSuperclassName
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -2123,7 +2123,7 @@
     return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnLink];
 }
 
-- (NSObject *(^)())nslog
+- (NSObject *(^)(void))nslog
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -2159,7 +2159,7 @@
     return self;
 }
 
-- (NSObject *(^)())poNoDeep
+- (NSObject *(^)(void))poNoDeep
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -2169,7 +2169,7 @@
     };
 }
 
-- (NSObject *(^)())po
+- (NSObject *(^)(void))po
 {
     return ^id(){
         LinkHandle_REF(NSObject)
@@ -2454,7 +2454,7 @@ Link_objSetValueForKey_(delegate)
 Link_objSetValueForKey_(dataSource)
 Link_objSetValueForKey_(text)
 
-- (NSObject *(^)())objValuesClean
+- (NSObject *(^)(void))objValuesClean
 {
     return ^id(){
         LinkHandle_REF(NSObject)

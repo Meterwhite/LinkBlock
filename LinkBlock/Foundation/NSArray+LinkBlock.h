@@ -33,9 +33,9 @@ LBDeclare NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInt
 /** <^(NSString* split)>将数组元素连接为字符串，split为连接字符串，正序 */
 LBDeclare NSMutableString*         (^arrJoin)(NSString* split);
 /** <^()>将数组中数组类型项合并，正序 */
-LBDeclare NSMutableArray*          (^arrJoinArr)();
+LBDeclare NSMutableArray*          (^arrJoinArr)(void);
 /** <^()>将数组中字典类型项合并 */
-LBDeclare NSMutableDictionary*     (^arrJoinDict)();
+LBDeclare NSMutableDictionary*     (^arrJoinDict)(void);
 /** <^(NSUInteger count)>将数组拆分为每组count个数的多个数组,count为0时返回当前对象本身 */
 LBDeclare NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
 /** <^(id value, NSString* key)>使用KVC设置数组一项值 */
@@ -49,17 +49,17 @@ LBDeclare NSNumber*                (^arrIndexOfObj_n)(id obj);
 /** <^(NSMutableArray* arr)>返回新数组 */
 LBDeclare NSMutableArray*          (^arrAddToArr)(NSMutableArray* arr);
 /** <^()>数组转字典，键为NSNumber类型 */
-LBDeclare NSDictionary*            (^arrToDictByKeyNumber)();
+LBDeclare NSDictionary*            (^arrToDictByKeyNumber)(void);
 /** <^()>数组转字典，键为NSString类型 */
-LBDeclare NSDictionary*            (^arrToDictByKeyString)();
+LBDeclare NSDictionary*            (^arrToDictByKeyString)(void);
 /** <^()>数组转路径 */
-LBDeclare NSIndexPath*             (^arrToNSIndexPath)();
+LBDeclare NSIndexPath*             (^arrToNSIndexPath)(void);
 /** <^()>获取任意一个对象，空数组返回NSNull */
-LBDeclare NSObject*                (^arrAny)();
+LBDeclare NSObject*                (^arrAny)(void);
 /** <^()>最后一个对象 */
-LBDeclare NSObject*                (^arrLast)();
+LBDeclare NSObject*                (^arrLast)(void);
 /** <^()>第一个对象 */
-LBDeclare NSObject*                (^arrFirst)();
+LBDeclare NSObject*                (^arrFirst)(void);
 /**<^(NSString* predicateFormat,...)>组数过滤，如age>20 */
 LBDeclare NSMutableArray*          (^arrFilter)(NSString* predicateFormat , ...);
 /**<^(id value)>获取数组中某个值的所有索引 */
@@ -69,11 +69,11 @@ LBDeclare NSMutableArray*          (^arrReplaceKeyInDict)(id<NSCopying> replaceK
 /**<^(id<NSCopying> replaceKey,id<NSCopying> withKey)>替换数组中字典的key，非深度遍历的 */
 LBDeclare NSMutableArray*          (^arrReplaceKeyInDictWithoutDeep)(id<NSCopying> replaceKey,id<NSCopying> withKey);
 /**<^()>找到数组中最大的数字类型，可容纳其他类型对象 */
-LBDeclare NSNumber*                (^arrMaxNumber)();
+LBDeclare NSNumber*                (^arrMaxNumber)(void);
 /**<^()>找到数组中最小的数字类型，可容纳其他类型对象 */
-LBDeclare NSNumber*                (^arrMinNumber)();
+LBDeclare NSNumber*                (^arrMinNumber)(void);
 /** <^()>对数组中对象随机赋值，仅含字符串和数字类型 */
-LBDeclare NSMutableArray*          (^arrObjsValueRandom)();
+LBDeclare NSMutableArray*          (^arrObjsValueRandom)(void);
 /** <^(Class typeClass)>获取数组中所有该类型的对象 */
 LBDeclare NSMutableArray*          (^arrObjsOfType)(Class typeClass);
 /** <^(BOOL ascending)>对数组中的值使用compare:进行排序 */
@@ -81,7 +81,7 @@ LBDeclare NSMutableArray*          (^arrSort)(BOOL ascending);
 /** <^(NSString* key, BOOL ascending)>以数组中对象的Key的值进行排序,ascending：升序 */
 LBDeclare NSMutableArray*          (^arrSortByKey)(NSString* key, BOOL ascending);
 /** <^()>倒序，返回新数组 */
-LBDeclare NSMutableArray*          (^arrReversed)();
+LBDeclare NSMutableArray*          (^arrReversed)(void);
 /** 
  <^(NSArray* arr, NSString* key)>根据key或keyPath对应的value，返回当前数组与某数组做'差集'后的结果；(数组每项必须含字段key)；返回做差后的集合；
  例如:找出新旧数据源中的新增对象；
@@ -137,7 +137,7 @@ LBDeclare NSMutableArray*  (^arrRemoveAt)(NSUInteger index);
 /** <^(NSUInteger fromIndex,NSUInteger toIndex)>移除一段元素，在指定Index范围内,不会溢出 */
 LBDeclare NSMutableArray*  (^arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
 /** <^()>移除所有数组元素 */
-LBDeclare NSMutableArray*  (^arrRemoveAll)();
+LBDeclare NSMutableArray*  (^arrRemoveAll)(void);
 /** <^(id obj,id withObj)>替换数组中的一个对象，如果存在的话 */
 LBDeclare NSMutableArray*  (^arrReplaceObjWith)(id obj,id withObj);
 /** <^(BOOL ascending, BOOL isCombine)>对数组子项为NSRange值的NSValue对象进行排序；isCombine：NSRange(0,2)会合并NSRange(0,1) */

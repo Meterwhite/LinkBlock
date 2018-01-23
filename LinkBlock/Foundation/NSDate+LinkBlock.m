@@ -193,7 +193,7 @@
     };
 }
 
-- (NSInteger (^)())dateYear
+- (NSInteger (^)(void))dateYear
 {
     return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -206,7 +206,7 @@
     };
 }
 
-- (NSNumber* (^)())dateYear_n
+- (NSNumber* (^)(void))dateYear_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -217,7 +217,7 @@
     };
 }
 
-- (NSInteger (^)())dateMonth
+- (NSInteger (^)(void))dateMonth
 {
     return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -230,7 +230,7 @@
     };
 }
 
-- (NSNumber* (^)())dateMonth_n
+- (NSNumber* (^)(void))dateMonth_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -241,7 +241,7 @@
     };
 }
 
-- (NSInteger (^)())dateDay
+- (NSInteger (^)(void))dateDay
 {
     return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -254,7 +254,7 @@
     };
 }
 
-- (NSNumber* (^)())dateDay_n
+- (NSNumber* (^)(void))dateDay_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -265,7 +265,7 @@
     };
 }
 
-- (NSInteger (^)())dateHour
+- (NSInteger (^)(void))dateHour
 {
     return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -278,7 +278,7 @@
     };
 }
 
-- (NSNumber* (^)())dateHour_n
+- (NSNumber* (^)(void))dateHour_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -289,7 +289,7 @@
     };
 }
 
-- (NSInteger (^)())dateMinut
+- (NSInteger (^)(void))dateMinut
 {
     return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -302,7 +302,7 @@
     };
 }
 
-- (NSNumber* (^)())dateMinut_n
+- (NSNumber* (^)(void))dateMinut_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -313,7 +313,7 @@
     };
 }
 
-- (NSInteger (^)())dateSec
+- (NSInteger (^)(void))dateSec
 {
     return ^NSInteger(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -326,7 +326,7 @@
     };
 }
 
-- (NSNumber* (^)())dateSec_n
+- (NSNumber* (^)(void))dateSec_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -337,7 +337,7 @@
     };
 }
 
-- (NSDate *(^)())dateDayAtStart
+- (NSDate *(^)(void))dateDayAtStart
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -351,7 +351,7 @@
     };
 }
 
-- (NSDate *(^)())dateDayAtEnd
+- (NSDate *(^)(void))dateDayAtEnd
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -365,7 +365,7 @@
     };
 }
 
-- (NSDate *(^)())dateCurrentZone
+- (NSDate *(^)(void))dateCurrentZone
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -456,7 +456,7 @@
     };
 }
 
-- (BOOL (^)())dateIsLeapYear
+- (BOOL (^)(void))dateIsLeapYear
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -473,7 +473,7 @@
     };
 }
 
-- (NSNumber* (^)())dateIsLeapYear_n
+- (NSNumber* (^)(void))dateIsLeapYear_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -488,7 +488,7 @@
     };
 }
 
-- (BOOL (^)())dateIsInToday
+- (BOOL (^)(void))dateIsInToday
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -505,7 +505,7 @@
     };
 }
 
-- (NSNumber* (^)())dateIsInToday_n
+- (NSNumber* (^)(void))dateIsInToday_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -520,7 +520,7 @@
     };
 }
 
-- (BOOL (^)())dateIsInMonth
+- (BOOL (^)(void))dateIsInMonth
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSDate){
@@ -537,7 +537,7 @@
     };
 }
 
-- (NSNumber* (^)())dateIsInMonth_n
+- (NSNumber* (^)(void))dateIsInMonth_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -552,7 +552,7 @@
     };
 }
 
-- (NSTimeInterval (^)())dateTimeIntervalSince1970
+- (NSTimeInterval (^)(void))dateTimeIntervalSince1970
 {
     return ^NSTimeInterval(){
         
@@ -564,7 +564,7 @@
     };
 }
 
-- (NSNumber* (^)())dateTimeIntervalSince1970_n
+- (NSNumber* (^)(void))dateTimeIntervalSince1970_n
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -573,7 +573,7 @@
     };
 }
 
-- (NSDateComponents *(^)())dateComponentsAll
+- (NSDateComponents *(^)(void))dateComponentsAll
 {
     return ^id(){
         LinkHandle_REF(NSDate)
@@ -582,7 +582,7 @@
     };
 }
 
-- (NSString *(^)())dateAstrology
+- (NSString *(^)(void))dateAstrology
 {
     return ^id(){
         LinkHandle_REF(NSDate)

@@ -16,6 +16,11 @@
     return self.strContain;
 }
 
+- (BOOL (^)(id))arrIsContainer
+{
+    return self.arrContain;
+}
+
 - (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
 {
     return ^id(__unsafe_unretained Class typeClass){
@@ -42,12 +47,12 @@
     return _self;
 }
 
-- (BOOL (^)())strIsContainEmoji
+- (BOOL (^)(void))strIsContainEmoji
 {
     return self.strContainEmoji;
 }
 
-- (NSNumber *(^)())strIsContainEmoji_n
+- (NSNumber *(^)(void))strIsContainEmoji_n
 {
     return self.strContainEmoji_n;
 }
@@ -110,12 +115,12 @@
     return self.objIsRespondsSEL_n;
 }
 
-- (NSString *(^)())className
+- (NSString *(^)(void))className
 {
     return self.objClassName;
 }
 
-- (NSString *(^)())superclassName
+- (NSString *(^)(void))superclassName
 {
     return self.objSuperclassName;
 }
@@ -145,12 +150,12 @@
     return self.objSetValueForKeyPath;
 }
 
-- (NSObject *(^)())objValueRandom
+- (NSObject *(^)(void))objValueRandom
 {
     return self.objValuesRandom;
 }
 
-- (NSObject *(^)(id))objRemove
+- (NSObject *(^)(void))objRemove
 {
     return self.objRemoveAll;
 }
@@ -172,7 +177,7 @@
     };
 }
 
-- (UILabel *(^)())labAlignTop
+- (UILabel *(^)(void))labAlignTop
 {
     return ^id(){
         LinkHandle_REF(UILabel)
@@ -204,7 +209,7 @@
     };
 }
 
-- (UILabel *(^)())labAlignBottom
+- (UILabel *(^)(void))labAlignBottom
 {
     return ^id(){
         LinkHandle_REF(UILabel)

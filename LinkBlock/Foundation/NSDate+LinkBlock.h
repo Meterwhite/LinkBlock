@@ -15,30 +15,30 @@
 /** <^(NSString* formatStr)>日期转字符串 formatStr:yyyy-MM-dd */
 LBDeclare NSString*        (^dateToStrWithFormat)(NSString* formatStr);
 /** <^()> */
-LBDeclare NSTimeInterval   (^dateTimeIntervalSince1970)();
-LBDeclare NSNumber*        (^dateTimeIntervalSince1970_n)();
+LBDeclare NSTimeInterval   (^dateTimeIntervalSince1970)(void);
+LBDeclare NSNumber*        (^dateTimeIntervalSince1970_n)(void);
 /** <^()> */
-LBDeclare NSDateComponents*(^dateComponentsAll)();
+LBDeclare NSDateComponents*(^dateComponentsAll)(void);
 
 #pragma mark - 获取日期项的值
 /** <^()> */
-LBDeclare NSInteger         (^dateYear)();
-LBDeclare NSNumber*         (^dateYear_n)();
+LBDeclare NSInteger         (^dateYear)(void);
+LBDeclare NSNumber*         (^dateYear_n)(void);
 /** <^()> */
-LBDeclare NSInteger         (^dateMonth)();
-LBDeclare NSNumber*         (^dateMonth_n)();
+LBDeclare NSInteger         (^dateMonth)(void);
+LBDeclare NSNumber*         (^dateMonth_n)(void);
 /** <^()> */
-LBDeclare NSInteger         (^dateDay)();
-LBDeclare NSNumber*         (^dateDay_n)();
+LBDeclare NSInteger         (^dateDay)(void);
+LBDeclare NSNumber*         (^dateDay_n)(void);
 /** <^()> */
-LBDeclare NSInteger         (^dateHour)();
-LBDeclare NSNumber*         (^dateHour_n)();
+LBDeclare NSInteger         (^dateHour)(void);
+LBDeclare NSNumber*         (^dateHour_n)(void);
 /** <^()> */
-LBDeclare NSInteger         (^dateMinut)();
-LBDeclare NSNumber*         (^dateMinut_n)();
+LBDeclare NSInteger         (^dateMinut)(void);
+LBDeclare NSNumber*         (^dateMinut_n)(void);
 /** <^()> */
-LBDeclare NSInteger         (^dateSec)();
-LBDeclare NSNumber*         (^dateSec_n)();
+LBDeclare NSInteger         (^dateSec)(void);
+LBDeclare NSNumber*         (^dateSec_n)(void);
 
 #pragma mark - 计算年月日时分秒的差
 /** <^(NSDate* date)> */
@@ -85,20 +85,20 @@ LBDeclare NSDate*        (^dateSetMinut)(NSInteger minut);
 LBDeclare NSDate*        (^dateSetSec)(NSInteger sec);
 #pragma mark - 其它
 /** <^()>获取日期的当天起点时间，相对GMT（格林威尼），24小时制 */
-LBDeclare NSDate*          (^dateDayAtStart)();
+LBDeclare NSDate*          (^dateDayAtStart)(void);
 /** <^()>获取日期的当天结束时间，相对GMT（格林威尼），24小时制 */
-LBDeclare NSDate*          (^dateDayAtEnd)();
+LBDeclare NSDate*          (^dateDayAtEnd)(void);
 /** <^()>获取当前时区下补充了于GTM（格林威尼）时差后的日期对象 */
-LBDeclare NSDate*          (^dateCurrentZone)();
+LBDeclare NSDate*          (^dateCurrentZone)(void);
 /** <^()>判断闰年 */
-LBDeclare BOOL             (^dateIsLeapYear)();
-LBDeclare NSNumber*        (^dateIsLeapYear_n)();
+LBDeclare BOOL             (^dateIsLeapYear)(void);
+LBDeclare NSNumber*        (^dateIsLeapYear_n)(void);
 /** <^()>判断是否在本日 */
-LBDeclare BOOL             (^dateIsInToday)();
-LBDeclare NSNumber*        (^dateIsInToday_n)();
+LBDeclare BOOL             (^dateIsInToday)(void);
+LBDeclare NSNumber*        (^dateIsInToday_n)(void);
 /** <^()>判断是否为本月 */
-LBDeclare BOOL             (^dateIsInMonth)();
-LBDeclare NSNumber*        (^dateIsInMonth_n)();
+LBDeclare BOOL             (^dateIsInMonth)(void);
+LBDeclare NSNumber*        (^dateIsInMonth_n)(void);
 /** <^()>星座 */
-LBDeclare NSString*        (^dateAstrology)();
+LBDeclare NSString*        (^dateAstrology)(void);
 @end

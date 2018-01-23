@@ -9,7 +9,7 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(UILabelLinkBlock)
-- (UILabel *(^)())labAlignmentRight
+- (UILabel *(^)(void))labAlignmentRight
 {
     return ^id(){
         LinkHandle_REF(UILabel)
@@ -19,7 +19,7 @@
     };
 }
 
-- (UILabel *(^)())labAlignmentLeft
+- (UILabel *(^)(void))labAlignmentLeft
 {
     return ^id(){
         LinkHandle_REF(UILabel)
@@ -29,7 +29,7 @@
     };
 }
 
-- (UILabel *(^)())labAlignmentCenter
+- (UILabel *(^)(void))labAlignmentCenter
 {
     return ^id(){
         LinkHandle_REF(UILabel)
@@ -99,7 +99,7 @@
     };
 }
 
-- (CGFloat (^)())labFontSystemSizeGet
+- (CGFloat (^)(void))labFontSystemSizeGet
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UILabel){

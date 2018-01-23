@@ -32,7 +32,7 @@ LBDeclare NSMutableArray*  (^m_arrRemoveAt)(NSUInteger index);
 /** <^(NSUInteger fromIndex,NSUInteger toIndex)>移除一段元素，在指定Index范围内,不会溢出 */
 LBDeclare NSMutableArray*  (^m_arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
 /** <^()>移除所有数组元素 */
-LBDeclare NSMutableArray*  (^m_arrRemoveAll)();
+LBDeclare NSMutableArray*  (^m_arrRemoveAll)(void);
 /** <^(id obj,id withObj)>替换数组中的一个对象，如果存在的话 */
 LBDeclare NSMutableArray*  (^m_arrReplaceObjWith)(id obj,id withObj);
 
@@ -44,7 +44,7 @@ LBDeclare NSMutableArray*          (^m_arrSort)(BOOL ascending);
 /** <^(BOOL ascending, BOOL isCombine)>对数组子项为NSRange值的NSValue对象进行排序；isCombine：NSRange(0,2)会合并NSRange(0,1) */
 LBDeclare NSMutableArray<NSValue*>* (^m_arrSortRange)(BOOL ascending, BOOL isCombine);
 /** <^()>倒序项 */
-LBDeclare NSMutableArray*          (^m_arrReversed)();
+LBDeclare NSMutableArray*          (^m_arrReversed)(void);
 /** <^(id obj , NSString* key)>插入对象或者替换对象（如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后） */
 LBDeclare NSMutableArray*          (^m_arrAddOrReplaceObjByKey)(id obj , NSString* key);
 /** <^(id obj , NSString* key, NSUInteger idx)>在指定索引处插入对象或者替换对象（如果数组中存在对象的Key对应的value比较相等则全部替换） */

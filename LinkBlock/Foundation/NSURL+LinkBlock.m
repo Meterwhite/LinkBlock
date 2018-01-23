@@ -12,7 +12,7 @@
 @implementation NSObject(NSURLLinkBlock)
 
 
-- (UIImage *(^)())urlAssetsToUIImageByThumbnail
+- (UIImage *(^)(void))urlAssetsToUIImageByThumbnail
 {
     return ^id(){
         LinkHandle_REF(NSURL)
@@ -26,7 +26,7 @@
     };
 }
 
-- (UIImage *(^)())urlAssetsToUIImageByFullScreen
+- (UIImage *(^)(void))urlAssetsToUIImageByFullScreen
 {
     return ^id(){
         LinkHandle_REF(NSURL)
@@ -40,7 +40,7 @@
     };
 }
 
-- (UIImage *(^)())urlAssetsToUIImageByFullResolution
+- (UIImage *(^)(void))urlAssetsToUIImageByFullResolution
 {
     return ^id(){
         LinkHandle_REF(NSURL)
@@ -54,7 +54,7 @@
     };
 }
 
-- (NSData *(^)())urlToNSDataFromContents
+- (NSData *(^)(void))urlToNSDataFromContents
 {
     return ^id(){
         LinkHandle_REF(NSURL)

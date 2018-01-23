@@ -19,10 +19,10 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用strContain替代");
 LBDeclare NSArray* (^arrValuesOfType)(Class typeClass)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用arrObjsOfType替代");
 
-LBDeclare BOOL     (^strIsContainEmoji)()
+LBDeclare BOOL     (^strIsContainEmoji)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用strContainEmoji替代");
 
-LBDeclare NSNumber* (^strIsContainEmoji_n)()
+LBDeclare NSNumber* (^strIsContainEmoji_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用strContainEmoji_n替代");
 
 LBDeclare UIImage* (^attr_strDrawImgRect)(UIImage* image, CGRect rect)
@@ -76,22 +76,22 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用objIsRespondsSEL代替");
 LBDeclare NSNumber*    (^isRespondsSEL_n)(SEL theSEL)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objIsRespondsSEL_n代替");
 
-LBDeclare NSString*    (^className)()
+LBDeclare NSString*    (^className)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objClassName代替");
 
-LBDeclare NSString*    (^superclassName)()
+LBDeclare NSString*    (^superclassName)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objSuperclassName代替");
 
 LBDeclare NSObject*    (^setTo)(id* toObject)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetTo代替");
 
-LBDeclare NSObject*    (^objValueRandom)()
+LBDeclare NSObject*    (^objValueRandom)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objValuesRandom代替");
 
 LBDeclare NSObject*    (^objSetDelegate)(id delegate)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetValueForKey_delegate代替");
 
-LBDeclare NSObject*    (^objRemove)(id obj)
+LBDeclare NSObject*    (^objRemove)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objRemoveAll代替");
 
 LBDeclare NSObject*    (^objBoolReverseForKey)(NSString * key)
@@ -100,9 +100,9 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用objBOOLNegationForKey代替");
 LBDeclare UIImage*         (^imgBlur)(float percent)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用imgBlurXXX代替");
 
-LBDeclare UILabel*         (^labAlignTop)()
+LBDeclare UILabel*         (^labAlignTop)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
-LBDeclare UILabel*         (^labAlignBottom)()
+LBDeclare UILabel*         (^labAlignBottom)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
 
 LBDeclare NSMutableArray*  (^arrInsertBehind)(id obj, id behindObj)

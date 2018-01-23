@@ -210,9 +210,12 @@ CODE_RETURN:
     
     return self.items[idxMatched];
 }
-
-- (id)invoke:(id)origin args:(va_list)vlist end:(BOOL*)end
+#ifndef lb_va_copy
+#define lb_va_copy(dst, src)   memcpy(&(dst), &(src), sizeof(va_list))
+#endif
+- (id)invoke:(id)origin args:(va_list*)vlist end:(BOOL*)end
 {
+    
     //验证的对象
     if(!self.validate) return [NSNull null];
     
@@ -370,7 +373,7 @@ CODE_BLOCK_TYPE:{
             
             [LinkHelper helpSwitchObjcType:objcType caseVoid:nil caseId:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -380,7 +383,7 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                id val = va_arg(vlist, id);
+                id val = va_arg(*vlist, id);
                 if(NSEqualNil(val)) {
                     //NSNil的参数认为是空参数，这里做轮空处理
                     return;
@@ -388,7 +391,7 @@ CODE_BLOCK_TYPE:{
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseClass:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -398,12 +401,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                Class val = va_arg(vlist, Class);
+                Class val = va_arg(*vlist, Class);
                 if(NSEqualNil(val)){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseIMP:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -413,12 +416,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                IMP val = va_arg(vlist, IMP);
+                IMP val = va_arg(*vlist, IMP);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseSEL:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -428,12 +431,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                SEL val = va_arg(vlist, SEL);
+                SEL val = va_arg(*vlist, SEL);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseDouble:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -443,12 +446,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                double val = va_arg(vlist, double);
+                double val = va_arg(*vlist, double);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseFloat:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -458,12 +461,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                float val = va_arg(vlist, double);
+                float val = va_arg(*vlist, double);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } casePointer:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -473,12 +476,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                void* val = va_arg(vlist, void*);
+                void* val = va_arg(*vlist, void*);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseCharPointer:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -488,12 +491,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                char* val = va_arg(vlist, char*);
+                char* val = va_arg(*vlist, char*);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedLong:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -503,12 +506,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                unsigned long val = va_arg(vlist, unsigned long);
+                unsigned long val = va_arg(*vlist, unsigned long);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedLongLong:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -518,12 +521,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                unsigned long long val = va_arg(vlist, unsigned long long);
+                unsigned long long val = va_arg(*vlist, unsigned long long);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseLong:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -533,12 +536,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                long val = va_arg(vlist, long);
+                long val = va_arg(*vlist, long);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseLongLong:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -548,12 +551,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                long long val = va_arg(vlist, long long);
+                long long val = va_arg(*vlist, long long);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseInt:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -563,12 +566,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                int val = va_arg(vlist, int);
+                int val = va_arg(*vlist, int);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseUnsignedInt:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -578,12 +581,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                unsigned int val = va_arg(vlist, unsigned int);
+                unsigned int val = va_arg(*vlist, unsigned int);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseBOOL_Char_xyShort:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -593,12 +596,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                int val = va_arg(vlist, int);
+                int val = va_arg(*vlist, int);
                 if(!val){ *end = YES; return;}
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseCGRect:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -608,11 +611,11 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                CGRect val = va_arg(vlist, CGRect);
+                CGRect val = va_arg(*vlist, CGRect);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseNSRange:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -622,11 +625,11 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                NSRange val = va_arg(vlist, NSRange);
+                NSRange val = va_arg(*vlist, NSRange);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseCGSize:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -636,11 +639,11 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                CGSize val = va_arg(vlist, CGSize);
+                CGSize val = va_arg(*vlist, CGSize);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseCGPoint:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -650,11 +653,11 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                CGPoint val = va_arg(vlist, CGPoint);
+                CGPoint val = va_arg(*vlist, CGPoint);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseCGVector:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -664,11 +667,11 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                CGVector val = va_arg(vlist, CGVector);
+                CGVector val = va_arg(*vlist, CGVector);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseUIEdgeInsets:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -678,11 +681,11 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                UIEdgeInsets val = va_arg(vlist, UIEdgeInsets);
+                UIEdgeInsets val = va_arg(*vlist, UIEdgeInsets);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseUIOffset:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -692,11 +695,11 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                UIOffset val = va_arg(vlist, UIOffset);
+                UIOffset val = va_arg(*vlist, UIOffset);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseCATransform3D:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -706,11 +709,11 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                CATransform3D val = va_arg(vlist, CATransform3D);
+                CATransform3D val = va_arg(*vlist, CATransform3D);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseCGAffineTransform:^{
                 va_list check_list;
-                va_copy(check_list, vlist);
+                lb_va_copy(check_list, *vlist);
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -720,12 +723,12 @@ CODE_BLOCK_TYPE:{
                     return;
                 }
                 va_end(check_list);
-                CGAffineTransform val = va_arg(vlist, CGAffineTransform);
+                CGAffineTransform val = va_arg(*vlist, CGAffineTransform);
                 [invocation setArgument:&val atIndex:idx_arg + 1];
             } caseNSDirectionalEdgeInsets:^{
                 if (@available(iOS 11.0, *)) {
                     va_list check_list;
-                    va_copy(check_list, vlist);
+                    lb_va_copy(check_list, *vlist);
                     if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                         *end = YES;
                         if(LinkHelper.link_block_configuration_get_is_show_warning){
@@ -735,7 +738,7 @@ CODE_BLOCK_TYPE:{
                         return;
                     }
                     va_end(check_list);
-                    NSDirectionalEdgeInsets val = va_arg(vlist, NSDirectionalEdgeInsets);
+                    NSDirectionalEdgeInsets val = va_arg(*vlist, NSDirectionalEdgeInsets);
                     [invocation setArgument:&val atIndex:idx_arg + 1];
                 }
             } defaule:nil];

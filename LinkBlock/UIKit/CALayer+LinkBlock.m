@@ -82,7 +82,7 @@
     };
 }
 
-- (CALayer *(^)())layerRemoveAllAnimations
+- (CALayer *(^)(void))layerRemoveAllAnimations
 {
     return ^id(){
         LinkHandle_REF(CALayer)

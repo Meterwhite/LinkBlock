@@ -120,7 +120,7 @@
     };
 }
 
-- (NSArray *(^)())dictAllKeys
+- (NSArray *(^)(void))dictAllKeys
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -129,7 +129,7 @@
     };
 }
 
-- (NSArray *(^)())dictAllValues
+- (NSArray *(^)(void))dictAllValues
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -185,7 +185,7 @@
     };
 }
 
-- (NSDictionary *(^)())dictObjsValueRandom
+- (NSDictionary *(^)(void))dictObjsValueRandom
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -224,7 +224,7 @@
     };
 }
 
-- (UIImage *(^)())dictForUIImagePickerControllerMediaType
+- (UIImage *(^)(void))dictForUIImagePickerControllerMediaType
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -232,7 +232,7 @@
         return _self[UIImagePickerControllerMediaType];
     };
 }
-- (UIImage *(^)())dictForUIImagePickerControllerOriginalImage
+- (UIImage *(^)(void))dictForUIImagePickerControllerOriginalImage
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -240,7 +240,7 @@
         return _self[UIImagePickerControllerOriginalImage];
     };
 }
-- (UIImage *(^)())dictForUIImagePickerControllerEditedImage
+- (UIImage *(^)(void))dictForUIImagePickerControllerEditedImage
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -248,7 +248,7 @@
         return _self[UIImagePickerControllerEditedImage];
     };
 }
-- (UIImage *(^)())dictForUIImagePickerControllerCropRect
+- (UIImage *(^)(void))dictForUIImagePickerControllerCropRect
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -256,7 +256,7 @@
         return _self[UIImagePickerControllerCropRect];
     };
 }
-- (UIImage *(^)())dictForUIImagePickerControllerMediaURL
+- (UIImage *(^)(void))dictForUIImagePickerControllerMediaURL
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -264,7 +264,7 @@
         return _self[UIImagePickerControllerMediaURL];
     };
 }
-- (UIImage *(^)())dictForUIImagePickerControllerReferenceURL
+- (UIImage *(^)(void))dictForUIImagePickerControllerReferenceURL
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -272,7 +272,7 @@
         return _self[UIImagePickerControllerReferenceURL];
     };
 }
-- (UIImage *(^)())dictForUIImagePickerControllerMediaMetadata
+- (UIImage *(^)(void))dictForUIImagePickerControllerMediaMetadata
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)
@@ -280,7 +280,7 @@
         return _self[UIImagePickerControllerMediaMetadata];
     };
 }
-- (UIImage *(^)())dictForUIImagePickerControllerLivePhoto
+- (UIImage *(^)(void))dictForUIImagePickerControllerLivePhoto
 {
     return ^id(){
         LinkHandle_REF(NSDictionary)

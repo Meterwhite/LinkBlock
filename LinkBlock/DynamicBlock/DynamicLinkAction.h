@@ -52,7 +52,7 @@
  @param end 参数列表遍历状态的指针
  @return 返回值（装箱的），如果void返回类型才会返回nil否则是NSNull形式的装箱结果
  */
-- (id)invoke:(id)origin args:(va_list)vlist end:(BOOL*)end;
+- (id)invoke:(id)origin args:(va_list*)vlist end:(BOOL*)end;
 
 
 /**

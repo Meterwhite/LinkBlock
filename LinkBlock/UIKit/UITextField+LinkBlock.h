@@ -34,5 +34,5 @@ LBDeclare UITextField*        (^txtFieldPlaceholdColor)(UIColor* color);
 /** <^(NSRange range)> */
 LBDeclare UITextField*        (^txtFieldSelectRangeSet)(NSRange range);
 /** <^()> */
-LBDeclare NSRange             (^txtFieldSelectRangeGet)();
+LBDeclare NSRange             (^txtFieldSelectRangeGet)(void);
 @end

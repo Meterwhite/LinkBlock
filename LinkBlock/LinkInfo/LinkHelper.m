@@ -754,33 +754,33 @@ static NSString* _lbEncodeFormate = @"_LB%@_";
 }
 
 + (void) helpSwitchObjcType:(const char*)objcType
-                   caseVoid:(void(^)())caseVoid
-                     caseId:(void(^)())caseId
-                  caseClass:(void(^)())caseClass
-                    caseIMP:(void(^)())caseIMP
-                    caseSEL:(void(^)())caseSEL
-                 caseDouble:(void(^)())caseDouble
-                  caseFloat:(void(^)())caseFloat
-                casePointer:(void(^)())casePointer
-            caseCharPointer:(void(^)())caseCharPointer
-           caseUnsignedLong:(void(^)())caseUnsignedLong
-       caseUnsignedLongLong:(void(^)())caseUnsignedLongLong
-                   caseLong:(void(^)())caseLong
-               caseLongLong:(void(^)())caseLongLong
-                    caseInt:(void(^)())caseInt
-            caseUnsignedInt:(void(^)())caseUnsignedInt
-      caseBOOL_Char_xyShort:(void(^)())casecaseBOOL_Char_xyShort
-                 caseCGRect:(void(^)())caseCGRect
-                caseNSRange:(void(^)())caseNSRange
-                 caseCGSize:(void(^)())caseCGSize
-                caseCGPoint:(void(^)())caseCGPoint
-               caseCGVector:(void(^)())caseCGVector
-           caseUIEdgeInsets:(void(^)())caseUIEdgeInsets
-               caseUIOffset:(void(^)())caseUIOffset
-          caseCATransform3D:(void(^)())caseCATransform3D
-      caseCGAffineTransform:(void(^)())caseCGAffineTransform
-caseNSDirectionalEdgeInsets:(void(^)())caseNSDirectionalEdgeInsets
-                    defaule:(void(^)())defaule
+                   caseVoid:(void(^)(void))caseVoid
+                     caseId:(void(^)(void))caseId
+                  caseClass:(void(^)(void))caseClass
+                    caseIMP:(void(^)(void))caseIMP
+                    caseSEL:(void(^)(void))caseSEL
+                 caseDouble:(void(^)(void))caseDouble
+                  caseFloat:(void(^)(void))caseFloat
+                casePointer:(void(^)(void))casePointer
+            caseCharPointer:(void(^)(void))caseCharPointer
+           caseUnsignedLong:(void(^)(void))caseUnsignedLong
+       caseUnsignedLongLong:(void(^)(void))caseUnsignedLongLong
+                   caseLong:(void(^)(void))caseLong
+               caseLongLong:(void(^)(void))caseLongLong
+                    caseInt:(void(^)(void))caseInt
+            caseUnsignedInt:(void(^)(void))caseUnsignedInt
+      caseBOOL_Char_xyShort:(void(^)(void))casecaseBOOL_Char_xyShort
+                 caseCGRect:(void(^)(void))caseCGRect
+                caseNSRange:(void(^)(void))caseNSRange
+                 caseCGSize:(void(^)(void))caseCGSize
+                caseCGPoint:(void(^)(void))caseCGPoint
+               caseCGVector:(void(^)(void))caseCGVector
+           caseUIEdgeInsets:(void(^)(void))caseUIEdgeInsets
+               caseUIOffset:(void(^)(void))caseUIOffset
+          caseCATransform3D:(void(^)(void))caseCATransform3D
+      caseCGAffineTransform:(void(^)(void))caseCGAffineTransform
+caseNSDirectionalEdgeInsets:(void(^)(void))caseNSDirectionalEdgeInsets
+                    defaule:(void(^)(void))defaule
 {
     if(!objcType) return;
     

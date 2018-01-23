@@ -101,7 +101,7 @@
     };
 }
 
-- (UIBezierPath *(^)())bezierPathClosePath
+- (UIBezierPath *(^)(void))bezierPathClosePath
 {
     return ^id(){
         LinkHandle_REF(UIBezierPath)
@@ -110,7 +110,7 @@
     };
 }
 
-- (UIBezierPath *(^)())bezierPathRemoveAllPoints
+- (UIBezierPath *(^)(void))bezierPathRemoveAllPoints
 {
     return ^id(){
         LinkHandle_REF(UIBezierPath)
@@ -128,7 +128,7 @@
     };
 }
 
-- (UIBezierPath *(^)())bezierPathByReversingPath
+- (UIBezierPath *(^)(void))bezierPathByReversingPath
 {
     return ^id(){
         LinkHandle_REF(UIBezierPath)
@@ -146,7 +146,7 @@
     };
 }
 
-- (UIBezierPath *(^)())bezierPathFill
+- (UIBezierPath *(^)(void))bezierPathFill
 {
     return ^id(){
         LinkHandle_REF(UIBezierPath)
@@ -155,7 +155,7 @@
     };
 }
 
-- (UIBezierPath *(^)())bezierPathStroke
+- (UIBezierPath *(^)(void))bezierPathStroke
 {
     return ^id(){
         LinkHandle_REF(UIBezierPath)
@@ -164,7 +164,7 @@
     };
 }
 
-- (UIBezierPath *(^)())bezierPathAddClip
+- (UIBezierPath *(^)(void))bezierPathAddClip
 {
     return ^id(){
         LinkHandle_REF(UIBezierPath)

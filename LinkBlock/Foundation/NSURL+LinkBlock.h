@@ -10,11 +10,11 @@
 
 @interface NSObject(NSURLLinkBlock)
 /** <^()>系统照片url转图像，缩略图 */
-LBDeclare UIImage*         (^urlAssetsToUIImageByThumbnail)();
+LBDeclare UIImage*         (^urlAssetsToUIImageByThumbnail)(void);
 /** <^()>系统照片url转图像，高清图 */
-LBDeclare UIImage*         (^urlAssetsToUIImageByFullResolution)();
+LBDeclare UIImage*         (^urlAssetsToUIImageByFullResolution)(void);
 /** <^()>系统照片url转图像，全屏相片 */
-LBDeclare UIImage*         (^urlAssetsToUIImageByFullScreen)();
+LBDeclare UIImage*         (^urlAssetsToUIImageByFullScreen)(void);
 /** <^()> */
-LBDeclare NSData*          (^urlToNSDataFromContents)();
+LBDeclare NSData*          (^urlToNSDataFromContents)(void);
 @end

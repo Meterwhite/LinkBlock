@@ -12,11 +12,11 @@
 #endif
 @interface NSObject(UILabelLinkBlock)
 /** <^()> */
-LBDeclare UILabel*         (^labAlignmentCenter)();
+LBDeclare UILabel*         (^labAlignmentCenter)(void);
 /** <^()> */
-LBDeclare UILabel*         (^labAlignmentRight)();
+LBDeclare UILabel*         (^labAlignmentRight)(void);
 /** <^()> */
-LBDeclare UILabel*         (^labAlignmentLeft)();
+LBDeclare UILabel*         (^labAlignmentLeft)(void);
 
 /** <^(NSTextAlignment alighment)> */
 LBDeclare UILabel*         (^labAlignment)(NSTextAlignment alighment);
@@ -29,7 +29,7 @@ LBDeclare UILabel*         (^labTextColor)(UIColor* color);
 /** <^(UIFont* font)> */
 LBDeclare UILabel*         (^labFont)(UIFont* font);
 /** <^()> */
-LBDeclare CGFloat          (^labFontSystemSizeGet)();
+LBDeclare CGFloat          (^labFontSystemSizeGet)(void);
 /** <^(CGFloat fontSize)> */
 LBDeclare UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
 /** <^(CGFloat fontSize)> maxWidth为空时使用空间的宽度为最大宽度 */

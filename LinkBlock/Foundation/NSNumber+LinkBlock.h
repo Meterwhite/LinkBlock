@@ -24,43 +24,43 @@ LBDeclare_F NSObject*    linkIf_NO;
 
 
 /** <^()> */
-LBDeclare void*        (^numValue)();
+LBDeclare void*        (^numValue)(void);
 /** <^()>是否是整数类型 */
-LBDeclare BOOL         (^numIsIntegerType)();
+LBDeclare BOOL         (^numIsIntegerType)(void);
 /** <^()>是否是浮点数类型 */
-LBDeclare BOOL         (^numIsFloatingType)();
+LBDeclare BOOL         (^numIsFloatingType)(void);
 /** <^()>是否是字符类型 */
-LBDeclare BOOL         (^numIsCharType)();
+LBDeclare BOOL         (^numIsCharType)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsBOOL)();
+LBDeclare BOOL         (^numIsBOOL)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsChar)();
+LBDeclare BOOL         (^numIsChar)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsShort)();
+LBDeclare BOOL         (^numIsShort)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsInt)();
+LBDeclare BOOL         (^numIsInt)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsLong)();
+LBDeclare BOOL         (^numIsLong)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsLongLong)();
+LBDeclare BOOL         (^numIsLongLong)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsUnsignedChar)();
+LBDeclare BOOL         (^numIsUnsignedChar)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsUnsignedShort)();
+LBDeclare BOOL         (^numIsUnsignedShort)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsUnsignedInt)();
+LBDeclare BOOL         (^numIsUnsignedInt)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsUnsignedLong)();
+LBDeclare BOOL         (^numIsUnsignedLong)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsUnsignedLongLong)();
+LBDeclare BOOL         (^numIsUnsignedLongLong)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsFloat)();
+LBDeclare BOOL         (^numIsFloat)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsDouble)();
+LBDeclare BOOL         (^numIsDouble)(void);
 
 /** <^()>是否包含小数位的值；YES：小数位为0，NO：小数位有值， */
-LBDeclare BOOL         (^numHasDecimalValue)();
-LBDeclare NSNumber*    (^numHasDecimalValue_n)();
+LBDeclare BOOL         (^numHasDecimalValue)(void);
+LBDeclare NSNumber*    (^numHasDecimalValue_n)(void);
 /** <^(num)>等于@宏定义覆盖后可传入数字直接量 */
 LBDeclare BOOL         (^numIsEqualToNum)(NSNumber* num);
 LBDeclare NSNumber*    (^numIsEqualToNum_n)(NSNumber* num);
@@ -77,15 +77,15 @@ LBDeclare NSNumber*    (^numIsLessThanNum_n)(NSNumber* num);
 LBDeclare BOOL         (^numIsLessEqualNum)(NSNumber* num);
 LBDeclare NSNumber*    (^numIsLessEqualNum_n)(NSNumber* num);
 /** <^()> */
-LBDeclare BOOL         (^numIsYES)();
+LBDeclare BOOL         (^numIsYES)(void);
 /** <^()> */
-LBDeclare BOOL         (^numIsNO)();
+LBDeclare BOOL         (^numIsNO)(void);
 /** <^()>判断奇数 */
-LBDeclare BOOL         (^numIsOdd)();
-LBDeclare NSNumber*    (^numIsOdd_n)();
+LBDeclare BOOL         (^numIsOdd)(void);
+LBDeclare NSNumber*    (^numIsOdd_n)(void);
 /** <^()>判断偶数 */
-LBDeclare BOOL         (^numIsEven)();
-LBDeclare NSNumber*    (^numIsEven_n)();
+LBDeclare BOOL         (^numIsEven)(void);
+LBDeclare NSNumber*    (^numIsEven_n)(void);
 
 /** <^(NSUInteger digit小数位数)>小数转字符串：digit：小数位数；digit=6 => 0.618000；digit=0时转为整数 */
 LBDeclare NSString*           (^numToStrFloating)(NSUInteger digit);
@@ -94,11 +94,11 @@ LBDeclare NSMutableString*    (^numToStrPercent)(NSUInteger digit);
 /** <^(NSUInteger digit小数位数)>小数转字符串，限定最宽小数位数，超过的部分将进行四舍五入；整数时没有任何改变;当digit=0时小数将转为整数 */
 LBDeclare NSString*    (^numToStrMaxDigit)(NSUInteger maxDigit);
 /** <^()>数字转日期 */
-LBDeclare NSDate*      (^numToNSDateSince1970)();
+LBDeclare NSDate*      (^numToNSDateSince1970)(void);
 /** <^()> */
-LBDeclare UIFont*      (^numToUIFontSystemSize)();
+LBDeclare UIFont*      (^numToUIFontSystemSize)(void);
 /** <@(0x969696).numToUIColorFromHex()>十六进制转颜色 */
-LBDeclare UIColor*     (^numToUIColorFromHex)();
+LBDeclare UIColor*     (^numToUIColorFromHex)(void);
 
 /** <^(NSArray* arr)>当前值是否在数组长度长度值内 */
 LBDeclare BOOL         (^numIndexIsInArrRange)(NSArray* arr);

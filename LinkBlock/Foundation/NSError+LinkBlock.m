@@ -9,9 +9,9 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(NSErrorLinkBlock)
-- (NSObject *(^)(id<NSCopying>))errorValueInUserInfo
+- (NSObject *(^)(id))errorValueInUserInfo
 {
-    return ^id(id<NSCopying> key){
+    return ^id(id key){
         LinkHandle_REF(NSError)
         LinkGroupHandle_REF(errorValueInUserInfo,key)
         return _self.userInfo[key];

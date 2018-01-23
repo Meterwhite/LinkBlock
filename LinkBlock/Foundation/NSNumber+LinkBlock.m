@@ -101,7 +101,7 @@
     return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnCondition];
 }
 
-- (void *(^)())numValue
+- (void *(^)(void))numValue
 {
     return ^void*(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -114,7 +114,7 @@
     };
 }
 
-- (BOOL (^)())numIsIntegerType
+- (BOOL (^)(void))numIsIntegerType
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -138,7 +138,7 @@
     };
 }
 
-- (BOOL (^)())numIsFloatingType
+- (BOOL (^)(void))numIsFloatingType
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -156,7 +156,7 @@
     };
 }
 
-- (BOOL (^)())numIsCharType
+- (BOOL (^)(void))numIsCharType
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -174,7 +174,7 @@
     };
 }
 
-- (BOOL (^)())numIsBOOL
+- (BOOL (^)(void))numIsBOOL
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -189,7 +189,7 @@
     };
 }
 
-- (BOOL (^)())numIsChar
+- (BOOL (^)(void))numIsChar
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -206,7 +206,7 @@
     };
 }
 
-- (BOOL (^)())numIsShort
+- (BOOL (^)(void))numIsShort
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -219,7 +219,7 @@
     };
 }
 
-- (BOOL (^)())numIsInt
+- (BOOL (^)(void))numIsInt
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -232,7 +232,7 @@
     };
 }
 
-- (BOOL (^)())numIsLong
+- (BOOL (^)(void))numIsLong
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -245,7 +245,7 @@
     };
 }
 
-- (BOOL (^)())numIsLongLong
+- (BOOL (^)(void))numIsLongLong
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -258,7 +258,7 @@
     };
 }
 
-- (BOOL (^)())numIsUnsignedChar
+- (BOOL (^)(void))numIsUnsignedChar
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -275,7 +275,7 @@
     };
 }
 
-- (BOOL (^)())numIsUnsignedShort
+- (BOOL (^)(void))numIsUnsignedShort
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -288,7 +288,7 @@
     };
 }
 
-- (BOOL (^)())numIsUnsignedInt
+- (BOOL (^)(void))numIsUnsignedInt
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -301,7 +301,7 @@
     };
 }
 
-- (BOOL (^)())numIsUnsignedLong
+- (BOOL (^)(void))numIsUnsignedLong
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -314,7 +314,7 @@
     };
 }
 
-- (BOOL (^)())numIsUnsignedLongLong
+- (BOOL (^)(void))numIsUnsignedLongLong
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -327,7 +327,7 @@
     };
 }
 
-- (BOOL (^)())numIsFloat
+- (BOOL (^)(void))numIsFloat
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -340,7 +340,7 @@
     };
 }
 
-- (BOOL (^)())numIsDouble
+- (BOOL (^)(void))numIsDouble
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -395,7 +395,7 @@
     };
 }
 
-- (BOOL (^)())numHasDecimalValue
+- (BOOL (^)(void))numHasDecimalValue
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -406,7 +406,7 @@
         return NO;
     };
 }
-- (NSNumber* (^)())numHasDecimalValue_n
+- (NSNumber* (^)(void))numHasDecimalValue_n
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
@@ -516,7 +516,7 @@
     };
 }
 
-- (BOOL (^)())numIsYES
+- (BOOL (^)(void))numIsYES
 {
     return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -527,7 +527,7 @@
     };
 }
 
-- (BOOL (^)())numIsNO
+- (BOOL (^)(void))numIsNO
 {
     return ^BOOL(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -538,7 +538,7 @@
     };
 }
 
-- (NSDate *(^)())numToNSDateSince1970
+- (NSDate *(^)(void))numToNSDateSince1970
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
@@ -547,7 +547,7 @@
     };
 }
 
-- (BOOL (^)())numIsOdd
+- (BOOL (^)(void))numIsOdd
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -561,7 +561,7 @@
         return NO;
     };
 }
-- (NSNumber* (^)())numIsOdd_n
+- (NSNumber* (^)(void))numIsOdd_n
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
@@ -573,7 +573,7 @@
     };
 }
 
-- (BOOL (^)())numIsEven
+- (BOOL (^)(void))numIsEven
 {
     return ^(){
         LinkHandle_VAL_IFNOT(NSNumber){
@@ -586,7 +586,7 @@
         return NO;
     };
 }
-- (NSNumber* (^)())numIsEven_n
+- (NSNumber* (^)(void))numIsEven_n
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
@@ -679,7 +679,7 @@
     };
 }
 
-- (UIFont *(^)())numToUIFontSystemSize
+- (UIFont *(^)(void))numToUIFontSystemSize
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
@@ -688,7 +688,7 @@
     };
 }
 
-- (UIColor *(^)())numToUIColorFromHex
+- (UIColor *(^)(void))numToUIColorFromHex
 {
     return ^id(){
         LinkHandle_REF(NSNumber)

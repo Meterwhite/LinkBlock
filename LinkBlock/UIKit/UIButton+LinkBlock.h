@@ -95,7 +95,7 @@ LBDeclare UIButton* (^btnTitleFont)(UIFont* font);
 /** <^(CGFloat size)> */
 LBDeclare UIButton* (^btnTitleFontSystemSizeSet)(CGFloat size);
 /** <^()> */
-LBDeclare CGFloat   (^btnTitleFontSystemSizeGet)();
+LBDeclare CGFloat   (^btnTitleFontSystemSizeGet)(void);
 @end
 
 @interface UIButton(UIButtonLinkBlock)

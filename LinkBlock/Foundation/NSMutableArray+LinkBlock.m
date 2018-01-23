@@ -141,7 +141,7 @@
     };
 }
 
-- (NSMutableArray *(^)())m_arrRemoveAll
+- (NSMutableArray *(^)(void))m_arrRemoveAll
 {
     return ^id(){
         LinkHandle_REF(NSMutableArray)
@@ -366,7 +366,7 @@
     };
 }
 
-- (NSMutableArray *(^)())m_arrReversed
+- (NSMutableArray *(^)(void))m_arrReversed
 {
     return ^id(){
         LinkHandle_REF(NSMutableArray)

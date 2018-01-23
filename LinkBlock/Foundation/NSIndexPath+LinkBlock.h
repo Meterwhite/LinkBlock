@@ -12,10 +12,10 @@
 
 @interface NSObject(NSIndexPathLinkBlock)
 LBDeclare NSIndexPath*      (^idxPathAdding)(NSUInteger idx);
-LBDeclare NSIndexPath*      (^idxPathRemovingLast)();
+LBDeclare NSIndexPath*      (^idxPathRemovingLast)(void);
 LBDeclare NSUInteger        (^idxPathIndexAtPosition)(NSUInteger position);
-LBDeclare NSArray*          (^idxPathToNSArray)();
-LBDeclare NSString*         (^idxPathToNSStringUsingJson)();
+LBDeclare NSArray*          (^idxPathToNSArray)(void);
+LBDeclare NSString*         (^idxPathToNSStringUsingJson)(void);
 
 #pragma mark - 扩展
 LBDeclare BOOL              (^idxPathIsEqualSection)(NSInteger section);

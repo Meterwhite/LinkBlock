@@ -22,9 +22,9 @@ LBDeclare NSNumber*    (^dictContaineKey_n)(id<NSCopying> key);
 LBDeclare BOOL         (^dictContaineValue)(id value);
 LBDeclare NSNumber*    (^dictContaineValue_n)(id value);
 /** <^()> */
-LBDeclare NSArray*     (^dictAllKeys)();
+LBDeclare NSArray*     (^dictAllKeys)(void);
 /** <^()> */
-LBDeclare NSArray*     (^dictAllValues)();
+LBDeclare NSArray*     (^dictAllValues)(void);
 /** <^(id value)>根据值返取所有键的集合 */
 LBDeclare NSArray*     (^dictKeysForValue)(id value);
 /** <^(id<NSCopying> replaceKey, id<NSCopying> withKey)>替换字典中的key，层次遍历字典和数组 */
@@ -32,17 +32,17 @@ LBDeclare NSMutableDictionary* (^dictReplaceKey)(id<NSCopying> replaceKey, id<NS
 /** <^(id<NSCopying> replaceKey, id<NSCopying> withKey)>替换字典中的key，非层次遍历的 */
 LBDeclare NSMutableDictionary* (^dictReplaceKeyWithoutDeep)(id<NSCopying> replaceKey, id<NSCopying> withKey);
 /** <^()>对字典中的对象随机赋值，仅含字符串和数字类型 */
-LBDeclare NSDictionary*        (^dictObjsValueRandom)();
+LBDeclare NSDictionary*        (^dictObjsValueRandom)(void);
 
 #pragma mark - 获取dictForXXX中XXX的为键的字典值
-LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaType)();
-LBDeclare UIImage*     (^dictForUIImagePickerControllerOriginalImage)();
-LBDeclare UIImage*     (^dictForUIImagePickerControllerEditedImage)();
-LBDeclare UIImage*     (^dictForUIImagePickerControllerCropRect)();
-LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaURL)();
-LBDeclare UIImage*     (^dictForUIImagePickerControllerReferenceURL)();
-LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaMetadata)();
-LBDeclare UIImage*     (^dictForUIImagePickerControllerLivePhoto)();
+LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaType)(void);
+LBDeclare UIImage*     (^dictForUIImagePickerControllerOriginalImage)(void);
+LBDeclare UIImage*     (^dictForUIImagePickerControllerEditedImage)(void);
+LBDeclare UIImage*     (^dictForUIImagePickerControllerCropRect)(void);
+LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaURL)(void);
+LBDeclare UIImage*     (^dictForUIImagePickerControllerReferenceURL)(void);
+LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaMetadata)(void);
+LBDeclare UIImage*     (^dictForUIImagePickerControllerLivePhoto)(void);
 
 #pragma mark - NSMutableDictionary
 /** <^(id<NSCopying> key , id value)>赋值 */

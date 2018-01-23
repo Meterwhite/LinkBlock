@@ -41,7 +41,7 @@
     };
 }
 
-- (NSMutableString *(^)())m_strClear
+- (NSMutableString *(^)(void))m_strClear
 {
     return ^id(){
         LinkHandle_REF(NSMutableString)

@@ -9,7 +9,7 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(UIWebViewLinkBlock)
-- (JSContext *(^)())webViewContext
+- (JSContext *(^)(void))webViewContext
 {
     return ^id(){
         LinkHandle_REF(UIWebView)
@@ -18,7 +18,7 @@
     };
 }
 
-- (NSString *(^)())webViewTitle
+- (NSString *(^)(void))webViewTitle
 {
     return ^id(){
         LinkHandle_REF(UIWebView)
@@ -27,7 +27,7 @@
     };
 }
 
-- (NSString *(^)())webViewLocationHref
+- (NSString *(^)(void))webViewLocationHref
 {
     return ^id(){
         LinkHandle_REF(UIWebView)
@@ -45,7 +45,7 @@
     };
 }
 
-- (NSString *(^)())webViewHTML
+- (NSString *(^)(void))webViewHTML
 {
     return ^id(){
         LinkHandle_REF(UIWebView)

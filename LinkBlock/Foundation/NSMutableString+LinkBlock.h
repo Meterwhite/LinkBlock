@@ -21,7 +21,7 @@ LBDeclare NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString
 /** <^(NSRange range)> */
 LBDeclare NSMutableString*     (^m_strDeleteInRange)(NSRange range);
 /** <^()> */
-LBDeclare NSMutableString*     (^m_strClear)();
+LBDeclare NSMutableString*     (^m_strClear)(void);
 
 
 @end

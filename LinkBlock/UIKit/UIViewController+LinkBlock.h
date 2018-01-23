@@ -21,5 +21,5 @@ LBDeclare UIViewController*    (^vcNavigationControllerPushVC)(UIViewController*
 /** <^(UIViewController* vc)> */
 LBDeclare UIViewController*    (^vcNavigationControllerPopTo)(UIViewController* vc);
 /** <^()> */
-LBDeclare UIViewController*    (^vcNavigationControllerPop)();
+LBDeclare UIViewController*    (^vcNavigationControllerPop)(void);
 @end

@@ -54,5 +54,5 @@
  @param list 输入参数的参数列表
  @return 返回值（装箱的），如果void返回类型才会返回nil否则是NSNull形式的装箱结果
  */
-- (id)invoke:(id)origin args:(va_list)list;
+- (id)invoke:(id)origin args:(va_list*)list;
 @end

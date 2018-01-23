@@ -19,7 +19,7 @@
 
 @implementation DynamicLink
 
-- (id)invoke:(id)origin args:(va_list)list
+- (id)invoke:(id)origin args:(va_list*)list
 {
     //无code返回对象本身
     if(!self.code) return origin;

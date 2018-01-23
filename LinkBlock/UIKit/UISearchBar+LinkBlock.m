@@ -79,7 +79,7 @@
     };
 }
 
-- (UITextField *(^)())searchBarSearchField
+- (UITextField *(^)(void))searchBarSearchField
 {
     return ^id(){
         LinkHandle_REF(UISearchBar)

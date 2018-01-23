@@ -9,7 +9,15 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(UITextViewLinkBlock)
-
+- (UITextView *(^)(NSTextAlignment))txtViewTextAlignment
+{
+    return ^id(NSTextAlignment alignment){
+        LinkHandle_REF(UITextView)
+        LinkGroupHandle_REF(txtViewTextAlignment,alignment)
+        _self.textAlignment = alignment;
+        return _self;
+    };
+}
 - (UITextView *(^)(NSRange))txtViewSelectRangeSet
 {
     return ^id(NSRange range){
@@ -25,7 +33,7 @@
     };
 }
 
-- (NSRange (^)())txtViewSelectRangeGet
+- (NSRange (^)(void))txtViewSelectRangeGet
 {
     return ^NSRange(){
         LinkHandle_VAL_IFNOT(UITextView){

@@ -10,7 +10,7 @@
 @interface NSObject(UIImageLinkBlock)
 
 /** <^()>图片转控件 */
-LBDeclare UIImageView*     (^imgToUIImageView)();
+LBDeclare UIImageView*     (^imgToUIImageView)(void);
 /**
  *  <^(float ratio)>
  *  图片转NSData
@@ -24,7 +24,7 @@ LBDeclare UIImage*         (^imgCut)(CGRect frame);
 /** <^(float tintColor)>高斯模糊 注意：项目应当引用库'Accelerate.framework' */
 LBDeclare UIImage*         (^imgBlurColor)(UIColor* tintColor);
 /** <^(float tintColor)>高斯模糊 效果亮 注意：项目应当引用库'Accelerate.framework' */
-LBDeclare UIImage*         (^imgBlurLight)();
+LBDeclare UIImage*         (^imgBlurLight)(void);
 /**
  <^(float blurRadius)>可改变模糊程度的效果亮模糊；注意：项目应当引用库'Accelerate.framework'
 
@@ -32,17 +32,17 @@ LBDeclare UIImage*         (^imgBlurLight)();
  */
 LBDeclare UIImage*         (^imgBlurLightRadius)(float blurRadius);
 /** <^(float tintColor)>高斯模糊 效果暗效果明亮 注意：项目应当引用库'Accelerate.framework' */
-LBDeclare UIImage*         (^imgBlurExtraLight)();
+LBDeclare UIImage*         (^imgBlurExtraLight)(void);
 /** <^(float tintColor)>高斯模糊 效果暗 注意：项目应当引用库'Accelerate.framework' */
-LBDeclare UIImage*         (^imgBlurDarkEffect)();
+LBDeclare UIImage*         (^imgBlurDarkEffect)(void);
 /** <^(UIImageRenderingMode mode)>渲染模式 */
 LBDeclare UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
 /** <^(UIImage* aImg , CGRect rect)>水印；图片合并到图片； */
 LBDeclare UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
 /** <^()>图片取色 */
-LBDeclare UIColor*         (^imgGetPatternColor)();
+LBDeclare UIColor*         (^imgGetPatternColor)(void);
 /** <^()>矫正方向的图片 */
-LBDeclare UIImage*         (^imgOrientationFix)();
+LBDeclare UIImage*         (^imgOrientationFix)(void);
 
 /** <UIImageView* ^(UIImageView* imgView)>图片设置到控件并返回控件 */
 LBDeclare UIImageView*     (^imgSetToImgView_linkTo)(UIImageView* imgView);

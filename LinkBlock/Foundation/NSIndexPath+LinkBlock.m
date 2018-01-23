@@ -20,7 +20,7 @@
     };
 }
 
-- (NSIndexPath *(^)())idxPathRemovingLast
+- (NSIndexPath *(^)(void))idxPathRemovingLast
 {
     return ^id(){
         LinkHandle_REF(NSIndexPath)
@@ -41,7 +41,7 @@
     };
 }
 
-- (NSArray *(^)())idxPathToNSArray
+- (NSArray *(^)(void))idxPathToNSArray
 {
     return ^(){
         LinkHandle_REF(NSIndexPath)
@@ -55,7 +55,7 @@
     };
 }
 
-- (NSString *(^)())idxPathToNSStringUsingJson
+- (NSString *(^)(void))idxPathToNSStringUsingJson
 {
     return self.idxPathToNSArray().objToJsonString;
 }

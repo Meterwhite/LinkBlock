@@ -105,21 +105,21 @@
     };
 }
 
-- (JSContext *(^)())jsContextHistoryBack
+- (JSContext *(^)(void))jsContextHistoryBack
 {
-    return ^id(NSString* str){
+    return ^id(){
         LinkHandle_REF(JSContext)
-        LinkGroupHandle_REF(jsContextHistoryBack,str)
+        LinkGroupHandle_REF(jsContextHistoryBack)
         [_self evaluateScript:@"document.history.back()"];
         return _self;
     };
 }
 
-- (JSContext *(^)())jsContextHistoryForward
+- (JSContext *(^)(void))jsContextHistoryForward
 {
-    return ^id(NSString* str){
+    return ^id(){
         LinkHandle_REF(JSContext)
-        LinkGroupHandle_REF(jsContextHistoryForward,str)
+        LinkGroupHandle_REF(jsContextHistoryForward)
         [_self evaluateScript:@"document.history.forward()"];
         return _self;
     };
@@ -136,7 +136,7 @@
     };
 }
 
-- (NSString *(^)())jsContextTitle
+- (NSString *(^)(void))jsContextTitle
 {
     return ^id(){
         LinkHandle_REF(JSContext)
@@ -145,7 +145,7 @@
     };
 }
 
-- (NSString *(^)())jsContextHTML
+- (NSString *(^)(void))jsContextHTML
 {
     return ^id(){
         LinkHandle_REF(JSContext)
@@ -154,7 +154,7 @@
     };
 }
 
-- (NSString *(^)())jsContextLocationHref
+- (NSString *(^)(void))jsContextLocationHref
 {
     return ^id(){
         LinkHandle_REF(JSContext)
@@ -163,7 +163,7 @@
     };
 }
 
-- (JSContext *(^)())jsContextLocationReload
+- (JSContext *(^)(void))jsContextLocationReload
 {
     return ^id(){
         LinkHandle_REF(JSContext)

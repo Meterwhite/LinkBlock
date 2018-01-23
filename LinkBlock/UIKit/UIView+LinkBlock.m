@@ -191,7 +191,7 @@
     };
 }
 
-- (UIView *(^)())viewBGColorRandom
+- (UIView *(^)(void))viewBGColorRandom
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -279,7 +279,7 @@
     };
 }
 
-- (UIView *(^)())viewClipsToBoundsYES
+- (UIView *(^)(void))viewClipsToBoundsYES
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -299,7 +299,7 @@
     };
 }
 
-- (UIView *(^)())viewEndEditingYES
+- (UIView *(^)(void))viewEndEditingYES
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -309,7 +309,7 @@
     };
 }
 
-- (BOOL (^)())viewIsFirstResponder
+- (BOOL (^)(void))viewIsFirstResponder
 {
     return ^(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -320,7 +320,7 @@
     };
 }
 
-- (UIView *(^)())viewBecomeFirstResponder
+- (UIView *(^)(void))viewBecomeFirstResponder
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -330,7 +330,7 @@
     };
 }
 
-- (UIView *(^)())viewResignFirstResponder
+- (UIView *(^)(void))viewResignFirstResponder
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -340,7 +340,7 @@
     };
 }
 
-- (UIView *(^)())viewFirstResponderSubViewForInput
+- (UIView *(^)(void))viewFirstResponderSubViewForInput
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -366,7 +366,7 @@
     };
 }
 
-- (CGRect (^)())viewConvertRectToWindow
+- (CGRect (^)(void))viewConvertRectToWindow
 {
     return ^(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -425,7 +425,7 @@
     };
 }
 
-- (UIView *(^)())viewUserInteractionEnabledYES
+- (UIView *(^)(void))viewUserInteractionEnabledYES
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -435,7 +435,7 @@
     };
 }
 
-- (UIView *(^)())viewUserInteractionEnabledNO
+- (UIView *(^)(void))viewUserInteractionEnabledNO
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -505,7 +505,7 @@
     };
 }
 
-- (UIView *(^)())viewHiddenYES
+- (UIView *(^)(void))viewHiddenYES
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -515,7 +515,7 @@
     };
 }
 
-- (UIView *(^)())viewHiddenNO
+- (UIView *(^)(void))viewHiddenNO
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -545,7 +545,7 @@
     };
 }
 
-- (NSUInteger (^)())viewIndexInSuperview
+- (NSUInteger (^)(void))viewIndexInSuperview
 {
     return ^NSUInteger(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -564,7 +564,7 @@
     };
 }
 
-- (UIView *(^)())viewRemoveFromSuperview
+- (UIView *(^)(void))viewRemoveFromSuperview
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -593,7 +593,7 @@
     };
 }
 
-- (UIView *(^)())viewRemoveAllSubview
+- (UIView *(^)(void))viewRemoveAllSubview
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -695,7 +695,7 @@
     };
 }
 
-- (UIView *(^)())viewSetNeedsLayout
+- (UIView *(^)(void))viewSetNeedsLayout
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -705,7 +705,7 @@
     };
 }
 
-- (UIView *(^)())viewLayoutIfNeeded
+- (UIView *(^)(void))viewLayoutIfNeeded
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -715,7 +715,7 @@
     };
 }
 
-- (UIView *(^)())viewSetNeedsDisplay
+- (UIView *(^)(void))viewSetNeedsDisplay
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -825,7 +825,7 @@
     };
 }
 
-- (BOOL (^)())viewIsZeroSize
+- (BOOL (^)(void))viewIsZeroSize
 {
     return ^(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -838,7 +838,7 @@
     };
 }
 
-- (CGFloat (^)())viewX
+- (CGFloat (^)(void))viewX
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -849,7 +849,7 @@
     };
 }
 
-- (CGFloat (^)())viewY
+- (CGFloat (^)(void))viewY
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -860,7 +860,7 @@
     };
 }
 
-- (CGFloat (^)())viewCenterX
+- (CGFloat (^)(void))viewCenterX
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -871,7 +871,7 @@
     };
 }
 
-- (CGFloat (^)())viewCenterY
+- (CGFloat (^)(void))viewCenterY
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -882,7 +882,7 @@
     };
 }
 
-- (CGSize (^)())viewSize
+- (CGSize (^)(void))viewSize
 {
     return ^(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -893,7 +893,7 @@
     };
 }
 
-- (CGFloat (^)())viewWidth
+- (CGFloat (^)(void))viewWidth
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -904,7 +904,7 @@
     };
 }
 
-- (CGFloat (^)())viewHeight
+- (CGFloat (^)(void))viewHeight
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -915,7 +915,7 @@
     };
 }
 
-- (CGPoint (^)())viewOrigin
+- (CGPoint (^)(void))viewOrigin
 {
     return ^(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -1004,7 +1004,7 @@
     };
 }
 
-- (UIView *(^)())viewAnimateAppleMotionEffects
+- (UIView *(^)(void))viewAnimateAppleMotionEffects
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1161,7 +1161,7 @@
     };
 }
 
-- (UIView *(^)())viewAnimateRemove
+- (UIView *(^)(void))viewAnimateRemove
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1174,7 +1174,7 @@
     };
 }
 
-- (BOOL (^)())viewAnimateIsDoing
+- (BOOL (^)(void))viewAnimateIsDoing
 {
     return ^BOOL(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -1185,7 +1185,7 @@
     };
 }
 
-- (UIView *(^)())viewAnimatePause
+- (UIView *(^)(void))viewAnimatePause
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1197,7 +1197,7 @@
     };
 }
 
-- (UIView *(^)())viewAnimateResume
+- (UIView *(^)(void))viewAnimateResume
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1212,7 +1212,7 @@
     };
 }
 
-- (UIImage *(^)())viewSnapshot
+- (UIImage *(^)(void))viewSnapshot
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1368,7 +1368,7 @@
     };
 }
 
-- (CGFloat (^)())viewMaxX
+- (CGFloat (^)(void))viewMaxX
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -1379,7 +1379,7 @@
     };
 }
 
-- (CGFloat (^)())viewMaxY
+- (CGFloat (^)(void))viewMaxY
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -1390,7 +1390,7 @@
     };
 }
 
-- (UIView *(^)())viewBringFrontInView
+- (UIView *(^)(void))viewBringFrontInView
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1401,7 +1401,7 @@
     };
 }
 
-- (UIView *(^)())viewSendBackInView
+- (UIView *(^)(void))viewSendBackInView
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1412,7 +1412,7 @@
     };
 }
 
-- (UIView *(^)())viewRemoveConstraints
+- (UIView *(^)(void))viewRemoveConstraints
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1428,7 +1428,7 @@
     };
 }
 
-- (BOOL (^)())viewIsUsingAutolayout
+- (BOOL (^)(void))viewIsUsingAutolayout
 {
     return ^(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -1441,7 +1441,7 @@
     };
 }
 
-- (BOOL (^)())viewIsUsingAutoresizing
+- (BOOL (^)(void))viewIsUsingAutoresizing
 {
     return ^BOOL(){
         LinkHandle_VAL_IFNOT(UIView){
@@ -1452,7 +1452,7 @@
     };
 }
 
-- (UIView *(^)())viewRemoveAutoresizing
+- (UIView *(^)(void))viewRemoveAutoresizing
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1463,7 +1463,7 @@
     };
 }
 
-- (UIView *(^)())viewBeforeIndexView
+- (UIView *(^)(void))viewBeforeIndexView
 {
     return ^id(){
         LinkHandle_REF(UIView)
@@ -1472,7 +1472,7 @@
     };
 }
 
-- (UIView *(^)())viewNextIndexView
+- (UIView *(^)(void))viewNextIndexView
 {
     return ^id(){
         LinkHandle_REF(UIView)
