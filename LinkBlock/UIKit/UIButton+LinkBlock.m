@@ -129,6 +129,29 @@
         return _self;
     };
 }
+
+- (UIButton *(^)())btnHighlightedTitleColorLightByNormalState
+{
+    return ^id(){
+        LinkHandle_REF(UIButton)
+        LinkGroupHandle_REF(btnHighlightedTitleColorLightByNormalState)
+        [_self setTitleColor:[_self titleColorForState:UIControlStateNormal].colorHighlightLightColor()
+                    forState:UIControlStateHighlighted];
+        return _self;
+    };
+}
+
+- (UIButton *(^)())btnHighlightedTitleColorDarkByNormalState
+{
+    return ^id(){
+        LinkHandle_REF(UIButton)
+        LinkGroupHandle_REF(btnHighlightedTitleColorDarkByNormalState)
+        [_self setTitleColor:[_self titleColorForState:UIControlStateNormal].colorHighlightDarkColor()
+                    forState:UIControlStateHighlighted];
+        return _self;
+    };
+}
+
 - (UIButton *(^)(UIColor *))btnTitleColorUIControlStateDisabled
 {
     return ^id(UIColor* color){
@@ -367,6 +390,7 @@
 @implementation UIButton(UIButtonLinkBlock)
 static const char _lb_key_btnExtensionOfTouchSide;
 static const char _lb_key_btnExtensionOfTouchRects;
+static const char _lb_key_btnExtensionOfHighlighted;
 - (UIButton *(^)(UIEdgeInsets))btnExtensionOfTouchSide
 {
     return ^UIButton*(UIEdgeInsets insets){
@@ -386,6 +410,60 @@ static const char _lb_key_btnExtensionOfTouchRects;
         return self;
     };
 }
+
+- (UIButton *(^)(NSArray<UIView *> *))btnExtensionOfHighlighted
+{
+    return ^UIButton*(NSArray<UIView *>* controls){
+        
+        //监听高亮
+        void* _self = (__bridge void *)(self);
+        [self addObserver:self forKeyPath:@"highlighted" options:0 context:_self];
+        //交换方法
+        Method originalMethod = class_getInstanceMethod([self class], @selector(observeValueForKeyPath:ofObject:change:context:));
+        Method toMethod = class_getInstanceMethod([self class], @selector(lb_observeValueForKeyPath:ofObject:change:context:));
+        method_exchangeImplementations(originalMethod, toMethod);
+        
+        //注册对象
+        NSMutableArray* toControls = [NSMutableArray new];
+        {
+            //检查控件是否可以高亮
+            [controls enumerateObjectsUsingBlock:^(UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if([view isKindOfClass:[UIButton class]]    ||
+                   [view isKindOfClass:[UIControl class]]   ||
+                   [view isKindOfClass:[UILabel class]]     ||
+                   [view isKindOfClass:[UIImageView class]] ||
+                   [view isKindOfClass:[UITableViewCell class]] ||
+                   [view isKindOfClass:[UICollectionViewCell class]] ){
+                    
+                    [toControls addObject:view];
+                }
+            }];
+        }
+        if(toControls.count){
+            objc_setAssociatedObject(self, &_lb_key_btnExtensionOfHighlighted, toControls, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+        return self;
+    };
+}
+
+- (void)lb_observeValueForKeyPath:(NSString *)keyPath ofObject:(UIButton*)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    id _self = (__bridge id)(context);
+
+    
+    if(self == object                           &&
+       [self class] == [_self class]            &&
+       [keyPath isEqualToString:@"highlighted"]){
+        
+        NSMutableArray* toControls = objc_getAssociatedObject(self, &_lb_key_btnExtensionOfHighlighted);
+        [toControls setValue:@(self.highlighted) forKeyPath:@"highlighted"];
+    }else{
+
+        [self lb_observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
 
 -(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {

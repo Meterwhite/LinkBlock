@@ -34,6 +34,10 @@ LBDeclare CGFloat          (^labFontSystemSizeGet)(void);
 LBDeclare UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
 /** <^(CGFloat fontSize)> maxWidth为空时使用空间的宽度为最大宽度 */
 LBDeclare CGSize           (^labTextSize)(NSNumber* maxWidth);
+/** <^()>根据当前标题的亮色（40%）设置高亮状态标题色 */
+LBDeclare UILabel*         (^labHighlightedTextColorLightByTextColor)();
+/** <^()>根据当前标题的暗色（40%）设置高亮状态标题色 */
+LBDeclare UILabel*         (^labHighlightedTextColorDarkByTextColor)();
 @end
 
 @interface UILabel(UILabelLinkBlock)

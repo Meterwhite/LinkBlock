@@ -127,6 +127,25 @@
     };
 }
 
+- (UILabel *(^)())labHighlightedTextColorLightByTextColor
+{
+    return ^id(){
+        LinkHandle_REF(UILabel)
+        LinkGroupHandle_REF(labHighlightedTextColorLightByTextColor)
+        _self.highlightedTextColor = _self.textColor.colorHighlightLightColor();
+        return _self;
+    };
+}
+
+- (UILabel *(^)())labHighlightedTextColorDarkByTextColor
+{
+    return ^id(){
+        LinkHandle_REF(UILabel)
+        LinkGroupHandle_REF(labHighlightedTextColorDarkByTextColor)
+        _self.highlightedTextColor = _self.textColor.colorHighlightDarkColor();
+        return _self;
+    };
+}
 @end
 
 @implementation UILabel(UILabelLinkBlock)
