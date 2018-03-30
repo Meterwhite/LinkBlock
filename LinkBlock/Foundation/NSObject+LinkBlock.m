@@ -353,16 +353,15 @@
            [self isKindOfClass:[NSMutableOrderedSet class]]){
             
             [_self addObject:obj];
-        }else if ([self isKindOfClass:[NSString class]] &&
-                  [obj isKindOfClass:[NSString class]]){
+        }else if ([self isKindOfClass:[NSString class]]){
             
             if([self isMemberOfClass:NSClassFromString(@"__NSCFString")]){
                 
-                [_self appendString:obj];
+                [_self appendString:[obj description]];
             }else{
                 
                 _self = self.mutableCopy;
-                [_self appendString:obj];
+                [_self appendString:[obj description]];
             }
         }else if ([self isKindOfClass:[UIView class]] &&
                   [obj isKindOfClass:[UIView class]]){

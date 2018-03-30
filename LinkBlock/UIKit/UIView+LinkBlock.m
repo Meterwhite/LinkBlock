@@ -525,6 +525,42 @@
     };
 }
 
+- (UIView *(^)(NSTimeInterval))viewHiddenYESUsingAnimate
+{
+    return ^id(NSTimeInterval during){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewHiddenYESUsingAnimate,during)
+        
+        CGFloat alpha = _self.alpha;
+        [UIView animateWithDuration:during animations:^{
+            
+            _self.alpha = 0;
+        } completion:^(BOOL finished) {
+            
+            _self.hidden = YES;
+            _self.alpha = alpha;
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(NSTimeInterval))viewHiddenNOUsingAnimate
+{
+    return ^id(NSTimeInterval during){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewHiddenNOUsingAnimate,during)
+        
+        CGFloat alpha = _self.alpha;
+        _self.hidden = NO;
+        _self.alpha = 0.0;
+        [UIView animateWithDuration:during animations:^{
+            
+            _self.alpha = alpha;
+        }];
+        return _self;
+    };
+}
+
 - (UIView *(^)(UIViewContentMode))viewContentMode
 {
     return ^id(UIViewContentMode contentMode){
@@ -1419,14 +1455,296 @@
         LinkGroupHandle_REF(viewRemoveConstraints)
         [_self removeConstraints:_self.constraints];
         if(_self.superview){
-            [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
-                if([constraint.firstItem isEqual:_self])
+            [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+                if([constraint.firstItem isEqual:_self]){
                     [_self.superview removeConstraint:constraint];
+                }
             }];
         }
         return _self;
     };
 }
+
+- (UIView *(^)(CGFloat))viewConstraintWidth
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintWidth,value)
+        
+        [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeWidth && !constraint.secondItem){
+                constraint.constant = value;
+                *stop = YES;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintHeight
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintHeight,value)
+        
+        [_self.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeHeight && !constraint.secondItem){
+                constraint.constant = value;
+                *stop = YES;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintTop
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintHeight,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeTop){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeTop){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintBottom
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintBottom,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeBottom){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeBottom){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintLeft
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintLeft,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeLeft){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeLeft){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintRight
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintRight,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeRight){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeRight){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintLeading
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintLeading,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeLeading){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeLeading){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintTrailing
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintTrailing,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeTrailing){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeTrailing){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintCenterX
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintCenterX,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeCenterX){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeCenterX){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintCenterY
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintCenterY,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeCenterY){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeCenterY){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintLastBaseline
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintLastBaseline,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeLastBaseline){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeLastBaseline){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (UIView *(^)(CGFloat))viewConstraintBaseline
+{
+    return self.viewConstraintLastBaseline;
+}
+
+- (UIView *(^)(CGFloat))viewConstraintFirstBaseline
+{
+    return ^id(CGFloat value){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintFirstBaseline,value)
+        
+        [_self.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull constraint, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeFirstBaseline){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeFirstBaseline){
+                
+                constraint.constant = value;
+                *stop = YES;
+                return;
+            }
+        }];
+        return _self;
+    };
+}
+
+
 
 - (BOOL (^)(void))viewIsUsingAutolayout
 {

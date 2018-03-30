@@ -22,4 +22,10 @@ LBDeclare UIViewController*    (^vcNavigationControllerPushVC)(UIViewController*
 LBDeclare UIViewController*    (^vcNavigationControllerPopTo)(UIViewController* vc);
 /** <^()> */
 LBDeclare UIViewController*    (^vcNavigationControllerPop)(void);
+/** <^(BOOL b)> */
+LBDeclare UIViewController*    (^vcHidesBottomBarWhenPushed)(BOOL b);
+/** <^()> */
+LBDeclare UIViewController*    (^vcHidesBottomBarWhenPushedYES)(void);
+/** <^(UIView* view)> */
+LBDeclare UIViewController*    (^vcViewAddSubview)(UIView* view);
 @end

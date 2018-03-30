@@ -10,6 +10,10 @@
 @interface NSObject(UIControlLinkBlock)
 /** <^(BOOL enable)> */
 LBDeclare UIControl*  (^controlEnable)(BOOL enable);
+/** <^()> */
+LBDeclare UIControl*  (^controlEnableYES)();
+/** <^()> */
+LBDeclare UIControl*  (^controlEnableNO)();
 /** <^(BOOL enable)> */
 LBDeclare UIControl*  (^controlSelected)(BOOL enable);
 /** <^(BOOL enable)> */

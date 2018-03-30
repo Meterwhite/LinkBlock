@@ -25,7 +25,7 @@ LBDeclare NSNumber*    (^strIsEqualStr_n)(NSString* str);
 /** <^()> */
 LBDeclare NSMutableString* (^strMutableCopy)(void);
 /** <^(NSString* str)> */
-LBDeclare NSString*    (^strAppend)(NSString* str);
+LBDeclare NSString*    (^strAppend)(id obj);
 /** <^(id obj)> */
 LBDeclare NSString*    (^strAppendObj)(id obj);
 /** <^(NSString* str)> */
@@ -287,7 +287,9 @@ LBDeclare NSArray*             (^strPredicateFilteredArray)(NSArray* arr);
 /** <^(id obj)>谓词 过滤可变集合 NSMutableArray,NSMutableSet,NSMutableOrderedSet；返回谓词语句 */
 LBDeclare NSString*            (^strPredicateFilterMutable)(id collection);
 #pragma mark - URL字符串操作
-//** <^()>获取URL上键值对前的部分，可用于获取BaseURL，获取参数前的URL（即?前部分），但不对内容做验证 */
+/** <^(NSString* key)>字符串进行URL编码 */
+LBDeclare NSString*            (^strByAddingPercentEncodingWithURLQueryAllowedCharacterSet)(void);
+/** <^()>获取URL上键值对前的部分，可用于获取BaseURL，获取参数前的URL（即?前部分），但不对内容做验证 */
 LBDeclare NSString*            (^strURLBeforeKeyValues)(void);
 /** <^(NSString* key)>URL取值 */
 LBDeclare NSString*            (^strURLValueForKey)(NSString* key);

@@ -148,6 +148,10 @@ LBDeclare UIView*      (^viewHidden)(BOOL hidden);
 LBDeclare UIView*      (^viewHiddenYES)(void);
 /** <^()> */
 LBDeclare UIView*      (^viewHiddenNO)(void);
+/** <^(NSTimeInterval during)> */
+LBDeclare UIView*      (^viewHiddenYESUsingAnimate)(NSTimeInterval during);
+/** <^(NSTimeInterval during)> */
+LBDeclare UIView*      (^viewHiddenNOUsingAnimate)(NSTimeInterval during);
 /** <^(UIViewContentMode contentMode)> */
 LBDeclare UIView*      (^viewContentMode)(UIViewContentMode contentMode);
 /** <^(NSUInteger index)>越界时返回NSNull */
@@ -257,9 +261,36 @@ LBDeclare UIView*      (^viewLeftTo)(UIView* toView, CGFloat margin);
 LBDeclare UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin);
 /** <^(UIView* toView, CGFloat margin)> */
 LBDeclare UIView*      (^viewRightTo)(UIView* toView, CGFloat margin);
-#pragma mark - Autolayout
-/** <^()>移除所有约束以及父视图中相关约束 */
+#pragma mark - Autolayout 自动布局
+/** <^(CGFloat value)>设置autolayout的Width */
+LBDeclare UIView*      (^viewConstraintWidth)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Height */
+LBDeclare UIView*      (^viewConstraintHeight)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Top */
+LBDeclare UIView*      (^viewConstraintTop)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Bottom */
+LBDeclare UIView*      (^viewConstraintBottom)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Left */
+LBDeclare UIView*      (^viewConstraintLeft)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Right */
+LBDeclare UIView*      (^viewConstraintRight)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Top */
+LBDeclare UIView*      (^viewConstraintLeading)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Trailing*/
+LBDeclare UIView*      (^viewConstraintTrailing)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的CenterX */
+LBDeclare UIView*      (^viewConstraintCenterX)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的CenterY */
+LBDeclare UIView*      (^viewConstraintCenterY)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Baseline */
+LBDeclare UIView*      (^viewConstraintBaseline)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的LastBaseline */
+LBDeclare UIView*      (^viewConstraintLastBaseline)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的FirstBaseline */
+LBDeclare UIView*      (^viewConstraintFirstBaseline)(CGFloat value);
+/** <^()>移除当前视图拥有的约束以以及在父视图中当前视图主相关约束 */
 LBDeclare UIView*      (^viewRemoveConstraints)(void);
+
 /** <^()>是否使用Autolayout */
 LBDeclare BOOL         (^viewIsUsingAutolayout)(void);
 #pragma mark - Autoresizing

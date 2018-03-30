@@ -42,18 +42,25 @@
     };
 }
 
-- (NSString *(^)(NSString *))strAppend
+- (NSString *(^)(id ))strAppend
 {
-    return ^id(NSString *str){
+    return ^id(id obj){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strAppend,str)
-        if([str isEqual:nil]) return _self;
+        LinkGroupHandle_REF(strAppend,obj)
+        if([obj isEqual:nil]) return _self;
+        
+        if(![obj isKindOfClass:[NSString class]]){
+            obj = [obj description];
+        }
         
         if([_self isKindOfClass:[NSString class]]&&
            [_self isMemberOfClass:NSClassFromString(@"__NSCFString")]){
-            return [_self stringByAppendingString:str];
+            
+            [((NSMutableString*)_self) appendString:obj];
+            return _self;
         }else{
-            return [_self stringByAppendingString:[str description]];
+            
+            return [_self stringByAppendingString:obj];
         }
     };
 }
@@ -1975,6 +1982,15 @@ NSString* decimalToHexString(u_char nValue)
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strURLDecodeUTF8)
         return _self.strURLDecode(NSUTF8StringEncoding);
+    };
+}
+
+- (NSString *(^)(void))strByAddingPercentEncodingWithURLQueryAllowedCharacterSet
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strByAddingPercentEncodingWithURLQueryAllowedCharacterSet)
+        return [_self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     };
 }
 

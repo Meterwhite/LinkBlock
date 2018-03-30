@@ -59,4 +59,34 @@
         return _self;
     };
 }
+
+- (UIViewController *(^)(BOOL))vcHidesBottomBarWhenPushed
+{
+    return ^id(BOOL b){
+        LinkHandle_REF(UIViewController)
+        LinkGroupHandle_REF(vcHidesBottomBarWhenPushed,b)
+        _self.hidesBottomBarWhenPushed = b;
+        return _self;
+    };
+}
+
+- (UIViewController *(^)(void))vcHidesBottomBarWhenPushedYES
+{
+    return ^id(){
+        LinkHandle_REF(UIViewController)
+        LinkGroupHandle_REF(vcHidesBottomBarWhenPushedYES)
+        _self.hidesBottomBarWhenPushed = YES;
+        return _self;
+    };
+}
+
+- (UIViewController *(^)(UIView *))vcViewAddSubview
+{
+    return ^id(UIView *view){
+        LinkHandle_REF(UIViewController)
+        LinkGroupHandle_REF(vcViewAddSubview,view)
+        [_self.view addSubview:view];
+        return _self;
+    };
+}
 @end

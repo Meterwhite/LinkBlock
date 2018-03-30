@@ -19,6 +19,26 @@
     };
 }
 
+- (UIControl *(^)())controlEnableYES
+{
+    return ^id(){
+        LinkHandle_REF(UIControl)
+        LinkGroupHandle_REF(controlEnableYES)
+        _self.enabled=YES;
+        return _self;
+    };
+}
+
+- (UIControl *(^)())controlEnableNO
+{
+    return ^id(){
+        LinkHandle_REF(UIControl)
+        LinkGroupHandle_REF(controlEnableNO)
+        _self.enabled=NO;
+        return _self;
+    };
+}
+
 - (UIControl *(^)(BOOL))controlSelected
 {
     return ^id(BOOL selected){
