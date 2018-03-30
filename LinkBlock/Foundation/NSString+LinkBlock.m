@@ -53,15 +53,7 @@
             obj = [obj description];
         }
         
-        if([_self isKindOfClass:[NSString class]]&&
-           [_self isMemberOfClass:NSClassFromString(@"__NSCFString")]){
-            
-            [((NSMutableString*)_self) appendString:obj];
-            return _self;
-        }else{
-            
-            return [_self stringByAppendingString:obj];
-        }
+        return [_self stringByAppendingString:obj];
     };
 }
 
