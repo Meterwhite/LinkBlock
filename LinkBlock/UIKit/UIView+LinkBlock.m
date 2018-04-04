@@ -1475,7 +1475,6 @@
             
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeWidth && !constraint.secondItem){
                 constraint.constant = value;
-                *stop = YES;
             }
         }];
         return _self;
@@ -1492,7 +1491,6 @@
             
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeHeight && !constraint.secondItem){
                 constraint.constant = value;
-                *stop = YES;
             }
         }];
         return _self;
@@ -1510,13 +1508,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeTop){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeTop){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1534,13 +1528,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeBottom){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeBottom){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1558,13 +1548,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeLeft){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeLeft){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1582,13 +1568,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeRight){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeRight){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1606,13 +1588,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeLeading){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeLeading){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1630,13 +1608,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeTrailing){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeTrailing){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1654,13 +1628,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeCenterX){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeCenterX){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1678,13 +1648,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeCenterY){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeCenterY){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1702,13 +1668,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeLastBaseline){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeLastBaseline){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
@@ -1731,13 +1693,9 @@
             if([constraint.firstItem isEqual:_self] && constraint.firstAttribute == NSLayoutAttributeFirstBaseline){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }else if ([constraint.secondItem isEqual:_self] && constraint.secondAttribute == NSLayoutAttributeFirstBaseline){
                 
                 constraint.constant = value;
-                *stop = YES;
-                return;
             }
         }];
         return _self;
