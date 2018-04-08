@@ -262,22 +262,27 @@ LBDeclare UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin);
 /** <^(UIView* toView, CGFloat margin)> */
 LBDeclare UIView*      (^viewRightTo)(UIView* toView, CGFloat margin);
 #pragma mark - Autolayout 自动布局
-/** <^(CGFloat value)>设置autolayout的Width */
+/** <^(CGFloat value)>设置autolayout的Width；约束不存在是会自动增加； */
 LBDeclare UIView*      (^viewConstraintWidth)(CGFloat value);
-/** <^(CGFloat value)>设置autolayout的Height */
+/** <^(CGFloat value)>设置autolayout的Height；约束不存在是会自动增加； */
 LBDeclare UIView*      (^viewConstraintHeight)(CGFloat value);
 /** <^(CGFloat value)>设置autolayout的Top */
 LBDeclare UIView*      (^viewConstraintTop)(CGFloat value);
 /** <^(CGFloat value)>设置autolayout的Bottom */
 LBDeclare UIView*      (^viewConstraintBottom)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Leading */
+LBDeclare UIView*      (^viewConstraintLeading)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Trailing*/
+LBDeclare UIView*      (^viewConstraintTrailing)(CGFloat value);
 /** <^(CGFloat value)>设置autolayout的Left */
 LBDeclare UIView*      (^viewConstraintLeft)(CGFloat value);
 /** <^(CGFloat value)>设置autolayout的Right */
 LBDeclare UIView*      (^viewConstraintRight)(CGFloat value);
-/** <^(CGFloat value)>设置autolayout的Top */
-LBDeclare UIView*      (^viewConstraintLeading)(CGFloat value);
-/** <^(CGFloat value)>设置autolayout的Trailing*/
-LBDeclare UIView*      (^viewConstraintTrailing)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Leading或Left */
+LBDeclare UIView*      (^viewConstraintLeftOrLeading)(CGFloat value);
+/** <^(CGFloat value)>设置autolayout的Trailing或Right */
+LBDeclare UIView*      (^viewConstraintRightOrTrailing)(CGFloat value);
+
 /** <^(CGFloat value)>设置autolayout的CenterX */
 LBDeclare UIView*      (^viewConstraintCenterX)(CGFloat value);
 /** <^(CGFloat value)>设置autolayout的CenterY */
