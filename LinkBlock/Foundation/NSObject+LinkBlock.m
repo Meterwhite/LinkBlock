@@ -9,6 +9,7 @@
 #import <CoreData/CoreData.h>
 #import "LinkBlock.h"
 #import "DynamicLink.h"
+#import "LinkBlockInvocation.h"
 
 @implementation NSObject(LinkBlock)
 
@@ -1778,6 +1779,47 @@
         }
         
         return reDict.copy;
+    };
+}
+
+- (BOOL (^)(void))objIsKindOfNSBlock
+{
+    return ^BOOL(){
+        LinkHandle_VAL_IFNOT(NSObject){
+            return NO;
+        }
+        LinkGroupHandle_VAL(objIsKindOfNSBlock)
+        return [_self isKindOfClass:NSClassFromString(@"NSBlock")];
+    };
+}
+
+- (NSUInteger (^)(void))blockArgsCount
+{
+    return ^NSUInteger(){
+        
+        if(![self isKindOfClass:NSClassFromString(@"NSBlock")])
+            return 0;
+        
+        LinkGroupHandle_VAL(blockArgsCount)
+        
+        LinkBlockInvocation* invocation = [LinkBlockInvocation invocationWithBlock:self];
+        NSUInteger all = invocation.methodSignature.numberOfArguments;
+        if(all < 2) return 0;
+        return all - 1;
+    };
+}
+
+- (const char *(^)(void))blockReturnType
+{
+    return ^const char *(){
+        
+        if(![self isKindOfClass:NSClassFromString(@"NSBlock")])
+            return nil;
+        
+        LinkGroupHandle_VAL(blockReturnType)
+        
+        LinkBlockInvocation* invocation = [LinkBlockInvocation invocationWithBlock:self];
+        return invocation.methodSignature.methodReturnType;
     };
 }
 

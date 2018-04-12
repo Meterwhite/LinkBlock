@@ -382,6 +382,14 @@ LBDeclare NSDictionary*(^objToNSDictionaryNoDeep)(BOOL includeFoundation);
 LBDeclare NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
 
 
+#pragma mark - of block
+/** <^()>是否是block对象 */
+LBDeclare BOOL          (^objIsKindOfNSBlock)(void);
+/** <^()>block的参数个数 */
+LBDeclare NSUInteger    (^blockArgsCount)(void);
+/** <^()>block的返回类型 */
+LBDeclare const char *  (^blockReturnType)(void);
+
 //MARK: 明确对象类型
 -                  (NSString*)                  asNSString;
 -                  (NSMutableString*)           asNSMutableString;
