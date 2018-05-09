@@ -115,6 +115,8 @@ aNumber.description
 ```objc
 //1【写法一】
 linkObjs(viewA, viewB).viewAddToView(self.view);
+//同时移除数组和视图的子项
+linkObjs(view.subviews, self.imageViewArray).objRemoveAll();
 
 //2【写法二】
 linkResults = @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"E").linkEnds;
