@@ -418,10 +418,22 @@ static const char _lb_key_btnExtensionOfHighlighted;
         //监听高亮
         void* _self = (__bridge void *)(self);
         [self addObserver:self forKeyPath:@"highlighted" options:0 context:_self];
-        //交换方法
-        Method originalMethod = class_getInstanceMethod([self class], @selector(observeValueForKeyPath:ofObject:change:context:));
-        Method toMethod = class_getInstanceMethod([self class], @selector(lb_observeValueForKeyPath:ofObject:change:context:));
-        method_exchangeImplementations(originalMethod, toMethod);
+        
+        {
+            //交换方法
+            Method originalMethod = class_getInstanceMethod([self class], @selector(observeValueForKeyPath:ofObject:change:context:));
+            if(!originalMethod) return self;
+            
+            Method toMethod = class_getInstanceMethod([self class], @selector(lb_observeValueForKeyPath:ofObject:change:context:));
+            
+            BOOL didAddMethod =
+            class_addMethod([self class],
+                            @selector(observeValueForKeyPath:ofObject:change:context:),
+                            method_getImplementation(toMethod),
+                            method_getTypeEncoding(toMethod));
+            if(!didAddMethod)
+                method_exchangeImplementations(originalMethod, toMethod);
+        }
         
         //注册对象
         NSMutableArray* toControls = [NSMutableArray new];

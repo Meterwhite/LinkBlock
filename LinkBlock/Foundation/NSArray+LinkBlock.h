@@ -62,6 +62,8 @@ LBDeclare NSObject*                (^arrLast)(void);
 LBDeclare NSObject*                (^arrFirst)(void);
 /**<^(NSString* predicateFormat,...)>组数过滤，如age>20 */
 LBDeclare NSMutableArray*          (^arrFilter)(NSString* predicateFormat , ...);
+/**<^(id obj)>数组中某对象的个数 */
+LBDeclare NSUInteger               (^arrCountOfObj)(id obj);
 /**<^(id value)>获取数组中某个值的所有索引 */
 LBDeclare NSIndexSet*              (^arrIndexSetOfValue)(id value);
 /**<^(id<NSCopying> replaceKey,id<NSCopying> withKey)>替换数组中字典的key，深度遍历的 */

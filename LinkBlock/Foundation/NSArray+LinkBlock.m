@@ -319,6 +319,27 @@ return self.funcName;
     };
 }
 
+- (NSUInteger (^)(id))arrCountOfObj
+{
+    return ^NSUInteger(id obj){
+        
+        LinkHandle_VAL_IFNOT(NSArray){
+            return 0;
+        }
+        LinkGroupHandle_VAL(arrCountOfObj,obj)
+        
+        __block NSUInteger count = 0;
+        [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull aObj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if(aObj.objIsEqual(obj)){
+                count++;
+            }
+        }];
+        
+        return count;
+    };
+}
+
 - (NSIndexSet *(^)(id))arrIndexSetOfValue
 {
     return ^id(id value){
