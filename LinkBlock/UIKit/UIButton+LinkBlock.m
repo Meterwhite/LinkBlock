@@ -418,9 +418,9 @@ static const char _lb_key_btnExtensionOfHighlighted;
         //监听高亮
         void* _self = (__bridge void *)(self);
         [self addObserver:self forKeyPath:@"highlighted" options:0 context:_self];
-        
+        //交换方法 observeValueForKeyPath:ofObject:change:context:
         {
-            //交换方法
+            
             Method originalMethod = class_getInstanceMethod([self class], @selector(observeValueForKeyPath:ofObject:change:context:));
             if(!originalMethod) return self;
             
@@ -431,8 +431,23 @@ static const char _lb_key_btnExtensionOfHighlighted;
                             @selector(observeValueForKeyPath:ofObject:change:context:),
                             method_getImplementation(toMethod),
                             method_getTypeEncoding(toMethod));
-            if(!didAddMethod)
+            
+            if(!didAddMethod){
+                
                 method_exchangeImplementations(originalMethod, toMethod);
+                
+                //交换dealoc
+                originalMethod = class_getInstanceMethod([self class], NSSelectorFromString(@"dealloc"));
+                toMethod = class_getInstanceMethod([self class], @selector(lb_dealloc));
+                didAddMethod =
+                class_addMethod([self class],
+                                NSSelectorFromString(@"dealloc"),
+                                method_getImplementation(toMethod),
+                                method_getTypeEncoding(toMethod));
+                if(!didAddMethod){
+                    method_exchangeImplementations(originalMethod, toMethod);
+                }
+            }
         }
         
         //注册对象
@@ -462,7 +477,7 @@ static const char _lb_key_btnExtensionOfHighlighted;
 - (void)lb_observeValueForKeyPath:(NSString *)keyPath ofObject:(UIButton*)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     id _self = (__bridge id)(context);
-
+    
     
     if(self == object                           &&
        [self class] == [_self class]            &&
@@ -471,9 +486,18 @@ static const char _lb_key_btnExtensionOfHighlighted;
         NSMutableArray* toControls = objc_getAssociatedObject(self, &_lb_key_btnExtensionOfHighlighted);
         [toControls setValue:@(self.highlighted) forKeyPath:@"highlighted"];
     }else{
-
+        
         [self lb_observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (void)lb_dealloc
+{
+    if(objc_getAssociatedObject(self, &_lb_key_btnExtensionOfHighlighted)){
+        
+        [self removeObserver:self forKeyPath:@"highlighted"];
+    }
+    [self lb_dealloc];
 }
 
 
