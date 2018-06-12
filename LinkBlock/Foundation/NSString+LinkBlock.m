@@ -47,11 +47,12 @@
     return ^id(id obj){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strAppend,obj)
-        if([obj isEqual:nil]) return _self;
         
         if(![obj isKindOfClass:[NSString class]]){
             obj = [obj description];
         }
+        
+        if(!obj) return _self;
         
         return [_self stringByAppendingString:obj];
     };
