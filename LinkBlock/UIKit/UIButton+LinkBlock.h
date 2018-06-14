@@ -107,7 +107,5 @@ LBDeclare CGFloat   (^btnTitleFontSystemSizeGet)(void);
 LBDeclare UIButton* (^btnExtensionOfTouchSide)(UIEdgeInsets insets);
 /** <^()>扩展出没识别区域；rects内是参考自身坐标系的相对位置 */
 LBDeclare UIButton* (^btnExtensionOfTouchRects)(NSArray<NSString*>* rects);
-/** <^(NSArray<UIView*>* toControls)>扩展高亮事件传递到其它控件；支持包括UIButton UIControl UILabel UIImageView UITableViewCell UICollectionViewCell */
-LBDeclare UIButton* (^btnExtensionOfHighlighted)(NSArray<UIView*>* toControls);
 @end
 
