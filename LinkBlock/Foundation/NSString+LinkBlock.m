@@ -1590,6 +1590,33 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
+- (NSNumber *(^)(void))strToNSNumber
+{
+    return ^id(){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strToNSNumber)
+        NSScanner* scanner = [[NSScanner alloc] initWithString:_self];
+        if([scanner scanInteger:nil] && scanner.isAtEnd){
+            NSInteger n;
+            [scanner scanInteger:&n];
+            return [NSNumber numberWithInteger:n];
+        }
+        scanner.scanLocation = 0;
+        if([scanner scanDouble:nil] && scanner.isAtEnd){
+            double n;
+            [scanner scanDouble:&n];
+            return [NSNumber numberWithDouble:n];
+        }
+        scanner.scanLocation = 0;
+        if([scanner scanHexInt:nil] && scanner.isAtEnd){
+            unsigned int n;
+            [scanner scanHexInt:&n];
+            return [NSNumber numberWithUnsignedInt:n];
+        }
+        return @0;
+    };
+}
+
 - (UIImageView *(^)(void))strToUIImageView
 {
     return ^id(){

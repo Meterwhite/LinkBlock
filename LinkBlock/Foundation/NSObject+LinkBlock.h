@@ -346,6 +346,8 @@ LBDeclare NSObject*    (^objValuesClean)(void);
 #pragma mark - About NSString
 /** <^()>NSDate,NSString,NSArray,NSDictionary等对象转成json的字符串 */
 LBDeclare NSString*    (^objToJsonString)(void);
+/** <^()> */
+LBDeclare NSNumber*    (^objToNSNumber)(void);
 
 #pragma mark - About NSMutableArray
 /** <^(NSMutableArray* arr)>将对象添加到 */

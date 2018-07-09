@@ -211,6 +211,8 @@ LBDeclare NSMutableAttributedString*  (^strToNSMutableAttributedString)(NSDictio
 LBDeclare NSIndexPath*         (^strToNSIndexPathFromJsonArray)(NSStringEncoding encoding);
 /** <^()>根据文件名创建UIImage，不存在图片时返回NSNull */
 LBDeclare UIImage*             (^strToUIImage)(void);
+/** <^()>可以解析NSInteger,double,十六进制整数(unsigned int) */
+LBDeclare NSNumber*            (^strToNSNumber)(void);
 /** <^()>根据文件名创建UIImageView，控件尺寸与图片原尺寸相同 */
 LBDeclare UIImageView*         (^strToUIImageView)(void);
 /** <^()>十六进制字符串转double */

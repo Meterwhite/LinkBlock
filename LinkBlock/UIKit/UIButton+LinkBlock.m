@@ -390,7 +390,7 @@
 @implementation UIButton(UIButtonLinkBlock)
 static const char _lb_key_btnExtensionOfTouchSide;
 static const char _lb_key_btnExtensionOfTouchRects;
-static const char _lb_key_btnExtensionOfHighlighted;
+//static const char _lb_key_btnExtensionOfHighlighted;
 - (UIButton *(^)(UIEdgeInsets))btnExtensionOfTouchSide
 {
     return ^UIButton*(UIEdgeInsets insets){

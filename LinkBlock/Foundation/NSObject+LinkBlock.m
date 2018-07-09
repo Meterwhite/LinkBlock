@@ -1529,6 +1529,23 @@
     };
 }
 
+- (NSNumber *(^)(void))objToNSNumber
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objToNSNumber)
+        
+        if([_self isKindOfClass:[NSNumber class]]){
+            return _self;
+        }else if ([_self isKindOfClass:[NSString class]]){
+            return _self.strToNSNumber();
+        }else if ([_self isKindOfClass:[JSValue class]]){
+            return [(JSValue*)_self toNumber];
+        }
+        return @0;
+    };
+}
+
 - (NSObject *(^)(NSMutableDictionary *, id<NSCopying>))objSetToDict
 {
     return ^id(NSMutableDictionary* dict, id<NSCopying> key){
