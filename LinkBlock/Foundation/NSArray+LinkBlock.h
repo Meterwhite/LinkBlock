@@ -10,7 +10,7 @@
 #define NSArrayNew ([NSArray new])
 #endif
 @interface NSObject(NSArraryLinkBlock)
-#pragma mark - 多链条
+#pragma mark - 创建多对象的链条
 /**
  使数组内对象执行多个链式编程，使用ends()可获取结果集合，
  如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end

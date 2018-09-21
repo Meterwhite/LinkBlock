@@ -22,9 +22,6 @@ LBDeclare_F NSObject*    linkIf_YES;
  */
 LBDeclare_F NSObject*    linkIf_NO;
 
-
-/** <^()> */
-LBDeclare void*        (^numValue)(void);
 /** <^()>是否是整数类型 */
 LBDeclare BOOL         (^numIsIntegerType)(void);
 /** <^()>是否是浮点数类型 */
@@ -76,16 +73,27 @@ LBDeclare NSNumber*    (^numIsLessThanNum_n)(NSNumber* num);
 /** <^(num)>小等于@宏定义覆盖后可传入数字直接量 */
 LBDeclare BOOL         (^numIsLessEqualNum)(NSNumber* num);
 LBDeclare NSNumber*    (^numIsLessEqualNum_n)(NSNumber* num);
-/** <^()> */
-LBDeclare BOOL         (^numIsYES)(void);
-/** <^()> */
-LBDeclare BOOL         (^numIsNO)(void);
+
 /** <^()>判断奇数 */
 LBDeclare BOOL         (^numIsOdd)(void);
 LBDeclare NSNumber*    (^numIsOdd_n)(void);
 /** <^()>判断偶数 */
 LBDeclare BOOL         (^numIsEven)(void);
 LBDeclare NSNumber*    (^numIsEven_n)(void);
+
+/** <^()>判断负数 */
+LBDeclare BOOL         (^numIsNegative)(void);
+LBDeclare NSNumber*    (^numIsNegative_n)(void);
+
+/** <^()>判断0 */
+LBDeclare BOOL         (^numIsZero)(void);
+LBDeclare NSNumber*    (^numIsZero_n)(void);
+
+/** <^()>判断NaN(notANumber) */
+LBDeclare BOOL         (^numIsNaN)(void);
+
+/** <^()>取相反数 (YES,NO),(123,) */
+LBDeclare NSNumber*    (^numReverse)(void);
 
 /** <^(NSUInteger digit小数位数)>小数转字符串：digit：小数位数；digit=6 => 0.618000；digit=0时转为整数 */
 LBDeclare NSString*           (^numToStrFloating)(NSUInteger digit);

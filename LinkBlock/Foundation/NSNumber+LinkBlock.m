@@ -101,19 +101,6 @@
     return [[LinkReturn alloc] initWithReturnValue:self returnType:LinkReturnCondition];
 }
 
-- (void *(^)(void))numValue
-{
-    return ^void*(){
-        LinkHandle_VAL_IFNOT(NSNumber){
-            return nil;
-        }
-        LinkGroupHandle_VAL(numValue)
-        void* reVal;
-        [_self getValue:&reVal];
-        return reVal;
-    };
-}
-
 - (BOOL (^)(void))numIsIntegerType
 {
     return ^(){
@@ -516,28 +503,6 @@
     };
 }
 
-- (BOOL (^)(void))numIsYES
-{
-    return ^BOOL(){
-        LinkHandle_VAL_IFNOT(NSNumber){
-            return NO;
-        }
-        LinkGroupHandle_VAL(numIsYES)
-        return [_self boolValue] == YES;
-    };
-}
-
-- (BOOL (^)(void))numIsNO
-{
-    return ^BOOL(){
-        LinkHandle_VAL_IFNOT(NSNumber){
-            return NO;
-        }
-        LinkGroupHandle_VAL(numIsNO)
-        return [_self boolValue] == NO;
-    };
-}
-
 - (NSDate *(^)(void))numToNSDateSince1970
 {
     return ^id(){
@@ -595,6 +560,96 @@
             return @YES;
         }
         return @NO;
+    };
+}
+
+- (NSNumber* (^)(void))numIsNegative_n
+{
+    return ^id(){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsNegative_n)
+                            
+        if([_self.stringValue characterAtIndex:0] == '-')
+            return @YES;
+        return @NO;
+    };
+}
+
+- (BOOL (^)(void))numIsNegative
+{
+    return ^BOOL(){
+        LinkHandle_VAL_IFNOT(NSNumber){
+            return NO;
+        }
+        LinkGroupHandle_VAL(numIsNegative_n)
+        if([_self.stringValue characterAtIndex:0] == '-')
+            return YES;
+        return NO;
+    };
+}
+
+- (NSNumber *(^)(void))numReverse
+{
+    return ^id(){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numReverse)
+        //NaN
+        if([[NSDecimalNumber notANumber] isEqualToNumber:_self])
+            return _self;
+        //0
+        if([[NSDecimalNumber zero] isEqualToNumber:_self])
+            return _self;
+        
+        // @YES <=> @NO
+        if(_self.class == NSClassFromString(@"__NSCFBoolean") ||
+           [_self isKindOfClass: NSClassFromString(@"__NSCFBoolean")]){
+            return [NSNumber numberWithBool:!_self.boolValue];
+        }
+
+        
+        NSString* strValue = _self.stringValue;
+        if([strValue characterAtIndex:0] == '-'){
+            
+            return [NSDecimalNumber decimalNumberWithString:[strValue substringFromIndex:1]];
+        }
+        
+        return [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"-%@",strValue]];
+    };
+}
+
+- (BOOL (^)(void))numIsZero
+{
+    return ^BOOL(){
+        
+        LinkHandle_VAL_IFNOT(NSNumber){
+            return NO;
+        }
+        LinkGroupHandle_VAL(numIsZero)
+        
+        return [[NSDecimalNumber zero] isEqualToNumber:_self];
+    };
+}
+- (NSNumber *(^)(void))numIsZero_n
+{
+    return ^NSNumber*(){
+        
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numIsZero_n)
+        
+        return @([[NSDecimalNumber zero] isEqualToNumber:_self]);
+    };
+}
+
+- (BOOL (^)(void))numIsNaN
+{
+    return ^BOOL(){
+        
+        LinkHandle_VAL_IFNOT(NSNumber){
+            return NO;
+        }
+        LinkGroupHandle_VAL(numIsNaN)
+        
+        return [[NSDecimalNumber notANumber] isEqualToNumber:_self];
     };
 }
 

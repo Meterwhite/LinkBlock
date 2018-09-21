@@ -19,11 +19,11 @@
     };
 }
 
-- (UIView *(^)(CGRect))viewSetFrameOfCGRect
+- (UIView *(^)(CGRect))viewSetFrameVal
 {
     return ^id(CGRect frame){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewSetFrameOfCGRect,frame)
+        LinkGroupHandle_REF(viewSetFrameVal,frame)
         _self.frame = frame;
         return _self;
     };
@@ -39,11 +39,11 @@
     };
 }
 
-- (UIView *(^)(CGRect))viewSetBoundsOfCGRect
+- (UIView *(^)(CGRect))viewSetBoundsVal
 {
     return ^id(CGRect bounds){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewSetBoundsOfCGRect,bounds)
+        LinkGroupHandle_REF(viewSetBoundsVal,bounds)
         _self.bounds= bounds;
         return _self;
     };
@@ -134,11 +134,11 @@
     };
 }
 
-- (UIView *(^)(CGSize))viewSetSizeOfCGSize
+- (UIView *(^)(CGSize))viewSetSizeVal
 {
     return ^id(CGSize size){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewSetSizeOfCGSize,size)
+        LinkGroupHandle_REF(viewSetSizeVal,size)
         CGRect frame= _self.frame;
         frame.size = size;
         _self.frame = frame;
@@ -169,11 +169,11 @@
     };
 }
 
-- (UIView *(^)(CGPoint))viewSetOriginOfCGPoint
+- (UIView *(^)(CGPoint))viewSetOriginVal
 {
     return ^id(CGPoint origin){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewSetOriginOfCGPoint,origin)
+        LinkGroupHandle_REF(viewSetOriginVal,origin)
         CGRect frame= _self.frame;
         frame.origin = origin;
         _self.frame= frame;
@@ -201,6 +201,26 @@
     };
 }
 
+- (UIView *(^)(void))viewBGColorWhite
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewBGColorWhite)
+        _self.backgroundColor=UIColor.whiteColor;
+        return _self;
+    };
+}
+
+- (UIView *(^)(void))viewBGColorClear
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewBGColorClear)
+        _self.backgroundColor=UIColor.clearColor;
+        return _self;
+    };
+}
+
 - (UIView *(^)(CGFloat x,CGFloat y))viewSetCenter
 {
     return ^id(CGFloat x,CGFloat y){
@@ -211,11 +231,11 @@
     };
 }
 
-- (UIView *(^)(CGPoint))viewSetCenterOfCGPoint
+- (UIView *(^)(CGPoint))viewSetCenterVal
 {
     return ^id(CGPoint center){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewSetCenterOfCGPoint,center)
+        LinkGroupHandle_REF(viewSetCenterVal,center)
         _self.center = center;
         return _self;
     };
@@ -285,6 +305,16 @@
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewClipsToBoundsYES)
         _self.clipsToBounds= YES;
+        return _self;
+    };
+}
+
+- (UIView *(^)(void))viewClipsToBoundsNO
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewClipsToBoundsNO)
+        _self.clipsToBounds= NO;
         return _self;
     };
 }
@@ -377,12 +407,12 @@
     };
 }
 
-- (UIView *(^)(UIView *, BOOL))viewConvertSuperverTo
+- (UIView *(^)(UIView *, BOOL))viewConvertSuperviewTo
 {
     return ^id(UIView* aView, BOOL isKeep){
         
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewConvertSuperverTo,aView,isKeep)
+        LinkGroupHandle_REF(viewConvertSuperviewTo,aView,isKeep)
         if(isKeep){
             
             CGRect toAViewRect = [_self.superview convertRect:_self.frame toView:aView];
@@ -405,13 +435,13 @@
             return NO;
         }
         LinkGroupHandle_VAL(viewIsSubviewTo,theView)
-        __block BOOL reIsBool= NO;
+        __block BOOL re= NO;
         if([_self.superview isEqual:theView]){
-            reIsBool = YES;
+            re = YES;
         }else{
-            reIsBool = _self.superview.viewIsSubviewTo(theView);
+            re = _self.superview.viewIsSubviewTo(theView);
         }
-        return reIsBool;
+        return re;
     };
 }
 
@@ -571,32 +601,59 @@
     };
 }
 
+#ifndef defineViewContentModeTail
+#define defineViewContentModeTail(suffix)\
+- (UIView *(^)(void))viewContentMode##suffix\
+{\
+    return ^id(){\
+        LinkHandle_REF(UIView)\
+        LinkGroupHandle_REF(viewContentMode##suffix)\
+        _self.contentMode = UIViewContentMode##suffix;\
+        return _self;\
+    };\
+}
+#endif
+
+defineViewContentModeTail(ScaleToFill)
+defineViewContentModeTail(ScaleAspectFit)
+defineViewContentModeTail(ScaleAspectFill)
+defineViewContentModeTail(Redraw)
+defineViewContentModeTail(Center)
+defineViewContentModeTail(Top)
+defineViewContentModeTail(Bottom)
+defineViewContentModeTail(Left)
+defineViewContentModeTail(Right)
+defineViewContentModeTail(TopLeft)
+defineViewContentModeTail(TopRight)
+defineViewContentModeTail(BottomLeft)
+defineViewContentModeTail(BottomRight)
+
 - (UIView *(^)(NSUInteger))viewSubviewAt
 {
     return ^id(NSUInteger index){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSubviewAt,index)
         if(index< _self.subviews.count) return _self.subviews[index];
-        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",_self.subviews]] logError];
+        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界:index=%lu array.count=%lu",_self.subviews,(unsigned long)index,(unsigned long)_self.subviews.count]] logError];
     };
 }
 
-- (NSUInteger (^)(void))viewIndexInSuperview
+- (NSInteger (^)(void))viewIndexInSuperview
 {
-    return ^NSUInteger(){
+    return ^NSInteger(){
         LinkHandle_VAL_IFNOT(UIView){
             return 0;
         }
         LinkGroupHandle_VAL(viewIndexInSuperview)
         
         
-        for (NSUInteger i=0; i<_self.superview.subviews.count; i++) {
+        for (NSInteger i=0; i<_self.superview.subviews.count; i++) {
             
             if([_self.superview.subviews[i] isEqual:_self]){
                 return i;
             }
         }
-        return 0;
+        return -1;
     };
 }
 
@@ -718,11 +775,11 @@
     };
 }
 
-- (NSMutableArray *(^)(__unsafe_unretained Class))viewFindSubviews
+- (NSMutableArray *(^)(Class))viewFindSubviewsOfClass
 {
     return ^id(Class clazz){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewFindSubviews,clazz)
+        LinkGroupHandle_REF(viewFindSubviewsOfClass,clazz)
         NSMutableArray* re = [NSMutableArray new];
         [_self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull v, NSUInteger idx, BOOL * _Nonnull stop) {
             if([v isKindOfClass:clazz]) [re addObject:v];
@@ -868,7 +925,7 @@
             return YES;
         }
         LinkGroupHandle_VAL(viewIsZeroSize)
-        if(CGRectEqualToRect(_self.frame, CGRectZero))
+        if(CGRectIsEmpty(_self.frame))
             return NO;
         return YES;
     };
@@ -926,6 +983,24 @@
         }
         LinkGroupHandle_VAL(viewSize)
         return _self.frame.size;
+    };
+}
+
+- (NSValue *(^)(void))viewFrameValue
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewFrameValue)
+        return [NSValue valueWithCGRect:_self.frame];
+    };
+}
+
+- (NSValue *(^)(void))viewBoundsValue
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewBoundsValue)
+        return [NSValue valueWithCGRect:_self.bounds];
     };
 }
 
@@ -1960,7 +2035,7 @@
     UIButton* btn=UIButtonNew.viewBGColor([UIColor lightGrayColor])
     .viewAddToView(self).btnTitleFont([UIFont systemFontOfSize:12]);
     btn.frame=frame;;
-    [btn addTarget:btn action:@selector(lb_ClickTestBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:btn action:@selector(_lb_ClickTestBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [btn lb_SetBlock_ClickTestBtnBlock:block];
     [btn lb_SetBlock_ClickTestBtnNumFlag:0];
     return btn;
@@ -1983,11 +2058,11 @@
 
 - (void)viewEnumerateSubviewsUsingBlock:(void (^)(UIView *, NSUInteger,NSUInteger, BOOL *))block
 {
-    [self viewEnumerateSubviewsFromDeep:0 usingBlock:block];
+    [self _lb_viewEnumerateSubviewsFromDeep:0 usingBlock:block];
 }
 
 //private
-- (void)viewEnumerateSubviewsFromDeep:(NSUInteger)deep usingBlock:(void (^)(UIView *subview, NSUInteger deep,NSUInteger idx, BOOL *stop))block
+- (void)_lb_viewEnumerateSubviewsFromDeep:(NSUInteger)deep usingBlock:(void (^)(UIView *subview, NSUInteger deep,NSUInteger idx, BOOL *stop))block
 {
     if(self.subviews.count){
         
@@ -1996,13 +2071,13 @@
             
             block(subview,deep,idx,stop);
             if(subview.subviews.count){
-                [subview viewEnumerateSubviewsFromDeep:deep usingBlock:block];
+                [subview _lb_viewEnumerateSubviewsFromDeep:deep usingBlock:block];
             }
         }];
     }
 }
 
-- (void)lb_ClickTestBtnAction
+- (void)_lb_ClickTestBtnAction
 {
     if(![self isKindOfClass:[UIButton class]])
         return;

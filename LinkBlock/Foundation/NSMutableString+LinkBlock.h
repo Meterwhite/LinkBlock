@@ -12,18 +12,12 @@
 #define NSMutableStringNew ([NSMutableString new])
 #endif
 @interface NSObject(NSMutableStringLinkBlock)
-/** <^(NSString* str, NSUInteger idx)> */
 LBDeclare NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
-/** <^(NSString* str)> */
-LBDeclare NSMutableString*     (^m_strAppenStr)(NSString* str);
-/** <^(NSString* replaceStr, NSString* withStr)> */
-LBDeclare NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr);
-/** <^(NSRange range)> */
+LBDeclare NSMutableString*     (^m_strAppend)(id obj);
+LBDeclare NSMutableString*     (^m_strReplace)(NSString* replaceStr, NSString* withStr);
 LBDeclare NSMutableString*     (^m_strDeleteInRange)(NSRange range);
-/** <^()> */
+/** <^()> set to @"" */
 LBDeclare NSMutableString*     (^m_strClear)(void);
-
-
 @end
 
 

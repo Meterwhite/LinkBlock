@@ -26,8 +26,7 @@ LBDeclare NSNumber*    (^strIsEqualStr_n)(NSString* str);
 LBDeclare NSMutableString* (^strMutableCopy)(void);
 /** <^(NSString* str)> */
 LBDeclare NSString*    (^strAppend)(id obj);
-/** <^(id obj)> */
-LBDeclare NSString*    (^strAppendObj)(id obj);
+
 /** <^(NSString* str)> */
 LBDeclare NSString*    (^strAppendTo)(NSString* str);
 /** <^(NSString* formatStr , ...)> */
@@ -89,11 +88,11 @@ LBDeclare CGFloat      (^strHeight)(NSDictionary<NSAttributedStringKey,id>* attr
 /** <^(NSDictionary* attrDict)>计算字符串的行高，不支持包含图片的计算 */
 LBDeclare CGFloat      (^strLineHeight)(NSDictionary<NSAttributedStringKey,id>* attrDict);
 /** <^(CGFloat maxWidth,NSDictionary* attrDict)>视图排版中的文字的行数，不支持包含图片的计算 */
-LBDeclare NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict);
-/** <^()>字符串的行数 */
+LBDeclare NSInteger    (^strUILinesCount)(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict);
+/** <^()>字符串的行数'\n' */
 LBDeclare NSUInteger   (^strLinesCount)(void);
 /** <^(NSInteger toLine截取行数, CGFloat maxWidth,NSDictionary* attrDict)>视图排版中截一定视觉行数的字符串，不支持包含图片的计算；内部使用折半查找效率尚可 */
-LBDeclare NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict);
+LBDeclare NSString*    (^strSubToUILine)(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict);
 /**
  获取特定的文本长度，指定最大宽度下满足:
  如果指定结尾字符，例如：@"全文"（可以做点击功能）、@""（可以去掉末尾省略号刚好显示完整，也可以传空）
@@ -109,7 +108,7 @@ LBDeclare NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWid
  
  @return 返回需要的内容范围
  */
-LBDeclare NSRange (^strSubRangeToMaxLineIfAppendStrAboutView)(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict , BOOL* isFullOfLines);
+LBDeclare NSRange (^strSubRangeToMaxUILineIfAppendStr)(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict , BOOL* isFullOfLines);
 /** <^(NSUInteger toLine截取行数)>截取到一定行数（换行符）的字符串 */
 LBDeclare NSString*    (^strSubToLine)(NSUInteger toLine);
 /** <^()> */
@@ -122,7 +121,7 @@ LBDeclare NSUInteger   (^strLengthUnicode)(void);
 /** <^()>字符串按元字符组成的序列的长度，即汉字，emoji等都作为一个字符 */
 LBDeclare NSUInteger   (^strLengthComposed)(void);
 /** <^(NSString* reg元字符正则)>字符串按元字符组成的序列和自定义正则规则元字符的长度，即每个字符，汉字，emoji，匹配，都视为一个元字符；参数传nil时和strLengthComposed()相同 */
-LBDeclare NSUInteger   (^strLengthComposedAndCustom)(NSString* reg);
+LBDeclare NSUInteger   (^strLengthComposedAndCustom)(NSString* customReg);
 /** <^()>去除所有空白符 */
 LBDeclare NSString*    (^strClearSpaceAndWrap)(void);
 /** <^(NSString* str)>对数字敏感的比较两个字符串：12.3 < 12.4; Foo2.txt < Foo7.txt ; */

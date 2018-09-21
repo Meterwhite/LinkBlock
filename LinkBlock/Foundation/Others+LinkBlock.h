@@ -11,7 +11,7 @@
 
 @interface NSObject(OtherLinkBlock)
 LBDeclare BOOL (^arrIsContainer)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "使用arrContain替代");
+NS_DEPRECATED_IOS(2_0, 2_0, "修正为arrContain");
 
 LBDeclare BOOL (^strIsContain)(NSString* str)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用strContain替代");
@@ -91,11 +91,8 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用objValuesRandom代替");
 LBDeclare NSObject*    (^objSetDelegate)(id delegate)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetValueForKey_delegate代替");
 
-LBDeclare NSObject*    (^objRemove)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "使用objRemoveAll代替");
-
-LBDeclare NSObject*    (^objBoolReverseForKey)(NSString * key)
-NS_DEPRECATED_IOS(2_0, 2_0, "使用objBOOLNegationForKey代替");
+LBDeclare NSObject*    (^objBOOLNegationForKey)(NSString * key)
+NS_DEPRECATED_IOS(2_0, 2_0, "使用objReverseValueForKey代替");
 
 LBDeclare UIImage*         (^imgBlur)(float percent)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用imgBlurXXX代替");
@@ -106,43 +103,75 @@ LBDeclare UILabel*         (^labAlignBottom)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
 
 LBDeclare NSMutableArray*  (^arrInsertBehind)(id obj, id behindObj)
-NS_DEPRECATED_IOS(2_0, 2_0, "重命名方法为arrInsertNext");
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为arrInsertNext");
 
 LBDeclare NSMutableArray*  (^m_arrInsertBehind)(id obj, id behindObj)
-NS_DEPRECATED_IOS(2_0, 2_0, "重命名方法为m_arrInsertNext");
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为m_arrInsertNext");
 
 LBDeclare UIView*      (^viewMasksToBounds)(BOOL b)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用viewClipsToBounds代替");
 
--(NSString*)ofNSString NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSMutableString*)ofNSMutableString NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSArray*)ofNSArray NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSMutableArray*)ofNSMutableArray NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSDictionary*)ofNSDictionary NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSMutableDictionary*)ofNSMutableDictionary NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSAttributedString*)ofNSAttributedString NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSMutableAttributedString*)ofNSMutableAttributedString NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSURL*)ofNSURL NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSUserDefaults*)ofNSUserDefaults NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSNumber*)ofNSNumber NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSValue*)ofNSValue NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSDate*)ofNSDate NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSData*)ofNSData NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSSet*)ofNSSet NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSMutableSet*)ofNSMutableSet NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(NSCalendar*)ofNSCalendar NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIView*)ofUIView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIImage*)ofUIImage NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UILabel*)ofUILabel NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIControl*)ofUIControl NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIButton*)ofUIButton NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIScrollView*)ofUIScrollView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIImageView*)ofUIImageView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UITableView*)ofUITableView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIColor*)ofUIColor NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIViewController*)ofUIViewController NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UITextField*)ofUITextField NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UITextView*)ofUITextView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
--(UIWebView*)ofUIWebView NS_DEPRECATED_IOS(2_0, 2_0, "使用as开头的方法代替");
+LBDeclare NSObject*    (^nslogTitle)(NSString* title)
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+
+LBDeclare NSObject*    (^logInfo)(NSString* info)
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+
+LBDeclare NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为strUILinesCount");
+
+LBDeclare NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为strSubToUILine");
+
+LBDeclare NSRange (^strSubRangeToMaxLineIfAppendStrAboutView )(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict , BOOL* isFullOfLines)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为strSubRangeToMaxUILineIfAppendStr");
+
+LBDeclare void*  (^numValue)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃不安全的方法");
+
+LBDeclare NSValue* (^valueCGSizeSetToViews)(NSArray* views)
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+
+LBDeclare NSValue* (^valueCGPointSetToViews)(NSArray* views)
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+
+LBDeclare UIView*      (^viewSetFrameOfCGRect)(CGRect frame)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为viewSetFrameVal");
+
+LBDeclare UIView*      (^viewSetOriginOfCGPoint)(CGPoint origin)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为viewSetOriginVal");
+
+LBDeclare UIView*      (^viewSetCenterOfCGPoint)(CGPoint center)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为viewSetCenterVal");
+
+LBDeclare UIView*      (^viewSetSizeOfCGSize)(CGSize size)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为viewSetSizeVal");
+
+LBDeclare UIView*      (^viewConvertSuperverTo)(UIView* aView , BOOL isKeep)
+NS_DEPRECATED_IOS(2_0, 2_0, "修正为viewConvertSuperviewTo");
+
+LBDeclare NSMutableArray*      (^viewFindSubviews)(Class clazz)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为viewFindSubviewsOfClass");
+
+LBDeclare NSMutableString*     (^m_strAppenStr)(NSString* str)
+NS_DEPRECATED_IOS(2_0, 2_0, "修正为m_strAppend");
+
+- (BOOL (^)(void))objIsMutableType
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为objIsMutable");
+
+LBDeclare NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为m_strReplace");
+
+LBDeclare NSString*    (^strAppendObj)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为strAppend");
+
+LBDeclare NSObject*    (^objMutableCopyDeep)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为objMutableCopyEnumerable");
+
+LBDeclare NSObject*    (^objValuesRandom)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为objSetValuesRandom");
+
+LBDeclare NSObject*    (^objMustType)(Class clazz)
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
 @end
 

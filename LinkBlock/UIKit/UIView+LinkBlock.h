@@ -11,76 +11,56 @@
 #define UIViewNew ([UIView new])
 #endif
 @interface NSObject(UIViewLinkBlock)
-/** <^()> */
+/** <^()> CGRectIsEmpty */
 LBDeclare BOOL         (^viewIsZeroSize)(void);
-/** <^()> */
+
 LBDeclare CGFloat      (^viewX)(void);
-/** <^()> */
 LBDeclare CGFloat      (^viewY)(void);
-/** <^()> */
 LBDeclare CGFloat      (^viewMaxX)(void);
-/** <^()> */
 LBDeclare CGFloat      (^viewMaxY)(void);
-/** <^()> */
 LBDeclare CGPoint      (^viewOrigin)(void);
-/** <^()> */
 LBDeclare CGFloat      (^viewCenterX)(void);
-/** <^()> */
 LBDeclare CGFloat      (^viewCenterY)(void);
-/** <^()> */
 LBDeclare CGFloat      (^viewWidth)(void);
-/** <^()> */
 LBDeclare CGFloat      (^viewHeight)(void);
-/** <^()> */
 LBDeclare CGSize       (^viewSize)(void);
 
-/** <^(CGFloat x,CGFloat y, CGFloat width,CGFloat height)> */
+LBDeclare NSValue*     (^viewFrameValue)(void);
+LBDeclare NSValue*     (^viewBoundsValue)(void);
+
+
 LBDeclare UIView*      (^viewSetFrame)(CGFloat x,CGFloat y, CGFloat width,CGFloat height);
-/** <^(CGRect frame)> */
-LBDeclare UIView*      (^viewSetFrameOfCGRect)(CGRect frame);
-/** <^(CGFloat x,CGFloat y, CGFloat width,CGFloat height)> */
 LBDeclare UIView*      (^viewSetBounds)(CGFloat x,CGFloat y, CGFloat width,CGFloat height);
-/** <^(CGRect bounds)> */
-LBDeclare UIView*      (^viewSetBoundsOfCGRect)(CGRect bounds);
-/** <^(CGFloat x)> */
 LBDeclare UIView*      (^viewSetX)(CGFloat x);
-/** <^(CGFloat y)> */
 LBDeclare UIView*      (^viewSetY)(CGFloat y);
-/** <^(CGFloat x,CGFloat y)> */
-LBDeclare UIView*      (^viewSetOrigin)(CGFloat x,CGFloat y);
-/** <^(CGPoint point)> */
-LBDeclare UIView*      (^viewSetOriginOfCGPoint)(CGPoint origin);
-/** <^(CGFloat centerX)> */
-LBDeclare UIView*      (^viewSetCenterX)(CGFloat centerX);
-/** <^(CGFloat centerY)> */
-LBDeclare UIView*      (^viewSetCenterY)(CGFloat centerY);
-/** <^(CGFloat x,CGFloat y)> */
-LBDeclare UIView*      (^viewSetCenter)(CGFloat x,CGFloat y);
-/** <^(CGPoint center)> */
-LBDeclare UIView*      (^viewSetCenterOfCGPoint)(CGPoint center);
-/** <^(CGFloat width)> */
 LBDeclare UIView*      (^viewSetWidth)(CGFloat width);
-/** <^(CGFloat height)> */
 LBDeclare UIView*      (^viewSetHeight)(CGFloat height);
+LBDeclare UIView*      (^viewSetCenterX)(CGFloat centerX);
+LBDeclare UIView*      (^viewSetCenterY)(CGFloat centerY);
+LBDeclare UIView*      (^viewSetOrigin)(CGFloat x,CGFloat y);
+LBDeclare UIView*      (^viewSetCenter)(CGFloat x,CGFloat y);
+LBDeclare UIView*      (^viewSetSize)(CGFloat width, CGFloat height);
+LBDeclare UIView*      (^viewSetTag)(NSInteger tag);
 /** <^(CGFloat width)>保持比例设置宽,autolayout（需要宽高约束）优先 */
 LBDeclare UIView*      (^viewSetWidthAspect)(CGFloat width);
 /** <^(CGFloat height)>保持比例设置高,autolayout（需要宽高约束）优先 */
 LBDeclare UIView*      (^viewSetHeightAspect)(CGFloat height);
-/** <^(CGFloat width, CGFloat height)> */
-LBDeclare UIView*      (^viewSetSize)(CGFloat width, CGFloat height);
-/** <^(CGSize size)> */
-LBDeclare UIView*      (^viewSetSizeOfCGSize)(CGSize size);
-/** <^(NSInteger tag)> */
-LBDeclare UIView*      (^viewSetTag)(NSInteger tag);
+
+LBDeclare UIView*      (^viewSetFrameVal)(CGRect frame);
+LBDeclare UIView*      (^viewSetBoundsVal)(CGRect bounds);
+LBDeclare UIView*      (^viewSetOriginVal)(CGPoint origin);
+LBDeclare UIView*      (^viewSetCenterVal)(CGPoint center);
+LBDeclare UIView*      (^viewSetSizeVal)(CGSize size);
 /** <^(UIColor* color)>背景色 */
 LBDeclare UIView*      (^viewBGColor)(UIColor* color);
-/** <^()>随机背景色 */
+LBDeclare UIView*      (^viewBGColorWhite)(void);
+LBDeclare UIView*      (^viewBGColorClear)(void);
 LBDeclare UIView*      (^viewBGColorRandom)(void);
-/** <^(UIColor* color)> */
+/** <^(UIColor* color)> set to layer */
 LBDeclare UIView*      (^viewBorderColor)(UIColor* color);
-/** <^(CGFloat w)> */
+/** <^(CGFloat w)> set to layer */
 LBDeclare UIView*      (^viewBorderWidth)(CGFloat w);
-/** <^(UIColor* color,CGFloat w)> */
+/** <^(UIColor* color,CGFloat w)> set to layer */
 LBDeclare UIView*      (^viewBorderColorAndWidth)(UIColor* color,CGFloat w);
 /** <^(CGFloat radius)>view.layer.cornerRadius */
 LBDeclare UIView*      (^viewCornerRadius)(CGFloat radius);
@@ -90,19 +70,15 @@ LBDeclare UIView*      (^viewCornerRadiusAndClipsToBounds)(CGFloat radius);
 LBDeclare UIView*      (^viewCornerRadiusSide)(UIRectCorner side , CGSize radius);
 /** <^(BOOL b)> */
 LBDeclare UIView*      (^viewClipsToBounds)(BOOL b);
-/** <^()> */
 LBDeclare UIView*      (^viewClipsToBoundsYES)(void);
+LBDeclare UIView*      (^viewClipsToBoundsNO)(void);
 /** <^(BOOL force)> */
 LBDeclare UIView*      (^viewEndEditing)(BOOL force);
-/** <^()> */
 LBDeclare UIView*      (^viewEndEditingYES)(void);
-/** <^()> */
 LBDeclare UIView*      (^viewBecomeFirstResponder)(void);
-/** <^()> */
 LBDeclare UIView*      (^viewResignFirstResponder)(void);
-/** <^()> */
 LBDeclare BOOL         (^viewIsFirstResponder)(void);
-/** <^()>递归此视图，找到第一响应者的的输入类型控件 */
+/** <^()>递归遍历第一响应者的的输入类型控件 */
 LBDeclare UIView*      (^viewFirstResponderSubViewForInput)(void);
 /** <^()>前置视图 */
 LBDeclare UIView*      (^viewBringFrontInView)(void);
@@ -114,7 +90,7 @@ LBDeclare BOOL         (^viewIsSubviewTo)(UIView* theView);
 LBDeclare UIView*      (^viewBeforeIndexView)(void);
 /** <^()>当前视图位于同一层的后一个视图，没有则返回nil */
 LBDeclare UIView*      (^viewNextIndexView)(void);
-/** <^(UIView* aView)>当前视图是否是父级别的视图 */
+/** <^(UIView* aView)>当前视图是否是其父视图 */
 LBDeclare BOOL         (^viewIsSuperviewTo)(UIView* aView);
 /** <^(BOOL b)>控制子控件的并发触控 */
 LBDeclare UIView*      (^viewSubiewsExclusiveTouch)(BOOL b);
@@ -122,77 +98,65 @@ LBDeclare UIView*      (^viewSubiewsExclusiveTouch)(BOOL b);
 LBDeclare CGRect       (^viewConvertRectToWindow)(void);
 /** 
  *  <^(UIView* aView , BOOL isKeep)>
- *  更换父视图：即移动视图到另一个视图中作为子视图，参数：aView目标视图 ，isKeep是否保持当前视觉位置不变。
+ *  更换父视图：即移动视图到另一个视图中作为子视图，参数：aView目标视图 ，isKeep是否保持当前视觉位置不变，否则保持frame不变
  *  (不考虑Autolayou)
  */
-LBDeclare UIView*      (^viewConvertSuperverTo)(UIView* aView , BOOL isKeep);
-/** <^(BOOL b)> */
+LBDeclare UIView*      (^viewConvertSuperviewTo)(UIView* newSuperview , BOOL isKeep);
+
+
 LBDeclare UIView*      (^viewUserInteractionEnabled)(BOOL b);
-/** <^()> */
 LBDeclare UIView*      (^viewUserInteractionEnabledYES)(void);
-/** <^()> */
 LBDeclare UIView*      (^viewUserInteractionEnabledNO)(void);
-/** <^(BOOL b)> */
-LBDeclare UIView*      (^viewMultipleTouchEnabled)(BOOL b);
-/** <^(BOOL b)> */
-LBDeclare UIView*      (^viewExclusiveTouch)(BOOL b);
-/** <^(UIViewAutoresizing mask)> */
-LBDeclare UIView*      (^viewAutoresizingMask)(UIViewAutoresizing mask);
-/** <^(CGFloat alpha)> */
-LBDeclare UIView*      (^viewAlpha)(CGFloat alpha);
-/** <^(CGFloat opaque)> */
-LBDeclare UIView*      (^viewOpaque)(CGFloat opaque);
-/** <^(BOOL hidden)> */
 LBDeclare UIView*      (^viewHidden)(BOOL hidden);
-/** <^()> */
 LBDeclare UIView*      (^viewHiddenYES)(void);
-/** <^()> */
 LBDeclare UIView*      (^viewHiddenNO)(void);
-/** <^(NSTimeInterval during)> */
-LBDeclare UIView*      (^viewHiddenYESUsingAnimate)(NSTimeInterval during);
-/** <^(NSTimeInterval during)> */
-LBDeclare UIView*      (^viewHiddenNOUsingAnimate)(NSTimeInterval during);
-/** <^(UIViewContentMode contentMode)> */
 LBDeclare UIView*      (^viewContentMode)(UIViewContentMode contentMode);
-/** <^(NSUInteger index)>越界时返回NSNull */
+LBDeclare UIView*      (^viewContentModeScaleToFill)(void);
+LBDeclare UIView*      (^viewContentModeScaleAspectFit)(void);
+LBDeclare UIView*      (^viewContentModeScaleAspectFill)(void);
+LBDeclare UIView*      (^viewContentModeRedraw)(void);
+LBDeclare UIView*      (^viewContentModeCenter)(void);
+LBDeclare UIView*      (^viewContentModeTop)(void);
+LBDeclare UIView*      (^viewContentModeBottom)(void);
+LBDeclare UIView*      (^viewContentModeLeft)(void);
+LBDeclare UIView*      (^viewContentModeRight)(void);
+LBDeclare UIView*      (^viewContentModeTopLeft)(void);
+LBDeclare UIView*      (^viewContentModeTopRight)(void);
+LBDeclare UIView*      (^viewContentModeBottomLeft)(void);
+LBDeclare UIView*      (^viewContentModeBottomRight)(void);
+
+LBDeclare UIView*      (^viewAlpha)(CGFloat alpha);
+LBDeclare UIView*      (^viewOpaque)(CGFloat opaque);
+LBDeclare UIView*      (^viewMultipleTouchEnabled)(BOOL b);
+LBDeclare UIView*      (^viewExclusiveTouch)(BOOL b);
+LBDeclare UIView*      (^viewAutoresizingMask)(UIViewAutoresizing mask);
+
+
 LBDeclare UIView*      (^viewSubviewAt)(NSUInteger index);
-/** <^()>在父视图中的索引位。如果没有则返回0 */
-LBDeclare NSUInteger   (^viewIndexInSuperview)(void);
-/** <^()> */
+/** <^()>在父视图中的索引。如果没有则返回-1 */
+LBDeclare NSInteger    (^viewIndexInSuperview)(void);
 LBDeclare UIView*      (^viewRemoveFromSuperview)(void);
-/** <^(NSUInteger index)> */
 LBDeclare UIView*      (^viewRemoveSubviewAt)(NSUInteger index);
 /** <^()>移除所有子控件 */
 LBDeclare UIView*      (^viewRemoveAllSubview)(void);
-/** <^(UIView* subView, NSUInteger index)> */
 LBDeclare UIView*      (^viewInsertSubviewAtIndex)(UIView* subView, NSUInteger index);
-/** <^(UIView* toView, NSUInteger index)> */
 LBDeclare UIView*      (^viewInsertToViewAtIndex)(UIView* toView, NSUInteger index);
-/** <^(UIView* subView, UIView* abouveView)> */
 LBDeclare UIView*      (^viewInsertSubviewAbouve)(UIView* subView, UIView* abouveView);
-/** <^(UIView* toView, UIView* abouveView)> */
 LBDeclare UIView*      (^viewInsertToViewAbouve)(UIView* toView, UIView* abouveView);
-/** <^(UIView* subView, UIView* belowView)> */
 LBDeclare UIView*      (^viewInsertSubviewBelow)(UIView* subView, UIView* belowView);
-/** <^(UIView* toView, UIView* belowView)> */
 LBDeclare UIView*      (^viewInsertToViewBelow)(UIView* toView, UIView* belowView);
-/** <^(NSUInteger index1, NSUInteger index2)> */
 LBDeclare UIView*      (^viewExchangeSubviewByIndex)(NSUInteger index1, NSUInteger index2);
-/** <^(UIView* subview)> */
 LBDeclare UIView*      (^viewAddSubview)(UIView* subview);
-
-LBDeclare UIView*      (^viewAddSubviews)(UIView* view0 , ...);
-/** <^(__weak UIView* view)> */
+LBDeclare UIView*      (^viewAddSubviews)(UIView* v0,...);
 LBDeclare UIView*      (^viewAddToView)(__weak UIView* view);
-/** <^(Class clazz)> */
-LBDeclare NSMutableArray*      (^viewFindSubviews)(Class clazz);
-/** <^()> */
 LBDeclare UIView*      (^viewSetNeedsLayout)(void);
-/** <^()> */
 LBDeclare UIView*      (^viewLayoutIfNeeded)(void);
-/** <^()> */
 LBDeclare UIView*      (^viewSetNeedsDisplay)(void);
+
+LBDeclare NSMutableArray*      (^viewFindSubviewsOfClass)(Class clazz);
 #pragma mark - 常见动画部分
+LBDeclare UIView*      (^viewHiddenYESUsingAnimate)(NSTimeInterval during);
+LBDeclare UIView*      (^viewHiddenNOUsingAnimate)(NSTimeInterval during);
 /** <^(CGFloat distance, NSTimeInterval time)>CGAffineTransformTranslate注：真实移动了视图的位置 */
 LBDeclare UIView*      (^viewAnimateMoveUp)(CGFloat distance, NSTimeInterval time);
 /** <^(CGFloat distance, NSTimeInterval time)>CGAffineTransformTranslate注：真实移动了视图的位置 */
@@ -233,36 +197,24 @@ LBDeclare BOOL         (^viewAnimateIsDoing)(void);
 LBDeclare UIView*      (^viewAnimatePause)(void);
 /** <^()>恢复动画，在暂停动画后使用 */
 LBDeclare UIView*      (^viewAnimateResume)(void);
-/** <^()>截屏当前视图 */
+/** <^()>视图截屏 */
 LBDeclare UIImage*     (^viewSnapshot)(void);
 
-#pragma mark - 辅助手动布局
-/** <^(UIView* fromView)> */
+#pragma mark - 参考布局
 LBDeclare UIView*      (^viewCopyX)(UIView* fromView);
-/** <^(UIView* fromView)> */
 LBDeclare UIView*      (^viewCopyY)(UIView* fromView);
-/** <^(UIView* fromView)> */
 LBDeclare UIView*      (^viewCopyFrame)(UIView* fromView);
-/** <^(UIView* fromView)> */
 LBDeclare UIView*      (^viewCopySize)(UIView* fromView);
-/** <^(UIView* fromView)> */
 LBDeclare UIView*      (^viewCopyOrigin)(UIView* fromView);
-/** <^(UIView* fromView)> */
 LBDeclare UIView*      (^viewCopyCenter)(UIView* fromView);
-/** <^(UIView* fromView)> */
 LBDeclare UIView*      (^viewCopyCenterX)(UIView* fromView);
-/** <^(UIView* fromView)> */
 LBDeclare UIView*      (^viewCopyCenterY)(UIView* fromView);
-/** <^(UIView* toView, CGFloat margin)> */
 LBDeclare UIView*      (^viewTopTo)(UIView* toView, CGFloat margin);
-/** <^(UIView* toView, CGFloat margin)> */
 LBDeclare UIView*      (^viewLeftTo)(UIView* toView, CGFloat margin);
-/** <^(UIView* toView, CGFloat margin)> */
 LBDeclare UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin);
-/** <^(UIView* toView, CGFloat margin)> */
 LBDeclare UIView*      (^viewRightTo)(UIView* toView, CGFloat margin);
 #pragma mark - Autolayout 自动布局
-/** <^(CGFloat value)>设置autolayout的Width；约束不存在是会自动增加； */
+/** <^(CGFloat value)>设置约束的Width；约束不存在是会自动增加； */
 LBDeclare UIView*      (^viewConstraintWidth)(CGFloat value);
 /** <^(CGFloat value)>设置autolayout的Height；约束不存在是会自动增加； */
 LBDeclare UIView*      (^viewConstraintHeight)(CGFloat value);

@@ -155,19 +155,14 @@
     return self.objValuesRandom;
 }
 
-- (NSObject *(^)(void))objRemove
-{
-    return self.objRemoveAll;
-}
-
 - (NSObject *(^)(id))objSetDelegate
 {
     return self.objSetValueForKey_delegate;
 }
 
-- (NSObject *(^)(NSString *))objBoolReverseForKey
+- (NSObject *(^)(NSString *))objBOOLNegationForKey
 {
-    return self.objBOOLNegationForKey;
+    return self.objReverseValueForKey;
 }
 
 - (UIImage *(^)(float))imgBlur
@@ -269,42 +264,149 @@
     return self.viewClipsToBounds;
 }
 
-#ifndef ________TransType_Maro
-#define ________TransType_Maro(ReType) \
-- (ReType *)of##ReType \
-{ \
-return (id)self; \
+- (NSObject *(^)(NSString *))nslogTitle
+{
+    return ^id(NSString* title){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(nslogTitle,title)
+        NSLog(@"%@%@",title,_self);
+        return _self;
+    };
 }
-#endif
 
-________TransType_Maro(NSString)
-________TransType_Maro(NSMutableString)
-________TransType_Maro(NSArray)
-________TransType_Maro(NSMutableArray)
-________TransType_Maro(NSDictionary)
-________TransType_Maro(NSMutableDictionary)
-________TransType_Maro(NSAttributedString)
-________TransType_Maro(NSMutableAttributedString)
-________TransType_Maro(NSURL)
-________TransType_Maro(NSUserDefaults)
-________TransType_Maro(NSNumber)
-________TransType_Maro(NSValue)
-________TransType_Maro(NSDate)
-________TransType_Maro(NSData)
-________TransType_Maro(UIView)
-________TransType_Maro(UILabel)
-________TransType_Maro(UIControl)
-________TransType_Maro(UIButton)
-________TransType_Maro(UIScrollView)
-________TransType_Maro(UIImage)
-________TransType_Maro(UIColor)
-________TransType_Maro(UIViewController)
-________TransType_Maro(UIImageView)
-________TransType_Maro(UITableView)
-________TransType_Maro(UITextField)
-________TransType_Maro(UITextView)
-________TransType_Maro(UIWebView)
-________TransType_Maro(NSMutableSet)
-________TransType_Maro(NSSet)
-________TransType_Maro(NSCalendar)
+- (NSObject *(^)(NSString *))logInfo
+{
+    return ^id(NSString* info){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(logInfo,info)
+        NSLog(@"%@",info);
+        return self;
+    };
+}
+
+- (NSInteger (^)(CGFloat, NSDictionary<NSAttributedStringKey,id> *))strLinesCountAboutView
+{
+    return self.strUILinesCount;
+}
+
+- (NSString *(^)(NSInteger, CGFloat, NSDictionary<NSAttributedStringKey,id> *))strSubToLineAboutView
+{
+    return self.strSubToUILine;
+}
+
+- (NSRange (^)(NSUInteger, CGFloat, NSString *, NSDictionary<NSAttributedStringKey,id> *, BOOL *))strSubRangeToMaxLineIfAppendStrAboutView
+{
+    return self.strSubRangeToMaxUILineIfAppendStr;
+}
+
+- (void *(^)(void))numValue
+{
+    return ^void*(void){
+        return nil;
+    };
+}
+
+- (NSValue *(^)(NSArray *))valueCGPointSetToViews
+{
+    return ^id(NSArray* views){
+        LinkHandle_REF(NSValue)
+        LinkGroupHandle_REF(valueCGPointSetToViews,views)
+        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            if([v isKindOfClass:[UIView class]]){
+                CGRect frame = v.frame;
+                frame.origin = [_self CGPointValue];
+                v.frame = frame;
+            }
+        }];
+        return _self;
+    };
+}
+
+- (NSValue *(^)(NSArray *))valueCGSizeSetToViews
+{
+    return ^id(NSArray* views){
+        LinkHandle_REF(NSValue)
+        LinkGroupHandle_REF(valueCGSizeSetToViews,views)
+        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
+            if([v isKindOfClass:[UIView class]]){
+                CGRect frame = v.frame;
+                frame.size = [_self CGSizeValue];
+                v.frame = frame;
+            }
+        }];
+        return _self;
+    };
+}
+- (NSString *(^)(id))strAppendObj
+{
+    return self.strAppend;
+}
+
+- (UIView *(^)(CGRect))viewSetFrameOfCGRect
+{
+    return self.viewSetFrameVal;
+}
+
+- (UIView *(^)(CGPoint))viewSetOriginOfCGPoint
+{
+    return self.viewSetOriginVal;
+}
+
+- (UIView *(^)(CGPoint))viewSetCenterOfCGPoint
+{
+    return self.viewSetCenterVal;
+}
+
+- (UIView *(^)(CGSize))viewSetSizeOfCGSize
+{
+    return self.viewSetSizeVal;
+}
+
+- (UIView *(^)(UIView *, BOOL))viewConvertSuperverTo
+{
+    return self.viewConvertSuperviewTo;
+}
+
+- (NSMutableArray *(^)(__unsafe_unretained Class))viewFindSubviews
+{
+    return self.viewFindSubviewsOfClass;
+}
+
+- (NSMutableString *(^)(NSString *))m_strAppenStr
+{
+    return self.m_strAppend;
+}
+
+- (BOOL (^)(void))objIsMutableType
+{
+    return self.objIsMutable;
+}
+
+- (NSMutableString *(^)(NSString *, NSString *))m_strReplaceStr
+{
+    return self.m_strReplace;
+}
+
+- (NSObject *(^)(void))objMutableCopyDeep
+{
+    return self.objMutableCopyEnumerable;
+}
+
+- (NSObject *(^)(void))objValuesRandom
+{
+    return self.objSetValuesRandom;
+}
+
+- (NSObject* (^)(__unsafe_unretained Class))objMustType
+{
+    return ^id(Class clazz){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objMustType,clazz)
+        if(!clazz || ![_self isKindOfClass:clazz]){
+            return [clazz new];
+        }else{
+            return _self;
+        }
+    };
+}
 @end

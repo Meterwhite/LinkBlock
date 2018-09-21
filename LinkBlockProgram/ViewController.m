@@ -23,6 +23,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    Person* per = [Person new];
+    per.tall = @(123);
+    per.frame = CGRectMake(1, 2, 3, 4);
+//    per.objReverseValueForKey(@"tall")
+//    .objReverseValueForKey(@"frame");
+    
+//    @[per].objReverseValueForKey(@"tall")
+//    .objReverseValueForKey(@"frame");
+    id xx = [@{@"name":@(123)}.mutableCopy objReverseValueForKey](@"name");
+    
+    @"END".nslog();
+    return;
+    
+    NSObject* str = [NSString stringWithFormat:@"123%d",123];
+    
+    NSObject* a = str.strAppend(@"123");
+    
+    id b = a.m_strAppend(@"123");
+    
+    NSLog(@"%d");
+    return;
     //////////////////////////////////////////////////////////////////////
     //【新增！】DynamicLink动态脚本解析
     //////////////////////////////////////////////////////////////////////
@@ -73,7 +94,7 @@
     .linkElse.strAppend(@"是偶数").nslog();
     
     //////////////////////////////////////////////////////////////////////
-    //【三】多链条语法
+    //【三】多对象链条语法
     //////////////////////////////////////////////////////////////////////
     //1.如果使用多个对象的链式编程，需要取值的时候请调用ends()获取多个结果
     //2.如果调用end只会取得第一个对象的链条返回值

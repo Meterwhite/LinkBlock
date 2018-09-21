@@ -9,7 +9,7 @@
 #import "LinkInfo.h"
 
 typedef enum LinkReturnType{
-    LinkReturnLink,//链条返回
+    LinkReturnLink,//返回中断
     LinkReturnCondition,//条件中断...linkIf...linkElse...
 }LinkReturnType;
 @interface LinkReturn : LinkInfo

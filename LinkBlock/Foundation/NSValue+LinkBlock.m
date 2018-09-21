@@ -7,38 +7,199 @@
 //
 
 #import "LinkBlock.h"
-
+#import "LinkHelper.h"
 
 @implementation NSObject(NSValueLinkBlock)
-- (NSValue *(^)(NSArray *))valueCGPointSetToViews
+
+- (BOOL (^)(void))valueIsBlank
 {
-    return ^id(NSArray* views){
-        LinkHandle_REF(NSValue)
-        LinkGroupHandle_REF(valueCGPointSetToViews,views)
-        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
-            if([v isKindOfClass:[UIView class]]){
-                CGRect frame = v.frame;
-                frame.origin = [_self CGPointValue];
-                v.frame = frame;
+    
+    if([self isKindOfClass:[NSNumber class]]){
+        return self.numIsZero;
+    }
+    
+    return ^BOOL(){
+        
+        __block BOOL result = NO;
+        LinkHandle_VAL_IFNOT(NSValue){
+            return result;
+        }
+        LinkGroupHandle_VAL(valueIsBlank)
+        
+        const char* ocType = _self.objCType;
+        result = YES;
+        [LinkHelper helpSwitchObjcType:ocType caseVoid:nil caseId:^{
+            void* val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseClass:^{
+            Class val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseIMP:^{
+            IMP val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseSEL:^{
+            SEL val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseDouble:^{
+            double val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseFloat:^{
+            float val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } casePointer:^{
+            CGPoint val;
+            [_self getValue:&val];
+            if(CGPointEqualToPoint(val, CGPointZero)) result = NO;
+        } caseCharPointer:^{
+            char* val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseUnsignedLong:^{
+            unsigned long val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseUnsignedLongLong:^{
+            unsigned long long val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseLong:^{
+            long val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseLongLong:^{
+            long long val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseInt:^{
+            int val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseUnsignedInt:^{
+            unsigned int val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseBOOL_Char_xyShort:^{
+            int val;
+            [_self getValue:&val];
+            if(val) result = NO;
+        } caseCGRect:^{
+            CGRect val;
+            [_self getValue:&val];
+            if(!CGRectEqualToRect(val, CGRectZero)) result = NO;
+        } caseNSRange:^{
+            NSRange val;
+            [_self getValue:&val];
+            if(!NSEqualRanges(val, NSMakeRange(0, 0))) result = NO;
+        } caseCGSize:^{
+            CGSize val;
+            [_self getValue:&val];
+            if(!CGSizeEqualToSize(val, CGSizeZero)) result = NO;
+        } caseCGPoint:^{
+            CGPoint val;
+            [_self getValue:&val];
+            if(!CGPointEqualToPoint(val, CGPointZero)) result = NO;
+        } caseCGVector:^{
+            CGVector val;
+            [_self getValue:&val];
+            if(val.dx || val.dy) result = NO;
+        } caseUIEdgeInsets:^{
+            UIEdgeInsets val;
+            [_self getValue:&val];
+            if(!UIEdgeInsetsEqualToEdgeInsets(val, UIEdgeInsetsZero)) result = NO;
+        } caseUIOffset:^{
+            UIOffset val;
+            [_self getValue:&val];
+            if(!UIOffsetEqualToOffset(val, UIOffsetZero)) result = NO;
+        } caseCATransform3D:^{
+            CATransform3D val;
+            [_self getValue:&val];
+            if(!CATransform3DEqualToTransform(val, CATransform3DIdentity)) result = NO;
+        } caseCGAffineTransform:^{
+            CGAffineTransform val;
+            [_self getValue:&val];
+            if(!CGAffineTransformEqualToTransform(val, CGAffineTransformIdentity)) result = NO;
+        } caseNSDirectionalEdgeInsets:^{
+            if (@available(iOS 11.0, *)) {
+                
+                NSDirectionalEdgeInsets val;
+                [_self getValue:&val];
+                if(!NSDirectionalEdgeInsetsEqualToDirectionalEdgeInsets(val, NSDirectionalEdgeInsetsZero)) result = NO;
             }
-        }];
-        return _self;
+        } defaule:nil];
+        
+        return result;
     };
 }
 
-- (NSValue *(^)(NSArray *))valueCGSizeSetToViews
+- (NSNumber *(^)(void))valueIsNumber
 {
-    return ^id(NSArray* views){
+    return ^id(){
         LinkHandle_REF(NSValue)
-        LinkGroupHandle_REF(valueCGSizeSetToViews,views)
-        [views enumerateObjectsUsingBlock:^(UIView* v, NSUInteger idx, BOOL *stop) {
-            if([v isKindOfClass:[UIView class]]){
-                CGRect frame = v.frame;
-                frame.size = [_self CGSizeValue];
-                v.frame = frame;
+        LinkGroupHandle_REF(objIsNumber)
+        
+        if([self isKindOfClass:[NSNumber class]]){
+            return @YES;
+        }
+        const char* objcType = _self.objCType;
+        
+        if(strcmp(objcType, @encode(double)) == 0 ||
+           strcmp(objcType, @encode(float)) == 0 ||
+           strcmp(objcType, @encode(unsigned long)) == 0 ||
+           strcmp(objcType, @encode(unsigned long long)) == 0 ||
+           strcmp(objcType, @encode(long)) == 0 ||
+           strcmp(objcType, @encode(long long)) == 0 ||
+           strcmp(objcType, @encode(int)) == 0 ||
+           strcmp(objcType, @encode(unsigned int)) == 0 ||
+           strcmp(objcType, @encode(BOOL)) == 0 ||
+           strcmp(objcType, @encode(bool)) == 0 ||
+           strcmp(objcType, @encode(char)) == 0 ||
+           strcmp(objcType, @encode(short)) == 0 ||
+           strcmp(objcType, @encode(unsigned char)) == 0 ||
+           strcmp(objcType, @encode(unsigned short)) == 0
+           ){
+            return @YES;
+        }
+        
+        return @NO;
+    };
+}
+
+- (NSNumber *(^)(void))valueIsStruct
+{
+    return ^id(){
+        LinkHandle_REF(NSValue)
+        LinkGroupHandle_REF(valueIsStruct)
+        
+        if([self isKindOfClass:[NSNumber class]]){
+            return @NO;
+        }
+        
+        //{structName=typeOfContents}
+        const char* objcType = _self.objCType;
+        unsigned long len = strlen(objcType);
+        
+        //Class = #
+        if(len==1 && objcType[0]=='#') return @YES;
+        //limit {*=*}
+        if(len<5) return @NO;
+        //check {*}
+        if(objcType[0]!='{' || objcType[len-1]!='}') return @NO;
+        //check *=*
+        unsigned long idxOfEq = 0;
+        for (unsigned long i=1; i<len-1; i++) {
+                
+            if(objcType[i] == '='){
+                idxOfEq = i;
+                break;
             }
-        }];
-        return _self;
+        }
+        return [NSNumber numberWithBool:(idxOfEq>1 && idxOfEq<len-2)];
     };
 }
 
@@ -86,25 +247,44 @@
     };
 }
 
-- (CGFloat (^)(void))valueCGSizeWidth
+#ifndef defineValueCGRect
+#define defineValueCGRect(suffix)\
+- (CGFloat (^)(void))valueCGRect##suffix\
+{\
+    return ^CGFloat(){\
+        LinkHandle_VAL_IFNOT(NSValue){\
+            return 0.0;\
+        }\
+        LinkGroupHandle_VAL(valueCGRect##suffix)\
+        return CGRectGet##suffix([_self CGRectValue]);\
+    };\
+}
+#endif
+
+defineValueCGRect(MinX)
+defineValueCGRect(MidX)
+defineValueCGRect(MaxX)
+defineValueCGRect(MinY)
+defineValueCGRect(MidY)
+defineValueCGRect(MaxY)
+defineValueCGRect(Width)
+defineValueCGRect(Height)
+
+- (NSNumber *(^)(CGRect))valueCGRectContainsRect
 {
-    return ^CGFloat(){
-        LinkHandle_VAL_IFNOT(NSValue){
-            return 0.0;
-        }
-        LinkGroupHandle_VAL(valueCGSizeWidth)
-        return [_self CGSizeValue].width;
+    return ^id(CGRect rect){
+        LinkHandle_REF(NSValue)
+        LinkGroupHandle_REF(valueCGRectContainsRect,rect)
+        return @(CGRectContainsRect([_self CGRectValue], rect));
     };
 }
 
-- (CGFloat (^)(void))valueCGSizeHeight
+- (NSNumber *(^)(CGPoint))valueCGRectContainsPoint
 {
-    return ^CGFloat(){
-        LinkHandle_VAL_IFNOT(NSValue){
-            return 0.0;
-        }
-        LinkGroupHandle_VAL(valueCGSizeHeight)
-        return [_self CGSizeValue].height;
+    return ^id(CGPoint point){
+        LinkHandle_REF(NSValue)
+        LinkGroupHandle_REF(valueCGRectContainsPoint,point)
+        return @(CGRectContainsPoint([_self CGRectValue], point));
     };
 }
 
@@ -130,25 +310,25 @@
     };
 }
 
-- (CGFloat (^)(void))valueCGRectWidth
+- (CGFloat (^)(void))valueCGSizeWidth
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
             return 0.0;
         }
-        LinkGroupHandle_VAL(valueCGRectWidth)
-        return [_self CGRectValue].size.width;
+        LinkGroupHandle_VAL(valueCGSizeWidth)
+        return [_self CGSizeValue].width;
     };
 }
 
-- (CGFloat (^)(void))valueCGRectHeight
+- (CGFloat (^)(void))valueCGSizeHeight
 {
     return ^CGFloat(){
         LinkHandle_VAL_IFNOT(NSValue){
             return 0.0;
         }
-        LinkGroupHandle_VAL(valueCGRectHeight)
-        return [_self CGRectValue].size.width;
+        LinkGroupHandle_VAL(valueCGSizeHeight)
+        return [_self CGSizeValue].height;
     };
 }
 

@@ -8,14 +8,16 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(NSMutableStringLinkBlock)
-- (NSMutableString *(^)(NSString *, NSString *))m_strReplaceStr
+- (NSMutableString *(^)(NSString *, NSString *))m_strReplace
 {
-    return ^id(NSString* replaceStr, NSString* withStr){
+    return ^id(NSString* replace, NSString* with){
         LinkHandle_REF(NSMutableString)
-        LinkGroupHandle_REF(m_strReplaceStr,replaceStr,withStr)
-        if([replaceStr isKindOfClass:[NSString class]] &&
-           [withStr isKindOfClass:[NSString class]] ){
-            return [[_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr] mutableCopy];
+        LinkGroupHandle_REF(m_strReplace,replace,with)
+        
+        if([replace isKindOfClass:[NSString class]] &&
+           [with isKindOfClass:[NSString class]] ){
+            
+            return [[_self stringByReplacingOccurrencesOfString:replace withString:with] mutableCopy];
         }
         return _self;
     };
@@ -31,12 +33,28 @@
     };
 }
 
-- (NSMutableString *(^)(NSString *))m_strAppenStr
+- (NSMutableString *(^)(id))m_strAppend
 {
-    return ^id(NSString* str){
+    return ^id(id obj){
         LinkHandle_REF(NSMutableString)
-        LinkGroupHandle_REF(m_strAppenStr,str)
-        [_self appendString:str];
+        LinkGroupHandle_REF(m_strAppend,obj)
+        
+        if(!_self.objIsMutable()){
+            
+            _self = (id)_self.objNeedMutable();
+            if(!_self.objIsMutable()){
+                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@转化不可变对象错误",_self]] logError];
+                return _self;
+            }
+        }
+        
+        if(![obj isKindOfClass:[NSString class]]){
+            obj = [obj description];
+        }
+        
+        if(![obj isKindOfClass:[NSString class]]) return _self;
+        
+        [_self appendString:obj];
         return _self;
     };
 }

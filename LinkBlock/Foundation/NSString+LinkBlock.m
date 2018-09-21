@@ -42,25 +42,18 @@
     };
 }
 
-- (NSString *(^)(id ))strAppend
+- (NSString *(^)(id))strAppend
 {
+    if(self.objIsMutable()){
+        return self.m_strAppend;
+    }
     return ^id(id obj){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strAppend,obj)
         
-        if(![obj isKindOfClass:[NSString class]]){
-            obj = [obj description];
-        }
-        
         if(!obj) return _self;
-        
         return [_self stringByAppendingString:obj];
     };
-}
-
-- (NSString *(^)(id))strAppendObj
-{
-    return self.strAppend;
 }
 
 - (NSString *(^)(NSString *))strAppendTo
@@ -672,13 +665,13 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSInteger (^)(CGFloat, NSDictionary<NSAttributedStringKey,id> *))strLinesCountAboutView
+- (NSInteger (^)(CGFloat, NSDictionary<NSAttributedStringKey,id> *))strUILinesCount
 {
     return ^NSInteger(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict){
         LinkHandle_VAL_IFNOT(NSString){
             return 0;
         }
-        LinkGroupHandle_VAL(strLinesCountAboutView,maxWidth,attrDict)
+        LinkGroupHandle_VAL(strUILinesCount,maxWidth,attrDict)
         
         if([[attrDict allKeys] containsObject:NSAttachmentAttributeName]){
             NSLog(@"LinkBlock：The calculation of NSAttachment does not support");
@@ -708,12 +701,12 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSString* (^)(NSInteger, CGFloat,NSDictionary<NSAttributedStringKey,id>*))strSubToLineAboutView
+- (NSString* (^)(NSInteger, CGFloat,NSDictionary<NSAttributedStringKey,id>*))strSubToUILine
 {
     return ^id(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict){
         
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSubToLineAboutView,toLine,maxWidth,attrDict)
+        LinkGroupHandle_REF(strSubToUILine,toLine,maxWidth,attrDict)
         
         if([[attrDict allKeys] containsObject:NSAttachmentAttributeName]){
             NSLog(@"LinkBlock：The calculation of NSAttachment does not support");
@@ -736,7 +729,7 @@ NSString* decimalToHexString(u_char nValue)
                 start=forRange.location;
                 end=start+forRange.length-1;
                 mid=(start+end)/2;
-                midLineCount = [_self substringToIndex:mid+1].strLinesCountAboutView(maxWidth,attrDict);
+                midLineCount = [_self substringToIndex:mid+1].strUILinesCount(maxWidth,attrDict);
                 if(midLineCount<toLine){//不包含当前，向右区间
                     
                     forRange=NSMakeRange(mid+1, end-mid);
@@ -747,7 +740,7 @@ NSString* decimalToHexString(u_char nValue)
                     continue;
                 }else{//==
                     
-                    if(midLineCount<[_self substringToIndex:mid+2].strLinesCountAboutView(maxWidth,attrDict)){//临界
+                    if(midLineCount<[_self substringToIndex:mid+2].strUILinesCount(maxWidth,attrDict)){//临界
                         
                         forRange=NSMakeRange(mid, 1);
                         break;
@@ -763,13 +756,13 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSRange (^)(NSUInteger, CGFloat, NSString *, NSDictionary<NSAttributedStringKey,id> *,BOOL*))strSubRangeToMaxLineIfAppendStrAboutView
+- (NSRange (^)(NSUInteger, CGFloat, NSString *, NSDictionary<NSAttributedStringKey,id> *,BOOL*))strSubRangeToMaxUILineIfAppendStr
 {
     return ^NSRange(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict,BOOL* isFullOfLines){
         LinkHandle_VAL_IFNOT(NSString){
             return NSMakeRange(NSNotFound, 0);
         }
-        LinkGroupHandle_VAL(strSubRangeToMaxLineIfAppendStrAboutView,maxLine,maxWidth,ifAppendStr,attrDict,isFullOfLines)
+        LinkGroupHandle_VAL(strSubRangeToMaxUILineIfAppendStr,maxLine,maxWidth,ifAppendStr,attrDict,isFullOfLines)
         
         if([[attrDict allKeys] containsObject:NSAttachmentAttributeName]){
             NSLog(@"LinkBlock：The calculation of NSAttachment does not support");
@@ -777,12 +770,12 @@ NSString* decimalToHexString(u_char nValue)
         }
         
         //连ifAppendStr都不能完全放进去
-        if(ifAppendStr.strLinesCountAboutView(maxWidth, attrDict) > maxLine){
+        if(ifAppendStr.strUILinesCount(maxWidth, attrDict) > maxLine){
             *isFullOfLines = YES;
             return NSMakeRange(NSNotFound, 0);
         }
         
-        if(_self.strAppend(ifAppendStr).strLinesCountAboutView(maxWidth,attrDict) <= maxLine){//完全可以展示
+        if(_self.strAppend(ifAppendStr).strUILinesCount(maxWidth,attrDict) <= maxLine){//完全可以展示
             *isFullOfLines = NO;
             return NSMakeRange(0, _self.length);
         }
@@ -808,7 +801,7 @@ NSString* decimalToHexString(u_char nValue)
                 start=forRange.location;
                 end=start+forRange.length-1;
                 mid=(start+end)/2;
-                midLineCount = [_self substringToIndex:mid+1].strAppend(newIfAppend).strLinesCountAboutView(maxWidth,attrDict);
+                midLineCount = [_self substringToIndex:mid+1].strAppend(newIfAppend).strUILinesCount(maxWidth,attrDict);
                 if(midLineCount<maxLine){//不包含当前，向右区间
                     
                     forRange=NSMakeRange(mid+1, end-mid);
@@ -819,7 +812,7 @@ NSString* decimalToHexString(u_char nValue)
                     continue;
                 }else{//==
                     
-                    if(midLineCount<[_self substringToIndex:mid+2].strAppend(newIfAppend).strLinesCountAboutView(maxWidth,attrDict)){//临界
+                    if(midLineCount<[_self substringToIndex:mid+2].strAppend(newIfAppend).strUILinesCount(maxWidth,attrDict)){//临界
                         
                         forRange=NSMakeRange(mid, 1);
                         break;
@@ -1929,7 +1922,6 @@ NSString* decimalToHexString(u_char nValue)
         NSUInteger end = _self.length - 1;
         NSString *tempStr;
         NSString *re = _self;
-        NSLog(@"%@", self);
         while (start < end) {
             tempStr = [re substringWithRange:NSMakeRange(start, 1)];
             re = [re stringByReplacingCharactersInRange:NSMakeRange(start, 1) withString:[_self substringWithRange:NSMakeRange(end, 1)]];

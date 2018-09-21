@@ -59,8 +59,8 @@
 
 /**
  <- linkEnd>获取链条返回值，并将LinkError错误转nil
- ... = linkObj(... ...)...linkEnd;
- ... = linkObj(... ...)...linkIF(...)...linkEnd;
+ ... = linkObj...linkEnd;
+ ... = linkObj...linkIF(...)...linkEnd;
  */
 #ifndef linkEnd
 #define linkEnd linkEnd
@@ -136,11 +136,11 @@
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:多链条语法
+//MARK:多对象链条语法
 //////////////////////////////////////////////////////////////////////
 
 /**
- *包装多个对象为多链条起始对象
+ *包装多个对象为多对象链条起始对象
  * linkObjs( obj0, obj1, obj2, ...)...
  */
 #ifndef linkObjs
@@ -164,50 +164,50 @@
 #define linkAnd linkAnd
 #endif
 /**
- <^(NSUInteger idx)>使多链条中移除一个
- linkObjs(... ...)...linkOut(index)...
+ <^(NSUInteger idx)>移除一根
+ linkObjs...linkOut(index)...
  */
 #ifndef linkOut
 #define linkOut linkOut
 #endif
 /**
- <^(NSUInteger idx)>取出多链条中一个
- linkObjs(... ...)...linkAt(index)...
+ <^(NSUInteger idx)>取出一根
+ linkObjs...linkAt(index)...
  */
 #ifndef linkAt
 #define linkAt linkAt
 #endif
 /**
- <^()>取出多链条中第一个
- linkObjs(... ...)...linkFirstObj()...
+ <^()>第一根
+ linkObjs...linkFirstObj...
  */
 #ifndef linkFirstObj
 #define linkFirstObj linkFirstObj
 #endif
 /**
- <^()>取出多链条中最后一个
- linkObjs(... ...)...linkLastObj()...
+ <^()>最后一根
+ linkObjs...linkLastObj...
  */
 #ifndef linkLastObj
 #define linkLastObj linkLastObj
 #endif
 /**
- <^(NSUInteger count)>使其后的链条执行多次
+ <^(NSUInteger count)>重复执行之后的
  ...linkLoop(count)...
  */
 #ifndef linkLoop
 #define linkLoop linkLoop
 #endif
 /**
- <- ends>多对象链式编程获取多个链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...linkEnds();
+ <- ends>多对象链式编程获取多个链条返回值
+ NSArray *getResultInArray = linkObjs...linkEnds;
  */
 #ifndef linkEnds
 #define linkEnds linkEnds
 #endif
 /**
- <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...linkEndsAt(index);
+ <^(NSUInteger idx)>获取某一根链条的返回值
+ id getFirstResult = linkObjs...linkEndsAt(index);
  */
 #ifndef linkEndsAt
 #define linkEndsAt linkEndsAt
@@ -215,12 +215,11 @@
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:条件语法
+//MARK:条件
 //////////////////////////////////////////////////////////////////////
 /**
- <^(id obj)>以新对象执行其后链条，可以与linkIf，linkElse配合
- linkObjs(,,)...linkTo(aNewObj)...
- ...linkIf(...)...linkTo(aNewObj)...linkElse...
+ <^(id obj)>改变链条对象，可与linkIf，linkElse配合
+ ...linkIf(...)...linkTo(...)...linkElse...
  */
 #ifndef linkTo
 #define linkTo linkTo
@@ -243,7 +242,7 @@
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
- ...objIsEqual_n(...).linkIf_YES...LinkElse....
+ ...<@YES/@NO>.linkIf_YES...LinkElse...
  */
 #ifndef linkIf_YES
 #define linkIf_YES linkIf_YES
@@ -251,7 +250,7 @@
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
- ...objIsEqual_n(...).linkIf_NO...LinkElse...
+ ...<@YES/@NO>.linkIf_NO...LinkElse...
  */
 #ifndef linkIf_NO
 #define linkIf_NO linkIf_NO
@@ -283,7 +282,7 @@
 //////////////////////////////////////////////////////////////////////
 //MARK:其他方法
 //////////////////////////////////////////////////////////////////////
-/** 如果对象为空使用默认值替代 */
+/** 默认值对象 */
 #ifndef linkObjDefault
 #define linkObjDefault(object,default) ((typeof(object))_LB_DefaultObj(object,default))
 #endif

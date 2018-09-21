@@ -1,25 +1,254 @@
 # LinkBlock
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
-## Introduce【介绍】
-* LinkBlock是objc`链式编程`语法糖扩展，逻辑简明，结构清晰
-* 整理Fundation常用功能
+## 【概览】
+* LinkBlock是objc`链式编程`语法糖扩展，目的压缩重复动作
+* 有大量的代码都是不需要阅读的，使用Linkblock可以`整理废话`
+* 使用Fundation常见API
 * 持续维护，向后兼容
-* LinkBlock is objective-c Syntactic sugar , to `chain programming`
-* Organize Fundation functions.
-* Continuously updated.Backward compatibility
 
-## Manually【导入】
-- Drag all source files under floder `LinkBlock` to your project.【将`LinkBlock`文件夹中的所有源代码拽入项目中】
-- Import the main header file：`#import "LinkBlock.h"`【导入主头文件：`#import "LinkBlock.h"`】
-- PS：Best not to use pch. to avoid the pollution of the entire project propertys tips.【提示：最好不要在pch文件中引用，避免污染整个项目的属性提示；在.h文件中查看注释；】
+## 【导入】
+- 【将`LinkBlock`文件夹中的所有源代码拽入项目中】
+- 【导入主头文件：`#import "LinkBlock.h"`】
+- 【提示：最好不要在pch文件中引用，避免污染整个项目的属性提示；在.h文件中查看注释；貌似最新的xcode智能提示有问题】
 ```objc
 #import "LinkBlock.h"
 //or use pod
 ```
 
-## New!【新增！】
-### DynamicLink - Execute the LinkBlock code in a NSString-【以字符串的方式执行LinkBlock代码】
+
+## 【通常】
+### 【同一个对象的同一类动作的压缩】
+- 【示例】
+```objc
+这里对label有重复的同类操作。我们知道这些代码在完成后几乎就不会被阅读
+UILabel* label = [[UILabel alloc] init];
+label.frame = CGRectMake(50, 50, 50, 50);
+label.backgroundColor = [UIColor redColor];
+[self.view addSubview:label];
+NSLog(@"%@",label);
+
+使用LinkBlock可以流畅的写`废话`
+UILabelNew
+.labText(@"文本")
+.viewSetFrame(50, 50, 50, 50)
+.viewBGColor(@"#CCCCCC".strToUIColorFromHex())
+.viewAddToView(self.view)
+.nslog();
+```
+
+### 【细节】
+- 【调用】
+```
+任意对象像属性一样直接使用点语法
+anyObject.linkBlock0();
+
+如果对应的原生的Fundation方法没有返回值，在LinkBlock中会返回自身，所以可以连续书写
+anyObject.linkBlock0().linkBlock1().linkBlock2();
+
+
+如果对应的原生的Fundation方法有返回的对象
+id obj = anyObject.linkBlockReturnObj().linkEnd;
+/*
+* linkEnd:
+* 不使用linkEnd取值，则无法保证结果的类型正确，
+* 因为中间可能发生错误，这之后一个错误对象会沿着链条传
+* 递，linkEnd可以过滤改对象返回nil
+*/
+
+对应的原生的Fundation方法返回数值，直接获取即可
+int value = anyObject.linkBlockReturnInt();
+```
+
+- 【命名】
+```
+使用前应该清楚原方法所属的类
+规则：
+anyObject.<originalClassName+functionName[+EnumName][+parameterName][+others]>
+描述：
+LinkBlock的命名由2大部分组成：类缩写名和方法名
+UIButton+Title+UIControlStateNormal 对应 btnTitleUIControlStateNormal
+
+入参顺序：
+和原生Fundation一致，和方法名描述的一致
+```
+- 【写法规范】
+```
+notNilObject.linkBlock()...;
+
+linkObj(maybeNilObject).linkBlock()...;
+
+id getResultObj = ...linkBlockHasRerutnObj().linkEnd;
+
+int getResultInt = ...linkBlockHasRerutnInt();
+
+最规范：
+linkObj(...)...linkEnd;
+```
+
+- 【错误】
+```
+由于LinkBlock主要是处理`废话`的，所以它是尽量不崩溃的
+对于逻辑错误，例如：
+anyObject.arrRemoveAt(errorIndex)...;
+LinkBlock内部遇到简单的不合法的参数一般选择`不执行`而不是崩溃。
+
+产生的错误：
+LinkBlock在执行的时候可能产生三种错误
+1.类型错误。2.内部错误。3.起始对象为nil
+1、2的处理方式：
+在控制台打印错误，明确在链条第几处
+3的处理方式：
+起始对象为nil报错的原因是把nil当做block调用：nil();
+3是LinkBlock最常见的错误，如果我们不能保证起始对象为不为空都应该使用linkObj()
+```
+
+## 【多对象】
+- 【多个对象操作的合并，更进一步的压缩】
+```
+linkObjs(viewA,viewB,...)...viewAddToView(self.view);
+
+示例：多个控件一个显示其他隐藏
+linkObjs(viewA,viewB,...).viewHiddenYES().linkAt(selectedIndex).viewHiddenNO();
+```
+- 【写法规范】
+```objc
+
+//联结
+linkObjs(a,b,c...).linkBlock()...;//主要
+
+@[a,b,c...].makeLinkObjs.linkBlock()...;//次要
+
+a.linkAnd(b).linkAnd(c)...linkBlock()...;//次要
+
+
+//取值
+NSArray *getResultInArray = linkObjs...linkEnds;//主要
+
+id getFirstResult = linkObjs...linkEnd;//次要
+
+int getFirstResultInt = linkObjs...linkBlockReturnInt();//次要
+
+```
+
+- 【操作多对象的链条】
+```
+链条索引以0为开始计：
+//移除一根
+...linkOut(index)...
+
+//取出一根
+...linkAt(index)...
+
+//第一根
+...linkFirstObj...
+
+//最后一根
+...linkLastObj...
+
+
+//取某一根链条的返回值
+id getFirstResult = linkObjs...linkEndsAt(index);
+
+//简单重复执行之后的
+ ...linkLoop(count)...
+/*注意不要在后面创建对象：
+...linkLoop(count).arrAddObj([NSObject new])...
+这里添加的只是同一个对象并没有多次创建新对象
+复杂的重复执行由方法[object linkLoopIn:block:]完成
+*/
+```
+
+## 【简单条件】
+- 【线性折叠简单的判断逻辑】
+```objc
+
+//判断
+...linkIf...codeA...linkElse...codeB...;
+
+//两择
+...<@YES/@NO>.linkIf_YES...codeA...LinkElse...codeB...;
+...<@YES/@NO>.linkIf_NO...codeA...LinkElse...codeB...;
+
+//强返
+id resultFromLinkBlock0 = ...linkBlock0().linkReturn...linkEnd;
+```
+
+## 【其他】
+- 【强制类型声明】
+```
+一般用于父与子类型声明的还原
+规则：as+<ClassName>
+UITableView *table = ...asUITableView;
+```
+- 【弱类型】
+```objc
+...objAdd(<View>|<String>|<Array>|<Collection>)...
+
+...objInsert...
+
+...objRemoveAll...
+
+...objRemoveFrom...
+
+...objIsBlank...
+
+一般的arrAddObj 等同于 m_arrAddObj，另外不可变对象会默认的被转换为可变
+```
+
+
+
+- 【调用其它对象的方法组】
+```objc
+person.objPerformSelectorsWithArgs(
+                     @selector(answerQuestion:),@[@"how big"],
+                     @selector(answerQuestion:question2:),@[@"how long",[NSNull null],@"what color"],
+                     @selector(answerQuestion:question2:question3:),@[],
+                     @selector(viewDidLoad),@[]//此处会在控制台打印未能找到方法的错误
+                     );
+```
+-  【测试】
+```objc
+//清除模型值
+...objValuesClean()...
+//模型随机值
+...objValuesRandom()...
+//模型随机字符串
+...objSetRandomStringForKey(...)...
+//模型随机数字
+...objSetRandomNumberForKey(...)...
+//打印对象的字典
+...po()...
+
+//简单重复执行
+...linkLoop(count)...
+//复杂重复执行
+[linkLoopIn:count block:^(NSObject* link, NSUInteger index){
+    link...
+}]...
+```
+
+- 【创建字符串属性字典】
+```objc
+AttrDictNew.makeAttrDictFont...makeAttrDictTextColor...
+```
+
+- 【连续比较】
+```objc
+...objIsEqualToEach(...)...
+...objIsEqualToSomeone(...)...
+```
+
+- 更多参见API
+```objc
+//... ...
+```
+
+## 其他
+- Mail:quxingyi@outlook.com
+
+## 【实验性的】
+### 【以字符串的方式执行LinkBlock代码】
 - Describe【描述】
 ```objc
 //动态脚本(DynamicLink)解析的4种使用方式
@@ -61,116 +290,3 @@ EvalLinkBlockWithTarget(目标对象 , @"代码");
 *
 */
 ```
-## Basic【基础】
-### Centralizes multiple calls to the same object.【将同一个对象的多个调用集中】
-- Below is an example of adding a tag to the view.【下方是添加一个标签到视图上的示例】
-```objc
-UILabelNew
-.labText(@"文本")
-.viewSetFrame(20,200,150,80)
-.viewBGColor(@"#CCCCCC".strToUIColorFromHex())
-.viewAddToView(self.view);
-```
-### Execute the code and get the results.【执行代码并且获取结果】
-- Use linkObj to prevent the first object from being nil. Using linkEnd to get the call result, which is standard practice, if the chain goes wrong it converts it to nil instead of an ErrorObject.【使用linkObj防止第一个对象是nil的情况。使用linkEnd获取调用结果，这是标准的做法，如果链条出错它会将其转化为nil而不是一个ErrorObject】
-```objc
-//Take the operation of a splicing string.
-//我们以进行一次拼接字符串的操作为例
-
-//1.crash happend
-//1.崩溃发生
-NSString* priceStr = aStringIsNil.strAppend(@"￥");
-
-//2.return a LinkError object
-//2.返回一个LinkError错误对象
-NSString* priceStr = linkObj(aUIViewObject).strAppend(@"￥");
-
-//3.Standard practice,we get nil and the console will report the errors.
-//3.这是标准的做法；这里返回nil并且控制台打印出现的问题；
-NSString* priceStr = linkObj(aStringIsNil).strAppend(@"￥").linkEnd;
-```
-
-## Conditional grammar【条件语法】
-### ...linkIf(...)...linkIf(...)...linkElse...
-- 判断并打印随机数的奇偶性
-```objc
-//
-//NSNumber* aNumber = ...
-if(aNumber.integerValue%2 == 0){
-    NSLog(@"%@是奇数",aNumber);
-}else{
-    NSLog(@"%@是偶数",aNumber);
-}
-```
-- The above code can be written in the following form【上方代码可写成如下形式】
-```objc
-aNumber.description
-.linkIf(aNumber.numIsOdd()).strAppend(@"是奇数").nslog()
-.linkElse.strAppend(@"是偶数").nslog();
-```
-
-## Multi Chain grammar【多链条语法】
-* 多链条需要取值的时候使用linkEnds()获取多个结果,如果使用linkEnd只会取得第一个对象的链条返回值
-* 如果链条结尾返回的是“值类型”，那么该值是第一个链条的返回值
-```objc
-//1【写法一】
-linkObjs(viewA, viewB).viewAddToView(self.view);
-//同时移除数组和视图的子项
-linkObjs(view.subviews, self.imageViewArray).objRemoveAll();
-
-//2【写法二】
-linkResults = @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"E").linkEnds;
-
-//3【写法三】
-linkResults = arrA.linkAnd(arrB).linkAnd(arrC).m_arrAddObj(@"D").linkEnds;
-
-//4.Repeat the following code 100 times【写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环了】
-linkResults = arrA.linkLoop(100).m_arrAddObj(@"F").linkEnds;
-
-//Multiple controls one to display the other hidden【多个控件一个显示其他隐藏】
-linkObjs(viewA,viewB,...).viewHiddenYES().linkAt(selectedIndex).viewHiddenNO();
-```
-## New! Call in other object【与项目外交互的方式】
-- Set delegate and use kvc 【设置代理和使用KVC等】
-```objc
-person.objSetValueForKey_delegate(self).objSetValueForKey(@"Jack",@"name");
-```
-- call functions 【调用其它对象的方法组】
-```objc
-person.objPerformSelectorsWithArgs(
-                     @selector(answerQuestion:),@[@"how big"],
-                     @selector(answerQuestion:question2:),@[@"how long",[NSNull null],@"what color"],
-                     @selector(answerQuestion:question2:question3:),@[],
-                     @selector(viewDidLoad),@[]//此处会在控制台打印未能找到方法的错误
-                     );
-```
-
-## Shortcut syntax【快捷语法】
-- Set random value to object, print the object as a dictionary 【对象清空属性再随机赋值，并将对象作为字典打印】
-```objc
-person.objValuesClean().objValuesRandom().po();
-```
-
-- Create NSAttrubuteDictionary【创建属性字典】
-```objc
-AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15])
-.makeAttrDictTextColor([UIColor blackColor]);
-```
-
-- Continuous comparison【连续比较】
-```objc
-//objIsEqualToEach和objIsEqualToSomeone
-//if( [name isEqual:@"Jack"] || [name isEqual:@"Tom"] || ... )
-//=>
-//if( name.objIsEqualToEach(@"Jack" , @"Tom" , ...) )
-```
-
-- 更多参见API
-```objc
-//... ...
-```
-
-## 其他
-- 目前项目内的功能性方法不支持传递链条对象
-- Mail:quxingyi@outlook.com
-
