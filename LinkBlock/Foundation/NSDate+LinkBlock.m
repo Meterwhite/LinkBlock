@@ -206,11 +206,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateYear_n
+- (NSNumber* (^)(void))dateYearING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateYear_n)
+        LinkGroupHandle_REF(dateYearING)
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSCalendarUnitYear fromDate:_self];
         return @([comps year]);
@@ -230,11 +230,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateMonth_n
+- (NSNumber* (^)(void))dateMonthING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateMonth_n)
+        LinkGroupHandle_REF(dateMonthING)
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSCalendarUnitMonth fromDate:_self];
         return @([comps month]);
@@ -254,11 +254,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateDay_n
+- (NSNumber* (^)(void))dateDayING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateDay_n)
+        LinkGroupHandle_REF(dateDayING)
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSCalendarUnitDay fromDate:_self];
         return @([comps day]);
@@ -278,11 +278,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateHour_n
+- (NSNumber* (^)(void))dateHourING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateHour_n)
+        LinkGroupHandle_REF(dateHourING)
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSCalendarUnitHour fromDate:_self];
         return @([comps hour]);
@@ -302,11 +302,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateMinut_n
+- (NSNumber* (^)(void))dateMinutING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateMinut_n)
+        LinkGroupHandle_REF(dateMinutING)
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSCalendarUnitMinute fromDate:_self];
         return @([comps minute]);
@@ -326,11 +326,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateSec_n
+- (NSNumber* (^)(void))dateSecING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateSec_n)
+        LinkGroupHandle_REF(dateSecING)
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSCalendarUnitSecond fromDate:_self];
         return @([comps second]);
@@ -473,11 +473,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateIsLeapYear_n
+- (NSNumber* (^)(void))dateIsLeapYearING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateIsLeapYear_n)
+        LinkGroupHandle_REF(dateIsLeapYearING)
         NSInteger year = _self.dateYear();
         if ((year%4==0 && year %100 !=0) || year%400==0) {
             return @YES;
@@ -505,11 +505,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateIsInToday_n
+- (NSNumber* (^)(void))dateIsInTodayING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateIsInToday_n)
+        LinkGroupHandle_REF(dateIsInTodayING)
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:_self];
         NSDateComponents *compsNow  = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
@@ -537,11 +537,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateIsInMonth_n
+- (NSNumber* (^)(void))dateIsInMonthING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateIsInMonth_n)
+        LinkGroupHandle_REF(dateIsInMonthING)
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps  = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:_self];
         NSDateComponents *compsNow  = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate date]];
@@ -564,11 +564,11 @@
     };
 }
 
-- (NSNumber* (^)(void))dateTimeIntervalSince1970_n
+- (NSNumber* (^)(void))dateTimeIntervalSince1970ING
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateTimeIntervalSince1970_n)
+        LinkGroupHandle_REF(dateTimeIntervalSince1970ING)
         return @([_self timeIntervalSince1970]);
     };
 }

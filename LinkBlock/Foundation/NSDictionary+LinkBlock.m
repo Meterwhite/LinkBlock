@@ -52,11 +52,11 @@
     };
 }
 
-- (NSNumber* (^)(id<NSCopying>))dictGetBOOL_n
+- (NSNumber* (^)(id<NSCopying>))dictGetBOOLING
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictGetBOOL_n,key)
+        LinkGroupHandle_REF(dictGetBOOLING,key)
         if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
             if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
             {
@@ -82,11 +82,11 @@
     };
 }
 
-- (NSNumber* (^)(id<NSCopying>))dictContaineKey_n
+- (NSNumber* (^)(id<NSCopying>))dictContaineKeyING
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictContaineKey_n,key)
+        LinkGroupHandle_REF(dictContaineKeyING,key)
         return @([[_self allKeys] containsObject:key]);
     };
 }

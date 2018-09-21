@@ -40,11 +40,11 @@ return self.funcName;
     };
 }
 
-- (NSNumber* (^)(NSUInteger))arrContainIndex_n
+- (NSNumber* (^)(NSUInteger))arrContainIndexING
 {
     return ^id(NSUInteger index){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrContainIndex_n,index)
+        LinkGroupHandle_REF(arrContainIndexING,index)
         return @(index< _self.count);
     };
 }
@@ -60,11 +60,11 @@ return self.funcName;
     };
 }
 
-- (NSNumber *(^)(id))arrIndexOfObj_n
+- (NSNumber *(^)(id))arrIndexOfObjING
 {
     return ^id(id obj){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrIndexOfObj_n, obj)
+        LinkGroupHandle_REF(arrIndexOfObjING, obj)
         return @([_self indexOfObject:obj]);
     };
 }
@@ -231,11 +231,11 @@ return self.funcName;
     };
 }
 
-- (NSNumber* (^)(id))arrContain_n
+- (NSNumber* (^)(id))arrContainING
 {
     return ^id(id obj){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrContain_n,obj)
+        LinkGroupHandle_REF(arrContainING,obj)
         return @([_self containsObject:obj]);
     };
 }
@@ -586,11 +586,11 @@ return self.funcName;
     };
 }
 
-- (NSNumber *(^)(NSString *, id))arrKeyValueContain_n
+- (NSNumber *(^)(NSString *, id))arrKeyValueContainING
 {
     return ^id(NSString* key , id eqValue){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrKeyValueContain_n,key,eqValue)
+        LinkGroupHandle_REF(arrKeyValueContainING,key,eqValue)
         return @((BOOL)[[_self valueForKeyPath:key] containsObject:eqValue]);
     };
 }

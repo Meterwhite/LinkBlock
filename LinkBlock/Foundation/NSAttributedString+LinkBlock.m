@@ -19,11 +19,11 @@
     };
 }
 
-- (NSValue* (^)(CGFloat))attr_strSize_n
+- (NSValue* (^)(CGFloat))attr_strSizeING
 {
     return ^id(CGFloat maxWidth){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strSize_n,maxWidth)
+        LinkGroupHandle_REF(attr_strSizeING,maxWidth)
         return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil]];
     };
 }
@@ -39,11 +39,11 @@
     };
 }
 
-- (NSValue* (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptions_n
+- (NSValue* (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptionsING
 {
     return ^id(CGFloat maxWidth,NSStringDrawingOptions options ){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strSizeWithOptions_n,maxWidth,options)
+        LinkGroupHandle_REF(attr_strSizeWithOptionsING,maxWidth,options)
         return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX) options:options context:nil]];
     };
 }
@@ -59,11 +59,11 @@
     };
 }
 
-- (NSNumber* (^)(NSAttributedString *))attr_strIsEqualToAttrStr_n
+- (NSNumber* (^)(NSAttributedString *))attr_strIsEqualToAttrStrING
 {
     return ^id(NSAttributedString* attrStr){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strIsEqualToAttrStr_n,attrStr)
+        LinkGroupHandle_REF(attr_strIsEqualToAttrStrING,attrStr)
         return @([_self isEqualToAttributedString:attrStr]);
     };
 }

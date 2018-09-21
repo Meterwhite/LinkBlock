@@ -16,29 +16,29 @@
 LBDeclare NSString*        (^dateToStrWithFormat)(NSString* formatStr);
 /** <^()> */
 LBDeclare NSTimeInterval   (^dateTimeIntervalSince1970)(void);
-LBDeclare NSNumber*        (^dateTimeIntervalSince1970_n)(void);
+LBDeclare NSNumber*        (^dateTimeIntervalSince1970ING)(void);
 /** <^()> */
 LBDeclare NSDateComponents*(^dateComponentsAll)(void);
 
 #pragma mark - 获取日期项的值
 /** <^()> */
 LBDeclare NSInteger         (^dateYear)(void);
-LBDeclare NSNumber*         (^dateYear_n)(void);
+LBDeclare NSNumber*         (^dateYearING)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateMonth)(void);
-LBDeclare NSNumber*         (^dateMonth_n)(void);
+LBDeclare NSNumber*         (^dateMonthING)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateDay)(void);
-LBDeclare NSNumber*         (^dateDay_n)(void);
+LBDeclare NSNumber*         (^dateDayING)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateHour)(void);
-LBDeclare NSNumber*         (^dateHour_n)(void);
+LBDeclare NSNumber*         (^dateHourING)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateMinut)(void);
-LBDeclare NSNumber*         (^dateMinut_n)(void);
+LBDeclare NSNumber*         (^dateMinutING)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateSec)(void);
-LBDeclare NSNumber*         (^dateSec_n)(void);
+LBDeclare NSNumber*         (^dateSecING)(void);
 
 #pragma mark - 计算年月日时分秒的差
 /** <^(NSDate* date)> */
@@ -92,13 +92,13 @@ LBDeclare NSDate*          (^dateDayAtEnd)(void);
 LBDeclare NSDate*          (^dateCurrentZone)(void);
 /** <^()>判断闰年 */
 LBDeclare BOOL             (^dateIsLeapYear)(void);
-LBDeclare NSNumber*        (^dateIsLeapYear_n)(void);
+LBDeclare NSNumber*        (^dateIsLeapYearING)(void);
 /** <^()>判断是否在本日 */
 LBDeclare BOOL             (^dateIsInToday)(void);
-LBDeclare NSNumber*        (^dateIsInToday_n)(void);
+LBDeclare NSNumber*        (^dateIsInTodayING)(void);
 /** <^()>判断是否为本月 */
 LBDeclare BOOL             (^dateIsInMonth)(void);
-LBDeclare NSNumber*        (^dateIsInMonth_n)(void);
+LBDeclare NSNumber*        (^dateIsInMonthING)(void);
 /** <^()>星座 */
 LBDeclare NSString*        (^dateAstrology)(void);
 @end
