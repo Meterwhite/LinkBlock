@@ -1975,14 +1975,14 @@ DefineKindOfClassAs(NSNumber)
          includeFoundation:(BOOL)includeFoundation
 {
     id _self = self;
-    //json value
+    //already json value
     if([self isKindOfClass:NSString.class]  ||
        [self isKindOfClass:NSNumber.class]  ||
        self == NSNull.null
        ){
         return _self;
     }
-    //array able object
+    //array able object so convert is to array
     if([self isKindOfClass:NSIndexPath.class]){
         return self.idxPathToNSArray();
     }
@@ -1995,19 +1995,21 @@ DefineKindOfClassAs(NSNumber)
         return _self;
     }
     
-    //dictionary able collection
+    //dictionary able collection so convert is to dictionary
     if([self isKindOfClass:NSDictionary.class]                      ||
        [self respondsToSelector:@selector(dictionaryRepresentation)]){
         
-        id dicContent = _self;
-        if([self respondsToSelector:@selector(dictionaryRepresentation)])
-            dicContent = [_self dictionaryRepresentation];
+        id content;
+        if([self respondsToSelector:@selector(dictionaryRepresentation)]){
+            content = [_self dictionaryRepresentation];
+        }else{
+            content = [_self copy];
+        }
         
         if(![self isKindOfClass:NSMutableDictionary.class])
             _self = NSMutableDictionaryNew;
         
-        
-        [dicContent enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
+        [content enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
             
             key = (depth==NO)
             ?obj
@@ -2018,17 +2020,17 @@ DefineKindOfClassAs(NSNumber)
         return _self;
     }
     
-    //value set
+    //value set so convert is to array
     if([_self respondsToSelector:@selector(objectEnumerator)]){
         
-        NSArray* arrContent = [_self copy];
+        NSArray* content = [_self copy];
         if(![self isKindOfClass:NSMutableArray.class]){
             _self = NSMutableArrayNew;
         }else{
             [_self removeAllObjects];
         }
         
-        NSEnumerator* enumerator = [arrContent objectEnumerator];
+        NSEnumerator* enumerator = [content objectEnumerator];
         id item;
         while ((item = enumerator.nextObject)) {
             
@@ -2043,43 +2045,49 @@ DefineKindOfClassAs(NSNumber)
     if(includeFoundation == NO && [[self class] classIsFoundation])
         return _self;
     
-    //single object!
-    NSMutableDictionary* dicContent = NSMutableDictionaryNew;
+    //single object!so convert is to a dictionary
+    NSMutableDictionary* dictionary = NSMutableDictionaryNew;
     NSArray<NSString*>* properties = [[_self class] classGetAllPropertyList:includeFoundation];
-    
     @try {
         
         [properties enumerateObjectsUsingBlock:^(NSString* property, NSUInteger idx, BOOL * stop) {
             
             id value = [_self valueForKey:property];
-            if(!value)  return;
+            
+            //nil , NSNull, custom Null has no key-value
+            if(value == nil || [value isKindOfClass:NSNull.class])  return;
             
             //direct value
-            if([self isKindOfClass:NSString.class]  ||
-               [self isKindOfClass:NSNumber.class]
+            if([value isKindOfClass:NSString.class]  ||
+               [value isKindOfClass:NSNumber.class]
                ){
-                dicContent[property] = value;
+                dictionary[property] = value;
                 return;
             }
             
-            //collection type value or custom object
+            BOOL valueIsFoundation = [[value class] classIsFoundation];
             if([value respondsToSelector:@selector(objectEnumerator)]           ||
                [value respondsToSelector:@selector(dictionaryRepresentation)]   ||
                [value isKindOfClass:NSIndexPath.class]                          ||
                [value isKindOfClass:NSIndexSet.class]                           ||
-               [[value class] classIsFoundation] == NO//custom object
+               valueIsFoundation == NO
                ){
-                
+                //collection type or custom object
                 value = (depth==NO)
                 ?value
                 :[value _lb_obj2JsonValueDepth:depth includeFoundation:includeFoundation];
+            }else{
+                //foundation type,such as UIVIew,NSError...
+                value = [value description];
             }
-            
-            dicContent[property] = value;
+            dictionary[property] = value;
         }];
+    }@catch (NSException *exception) {
+        
+        NSLog(@"error from :%s,process of convert json value has been interrupted;NSException=%@;",__func__,[exception description]);
     }@finally {
         
-        return dicContent;
+        return dictionary;
     }
 }
 
