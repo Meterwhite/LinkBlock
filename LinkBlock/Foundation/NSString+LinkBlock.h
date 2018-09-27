@@ -21,7 +21,7 @@ LBDeclare NSString*    (^strAt)(NSUInteger index);
 LBDeclare NSString*    (^strComposeAt)(NSUInteger index);
 /** <^(NSString* str)> */
 LBDeclare BOOL         (^strIsEqualStr)(NSString* str);
-LBDeclare NSNumber*    (^strIsEqualStr_n)(NSString* str);
+LBDeclare NSNumber*    (^strIsEqualStrAs)(NSString* str);
 /** <^()> */
 LBDeclare NSMutableString* (^strMutableCopy)(void);
 /** <^(NSString* str)> */
@@ -45,13 +45,13 @@ LBDeclare NSString*    (^strReplaceInRange)(NSString* str, NSRange range);
 LBDeclare NSString*    (^strReplace)(NSString* replaceStr, NSString* withStr);
 /** <^(NSString* str)> */
 LBDeclare BOOL         (^strContain)(NSString* str);
-LBDeclare NSNumber*    (^strContain_n)(NSString* str);
+LBDeclare NSNumber*    (^strContainAs)(NSString* str);
 /** <^()>字符串是否含有汉字 */
 LBDeclare BOOL         (^strContainzh_CN)(void);
-LBDeclare NSNumber*    (^strContainzh_CN_n)(void);
+LBDeclare NSNumber*    (^strContainzh_CNAs)(void);
 /** <^(NSRange range)>范围内是否是汉字 */
 LBDeclare BOOL         (^strIszh_CNInRange)(NSRange range);
-LBDeclare NSNumber*    (^strIszh_CNInRange_n)(NSRange range);
+LBDeclare NSNumber*    (^strIszh_CNInRangeAs)(NSRange range);
 /** <^()>转unicode编码: @"我" => @"\u6211" */
 LBDeclare NSString*    (^strToUnicoding)(void);
 /** <^()>unicode编码转: @"\u6211" => @"我" */
@@ -67,22 +67,22 @@ LBDeclare NSInteger    (^strIndexOfStrStartAt)(NSString* str, NSUInteger startIn
 
 /** <^()>是否是表示空的字符串，包括全部空白符和字符串以及"<null>"，"(null)" */
 LBDeclare BOOL         (^strIsBlank)(void);
-LBDeclare NSNumber*    (^strIsBlank_n)(void);
+LBDeclare NSNumber*    (^strIsBlankAs)(void);
 /** <^()>判断emoji */
 LBDeclare BOOL         (^strIsEmoji)(void);
-LBDeclare NSNumber*    (^strIsEmoji_n)(void);
+LBDeclare NSNumber*    (^strIsEmojiAs)(void);
 /** <^()> */
 LBDeclare BOOL         (^strContainEmoji)(void);
-LBDeclare NSNumber*    (^strContainEmoji_n)(void);
+LBDeclare NSNumber*    (^strContainEmojiAs)(void);
 /** <^(UIFont* font)>通用视图排版中计算字符串尺寸 */
 LBDeclare CGSize       (^strSizeWithFont)(UIFont* font);
-LBDeclare NSValue*     (^strSizeWithFont_n)(UIFont* font);
+LBDeclare NSValue*     (^strSizeWithFontAs)(UIFont* font);
 /** <^(UIFont* font , CGFloat maxWidth)>通用视图排版中计算字符串尺寸 */
 LBDeclare CGSize       (^strSizeWithFontAndMaxWidth)(UIFont* font , CGFloat maxWidth);
-LBDeclare NSValue*     (^strSizeWithFontAndMaxWidth_n)(UIFont* font , CGFloat maxWidth);
+LBDeclare NSValue*     (^strSizeWithFontAndMaxWidthAs)(UIFont* font , CGFloat maxWidth);
 /** <^(UIFont* font, CGSize maxSize)>通用视图排版中计算字符串尺寸 */
 LBDeclare CGSize       (^strSizeWithFontAndMaxSize)(UIFont* font, CGSize maxSize);
-LBDeclare NSValue*     (^strSizeWithFontAndMaxSize_n)(UIFont* font, CGSize maxSize);
+LBDeclare NSValue*     (^strSizeWithFontAndMaxSizeAs)(UIFont* font, CGSize maxSize);
 /** <^(NSDictionary* attrDict)>计算字符串本身高度，不支持包含图片的计算 */
 LBDeclare CGFloat      (^strHeight)(NSDictionary<NSAttributedStringKey,id>* attrDict);
 /** <^(NSDictionary* attrDict)>计算字符串的行高，不支持包含图片的计算 */
@@ -113,14 +113,14 @@ LBDeclare NSRange (^strSubRangeToMaxUILineIfAppendStr)(NSUInteger maxLine , CGFl
 LBDeclare NSString*    (^strSubToLine)(NSUInteger toLine);
 /** <^()> */
 LBDeclare NSUInteger   (^strLength)(void);
-LBDeclare NSNumber*    (^strLength_n)(void);
+LBDeclare NSNumber*    (^strLengthAs)(void);
 /** <^()>字符串按ASCII的长度 */
 LBDeclare NSUInteger   (^strLengthASCII)(void);
 /** <^()>字符串按Unicode的长度 */
 LBDeclare NSUInteger   (^strLengthUnicode)(void);
-/** <^()>字符串按元字符组成的序列的长度，即汉字，emoji等都作为一个字符 */
+/** <^()>按元字符的长度 */
 LBDeclare NSUInteger   (^strLengthComposed)(void);
-/** <^(NSString* reg元字符正则)>字符串按元字符组成的序列和自定义正则规则元字符的长度，即每个字符，汉字，emoji，匹配，都视为一个元字符；参数传nil时和strLengthComposed()相同 */
+/** <^(NSString* reg元字符正则)>按元字符和自定义正则规则作为元字符的长度，即每个字符，汉字，emoji，一次匹配，都视为一个元字符；参数传nil时和strLengthComposed()相同 */
 LBDeclare NSUInteger   (^strLengthComposedAndCustom)(NSString* customReg);
 /** <^()>去除所有空白符 */
 LBDeclare NSString*    (^strClearSpaceAndWrap)(void);
@@ -134,7 +134,7 @@ LBDeclare BOOL         (^strIsInteger)(void);
 LBDeclare BOOL         (^strIsFloating)(void);
 /** <^()>是否是数字类型 */
 LBDeclare BOOL         (^strIsNumber)(void);
-LBDeclare NSNumber*    (^strIsNumber_n)(void);
+LBDeclare NSNumber*    (^strIsNumberAs)(void);
 /** <^()>反转字符串 */
 LBDeclare NSString*    (^strReversed)(void);
 /** <^(NSString* str)>从左删除第一次匹配的字符串 */
@@ -153,10 +153,10 @@ LBDeclare NSArray<NSString*>*     (^strSplitWithStr)(NSString* splitStr);
 LBDeclare NSArray<NSString*>*     (^strSplitWithCharsStr)(NSString* splitStr);
 /** <^(NSString* prefix)>是否包含开头 */
 LBDeclare BOOL         (^strHasPrefix)(NSString* prefix);
-LBDeclare NSNumber*    (^strHasPrefix_n)(NSString* prefix);
+LBDeclare NSNumber*    (^strHasPrefixAs)(NSString* prefix);
 /** <^(NSString* suffix)>是否包含结尾 */
 LBDeclare BOOL         (^strHasSuffix)(NSString* suffix);
-LBDeclare NSNumber*    (^strHasSuffix_n)(NSString* suffix);
+LBDeclare NSNumber*    (^strHasSuffixAs)(NSString* suffix);
 /** <^(NSUInteger from)> */
 LBDeclare NSString*    (^strSubFrom)(NSUInteger from);
 /** <^(NSUInteger to)不能取到to> */
@@ -179,7 +179,7 @@ LBDeclare NSString*    (^strPathByFileNameInBundle)(NSString* type);
 LBDeclare NSString*    (^strPathAppendingComponent)(NSString* component);
 /** <^()>路径下文件是否存在 */
 LBDeclare BOOL         (^strPathFileExists)(void);
-LBDeclare NSNumber*    (^strPathFileExists_n)(void);
+LBDeclare NSNumber*    (^strPathFileExistsAs)(void);
 /** 
  <^()>播放路径下音效并释放
  播放系统键盘音：@"/System/Library/Audio/UISounds/Tock.caf".strPathSoundPlay();
@@ -188,7 +188,7 @@ LBDeclare NSString*    (^strPathSoundPlay)(void);
 /** <^(id<NSCoding>obj)>解档 */
 LBDeclare NSString*    (^strPathArchiveObject)(id<NSCoding>obj);
 /** <^()>归档，并以归档对象作为链条 */
-LBDeclare NSObject*    (^strPathUnarchiveObject_linkTo)(void);
+LBDeclare NSObject*    (^strPathUnarchiveObjectAsWhatReturn)(void);
 /** <^(NSUInteger index)>加载XIB，越界时返回NSNull */
 LBDeclare __kindof UIView*     (^strLoadNibNamedAt)(NSUInteger index);
 /** <^(NSUInteger index)>加载第一个XIB，越界时返回NSNull */
@@ -251,18 +251,18 @@ LBDeclare NSPredicate*         (^strToPredicateWidthFormatArgs)(id obj1 , ...);
 /** <^()>路径转系统音效ID；注意释放 */
 LBDeclare UInt32               (^strToSystemSoundID)(void);
 #pragma mark - 设置到
-/** <^(UILabel* lab)> */
-LBDeclare UILabel*             (^strSetToLab_linkTo)(UILabel* lab);
-/** <^(UIButton* btn)> */
-LBDeclare UIButton*            (^strSetToBtn_linkTo)(UIButton* btn, UIControlState state);
-/** <^(UITextField* txtField)> */
-LBDeclare UITextField*         (^strSetToTxtField_linkTo)(UITextField* txtField);
-/** <^(UITextView* txtView)> */
-LBDeclare UITextView*          (^strSetToTxtView_linkTo)(UITextView* txtView);
+/** 调用后将链条切换到参数 */
+LBDeclare UILabel*             (^strSetToLabelAsWhatSet)(UILabel* lab);
+/** 调用后将链条切换到参数 */
+LBDeclare UIButton*            (^strSetToButtonAsWhatSet)(UIButton* btn, UIControlState state);
+/** 调用后将链条切换到参数 */
+LBDeclare UITextField*         (^strSetToTextFieldAsWhatSet)(UITextField* txtField);
+/** 调用后将链条切换到参数 */
+LBDeclare UITextView*          (^strSetToTextViewAsWhatSet)(UITextView* txtView);
 #pragma mark - 正则
 /** <^(NSString* regex)> */
 LBDeclare BOOL                 (^strRegexIsMatch)(NSString* regex);
-LBDeclare NSNumber*            (^strRegexIsMatch_n)(NSString* regex);
+LBDeclare NSNumber*            (^strRegexIsMatchAs)(NSString* regex);
 /** <^(NSString* regex)>正则匹配，返回多个匹配结果 */
 LBDeclare NSMutableArray<NSString*>* (^strRegexMatchs)(NSString* regex);
 /**
@@ -282,7 +282,7 @@ LBDeclare NSObject*            (^strKeyPathForValueWith)(id obj);
 #pragma mark - 谓词
 /** <^(id obj)>谓词 */
 LBDeclare BOOL                 (^strPredicateEvaluate)(id obj);
-LBDeclare NSNumber*            (^strPredicateEvaluate_n)(id obj);
+LBDeclare NSNumber*            (^strPredicateEvaluateAs)(id obj);
 /** <^(id obj)>谓词 过滤数组；返回结果 */
 LBDeclare NSArray*             (^strPredicateFilteredArray)(NSArray* arr);
 /** <^(id obj)>谓词 过滤可变集合 NSMutableArray,NSMutableSet,NSMutableOrderedSet；返回谓词语句 */

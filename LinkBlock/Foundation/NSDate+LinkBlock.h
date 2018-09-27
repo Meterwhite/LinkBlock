@@ -14,31 +14,33 @@
 @interface NSObject(NSDateLinkBlock)
 /** <^(NSString* formatStr)>日期转字符串 formatStr:yyyy-MM-dd */
 LBDeclare NSString*        (^dateToStrWithFormat)(NSString* formatStr);
+/** <^()>中文星座 */
+LBDeclare NSString*        (^dateToStrAstrologyzh_CN)(void);
 /** <^()> */
 LBDeclare NSTimeInterval   (^dateTimeIntervalSince1970)(void);
-LBDeclare NSNumber*        (^dateTimeIntervalSince1970ING)(void);
+LBDeclare NSNumber*        (^dateTimeIntervalSince1970As)(void);
 /** <^()> */
 LBDeclare NSDateComponents*(^dateComponentsAll)(void);
 
 #pragma mark - 获取日期项的值
 /** <^()> */
 LBDeclare NSInteger         (^dateYear)(void);
-LBDeclare NSNumber*         (^dateYearING)(void);
+LBDeclare NSNumber*         (^dateYearAs)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateMonth)(void);
-LBDeclare NSNumber*         (^dateMonthING)(void);
+LBDeclare NSNumber*         (^dateMonthAs)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateDay)(void);
-LBDeclare NSNumber*         (^dateDayING)(void);
+LBDeclare NSNumber*         (^dateDayAs)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateHour)(void);
-LBDeclare NSNumber*         (^dateHourING)(void);
+LBDeclare NSNumber*         (^dateHourAs)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateMinut)(void);
-LBDeclare NSNumber*         (^dateMinutING)(void);
+LBDeclare NSNumber*         (^dateMinutAs)(void);
 /** <^()> */
 LBDeclare NSInteger         (^dateSec)(void);
-LBDeclare NSNumber*         (^dateSecING)(void);
+LBDeclare NSNumber*         (^dateSecAs)(void);
 
 #pragma mark - 计算年月日时分秒的差
 /** <^(NSDate* date)> */
@@ -92,13 +94,12 @@ LBDeclare NSDate*          (^dateDayAtEnd)(void);
 LBDeclare NSDate*          (^dateCurrentZone)(void);
 /** <^()>判断闰年 */
 LBDeclare BOOL             (^dateIsLeapYear)(void);
-LBDeclare NSNumber*        (^dateIsLeapYearING)(void);
+LBDeclare NSNumber*        (^dateIsLeapYearAs)(void);
 /** <^()>判断是否在本日 */
 LBDeclare BOOL             (^dateIsInToday)(void);
-LBDeclare NSNumber*        (^dateIsInTodayING)(void);
+LBDeclare NSNumber*        (^dateIsInTodayAs)(void);
 /** <^()>判断是否为本月 */
 LBDeclare BOOL             (^dateIsInMonth)(void);
-LBDeclare NSNumber*        (^dateIsInMonthING)(void);
-/** <^()>星座 */
-LBDeclare NSString*        (^dateAstrology)(void);
+LBDeclare NSNumber*        (^dateIsInMonthAs)(void);
+
 @end

@@ -141,7 +141,7 @@
 {
     return ^id(){
         LinkHandle_REF(NSValue)
-        LinkGroupHandle_REF(objIsNumber)
+        LinkGroupHandle_REF(objIsNumberAs)
         
         if([self isKindOfClass:[NSNumber class]]){
             return @YES;

@@ -915,10 +915,10 @@ static NSArray* _listOfLinkBlockIsIndefiniteParameters;
         = @[@"objPerformSelectors",@"objPerformSelectorsWithArgs",
             @"strToPredicateWidthFormatArgs",@"viewAddSubviews",
             @"strAppendFormat",@"linkEvalCode",@"linkCodeEval",
-            @"objPerformSelectorsWithArgs_linkToReturnValues",
-            @"objIsEqualToSomeone",@"objIsEqualToSomeone_n",
-            @"objPerformSelectors_linkToReturnValues",
-            @"objIsEqualToEach",@"objIsEqualToEach_n",
+            @"objPerformSelectorsWithArgsAsWhatReturns",
+            @"objIsEqualToSomeone",@"objIsEqualToSomeoneAs",
+            @"objPerformSelectorsAsWhatReturns",
+            @"objIsEqualToEach",@"objIsEqualToEachAs",
             @"arrFilter",@"m_arrFilter"];
     }
     return _listOfLinkBlockIsIndefiniteParameters;

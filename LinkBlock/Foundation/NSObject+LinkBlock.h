@@ -167,42 +167,38 @@ LBDeclare NSObject*    (^poNoDeep)(void);
 
 
 #pragma mark - Runtime
-/** <^(NSString* key)>返回值为nil时返回NSNull，可使用linkEnd获取nil值 */
+/** result nil==>NSNull , NSNull.linkEnd == nil */
 LBDeclare NSObject*    (^objValueForKey)(NSString* key);
-/** <^(NSString* key)>返回值为nil时返回NSNull，可使用linkEnd获取nil值 */
+/** result nil==>NSNull , NSNull.linkEnd == nil */
 LBDeclare NSObject*    (^objValueForKeyPath)(NSString* key);
-/** <^(id value,NSString* key)> */
 LBDeclare NSObject*    (^objSetValueForKey)(id value,NSString* key);
-/** <^(id value,NSString* key)> */
 LBDeclare NSObject*    (^objSetValueForKeyPath)(id value,NSString* key);
-/** <^(NSDictionary<NSString *,id> * kvs)> */
 LBDeclare NSObject*    (^objSetValuesWithKeyValues)(NSDictionary<NSString *,id> * keyValues);
-/** <^(NSArray<NSString *> *keys)> */
-LBDeclare NSDictionary<NSString *, id>* (^objKeyValueWithKeys)(NSArray<NSString *> *keys);
-/** <^(NSString* key)> */
-LBDeclare NSObject*    (^objSetNilForKey)(NSString* key);
-/** <^(id key, NSUInteger len)>key<NSString|NSArray> */
-LBDeclare NSObject*    (^objSetRandomStringForKey)(id key, NSUInteger len);
-/** <^(id key, NSUInteger len)>key<NSString|NSArray> */
-LBDeclare NSObject*    (^objSetRandomStringzh_CNForKey)(id key, NSUInteger len);
-/** <^(id key, NSUInteger len)>key<NSString|NSArray>随机数字字符串，不会以'0'作为开始 */
-LBDeclare NSObject*    (^objSetRandomStringNumberForKey)(id key, NSUInteger len);
-/** <^(id key, NSUInteger max)>key<NSString|NSArray> set integer value */
-LBDeclare NSObject*    (^objSetRandomNumberForKey)(id key, uint32_t max);
-/** <^(id key, NSUInteger max)>key<NSString|NSArray> set double value */
-LBDeclare NSObject*    (^objSetRandomDoubleForKey)(id key, uint32_t max, NSUInteger len);
+LBDeclare NSDictionary*(^objKeyValueWithKeys)(NSArray<NSString*>*keys);
+/** asKey∈{NSString,NSArray} */
+LBDeclare NSObject*    (^objSetNilForKey)(id asKey);
+/** asKey∈{NSString,NSArray} */
+LBDeclare NSObject*    (^objSetRandomStringForKey)(id asKey, NSUInteger len);
+/** asKey∈{NSString,NSArray} */
+LBDeclare NSObject*    (^objSetRandomStringzh_CNForKey)(id asKey, NSUInteger len);
+/** asKey∈{NSString,NSArray}随机数字字符串，不会以'0'作为开始 */
+LBDeclare NSObject*    (^objSetRandomStringNumberForKey)(id asKey, NSUInteger len);
+/** asKey∈{NSString,NSArray} set integer value */
+LBDeclare NSObject*    (^objSetRandomNumberForKey)(id asKey, uint32_t max);
+/** asKey∈{NSString,NSArray} set double value */
+LBDeclare NSObject*    (^objSetRandomDoubleForKey)(id asKey, uint32_t max, NSUInteger len);
 /** <^(Class classKind)> */
 LBDeclare BOOL         (^objIsKindOf)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsKindOf_n)( __unsafe_unretained Class clazz);
+LBDeclare NSNumber*    (^objIsKindOfAs)( __unsafe_unretained Class clazz);
 /** <^(Class classKind)> */
 LBDeclare BOOL         (^objIsSubClassOf)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsSubClassOf_n)( __unsafe_unretained Class clazz);
+LBDeclare NSNumber*    (^objIsSubClassOfAs)( __unsafe_unretained Class clazz);
 /** <^(Class classKind)> */
 LBDeclare BOOL         (^objIsMemberOfClass)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsMemberOfClass_n)( __unsafe_unretained Class clazz);
+LBDeclare NSNumber*    (^objIsMemberOfClassAs)( __unsafe_unretained Class clazz);
 /** <^(SEL theSEL)> */
 LBDeclare BOOL         (^objIsRespondsSEL)(SEL sel);
-LBDeclare NSNumber*    (^objIsRespondsSEL_n)(SEL sel);
+LBDeclare NSNumber*    (^objIsRespondsSELAs)(SEL sel);
 /** <^()> */
 LBDeclare NSString*    (^objClassName)(void);
 /** <^()> */
@@ -225,15 +221,15 @@ LBDeclare NSObject*    (^objPerformSelectors)(SEL sel0 , ...);
  */
 LBDeclare NSObject*    (^objPerformSelectorsWithArgs)(SEL sel0 , NSArray* args0 , ...);
 /** <^(SEL sel)>返回结果 */
-LBDeclare NSObject*    (^objPerformSelector_linkToReturnValue)(SEL sel);
+LBDeclare NSObject*    (^objPerformSelectorAsWhatReturn)(SEL sel);
 /** <^(SEL sel , id arg)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull； */
-LBDeclare NSObject*    (^objPerformSelectorWithArg_linkToReturnValue)(SEL sel , id arg);
+LBDeclare NSObject*    (^objPerformSelectorWithArgAsWhatReturn)(SEL sel , id arg);
 /** <^(SEL sel0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；宏定义下该方法无需手工以nil结尾； */
-LBDeclare NSArray*     (^objPerformSelectors_linkToReturnValues)(SEL sel0 , ...);
+LBDeclare NSArray*     (^objPerformSelectorsAsWhatReturns)(SEL sel0 , ...);
 /** 
  <^(SEL sel0 , NSArray* args0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；方法内会自动适配参数个数；在参数数组中使用NSNull来代替nil。不应在参数中间位置传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组；宏定义下该方法无需手工以nil结尾；
  */
-LBDeclare NSArray*     (^objPerformSelectorsWithArgs_linkToReturnValues)(SEL sel0 , NSArray* args0 , ...);
+LBDeclare NSArray*     (^objPerformSelectorsWithArgsAsWhatReturns)(SEL sel0 , NSArray* args0 , ...);
 /** <^()>获取对象的引用计数器 */
 LBDeclare_F CFIndex    objRetainCount;
 
@@ -288,14 +284,14 @@ LBDeclare_F CFIndex    objRetainCount;
 LBDeclare NSObject*    (^objAdd)(id obj);
 /** <^(id obj)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
 LBDeclare NSObject*    (^objAddTo)(id obj);
-/** <^(id obj)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项，返回为入参对象 */
-LBDeclare NSObject*    (^objAddTo_linkTo)(id obj);
+/** objAddTo调用后，将链条切换到参数 */
+LBDeclare NSObject*    (^objAddToAsWhatSet)(id obj);
 /** <^(id obj , NSUInteger idx)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
 LBDeclare NSObject*    (^objInsert)(id obj , NSUInteger idx);
 /** <^(id obj , NSUInteger idx)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
 LBDeclare NSObject*    (^objInsertTo)(id obj , NSUInteger idx);
-/** <^(id obj , NSUInteger idx)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项，返回为入参对象 */
-LBDeclare NSObject*    (^objInsertTo_linkTo)(id obj , NSUInteger idx);
+/** objInsertTo调用后，将链条切换到参数 */
+LBDeclare NSObject*    (^objInsertToAsWhatSet)(id obj , NSUInteger idx);
 /** <^(id obj)>弱类型化移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项, */
 LBDeclare NSObject*    (^objRemove)(id obj);
 /** <^(id obj)>弱类型化移除;<UIView>时为移除子视图,<String>时为移除字符串,<Array>等集合类型为移除子项,<Dictionary>时为移除键相关的项.<UILable|UITextFild|UITextView|UISearchBar>时为清除文本内容 */
@@ -311,8 +307,8 @@ LBDeclare NSObject*    (^objRemoveAll)(void);
 LBDeclare BOOL         (^objIsBlank)(void);
 /** <^(id obj)>弱类型化移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
 LBDeclare NSObject*    (^objRemoveFrom)(id obj);
-/** <^(id obj)>弱类型化移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项，返回为入参对象 */
-LBDeclare NSObject*    (^objRemoveFrom_linkTo)(id obj);
+/** objRemoveFrom调用后，将链条切换到参数 */
+LBDeclare NSObject*    (^objRemoveFromAsWhatSet)(id obj);
 
 LBDeclare NSObject*    (^objCopy)(void);
 LBDeclare NSObject*    (^objMutableCopy)(void);
@@ -322,43 +318,38 @@ LBDeclare NSObject*    (^objNeedMutable)(void);
 LBDeclare NSObject*    (^objCopyByArchive)(void);
 /** <^()> 是否是可变类型*/
 LBDeclare BOOL         (^objIsMutable)(void);
-/** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfNSString)(void);
-/** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfNSArray)(void);
-/** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfNSDictionary)(void);
-/** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfUIView)(void);
-/** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfNSValue)(void);
-/** <^()> */
-LBDeclare NSNumber*    (^objIsKindOfNSNumber)(void);
+
+LBDeclare NSNumber*    (^objIsKindOfNSStringAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSArrayAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSDictionaryAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfUIViewAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSValueAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSNumberAs)(void);
 /** <^()> 判断是否是数字类型或数字的字符串 */
-LBDeclare NSNumber*    (^objIsNumber)(void);
-/** <^()> 判断是否是集合类型 */
-LBDeclare NSNumber*    (^objIsCollection)(void);
+LBDeclare NSNumber*    (^objIsNumberAs)(void);
+/** 判断集合类型∈{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
+LBDeclare NSNumber*    (^objIsCollectionAs)(void);
 /** 可变拷贝并且操作到子项 */
-LBDeclare NSObject*    (^objMutableCopyEnumerable)(void);
+LBDeclare NSObject*    (^objMutableCopyEnumerate)(void);
 
 
 LBDeclare BOOL         (^objIsNSNull)(void);
-LBDeclare NSNumber*    (^objIsNSNull_n)(void);
+LBDeclare NSNumber*    (^objIsNSNullAs)(void);
 
 LBDeclare BOOL         (^objIsEqual)(id obj);
-LBDeclare NSNumber*    (^objIsEqual_n)(id obj);
+LBDeclare NSNumber*    (^objIsEqualAs)(id obj);
 /** <^(id obj,...)> */
 LBDeclare BOOL         (^objIsEqualToEach)(id obj,...);
-LBDeclare NSNumber*    (^objIsEqualToEach_n)(id obj,...);
+LBDeclare NSNumber*    (^objIsEqualToEachAs)(id obj,...);
 
 LBDeclare BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
-LBDeclare NSNumber*    (^objIsEqualToEachInArray_n)(NSArray* arr);
+LBDeclare NSNumber*    (^objIsEqualToEachInArrayAs)(NSArray* arr);
 
 LBDeclare BOOL         (^objIsEqualToSomeone)(id obj,...);
-LBDeclare NSNumber*    (^objIsEqualToSomeone_n)(id obj,...);
+LBDeclare NSNumber*    (^objIsEqualToSomeoneAs)(id obj,...);
 
 LBDeclare BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
-LBDeclare NSNumber*    (^objIsEqualToSomeoneInArray_n)(NSArray* arr);
+LBDeclare NSNumber*    (^objIsEqualToSomeoneInArrayAs)(NSArray* arr);
 
 /** <^(NSString* key)>
  *  bool取反: bool type=<YES/NO>,NSNumber 同理<@YES/@NO>,
@@ -375,44 +366,31 @@ LBDeclare NSObject*    (^objSetValuesRandom)(void);
 /** <^()> 清空所有可访问的属性的值为默认值，排除readonly和无'_成员变量'的属性 */
 LBDeclare NSObject*    (^objValuesClean)(void);
 #pragma mark - About NSString
-/** <^()>NSDate,NSString,NSArray,NSDictionary等对象转成json的字符串 */
+/** NSJSONSerialization */
 LBDeclare NSString*    (^objToJsonString)(void);
 /** <^()> <JSValue & NSString> to nsnumber */
 LBDeclare NSNumber*    (^objToNSNumber)(void);
 
-#pragma mark - About NSMutableArray
-/** <^(NSMutableArray* arr)>将对象添加到 */
-LBDeclare NSObject*    (^objAddToArr)(NSMutableArray* arr);
-/** <^(NSMutableArray* arr)> */
-LBDeclare NSObject*    (^objRemoveFromArr)(NSMutableArray* arr);
-/** <^(NSArray* inArr)>在数组中的前一个元素 */
-LBDeclare NSObject*    (^objBeforeInArr)(NSArray* inArr);
-/** <^(NSArray* inArr)>在数组中的后一个元素 */
-LBDeclare NSObject*    (^objNextInArr)(NSArray* inArr);
-/** <^(NSArray* inArr)>对象是否在数组中 */
-LBDeclare BOOL         (^objIsInArr)(NSArray* inArr);
-LBDeclare NSNumber*    (^objIsInArr_n)(NSArray* inArr);
-#pragma mark - About NSMutableDictionary
-/** <^(NSMutableDictionary* dict, id<NSCopying> key)>将对象设置到字典 */
-LBDeclare NSObject*    (^objSetToDict)(NSMutableDictionary* dict, id<NSCopying> key);
-/** <^(NSMutableDictionary* dict)>对象是否在字典值的集合中 */
-LBDeclare BOOL         (^objIsInDictValues)(NSMutableDictionary* dict);
-LBDeclare NSNumber*    (^objIsInDictValues_n)(NSMutableDictionary* dict);
-/** <^(NSMutableDictionary* dict)>对象是否在字典键的集合中 */
-LBDeclare BOOL         (^objIsInDictKeys)(NSMutableDictionary* dict);
-LBDeclare NSNumber*    (^objIsInDictKeys_n)(NSMutableDictionary* dict);
-/**
- *  <^(BOOL includeFoundation)>
- *  将当前对象转字典（如果对象为容器类型则对值进行一次转换）
- *  includeFoundationProperty：是否包含基础类型的属性
- */
-LBDeclare NSDictionary*(^objToNSDictionaryNoDeep)(BOOL includeFoundation);
-/**
- *  <^(BOOL includeFoundation)>
- *  对象转字典（对所有属性进行层次遍历，对容器对象的值也是）
- *  includeFoundationProperty：是否包含基础类型的属性
- */
-LBDeclare NSDictionary*(^objToNSDictionary)(BOOL includeFoundation);
+/** 集合中的前一个元素 objs∈{NSArray,NSOrderedSet} */
+LBDeclare NSObject*    (^objGetPrevItemFromObjs)(id objs);
+/** 集合中的后一个元素 */
+LBDeclare NSObject*    (^objGetNextItemFromObjs)(id objs);
+/** 判断集合子项;objs∈{.objectEnumerator,NSIndexSet} */
+LBDeclare BOOL         (^objIsSubitemOfObjs)(id objs);
+LBDeclare NSNumber*    (^objIsSubitemOfObjsAs)(id objs);
+/** 判断集合子项;objs∈{.keyEnumerator} */
+LBDeclare BOOL         (^objIsKeyOfObjs)(id objs);
+LBDeclare NSNumber*    (^objIsKeyOfObjsAs)(id objs);
+
+LBDeclare NSDictionary*(^objToNSDictionary)();
+LBDeclare NSDictionary*(^objToNSDictionaryDepth)();
+LBDeclare NSDictionary*(^objToNSDictionaryFoundation)();
+LBDeclare NSDictionary*(^objToNSDictionaryDepthAndFoundation)();
+
+LBDeclare NSDictionary*(^objToNSDictionaryNoDeepXXX)(BOOL includeFoundation);
+LBDeclare NSDictionary*(^objToNSDictionaryXX)(BOOL includeFoundation);
+
+LBDeclare NSDictionary*(^objToNSDictionaryWithKeys)(NSArray* asKey);
 
 
 #pragma mark - of block

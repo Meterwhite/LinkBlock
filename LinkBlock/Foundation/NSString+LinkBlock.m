@@ -33,11 +33,11 @@
     };
 }
 
-- (NSNumber* (^)(NSString *))strIsEqualStr_n
+- (NSNumber* (^)(NSString *))strIsEqualStrAs
 {
     return ^id(NSString* str){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strIsEqualStr_n,str)
+        LinkGroupHandle_REF(strIsEqualStrAs,str)
         return @([_self isEqualToString:str]);
     };
 }
@@ -175,11 +175,11 @@
     };
 }
 
-- (NSNumber* (^)(NSString *))strContain_n
+- (NSNumber* (^)(NSString *))strContainAs
 {
     return ^id(NSString* str){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strContain_n,str)
+        LinkGroupHandle_REF(strContainAs,str)
         return @([_self containsString:str]);
     };
 }
@@ -216,11 +216,11 @@
     };
 }
 
-- (NSNumber* (^)(void))strContainzh_CN_n
+- (NSNumber* (^)(void))strContainzh_CNAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strContainzh_CN_n)
+        LinkGroupHandle_REF(strContainzh_CNAs)
         for(int i=0; i<_self.length; i++){
             int charS = [_self characterAtIndex:i];
             if(charS >= 0x4e00 && charS <= 0x9fff){
@@ -251,11 +251,11 @@
     };
 }
 
-- (NSNumber* (^)(NSRange))strIszh_CNInRange_n
+- (NSNumber* (^)(NSRange))strIszh_CNInRangeAs
 {
     return ^id(NSRange range){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strIszh_CNInRange_n,range)
+        LinkGroupHandle_REF(strIszh_CNInRangeAs,range)
         if( range.location>_self.length-1 || range.location+range.length>_self.length )
             return @NO;
         
@@ -519,11 +519,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)(void))strIsEmoji_n
+- (NSNumber* (^)(void))strIsEmojiAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strIsEmoji_n)
+        LinkGroupHandle_REF(strIsEmojiAs)
         // 判断是否是 emoji表情
         BOOL returnValue = NO;
         
@@ -571,11 +571,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSValue* (^)(UIFont *))strSizeWithFont_n
+- (NSValue* (^)(UIFont *))strSizeWithFontAs
 {
     return ^id(UIFont* font){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSizeWithFont_n,font)
+        LinkGroupHandle_REF(strSizeWithFontAs,font)
         return [NSValue valueWithCGSize:_self.strSizeWithFontAndMaxWidth(font , CGFLOAT_MAX)];
     };
 }
@@ -591,11 +591,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSValue* (^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidth_n
+- (NSValue* (^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidthAs
 {
     return ^id(UIFont* font, CGFloat maxWidth){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSizeWithFontAndMaxWidth_n,font,maxWidth)
+        LinkGroupHandle_REF(strSizeWithFontAndMaxWidthAs,font,maxWidth)
         return [NSValue valueWithCGSize:_self.strSizeWithFontAndMaxSize(font , CGSizeMake(maxWidth, CGFLOAT_MAX))];
     };
 }
@@ -614,11 +614,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSValue* (^)(UIFont *, CGSize))strSizeWithFontAndMaxSize_n
+- (NSValue* (^)(UIFont *, CGSize))strSizeWithFontAndMaxSizeAs
 {
     return ^id(UIFont* font, CGSize maxSize){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSizeWithFontAndMaxSize_n,font,maxSize)
+        LinkGroupHandle_REF(strSizeWithFontAndMaxSizeAs,font,maxSize)
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSFontAttributeName] = font;
         return [NSValue valueWithCGSize:[_self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil].size];
@@ -847,11 +847,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)(void))strIsBlank_n
+- (NSNumber* (^)(void))strIsBlankAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strIsBlank_n)
+        LinkGroupHandle_REF(strIsBlankAs)
         if ([[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0) {
             return @YES;
         }
@@ -876,11 +876,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)(void))strLength_n
+- (NSNumber* (^)(void))strLengthAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strLength_n)
+        LinkGroupHandle_REF(strLengthAs)
         return @(_self.length);
     };
 }
@@ -1011,11 +1011,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)(void))strContainEmoji_n
+- (NSNumber* (^)(void))strContainEmojiAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strContainEmoji_n)
+        LinkGroupHandle_REF(strContainEmojiAs)
         __block BOOL hasEomji = NO;
         
         [_self enumerateSubstringsInRange:NSMakeRange(0, _self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
@@ -1124,11 +1124,11 @@ NSString* decimalToHexString(u_char nValue)
         return _self.strIsInteger() || _self.strIsFloating();
     };
 }
-- (NSNumber *(^)(void))strIsNumber_n
+- (NSNumber *(^)(void))strIsNumberAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strIsNumber_n)
+        LinkGroupHandle_REF(strIsNumberAs)
         return @( _self.strIsInteger() || _self.strIsFloating() );
     };
 }
@@ -1649,11 +1649,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)(NSString *))strHasPrefix_n
+- (NSNumber* (^)(NSString *))strHasPrefixAs
 {
     return ^id(NSString* prefix){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strHasPrefix_n,prefix)
+        LinkGroupHandle_REF(strHasPrefixAs,prefix)
         return @([_self hasPrefix:prefix]);
     };
 }
@@ -1669,11 +1669,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)(NSString *))strHasSuffix_n
+- (NSNumber* (^)(NSString *))strHasSuffixAs
 {
     return ^id(NSString* suffix){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strHasSuffix_n,suffix)
+        LinkGroupHandle_REF(strHasSuffixAs,suffix)
         return @([_self hasSuffix:suffix]);
     };
 }
@@ -1795,11 +1795,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)(NSString *))strRegexIsMatch_n
+- (NSNumber* (^)(NSString *))strRegexIsMatchAs
 {
     return ^id(NSString* regex){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strRegexIsMatch_n,regex)
+        LinkGroupHandle_REF(strRegexIsMatchAs,regex)
         return @((BOOL)[_self rangeOfString:regex options:NSRegularExpressionSearch].length);
     };
 }
@@ -1883,11 +1883,11 @@ NSString* decimalToHexString(u_char nValue)
         return [[NSPredicate predicateWithFormat:_self] evaluateWithObject:obj];
     };
 }
-- (NSNumber *(^)(id))strPredicateEvaluate_n
+- (NSNumber *(^)(id))strPredicateEvaluateAs
 {
     return ^id(id obj){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strPredicateEvaluate_n , obj)
+        LinkGroupHandle_REF(strPredicateEvaluateAs , obj)
         return @([[NSPredicate predicateWithFormat:_self] evaluateWithObject:obj]);
     };
 }
@@ -2314,11 +2314,11 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSNumber* (^)(void))strPathFileExists_n
+- (NSNumber* (^)(void))strPathFileExistsAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strPathFileExists_n)
+        LinkGroupHandle_REF(strPathFileExistsAs)
         return @([[NSFileManager defaultManager] fileExistsAtPath:_self]);
     };
 }
@@ -2358,11 +2358,11 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     };
 }
 
-- (NSObject *(^)(void))strPathUnarchiveObject_linkTo
+- (NSObject *(^)(void))strPathUnarchiveObjectAsWhatReturn
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strPathUnarchiveObject_linkTo)
+        LinkGroupHandle_REF(strPathUnarchiveObjectAsWhatReturn)
         return linkObj([NSKeyedUnarchiver unarchiveObjectWithFile:_self]);
     };
 }
@@ -2377,41 +2377,41 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     };
 }
 
-- (UILabel *(^)(UILabel *))strSetToLab_linkTo
+- (UILabel *(^)(UILabel *))strSetToLabelAsWhatSet
 {
     return ^id(UILabel* lab){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToLab_linkTo, lab)
+        LinkGroupHandle_REF(strSetToLabelAsWhatSet, lab)
         lab.text = _self;
         return linkObj(lab);
     };
 }
 
-- (UIButton *(^)(UIButton *, UIControlState))strSetToBtn_linkTo
+- (UIButton *(^)(UIButton *, UIControlState))strSetToButtonAsWhatSet
 {
     return ^id(UIButton* btn, UIControlState state){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToBtn_linkTo, btn, state)
+        LinkGroupHandle_REF(strSetToButtonAsWhatSet, btn, state)
         [btn setTitle:_self forState:state];
         return linkObj(btn);
     };
 }
 
-- (UITextField *(^)(UITextField *))strSetToTxtField_linkTo
+- (UITextField *(^)(UITextField *))strSetToTextFieldAsWhatSet
 {
     return ^id(UITextField * txtField){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToTxtField_linkTo, txtField)
+        LinkGroupHandle_REF(strSetToTextFieldAsWhatSet, txtField)
         txtField.text = _self;
         return linkObj(txtField);
     };
 }
 
-- (UITextView *(^)(UITextView *))strSetToTxtView_linkTo
+- (UITextView *(^)(UITextView *))strSetToTextViewAsWhatSet
 {
     return ^id(UITextView * txtView){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToTxtView_linkTo, txtView)
+        LinkGroupHandle_REF(strSetToTextViewAsWhatSet, txtView)
         txtView.text = _self;
         return linkObj(txtView);
     };

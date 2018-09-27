@@ -12,13 +12,13 @@
 /** 
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
- ...objIsEqual_n(...).linkIf_YES...LinkElse...
+ ...objIsEqualAs(...).linkIf_YES...LinkElse...
  */
 LBDeclare_F NSObject*    linkIf_YES;
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
- ...objIsEqual_n(...).linkIf_NO...LinkElse...
+ ...objIsEqualAs(...).linkIf_NO...LinkElse...
  */
 LBDeclare_F NSObject*    linkIf_NO;
 
@@ -55,39 +55,41 @@ LBDeclare BOOL         (^numIsFloat)(void);
 /** <^()> */
 LBDeclare BOOL         (^numIsDouble)(void);
 
-/** <^()>是否包含小数位的值；YES：小数位为0，NO：小数位有值， */
+/** <^()>是否包含小数位的值，
+ YES：小数位==0 ;ex 1.00=YES
+ NO：小数位>0 */
 LBDeclare BOOL         (^numHasDecimalValue)(void);
-LBDeclare NSNumber*    (^numHasDecimalValue_n)(void);
+LBDeclare NSNumber*    (^numHasDecimalValueAs)(void);
 /** <^(num)>等于@宏定义覆盖后可传入数字直接量 */
 LBDeclare BOOL         (^numIsEqualToNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsEqualToNum_n)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsEqualToNumAs)(NSNumber* num);
 /** <^(num)>大于@宏定义覆盖后可传入数字直接量 */
 LBDeclare BOOL         (^numIsGreatThanNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsGreatThanNum_n)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsGreatThanNumAs)(NSNumber* num);
 /** <^(num)>大等于@宏定义覆盖后可传入数字直接量 */
 LBDeclare BOOL         (^numIsGreatEqualNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsGreatEqualNum_n)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsGreatEqualNumAs)(NSNumber* num);
 /** <^(num)>小于@宏定义覆盖后可传入数字直接量 */
 LBDeclare BOOL         (^numIsLessThanNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsLessThanNum_n)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsLessThanNumAs)(NSNumber* num);
 /** <^(num)>小等于@宏定义覆盖后可传入数字直接量 */
 LBDeclare BOOL         (^numIsLessEqualNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsLessEqualNum_n)(NSNumber* num);
+LBDeclare NSNumber*    (^numIsLessEqualNumAs)(NSNumber* num);
 
 /** <^()>判断奇数 */
 LBDeclare BOOL         (^numIsOdd)(void);
-LBDeclare NSNumber*    (^numIsOdd_n)(void);
+LBDeclare NSNumber*    (^numIsOddAs)(void);
 /** <^()>判断偶数 */
 LBDeclare BOOL         (^numIsEven)(void);
-LBDeclare NSNumber*    (^numIsEven_n)(void);
+LBDeclare NSNumber*    (^numIsEvenAs)(void);
 
 /** <^()>判断负数 */
 LBDeclare BOOL         (^numIsNegative)(void);
-LBDeclare NSNumber*    (^numIsNegative_n)(void);
+LBDeclare NSNumber*    (^numIsNegativeAs)(void);
 
 /** <^()>判断0 */
 LBDeclare BOOL         (^numIsZero)(void);
-LBDeclare NSNumber*    (^numIsZero_n)(void);
+LBDeclare NSNumber*    (^numIsZeroAs)(void);
 
 /** <^()>判断NaN(notANumber) */
 LBDeclare BOOL         (^numIsNaN)(void);
@@ -110,10 +112,10 @@ LBDeclare UIColor*     (^numToUIColorFromHex)(void);
 
 /** <^(NSArray* arr)>当前值是否在数组长度长度值内 */
 LBDeclare BOOL         (^numIndexIsInArrRange)(NSArray* arr);
-LBDeclare NSNumber*    (^numIndexIsInArrRange_n)(NSArray* arr);
+LBDeclare NSNumber*    (^numIndexIsInArrRangeAs)(NSArray* arr);
 /** <^(NSString* str)>当前值是否在字符串长度值范围内 */
 LBDeclare BOOL         (^numIndexIsInStringRange)(NSString* str);
-LBDeclare NSNumber*    (^numIndexIsInStringRange_n)(NSString* str);
+LBDeclare NSNumber*    (^numIndexIsInStringRangeAs)(NSString* str);
 /** <^(NSMutableArray* arr)> */
 LBDeclare NSNumber*    (^numIndexObjRemoveFromArr)(NSMutableArray* arr);
 /** <^(NSMutableArray* arr)>，越界时返回NSNull */

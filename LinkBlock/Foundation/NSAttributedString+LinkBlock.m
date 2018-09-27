@@ -19,11 +19,11 @@
     };
 }
 
-- (NSValue* (^)(CGFloat))attr_strSizeING
+- (NSValue* (^)(CGFloat))attr_strSizeAs
 {
     return ^id(CGFloat maxWidth){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strSizeING,maxWidth)
+        LinkGroupHandle_REF(attr_strSizeAs,maxWidth)
         return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil]];
     };
 }
@@ -39,11 +39,11 @@
     };
 }
 
-- (NSValue* (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptionsING
+- (NSValue* (^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptionsAs
 {
     return ^id(CGFloat maxWidth,NSStringDrawingOptions options ){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strSizeWithOptionsING,maxWidth,options)
+        LinkGroupHandle_REF(attr_strSizeWithOptionsAs,maxWidth,options)
         return [NSValue valueWithCGRect:[_self boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX) options:options context:nil]];
     };
 }
@@ -59,20 +59,20 @@
     };
 }
 
-- (NSNumber* (^)(NSAttributedString *))attr_strIsEqualToAttrStrING
+- (NSNumber* (^)(NSAttributedString *))attr_strIsEqualToAttrStrAs
 {
     return ^id(NSAttributedString* attrStr){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strIsEqualToAttrStrING,attrStr)
+        LinkGroupHandle_REF(attr_strIsEqualToAttrStrAs,attrStr)
         return @([_self isEqualToAttributedString:attrStr]);
     };
 }
 
-- (UIImage *(^)(UIImage *, CGRect))attr_strDrawToImg_linkTo
+- (UIImage *(^)(UIImage *, CGRect))attr_strDrawToImageAsWhatSet
 {
     return ^id(UIImage* image, CGRect rect){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strDrawToImg_linkTo,image,rect)
+        LinkGroupHandle_REF(attr_strDrawToImageAsWhatSet,image,rect)
         UIGraphicsBeginImageContext(image.size);
         [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
         [_self drawInRect:rect];
@@ -82,11 +82,11 @@
     };
 }
 
-- (UILabel *(^)(UILabel *))attr_strSetToLabel_linkTo
+- (UILabel *(^)(UILabel *))attr_strSetToLabelAsWhatSet
 {
     return ^id(UILabel* lab){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strSetToLabel_linkTo,lab)
+        LinkGroupHandle_REF(attr_strSetToLabelAsWhatSet,lab)
         lab.attributedText = _self;
         return linkObj(lab);
     };

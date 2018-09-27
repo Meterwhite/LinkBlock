@@ -393,11 +393,11 @@
         return NO;
     };
 }
-- (NSNumber* (^)(void))numHasDecimalValue_n
+- (NSNumber* (^)(void))numHasDecimalValueAs
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numHasDecimalValue_n)
+        LinkGroupHandle_REF(numHasDecimalValueAs)
         if([_self doubleValue] - [_self integerValue]) return @YES;
         return @NO;
     };
@@ -414,11 +414,11 @@
     };
 }
 
-- (NSNumber* (^)(NSNumber *))numIsEqualToNum_n
+- (NSNumber* (^)(NSNumber *))numIsEqualToNumAs
 {
     return ^id(NSNumber* num){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsEqualToNum_n,num)
+        LinkGroupHandle_REF(numIsEqualToNumAs,num)
         return @([_self isEqualToNumber:num]);
     };
 }
@@ -434,11 +434,11 @@
     };
 }
 
-- (NSNumber* (^)(NSNumber*))numIsGreatThanNum_n
+- (NSNumber* (^)(NSNumber*))numIsGreatThanNumAs
 {
     return ^id(NSNumber* num){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsGreatThanNum_n,num)
+        LinkGroupHandle_REF(numIsGreatThanNumAs,num)
         return @([_self compare:num]==NSOrderedDescending);
     };
 }
@@ -454,11 +454,11 @@
     };
 }
 
-- (NSNumber* (^)(NSNumber*))numIsGreatEqualNum_n
+- (NSNumber* (^)(NSNumber*))numIsGreatEqualNumAs
 {
     return ^id(NSNumber* num){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsGreatEqualNum_n,num)
+        LinkGroupHandle_REF(numIsGreatEqualNumAs,num)
         return @([_self compare:num]>=NSOrderedSame);
     };
 }
@@ -474,11 +474,11 @@
     };
 }
 
-- (NSNumber* (^)(NSNumber*))numIsLessThanNum_n
+- (NSNumber* (^)(NSNumber*))numIsLessThanNumAs
 {
     return ^id(NSNumber* num){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsLessThanNum_n,num)
+        LinkGroupHandle_REF(numIsLessThanNumAs,num)
         return @([_self compare:num]==NSOrderedAscending);
     };
 }
@@ -494,11 +494,11 @@
     };
 }
 
-- (NSNumber* (^)(NSNumber*))numIsLessEqualNum_n
+- (NSNumber* (^)(NSNumber*))numIsLessEqualNumAs
 {
     return ^id(NSNumber* num){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsLessEqualNum_n,num)
+        LinkGroupHandle_REF(numIsLessEqualNumAs,num)
         return @([_self compare:num]<=NSOrderedSame);
     };
 }
@@ -526,11 +526,11 @@
         return NO;
     };
 }
-- (NSNumber* (^)(void))numIsOdd_n
+- (NSNumber* (^)(void))numIsOddAs
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsOdd_n)
+        LinkGroupHandle_REF(numIsOddAs)
         if(_self.numIsIntegerType() && ([_self integerValue]%2 == 1)){
             return @YES;
         }
@@ -551,11 +551,11 @@
         return NO;
     };
 }
-- (NSNumber* (^)(void))numIsEven_n
+- (NSNumber* (^)(void))numIsEvenAs
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsEven_n)
+        LinkGroupHandle_REF(numIsEvenAs)
         if(_self.numIsIntegerType() && ([_self integerValue]%2 == 0)){
             return @YES;
         }
@@ -563,11 +563,11 @@
     };
 }
 
-- (NSNumber* (^)(void))numIsNegative_n
+- (NSNumber* (^)(void))numIsNegativeAs
 {
     return ^id(){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsNegative_n)
+        LinkGroupHandle_REF(numIsNegativeAs)
                             
         if([_self.stringValue characterAtIndex:0] == '-')
             return @YES;
@@ -581,7 +581,7 @@
         LinkHandle_VAL_IFNOT(NSNumber){
             return NO;
         }
-        LinkGroupHandle_VAL(numIsNegative_n)
+        LinkGroupHandle_VAL(numIsNegativeAs)
         if([_self.stringValue characterAtIndex:0] == '-')
             return YES;
         return NO;
@@ -629,12 +629,12 @@
         return [[NSDecimalNumber zero] isEqualToNumber:_self];
     };
 }
-- (NSNumber *(^)(void))numIsZero_n
+- (NSNumber *(^)(void))numIsZeroAs
 {
     return ^NSNumber*(){
         
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsZero_n)
+        LinkGroupHandle_REF(numIsZeroAs)
         
         return @([[NSDecimalNumber zero] isEqualToNumber:_self]);
     };
@@ -668,12 +668,12 @@
         return NO;
     };
 }
-- (NSNumber* (^)(NSArray *))numIndexIsInArrRange_n
+- (NSNumber* (^)(NSArray *))numIndexIsInArrRangeAs
 {
     return ^id(NSArray* arr){
         
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIndexIsInArrRange_n,arr)
+        LinkGroupHandle_REF(numIndexIsInArrRangeAs,arr)
         if(![arr isKindOfClass:[NSArray class]])
             return @NO;
         NSInteger idx = [_self integerValue];
@@ -697,12 +697,12 @@
         return NO;
     };
 }
-- (NSNumber* (^)(NSString *))numIndexIsInStringRange_n
+- (NSNumber* (^)(NSString *))numIndexIsInStringRangeAs
 {
     return ^id(NSString* str){
         
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIndexIsInStringRange_n,str)
+        LinkGroupHandle_REF(numIndexIsInStringRangeAs,str)
         if(![str isKindOfClass:[NSString class]]) return @NO;
         NSInteger idx = [_self integerValue];
         if(idx>=0 && idx<str.length) return @YES;

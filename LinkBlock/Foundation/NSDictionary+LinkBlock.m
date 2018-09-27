@@ -52,11 +52,11 @@
     };
 }
 
-- (NSNumber* (^)(id<NSCopying>))dictGetBOOLING
+- (NSNumber* (^)(id<NSCopying>))dictGetBOOLAs
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictGetBOOLING,key)
+        LinkGroupHandle_REF(dictGetBOOLAs,key)
         if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
             if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
             {
@@ -71,42 +71,42 @@
     };
 }
 
-- (BOOL (^)(id<NSCopying>))dictContaineKey
+- (BOOL (^)(id<NSCopying>))dictContainKey
 {
     return ^(id<NSCopying> key){
         LinkHandle_VAL_IFNOT(NSDictionary){
             return NO;
         }
-        LinkGroupHandle_VAL(dictContaineKey,key)
+        LinkGroupHandle_VAL(dictContainKey,key)
         return [[_self allKeys] containsObject:key];
     };
 }
 
-- (NSNumber* (^)(id<NSCopying>))dictContaineKeyING
+- (NSNumber* (^)(id<NSCopying>))dictContainKeyAs
 {
     return ^id(id<NSCopying> key){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictContaineKeyING,key)
+        LinkGroupHandle_REF(dictContainKeyAs,key)
         return @([[_self allKeys] containsObject:key]);
     };
 }
 
-- (BOOL (^)(id))dictContaineValue
+- (BOOL (^)(id))dictContainValue
 {
     return ^(id value){
         LinkHandle_VAL_IFNOT(NSDictionary){
             return NO;
         }
-        LinkGroupHandle_VAL(dictContaineValue,value)
+        LinkGroupHandle_VAL(dictContainValue,value)
         return [[_self allValues] containsObject:value];
     };
 }
 
-- (NSNumber* (^)(id))dictContaineValue_n
+- (NSNumber* (^)(id))dictContainValueAs
 {
     return ^id(id value){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictContaineValue_n,value)
+        LinkGroupHandle_REF(dictContainValueAs,value)
         return @([[_self allValues] containsObject:value]);
     };
 }

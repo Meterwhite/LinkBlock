@@ -299,9 +299,9 @@
     };
 }
 
-- (UILabel *(^)(UILabel *))m_attr_strSetToLabel_linkTo
+- (UILabel *(^)(UILabel *))m_attr_strSetToLabelAsWhatSet
 {
-    return self.attr_strSetToLabel_linkTo;
+    return self.attr_strSetToLabelAsWhatSet;
 }
 
 @end

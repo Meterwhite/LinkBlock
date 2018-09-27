@@ -26,12 +26,7 @@
     Person* per = [Person new];
     per.tall = @(123);
     per.frame = CGRectMake(1, 2, 3, 4);
-//    per.objReverseValueForKey(@"tall")
-//    .objReverseValueForKey(@"frame");
-    
-//    @[per].objReverseValueForKey(@"tall")
-//    .objReverseValueForKey(@"frame");
-    id xx = [@{@"name":@(123)}.mutableCopy objReverseValueForKey](@"name");
+    per.objAddTo_linkTo([@[] mutableCopy]);
     
     @"END".nslog();
     return;

@@ -23,7 +23,7 @@ LBDeclare NSObject*                (^arrAt)(NSUInteger idx);
 
 /** <^(id obj)>是否包含某个对象 */
 LBDeclare BOOL                     (^arrContain)(id obj);
-LBDeclare NSNumber*                (^arrContainING)(id obj);
+LBDeclare NSNumber*                (^arrContainAs)(id obj);
 /** <^(NSUInteger idx)> */
 LBDeclare NSMutableArray*          (^arrSubFrom)(NSUInteger idx);
 /** <^(NSUInteger idx)> */
@@ -42,10 +42,10 @@ LBDeclare NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
 LBDeclare __kindof NSArray*        (^arrSetValueForKey)(id value, NSString* key);
 /** <^(NSUInteger idx)>索引index是否在范围内 */
 LBDeclare BOOL                     (^arrContainIndex)(NSUInteger idx);
-LBDeclare NSNumber*                (^arrContainIndexING)(NSUInteger idx);
+LBDeclare NSNumber*                (^arrContainIndexAs)(NSUInteger idx);
 /** <^(id obj)> */
 LBDeclare NSUInteger               (^arrIndexOfObj)(id obj);
-LBDeclare NSNumber*                (^arrIndexOfObjING)(id obj);
+LBDeclare NSNumber*                (^arrIndexOfObjAs)(id obj);
 /** <^(NSMutableArray* arr)>返回新数组 */
 LBDeclare NSMutableArray*          (^arrAddToArr)(NSMutableArray* arr);
 /** <^()>数组转字典，键为NSNumber类型 */
@@ -102,7 +102,7 @@ LBDeclare NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString
 #pragma mark - 键值
 /** <^(NSString* key,id value)>数组项是否有匹配键相等的值 */
 LBDeclare BOOL                     (^arrKeyValueContain)(NSString* key,id eqValue);
-LBDeclare NSNumber*                (^arrKeyValueContainING)(NSString* key,id eqValue);
+LBDeclare NSNumber*                (^arrKeyValueContainAs)(NSString* key,id eqValue);
 /** <^(NSString* key,id value)>返回能与数组项的键值匹配的对象的集合 */
 LBDeclare NSMutableArray*          (^arrKeyValueMatchObjs)(NSString* key,id eqValue);
 /** <^(NSString* key,id value)>返回能与数组项的多个键值匹配的对象的集合 */

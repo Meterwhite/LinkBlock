@@ -57,6 +57,6 @@ LBDeclare NSMutableAttributedString* (^m_attr_strSetAttrForStrInRange)(NSString 
 LBDeclare NSMutableAttributedString* (^m_attr_strSetAttrDictInRange)(NSDictionary *attrDict, NSRange range);
 /** <^(NSDictionary* attrDict)> */
 LBDeclare NSMutableAttributedString* (^m_attr_strSetAttrDict)(NSDictionary* attrDict);
-/** <^(UILabel* lab)>属性文本设置到Label，并以Label作为链条 */
-LBDeclare UILabel* (^m_attr_strSetToLabel_linkTo)(UILabel* lab);
+/** <^(UILabel* lab)>属性文本设置到Label，切换链条到参数 */
+LBDeclare UILabel* (^m_attr_strSetToLabelAsWhatSet)(UILabel* lab);
 @end

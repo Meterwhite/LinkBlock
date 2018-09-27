@@ -295,16 +295,16 @@
 #ifndef objIsEqualToEach
 #define objIsEqualToEach(obj, args...) objIsEqualToEach(obj,##args,nil)
 #endif
-#ifndef objIsEqualToEach_n
-#define objIsEqualToEach_n(obj, args...) objIsEqualToEach_n(obj,##args,nil)
+#ifndef objIsEqualToEachAs
+#define objIsEqualToEachAs(obj, args...) objIsEqualToEachAs(obj,##args,nil)
 #endif
 
 #ifndef objIsEqualToSomeone
 #define objIsEqualToSomeone(obj, args...) objIsEqualToSomeone(obj,##args,nil)
 #endif
 
-#ifndef objIsEqualToSomeone_n
-#define objIsEqualToSomeone_n(obj, args...) objIsEqualToSomeone_n(obj,##args,nil)
+#ifndef objIsEqualToSomeoneAs
+#define objIsEqualToSomeoneAs(obj, args...) objIsEqualToSomeoneAs(obj,##args,nil)
 #endif
 
 #ifndef strAppendFormat
@@ -314,44 +314,44 @@
 #ifndef numIsEqualToNum
 #define numIsEqualToNum(...) numIsEqualToNum(LBBoxValue((__VA_ARGS__)))
 #endif
-#ifndef numIsEqualToNum_n
-#define numIsEqualToNum_n(...) numIsEqualToNum_n(LBBoxValue((__VA_ARGS__)))
+#ifndef numIsEqualToNumAs
+#define numIsEqualToNumAs(...) numIsEqualToNumAs(LBBoxValue((__VA_ARGS__)))
 #endif
 
 #ifndef numIsGreatThanNum
 #define numIsGreatThan(...) numIsGreatThanNum(LBBoxValue((__VA_ARGS__)))
 #endif
-#ifndef numIsGreatThanNum_n
-#define numIsGreatThanNum_n(...) numIsGreatThanNum_n(LBBoxValue((__VA_ARGS__)))
+#ifndef numIsGreatThanNumAs
+#define numIsGreatThanNumAs(...) numIsGreatThanNumAs(LBBoxValue((__VA_ARGS__)))
 #endif
 
 #ifndef numIsGreatEqualNum
 #define numIsGreatEqualNum(...) numIsGreatEqualNum(LBBoxValue((__VA_ARGS__)))
 #endif
-#ifndef numIsGreatEqualNum_n
-#define numIsGreatEqualNum_n(...) numIsGreatEqualNum_n(LBBoxValue((__VA_ARGS__)))
+#ifndef numIsGreatEqualNumAs
+#define numIsGreatEqualNumAs(...) numIsGreatEqualNumAs(LBBoxValue((__VA_ARGS__)))
 #endif
 
 #ifndef numIsGreatEqualNum
 #define numIsGreatEqualNum(...) numIsGreatEqualNum(__VA_ARGS__);
 #endif
-#ifndef numIsGreatEqualNum_n
-#define numIsGreatEqualNum_n(...) numIsGreatEqualNum_n(__VA_ARGS__);
+#ifndef numIsGreatEqualNumAs
+#define numIsGreatEqualNumAs(...) numIsGreatEqualNumAs(__VA_ARGS__);
 #endif
 
 #ifndef numIsLessThanNum
 #define numIsLessThanNum(...) numIsLessThanNum(LBBoxValue((__VA_ARGS__)))
 #endif
-#ifndef numIsLessThanNum_n
-#define numIsLessThanNum_n(...) numIsLessThanNum_n(LBBoxValue((__VA_ARGS__)))
+#ifndef numIsLessThanNumAs
+#define numIsLessThanNumAs(...) numIsLessThanNumAs(LBBoxValue((__VA_ARGS__)))
 #endif
 
 #ifndef numIsLessEqualNum
 #define numIsLessEqualNum(...) numIsLessEqualNum(LBBoxValue((__VA_ARGS__)))
 #endif
 
-#ifndef numIsLessEqualNum_n
-#define numIsLessEqualNum_n(...) numIsLessEqualNum_n(LBBoxValue((__VA_ARGS__)))
+#ifndef numIsLessEqualNumAs
+#define numIsLessEqualNumAs(...) numIsLessEqualNumAs(LBBoxValue((__VA_ARGS__)))
 #endif
 
 /** <^(SEL sel0 , ...)>宏定义下该方法无需手工以nil结尾； */
@@ -360,8 +360,8 @@
 #endif
 
 /** <^(SEL sel0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；宏定义下该方法无需手工以nil结尾； */
-#ifndef objPerformSelectors_linkToReturnValues
-#define objPerformSelectors_linkToReturnValues(sel,args...) objPerformSelectors_linkToReturnValues(sel,##args,nil)
+#ifndef objPerformSelectorsAsWhatReturns
+#define objPerformSelectorsAsWhatReturns(sel,args...) objPerformSelectorsAsWhatReturns(sel,##args,nil)
 #endif
 
 /**
@@ -374,8 +374,8 @@
 /**
  <^(SEL sel0 , NSArray* args0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；方法内会自动适配参数个数；在参数数组中使用NSNull来代替nil。不应在参数中间位置传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组；宏定义下该方法无需手工以nil结尾；
  */
-#ifndef objPerformSelectorsWithArgs_linkToReturnValues
-#define objPerformSelectorsWithArgs_linkToReturnValues(sel0,arg0,args...) objPerformSelectorsWithArgs_linkToReturnValues(sel0,arg0,##args,nil)
+#ifndef objPerformSelectorsWithArgsAsWhatReturns
+#define objPerformSelectorsWithArgsAsWhatReturns(sel0,arg0,args...) objPerformSelectorsWithArgsAsWhatReturns(sel0,arg0,##args,nil)
 #endif
 
 /** <^(UIView view0 , ...)>宏定义下该方法无需手工以nil结尾 */

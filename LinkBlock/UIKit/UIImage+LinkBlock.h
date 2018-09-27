@@ -44,12 +44,12 @@ LBDeclare UIColor*         (^imgGetPatternColor)(void);
 /** <^()>矫正方向的图片 */
 LBDeclare UIImage*         (^imgOrientationFix)(void);
 
-/** <UIImageView* ^(UIImageView* imgView)>图片设置到控件并返回控件 */
-LBDeclare UIImageView*     (^imgSetToImgView_linkTo)(UIImageView* imgView);
-/** <UIButton* ^(UIButton* btn,UIControlState state)>图片设置到控件并返回控件 */
-LBDeclare UIButton*        (^imgSetToBtnBGImg_linkTo)(UIButton* btn,UIControlState state);
-/** <UIButton* ^(UIButton* btn,UIControlState state)>图片设置到控件并返回控件 */
-LBDeclare UIButton*        (^imgSetToBtn_linkTo)(UIButton* btn,UIControlState state);
+/** 图片设置到控件；并将链条切换为参数 */
+LBDeclare UIImageView*     (^imgSetToImageViewAsWhatSet)(UIImageView* imgView);
+/** 图片设置到控件；并将链条切换为参数 */
+LBDeclare UIButton*        (^imgSetToButtonAsBGImageAsWhatSet)(UIButton* btn,UIControlState state);
+/** 图片设置到控件；并将链条切换为参数 */
+LBDeclare UIButton*        (^imgSetToButtonAsWhatSet)(UIButton* btn,UIControlState state);
 /** <^(CGFloat lWidth,CGFloat tHeight)>图片拉伸 */
 LBDeclare UIImage*        (^imgStretchableImageWithLeftCapWidthAndTopCapHeight)(CGFloat lWidth,CGFloat tHeight);
 /** <^(CGFloat top,CGFloat left,CGFloat bottom, CGFloat right)>图片拉伸 */

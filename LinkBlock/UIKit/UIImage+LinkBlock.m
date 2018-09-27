@@ -375,31 +375,31 @@
     };
 }
 
-- (UIImageView *(^)(UIImageView *))imgSetToImgView_linkTo
+- (UIImageView *(^)(UIImageView *))imgSetToImageViewAsWhatSet
 {
     return ^id(UIImageView* imgView){
         LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToImgView_linkTo,imgView)
+        LinkGroupHandle_REF(imgSetToImageViewAsWhatSet,imgView)
         [imgView setImage:_self];
         return linkObj(imgView);
     };
 }
 
--(UIButton *(^)(UIButton *,UIControlState))imgSetToBtn_linkTo
+-(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsWhatSet
 {
     return ^id(UIButton* btn,UIControlState state){
         LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToBtn_linkTo,btn,state)
+        LinkGroupHandle_REF(imgSetToButtonAsWhatSet,btn,state)
         [btn setImage:_self forState:state];
         return linkObj(btn);
     };
 }
 
--(UIButton *(^)(UIButton *,UIControlState))imgSetToBtnBGImg_linkTo
+-(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsBGImageAsWhatSet
 {
     return ^id(UIButton* btn,UIControlState state){
         LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToBtnBGImg_linkTo,btn,state)
+        LinkGroupHandle_REF(imgSetToButtonAsBGImageAsWhatSet,btn,state)
         [btn setImage:_self forState:state];
         return linkObj(btn);
     };
