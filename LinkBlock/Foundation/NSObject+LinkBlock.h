@@ -14,14 +14,7 @@
 #import "Others+LinkBlock.h"
 
 @interface NSObject(LinkBlock)
-
-#pragma mark - 动态解析 DynamicLink
-/**
- @param ... 参数以nil,NSNotFond结尾，以其可以区分结构体
- */
-LBDeclare NSObject*            (^linkEvalCode)(NSString* code , ...);
-
-#pragma mark - 基础 Basic
+#pragma mark - links
 /** 
  <- linkEnd>获取链条返回值，并将错误转nil
  ... = linkObj(..)...linkEnd;
@@ -132,7 +125,9 @@ LBDeclare_F NSObject*       linkReturn;
  @param block code...
  @return 原对象
  */
-- (NSObject*)linkFrom:(NSUInteger)from to:(NSUInteger)to block:(void(^)(NSUInteger idx , NSObject* obj))block;
+- (NSObject*)linkFrom:(NSUInteger)fromIdx
+                   to:(NSUInteger)toIdx
+                block:(void(^)(NSUInteger idx , NSObject* obj))block;
 
 
 /**
@@ -144,29 +139,26 @@ LBDeclare_F NSObject*       linkReturn;
  */
 - (NSObject*)linkAt:(NSUInteger)idx block:(void(^)(NSObject* obj))block;
 
-#pragma mark - 功能
-/**
- <^(id* toObject)>将当前对象赋值到变量
- ...objSetTo(&...);
- */
-LBDeclare NSObject*    (^objSetTo)(id* toObject);
 
-/** <^()>NSLog()打印对象 */
+#pragma mark - Foundation Mirror
+LBDeclare NSObject*    (^objCopy)(void);
+LBDeclare NSObject*    (^objMutableCopy)(void);
+/** NSLog(@"%@",self); */
 LBDeclare NSObject*    (^nslog)(void);
-/** <^(NSString* key)>输出对象Key对应的值 */
-LBDeclare NSObject*    (^nslogValueForKey)(NSString* key);
-/** <^(NSString* key)> */
-LBDeclare NSObject*    (^nslogValueForKeyPath)(NSString* key);
+LBDeclare BOOL         (^objIsEqual)(id obj);
+LBDeclare NSNumber*    (^objIsEqualAs)(id obj);
+LBDeclare NSString*    (^objClassName)(void);
+LBDeclare NSString*    (^objSuperclassName)(void);
 
-/** <^()>打印对象引用计数器 */
-LBDeclare_F NSObject*  logRetainCount;
-/** <^()>将对象以字典的形式进行打印，其中对所有容器类型进行遍历转换 */
-LBDeclare NSObject*    (^po)(void);
-/** <^()>将对象以字典的形式进行打印 */
-LBDeclare NSObject*    (^poNoDeep)(void);
+LBDeclare BOOL         (^objIsRespondsSEL)(SEL sel);
+LBDeclare NSNumber*    (^objIsRespondsSELAs)(SEL sel);
+LBDeclare BOOL         (^objIsKindOf)( __unsafe_unretained Class clazz);
+LBDeclare NSNumber*    (^objIsKindOfAs)( __unsafe_unretained Class clazz);
+LBDeclare BOOL         (^objIsSubClassOf)( __unsafe_unretained Class clazz);
+LBDeclare NSNumber*    (^objIsSubClassOfAs)( __unsafe_unretained Class clazz);
+LBDeclare BOOL         (^objIsMemberOfClass)( __unsafe_unretained Class clazz);
+LBDeclare NSNumber*    (^objIsMemberOfClassAs)( __unsafe_unretained Class clazz);
 
-
-#pragma mark - Runtime
 /** result nil==>NSNull , NSNull.linkEnd == nil */
 LBDeclare NSObject*    (^objValueForKey)(NSString* key);
 /** result nil==>NSNull , NSNull.linkEnd == nil */
@@ -175,6 +167,37 @@ LBDeclare NSObject*    (^objSetValueForKey)(id value,NSString* key);
 LBDeclare NSObject*    (^objSetValueForKeyPath)(id value,NSString* key);
 LBDeclare NSObject*    (^objSetValuesWithKeyValues)(NSDictionary<NSString *,id> * keyValues);
 LBDeclare NSDictionary*(^objKeyValueWithKeys)(NSArray<NSString*>*keys);
+LBDeclare NSObject*    (^objPerformSelector)(SEL sel);
+
+#pragma mark - Foundation Fast
+/** 是否是block对象 */
+LBDeclare BOOL         (^objIsKindOfNSBlock)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSStringAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSArrayAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSDictionaryAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfUIViewAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSValueAs)(void);
+LBDeclare NSNumber*    (^objIsKindOfNSNumberAs)(void);
+LBDeclare NSObject*    (^objSetValueForKdelegate)(id value);
+LBDeclare NSObject*    (^objSetValueForKdataSource)(id value);
+LBDeclare NSObject*    (^objSetValueForKtext)(id value);
+/** 打印对象引用计数器 */
+LBDeclare_F NSObject*  logRetainCount;
+/** <^()>获取对象的引用计数器 */
+LBDeclare_F CFIndex    objRetainCount;
+
+
+#pragma mark - Foundation Extent
+/** <^()> 是否是可变类型*/
+LBDeclare BOOL         (^objIsMutable)(void);
+/** 可变拷贝并且操作到子项 */
+LBDeclare NSObject*    (^objMutableCopyEnumerate)(void);
+/** <^()> 不可变对象转为可变对象，否则不会发生任何事 */
+LBDeclare NSObject*    (^objNeedMutable)(void);
+/** <^(NSString* key)>输出对象Key对应的值 */
+LBDeclare NSObject*    (^nslogValueForKey)(NSString* key);
+/** <^(NSString* key)> */
+LBDeclare NSObject*    (^nslogValueForKeyPath)(NSString* key);
 /** asKey∈{NSString,NSArray} */
 LBDeclare NSObject*    (^objSetNilForKey)(id asKey);
 /** asKey∈{NSString,NSArray} */
@@ -187,99 +210,103 @@ LBDeclare NSObject*    (^objSetRandomStringNumberForKey)(id asKey, NSUInteger le
 LBDeclare NSObject*    (^objSetRandomNumberForKey)(id asKey, uint32_t max);
 /** asKey∈{NSString,NSArray} set double value */
 LBDeclare NSObject*    (^objSetRandomDoubleForKey)(id asKey, uint32_t max, NSUInteger len);
-/** <^(Class classKind)> */
-LBDeclare BOOL         (^objIsKindOf)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsKindOfAs)( __unsafe_unretained Class clazz);
-/** <^(Class classKind)> */
-LBDeclare BOOL         (^objIsSubClassOf)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsSubClassOfAs)( __unsafe_unretained Class clazz);
-/** <^(Class classKind)> */
-LBDeclare BOOL         (^objIsMemberOfClass)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsMemberOfClassAs)( __unsafe_unretained Class clazz);
-/** <^(SEL theSEL)> */
-LBDeclare BOOL         (^objIsRespondsSEL)(SEL sel);
-LBDeclare NSNumber*    (^objIsRespondsSELAs)(SEL sel);
-/** <^()> */
-LBDeclare NSString*    (^objClassName)(void);
-/** <^()> */
-LBDeclare NSString*    (^objSuperclassName)(void);
-
-/** <^(id value)>设置'delegate' */
-LBDeclare NSObject*    (^objSetValueForKey_delegate)(id value);
-/** <^(id value)>设置'dataSource' */
-LBDeclare NSObject*    (^objSetValueForKey_dataSource)(id value);
-/** <^(id value)>设置'text' */
-LBDeclare NSObject*    (^objSetValueForKey_text)(id value);
-/** <^(SEL sel)>  */
-LBDeclare NSObject*    (^objPerformSelector)(SEL sel);
-/** <^(SEL sel , id arg)> */
-LBDeclare NSObject*    (^objPerformSelectorWithArg)(SEL sel , id arg);
-/** <^(SEL sel0 , ...)>宏定义下该方法代码无需以nil结尾； */
-LBDeclare NSObject*    (^objPerformSelectors)(SEL sel0 , ...);
-/** 
- <^(SEL sel0 , NSArray* args0 , ...)> 入参方法和参数数组循环间隔；在参数数组中使用NSNull来代替nil。不要在参数中间传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组。方法内会自动适配参数个数；宏定义下该方法无需手工以nil结尾；
+/**
+ *  asKey∈{NSString,NSArray} set NSDate
+ *  days∈{NSNumber,NSArray<NSNumber>}
+ *  days == @(-30)或 @[@(-30)]random in the past 30 days；Otherwise opposite
+ *  days == @[@(-30) , @(30)]，random in the past 30 days or next 30 days
+ *  days == nil or @0，random in the past 24 hours
  */
-LBDeclare NSObject*    (^objPerformSelectorsWithArgs)(SEL sel0 , NSArray* args0 , ...);
-/** <^(SEL sel)>返回结果 */
+LBDeclare NSObject*    (^objSetRandomDateForKey)(id asKey,id days);
+/**
+ *  <^(NSString* key)>
+ *  bool取反: bool type=<YES/NO>,NSNumber 同理<@YES/@NO>,
+ *  相反数: number type = <1/-1> .NSNumber 同理,<@(1),@(-1)>
+ *  字符串逆序: <@"abc"/@"cba">
+ *  width和height的交换: CGRect和CGSize
+ *  CGPoint,CGVector,UIOffset 交换值
+ *  UIEdgeInsets,NSDirectionalEdgeInsets 交换上下值,交换左右值
+ *  特别的：属性类型是c的直接量属性时,无法区分这三种类型<bool,char,xyShort>,此处按bool对待
+ */
+LBDeclare NSObject*    (^objReverseValueForKey)(NSString* key);
+/** 字符串类型和数字类型随机赋较短的值，排除readonly和无'_成员变量'的属性 */
+/** <^()> 清空所有可访问的属性的值为默认值，排除readonly和无'_成员变量'的属性 */
+LBDeclare NSObject*    (^objSetAllValuesBlank)(void);
+
+LBDeclare NSObject*    (^objPerformSelectors)(SEL sel0,...);
+LBDeclare NSObject*    (^objPerformSelectorWithArg)(SEL sel,id arg);
+LBDeclare NSObject*    (^objPerformSelectorsWithArgs)(SEL sel0,NSArray* args0,...);
+/**
+ *该方法会返回调用结果
+ *调用void返回方法时返回结果为NSNull,所有nil的返回值也都装箱为NSNull；
+ **/
 LBDeclare NSObject*    (^objPerformSelectorAsWhatReturn)(SEL sel);
-/** <^(SEL sel , id arg)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull； */
-LBDeclare NSObject*    (^objPerformSelectorWithArgAsWhatReturn)(SEL sel , id arg);
-/** <^(SEL sel0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；宏定义下该方法无需手工以nil结尾； */
-LBDeclare NSArray*     (^objPerformSelectorsAsWhatReturns)(SEL sel0 , ...);
-/** 
- <^(SEL sel0 , NSArray* args0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；方法内会自动适配参数个数；在参数数组中使用NSNull来代替nil。不应在参数中间位置传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组；宏定义下该方法无需手工以nil结尾；
- */
-LBDeclare NSArray*     (^objPerformSelectorsWithArgsAsWhatReturns)(SEL sel0 , NSArray* args0 , ...);
-/** <^()>获取对象的引用计数器 */
-LBDeclare_F CFIndex    objRetainCount;
+LBDeclare NSObject*    (^objPerformSelectorWithArgAsWhatReturn)(SEL sel,id arg);
+LBDeclare NSArray*     (^objPerformSelectorsAsWhatReturns)(SEL sel0,...);
+LBDeclare NSArray*     (^objPerformSelectorsWithArgsAsWhatReturns)(SEL sel0, NSArray*args0 , ...);
 
-/** 是否是常见基础类型 */
-+ (BOOL)classIsFoundation;
-/** 当前类型是否包含属性（@property value），不包括父类 */
-+ (BOOL)classContainProperty:(NSString*)property;
-/** 当前类型是否包含成员变量（_value）不包括父类 */
-+ (BOOL)classContainIvar:(NSString*)ivarName;
-/** 获取当前类型的成员变量名列表 */
-+ (NSArray<NSString*>*)classGetIvarList;
-/** 获取当前类型的属性名列表（@property value） */
-+ (NSArray<NSString*>*)classGetPropertyList;
-/**
- 获取当前类型属性的类型字符串
 
- @param key 属性名
 
- @return 属性类型的字符串；基本类型数据返回形如：i,q,l...(参考：property type encodings)
+#pragma mark - LinkBlock
+/** 打印json形式的对象 */
+LBDeclare NSObject*    (^po)(void);
+/** 打印json形式的对象，深度遍历的，展开的 */
+LBDeclare NSObject*    (^poDetail)(void);
+/** <^(id obj)>弱类型化判断对象是否有内容
+ 检查项为：
+ 字符串是否有内容
+ NSValue是否有内容，其中NSNumber对0检查，结构体对默认值进行检查，其他队NULL进行检查
+ 容器类对象是否有内容
+ 控件是否有子控件
+ 用户模型是否赋值
  */
-+ (NSString*)classGetPropertyType:(NSString*)key;
-/**
- *  获取当前类型及父类的属性名列表（不包含NSObject以及NSObject扩展属性）
- *
- *  @param includeFoundation 是否包含基础类型
- */
-+ (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation;
-/** 获取实例方法名列表 */
-- (NSArray<NSString*>*)objGetInstanceMethodList;
-/** 获取类方法名列表 */
-+ (NSArray<NSString*>*)classGetClassMethodList;
-/** 获取协议名列表 */
-+ (NSArray<NSString*>*)classGetProtocolList;
-/**
- *  遍历所有类
- *
- *  @param includeFoundation 遍历时是否包含基础类型
- */
-+ (void)classEnumerateUsingBlock:(void(^)(Class clazz , BOOL* stop))block
-               includeFoundation:(BOOL)includeFoundation;
+LBDeclare BOOL         (^objIsBlank)(void);
+LBDeclare BOOL         (^objIsNSNull)(void);
+LBDeclare NSNumber*    (^objIsNSNullAs)(void);
 
-/**
- *  遍历所有属性（propertyType：属性类型的字符串；基本类型数据形如：i,q,l...(参考：property type encodings或objValueRandom内部实现)
- *
- *  @param includeFoundation 遍历时是否包含基础类型
- */
-+ (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block
-               includeFoundation:(BOOL)includeFoundation;
+/** <^()> 通过序列化的方式复制一份完全独立的对象 */
+LBDeclare NSObject*    (^objCopyByArchive)(void);
 
-#pragma mark - NSObject
+LBDeclare BOOL         (^objIsEqualToEach)(id obj,...);
+LBDeclare NSNumber*    (^objIsEqualToEachAs)(id obj,...);
+LBDeclare BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
+LBDeclare NSNumber*    (^objIsEqualToEachInArrayAs)(NSArray* arr);
+LBDeclare BOOL         (^objIsEqualToSomeone)(id obj,...);
+LBDeclare NSNumber*    (^objIsEqualToSomeoneAs)(id obj,...);
+LBDeclare BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
+LBDeclare NSNumber*    (^objIsEqualToSomeoneInArrayAs)(NSArray* arr);
+
+
+
+
+
+#pragma mark - function of weakly typed  弱类型功能
+/** for NSJSONSerialization */
+LBDeclare NSString*    (^objToJsonString)(void);
+/** retrun value can be used to NSJSONSerialization  */
+LBDeclare NSObject*    (^objToNSJsonObject)();
+LBDeclare NSObject*    (^objToNSJsonObjectDepth)();
+LBDeclare NSObject*    (^objToNSJsonObjectFoundation)();
+LBDeclare NSObject*    (^objToNSJsonObjectDepthAndFoundation)();
+/** self is not a collection object  */
+LBDeclare NSDictionary*(^objToNSDictionary)();
+LBDeclare NSDictionary*(^objToNSDictionaryWithKeys)(NSArray* asKey);
+/** <^()> <JSValue & NSString> to nsnumber */
+LBDeclare NSNumber*    (^objToNSNumber)(void);
+/** 集合中的前一个元素 objs∈{NSArray,NSOrderedSet} */
+LBDeclare NSObject*    (^objGetPrevItemFromObjs)(id objs);
+/** 集合中的后一个元素 */
+LBDeclare NSObject*    (^objGetNextItemFromObjs)(id objs);
+/** 判断集合子项;objs∈{.objectEnumerator,NSIndexSet} */
+LBDeclare BOOL         (^objIsSubitemOfObjs)(id objs);
+LBDeclare NSNumber*    (^objIsSubitemOfObjsAs)(id objs);
+/** 判断集合子项;objs∈{.keyEnumerator} */
+LBDeclare BOOL         (^objIsKeyOfObjs)(id objs);
+LBDeclare NSNumber*    (^objIsKeyOfObjsAs)(id objs);
+/** 判断是否是数字类型或数字的字符串 */
+LBDeclare NSNumber*    (^objIsNumberAs)(void);
+/** 判断集合类型∈{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
+LBDeclare NSNumber*    (^objIsCollectionAs)(void);
 /** <^(id obj)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
 LBDeclare NSObject*    (^objAdd)(id obj);
 /** <^(id obj)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
@@ -296,110 +323,60 @@ LBDeclare NSObject*    (^objInsertToAsWhatSet)(id obj , NSUInteger idx);
 LBDeclare NSObject*    (^objRemove)(id obj);
 /** <^(id obj)>弱类型化移除;<UIView>时为移除子视图,<String>时为移除字符串,<Array>等集合类型为移除子项,<Dictionary>时为移除键相关的项.<UILable|UITextFild|UITextView|UISearchBar>时为清除文本内容 */
 LBDeclare NSObject*    (^objRemoveAll)(void);
-/** <^(id obj)>弱类型化判断对象是否有内容
- 检查项为：
- 字符串是否有内容
- NSValue是否有内容，其中NSNumber对0检查，结构体对默认值进行检查，其他队NULL进行检查
- 容器类对象是否有内容
- 控件是否有子控件
- 用户模型是否赋值
- */
-LBDeclare BOOL         (^objIsBlank)(void);
+
 /** <^(id obj)>弱类型化移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
 LBDeclare NSObject*    (^objRemoveFrom)(id obj);
 /** objRemoveFrom调用后，将链条切换到参数 */
 LBDeclare NSObject*    (^objRemoveFromAsWhatSet)(id obj);
 
-LBDeclare NSObject*    (^objCopy)(void);
-LBDeclare NSObject*    (^objMutableCopy)(void);
-/** <^()> 不可变对象转为可变对象，否则不会发生任何事 */
-LBDeclare NSObject*    (^objNeedMutable)(void);
-/** <^()> 通过序列化的方式复制一份完全独立的对象 */
-LBDeclare NSObject*    (^objCopyByArchive)(void);
-/** <^()> 是否是可变类型*/
-LBDeclare BOOL         (^objIsMutable)(void);
 
-LBDeclare NSNumber*    (^objIsKindOfNSStringAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSArrayAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSDictionaryAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfUIViewAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSValueAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSNumberAs)(void);
-/** <^()> 判断是否是数字类型或数字的字符串 */
-LBDeclare NSNumber*    (^objIsNumberAs)(void);
-/** 判断集合类型∈{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
-LBDeclare NSNumber*    (^objIsCollectionAs)(void);
-/** 可变拷贝并且操作到子项 */
-LBDeclare NSObject*    (^objMutableCopyEnumerate)(void);
-
-
-LBDeclare BOOL         (^objIsNSNull)(void);
-LBDeclare NSNumber*    (^objIsNSNullAs)(void);
-
-LBDeclare BOOL         (^objIsEqual)(id obj);
-LBDeclare NSNumber*    (^objIsEqualAs)(id obj);
-/** <^(id obj,...)> */
-LBDeclare BOOL         (^objIsEqualToEach)(id obj,...);
-LBDeclare NSNumber*    (^objIsEqualToEachAs)(id obj,...);
-
-LBDeclare BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
-LBDeclare NSNumber*    (^objIsEqualToEachInArrayAs)(NSArray* arr);
-
-LBDeclare BOOL         (^objIsEqualToSomeone)(id obj,...);
-LBDeclare NSNumber*    (^objIsEqualToSomeoneAs)(id obj,...);
-
-LBDeclare BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
-LBDeclare NSNumber*    (^objIsEqualToSomeoneInArrayAs)(NSArray* arr);
-
-/** <^(NSString* key)>
- *  bool取反: bool type=<YES/NO>,NSNumber 同理<@YES/@NO>,
- *  相反数: number type = <1/-1> .NSNumber 同理,<@(1),@(-1)>
- *  字符串逆序: <@"abc"/@"cba">
- *  width和height的交换: CGRect和CGSize
- *  CGPoint,CGVector,UIOffset 交换值
- *  UIEdgeInsets,NSDirectionalEdgeInsets 交换上下值,交换左右值
- *  特别的：属性类型是c的直接量属性时,无法区分这三种类型<bool,char,xyShort>,此处按bool对待
- */
-LBDeclare NSObject*    (^objReverseValueForKey)(NSString* key);
-/** <^(NSArray* withoutKeys)>将自定义对象的字符串类型和数字类型随机赋值，排除readonly和无'_成员变量'的属性 */
-LBDeclare NSObject*    (^objSetValuesRandom)(void);
-/** <^()> 清空所有可访问的属性的值为默认值，排除readonly和无'_成员变量'的属性 */
-LBDeclare NSObject*    (^objValuesClean)(void);
-#pragma mark - About NSString
-/** NSJSONSerialization */
-LBDeclare NSString*    (^objToJsonString)(void);
-/** <^()> <JSValue & NSString> to nsnumber */
-LBDeclare NSNumber*    (^objToNSNumber)(void);
-
-/** 集合中的前一个元素 objs∈{NSArray,NSOrderedSet} */
-LBDeclare NSObject*    (^objGetPrevItemFromObjs)(id objs);
-/** 集合中的后一个元素 */
-LBDeclare NSObject*    (^objGetNextItemFromObjs)(id objs);
-/** 判断集合子项;objs∈{.objectEnumerator,NSIndexSet} */
-LBDeclare BOOL         (^objIsSubitemOfObjs)(id objs);
-LBDeclare NSNumber*    (^objIsSubitemOfObjsAs)(id objs);
-/** 判断集合子项;objs∈{.keyEnumerator} */
-LBDeclare BOOL         (^objIsKeyOfObjs)(id objs);
-LBDeclare NSNumber*    (^objIsKeyOfObjsAs)(id objs);
-
-LBDeclare NSDictionary*(^objToNSDictionary)();
-LBDeclare NSDictionary*(^objToNSDictionaryDepth)();
-LBDeclare NSDictionary*(^objToNSDictionaryFoundation)();
-LBDeclare NSDictionary*(^objToNSDictionaryDepthAndFoundation)();
-
-LBDeclare NSDictionary*(^objToNSDictionaryNoDeepXXX)(BOOL includeFoundation);
-LBDeclare NSDictionary*(^objToNSDictionaryXX)(BOOL includeFoundation);
-
-LBDeclare NSDictionary*(^objToNSDictionaryWithKeys)(NSArray* asKey);
-
-
-#pragma mark - of block
-/** <^()>是否是block对象 */
-LBDeclare BOOL          (^objIsKindOfNSBlock)(void);
+#pragma mark - block
 /** <^()>block的参数个数 */
 LBDeclare NSUInteger    (^blockArgsCount)(void);
 /** <^()>block的返回类型 */
 LBDeclare const char *  (^blockReturnType)(void);
+#pragma mark - Class
+/** 判断Foundation类型 */
++ (BOOL)classIsFoundation;
+/** 当前类型是否包含属性（@property value），不包括父类 */
++ (BOOL)classContainProperty:(NSString*)property;
+/** 当前类型是否包含成员变量（_value）不包括父类 */
++ (BOOL)classContainIvar:(NSString*)ivarName;
+/** 获取当前类型的成员变量名列表 */
++ (NSArray<NSString*>*)classGetIvarList;
+/** 获取当前类型的属性名列表（@property value） */
++ (NSArray<NSString*>*)classGetPropertyList;
+/**
+ 获取当前类型属性的类型字符串
+ @param key 属性名
+ @return 属性类型的字符串；基本类型数据返回形如：i,q,l...(参考：property type encodings)
+ */
++ (NSString*)classGetPropertyType:(NSString*)key;
+/**
+ *  获取当前类型及父类的属性名列表（不包含NSObject以及NSObject扩展属性）
+ *  @param includeFoundation 是否包含基础类型
+ */
++ (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation;
+/** 获取实例方法名列表 */
+- (NSArray<NSString*>*)objGetInstanceMethodList;
+/** 获取类方法名列表 */
++ (NSArray<NSString*>*)classGetClassMethodList;
+/** 获取协议名列表 */
++ (NSArray<NSString*>*)classGetProtocolList;
+/**
+ *  向上遍历所有类
+ *  @param includeFoundation 遍历时是否包含Foundation类型
+ */
++ (void)classEnumerateUsingBlock:(void(^)(Class clazz , BOOL* stop))block
+               includeFoundation:(BOOL)includeFoundation;
+
+/**
+ *  遍历所有属性（propertyType：属性类型的字符串；基本类型数据形如：i,q,l...(参考：property type encodings或objValueRandom内部实现)
+ *
+ *  @param includeFoundation 遍历时是否包含Foundation类型
+ */
++ (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block
+                        includeFoundation:(BOOL)includeFoundation;
 
 //MARK: 强制类型声明
 -                  (NSString*)                  asNSString;
@@ -433,7 +410,17 @@ LBDeclare const char *  (^blockReturnType)(void);
 -                  (UITextView*)                asUITextView;
 -                  (UIWebView*)                 asUIWebView;
 -                  (CALayer*)                   asCALayer;
+
+
+#pragma mark - 动态解析 DynamicLink
+/**
+ @param ... 参数以nil,NSNotFond结尾，以其可以区分结构体
+ */
+LBDeclare NSObject*            (^linkEvalCode)(NSString* code , ...);
 @end
+
+
+
 
 /**
  包装一个对象为安全链条起始对象

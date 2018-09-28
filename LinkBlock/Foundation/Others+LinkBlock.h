@@ -83,13 +83,15 @@ LBDeclare NSString*    (^superclassName)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objSuperclassName代替");
 
 LBDeclare NSObject*    (^setTo)(id* toObject)
-NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetTo代替");
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+LBDeclare NSObject*    (^objSetTo)(id* toObject)
+NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
 
 LBDeclare NSObject*    (^objValueRandom)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "使用objValuesRandom代替");
+NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetRandom...代替");
 
 LBDeclare NSObject*    (^objSetDelegate)(id delegate)
-NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetValueForKey_delegate代替");
+NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetValueForKdelegate代替");
 
 LBDeclare NSObject*    (^objBOOLNegationForKey)(NSString * key)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objReverseValueForKey代替");
@@ -113,6 +115,9 @@ NS_DEPRECATED_IOS(2_0, 2_0, "使用viewClipsToBounds代替");
 
 LBDeclare NSObject*    (^nslogTitle)(NSString* title)
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
+
+LBDeclare NSObject*    (^poNoDeep)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "使用po()代替；旧的po()更名为poDetail()");
 
 LBDeclare NSObject*    (^logInfo)(NSString* info)
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
@@ -169,7 +174,8 @@ LBDeclare NSObject*    (^objMutableCopyDeep)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "更名为objMutableCopyEnumerable");
 
 LBDeclare NSObject*    (^objValuesRandom)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "更名为objSetValuesRandom");
+NS_DEPRECATED_IOS(2_0, 2_0, "使用objSetRandom...代替");
+LBDeclare NSObject*    (^objValuesClean)(void);
 
 LBDeclare NSObject*    (^objMustType)(Class clazz)
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
@@ -185,13 +191,21 @@ LBDeclare BOOL         (^objIsInArr)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objIsSubitemOfObjs");
 LBDeclare BOOL         (^objIsInDictValues)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objIsSubitemOfObjs");
-LBDeclare NSNumber*    (^objIsInArrAs)(id obj)
+LBDeclare NSNumber*    (^objIsInDictValues_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objIsSubitemOfObjsAs");
-LBDeclare NSNumber*    (^objIsInDictValuesAs)(id obj)
+LBDeclare NSNumber*    (^objIsInArr_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用objIsSubitemOfObjsAs");
-//re name
-//LBDeclare BOOL         (^objIsInDictKeys)(NSMutableDictionary* dict);
-//LBDeclare NSNumber*    (^objIsInDictKeysAs)(NSMutableDictionary* dict);
+LBDeclare BOOL         (^objIsInDictKeys)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "使用objIsKeyOfObjs");
+LBDeclare NSNumber*    (^objIsInDictKeys_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "使用objIsKeyOfObjsAs");
+
+LBDeclare NSObject*    (^objSetValueForKey_delegate)(id value)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为objSetValueForKdelegate");
+LBDeclare NSObject*    (^objSetValueForKey_dataSource)(id value)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为objSetValueForKdataSource");
+LBDeclare NSObject*    (^objSetValueForKey_text)(id value)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名为objSetValueForKtext");
 
 LBDeclare NSObject*    (^objSetToDict)(NSMutableDictionary* dict, id<NSCopying> key)
 NS_DEPRECATED_IOS(2_0, 2_0, "放弃的方法");
@@ -272,12 +286,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 LBDeclare NSNumber*    (^objIsEqualToEachInArray_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 LBDeclare NSNumber*    (^objIsEqualToSomeoneInArray_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
-LBDeclare NSNumber*    (^objIsInArr_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
-LBDeclare NSNumber*    (^objIsInDictValues_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
-LBDeclare NSNumber*    (^objIsInDictKeys_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 LBDeclare NSNumber*    (^strIsEqualStr_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");

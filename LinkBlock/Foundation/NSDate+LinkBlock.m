@@ -582,11 +582,11 @@
     };
 }
 
-- (NSString *(^)(void))dateAstrology
+- (NSString *(^)(void))dateToStrAstrologyzh_CN
 {
     return ^id(){
         LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateAstrology)
+        LinkGroupHandle_REF(dateToStrAstrologyzh_CN)
         NSString *astroString = @"魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
         NSString *astroFormat = @"102123444543";
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:_self];

@@ -24,6 +24,7 @@
 @property (nonatomic,strong) id info;
 @property (nonatomic,assign) CGRect frame;
 @property (nonatomic,strong) NSArray* friends;
+@property (nonatomic,strong) NSDate* birthday;
 @property (nonatomic,weak) id<PersonDelegate> delegate;
 @property  NSRange range;
 

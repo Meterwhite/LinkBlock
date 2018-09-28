@@ -1535,117 +1535,6 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject *(^)(void))objSetValuesRandom
-{
-    return ^id(){
-        LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetValuesRandom)
-        
-        unsigned int outCount, i;
-        objc_property_t* properties = class_copyPropertyList([self class], &outCount);
-        for(i=0 ; i< outCount; i++){
-            
-            NSString* pName = @(property_getName(properties[i]));
-            NSString *attrs = @(property_getAttributes(properties[i]));
-            NSUInteger dotLoc = [attrs rangeOfString:@","].location;
-            NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
-            NSString *code = nil;
-            NSUInteger loc = 1;
-            if (dotLoc == NSNotFound) { // 没有
-                code = [attrs substringFromIndex:loc];
-            } else {
-                code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
-            }
-            
-            if([attrInfos containsObject:@"R"]){//只读属性
-                continue;
-            }
-            else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){//无值
-                continue;
-            }
-            
-            if ([code isEqualToString:@"@"]) {
-                //id
-                continue;
-            } else if (code.length == 0) {
-                //KVCDisabled
-                continue;
-            } else if (code.length > 3 && [code hasPrefix:@"@\""]) {//对象
-                // 去掉@"和"，截取中间的类型名称
-                code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
-                Class clazz = NSClassFromString(code);
-                
-                if([clazz isSubclassOfClass:[NSNumber class]]){//数字
-                    [_self setValue:@(arc4random_uniform(10000)) forKey:pName];
-                }else if ([clazz isSubclassOfClass:[NSMutableString class]]){//字符串
-                    [_self setValue:[[NSUUID UUID].UUIDString substringToIndex:4].mutableCopy forKey:pName];
-                }else if ([clazz isSubclassOfClass:[NSString class]]){
-                    [_self setValue:[[NSUUID UUID].UUIDString substringToIndex:4] forKey:pName];
-                }else if ([clazz isSubclassOfClass:[NSDate class]]){//日期
-                    [_self setValue:[NSDate dateWithTimeIntervalSince1970:arc4random_uniform(MAXFLOAT)] forKey:pName];
-                }else if ([clazz isSubclassOfClass:[UILabel class]] ||
-                          [clazz isSubclassOfClass:[UITextView class]] ||
-                          [clazz isSubclassOfClass:[UITextField class]]){
-                    
-                    UIView* titleView = [clazz new];
-                    [titleView setValue:[[NSUUID UUID].UUIDString substringToIndex:4] forKeyPath:@"text"];
-                    [_self setValue:titleView forKey:pName];
-                }else if ([clazz isSubclassOfClass:[UIButton class]]){
-                    
-                    UIButton* btn = [clazz new];
-                    [btn setTitle:[[NSUUID UUID].UUIDString substringToIndex:4] forState:UIControlStateNormal];
-                    [_self setValue:btn forKey:pName];
-                }
-            } else if ([code isEqualToString:@":"] ||//SEL
-                       [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
-                       [code isEqualToString:@"^{objc_method=}"] ||//Method
-                       [code isEqualToString:@"@?"]) {//block
-                //KVCDisabled
-                continue;
-            }
-//暂不对UI位置做改变
-//            else if([code isEqualToString:@(@encode(CGRect))]){
-//                [_self setValue:[NSValue valueWithCGRect:CGRectZero] forKey:pName];
-//                continue;
-//            }else if([code isEqualToString:@(@encode(CGPoint))]){
-//                [_self setValue:[NSValue valueWithCGPoint:CGPointZero] forKey:pName];
-//                continue;
-//            }else if([code isEqualToString:@(@encode(CGSize))]){
-//                [_self setValue:[NSValue valueWithCGSize:CGSizeZero] forKey:pName];
-//                continue;
-//            }else if([code isEqualToString:@(@encode(NSRange))]){
-//                [_self setValue:[NSValue valueWithRange:NSMakeRange(0, 0)] forKey:pName];
-//                continue;
-//            }else if([code isEqualToString:@(@encode(UIEdgeInsets))]){
-//                [_self setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:pName];
-//                continue;
-//            }else if([code isEqualToString:@(@encode(UIOffset))]){
-//                [_self setValue:[NSValue valueWithUIOffset:UIOffsetZero] forKey:pName];
-//                continue;
-//            }else if([code isEqualToString:@(@encode(CGVector))]){
-//                [_self setValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)] forKey:pName];
-//                continue;
-//            }
-            
-            
-            // 是否为数字类型
-            NSString *lowerCode = code.lowercaseString;
-            NSArray *numberTypes = @[@"i", @"s", @"c", @"b", @"f", @"d", @"l", @"q", @"c"];
-            if ([numberTypes containsObject:lowerCode]) {
-                //numberType
-                [_self setValue:@(arc4random_uniform(10001)) forKey:pName];
-                if ([lowerCode isEqualToString:@"c"]  || [lowerCode isEqualToString:@"b"]) {
-                    //boolType
-                    [_self setValue:@(arc4random_uniform(2)==0?NO:YES) forKey:pName];
-                }
-            }
-        }
-        
-        free(properties);
-        return _self;
-    };
-}
-
 - (BOOL (^)(SEL))objIsRespondsSEL
 {
     return ^(SEL theSEL){
@@ -1733,227 +1622,69 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (BOOL (^)(NSMutableDictionary *))objIsInDictValues
+- (NSObject *(^)())objToNSJsonObject
 {
-    return ^BOOL(NSMutableDictionary* dict){
-        LinkHandle_VAL_IFNOT(NSObject){
-            return NO;
-        }
-        LinkGroupHandle_VAL(objIsKeyOfObjs,dict)
-        return [dict.allValues containsObject:_self];
-    };
-}
-- (NSNumber* (^)(NSMutableDictionary *))objIsInDictValuesAs
-{
-    return ^id(NSMutableDictionary* dict){
+    return ^id(id objs){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objIsInDictValuesAs,dict)
-        return @([dict.allValues containsObject:_self]);
+        LinkGroupHandle_REF(objToNSJsonObject,objs)
+        
+        return linkObjNotNil([_self _lb_obj2JsonValueDepth:NO includeFoundation:NO]);
     };
 }
 
-- (NSDictionary *(^)(BOOL))objToNSDictionaryNoDeepXXX
+- (NSObject *(^)())objToNSJsonObjectDepth
 {
-    return ^id(BOOL includeFoundation){
+    return ^id(id objs){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objToNSDictionaryNoDeepXXX,includeFoundation)
+        LinkGroupHandle_REF(objToNSJsonObjectDepth,objs)
         
-        //为容器对象时层次遍历
-        if([_self isKindOfClass:[NSDictionary class]]){
-            NSMutableDictionary* reDic = [NSMutableDictionary new];
-            [reDic addEntriesFromDictionary:_self];
-            [_self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSObject*  _Nonnull value, BOOL * _Nonnull stop) {
-                reDic[key] = value.objToNSDictionaryNoDeepXXX(includeFoundation);
-            }];
-            return reDic.copy;
-        }
-        if([_self isKindOfClass:[NSArray class]]){
-            NSMutableArray* reArr = [NSMutableArray new];
-            [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [reArr addObject:obj.objToNSDictionaryNoDeepXXX(includeFoundation)];
-            }];
-            return reArr.copy;
-        }
-        if([_self isKindOfClass:[NSSet class]]){
-            NSMutableSet* reSet = [NSMutableSet new];
-            [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, BOOL * _Nonnull stop) {
-                [reSet addObject:obj.objToNSDictionaryNoDeepXXX(includeFoundation)];
-            }];
-            return reSet.copy;
-        }
-        if([_self isKindOfClass:[NSHashTable class]]){
-            NSHashTable* reTab = _self.mutableCopy;
-            [reTab removeAllObjects];
-            for (NSObject* obj in [_self objectEnumerator]) {
-                [reTab addObject:obj.objToNSDictionaryNoDeepXXX(includeFoundation)];
-            }
-            return reTab;
-        }
-        if([_self isKindOfClass:[NSMapTable class]]){
-            NSMapTable* reMap = _self.mutableCopy;
-            [reMap removeAllObjects];
-            for (NSObject* key in [_self keyEnumerator]) {
-                NSObject* value = [_self objectForKey:key];
-                [reMap setObject:value.objToNSDictionaryNoDeepXXX(includeFoundation)
-                          forKey:key];
-            }
-            return reMap;
-        }
-        
-        //为非容器Foundation类型时返回自身
-        if([[self class] classIsFoundation])  return _self;
-        
-        //为非容器对象遍历属性
-        NSMutableDictionary* reDic = [NSMutableDictionary new];
-        NSArray<NSString*>* properties = [[_self class] classGetAllPropertyList:includeFoundation];
-        @try {
-            [properties enumerateObjectsUsingBlock:^(NSString * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                __kindof NSObject* value = [_self valueForKey:property];
-                
-                if(!value)  return;
-                
-                reDic[property] = value;
-            }];
-        }@catch (NSException *exception){
-            //发生错误则进行安全赋值
-            [reDic removeAllObjects];
-            [properties enumerateObjectsUsingBlock:^(NSString * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                __kindof NSObject* value;
-                
-                @try {
-                    value = [_self valueForKey:property];
-                } @catch (NSException *exception) {
-                    exception.nslog();
-                } @finally {
-                    value = nil;
-                }
-                
-                if(!value)  return;
-                
-                reDic[property] = value;
-            }];
-        }
-        return [reDic copy];
+        return linkObjNotNil([_self _lb_obj2JsonValueDepth:YES includeFoundation:NO]);
     };
 }
 
-- (NSDictionary *(^)(BOOL))objToNSDictionaryXX
+- (NSObject *(^)())objToNSJsonObjectFoundation
 {
-    return ^id(BOOL includeFoundation){
+    return ^id(id objs){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objToNSDictionaryXX,includeFoundation)
-        //为容器对象时层次遍历
-        if([_self isKindOfClass:[NSDictionary class]]){
-            NSMutableDictionary* reDic = [NSMutableDictionary new];
-            [reDic addEntriesFromDictionary:_self];
-            [_self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSObject*  _Nonnull value, BOOL * _Nonnull stop) {
-                reDic[key] = value.objToNSDictionaryXX(includeFoundation);
-            }];
-            return reDic.copy;
-        }
-        if([_self isKindOfClass:[NSArray class]]){
-            NSMutableArray* reArr = [NSMutableArray new];
-            [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [reArr addObject:obj.objToNSDictionaryXX(includeFoundation)];
-            }];
-            return reArr.copy;
-        }
-        if([_self isKindOfClass:[NSSet class]]){
-            NSMutableSet* reSet = [NSMutableSet new];
-            [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, BOOL * _Nonnull stop) {
-                [reSet addObject:obj.objToNSDictionaryXX(includeFoundation)];
-            }];
-            return reSet.copy;
-        }
-        if([_self isKindOfClass:[NSHashTable class]]){
-            NSHashTable* reTab = _self.mutableCopy;
-            [reTab removeAllObjects];
-            for (NSObject* obj in [_self objectEnumerator]) {
-                [reTab addObject:obj.objToNSDictionaryXX(includeFoundation)];
-            }
-            return reTab;
-        }
-        if([_self isKindOfClass:[NSMapTable class]]){
-            NSMapTable* reMap = _self.mutableCopy;
-            [reMap removeAllObjects];
-            for (NSObject* key in [_self keyEnumerator]) {
-                NSObject* value = [_self objectForKey:key];
-                [reMap setObject:value.objToNSDictionaryXX(includeFoundation)
-                          forKey:key];
-            }
-            return reMap;
-        }
+        LinkGroupHandle_REF(objToNSJsonObjectFoundation,objs)
         
-        //为非容器Foundation类型时返回自身
-        if([[self class] classIsFoundation])  return _self;
+        return linkObjNotNil([_self _lb_obj2JsonValueDepth:NO includeFoundation:YES]);
+    };
+}
+
+- (NSObject *(^)())objToNSJsonObjectDepthAndFoundation
+{
+    return ^id(id objs){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objToNSJsonObjectDepthAndFoundation,objs)
         
-        //为非容器对象遍历属性
-        NSMutableDictionary* reDic = [NSMutableDictionary new];
-        NSArray<NSString*>* properties = [[_self class] classGetAllPropertyList:includeFoundation];
-        @try {
-            [properties enumerateObjectsUsingBlock:^(NSString * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                __kindof NSObject* value = [_self valueForKey:property];
-                
-                if(!value)  return;
-                //属性值为容器类型时层次遍历
-                if([value isKindOfClass:[NSDictionary class]]   ||
-                   [value isKindOfClass:[NSArray class]]        ||
-                   [value isKindOfClass:[NSSet class]]          ||
-                   [value isKindOfClass:[NSHashTable class]]    ||
-                   [value isKindOfClass:[NSMapTable class]]){
-                    
-                    reDic[property] = value.objToNSDictionaryXX(includeFoundation);
-                }else{
-                    
-                    if([[value class] classIsFoundation]){
-                        //属性值为Foundation类型时直接赋值
-                        reDic[property] = value;
-                    }else{
-                        //属性值为非Foundation类型时继续转换
-                        reDic[property] = value.objToNSDictionaryXX(includeFoundation);
-                    }
-                }
-            }];
-        }@catch (NSException *exception) {
-            //发生错误则进行安全赋值
-            [reDic removeAllObjects];
-            [properties enumerateObjectsUsingBlock:^(NSString * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                __kindof NSObject* value;
-                
-                @try {
-                    value = [_self valueForKey:property];
-                } @catch (NSException *exception) {
-                    exception.nslog();
-                    value = nil;
-                }
-                
-                if(!value)  return;
-                //属性值为容器类型时层次遍历
-                if([value isKindOfClass:[NSDictionary class]]   ||
-                   [value isKindOfClass:[NSArray class]]        ||
-                   [value isKindOfClass:[NSSet class]]          ||
-                   [value isKindOfClass:[NSHashTable class]]    ||
-                   [value isKindOfClass:[NSMapTable class]]){
-                    
-                    reDic[property] = value.objToNSDictionaryXX(includeFoundation);
-                }else{
-                    
-                    if([[value class] classIsFoundation]){
-                        //属性值为Foundation类型时直接赋值
-                        reDic[property] = value;
-                    }else{
-                        //属性值为非Foundation类型时继续转换
-                        reDic[property] = value.objToNSDictionaryXX(includeFoundation);
-                    }
-                }
-            }];
+        return linkObjNotNil([_self _lb_obj2JsonValueDepth:YES includeFoundation:YES]);
+    };
+}
+
+- (NSDictionary *(^)())objToNSDictionary
+{
+//
+//    if(!self.objIsCollectionAs().boolValue){
+//        return (id)self.objToNSJsonObject;
+//    }
+    
+    return ^id(id objs){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objToNSDictionary,objs)
+        
+        if([_self isKindOfClass:NSDictionary.class]) return _self;
+
+        //collection object but unable to dictionary
+        //avoid to enumerate
+        if([self respondsToSelector:@selector(dictionaryRepresentation)] == NO
+           &&  self.objIsCollectionAs().boolValue){
+            return [NSDictionary new];
         }
-        
-        return reDic.copy;
+        //single object
+        id value = [_self _lb_obj2JsonValueDepth:NO includeFoundation:NO];
+        if([value isKindOfClass:NSDictionary.class]) return value;
+        return [NSDictionary new];
     };
 }
 
@@ -1975,7 +1706,7 @@ DefineKindOfClassAs(NSNumber)
          includeFoundation:(BOOL)includeFoundation
 {
     id _self = self;
-    //already json value
+    //direct foundation value
     if([self isKindOfClass:NSString.class]  ||
        [self isKindOfClass:NSNumber.class]  ||
        self == NSNull.null
@@ -1995,7 +1726,7 @@ DefineKindOfClassAs(NSNumber)
         return _self;
     }
     
-    //dictionary able collection so convert is to dictionary
+    //dictionary able collection then convert is to dictionary
     if([self isKindOfClass:NSDictionary.class]                      ||
        [self respondsToSelector:@selector(dictionaryRepresentation)]){
         
@@ -2020,7 +1751,7 @@ DefineKindOfClassAs(NSNumber)
         return _self;
     }
     
-    //value set so convert is to array
+    //array collection so convert is to array
     if([_self respondsToSelector:@selector(objectEnumerator)]){
         
         NSArray* content = [_self copy];
@@ -2057,7 +1788,7 @@ DefineKindOfClassAs(NSNumber)
             //nil , NSNull, custom Null has no key-value
             if(value == nil || [value isKindOfClass:NSNull.class])  return;
             
-            //direct value
+            //direct foundation value
             if([value isKindOfClass:NSString.class]  ||
                [value isKindOfClass:NSNumber.class]
                ){
@@ -2076,9 +1807,13 @@ DefineKindOfClassAs(NSNumber)
                 value = (depth==NO)
                 ?value
                 :[value _lb_obj2JsonValueDepth:depth includeFoundation:includeFoundation];
-            }else{
-                //foundation type,such as UIVIew,NSError...
+            }else if(valueIsFoundation && includeFoundation){
+                
+                //foundation type,such as UIView,NSError...
                 value = [value description];
+            } else{
+                //is foundation but not include foundation
+                return;
             }
             dictionary[property] = value;
         }];
@@ -2163,16 +1898,6 @@ DefineKindOfClassAs(NSNumber)
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objSuperclassName)
         return linkObjDefault(NSStringFromClass([_self superclass]),@"");
-    };
-}
-
-- (NSObject *(^)(id*))objSetTo
-{
-    return ^id(id* toObject){
-        LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetTo,toObject)
-        *toObject= _self;
-        return _self;
     };
 }
 
@@ -2495,12 +2220,12 @@ DefineKindOfClassAs(NSNumber)
     return self;
 }
 
-- (NSObject *(^)(void))poNoDeep
+- (NSObject *(^)(void))poDetail
 {
     return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(poNoDeep)
-        NSLog(@"%@",_self.objToNSDictionaryNoDeepXXX(NO));
+        LinkGroupHandle_REF(poDetail)
+        NSLog(@"%@",[self _lb_obj2JsonValueDepth:YES includeFoundation:NO]);
         return _self;
     };
 }
@@ -2510,7 +2235,7 @@ DefineKindOfClassAs(NSNumber)
     return ^id(){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(po)
-        NSLog(@"%@",_self.objToNSDictionaryXX(YES));
+        NSLog(@"%@",[self _lb_obj2JsonValueDepth:NO includeFoundation:NO]);
         return _self;
     };
 }
@@ -2888,6 +2613,68 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
+- (NSObject *(^)(id, id))objSetRandomDateForKey
+{
+    return ^id(id key, id days){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSetRandomDateForKey,key,days)
+        
+        double lOffset = 0,rOffset = 0;
+        
+        if ([days isKindOfClass:NSArray.class] && [days count] == 2){
+            
+            lOffset = [[days firstObject] doubleValue];
+            rOffset = [[days lastObject] doubleValue];
+        }else{
+            
+            NSTimeInterval ds = 0;
+            if([days isKindOfClass:NSArray.class] && [days count] == 1){
+                
+                ds = [[days firstObject] doubleValue];
+            }else if([days isKindOfClass:NSNumber.class]){
+                
+                ds = [days doubleValue];
+            }
+            //jump ds == 0
+            lOffset = ds<0?ds:0;
+            rOffset = ds>0?ds:0;
+        }
+        
+        NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+        int count;
+        id aKey;
+        
+        if([key isKindOfClass:[NSArray class]]){
+            
+            count = (int)[key count];
+        }else{
+            
+            count = 1;
+            aKey = key;
+            goto CALL_SETVALUE;
+        }
+        
+    CALL_FOR:
+        
+        if(count < 1) return _self;
+        
+        aKey = key[count-1];
+        
+    CALL_SETVALUE://in:count,aKey
+        
+        --count;
+        //left~right -> 0~offset-left
+        
+        double offset = arc4random_uniform((rOffset - lOffset)*86400.0) + lOffset*86400.0;
+        offset = offset?offset:(-(double)arc4random_uniform(86400));
+        [_self setValue:[NSDate dateWithTimeIntervalSince1970:now+offset]
+                 forKey:aKey];
+        
+        goto CALL_FOR;
+    };
+}
+
 - (NSObject *(^)(id, uint32_t, NSUInteger))objSetRandomDoubleForKey
 {
     return ^id(id key, uint32_t max, NSUInteger rightLen){
@@ -2926,6 +2713,7 @@ DefineKindOfClassAs(NSNumber)
         goto CALL_FOR;
     };
 }
+
 
 - (NSObject *(^)(id))objGetPrevItemFromObjs
 {
@@ -3008,26 +2796,26 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-#define Link_objSetValueForKey_(key) \
-- (NSObject *(^)(id))objSetValueForKey_##key\
+#define Link_objSetValueForK(key) \
+- (NSObject *(^)(id))objSetValueForK##key\
 {\
     return ^id(id value){\
         LinkHandle_REF(NSObject)\
-        LinkGroupHandle_REF(objSetValueForKey_##key, value)\
+        LinkGroupHandle_REF(objSetValueForK##key, value)\
         [_self setValue:value forKey:@""#key""];\
         return _self;\
     };\
 }
 
-Link_objSetValueForKey_(delegate)
-Link_objSetValueForKey_(dataSource)
-Link_objSetValueForKey_(text)
+Link_objSetValueForK(delegate)
+Link_objSetValueForK(dataSource)
+Link_objSetValueForK(text)
 
-- (NSObject *(^)(void))objValuesClean
+- (NSObject *(^)(void))objSetAllValuesBlank
 {
     return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objValuesClean)
+        LinkGroupHandle_REF(objSetAllValuesBlank)
         
         unsigned int outCount, i;
         objc_property_t* properties = class_copyPropertyList([self class], &outCount);

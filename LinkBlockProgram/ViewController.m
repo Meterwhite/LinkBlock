@@ -22,11 +22,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    Person;
+    Man* man = [Man new];
+    man.info = UIView.new;
+    man.friends = @[[Person new],@"123",@YES, UITextView.new];
+    id dic = [man _lb_obj2JsonValueDepth:YES includeFoundation:YES];
     
-    Person* per = [Person new];
-    per.tall = @(123);
-    per.frame = CGRectMake(1, 2, 3, 4);
-    per.objAddTo_linkTo([@[] mutableCopy]);
+    man.objSetRandomDateForKey(@"birthday", @0);
+    man.birthday.dateToStrWithFormat(@"yyyy-MM-dd HH:mm:ss").nslog();
+    man.objSetRandomDateForKey(@"birthday", @-30);
+    man.birthday.dateToStrWithFormat(@"yyyy-MM-dd HH:mm:ss").nslog();
+    man.objSetRandomDateForKey(@"birthday", @30);
+    man.birthday.dateToStrWithFormat(@"yyyy-MM-dd HH:mm:ss").nslog();
+    man.objSetRandomDateForKey(@"birthday", @[@-30,@30]);
+    man.birthday.dateToStrWithFormat(@"yyyy-MM-dd HH:mm:ss").nslog();
+    
     
     @"END".nslog();
     return;
@@ -122,7 +132,7 @@
     //【四】快捷语法
     //////////////////////////////////////////////////////////////////////
     //对象随机赋值，并将对象作为字典打印
-    [Person new].objValuesClean().objValuesRandom().po();
+    [Person new].objSetAllValuesBlank().objValuesRandom().po();
     
     //创建属性字典
     AttrDictNew.makeAttrDictFont([UIFont systemFontOfSize:15])
@@ -136,7 +146,7 @@
     //////////////////////////////////////////////////////////////////////
     Person* per2 = [Person new];
     //设置代理 使用 KVC
-    per2.objSetValueForKey_delegate(self).objSetValueForKey(@"Jack",@"name");
+    per2.objSetValueForKdelegate(self).objSetValueForKey(@"Jack",@"name");
     //调用方法组
     per2.objPerformSelectorsWithArgs(
                                      @selector(answerQuestion:),@[@"how big"],

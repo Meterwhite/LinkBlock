@@ -92,6 +92,17 @@
 - (NSObject *(^)(id*))setTo
 {return self.objSetTo;}
 
+- (NSObject *(^)(id*))objSetTo
+{
+    return ^id(id* toObject){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSetTo,toObject)
+        *toObject= _self;
+        return _self;
+    };
+}
+
+
 - (id (^)(NSString *))valueForKey
 {return self.objValueForKey;}
 
@@ -108,7 +119,7 @@
 {return self.objValuesRandom;}
 
 - (NSObject *(^)(id))objSetDelegate
-{return self.objSetValueForKey_delegate;}
+{return self.objSetValueForKdelegate;}
 
 - (NSObject *(^)(NSString *))objBOOLNegationForKey
 {return self.objReverseValueForKey;}
@@ -290,7 +301,93 @@
 {return self.objMutableCopyEnumerate;}
 
 - (NSObject *(^)(void))objValuesRandom
-{return self.objSetValuesRandom;}
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objValuesRandom)
+        
+        unsigned int outCount, i;
+        objc_property_t* properties = class_copyPropertyList([self class], &outCount);
+        for(i=0 ; i< outCount; i++){
+            
+            NSString* pName = @(property_getName(properties[i]));
+            NSString *attrs = @(property_getAttributes(properties[i]));
+            NSUInteger dotLoc = [attrs rangeOfString:@","].location;
+            NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
+            NSString *code = nil;
+            NSUInteger loc = 1;
+            if (dotLoc == NSNotFound) { // 没有
+                code = [attrs substringFromIndex:loc];
+            } else {
+                code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+            }
+            
+            if([attrInfos containsObject:@"R"]){//只读属性
+                continue;
+            }
+            else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){//无值
+                continue;
+            }
+            
+            if ([code isEqualToString:@"@"]) {
+                //id
+                continue;
+            } else if (code.length == 0) {
+                //KVCDisabled
+                continue;
+            } else if (code.length > 3 && [code hasPrefix:@"@\""]) {//对象
+                // 去掉@"和"，截取中间的类型名称
+                code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
+                Class clazz = NSClassFromString(code);
+                
+                if([clazz isSubclassOfClass:[NSNumber class]]){//数字
+                    [_self setValue:@(arc4random_uniform(10000)) forKey:pName];
+                }else if ([clazz isSubclassOfClass:[NSMutableString class]]){//字符串
+                    [_self setValue:[[NSUUID UUID].UUIDString substringToIndex:4].mutableCopy forKey:pName];
+                }else if ([clazz isSubclassOfClass:[NSString class]]){
+                    [_self setValue:[[NSUUID UUID].UUIDString substringToIndex:4] forKey:pName];
+                }else if ([clazz isSubclassOfClass:[NSDate class]]){//日期
+                    [_self setValue:[NSDate dateWithTimeIntervalSince1970:arc4random_uniform(MAXFLOAT)] forKey:pName];
+                }else if ([clazz isSubclassOfClass:[UILabel class]] ||
+                          [clazz isSubclassOfClass:[UITextView class]] ||
+                          [clazz isSubclassOfClass:[UITextField class]]){
+                    
+                    UIView* titleView = [clazz new];
+                    [titleView setValue:[[NSUUID UUID].UUIDString substringToIndex:4] forKeyPath:@"text"];
+                    [_self setValue:titleView forKey:pName];
+                }else if ([clazz isSubclassOfClass:[UIButton class]]){
+                    
+                    UIButton* btn = [clazz new];
+                    [btn setTitle:[[NSUUID UUID].UUIDString substringToIndex:4] forState:UIControlStateNormal];
+                    [_self setValue:btn forKey:pName];
+                }
+            } else if ([code isEqualToString:@":"] ||//SEL
+                       [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
+                       [code isEqualToString:@"^{objc_method=}"] ||//Method
+                       [code isEqualToString:@"@?"]) {//block
+                //KVCDisabled
+                continue;
+            }
+            
+            // 是否为数字类型
+            NSString *lowerCode = code.lowercaseString;
+            NSArray *numberTypes = @[@"i", @"s", @"c", @"b", @"f", @"d", @"l", @"q", @"c"];
+            if ([numberTypes containsObject:lowerCode]) {
+                //numberType
+                [_self setValue:@(arc4random_uniform(10001)) forKey:pName];
+                if ([lowerCode isEqualToString:@"c"]  || [lowerCode isEqualToString:@"b"]) {
+                    //boolType
+                    [_self setValue:@(arc4random_uniform(2)==0?NO:YES) forKey:pName];
+                }
+            }
+        }
+        
+        free(properties);
+        return _self;
+    };
+}
+- (NSObject *(^)(void))objValuesClean
+{return self.objSetAllValuesBlank;}
 
 - (NSObject* (^)(__unsafe_unretained Class))objMustType
 {
@@ -336,12 +433,24 @@
 
 - (BOOL (^)(id))objIsInArr
 {return self.objIsSubitemOfObjs;}
+- (NSNumber *(^)(id))objIsInArr_n
+{return self.objIsSubitemOfObjsAs;}
+
 - (BOOL (^)(id))objIsInDictValues
 {return self.objIsSubitemOfObjs;}
-- (NSNumber *(^)(id))objIsInArrAs
+- (NSNumber *(^)(id))objIsInDictValues_n
 {return self.objIsSubitemOfObjsAs;}
-- (NSNumber *(^)(id))objIsInDictValuesAs
-{return self.objIsSubitemOfObjsAs;}
+
+- (BOOL (^)(id))objIsInDictKeys
+{return self.objIsKeyOfObjs;}
+- (NSNumber *(^)(id))objIsInDictKeys_n
+{return self.objIsKeyOfObjsAs;}
+- (NSObject *(^)(id))objSetValueForKey_delegate
+{return self.objSetValueForKdelegate;}
+- (NSObject *(^)(id))objSetValueForKey_dataSource
+{return self.objSetValueForKdataSource;}
+-(NSObject *(^)(id))objSetValueForKey_text
+{return self.objSetValueForKtext;}
 
 
 - (NSObject *(^)(NSMutableDictionary *, id<NSCopying>))objSetToDict
@@ -409,8 +518,6 @@ ChangeNameForN_ONE(numIsLessEqualNum)
 ChangeNameForN_ONE(objIsEqual)
 ChangeNameForN_ONE(objIsEqualToEachInArray)
 ChangeNameForN_ONE(objIsEqualToSomeoneInArray)
-//ChangeNameForN_ONE(objIsInDictValues)
-//ChangeNameForN_ONE(objIsInDictKeys)
 ChangeNameForN_ONE(strIsEqualStr)
 ChangeNameForN_ONE(strContain)
 ChangeNameForN_ONE(strHasPrefix)
