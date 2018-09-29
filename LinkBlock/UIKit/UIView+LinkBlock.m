@@ -428,20 +428,18 @@
     };
 }
 
-- (BOOL (^)(UIView *))viewIsSubviewTo
+- (BOOL (^)(UIView *))viewIsInView
 {
-    return ^(UIView *theView){
+    return ^(UIView *view){
         LinkHandle_VAL_IFNOT(UIView){
             return NO;
         }
-        LinkGroupHandle_VAL(viewIsSubviewTo,theView)
-        __block BOOL re= NO;
-        if([_self.superview isEqual:theView]){
-            re = YES;
-        }else{
-            re = _self.superview.viewIsSubviewTo(theView);
-        }
-        return re;
+        LinkGroupHandle_VAL(viewIsInView,view)
+        
+        if([_self.superview isEqual:view])
+            return  YES;
+        
+        return  _self.superview.viewIsInView(view);
     };
 }
 
@@ -1501,22 +1499,22 @@ defineViewContentModeTail(BottomRight)
     };
 }
 
-- (UIView *(^)(void))viewBringFrontInView
+- (UIView *(^)(void))viewBringFrontInSuperview
 {
     return ^id(){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewBringFrontInView)
+        LinkGroupHandle_REF(viewBringFrontInSuperview)
         if(_self.superview)
             [_self.superview bringSubviewToFront:_self];
         return _self;
     };
 }
 
-- (UIView *(^)(void))viewSendBackInView
+- (UIView *(^)(void))viewSendBackInSuperview
 {
     return ^id(){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewSendBackInView)
+        LinkGroupHandle_REF(viewSendBackInSuperview)
         if(_self.superview)
             [_self.superview sendSubviewToBack:_self];
         return _self;
@@ -1898,11 +1896,11 @@ defineViewContentModeTail(BottomRight)
     };
 }
 
-- (UIView *(^)(void))viewBeforeIndexView
+- (UIView *(^)(void))viewPrevIndexView
 {
     return ^id(){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewBeforeIndexView)
+        LinkGroupHandle_REF(viewPrevIndexView)
         return _self.objBeforeInArr(_self.subviews);
     };
 }
@@ -1912,17 +1910,17 @@ defineViewContentModeTail(BottomRight)
     return ^id(){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewNextIndexView)
-        return _self.objNextInArr(_self.subviews);
+        return _self.objGetNextItemFromObjs(_self.subviews);
     };
 }
 
-- (BOOL (^)(UIView *))viewIsSuperviewTo
+- (BOOL (^)(UIView *))viewContainsView
 {
     return ^(UIView* aView){
         LinkHandle_VAL_IFNOT(UIView){
             return NO;
         }
-        LinkGroupHandle_VAL(viewIsSuperviewTo,aView)
+        LinkGroupHandle_VAL(viewContainsView,aView)
         __block BOOL re = NO;
         [aView viewEnumerateSuperviewUsingBlock:^(UIView *superview, BOOL *stop) {
             if([superview isEqual: _self]) {

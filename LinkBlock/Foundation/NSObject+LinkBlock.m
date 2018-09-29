@@ -918,12 +918,15 @@
 - (BOOL (^)(void))objIsMutable
 {
     return ^BOOL(){
-        LinkHandle_VAL_IFNOT(NSObject){
-            return NO;
-        }
-        LinkGroupHandle_VAL(objIsMutable)
-         
-        return [_self copy] != _self;
+        return self.objIsMutableAs().boolValue;
+    };
+}
+- (NSNumber *(^)(void))objIsMutableAs
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsMutableAs)
+        return @([_self copy] != _self);
     };
 }
 
@@ -2777,6 +2780,8 @@ DefineKindOfClassAs(NSNumber)
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objIsSubitemOfObjsAs, objs)
         
+        //content that have collection
+        
         if([objs respondsToSelector:@selector(objectEnumerator)]){
             
             NSEnumerator* enumerator = [objs objectEnumerator];
@@ -2794,6 +2799,45 @@ DefineKindOfClassAs(NSNumber)
         
         return @NO;
     };
+}
+
+- (NSNumber *(^)(id))objIsSubitemOfObjAs
+{
+        return ^id(id obj){
+            
+            LinkHandle_REF(NSObject)
+            LinkGroupHandle_REF(objIsSubitemOfObjAs, obj)
+            
+            id objs;
+            //string content
+            if([obj isKindOfClass:NSAttributedString.class]     ||
+               [obj isKindOfClass:UIPasteboard.class]           ||
+               [obj isKindOfClass:NSScanner.class]
+               ){
+                obj = [obj string];
+            }
+            if([obj isKindOfClass:NSString.class]){
+                
+                if([(id)_self isKindOfClass:NSAttributedString.class]   ||
+                   [(id)_self isKindOfClass:UIPasteboard.class]         ||
+                   [(id)_self isKindOfClass:NSScanner.class]){
+                    _self = [(id)_self string];
+                }
+                
+                if([_self isKindOfClass:NSString.class])
+                    return @([obj containsString:(id)_self]);
+                
+                return @NO;
+            }
+            else if([obj isKindOfClass:UIView.class])
+                objs = [(id)_self subviews];
+            else if([obj isKindOfClass:UIViewController.class])
+                objs = [(id)_self childViewControllers];
+            else if([obj isKindOfClass:CALayer.class])
+                objs = [(id)_self sublayers];
+            
+            return self.objIsSubitemOfObjsAs(objs);
+        };
 }
 
 #define Link_objSetValueForK(key) \
@@ -2923,11 +2967,11 @@ Link_objSetValueForK(text)
     };
 }
 
-- (NSObject *(^)(SEL, id))objPerformSelectorWithArg
+- (NSObject *(^)(SEL, id))objPerformSelectorArgument
 {
     return ^id(SEL sel , id obj){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objPerformSelectorWithArg, sel , obj)
+        LinkGroupHandle_REF(objPerformSelectorArgument, sel , obj)
         if([_self respondsToSelector:sel]){
             [_self _lb_performSelector:sel withObject:obj];
         }else{
@@ -2937,11 +2981,11 @@ Link_objSetValueForK(text)
     };
 }
 
-- (NSObject *(^)(SEL, id))objPerformSelectorWithArgAsWhatReturn
+- (NSObject *(^)(SEL, id))objPerformSelectorArgumentAsWhatReturn
 {
     return ^id(SEL sel , id obj){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objPerformSelectorWithArgAsWhatReturn, sel , obj)
+        LinkGroupHandle_REF(objPerformSelectorArgumentAsWhatReturn, sel , obj)
         if(![_self respondsToSelector:sel]){
             [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",_self,NSStringFromSelector(sel)]] logError];
         }
@@ -3038,7 +3082,7 @@ Link_objSetValueForK(text)
     };
 }
 
-- (NSObject *(^)(SEL , NSArray* , ...))objPerformSelectorsWithArgs
+- (NSObject *(^)(SEL , NSArray* , ...))objPerformsSelectorArguments
 {
     return ^id(SEL sel0 , NSArray* args0 , ...){
         LinkHandle_REF(NSObject)
@@ -3109,7 +3153,7 @@ Link_objSetValueForK(text)
     };
 }
 
-- (NSArray *(^)(SEL , NSArray* , ...))objPerformSelectorsWithArgsAsWhatReturns
+- (NSArray *(^)(SEL , NSArray* , ...))objPerformsSelectorArgumentsAsWhatReturns
 {
     return ^id(SEL sel0 , NSArray* args0 , ...){
         

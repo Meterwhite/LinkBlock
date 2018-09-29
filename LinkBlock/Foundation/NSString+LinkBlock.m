@@ -74,13 +74,13 @@
     return ^id(NSString* replaceStr, NSString* withStr){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strReplace,replaceStr,withStr)
+        
         if([replaceStr isKindOfClass:[NSString class]] &&
            [withStr isKindOfClass:[NSString class]] ){
             return [_self stringByReplacingOccurrencesOfString:replaceStr withString:withStr];
         }
-        else{
-            return _self;
-        }
+        
+        return _self;
     };
 }
 
@@ -89,13 +89,14 @@
     return ^id(NSString* str, NSUInteger index){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strInsertAt,str,index)
+        
         if([str isKindOfClass:[NSString class]]){
             NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
             [tNewMStr insertString:str atIndex:index];
             return [tNewMStr copy];
-        }else{
-            return _self;
         }
+        
+        return _self;
     };
 }
 
@@ -158,29 +159,39 @@
         LinkGroupHandle_REF(strDeleteStr,str)
         if([str isKindOfClass:[NSString class]]){
             return [_self stringByReplacingOccurrencesOfString:str withString:@""];
-        }else{
-            return _self;
         }
+        
+        return _self;
     };
 }
 
-- (BOOL (^)(NSString *))strContain
+- (NSNumber *(^)(void))strIsMutableAs
 {
-    return ^(NSString* str){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strContain,str)
-        return [_self containsString:str];
+    if([self isKindOfClass:NSString.class]){
+        return self.objIsMutableAs;
+    }
+    return ^id(){return @NO;};
+}
+
+- (BOOL (^)(id))strContains
+{
+    return ^(id obj){
+        return self.strContainsAs(obj).boolValue;
     };
 }
 
-- (NSNumber* (^)(NSString *))strContainAs
+- (NSNumber* (^)(id))strContainsAs
 {
-    return ^id(NSString* str){
+    return ^id(id obj){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strContainAs,str)
-        return @([_self containsString:str]);
+        LinkGroupHandle_REF(strContainsAs,obj)
+        
+        if(obj && [obj isKindOfClass:NSString.class]==NO)
+            obj = [obj description];
+        else if (!obj)
+            return @NO;
+        
+        return @([_self containsString:obj]);
     };
 }
 
@@ -192,6 +203,7 @@
         }
         LinkGroupHandle_VAL(strIndexOfStr,str)
         if([str isKindOfClass:[NSString class]]){
+            
             return [_self rangeOfString:str].location;
         }else{
             return NSNotFound;
@@ -199,28 +211,18 @@
     };
 }
 
-- (BOOL (^)(void))strContainzh_CN
+- (BOOL (^)(void))strContainszh_CN
 {
     return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strContainzh_CN)
-        for(int i=0; i<_self.length; i++){
-            int charS = [_self characterAtIndex:i];
-            if(charS >= 0x4e00 && charS <= 0x9fff){
-                return YES;
-            }
-        }
-        return NO;
+        return self.strContainszh_CNAs().boolValue;
     };
 }
 
-- (NSNumber* (^)(void))strContainzh_CNAs
+- (NSNumber* (^)(void))strContainszh_CNAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strContainzh_CNAs)
+        LinkGroupHandle_REF(strContainszh_CNAs)
         for(int i=0; i<_self.length; i++){
             int charS = [_self characterAtIndex:i];
             if(charS >= 0x4e00 && charS <= 0x9fff){
@@ -234,20 +236,7 @@
 - (BOOL (^)(NSRange))strIszh_CNInRange
 {
     return ^(NSRange range){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strIszh_CNInRange,range)
-        if( range.location>_self.length-1 || range.location+range.length>_self.length )
-            return NO;
-        
-        for(NSUInteger i=range.location; i<range.location+range.length; i++){
-            int charS = [_self characterAtIndex:i];
-            if(charS < 0x4e00 || charS > 0x9fff){//不是汉字
-                return NO;
-            }
-        }
-        return YES;
+        return self.strIszh_CNInRangeAs(range).boolValue;
     };
 }
 
@@ -413,6 +402,7 @@ NSString* decimalToHexString(u_char nValue)
             return NSMakeRange(NSNotFound, 0);
         }
         LinkGroupHandle_VAL(strRangeOfStr,str)
+        
         if([str isKindOfClass:[NSString class]]){
             return [_self rangeOfString:str];
         }else{
@@ -479,43 +469,7 @@ NSString* decimalToHexString(u_char nValue)
 - (BOOL (^)(void))strIsEmoji
 {
     return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strIsEmoji)
-        // 判断是否是 emoji表情
-        BOOL returnValue = NO;
-        
-        const unichar hs = [_self characterAtIndex:0];
-        // surrogate pair
-        if (0xd800 <= hs && hs <= 0xdbff) {
-            if (_self.length > 1) {
-                const unichar ls = [_self characterAtIndex:1];
-                const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
-                if (0x1d000 <= uc && uc <= 0x1f77f) {
-                    returnValue = YES;
-                }
-            }
-        } else if (_self.length > 1) {
-            const unichar ls = [_self characterAtIndex:1];
-            if (ls == 0x20e3) {
-                returnValue = YES;
-            }
-        } else {
-            // non surrogate
-            if (0x2100 <= hs && hs <= 0x27ff) {
-                returnValue = YES;
-            } else if (0x2B05 <= hs && hs <= 0x2b07) {
-                returnValue = YES;
-            } else if (0x2934 <= hs && hs <= 0x2935) {
-                returnValue = YES;
-            } else if (0x3297 <= hs && hs <= 0x3299) {
-                returnValue = YES;
-            } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50) {
-                returnValue = YES;
-            }
-        }
-        return returnValue;
+        return self.strIsEmojiAs().boolValue;
     };
 }
 
@@ -830,20 +784,7 @@ NSString* decimalToHexString(u_char nValue)
 
 - (BOOL (^)(void))strIsBlank{
     return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strIsBlank)
-        if ([[_self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0) {
-            return YES;
-        }
-        if ([_self isEqualToString:@"<null>"]) {
-            return YES;
-        }
-        if ([_self isEqualToString:@"(null)"]) {
-            return YES;
-        }
-        return NO;
+        return self.strIsBlankAs().boolValue;
     };
 }
 
@@ -865,16 +806,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSUInteger (^)(void))strLength
-{
-    return ^NSUInteger(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return 0;
-        }
-        LinkGroupHandle_VAL(strLength)
-        return _self.length;
-    };
-}
+
 
 - (NSNumber* (^)(void))strLengthAs
 {
@@ -966,56 +898,18 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (BOOL (^)(void))strContainEmoji
+- (BOOL (^)(void))strContainsEmoji
 {
     return ^(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strContainEmoji)
-        __block BOOL hasEomji = NO;
-        
-        [_self enumerateSubstringsInRange:NSMakeRange(0, _self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-            const unichar hs = [substring characterAtIndex:0];
-            // surrogate pair
-            if (0xd800 <= hs && hs <= 0xdbff) {
-                if (substring.length > 1) {
-                    const unichar ls = [substring characterAtIndex:1];
-                    const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
-                    if (0x1d000 <= uc && uc <= 0x1f77f) {
-                        hasEomji = YES;
-                    }
-                }
-            } else if (substring.length > 1) {
-                const unichar ls = [substring characterAtIndex:1];
-                if (ls == 0x20e3) {
-                    hasEomji = YES;
-                }
-            } else {
-                // non surrogate
-                if (0x2100 <= hs && hs <= 0x27ff && hs != 0x263b) {
-                    hasEomji = YES;
-                } else if (0x2B05 <= hs && hs <= 0x2b07) {
-                    hasEomji = YES;
-                } else if (0x2934 <= hs && hs <= 0x2935) {
-                    hasEomji = YES;
-                } else if (0x3297 <= hs && hs <= 0x3299) {
-                    hasEomji = YES;
-                } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50|| hs == 0x231a ) {
-                    hasEomji = YES;
-                }
-            }
-            if(hasEomji){*stop = YES;}
-        }];
-        return hasEomji;
+        return self.strContainsEmojiAs().boolValue;
     };
 }
 
-- (NSNumber* (^)(void))strContainEmojiAs
+- (NSNumber* (^)(void))strContainsEmojiAs
 {
     return ^id(){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strContainEmojiAs)
+        LinkGroupHandle_REF(strContainsEmojiAs)
         __block BOOL hasEomji = NO;
         
         [_self enumerateSubstringsInRange:NSMakeRange(0, _self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
@@ -1117,11 +1011,7 @@ NSString* decimalToHexString(u_char nValue)
 - (BOOL (^)(void))strIsNumber
 {
     return ^BOOL(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strIsNumber)
-        return _self.strIsInteger() || _self.strIsFloating();
+        return self.strIsNumberAs().boolValue;
     };
 }
 - (NSNumber *(^)(void))strIsNumberAs
@@ -1641,11 +1531,7 @@ NSString* decimalToHexString(u_char nValue)
 - (BOOL (^)(NSString *))strHasPrefix
 {
     return ^(NSString* prefix){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strHasPrefix,prefix)
-        return [_self hasPrefix:prefix];
+        return self.strHasPrefixAs(prefix).boolValue;
     };
 }
 
@@ -1661,11 +1547,7 @@ NSString* decimalToHexString(u_char nValue)
 - (BOOL (^)(NSString *))strHasSuffix
 {
     return ^(NSString* suffix){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(strHasSuffix,suffix)
-        return [_self hasSuffix:suffix];
+        return self.strHasSuffixAs(suffix).boolValue;
     };
 }
 
@@ -1877,10 +1759,7 @@ NSString* decimalToHexString(u_char nValue)
 - (BOOL (^)(id))strPredicateEvaluate
 {
     return ^(id obj){
-        LinkHandle_VAL_IFNOT(NSString){
-            return NO;
-        }
-        return [[NSPredicate predicateWithFormat:_self] evaluateWithObject:obj];
+        return self.strPredicateEvaluateAs(obj).boolValue;
     };
 }
 - (NSNumber *(^)(id))strPredicateEvaluateAs
@@ -2377,45 +2256,24 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     };
 }
 
-- (UILabel *(^)(UILabel *))strSetToLabelAsWhatSet
+- (UIView *(^)(UIView *))strSetToViewContentAsWhatSet
 {
-    return ^id(UILabel* lab){
+    return ^id(UIView* view){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToLabelAsWhatSet, lab)
-        lab.text = _self;
-        return linkObj(lab);
+        LinkGroupHandle_REF(strSetToViewContentAsWhatSet, view)
+        
+        if([view isKindOfClass:UIButton.class]){
+            
+            [(id)view setTitle:_self forState:UIControlStateNormal];
+        }else if ([view respondsToSelector:@selector(setText:)]){
+            
+            [(id)view  setText:_self];
+        }
+        
+        return linkObj(view);
     };
 }
 
-- (UIButton *(^)(UIButton *, UIControlState))strSetToButtonAsWhatSet
-{
-    return ^id(UIButton* btn, UIControlState state){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToButtonAsWhatSet, btn, state)
-        [btn setTitle:_self forState:state];
-        return linkObj(btn);
-    };
-}
-
-- (UITextField *(^)(UITextField *))strSetToTextFieldAsWhatSet
-{
-    return ^id(UITextField * txtField){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToTextFieldAsWhatSet, txtField)
-        txtField.text = _self;
-        return linkObj(txtField);
-    };
-}
-
-- (UITextView *(^)(UITextView *))strSetToTextViewAsWhatSet
-{
-    return ^id(UITextView * txtView){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToTextViewAsWhatSet, txtView)
-        txtView.text = _self;
-        return linkObj(txtView);
-    };
-}
 
 #pragma mark - LinkCode
 

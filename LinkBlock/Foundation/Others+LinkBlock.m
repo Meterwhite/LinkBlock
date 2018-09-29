@@ -12,7 +12,7 @@
 @implementation NSObject(OtherLinkBlock)
 
 - (BOOL (^)(NSString *))strIsContain
-{return self.strContain;}
+{return self.strContains;}
 
 - (BOOL (^)(id))arrIsContainer
 {return self.arrContain;}
@@ -44,10 +44,10 @@
 }
 
 - (BOOL (^)(void))strIsContainEmoji
-{return self.strContainEmoji;}
+{return self.strContainsEmoji;}
 
 - (NSNumber *(^)(void))strIsContainEmoji_n
-{return self.strContainEmojiAs;}
+{return self.strContainsEmojiAs;}
 - (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
 {return self.attr_strDrawImgRect;}
 - (NSMutableArray *(^)(NSMutableArray *))arrAddTo
@@ -490,7 +490,6 @@ ChangeNameForN_VOID(numIsEven)
 ChangeNameForN_VOID(numIsNegative)
 ChangeNameForN_VOID(numIsZero)
 ChangeNameForN_VOID(objIsNSNull)
-ChangeNameForN_VOID(strContainzh_CN)
 ChangeNameForN_VOID(strIsBlank)
 ChangeNameForN_VOID(strIsEmoji)
 ChangeNameForN_VOID(strLength)
@@ -519,7 +518,6 @@ ChangeNameForN_ONE(objIsEqual)
 ChangeNameForN_ONE(objIsEqualToEachInArray)
 ChangeNameForN_ONE(objIsEqualToSomeoneInArray)
 ChangeNameForN_ONE(strIsEqualStr)
-ChangeNameForN_ONE(strContain)
 ChangeNameForN_ONE(strHasPrefix)
 ChangeNameForN_ONE(strHasSuffix)
 ChangeNameForN_ONE(strRegexIsMatch)
@@ -575,17 +573,17 @@ ChangeNameForLink_ONE(objRemoveFrom)
 - (NSObject *(^)(id, NSUInteger))imgSetToBtnBGImg_linkTo
 {return self.imgSetToButtonAsWhatSet;}
 - (NSObject *(^)(id, NSUInteger))strSetToBtn_linkTo
-{return self.strSetToButtonAsWhatSet;}
+{return (id)self.strSetToViewContentAsWhatSet;}
 - (NSObject *(^)(id, NSUInteger))imgSetToBtn_linkTo
 {return self.imgSetToButtonAsWhatSet;}
 - (NSObject *(^)(id))strSetToTxtField_linkTo
-{return self.strSetToTextFieldAsWhatSet;}
+{return (id)self.strSetToViewContentAsWhatSet;}
 - (NSObject *(^)(id))strSetToTxtView_linkTo
-{return self.strSetToTextViewAsWhatSet;}
+{return (id)self.strSetToViewContentAsWhatSet;}
 - (NSObject *(^)(id))imgSetToImgView_linkTo
 {return self.imgSetToImageViewAsWhatSet;}
 - (NSObject *(^)(id))strSetToLab_linkTo
-{return self.strSetToLabelAsWhatSet;}
+{return (id)self.strSetToViewContentAsWhatSet;}
 - (NSObject *(^)(void))strPathUnarchiveObject_linkTo
 {return self.strPathUnarchiveObjectAsWhatReturn;}
 - (NSObject *(^)(id, CGRect))attr_strDrawToImg_linkTo
@@ -593,11 +591,11 @@ ChangeNameForLink_ONE(objRemoveFrom)
 - (NSObject *(^)(SEL))objPerformSelector_linkToReturnValue
 {return self.objPerformSelectorAsWhatReturn;}
 - (NSObject *(^)(SEL, id))objPerformSelectorWithArg_linkToReturnValue
-{return self.objPerformSelectorWithArgAsWhatReturn;}
+{return self.objPerformSelectorArgumentAsWhatReturn;}
 - (NSArray *(^)(SEL, ...))objPerformSelectors_linkToReturnValues
 {return self.objPerformSelectorsAsWhatReturns;}
 - (NSArray *(^)(SEL, NSArray *, ...))objPerformSelectorsWithArgs_linkToReturnValues
-{return self.objPerformSelectorsWithArgsAsWhatReturns;}
+{return self.objPerformsSelectorArgumentsAsWhatReturns;}
 
 - (BOOL (^)(id<NSCopying>))dictContaineKey
 {return self.dictContainKey;}
@@ -622,4 +620,27 @@ ChangeNameAppend_As(objIsKindOfNSDictionary)
 ChangeNameAppend_As(objIsKindOfUIView)
 ChangeNameAppend_As(objIsKindOfNSValue)
 ChangeNameAppend_As(objIsKindOfNSNumber)
+
+#pragma mark - 2018.10
+- (BOOL (^)(UIView *))viewIsSubviewTo
+{return self.viewIsInView;}
+-(BOOL (^)(UIView *))viewIsSuperviewTo
+{return self.viewContainsView;}
+- (NSUInteger (^)(void))strLength
+{
+    return ^NSUInteger(){
+        LinkHandle_VAL_IFNOT(NSString){
+            return 0;
+        }
+        LinkGroupHandle_VAL(strLength)
+        return _self.length;
+    };
+}
+
+- (NSNumber *(^)(void))strContainzh_CN_n
+{return self.strContainszh_CNAs;}
+- (BOOL (^)(NSString *))strContain
+{return self.strContains;}
+
+
 @end

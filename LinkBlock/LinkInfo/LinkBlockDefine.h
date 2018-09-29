@@ -15,6 +15,11 @@
 #ifndef LBDeclare
 #define LBDeclare @property (nonatomic,copy,readonly)
 #endif
+
+#ifndef LBDeclareG
+#define LBDeclareG(getname) @property (nonatomic,copy,readonly,getter=getname)
+#endif
+
 /**
  定义LinkBlock方法
  */

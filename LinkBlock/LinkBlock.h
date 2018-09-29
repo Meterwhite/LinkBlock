@@ -354,31 +354,22 @@
 #define numIsLessEqualNumAs(...) numIsLessEqualNumAs(LBBoxValue((__VA_ARGS__)))
 #endif
 
-/** <^(SEL sel0 , ...)>宏覆盖后不必nil结尾； */
 #ifndef objPerformSelectors
 #define objPerformSelectors(sel , args...) objPerformSelectors(sel, ##args , nil)
 #endif
 
-/** <^(SEL sel0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；宏覆盖后不必nil结尾； */
+#ifndef objPerformsSelectorArguments
+#define objPerformsSelectorArguments(sel0,args0,args...) objPerformsSelectorArguments(sel0,args0,##args,nil)
+#endif
+
 #ifndef objPerformSelectorsAsWhatReturns
 #define objPerformSelectorsAsWhatReturns(sel,args...) objPerformSelectorsAsWhatReturns(sel,##args,nil)
 #endif
 
-/**
- <^(SEL sel0 , NSArray* args0 , ...)> 在参数数组中使用NSNull来代替nil。不要在参数中间传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组。方法内会自动适配参数个数；宏覆盖后不必nil结尾；
- */
-#ifndef objPerformSelectorsWithArgs
-#define objPerformSelectorsWithArgs(sel0,args0,args...) objPerformSelectorsWithArgs(sel0,args0,##args,nil)
+#ifndef objPerformsSelectorArgumentsAsWhatReturns
+#define objPerformsSelectorArgumentsAsWhatReturns(sel0,arg0,args...) objPerformsSelectorArgumentsAsWhatReturns(sel0,arg0,##args,nil)
 #endif
 
-/**
- <^(SEL sel0 , NSArray* args0 , ...)>该方法会返回调用结果，调用void返回方法时返回结果为NSNull，所有nil的返回值也都装箱为NSNull；方法内会自动适配参数个数；在参数数组中使用NSNull来代替nil。不应在参数中间位置传递nil，若想调用无参方法或者想给全部参数传递nil可以使用空数组；宏覆盖后不必nil结尾；
- */
-#ifndef objPerformSelectorsWithArgsAsWhatReturns
-#define objPerformSelectorsWithArgsAsWhatReturns(sel0,arg0,args...) objPerformSelectorsWithArgsAsWhatReturns(sel0,arg0,##args,nil)
-#endif
-
-/** <^(UIView view0 , ...)>宏覆盖后不必nil结尾 */
 #ifndef viewAddSubviews
 #define viewAddSubviews(view0,args...) viewAddSubviews(view0,args...,nil)
 #endif

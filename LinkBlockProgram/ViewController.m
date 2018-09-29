@@ -22,20 +22,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    Person;
+    
     Man* man = [Man new];
     man.info = UIView.new;
     man.friends = @[[Person new],@"123",@YES, UITextView.new];
-    id dic = [man _lb_obj2JsonValueDepth:YES includeFoundation:YES];
-    
-    man.objSetRandomDateForKey(@"birthday", @0);
-    man.birthday.dateToStrWithFormat(@"yyyy-MM-dd HH:mm:ss").nslog();
-    man.objSetRandomDateForKey(@"birthday", @-30);
-    man.birthday.dateToStrWithFormat(@"yyyy-MM-dd HH:mm:ss").nslog();
-    man.objSetRandomDateForKey(@"birthday", @30);
-    man.birthday.dateToStrWithFormat(@"yyyy-MM-dd HH:mm:ss").nslog();
-    man.objSetRandomDateForKey(@"birthday", @[@-30,@30]);
-    man.birthday.dateToStrWithFormat(@"yyyy-MM-dd HH:mm:ss").nslog();
+
+    man.viewBringFrontInView();
     
     
     @"END".nslog();
@@ -148,7 +140,7 @@
     //设置代理 使用 KVC
     per2.objSetValueForKdelegate(self).objSetValueForKey(@"Jack",@"name");
     //调用方法组
-    per2.objPerformSelectorsWithArgs(
+    per2.objPerformsSelectorArguments(
                                      @selector(answerQuestion:),@[@"how big"],
                                      @selector(answerQuestion:question2:),@[@"how long",[NSNull null],@"what color"],
                                      @selector(answerQuestion:question2:question3:),@[],

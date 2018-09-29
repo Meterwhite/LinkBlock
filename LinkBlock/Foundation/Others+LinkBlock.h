@@ -14,7 +14,7 @@ LBDeclare BOOL (^arrIsContainer)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "修正为arrContain");
 
 LBDeclare BOOL (^strIsContain)(NSString* str)
-NS_DEPRECATED_IOS(2_0, 2_0, "使用strContain替代");
+NS_DEPRECATED_IOS(2_0, 2_0, "使用strContains替代");
 
 LBDeclare NSArray* (^arrValuesOfType)(Class typeClass)
 NS_DEPRECATED_IOS(2_0, 2_0, "使用arrObjsOfType替代");
@@ -304,7 +304,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 LBDeclare NSNumber*    (^strPredicateEvaluate_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 
-#pragma mark - tow
 LBDeclare NSNumber*                (^arrKeyValueContain_n)(NSString* key,id eqValue)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 
@@ -343,7 +342,7 @@ NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 LBDeclare NSNumber*    (^objIsNSNull_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 LBDeclare NSNumber*    (^strContainzh_CN_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
+NS_DEPRECATED_IOS(2_0, 2_0, "strContainszh_CNAs");
 LBDeclare NSNumber*    (^strIsBlank_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_n已更新为As");
 LBDeclare NSNumber*    (^strIsEmoji_n)(void)
@@ -363,21 +362,18 @@ LBDeclare NSObject*     (^m_attr_strSetToLabel_linkTo)(id lab)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
 LBDeclare NSObject*     (^objAddTo_linkTo)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
-LBDeclare NSObject*     (^strSetToTxtField_linkTo)(id txtField)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
-LBDeclare NSObject*     (^strSetToTxtView_linkTo)(id txtView)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
+
+
 LBDeclare NSObject*     (^imgSetToImgView_linkTo)(id imgView)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
+
 LBDeclare NSObject*     (^objRemoveFrom_linkTo)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
-LBDeclare NSObject*     (^strSetToLab_linkTo)(id lab)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
+
 
 LBDeclare NSObject*     (^objInsertTo_linkTo)(id obj , NSUInteger idx)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
-LBDeclare NSObject*     (^strSetToBtn_linkTo)(id btn, NSUInteger state)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
+
 LBDeclare NSObject*     (^imgSetToBtnBGImg_linkTo)(id btn,NSUInteger state)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
 LBDeclare NSObject*     (^imgSetToBtn_linkTo)(id btn,NSUInteger state)
@@ -388,25 +384,66 @@ NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
 LBDeclare NSObject*      (^attr_strDrawToImg_linkTo)(id image, CGRect rect)
 NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkTo已更新为AsWhatSet");
 
-#ifndef objPerformSelector_linkToReturnValue
-#define objPerformSelector_linkToReturnValue(sel,args...) objPerformSelector_linkToReturnValue(sel,##args,nil)
-#endif
 LBDeclare NSObject*    (^objPerformSelector_linkToReturnValue)(SEL sel)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkToReturnValue已更新为AsWhatReturn");
-#ifndef objPerformSelectorWithArg_linkToReturnValue
-#define objPerformSelectorWithArg_linkToReturnValue(sel,args...) objPerformSelectorWithArg_linkToReturnValue(sel,##args,nil)
-#endif
+NS_DEPRECATED_IOS(2_0, 2_0, "已更objPerformSelectorAsWhatReturn");
 LBDeclare NSObject*    (^objPerformSelectorWithArg_linkToReturnValue)(SEL sel , id arg)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkToReturnValue已更新为AsWhatReturn");
+NS_DEPRECATED_IOS(2_0, 2_0, "已更objPerformSelectorArgumentAsWhatReturn");
 #ifndef objPerformSelectors_linkToReturnValues
 #define objPerformSelectors_linkToReturnValues(sel,args...) objPerformSelectors_linkToReturnValues(sel,##args,nil)
 #endif
 LBDeclare NSArray*     (^objPerformSelectors_linkToReturnValues)(SEL sel0 , ...)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkToReturnValues已更新为AsWhatReturns");
+NS_DEPRECATED_IOS(2_0, 2_0, "已更objPerformSelectorsAsWhatReturns");
 #ifndef objPerformSelectorsWithArgs_linkToReturnValues
 #define objPerformSelectorsWithArgs_linkToReturnValues(sel,args...) objPerformSelectorsWithArgs_linkToReturnValues(sel,##args,nil)
 #endif
 LBDeclare NSArray*     (^objPerformSelectorsWithArgs_linkToReturnValues)(SEL sel0 , NSArray* args0 , ...)
-NS_DEPRECATED_IOS(2_0, 2_0, "后缀名_linkToReturnValues已更新为AsWhatReturns");
+NS_DEPRECATED_IOS(2_0, 2_0, "已更objPerformsSelectorArgumentsAsWhatReturns");
+
+LBDeclare NSObject*    (^objPerformSelectorWithArg)(SEL sel,id arg)
+NS_DEPRECATED_IOS(2_0, 2_0, "已更objPerformSelectorArgument");
+#ifndef objPerformSelectorsWithArgs
+#define objPerformSelectorsWithArgs(sel,args...) objPerformSelectorsWithArgs(sel,##args,nil)
+#endif
+LBDeclare NSObject*    (^objPerformSelectorsWithArgs)(SEL sel0,NSArray* args0,...)
+NS_DEPRECATED_IOS(2_0, 2_0, "已更objPerformsSelectorArguments");
+
+#pragma mark - 2018.10
+LBDeclare NSObject*     (^strSetToTxtField_linkTo)(id txtField)
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToViewContentAsWhatSet");
+LBDeclare NSObject*     (^strSetToTxtView_linkTo)(id txtView)
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToViewContentAsWhatSet");
+LBDeclare NSObject*     (^strSetToBtn_linkTo)(id btn, NSUInteger state)
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToViewContentAsWhatSet");
+LBDeclare NSObject*     (^strSetToLab_linkTo)(id lab)
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToViewContentAsWhatSet");
+LBDeclare BOOL         (^viewIsSubviewTo)(UIView* view)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名viewIsInView");
+LBDeclare BOOL(^viewIsSuperviewTo)(UIView* view)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名viewContainsView");
+
+
+LBDeclareG(viewBringFrontInSuperview) UIView* (^viewBringFrontInView)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名viewBringFrontInSuperview");
+
+LBDeclareG(viewSendBackInSuperview) UIView*(^viewSendBackInView)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名viewSendBackInSuperview");
+
+LBDeclareG(viewPrevIndexView) UIView* (^viewBeforeIndexView)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名viewPrevIndexView");
+
+LBDeclareG(strContains) BOOL(^strContain)(NSString* str)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名strContains");
+
+LBDeclareG(strContainsEmoji) BOOL(^strContainEmoji)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名strContainsEmoji");
+
+LBDeclareG(strContainsEmojiAs) NSNumber*(^strContainEmojiAs)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "更名strContainsEmojiAs");
+
+LBDeclareG(length) NSUInteger(^strLength)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "可替代");
+
+
+
 @end
 

@@ -188,8 +188,9 @@ LBDeclare_F CFIndex    objRetainCount;
 
 
 #pragma mark - Foundation Extent
-/** <^()> 是否是可变类型*/
+/** 是否是可变类型*/
 LBDeclare BOOL         (^objIsMutable)(void);
+LBDeclare NSNumber*    (^objIsMutableAs)(void);
 /** 可变拷贝并且操作到子项 */
 LBDeclare NSObject*    (^objMutableCopyEnumerate)(void);
 /** <^()> 不可变对象转为可变对象，否则不会发生任何事 */
@@ -213,7 +214,7 @@ LBDeclare NSObject*    (^objSetRandomDoubleForKey)(id asKey, uint32_t max, NSUIn
 /**
  *  asKey∈{NSString,NSArray} set NSDate
  *  days∈{NSNumber,NSArray<NSNumber>}
- *  days == @(-30)或 @[@(-30)]random in the past 30 days；Otherwise opposite
+ *  days == @(-30) or @[@(-30)]random in the past 30 days；Otherwise opposite
  *  days == @[@(-30) , @(30)]，random in the past 30 days or next 30 days
  *  days == nil or @0，random in the past 24 hours
  */
@@ -234,16 +235,16 @@ LBDeclare NSObject*    (^objReverseValueForKey)(NSString* key);
 LBDeclare NSObject*    (^objSetAllValuesBlank)(void);
 
 LBDeclare NSObject*    (^objPerformSelectors)(SEL sel0,...);
-LBDeclare NSObject*    (^objPerformSelectorWithArg)(SEL sel,id arg);
-LBDeclare NSObject*    (^objPerformSelectorsWithArgs)(SEL sel0,NSArray* args0,...);
+LBDeclare NSObject*    (^objPerformSelectorArgument)(SEL sel,id arg);
+LBDeclare NSObject*    (^objPerformsSelectorArguments)(SEL sel0,NSArray* args0,...);
 /**
- *该方法会返回调用结果
+ *返回调用结果的形式
  *调用void返回方法时返回结果为NSNull,所有nil的返回值也都装箱为NSNull；
  **/
 LBDeclare NSObject*    (^objPerformSelectorAsWhatReturn)(SEL sel);
-LBDeclare NSObject*    (^objPerformSelectorWithArgAsWhatReturn)(SEL sel,id arg);
 LBDeclare NSArray*     (^objPerformSelectorsAsWhatReturns)(SEL sel0,...);
-LBDeclare NSArray*     (^objPerformSelectorsWithArgsAsWhatReturns)(SEL sel0, NSArray*args0 , ...);
+LBDeclare NSObject*    (^objPerformSelectorArgumentAsWhatReturn)(SEL sel,id arg);
+LBDeclare NSArray*     (^objPerformsSelectorArgumentsAsWhatReturns)(SEL sel0,NSArray*args0,...);
 
 
 
@@ -280,7 +281,7 @@ LBDeclare NSNumber*    (^objIsEqualToSomeoneInArrayAs)(NSArray* arr);
 
 
 
-#pragma mark - function of weakly typed  弱类型功能
+#pragma mark - weaken strong type  类型弱化
 /** for NSJSONSerialization */
 LBDeclare NSString*    (^objToJsonString)(void);
 /** retrun value can be used to NSJSONSerialization  */
@@ -297,6 +298,8 @@ LBDeclare NSNumber*    (^objToNSNumber)(void);
 LBDeclare NSObject*    (^objGetPrevItemFromObjs)(id objs);
 /** 集合中的后一个元素 */
 LBDeclare NSObject*    (^objGetNextItemFromObjs)(id objs);
+/** 判断子项;obs∈{UIView,CALayer,UIViewController,NSIndexSet,.objectEnumerator} */
+LBDeclare NSNumber*    (^objIsSubitemOfObjAs)(id obj);
 /** 判断集合子项;objs∈{.objectEnumerator,NSIndexSet} */
 LBDeclare BOOL         (^objIsSubitemOfObjs)(id objs);
 LBDeclare NSNumber*    (^objIsSubitemOfObjsAs)(id objs);
