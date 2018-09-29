@@ -15,7 +15,7 @@
 {return self.strContains;}
 
 - (BOOL (^)(id))arrIsContainer
-{return self.arrContain;}
+{return self.arrContains;}
 
 - (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
 {
@@ -51,7 +51,7 @@
 - (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
 {return self.attr_strDrawImgRect;}
 - (NSMutableArray *(^)(NSMutableArray *))arrAddTo
-{return self.arrAddToArr;}
+{return self.arrAddToArrAsWhatSet;}
 
 - (id (^)(NSString *))valueForKeySafe
 {return self.objValueForKey;}
@@ -199,7 +199,7 @@
 }
 
 - (NSMutableArray *(^)(id, id))m_arrInsertBehind
-{return self.m_arrInsertNext;}
+{return self.m_arrInsertObjNextTo;}
 
 - (UIView *(^)(BOOL))viewMasksToBounds
 {return self.viewClipsToBounds;}
@@ -527,11 +527,11 @@ ChangeNameForN_ONE(strPredicateEvaluate)
 - (NSValue *(^)(id))strSizeWithFont_n
 {return self.strSizeWithFontAs;}
 - (NSNumber *(^)(NSString *, id))arrKeyValueContain_n
-{return self.arrKeyValueContainAs;}
+{return self.arrContainsKeyValueAs;}
 - (NSValue *(^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptions_n
 {return self.attr_strSizeWithOptionsAs;}
 - (NSNumber *(^)(NSUInteger))arrContainIndex_n
-{return self.arrContainIndexAs;}
+{return self.arrContainsIndexAs;}
 - (NSValue *(^)(CGFloat))attr_strSize_n
 {return self.attr_strSizeAs;}
 - (NSNumber *(^)(__unsafe_unretained Class))objIsKindOf_n
@@ -642,5 +642,39 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
 - (BOOL (^)(NSString *))strContain
 {return self.strContains;}
 
+- (NSArray *(^)(id, NSString *))arrSetValueForKey
+{
+    return ^id(id value , NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrSetValueForKey,value,key)
+        [_self setValue:value forKeyPath:key];
+        return _self;
+    };
+}
 
+- (NSDictionary *(^)(void))arrToDictByKeyNumber
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrToDictByKeyNumber)
+        NSMutableDictionary* re= [NSMutableDictionary dictionary];
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [re setObject:obj forKey:@(idx)];
+        }];
+        return [re copy];
+    };
+}
+
+- (NSDictionary *(^)(void))arrToDictByKeyString
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrToDictByKeyString)
+        NSMutableDictionary* re= [NSMutableDictionary dictionary];
+        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [re setObject:obj forKey:[NSString stringWithFormat:@"%lu", (unsigned long)idx]];
+        }];
+        return [re copy];
+    };
+}
 @end

@@ -248,40 +248,7 @@ LBDeclare NSArray*     (^objPerformsSelectorArgumentsAsWhatReturns)(SEL sel0,NSA
 
 
 
-#pragma mark - LinkBlock
-/** 打印json形式的对象 */
-LBDeclare NSObject*    (^po)(void);
-/** 打印json形式的对象，深度遍历的，展开的 */
-LBDeclare NSObject*    (^poDetail)(void);
-/** <^(id obj)>弱类型化判断对象是否有内容
- 检查项为：
- 字符串是否有内容
- NSValue是否有内容，其中NSNumber对0检查，结构体对默认值进行检查，其他队NULL进行检查
- 容器类对象是否有内容
- 控件是否有子控件
- 用户模型是否赋值
- */
-LBDeclare BOOL         (^objIsBlank)(void);
-LBDeclare BOOL         (^objIsNSNull)(void);
-LBDeclare NSNumber*    (^objIsNSNullAs)(void);
-
-/** <^()> 通过序列化的方式复制一份完全独立的对象 */
-LBDeclare NSObject*    (^objCopyByArchive)(void);
-
-LBDeclare BOOL         (^objIsEqualToEach)(id obj,...);
-LBDeclare NSNumber*    (^objIsEqualToEachAs)(id obj,...);
-LBDeclare BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
-LBDeclare NSNumber*    (^objIsEqualToEachInArrayAs)(NSArray* arr);
-LBDeclare BOOL         (^objIsEqualToSomeone)(id obj,...);
-LBDeclare NSNumber*    (^objIsEqualToSomeoneAs)(id obj,...);
-LBDeclare BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
-LBDeclare NSNumber*    (^objIsEqualToSomeoneInArrayAs)(NSArray* arr);
-
-
-
-
-
-#pragma mark - weaken strong type  类型弱化
+#pragma mark - weaken strong type/类型弱化
 /** for NSJSONSerialization */
 LBDeclare NSString*    (^objToJsonString)(void);
 /** retrun value can be used to NSJSONSerialization  */
@@ -333,7 +300,40 @@ LBDeclare NSObject*    (^objRemoveFrom)(id obj);
 LBDeclare NSObject*    (^objRemoveFromAsWhatSet)(id obj);
 
 
-#pragma mark - block
+
+#pragma mark - LinkBlock
+/** 打印json形式的对象 */
+LBDeclare NSObject*    (^po)(void);
+/** 打印json形式的对象，深度遍历的，展开的 */
+LBDeclare NSObject*    (^poDetail)(void);
+/** <^(id obj)>弱类型化判断对象是否有内容
+ 检查项为：
+ 字符串是否有内容
+ NSValue是否有内容，其中NSNumber对0检查，结构体对默认值进行检查，其他队NULL进行检查
+ 容器类对象是否有内容
+ 控件是否有子控件
+ 用户模型是否赋值
+ */
+LBDeclare BOOL         (^objIsBlank)(void);
+LBDeclare BOOL         (^objIsNSNull)(void);
+LBDeclare NSNumber*    (^objIsNSNullAs)(void);
+
+/** <^()> 通过序列化的方式复制一份完全独立的对象 */
+LBDeclare NSObject*    (^objCopyByArchive)(void);
+
+LBDeclare BOOL         (^objIsEqualToEach)(id obj,...);
+LBDeclare NSNumber*    (^objIsEqualToEachAs)(id obj,...);
+LBDeclare BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
+LBDeclare NSNumber*    (^objIsEqualToEachInArrayAs)(NSArray* arr);
+LBDeclare BOOL         (^objIsEqualToSomeone)(id obj,...);
+LBDeclare NSNumber*    (^objIsEqualToSomeoneAs)(id obj,...);
+LBDeclare BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
+LBDeclare NSNumber*    (^objIsEqualToSomeoneInArrayAs)(NSArray* arr);
+
+
+
+
+#pragma mark - Block
 /** <^()>block的参数个数 */
 LBDeclare NSUInteger    (^blockArgsCount)(void);
 /** <^()>block的返回类型 */

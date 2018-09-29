@@ -28,7 +28,7 @@ LBDeclare UIView*      (^viewHidden)(BOOL hidden);
 LBDeclare UIView*      (^viewContentMode)(UIViewContentMode contentMode);
 LBDeclare UIView*      (^viewBecomeFirstResponder)(void);
 LBDeclare UIView*      (^viewResignFirstResponder)(void);
-LBDeclare UIView*      (^viewSubiewsExclusiveTouch)(BOOL b);
+LBDeclare UIView*      (^viewSubviewsExclusiveTouch)(BOOL b);
 LBDeclare BOOL         (^viewIsFirstResponder)(void);
 LBDeclare UIView*      (^viewAlpha)(CGFloat alpha);
 LBDeclare UIView*      (^viewOpaque)(CGFloat opaque);
@@ -155,50 +155,76 @@ LBDeclare BOOL         (^viewIsUsingAutolayout)(void);
 LBDeclare BOOL         (^viewIsUsingAutoresizing)(void);
 LBDeclare UIView*      (^viewRemoveAutoresizing)(void);
 
-
-
 #pragma mark - Animation 动画
 LBDeclare UIView*      (^viewHiddenYESUsingAnimate)(NSTimeInterval during);
 LBDeclare UIView*      (^viewHiddenNOUsingAnimate)(NSTimeInterval during);
-/** <^(CGFloat distance, NSTimeInterval time)>CGAffineTransformTranslate注：真实移动了视图的位置 */
+/** 注：真实移动了视图的位置 */
 LBDeclare UIView*      (^viewAnimateMoveUp)(CGFloat distance, NSTimeInterval time);
-/** <^(CGFloat distance, NSTimeInterval time)>CGAffineTransformTranslate注：真实移动了视图的位置 */
 LBDeclare UIView*      (^viewAnimateMoveDown)(CGFloat distance, NSTimeInterval time);
-/** <^(CGFloat distance, NSTimeInterval time)>CGAffineTransformTranslate注：真实移动了视图的位置 */
 LBDeclare UIView*      (^viewAnimateMoveRight)(CGFloat distance, NSTimeInterval time);
-/** <^(CGFloat distance, NSTimeInterval time)>CGAffineTransformTranslate注：真实移动了视图的位置 */
 LBDeclare UIView*      (^viewAnimateMoveLeft)(CGFloat distance, NSTimeInterval time);
-/** <^(double duration)>水平摇晃 */
+/** 水平摇晃 */
 LBDeclare UIView*      (^viewAnimateShakeHorizental)(double duration);
-/** <^(double duration)>垂直摇晃 */
+/** 垂直摇晃 */
 LBDeclare UIView*      (^viewAnimateShakeVertical)(double duration);
-/** <^()>苹果桌面视差效果 */
-LBDeclare UIView*      (^viewAnimateAppleMotionEffects)(void) NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective"); //
-/** <^(CGFloat scale,NSTimeInterval duration,BOOL repeat)>脉冲形式的放大缩小 */
+/** 苹果桌面视差效果 */
+LBDeclare UIView*      (^viewAnimateAppleMotionEffects)(void)
+NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective");
+/** 脉冲形式的放大缩小 */
 LBDeclare UIView*      (^viewAnimatePulse)(CGFloat scale,NSTimeInterval duration,BOOL repeat);
-/** <^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse)>翻转动画 */
-LBDeclare UIView*      (^viewAnimateFlipFromTop)(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
-/** <^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse)>翻转动画 */
-LBDeclare UIView*      (^viewAnimateFlipFromBottom)(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
-/** <^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse)>翻转动画 */
-LBDeclare UIView*      (^viewAnimateFlipFromRight)(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
-/** <^(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse)>翻转动画 */
-LBDeclare UIView*      (^viewAnimateFlipFromLeft)(NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
-/** 
- *  <^(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse)>  旋转动画
- */
-LBDeclare UIView*      (^viewAnimateRotateToRight)(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
-/** <^(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse)>旋转动画 */
-LBDeclare UIView*      (^viewAnimateRotateToLeft)(CGFloat angle,NSTimeInterval duration,NSUInteger repeatCount,BOOL shouldAutoreverse);
-/** <^(CGFloat from , CGFloat to , NSTimeInterval duration)>透明度动画 */
-LBDeclare UIView*      (^viewAnimateOpacity)(CGFloat from , CGFloat to , NSTimeInterval duration);
-/** <^()>移除所有动画 */
+/** 上翻转 */
+LBDeclare UIView*      (^viewAnimateFlipFromTop)
+(
+ NSTimeInterval duration,
+ NSUInteger repeatCount,
+ BOOL shouldAutoreverse
+ );
+/** 下翻转 */
+LBDeclare UIView*      (^viewAnimateFlipFromBottom)
+(
+ NSTimeInterval duration,
+ NSUInteger repeatCount,
+ BOOL shouldAutoreverse
+ );
+/** 右翻转 */
+LBDeclare UIView*      (^viewAnimateFlipFromRight)
+(
+ NSTimeInterval duration,
+ NSUInteger repeatCount,
+ BOOL shouldAutoreverse
+ );
+/** 左翻转 */
+LBDeclare UIView*      (^viewAnimateFlipFromLeft)
+(
+ NSTimeInterval duration,
+ NSUInteger repeatCount,
+ BOOL shouldAutoreverse
+ );
+/** 旋转动画 */
+LBDeclare UIView*      (^viewAnimateRotateToRight)
+(
+ CGFloat angle,
+ NSTimeInterval duration,
+ NSUInteger repeatCount,
+ BOOL shouldAutoreverse
+ );
+/** 旋转动画 */
+LBDeclare UIView*      (^viewAnimateRotateToLeft)
+(
+ CGFloat angle,
+ NSTimeInterval duration,
+ NSUInteger repeatCount,
+ BOOL shouldAutoreverse
+);
+/** 透明度动画 */
+LBDeclare UIView*      (^viewAnimateOpacity)(CGFloat from,CGFloat to,NSTimeInterval duration);
+/** 移除所有动画 */
 LBDeclare UIView*      (^viewAnimateRemove)(void);
-/** <^()>是否正在动画 */
+/** 是否正在动画 */
 LBDeclare BOOL         (^viewAnimateIsDoing)(void);
-/** <^()>暂停动画 */
+/** 暂停动画 */
 LBDeclare UIView*      (^viewAnimatePause)(void);
-/** <^()>恢复动画，在暂停动画后使用 */
+/** 恢复动画，在暂停动画后使用 */
 LBDeclare UIView*      (^viewAnimateResume)(void);
 
 

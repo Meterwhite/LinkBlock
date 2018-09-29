@@ -29,7 +29,6 @@
 
     man.viewBringFrontInView();
     
-    
     @"END".nslog();
     return;
     

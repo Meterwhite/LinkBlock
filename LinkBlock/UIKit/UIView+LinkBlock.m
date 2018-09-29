@@ -876,16 +876,12 @@ defineViewContentModeTail(BottomRight)
     };
 }
 
-- (UIView* (^)(BOOL))viewSubiewsExclusiveTouch
+- (UIView* (^)(BOOL))viewSubviewsExclusiveTouch
 {
     return ^id(BOOL b){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewSubiewsExclusiveTouch,b)
-        [_self.subviews enumerateObjectsUsingBlock:^(UIView* subView, NSUInteger idx, BOOL *stop) {
-            if([subView isKindOfClass:[UIView class]]){
-                subView.exclusiveTouch = b;
-            }
-        }];
+        LinkGroupHandle_REF(viewSubviewsExclusiveTouch,b)            
+        [_self.subviews setValue:@(b) forKey:@"exclusiveTouch"];
         return _self;
     };
 }

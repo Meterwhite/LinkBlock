@@ -21,19 +21,16 @@ LBDeclare NSMutableArray*  (^m_arrAddObjs)(NSArray* arr);
 LBDeclare NSMutableArray*  (^m_arrInsertObjAt)(id obj, NSUInteger index);
 /** <^(NSArray* arr, NSUInteger index)>在指定Index处插入一个数组 */
 LBDeclare NSMutableArray*  (^m_arrInsertArrayAt)(NSArray* arr, NSUInteger index);
-/** <^(id obj, id beforeObj)>插入一个对象在另一个对象之前 */
-LBDeclare NSMutableArray*  (^m_arrInsertBefore)(id obj, id beforeObj);
-/** <^(id obj, id behindObj)>插入一个对象在另一个对象之后 */
-LBDeclare NSMutableArray*  (^m_arrInsertNext)(id obj, id nexObj);
-/** <^(id obj)> */
+
+LBDeclare NSMutableArray*  (^m_arrInsertObjBeforeTo)(id insert, id nextTo);
+LBDeclare NSMutableArray*  (^m_arrInsertObjNextTo)(id insert, id nextTo);
 LBDeclare NSMutableArray*  (^m_arrRemoveObj)(id obj);
-/** <^(NSUInteger index)>移除指定Index处的元素,不会溢出 */
+/** 不会溢出 */
 LBDeclare NSMutableArray*  (^m_arrRemoveAt)(NSUInteger index);
-/** <^(NSUInteger fromIndex,NSUInteger toIndex)>移除一段元素，在指定Index范围内,不会溢出 */
+/** 不会溢出 */
 LBDeclare NSMutableArray*  (^m_arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
-/** <^()>移除所有数组元素 */
 LBDeclare NSMutableArray*  (^m_arrRemoveAll)(void);
-/** <^(id obj,id withObj)>替换数组中的一个对象，如果存在的话 */
+/** 替换数组中的一个对象，如果存在的话 */
 LBDeclare NSMutableArray*  (^m_arrReplaceObjWith)(id obj,id withObj);
 
 

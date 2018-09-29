@@ -29,22 +29,18 @@ return self.funcName;
     return [LinkGroup groupWithArr:_self];
 }
 
-- (BOOL (^)(NSUInteger))arrContainIndex
+- (BOOL (^)(NSUInteger))arrContainsIndex
 {
     return ^BOOL(NSUInteger index){
-        LinkHandle_VAL_IFNOT(NSArray){
-            return NO;
-        }
-        LinkGroupHandle_VAL(arrContainIndex,index)
-        return index< _self.count;
+        return self.arrContainsIndexAs(index).boolValue;
     };
 }
 
-- (NSNumber* (^)(NSUInteger))arrContainIndexAs
+- (NSNumber* (^)(NSUInteger))arrContainsIndexAs
 {
     return ^id(NSUInteger index){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrContainIndexAs,index)
+        LinkGroupHandle_REF(arrContainsIndexAs,index)
         return @(index< _self.count);
     };
 }
@@ -69,11 +65,11 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)(NSMutableArray *))arrAddToArr
+- (NSMutableArray *(^)(NSMutableArray *))arrAddToArrAsWhatSet
 {
     return ^id(NSMutableArray* arr){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrAddToArr,arr)
+        LinkGroupHandle_REF(arrAddToArrAsWhatSet,arr)
         [arr addObjectsFromArray:_self];
         return linkObj(arr);
     };
@@ -95,18 +91,18 @@ return self.funcName;
     return ^id(NSString* split){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrJoin,split)
-        NSMutableString* re = [NSMutableString new];
+        NSMutableString* ret = [NSMutableString new];
         [_self enumerateObjectsUsingBlock:^(id  _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
             if(![item isKindOfClass:[NSString class]]){
-                [re appendString:[item description]];
+                [ret appendString:[item description]];
             }else{
-                [re appendString:item];
+                [ret appendString:item];
             }
             if(split && idx!=_self.count-1){
-                [re appendString:split];
+                [ret appendString:split];
             }
         }];
-        return re;
+        return ret;
     };
 }
 
@@ -170,41 +166,7 @@ return self.funcName;
     };
 }
 
-- (__kindof NSArray *(^)(id, NSString *))arrSetValueForKey
-{
-    return ^id(id value , NSString* key){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrSetValueForKey,value,key)
-        [_self setValue:value forKeyPath:key];
-        return _self;
-    };
-}
 
-- (NSDictionary *(^)(void))arrToDictByKeyNumber
-{
-    return ^id(){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrToDictByKeyNumber)
-        NSMutableDictionary* re= [NSMutableDictionary dictionary];
-        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [re setObject:obj forKey:@(idx)];
-        }];
-        return [re copy];
-    };
-}
-
-- (NSDictionary *(^)(void))arrToDictByKeyString
-{
-    return ^id(){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrToDictByKeyString)
-        NSMutableDictionary* re= [NSMutableDictionary dictionary];
-        [_self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [re setObject:obj forKey:[NSString stringWithFormat:@"%lu", (unsigned long)idx]];
-        }];
-        return [re copy];
-    };
-}
 
 - (NSIndexPath *(^)(void))arrToNSIndexPath
 {
@@ -220,22 +182,18 @@ return self.funcName;
     };
 }
 
-- (BOOL (^)(id))arrContain
+- (BOOL (^)(id))arrContains
 {
     return ^(id obj){
-        LinkHandle_VAL_IFNOT(NSArray){
-            return NO;
-        }
-        LinkGroupHandle_VAL(arrContain,obj)
-        return [_self containsObject:obj];
+        return self.arrContainsAs(obj).boolValue;
     };
 }
 
-- (NSNumber* (^)(id))arrContainAs
+- (NSNumber* (^)(id))arrContainsAs
 {
     return ^id(id obj){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrContainAs,obj)
+        LinkGroupHandle_REF(arrContainsAs,obj)
         return @([_self containsObject:obj]);
     };
 }
@@ -322,31 +280,26 @@ return self.funcName;
 - (NSUInteger (^)(id))arrCountOfObj
 {
     return ^NSUInteger(id obj){
-        
-        LinkHandle_VAL_IFNOT(NSArray){
-            return 0;
-        }
-        LinkGroupHandle_VAL(arrCountOfObj,obj)
-        
-        __block NSUInteger count = 0;
-        [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull aObj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if(aObj.objIsEqual(obj)){
-                count++;
-            }
-        }];
-        
-        return count;
+        return self.arrCountOfObjAs(obj).unsignedIntegerValue;
+    };
+}
+- (NSNumber *(^)(id))arrCountOfObjAs
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrCountOfObjAs,obj)
+        return @([[NSCountedSet setWithArray:_self] countForObject:obj]);
     };
 }
 
-- (NSIndexSet *(^)(id))arrIndexSetOfValue
+- (NSIndexSet *(^)(id))arrGetValuesIndexWithValue
 {
     return ^id(id value){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrIndexSetOfValue,value)
+        LinkGroupHandle_REF(arrGetValuesIndexWithValue,value)
         return  [_self indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if([obj isEqual:value]) return YES;
+            if([obj isEqual:value])
+                return YES;
             return NO;
         }];
     };
@@ -400,9 +353,9 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDict
+- (NSMutableArray *(^)(id, id))arrReplaceKeyInDict
 {
-    return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
+    return ^id(id replaceKey,id withKey){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrReplaceKeyInDict,replaceKey,withKey)
         NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
@@ -416,9 +369,9 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))arrReplaceKeyInDictWithoutDeep
+- (NSMutableArray *(^)(id, id))arrReplaceKeyInDictWithoutDeep
 {
-    return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
+    return ^id(id replaceKey,id withKey){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrReplaceKeyInDictWithoutDeep,replaceKey,withKey)
         NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
@@ -445,11 +398,11 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)(__unsafe_unretained Class))arrObjsOfType
+- (NSMutableArray *(^)(__unsafe_unretained Class))arrObjsWithKindOfClass
 {
     return ^id(__unsafe_unretained Class typeClass){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrObjsOfType,typeClass)
+        LinkGroupHandle_REF(arrObjsWithKindOfClass,typeClass)
         if(!typeClass)
             return _self;
         NSMutableArray* re = [NSMutableArray array];
@@ -469,15 +422,16 @@ return self.funcName;
         LinkGroupHandle_REF(arrSort,ascending)
         
         if([self isKindOfClass:[NSMutableArray class]]){
-            [_self sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            
+            [_self sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                 return [obj1 compare:obj2]*(ascending?1:-1);
             }];
             return _self;
-        }else{
-            return [_self sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                return [obj1 compare:obj2]*(ascending?1:-1);
-            }];
         }
+        
+        return [_self sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [obj1 compare:obj2]*(ascending?1:-1);
+        }];
     };
 }
 
@@ -486,14 +440,15 @@ return self.funcName;
     return ^id(NSString* key , BOOL ascending){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrSortByKey,key,ascending)
-        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key
-                                                               ascending:ascending];
+        
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
         if([_self isKindOfClass:[NSMutableArray class]]){
+            
             [_self sortUsingDescriptors:@[sort]];
             return _self;
-        }else{
-            return [_self sortedArrayUsingDescriptors:@[sort]];
         }
+            
+        return [_self sortedArrayUsingDescriptors:@[sort]];
     };
 }
 
@@ -502,6 +457,7 @@ return self.funcName;
     return ^id(){
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrReversed)
+        
         return [[[_self reverseObjectEnumerator] allObjects] mutableCopy];
     };
 }
@@ -575,46 +531,42 @@ return self.funcName;
     };
 }
 
-- (BOOL (^)(NSString *, id))arrKeyValueContain
+- (BOOL (^)(NSString *, id))arrContainsKeyValue
 {
-    return ^(NSString* key , id eqValue){
-        LinkHandle_VAL_IFNOT(NSArray){
-            return NO;
-        }
-        LinkGroupHandle_VAL(arrKeyValueContain,key,eqValue)
-        return [[_self valueForKeyPath:key] containsObject:eqValue];
+    return ^(NSString* key , id val){
+        return self.arrContainsKeyValueAs(key,val).boolValue;
     };
 }
 
-- (NSNumber *(^)(NSString *, id))arrKeyValueContainAs
+- (NSNumber *(^)(NSString *, id))arrContainsKeyValueAs
 {
-    return ^id(NSString* key , id eqValue){
+    return ^id(NSString* key , id val){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrKeyValueContainAs,key,eqValue)
-        return @((BOOL)[[_self valueForKeyPath:key] containsObject:eqValue]);
+        LinkGroupHandle_REF(arrContainsKeyValueAs,key,val)
+        return @((BOOL)[[_self valueForKeyPath:key] containsObject:val]);
     };
 }
 
-- (NSMutableArray *(^)(NSString *, id))arrKeyValueMatchObjs
+- (NSMutableArray *(^)(NSString *, id))arrKeyValueMatchedObjs
 {
-    return ^id(NSString* key , id eqValue){
+    return ^id(NSString* key , id value){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrKeyValueMatchObjs,key,eqValue)
-        NSMutableArray* re = [NSMutableArray new];
+        LinkGroupHandle_REF(arrKeyValueMatchedObjs,key,value)
+        NSMutableArray* ret = [NSMutableArray new];
         [_self enumerateObjectsUsingBlock:^(id  _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            if([[item valueForKeyPath:key] isEqual:eqValue]) [re addObject:item];
+            if([[item valueForKeyPath:key] isEqual:value]) [ret addObject:item];
         }];
-        return re;
+        return ret;
     };
 }
 
-- (NSMutableArray *(^)(NSDictionary<NSString*,id>*))arrKeyValuesMatchObjs
+- (NSMutableArray *(^)(NSDictionary<NSString*,id>*))arrKeyValuesMatchedObjs
 {
     return ^id(NSDictionary<NSString*,id>* kv){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrKeyValuesMatchObjs,kv)
-        NSMutableArray* re = [NSMutableArray new];
+        LinkGroupHandle_REF(arrKeyValuesMatchedObjs,kv)
+        NSMutableArray* ret = [NSMutableArray new];
         [_self enumerateObjectsUsingBlock:^(id  _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
             
             __block BOOL match = YES;
@@ -624,9 +576,9 @@ return self.funcName;
                     match = NO; *stop = YES;
                 }
             }];
-            [re addObject:item];
+            [ret addObject:item];
         }];
-        return re;
+        return ret;
     };
 }
 
@@ -635,7 +587,7 @@ return self.funcName;
     LBMacroCallToNSMutableArray(m_arrAddObj)
 }
 
-- (NSMutableArray *(^)(id))arrAddObjNotContain
+- (NSMutableArray *(^)(id))arrAddObjOnlyOne
 {
     LBMacroCallToNSMutableArray(m_arrAddObjNotContain)
 }
@@ -664,31 +616,33 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)(id, id))arrInsertBefore
+- (NSMutableArray *(^)(id, id))arrInsertObjBeforeTo
 {
-    LBMacroCallToNSMutableArray(m_arrInsertBefore)
+    LBMacroCallToNSMutableArray(m_arrInsertObjBeforeTo)
 }
 
-- (NSMutableArray *(^)(id, id))arrInsertNext
+- (NSMutableArray *(^)(id, id))arrInsertObjNextTo
 {
-    LBMacroCallToNSMutableArray(m_arrInsertNext)
+    LBMacroCallToNSMutableArray(m_arrInsertObjNextTo)
 }
 
-- (NSObject *(^)(id))arrBefore
+- (NSObject *(^)(id))arrGetPrevItemForObj
 {
     return ^id(id obj){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrBefore,obj)
-        return linkObj_id(obj).objBeforeInArr(_self);
+        LinkGroupHandle_REF(arrGetPrevItemForObj,obj)
+        return linkObj_id(obj).objGetPrevItemFromObjs(_self);
     };
+    
+    
 }
 
-- (NSObject *(^)(id))arrNext
+- (NSObject *(^)(id))arrGetNextItemForObj
 {
     return ^id(id obj){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrNext,obj)
-        return linkObj_id(obj).objNextInArr(_self);
+        LinkGroupHandle_REF(arrGetNextItemForObj,obj)
+        return linkObj_id(obj).objGetNextItemFromObjs(_self);
     };
 }
 
