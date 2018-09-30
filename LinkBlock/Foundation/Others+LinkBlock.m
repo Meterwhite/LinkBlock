@@ -11,6 +11,11 @@
 
 @implementation NSObject(OtherLinkBlock)
 
+
+
+- (NSUInteger (^)(void))strLength
+{return ^(){return self.asNSString.length;};}
+
 - (BOOL (^)(NSString *))strIsContain
 {return self.strContains;}
 
@@ -598,13 +603,13 @@ ChangeNameForLink_ONE(objRemoveFrom)
 {return self.objPerformsSelectorArgumentsAsWhatReturns;}
 
 - (BOOL (^)(id<NSCopying>))dictContaineKey
-{return self.dictContainKey;}
+{return self.dictContainsKey;}
 - (BOOL (^)(id))dictContaineValue
-{return self.dictContainValue;}
+{return self.dictContainsValue;}
 - (NSNumber *(^)(id))dictContaineKey_n
-{return self.dictContainKeyAs;}
+{return self.dictContainsKeyAs;}
 - (NSNumber *(^)(id))dictContaineValue_n
-{return self.dictContainValueAs;}
+{return self.dictContainsValueAs;}
 
 #ifndef ChangeNameAppend_As
 #define ChangeNameAppend_As(FuncName) \
@@ -626,16 +631,7 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
 {return self.viewIsInView;}
 -(BOOL (^)(UIView *))viewIsSuperviewTo
 {return self.viewContainsView;}
-- (NSUInteger (^)(void))strLength
-{
-    return ^NSUInteger(){
-        LinkHandle_VAL_IFNOT(NSString){
-            return 0;
-        }
-        LinkGroupHandle_VAL(strLength)
-        return _self.length;
-    };
-}
+
 
 - (NSNumber *(^)(void))strContainzh_CN_n
 {return self.strContainszh_CNAs;}
@@ -675,6 +671,101 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
             [re setObject:obj forKey:[NSString stringWithFormat:@"%lu", (unsigned long)idx]];
         }];
         return [re copy];
+    };
+}
+
+- (NSMutableArray *(^)(void))arrObjsValueRandom
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrObjsValueRandom)
+        
+        [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.objValuesRandom();
+        }];
+        return [_self mutableCopy];
+    };
+}
+- (NSDictionary *(^)(void))dictObjsValueRandom
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictObjsValueRandom)
+        [_self.allValues enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.objValuesRandom();
+        }];
+        return _self;
+    };
+}
+
+- (NSArray *(^)(void))dictAllKeys
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictAllKeys)
+        return [_self allKeys];
+    };
+}
+
+- (NSArray *(^)(void))dictAllValues
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictAllValues)
+        return [_self allValues];
+    };
+}
+
+
+- (BOOL (^)(id<NSCopying>))dictGetBOOL
+{
+    return ^(id<NSCopying> key){
+        LinkHandle_VAL_IFNOT(NSDictionary){
+            return NO;
+        }
+        LinkGroupHandle_VAL(dictGetBOOL,key)
+        if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
+            if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
+            {
+                return [_self[key] boolValue];//@(0),@"0"
+            }else{
+                return NO;
+            }
+        }else{//nil,NSNull
+            return NO;
+        }
+        return [_self[key] boolValue];
+    };
+}
+
+- (NSNumber* (^)(id<NSCopying>))dictGetBOOLAs
+{
+    return ^id(id<NSCopying> key){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictGetBOOLAs,key)
+        if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
+            if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
+            {
+                return @([_self[key] boolValue]);//@(0),@"0"
+            }else{
+                return @NO;
+            }
+        }else{//nil,NSNull
+            return @NO;
+        }
+        return @([_self[key] boolValue]);
+    };
+}
+
+- (id (^)(id<NSCopying>))dictGetNoNSNull
+{
+    return ^id(id<NSCopying> key){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictGetNoNSNull,key)
+        if(!_self[key] || [_self[key] isKindOfClass:[NSNull class]] ){
+            return nil;
+        }
+        return _self[key];
     };
 }
 @end

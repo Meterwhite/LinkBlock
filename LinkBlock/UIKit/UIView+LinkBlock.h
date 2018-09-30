@@ -12,7 +12,7 @@
 #endif
 @interface NSObject(UIViewLinkBlock)
 
-#pragma mark - Foundation Mirror/镜像
+#pragma mark Foundation Mirror/镜像
 
 LBDeclare UIView*      (^viewBGColor)(UIColor* color);
 LBDeclare UIView*      (^viewSetTag)(NSInteger tag);
@@ -106,7 +106,7 @@ LBDeclare UIView*      (^viewContentModeBottomRight)(void);
 
 
 
-#pragma mark - Foundation Extend/扩展
+#pragma mark - Foundation Extend/多则
 LBDeclare UIView*      (^viewAddSubviews)(UIView* v0,...);
 LBDeclare UIView*      (^viewAddToView)(__weak UIView* view);
 LBDeclare UIView*      (^viewRemoveAllSubview)(void);

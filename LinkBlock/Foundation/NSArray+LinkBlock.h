@@ -54,7 +54,7 @@ LBDeclare NSNumber*                (^arrContainsKeyValueAs)(NSString* key,id val
 
 
 
-#pragma mark - weaken strong type/类型弱化
+#pragma mark - Weak coding/弱类型编码
 /** @[@0,@1,@2] */
 LBDeclare NSIndexPath*     (^arrToNSIndexPath)(void);
 LBDeclare NSMutableArray*  (^arrAddObj)(id obj);
@@ -81,6 +81,7 @@ LBDeclare NSObject*        (^arrGetNextItemForObj)(id obj);
 
 
 #pragma mark - LinkBlock
+LBDeclare NSMutableArray*          (^arrReplaceObjWith)(id obj,id newObj);
 /** 键值对匹配项 */
 LBDeclare NSMutableArray*          (^arrKeyValueMatchedObjs)(NSString* key,id value);
 /** 键值对匹配项 */
@@ -89,6 +90,12 @@ LBDeclare NSMutableArray*          (^arrKeyValuesMatchedObjs)(NSDictionary<NSStr
 LBDeclare NSMutableArray*          (^arrJoinArr)(void);
 /** 将数组中字典类型项合并 */
 LBDeclare NSMutableDictionary*     (^arrJoinDict)(void);
+/** 添加或替换一项，如果指定键的值匹配 */
+LBDeclare NSMutableArray*(^arrAddOrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
+LBDeclare NSMutableArray*(^arrInsertOrReplaceWhenObjValueMatchedForKeyAt)(id obj , NSString* key, NSUInteger idx);
+/** 尝试替换一项，如果指定键的值匹配 */
+LBDeclare NSMutableArray*(^arrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
+LBDeclare NSMutableArray*(^arrReplaceWhenObjsValueMatchedForKey)(NSArray* objs , NSString* key);
 /** 将数组拆分为每组count个数的多个数组,count为0时返回当前对象本身 */
 LBDeclare NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
 LBDeclare NSNumber*                (^arrMaxNumber)(void);
@@ -99,24 +106,14 @@ LBDeclare NSMutableArray*          (^arrMinusArrByKey)(NSArray* arr, NSString* k
 LBDeclare NSMutableArray*          (^arrUnionArrByKey)(NSArray* arr, NSString* key);
 /** 根据key-value，做'交集'；(数组每项必须含字段key)*/
 LBDeclare NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString* key);
-
-
-/** 替换数组中字典的key，深度遍历的 */
-LBDeclare NSMutableArray*          (^arrReplaceKeyInDict)(id replaceKey,id withKey);
-/** 替换数组中字典的key，非深度遍历的 */
-LBDeclare NSMutableArray*          (^arrReplaceKeyInDictWithoutDeep)(id replaceKey,id withKey);
-/** 替换数组中的一个对象，如果存在的话 */
-LBDeclare NSMutableArray*  (^arrReplaceObjWith)(id obj,id withObj);
+/** 替换数组中字典的key */
+LBDeclare NSMutableArray*          (^arrReplaceKeyForDictionaryItem)(id key,id newKey);
+/** 深度遍历 */
+LBDeclare NSMutableArray*          (^arrReplaceKeyForDictionaryItemDepth)(id key,id newKey);
 /** 对数组子项为NSRange值的NSValue对象进行排序；isCombine：NSRange(0,2)会合并NSRange(0,1) */
-LBDeclare NSMutableArray<NSValue*>* (^arrSortRange)(BOOL ascending, BOOL isCombine);
-/** 插入对象或者替换对象（如果和所有数组中对象的Key对应的value比较相等则替换，否则插入最后） */
-LBDeclare NSMutableArray*          (^arrAddOrReplaceObjByKey)(id obj , NSString* key);
-/** 在指定索引处插入对象或者替换对象（如果数组中存在对象的Key对应的value比较相等则全部替换） */
-LBDeclare NSMutableArray*          (^arrInsertOrReplaceObjByKeyAt)(id obj , NSString* key, NSUInteger idx);
-/** 尝试替换一个对象（如果数组中对象与obj参数的key的值相等的对象） */
-LBDeclare NSMutableArray*          (^arrTryReplaceObjByKey)(id obj , NSString* key);
-/** 替换如果数组中对象与obj参数的key的值相等的对象 */
-LBDeclare NSMutableArray*          (^arrTryReplaceObjsByKey)(NSArray* objs , NSString* key);
+LBDeclare NSMutableArray<NSValue*>*(^arrSortRange)(BOOL ascending,BOOL isCombine);
+
+
 
 
 
@@ -134,7 +131,9 @@ LBDeclare_F NSObject*              makeLinkObjs;
 /**
  *  查找对象
  */
-- (NSMutableArray<ObjectType>*)arrFindUsingBlock:(BOOL(^)(ObjectType obj, NSUInteger idx, BOOL *stop))block;
+- (NSMutableArray<ObjectType>*)arrFindUsingBlock:
+(BOOL(^)(ObjectType obj, NSUInteger idx, BOOL *stop))block
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
 /**
  *  根据条件过滤并遍历结果集

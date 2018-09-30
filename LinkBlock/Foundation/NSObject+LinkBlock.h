@@ -248,7 +248,7 @@ LBDeclare NSArray*     (^objPerformsSelectorArgumentsAsWhatReturns)(SEL sel0,NSA
 
 
 
-#pragma mark - weaken strong type/类型弱化
+#pragma mark - Weak coding/弱类型编码
 /** for NSJSONSerialization */
 LBDeclare NSString*    (^objToJsonString)(void);
 /** retrun value can be used to NSJSONSerialization  */

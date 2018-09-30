@@ -8,35 +8,37 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(NSMutableDictionaryLinkBlock)
-- (NSMutableDictionary *(^)(id<NSCopying>  , id))m_dictSetValue
+- (NSMutableDictionary *(^)(id  , id))m_dictSetWithKeyObject
 {
-    return ^id(id<NSCopying> key  , id value){
+    return ^id(id key  , id value){
         LinkHandle_REF(NSMutableDictionary)
-        LinkGroupHandle_REF(m_dictSetValue,key,value)
-        if(value && key ) _self[key]= value;
+        LinkGroupHandle_REF(m_dictSetWithKeyObject,key,value)
+        if(value && key ){
+            _self[key]= value;
+        }
         return _self;
     };
 }
 
-- (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))m_dictReplaceKey
+- (NSMutableDictionary *(^)(id, id))m_dictReplaceForKeyDepth
 {
-    return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
-        return self.dictReplaceKey(replaceKey, withKey);
+    return ^id(id replaceKey, id withKey){
+        return self.dictReplaceForKeyDepth(replaceKey, withKey);
     };
 }
 
-- (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))m_dictReplaceKeyWithoutDeep
+- (NSMutableDictionary *(^)(id, id))m_dictReplaceForKey
 {
-    return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
-        return self.m_dictReplaceKeyWithoutDeep(replaceKey, withKey);
+    return ^id(id replaceKey, id withKey){
+        return self.m_dictReplaceForKey(replaceKey, withKey);
     };
 }
 
-- (NSMutableDictionary *(^)(NSDictionary *))m_dictUnionDict
+- (NSMutableDictionary *(^)(NSDictionary *))m_dictAddEntries
 {
     return ^id(NSDictionary* dict){
         LinkHandle_REF(NSMutableDictionary)
-        LinkGroupHandle_REF(m_dictUnionDict,dict)
+        LinkGroupHandle_REF(m_dictAddEntries,dict)
         [_self addEntriesFromDictionary:dict];
         return _self;
     };

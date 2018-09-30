@@ -2353,7 +2353,7 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject* (^)(id))objValueForKey
+- (NSObject* (^)(NSString*))objValueForKey
 {
     return ^id(NSString* key){
         LinkHandle_VAL_IFNOT(NSObject){

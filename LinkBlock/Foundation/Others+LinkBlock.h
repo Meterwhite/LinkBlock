@@ -116,8 +116,8 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use viewClipsToBounds代替");
 LBDeclare NSObject*    (^nslogTitle)(NSString* title)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
-LBDeclare NSObject*    (^poNoDeep)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "use po()代替；旧的po()rename to poDetail()");
+LBDeclareG(poDetail) NSObject*    (^poNoDeep)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "use po() instead；dol po() rename to poDetail()");
 
 LBDeclare NSObject*    (^logInfo)(NSString* info)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
@@ -289,8 +289,8 @@ LBDeclare NSNumber*    (^objIsEqualToSomeoneInArray_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 LBDeclare NSNumber*    (^strIsEqualStr_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-LBDeclare NSNumber*    (^strContain_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+LBDeclareG(strContainsAs) NSNumber*    (^strContain_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "strContainsAs");
 LBDeclare NSValue*     (^strSizeWithFont_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 LBDeclare NSNumber*    (^strHasPrefix_n)(id obj)
@@ -399,12 +399,13 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformSelectorsAsWhatReturns");
 LBDeclare NSArray*     (^objPerformSelectorsWithArgs_linkToReturnValues)(SEL sel0 , NSArray* args0 , ...)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformsSelectorArgumentsAsWhatReturns");
 
-LBDeclare NSObject*    (^objPerformSelectorWithArg)(SEL sel,id arg)
+LBDeclareG(objPerformSelectorArgument) NSObject*    (^objPerformSelectorWithArg)(SEL sel,id arg)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformSelectorArgument");
+
 #ifndef objPerformSelectorsWithArgs
 #define objPerformSelectorsWithArgs(sel,args...) objPerformSelectorsWithArgs(sel,##args,nil)
 #endif
-LBDeclare NSObject*    (^objPerformSelectorsWithArgs)(SEL sel0,NSArray* args0,...)
+LBDeclareG(objPerformsSelectorArguments) NSObject*    (^objPerformSelectorsWithArgs)(SEL sel0,NSArray* args0,...)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformsSelectorArguments");
 
 #pragma mark - 2018.10
@@ -440,8 +441,8 @@ NS_DEPRECATED_IOS(2_0, 2_0, "rename to strContainsEmoji");
 LBDeclareG(strContainsEmojiAs) NSNumber*(^strContainEmojiAs)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to strContainsEmojiAs");
 
-LBDeclareG(length) NSUInteger(^strLength)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "可替代");
+LBDeclare NSUInteger(^strLength)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, ".length");
 
 LBDeclareG(viewSubviewsExclusiveTouch) UIView*(^viewSubiewsExclusiveTouch)(BOOL b)
 NS_DEPRECATED_IOS(2_0, 2_0, "fixed to viewSubviewsExclusiveTouch");
@@ -487,9 +488,9 @@ NS_DEPRECATED_IOS(2_0, 2_0, "rename m_arrInsertObjBeforeTo");
 LBDeclareG(m_arrInsertObjNextTo) NSMutableArray*  (^m_arrInsertNext)(id obj, id nexObj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename m_arrInsertObjNextTo");
 
-LBDeclareG(arrContainsKeyValue) BOOL                     (^arrKeyValueContain)(NSString* key,id eqValue)
+LBDeclareG(arrContainsKeyValue) BOOL(^arrKeyValueContain)(NSString* key,id eqValue)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrKeyValueMatchedObjs");
-LBDeclareG(arrContainsKeyValueAs) NSNumber*                (^arrKeyValueContainAs)(NSString* key,id eqValue)
+LBDeclareG(arrContainsKeyValueAs) NSNumber*(^arrKeyValueContainAs)(NSString* key,id eqValue)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrKeyValueMatchedObjs");
 LBDeclareG(arrKeyValueMatchedObjs) NSMutableArray*(^arrKeyValueMatchObjs)(NSString* key,id value)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrKeyValueMatchedObjs");
@@ -497,5 +498,72 @@ LBDeclareG(arrKeyValuesMatchedObjs) NSMutableArray*(^arrKeyValuesMatchObjs)(NSDi
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrKeyValuesMatchedObjs");
 LBDeclare NSArray*                 (^arrSetValueForKey)(id value, NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "can be instead");
+
+LBDeclareG(m_arrReplaceWhenObjValueMatchedForKey) NSMutableArray*          (^m_arrTryReplaceObjByKey)(id obj,NSString* key)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to m_arrReplaceWhenObjValueMatchedForKey");
+LBDeclareG(m_arrReplaceWhenObjsValueMatchedForKey) NSMutableArray*          (^m_arrTryReplaceObjsByKey)(NSArray* objs,NSString* key)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to m_arrReplaceWhenObjsValueMatchedForKey");
+
+LBDeclareG(m_arrAddOrReplaceWhenObjValueMatchedForKey) NSMutableArray*(^m_arrAddOrReplaceObjByKey)(id obj , NSString* key)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to m_arrAddOrReplaceWhenObjValueMatchedForKey");
+
+LBDeclareG(m_arrInsertOrReplaceWhenObjValueMatchedForKeyAt) NSMutableArray*(^m_arrInsertOrReplaceObjByKeyAt)(id obj , NSString* key, NSUInteger idx)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to m_arrInsertOrReplaceWhenObjValueMatchedForKeyAt");
+
+LBDeclareG(m_arrReplaceKeyForDictionaryItemDepth) NSMutableArray*(^m_arrReplaceKeyInDict)(id replaceKey,id withKey)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to m_arrReplaceKeyForDictionaryItemDepth");
+
+
+LBDeclareG(m_arrReplaceKeyForDictionaryItem) NSMutableArray*(^m_arrReplaceKeyInDictWithoutDeep)(id replaceKey,id withKey)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to m_arrReplaceKeyForDictionaryItem");
+
+LBDeclareG(arrReplaceKeyForDictionaryItemDepth) NSMutableArray*(^arrReplaceKeyInDict)(id replaceKey,id withKey)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrReplaceKeyForDictionaryItemDepth");
+LBDeclareG(arrReplaceKeyForDictionaryItem) NSMutableArray*(^arrReplaceKeyInDictWithoutDeep)(id replaceKey,id withKey)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrReplaceKeyForDictionaryItem");
+
+LBDeclareG(arrAddOrReplaceWhenObjValueMatchedForKey) NSMutableArray*(^arrAddOrReplaceObjByKey)(id obj , NSString* key)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrAddOrReplaceWhenObjValueMatchedForKey");
+
+LBDeclareG(arrInsertOrReplaceWhenObjValueMatchedForKeyAt) NSMutableArray*(^arrInsertOrReplaceObjByKeyAt)(id obj , NSString* key, NSUInteger idx)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrInsertOrReplaceWhenObjValueMatchedForKeyAt");
+
+LBDeclareG(arrReplaceWhenObjValueMatchedForKey) NSMutableArray*(^arrTryReplaceObjByKey)(id obj , NSString* key)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrReplaceWhenObjValueMatchedForKey");
+
+LBDeclareG(arrReplaceWhenObjsValueMatchedForKey) NSMutableArray*(^arrTryReplaceObjsByKey)(NSArray* objs , NSString* key)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrReplaceWhenObjsValueMatchedForKey");
+
+LBDeclare NSDictionary*        (^dictObjsValueRandom)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+
+LBDeclare NSArray*     (^dictAllKeys)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+LBDeclare NSArray*     (^dictAllValues)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+LBDeclare BOOL         (^dictGetBOOL)(id<NSCopying> key)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+LBDeclare NSNumber*    (^dictGetBOOLAs)(id<NSCopying> key)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+LBDeclare id           (^dictGetNoNSNull)(id key)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+
+LBDeclareG(m_dictReplaceForKeyDepth) NSMutableDictionary* (^m_dictReplaceKey)(id key, id newKey);
+LBDeclareG(m_dictReplaceForKey) NSMutableDictionary* (^m_dictReplaceKeyWithoutDeep)(id key, id newKey);
+
+//LBDeclare NSMutableDictionary* (^dictUnionDict)(NSDictionary* dict);
+LBDeclareG(m_dictAddEntries) NSMutableDictionary* (^m_dictUnionDict)(NSDictionary* dict);
+LBDeclareG(m_dictSetWithKeyObject) NSMutableDictionary* (^m_dictSetValue)(id key , id value);
+LBDeclareG(dictObjectForKey) NSObject*    (^dictGet)(id key);
+LBDeclareG(dictSetWithKeyObject) NSMutableDictionary* (^dictSetValue)(id key , id value);
+LBDeclareG(dictReplaceForKeyDepth) NSMutableDictionary* (^dictReplaceKey)(id key, id newKey);
+LBDeclareG(dictReplaceForKey) NSMutableDictionary* (^dictReplaceKeyWithoutDeep)(id key, id newKey);
+
+//LBDeclareG(<#getname#>) BOOL         (^dictContainKey)(id key);
+//LBDeclareG(<#getname#>) NSNumber*    (^dictContainKeyAs)(id key);
+//LBDeclareG(<#getname#>) BOOL         (^dictContainValue)(id value);
+//LBDeclareG(<#getname#>) NSNumber*    (^dictContainValueAs)(id value);
+
+
 @end
 

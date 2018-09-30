@@ -10,103 +10,46 @@
 @implementation NSObject(NSDictionaryLinkBlock)
 
 
-- (NSObject* (^)(id<NSCopying>))dictGet
+- (NSObject* (^)(id))dictObjectForKey
 {
-    return ^id(id<NSCopying> key){
+    return ^id(id key){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictGet,key)
-        return _self[key];
+        LinkGroupHandle_REF(dictObjectForKey,key)
+        return linkObjNotNil(_self[key]);
     };
 }
 
-- (id (^)(id<NSCopying>))dictGetNoNSNull
+
+
+
+- (BOOL (^)(id))dictContainsKey
 {
-    return ^id(id<NSCopying> key){
+    return ^(id key){
+        return self.dictContainsKeyAs(key).boolValue;
+    };
+}
+
+- (NSNumber* (^)(id))dictContainsKeyAs
+{
+    return ^id(id key){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictGetNoNSNull,key)
-        if(!_self[key] || [_self[key] isKindOfClass:[NSNull class]] ){
-            return nil;
-        }
-        return _self[key];
-    };
-}
-
-- (BOOL (^)(id<NSCopying>))dictGetBOOL
-{
-    return ^(id<NSCopying> key){
-        LinkHandle_VAL_IFNOT(NSDictionary){
-            return NO;
-        }
-        LinkGroupHandle_VAL(dictGetBOOL,key)
-        if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
-            if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
-            {
-                return [_self[key] boolValue];//@(0),@"0"
-            }else{
-                return NO;
-            }
-        }else{//nil,NSNull
-            return NO;
-        }
-        return [_self[key] boolValue];
-    };
-}
-
-- (NSNumber* (^)(id<NSCopying>))dictGetBOOLAs
-{
-    return ^id(id<NSCopying> key){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictGetBOOLAs,key)
-        if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
-            if([_self[key] isKindOfClass:[NSNumber class]] || [_self[key] isKindOfClass:[NSString class]])
-            {
-                return @([_self[key] boolValue]);//@(0),@"0"
-            }else{
-                return @NO;
-            }
-        }else{//nil,NSNull
-            return @NO;
-        }
-        return @([_self[key] boolValue]);
-    };
-}
-
-- (BOOL (^)(id<NSCopying>))dictContainKey
-{
-    return ^(id<NSCopying> key){
-        LinkHandle_VAL_IFNOT(NSDictionary){
-            return NO;
-        }
-        LinkGroupHandle_VAL(dictContainKey,key)
-        return [[_self allKeys] containsObject:key];
-    };
-}
-
-- (NSNumber* (^)(id<NSCopying>))dictContainKeyAs
-{
-    return ^id(id<NSCopying> key){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictContainKeyAs,key)
+        LinkGroupHandle_REF(dictContainsKeyAs,key)
         return @([[_self allKeys] containsObject:key]);
     };
 }
 
-- (BOOL (^)(id))dictContainValue
+- (BOOL (^)(id))dictContainsValue
 {
     return ^(id value){
-        LinkHandle_VAL_IFNOT(NSDictionary){
-            return NO;
-        }
-        LinkGroupHandle_VAL(dictContainValue,value)
-        return [[_self allValues] containsObject:value];
+        return self.dictContainsValueAs(value).boolValue;
     };
 }
 
-- (NSNumber* (^)(id))dictContainValueAs
+- (NSNumber* (^)(id))dictContainsValueAs
 {
     return ^id(id value){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictContainValueAs,value)
+        LinkGroupHandle_REF(dictContainsValueAs,value)
         return @([[_self allValues] containsObject:value]);
     };
 }
@@ -116,63 +59,49 @@
     return ^id(id value){
         LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictKeysForValue,value)
-        return [_self allKeysForObject:value];
+        id ret = [_self allKeysForObject:value];
+        if([ret count] == 0) return [NSArray new];
+        return ret;
     };
 }
 
-- (NSArray *(^)(void))dictAllKeys
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictAllKeys)
-        return [_self allKeys];
-    };
-}
 
-- (NSArray *(^)(void))dictAllValues
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictAllValues)
-        return [_self allValues];
-    };
-}
 
-- (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKey
+- (NSMutableDictionary *(^)(id, id))dictReplaceForKeyDepth
 {
-    return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
+    return ^id(id replaceKey, id withKey){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictReplaceKey,replaceKey,withKey)
-        NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:_self];
+        LinkGroupHandle_REF(dictReplaceForKeyDepth,replaceKey,withKey)
+        NSMutableDictionary* ret = [NSMutableDictionary dictionaryWithDictionary:_self];
         
-        [[result allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[ret allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            id value = result[key];
+            id value = ret[key];
             if([value isKindOfClass:[NSDictionary class]]){//层次遍历字典
                 
-                result[key] = ((NSDictionary*)value).dictReplaceKey(replaceKey , withKey);
+                ret[key] = ((NSDictionary*)value).dictReplaceForKeyDepth(replaceKey , withKey);
             }
             if([value isKindOfClass:[NSArray class]]){//层次遍历数组
                 
-                result[key] = ((NSArray*)value).arrReplaceKeyInDict(replaceKey, withKey);
+                ret[key] = ((NSArray*)value).arrReplaceKeyForDictionaryItemDepth(replaceKey, withKey);
             }
             
-            if([[result allKeys] containsObject:replaceKey]){//替换键
+            if([[ret allKeys] containsObject:replaceKey]){//替换键
                 
-                result[withKey] = result[replaceKey];
-                [result removeObjectForKey:replaceKey];
+                ret[withKey] = ret[replaceKey];
+                [ret removeObjectForKey:replaceKey];
             }
         }];
         
-        return result;
+        return ret;
     };
 }
 
-- (NSMutableDictionary *(^)(id<NSCopying>, id<NSCopying>))dictReplaceKeyWithoutDeep
+- (NSMutableDictionary *(^)(id, id))dictReplaceForKey
 {
-    return ^id(id<NSCopying> replaceKey, id<NSCopying> withKey){
+    return ^id(id replaceKey, id withKey){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictReplaceKeyWithoutDeep,replaceKey,withKey)
+        LinkGroupHandle_REF(dictReplaceForKey,replaceKey,withKey)
         NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:_self];
         [[result allKeys] enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -185,43 +114,20 @@
     };
 }
 
-- (NSDictionary *(^)(void))dictObjsValueRandom
+- (NSMutableDictionary *(^)(id,id))dictSetWithKeyObject
 {
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictObjsValueRandom)
-        [_self.allValues enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            obj.objValuesRandom();
-        }];
-        return _self;
-    };
+    if([self isKindOfClass:NSMutableDictionary.class])
+        return self.m_dictSetWithKeyObject;
+    
+    return [[self mutableCopy] m_dictSetWithKeyObject];
 }
 
-- (NSMutableDictionary *(^)(id<NSCopying>  , id))dictSetValue
+- (NSMutableDictionary *(^)(NSDictionary *))dictAddEntries
 {
-    return ^id(id<NSCopying> key  , id value){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictSetValue,key,value)
-        if(![_self isKindOfClass:[NSMutableDictionary class]]){
-            _self = [_self mutableCopy];
-        }
-        if(value && key ){
-            [_self setObject:value forKey:key];
-        }
-        return _self;
-    };
-}
-
-- (NSMutableDictionary *(^)(NSDictionary *))dictUnionDict
-{
-    return ^id(NSDictionary* dict){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictUnionDict,dict)
-        if(![_self isKindOfClass:[NSMutableDictionary class]]){
-            _self = [_self mutableCopy];
-        }
-        return _self.m_dictUnionDict(dict);
-    };
+    if([self isKindOfClass:NSMutableDictionary.class])
+        return self.m_dictAddEntries;
+    
+    return [[self mutableCopy] m_dictAddEntries];
 }
 
 - (UIImage *(^)(void))dictForUIImagePickerControllerMediaType

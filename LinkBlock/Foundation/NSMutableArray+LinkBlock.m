@@ -195,11 +195,11 @@
     };
 }
 
-- (NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceObjByKey
+- (NSMutableArray *(^)(id, NSString *))m_arrAddOrReplaceWhenObjValueMatchedForKey
 {
     return ^id(id obj , NSString* key){
         LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrAddOrReplaceObjByKey,obj,key)
+        LinkGroupHandle_REF(m_arrAddOrReplaceWhenObjValueMatchedForKey,obj,key)
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
         NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -252,11 +252,11 @@
     };
 }
 
-- (NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceObjByKeyAt
+- (NSMutableArray *(^)(id, NSString *, NSUInteger))m_arrInsertOrReplaceWhenObjValueMatchedForKeyAt
 {
     return ^id(id obj , NSString* key , NSUInteger idx){
         LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrInsertOrReplaceObjByKeyAt,obj,key,idx)
+        LinkGroupHandle_REF(m_arrInsertOrReplaceWhenObjValueMatchedForKeyAt,obj,key,idx)
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
         NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -278,18 +278,16 @@
     };
 }
 
-- (NSMutableArray *(^)(id, NSString *))m_arrTryReplaceObjByKey
+- (NSMutableArray *(^)(id, NSString *))m_arrReplaceWhenObjValueMatchedForKey
 {
     return ^id(id obj , NSString* key){
         LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrTryReplaceObjByKey,obj,key)
+        LinkGroupHandle_REF(m_arrReplaceWhenObjValueMatchedForKey,obj,key)
         id uniqueValue = [obj valueForKey:key];
         NSArray* values = [_self valueForKey:key];
         NSIndexSet* idxSet = [values indexesOfObjectsPassingTest:^BOOL(id  _Nonnull val, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            if([val isEqual:uniqueValue])
-                return YES;
-            return NO;
+            return [val isEqual:uniqueValue];
         }];
         if(idxSet.count){
             
@@ -301,29 +299,29 @@
     };
 }
 
-- (NSMutableArray *(^)(NSArray *, NSString *))m_arrTryReplaceObjsByKey
+- (NSMutableArray *(^)(NSArray *, NSString *))m_arrReplaceWhenObjsValueMatchedForKey
 {
     return ^id(NSArray* objs , NSString* key){
         LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrTryReplaceObjsByKey,objs,key)
-        [objs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            _self.m_arrTryReplaceObjByKey(obj, key);
+        LinkGroupHandle_REF(m_arrReplaceWhenObjsValueMatchedForKey,objs,key)
+        [objs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+            _self.m_arrReplaceWhenObjValueMatchedForKey(obj, key);
         }];
         return _self;
     };
 }
 
-- (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDict
+- (NSMutableArray *(^)(id, id))m_arrReplaceKeyForDictionaryItemDepth
 {
-    return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
-        return self.arrReplaceKeyInDict(replaceKey, withKey);
+    return ^id(id replaceKey,id withKey){
+        return self.arrReplaceKeyForDictionaryItemDepth(replaceKey, withKey);
     };
 }
 
-- (NSMutableArray *(^)(id<NSCopying>, id<NSCopying>))m_arrReplaceKeyInDictWithoutDeep
+- (NSMutableArray *(^)(id, id))m_arrReplaceKeyForDictionaryItem
 {
-    return ^id(id<NSCopying> replaceKey,id<NSCopying> withKey){
-        return self.arrReplaceKeyInDictWithoutDeep(replaceKey, withKey);
+    return ^id(id replaceKey,id withKey){
+        return self.arrReplaceKeyForDictionaryItem(replaceKey, withKey);
     };
 }
 

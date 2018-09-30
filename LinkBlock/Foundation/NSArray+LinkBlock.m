@@ -353,48 +353,35 @@ return self.funcName;
     };
 }
 
-- (NSMutableArray *(^)(id, id))arrReplaceKeyInDict
+- (NSMutableArray *(^)(id, id))arrReplaceKeyForDictionaryItemDepth
 {
     return ^id(id replaceKey,id withKey){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrReplaceKeyInDict,replaceKey,withKey)
-        NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
-        [re enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull dict, NSUInteger idx, BOOL * _Nonnull stop) {
+        LinkGroupHandle_REF(arrReplaceKeyForDictionaryItemDepth,replaceKey,withKey)
+        NSMutableArray* ret = [NSMutableArray arrayWithArray:_self];
+        [ret enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull dict, NSUInteger idx, BOOL * _Nonnull stop) {
             if([dict isKindOfClass:[NSDictionary class]]){
-                dict = dict.dictReplaceKey(replaceKey, withKey);
-                re[idx] = dict;
+                dict = dict.dictReplaceForKeyDepth(replaceKey, withKey);
+                ret[idx] = dict;
             }
         }];
-        return re;
+        return ret;
     };
 }
 
-- (NSMutableArray *(^)(id, id))arrReplaceKeyInDictWithoutDeep
+- (NSMutableArray *(^)(id, id))arrReplaceKeyForDictionaryItem
 {
     return ^id(id replaceKey,id withKey){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrReplaceKeyInDictWithoutDeep,replaceKey,withKey)
-        NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
-        [re enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull dict, NSUInteger idx, BOOL * _Nonnull stop) {
+        LinkGroupHandle_REF(arrReplaceKeyForDictionaryItem,replaceKey,withKey)
+        NSMutableArray* ret = [NSMutableArray arrayWithArray:_self];
+        [ret enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull dict, NSUInteger idx, BOOL * _Nonnull stop) {
             if([dict isKindOfClass:[NSDictionary class]]){
-                dict = dict.dictReplaceKeyWithoutDeep(replaceKey, withKey);
-                re[idx] = dict;
+                dict = dict.dictReplaceForKey(replaceKey, withKey);
+                ret[idx] = dict;
             }
         }];
-        return re;
-    };
-}
-
-- (NSMutableArray *(^)(void))arrObjsValueRandom
-{
-    return ^id(){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrObjsValueRandom)
-        
-        [_self enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            obj.objValuesRandom();
-        }];
-        return [_self mutableCopy];
+        return ret;
     };
 }
 
@@ -675,24 +662,24 @@ return self.funcName;
     LBMacroCallToNSMutableArray(m_arrSortRange)
 }
 
-- (NSMutableArray *(^)(id, NSString *))arrAddOrReplaceObjByKey
+- (NSMutableArray *(^)(id, NSString *))arrAddOrReplaceWhenObjValueMatchedForKey
 {
-    LBMacroCallToNSMutableArray(m_arrAddOrReplaceObjByKey)
+    LBMacroCallToNSMutableArray(m_arrAddOrReplaceWhenObjValueMatchedForKey)
 }
 
-- (NSMutableArray *(^)(id, NSString *, NSUInteger))arrInsertOrReplaceObjByKeyAt
+- (NSMutableArray *(^)(id, NSString *, NSUInteger))arrInsertOrReplaceWhenObjValueMatchedForKeyAt
 {
-    LBMacroCallToNSMutableArray(m_arrInsertOrReplaceObjByKeyAt)
+    LBMacroCallToNSMutableArray(m_arrInsertOrReplaceWhenObjValueMatchedForKeyAt)
 }
 
-- (NSMutableArray *(^)(id, NSString *))arrTryReplaceObjByKey
+- (NSMutableArray *(^)(id, NSString *))arrReplaceWhenObjValueMatchedForKey
 {
-    LBMacroCallToNSMutableArray(m_arrTryReplaceObjByKey)
+    LBMacroCallToNSMutableArray(m_arrReplaceWhenObjValueMatchedForKey)
 }
 
-- (NSMutableArray *(^)(NSArray *, NSString *))arrTryReplaceObjsByKey
+- (NSMutableArray *(^)(NSArray *, NSString *))arrReplaceWhenObjsValueMatchedForKey
 {
-    LBMacroCallToNSMutableArray(m_arrTryReplaceObjsByKey)
+    LBMacroCallToNSMutableArray(m_arrReplaceWhenObjsValueMatchedForKey)
 }
 @end
 

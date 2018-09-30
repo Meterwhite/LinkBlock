@@ -160,7 +160,7 @@ LBDeclare NSComparisonResult (^strCompareNumberSensitive)(NSString* str);
 LBDeclare NSString*    (^strCopyToGeneralPasteboard)(void);
 
 
-#pragma mark - weaken strong type  类型弱化
+#pragma mark - Weak coding  弱类型编码
 /** 调用后将链条切换到参数 */
 LBDeclare UIView*              (^strSetToViewContentAsWhatSet)(UIView* textControl);
 /** <^()>根据字符串类名调用new方法创建对象，没有该类型时返回NSNull */
