@@ -21,11 +21,11 @@
     };
 }
 
-- (NSMutableArray *(^)(id))m_arrAddObjNotContain
+- (NSMutableArray *(^)(id))m_arrAddObjOnlyOne
 {
     return ^id(id obj){
         LinkHandle_REF(NSMutableArray)
-        LinkGroupHandle_REF(m_arrAddObjNotContain , obj)
+        LinkGroupHandle_REF(m_arrAddObjOnlyOne , obj)
         
         if(!obj || [_self containsObject:obj])
             goto CALL_RET;
@@ -159,14 +159,13 @@
     return ^id(id obj, id withObj){
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m_arrReplaceObjWith,obj,withObj)
-        if(!obj || !withObj)
-            goto CALL_RET;
-        for (NSUInteger i = 0; i < _self.count; i++) {
-            if([_self[i] isEqual:obj]){
-                _self[i] = withObj;
-            }
+        
+        if(!obj || !withObj) return _self;
+        
+        NSUInteger idx =[_self indexOfObject:obj];
+        if(idx != NSNotFound){
+            [_self setObject:withObj atIndexedSubscript:idx];
         }
-    CALL_RET:
         return _self;
     };
 }

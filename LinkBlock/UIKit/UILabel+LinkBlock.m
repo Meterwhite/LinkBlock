@@ -110,23 +110,6 @@
     };
 }
 
-- (CGSize (^)(NSNumber *))labTextSize
-{
-    return ^CGSize(NSNumber* maxWidth){
-        LinkHandle_VAL_IFNOT(UILabel){
-            return CGSizeZero;
-        }
-        LinkGroupHandle_VAL(labTextSize,maxWidth)
-        
-        NSAttributedString* attrStr = _self.attributedText;
-        attrStr = attrStr ? attrStr: [[NSAttributedString alloc] initWithString:_self.text attributes:@{NSForegroundColorAttributeName:_self.textColor,NSFontAttributeName:_self.font}
-                                      ];
-        return [attrStr boundingRectWithSize:CGSizeMake(maxWidth?maxWidth.doubleValue:CGRectGetWidth(_self.bounds), CGFLOAT_MAX)
-                                     options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
-                                     context:nil].size;
-    };
-}
-
 - (UILabel *(^)())labHighlightedTextColorLightByTextColor
 {
     return ^id(){

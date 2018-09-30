@@ -499,7 +499,6 @@ ChangeNameForN_VOID(strIsBlank)
 ChangeNameForN_VOID(strIsEmoji)
 ChangeNameForN_VOID(strLength)
 ChangeNameForN_VOID(strIsNumber)
-ChangeNameForN_VOID(strContainEmoji)
 ChangeNameForN_VOID(strPathFileExists)
 
 #ifndef ChangeNameForN_ONE
@@ -526,7 +525,6 @@ ChangeNameForN_ONE(strIsEqualStr)
 ChangeNameForN_ONE(strHasPrefix)
 ChangeNameForN_ONE(strHasSuffix)
 ChangeNameForN_ONE(strRegexIsMatch)
-ChangeNameForN_ONE(numIndexIsInStringRange)
 ChangeNameForN_ONE(strPredicateEvaluate)
 
 - (NSValue *(^)(id))strSizeWithFont_n
@@ -757,15 +755,62 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
     };
 }
 
-- (id (^)(id<NSCopying>))dictGetNoNSNull
+- (id (^)(id))dictGetNoNSNull
 {
-    return ^id(id<NSCopying> key){
+    return ^id(id key){
         LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictGetNoNSNull,key)
         if(!_self[key] || [_self[key] isKindOfClass:[NSNull class]] ){
             return nil;
         }
         return _self[key];
+    };
+}
+
+- (CGSize (^)(NSNumber *))labTextSize
+{
+    return ^CGSize(NSNumber* maxWidth){
+        LinkHandle_VAL_IFNOT(UILabel){
+            return CGSizeZero;
+        }
+        LinkGroupHandle_VAL(labTextSize,maxWidth)
+        
+        NSAttributedString* attrStr = _self.attributedText;
+        attrStr = attrStr ? attrStr: [[NSAttributedString alloc] initWithString:_self.text attributes:@{NSForegroundColorAttributeName:_self.textColor,NSFontAttributeName:_self.font}
+                                      ];
+        return [attrStr boundingRectWithSize:CGSizeMake(maxWidth?maxWidth.doubleValue:CGRectGetWidth(_self.bounds), CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                                     context:nil].size;
+    };
+}
+
+- (UIImageView *(^)(UIImageView *))imgSetToImageViewAsWhatSet
+{
+    return ^id(UIImageView* imgView){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgSetToImageViewAsWhatSet,imgView)
+        [imgView setImage:_self];
+        return linkObj(imgView);
+    };
+}
+
+-(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsWhatSet
+{
+    return ^id(UIButton* btn,UIControlState state){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgSetToButtonAsWhatSet,btn,state)
+        [btn setImage:_self forState:state];
+        return linkObj(btn);
+    };
+}
+
+-(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsBGImageAsWhatSet
+{
+    return ^id(UIButton* btn,UIControlState state){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgSetToButtonAsBGImageAsWhatSet,btn,state)
+        [btn setImage:_self forState:state];
+        return linkObj(btn);
     };
 }
 @end

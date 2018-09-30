@@ -10,13 +10,13 @@
 #ifndef NSMutableDictionaryNew
 #define NSMutableDictionaryNew ([NSMutableDictionary new])
 #endif
+
 @interface NSObject(NSMutableDictionaryLinkBlock)
+
 #pragma mark - Foundation Mirror/镜像
 LBDeclare NSMutableDictionary* (^m_dictSetWithKeyObject)(id key , id object);
 LBDeclare NSMutableDictionary* (^m_dictAddEntries)(NSDictionary* dict);
 
-//#pragma mark - Foundation Extend/多择
-//#pragma mark - Weak coding/弱类型编码
 
 #pragma mark - LinkBlock
 /** 替换字典中的key */

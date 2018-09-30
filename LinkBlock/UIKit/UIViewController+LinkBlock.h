@@ -12,20 +12,17 @@
 #define UIViewControllerNew ([UIViewController new])
 #endif
 @interface NSObject(UIViewControllerLinkBlock)
-/** <^(UIViewController* childVC)> */
+
+#pragma mark - Foundation Mirror/镜像
 LBDeclare UIViewController*    (^vcAddChildVC)(UIViewController* childVC);
-/** <^(NSString* title)> */
 LBDeclare UIViewController*    (^vcTitle)(NSString* title);
-/** <^(UIViewController* vc)>push控制器 动画YES */
 LBDeclare UIViewController*    (^vcNavigationControllerPushVC)(UIViewController* vc);
-/** <^(UIViewController* vc)> */
 LBDeclare UIViewController*    (^vcNavigationControllerPopTo)(UIViewController* vc);
-/** <^()> */
 LBDeclare UIViewController*    (^vcNavigationControllerPop)(void);
-/** <^(BOOL b)> */
 LBDeclare UIViewController*    (^vcHidesBottomBarWhenPushed)(BOOL b);
-/** <^()> */
 LBDeclare UIViewController*    (^vcHidesBottomBarWhenPushedYES)(void);
-/** <^(UIView* view)> */
+
+#pragma mark - Foundation Speed/速度
 LBDeclare UIViewController*    (^vcViewAddSubview)(UIView* view);
+
 @end

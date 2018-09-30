@@ -20,6 +20,7 @@ LBDeclare BOOL         (^dictContainsValue)(id value);
 LBDeclare NSNumber*    (^dictContainsValueAs)(id value);
 LBDeclare NSArray*     (^dictKeysForValue)(id value);
 /// get object 'for+key'
+LBDeclare NSObject*    (^dictForid)(void);
 LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaType)(void);
 LBDeclare UIImage*     (^dictForUIImagePickerControllerOriginalImage)(void);
 LBDeclare UIImage*     (^dictForUIImagePickerControllerEditedImage)(void);
@@ -28,8 +29,6 @@ LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaURL)(void);
 LBDeclare UIImage*     (^dictForUIImagePickerControllerReferenceURL)(void);
 LBDeclare UIImage*     (^dictForUIImagePickerControllerMediaMetadata)(void);
 LBDeclare UIImage*     (^dictForUIImagePickerControllerLivePhoto)(void);
-
-//#pragma mark - Foundation Extend/多择
 
 #pragma mark - Weak coding/弱类型编码
 LBDeclare NSMutableDictionary* (^dictSetWithKeyObject)(id key , id value);

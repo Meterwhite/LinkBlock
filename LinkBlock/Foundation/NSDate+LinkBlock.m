@@ -459,17 +459,7 @@
 - (BOOL (^)(void))dateIsLeapYear
 {
     return ^(){
-        LinkHandle_VAL_IFNOT(NSDate){
-            return NO;
-        }
-        LinkGroupHandle_VAL(dateIsLeapYear)
-        NSInteger year = _self.dateYear();
-        if ((year%4==0 && year %100 !=0) || year%400==0) {
-            return YES;
-        }else {
-            return NO;
-        }
-        return NO;
+        return self.dateIsLeapYearAs().boolValue;
     };
 }
 
@@ -481,8 +471,6 @@
         NSInteger year = _self.dateYear();
         if ((year%4==0 && year %100 !=0) || year%400==0) {
             return @YES;
-        }else {
-            return @NO;
         }
         return @NO;
     };
@@ -491,17 +479,7 @@
 - (BOOL (^)(void))dateIsInToday
 {
     return ^(){
-        LinkHandle_VAL_IFNOT(NSDate){
-            return NO;
-        }
-        LinkGroupHandle_VAL(dateIsInToday)
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *comps  = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:_self];
-        NSDateComponents *compsNow  = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
-        if([comps year]==[compsNow year] && [comps month]==[compsNow month] && [comps day]==[compsNow day]){
-            return YES;
-        }
-        return NO;
+        return self.dateIsInTodayAs().boolValue;
     };
 }
 
@@ -523,17 +501,7 @@
 - (BOOL (^)(void))dateIsInMonth
 {
     return ^(){
-        LinkHandle_VAL_IFNOT(NSDate){
-            return NO;
-        }
-        LinkGroupHandle_VAL(dateIsInMonth)
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *comps  = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:_self];
-        NSDateComponents *compsNow  = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate date]];
-        if([comps year]==[compsNow year] && [comps month]==[compsNow month]){
-            return YES;
-        }
-        return NO;
+        return self.dateIsInMonthAs().boolValue;
     };
 }
 
@@ -552,26 +520,7 @@
     };
 }
 
-- (NSTimeInterval (^)(void))dateTimeIntervalSince1970
-{
-    return ^NSTimeInterval(){
-        
-        LinkHandle_VAL_IFNOT(NSDate){
-            return 0.0;
-        }
-        LinkGroupHandle_VAL(dateTimeIntervalSince1970)
-        return [_self timeIntervalSince1970];
-    };
-}
 
-- (NSNumber* (^)(void))dateTimeIntervalSince1970As
-{
-    return ^id(){
-        LinkHandle_REF(NSDate)
-        LinkGroupHandle_REF(dateTimeIntervalSince1970As)
-        return @([_self timeIntervalSince1970]);
-    };
-}
 
 - (NSDateComponents *(^)(void))dateComponentsAll
 {

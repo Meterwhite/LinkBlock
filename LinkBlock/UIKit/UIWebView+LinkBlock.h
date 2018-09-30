@@ -13,14 +13,12 @@
 #endif
 @class JSContext;
 @interface NSObject(UIWebViewLinkBlock)
-/** <^()> */
+
+#pragma mark - Foundation Speed/速度
 LBDeclare JSContext*      (^webViewContext)(void);
-/** <^(NSString* script)> */
 LBDeclare NSString*       (^webViewEvalScript)(NSString* script);
-/** <^()> */
 LBDeclare NSString*       (^webViewTitle)(void);
-/** <^()> */
 LBDeclare NSString*       (^webViewLocationHref)(void);
-/** <^()> */
 LBDeclare NSString*       (^webViewHTML)(void);
+
 @end

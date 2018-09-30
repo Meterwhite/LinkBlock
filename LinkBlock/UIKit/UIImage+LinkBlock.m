@@ -375,36 +375,6 @@
     };
 }
 
-- (UIImageView *(^)(UIImageView *))imgSetToImageViewAsWhatSet
-{
-    return ^id(UIImageView* imgView){
-        LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToImageViewAsWhatSet,imgView)
-        [imgView setImage:_self];
-        return linkObj(imgView);
-    };
-}
-
--(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsWhatSet
-{
-    return ^id(UIButton* btn,UIControlState state){
-        LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToButtonAsWhatSet,btn,state)
-        [btn setImage:_self forState:state];
-        return linkObj(btn);
-    };
-}
-
--(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsBGImageAsWhatSet
-{
-    return ^id(UIButton* btn,UIControlState state){
-        LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToButtonAsBGImageAsWhatSet,btn,state)
-        [btn setImage:_self forState:state];
-        return linkObj(btn);
-    };
-}
-
 - (UIImage *(^)(CGFloat,CGFloat))imgStretchableImageWithLeftCapWidthAndTopCapHeight
 {
     return ^id(CGFloat lWidth , CGFloat tHeight){
@@ -430,5 +400,44 @@
         LinkGroupHandle_REF(imgToUIImageView)
         return [[UIImageView alloc] initWithImage:_self];
     };
+}
+
+- (UIImage *(^)(id))imgSetToContainer
+{
+    return ^id(id container){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgSetToContainer,container)
+        
+        if(!container) return _self;
+        
+        if([_self respondsToSelector:@selector(setImage:)]){
+            [container setImage:_self];
+        }else if([_self respondsToSelector:@selector(setImage:forState:)]){
+            [container setImage:_self forState:UIControlStateNormal];
+        }else if([_self respondsToSelector:@selector(setBackground:)]){
+            [container setBackground:_self];
+        }else if([_self respondsToSelector:@selector(setBackgroundImage:)]){
+            [container setBackgroundImage:_self];
+        }
+        
+        if([container objIsCollectionAs]().boolValue){
+            [_self objAddTo](container);
+        }
+
+        return _self;
+    };
+}
+
+- (NSObject *(^)(id))imgSetToContainerAsWhatSet
+{
+    return ^id(id container){
+        LinkHandle_REF(UIImage)
+        LinkGroupHandle_REF(imgSetToContainer,container)
+        
+        if(!container) return _self;
+        self.imgSetToContainer(container);
+        return container;
+    };
+    
 }
 @end

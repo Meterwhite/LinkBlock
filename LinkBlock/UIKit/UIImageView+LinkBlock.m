@@ -29,11 +29,11 @@
     };
 }
 
-- (UIImageView *(^)(NSString *))img_viewImageStr
+- (UIImageView *(^)(NSString *))img_viewImageWithName
 {
     return ^id(NSString * imgStr){
         LinkHandle_REF(UIImageView)
-        LinkGroupHandle_REF(img_viewImageStr,imgStr)
+        LinkGroupHandle_REF(img_viewImageWithName,imgStr)
         _self.image = [UIImage imageNamed:imgStr];
         return _self;
     };

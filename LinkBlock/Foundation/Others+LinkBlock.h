@@ -213,15 +213,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 LBDeclare NSString*        (^dateAstrology)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to dateToStrAstrologyzh_CN");//
 
-LBDeclare BOOL         (^dictContaineKey)(id<NSCopying> key)
-NS_DEPRECATED_IOS(2_0, 2_0, "fixed to dictContainKey");
-LBDeclare BOOL         (^dictContaineValue)(id value)
-NS_DEPRECATED_IOS(2_0, 2_0, "fixed to dictContainValue");
-LBDeclare NSNumber*    (^dictContaineKey_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "fixed to dictContainAsWhatSet");
-LBDeclare NSNumber*    (^dictContaineValue_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "fixed to dictContainValue_n");
-
 LBDeclare NSNumber*    (^objIsKindOfNSString)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "add new suffix:As");
 LBDeclare NSNumber*    (^objIsKindOfNSArray)(void)
@@ -351,8 +342,8 @@ LBDeclare NSNumber*    (^strLength_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 LBDeclare NSNumber*    (^strIsNumber_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-LBDeclare NSNumber*    (^strContainEmoji_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+LBDeclareG(strContainsEmojiAs) NSNumber*(^strContainEmoji_n)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "strContainsEmojiAs");
 LBDeclare NSNumber*    (^strPathFileExists_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 
@@ -437,9 +428,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "rename to strContains");
 
 LBDeclareG(strContainsEmoji) BOOL(^strContainEmoji)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to strContainsEmoji");
-
-LBDeclareG(strContainsEmojiAs) NSNumber*(^strContainEmojiAs)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename to strContainsEmojiAs");
 
 LBDeclare NSUInteger(^strLength)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, ".length");
@@ -547,6 +535,8 @@ LBDeclare NSNumber*    (^dictGetBOOLAs)(id<NSCopying> key)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 LBDeclare id           (^dictGetNoNSNull)(id key)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+LBDeclare NSTimeInterval   (^dateTimeIntervalSince1970)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, ".timeIntervalSince1970");
 
 LBDeclareG(m_dictReplaceForKeyDepth) NSMutableDictionary* (^m_dictReplaceKey)(id key, id newKey);
 LBDeclareG(m_dictReplaceForKey) NSMutableDictionary* (^m_dictReplaceKeyWithoutDeep)(id key, id newKey);
@@ -559,11 +549,31 @@ LBDeclareG(dictSetWithKeyObject) NSMutableDictionary* (^dictSetValue)(id key , i
 LBDeclareG(dictReplaceForKeyDepth) NSMutableDictionary* (^dictReplaceKey)(id key, id newKey);
 LBDeclareG(dictReplaceForKey) NSMutableDictionary* (^dictReplaceKeyWithoutDeep)(id key, id newKey);
 
-//LBDeclareG(<#getname#>) BOOL         (^dictContainKey)(id key);
-//LBDeclareG(<#getname#>) NSNumber*    (^dictContainKeyAs)(id key);
-//LBDeclareG(<#getname#>) BOOL         (^dictContainValue)(id value);
-//LBDeclareG(<#getname#>) NSNumber*    (^dictContainValueAs)(id value);
+LBDeclareG(dictContainsKey) BOOL(^dictContainKey)(id key);
+LBDeclareG(dictContainsValue) BOOL(^dictContainValue)(id value);
 
+LBDeclareG(dictContainsKey) BOOL         (^dictContaineKey)(id<NSCopying> key)
+NS_DEPRECATED_IOS(2_0, 2_0, "fixed to dictContainKey");
+LBDeclareG(dictContainsValue) BOOL         (^dictContaineValue)(id value)
+NS_DEPRECATED_IOS(2_0, 2_0, "fixed to dictContainValue");
+LBDeclareG(dictContainsKeyAs) NSNumber*    (^dictContaineKey_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "fixed to dictContainAsWhatSet");
+LBDeclareG(dictContainsValueAs) NSNumber*    (^dictContaineValue_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "fixed to dictContainValue_n");
+LBDeclareG(m_arrAddObjOnlyOne) NSMutableArray*  (^m_arrAddObjNotContain)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "fixed to m_arrAddObjOnlyOne");
 
+LBDeclareG(numToStrByMaxDecimalWidth) NSString*    (^numToStrMaxDigit)(NSUInteger maxDigit)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to numToStringByMaxDecimalWidth");
+
+LBDeclare CGSize(^labTextSize)(NSNumber* maxWidth)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+
+LBDeclareG(img_viewImageWithName) UIImageView*(^img_viewImageStr)(NSString* imageStr)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to img_viewImageWithName");
+
+//LBDeclare UIImageView*     (^imgSetToImageViewAsWhatSet)(UIImageView* imgView);
+//LBDeclare UIButton*        (^imgSetToButtonAsBGImageAsWhatSet)(UIButton* btn,UIControlState state);
+//LBDeclare UIButton*        (^imgSetToButtonAsWhatSet)(UIButton* btn,UIControlState state);
 @end
 

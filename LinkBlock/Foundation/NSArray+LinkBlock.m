@@ -576,7 +576,7 @@ return self.funcName;
 
 - (NSMutableArray *(^)(id))arrAddObjOnlyOne
 {
-    LBMacroCallToNSMutableArray(m_arrAddObjNotContain)
+    LBMacroCallToNSMutableArray(m_arrAddObjOnlyOne)
 }
 
 - (NSMutableArray *(^)(NSArray *))arrAddObjs

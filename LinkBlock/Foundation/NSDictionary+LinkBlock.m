@@ -129,69 +129,32 @@
     
     return [[self mutableCopy] m_dictAddEntries];
 }
+- (NSObject *(^)(void))dictForid
+{
+    return ^id(){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictForid)
+        return _self[@"id"];
+    };
+}
+#define dictForUIImageXXX(enumName)\
+- (UIImage *(^)(void))dictFor##enumName\
+{\
+    return ^id(){\
+        LinkHandle_REF(NSDictionary)\
+        LinkGroupHandle_REF(dictFor##enumName)\
+        return _self[enumName];\
+    };\
+}
 
-- (UIImage *(^)(void))dictForUIImagePickerControllerMediaType
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictForUIImagePickerControllerMediaType)
-        return _self[UIImagePickerControllerMediaType];
-    };
-}
-- (UIImage *(^)(void))dictForUIImagePickerControllerOriginalImage
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictForUIImagePickerControllerOriginalImage)
-        return _self[UIImagePickerControllerOriginalImage];
-    };
-}
-- (UIImage *(^)(void))dictForUIImagePickerControllerEditedImage
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictForUIImagePickerControllerEditedImage)
-        return _self[UIImagePickerControllerEditedImage];
-    };
-}
-- (UIImage *(^)(void))dictForUIImagePickerControllerCropRect
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictForUIImagePickerControllerCropRect)
-        return _self[UIImagePickerControllerCropRect];
-    };
-}
-- (UIImage *(^)(void))dictForUIImagePickerControllerMediaURL
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictForUIImagePickerControllerMediaURL)
-        return _self[UIImagePickerControllerMediaURL];
-    };
-}
-- (UIImage *(^)(void))dictForUIImagePickerControllerReferenceURL
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictForUIImagePickerControllerReferenceURL)
-        return _self[UIImagePickerControllerReferenceURL];
-    };
-}
-- (UIImage *(^)(void))dictForUIImagePickerControllerMediaMetadata
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictForUIImagePickerControllerMediaMetadata)
-        return _self[UIImagePickerControllerMediaMetadata];
-    };
-}
-- (UIImage *(^)(void))dictForUIImagePickerControllerLivePhoto
-{
-    return ^id(){
-        LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictForUIImagePickerControllerLivePhoto)
-        return _self[UIImagePickerControllerLivePhoto];
-    };
-}
+dictForUIImageXXX(UIImagePickerControllerMediaType)
+dictForUIImageXXX(UIImagePickerControllerLivePhoto)
+dictForUIImageXXX(UIImagePickerControllerMediaMetadata)
+dictForUIImageXXX(UIImagePickerControllerReferenceURL)
+dictForUIImageXXX(UIImagePickerControllerMediaURL)
+dictForUIImageXXX(UIImagePickerControllerCropRect)
+dictForUIImageXXX(UIImagePickerControllerEditedImage)
+dictForUIImageXXX(UIImagePickerControllerOriginalImage)
+
+
 @end

@@ -368,11 +368,11 @@
     };
 }
 
-- (NSString *(^)(NSUInteger))numToStrMaxDigit
+- (NSString *(^)(NSUInteger))numToStrByMaxDecimalWidth
 {
     return ^id(NSUInteger maxDigit){
         LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numToStrMaxDigit,maxDigit)
+        LinkGroupHandle_REF(numToStrByMaxDecimalWidth,maxDigit)
         if(!_self.numIsFloatingType())  return self.description;
         if(maxDigit<1) return @(_self.integerValue).description;
         NSString* formatStr = [NSString stringWithFormat:@"%%.%@f",@(maxDigit)];
@@ -385,12 +385,7 @@
 - (BOOL (^)(void))numHasDecimalValue
 {
     return ^(){
-        LinkHandle_VAL_IFNOT(NSNumber){
-            return NO;
-        }
-        LinkGroupHandle_VAL(numHasDecimalValue)
-        if([_self doubleValue] - [_self integerValue]) return YES;
-        return NO;
+        return self.numHasDecimalValueAs().boolValue;
     };
 }
 - (NSNumber* (^)(void))numHasDecimalValueAs
@@ -653,84 +648,45 @@
     };
 }
 
-- (BOOL (^)(NSArray *))numIndexIsInArrRange
+
+- (NSObject *(^)(id))numAsIndexToGetValueFromObj
 {
-    return ^(NSArray* arr){
+    return ^id(id obj){
+        LinkHandle_REF(NSNumber)
+        LinkGroupHandle_REF(numAsIndexToGetValueFromObj,obj)
         
-        LinkHandle_VAL_IFNOT(NSNumber){
-            return NO;
+        
+        if([obj respondsToSelector:@selector(objectAtIndex:)])
+            goto CALL_ARRAY_GETVALUE;
+        
+        //string
+        if([obj isKindOfClass:NSAttributedString.class]){
+            obj = [obj string];
         }
-        LinkGroupHandle_VAL(numIndexIsInArrRange,arr)
-        if(![arr isKindOfClass:[NSArray class]])
-            return NO;
-        NSInteger idx = [_self integerValue];
-        if(idx>=0 && idx<arr.count) return YES;
-        return NO;
-    };
-}
-- (NSNumber* (^)(NSArray *))numIndexIsInArrRangeAs
-{
-    return ^id(NSArray* arr){
-        
-        LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIndexIsInArrRangeAs,arr)
-        if(![arr isKindOfClass:[NSArray class]])
-            return @NO;
-        NSInteger idx = [_self integerValue];
-        if(idx>=0 && idx<arr.count) return @YES;
-        return @NO;
-    };
-}
-
-- (BOOL (^)(NSString *))numIndexIsInStringRange
-{
-    return ^(NSString* str){
-        
-        LinkHandle_VAL_IFNOT(NSNumber){
-            return NO;
+        else if([obj isKindOfClass:NSString.class]){
+            return @([obj characterAtIndex:[(id)_self unsignedIntegerValue]]);
         }
-        LinkGroupHandle_VAL(numIndexIsInStringRange,str)
-        if(![str isKindOfClass:[NSString class]])
-            return NO;
-        NSInteger idx = [_self integerValue];
-        if(idx>=0 && idx<str.length) return YES;
-        return NO;
-    };
-}
-- (NSNumber* (^)(NSString *))numIndexIsInStringRangeAs
-{
-    return ^id(NSString* str){
         
-        LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIndexIsInStringRangeAs,str)
-        if(![str isKindOfClass:[NSString class]]) return @NO;
-        NSInteger idx = [_self integerValue];
-        if(idx>=0 && idx<str.length) return @YES;
-        return @NO;
-    };
-}
-
-- (NSNumber* (^)(NSMutableArray *))numIndexObjRemoveFromArr
-{
-    return ^id(NSMutableArray* arr){
+        //able to be array
+        if([obj isKindOfClass:CALayer.class]){
+            obj = [obj sublayers];
+        }else if([obj isKindOfClass:UIView.class]){
+            obj = [obj subviews];
+        }
         
-        LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIndexObjRemoveFromArr,arr)
-        NSInteger idx = _self.integerValue;
-        if(idx>0 && idx<arr.count-1) [arr removeObjectAtIndex:idx];
-        return _self;
-    };
-}
-
-- (NSObject *(^)(NSMutableArray *))numIndexObjInArr
-{
-    return ^id(NSMutableArray* arr){
-        
-        LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIndexObjInArr,arr)
-        NSInteger idx = _self.integerValue;
-        if(idx>0 && idx<arr.count-1) return arr[idx];
-        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界",arr]] logError];
+        if([obj respondsToSelector:@selector(objectAtIndex:)]){
+            
+        CALL_ARRAY_GETVALUE:
+            {
+                NSUInteger count = [obj count];
+                NSUInteger idx = [(id)_self unsignedIntegerValue];
+                if(idx<count){
+                    return [obj objectAtIndex:idx];
+                }
+                return NSNull.null;
+            }
+        }
+        return nil;
     };
 }
 
