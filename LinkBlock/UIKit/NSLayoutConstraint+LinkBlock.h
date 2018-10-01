@@ -9,6 +9,6 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(NSLayoutConstraintLinkBlock)
-/** <^(CGFloat constant)> */
+#pragma mark - Foundation Mirror/镜像
 LBDeclare NSLayoutConstraint* (^constraintConstant)(CGFloat constant);
 @end

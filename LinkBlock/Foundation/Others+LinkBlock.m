@@ -11,8 +11,6 @@
 
 @implementation NSObject(OtherLinkBlock)
 
-
-
 - (NSUInteger (^)(void))strLength
 {return ^(){return self.asNSString.length;};}
 
@@ -784,16 +782,6 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
     };
 }
 
-- (UIImageView *(^)(UIImageView *))imgSetToImageViewAsWhatSet
-{
-    return ^id(UIImageView* imgView){
-        LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToImageViewAsWhatSet,imgView)
-        [imgView setImage:_self];
-        return linkObj(imgView);
-    };
-}
-
 -(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsWhatSet
 {
     return ^id(UIButton* btn,UIControlState state){
@@ -811,6 +799,12 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
         LinkGroupHandle_REF(imgSetToButtonAsBGImageAsWhatSet,btn,state)
         [btn setImage:_self forState:state];
         return linkObj(btn);
+    };
+}
+- (NSTimeInterval (^)(void))dateTimeIntervalSince1970
+{
+    return ^NSTimeInterval(){
+        return [(id)self timeIntervalSince1970];
     };
 }
 @end

@@ -13,11 +13,6 @@
 #endif
 @interface NSObject(UIFontLinkBlock)
 
-/**
- 根据字体获得高度
-
- @param line 行数
- @return 高度
- */
+/** 根据字体获得高度*/
 LBDeclare CGFloat       (^fontHeightWithLine)(NSUInteger line);
 @end

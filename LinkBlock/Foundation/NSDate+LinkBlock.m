@@ -9,6 +9,15 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(NSDateLinkBlock)
+- (NSNumber *(^)(void))dateTimeIntervalSince1970As
+{
+    return ^id(){
+        LinkHandle_REF(NSDate)
+        LinkGroupHandle_REF(dateTimeIntervalSince1970As)
+        return @(_self.timeIntervalSince1970);
+    };
+}
+
 - (NSInteger (^)(NSDate *))dateMinusYear
 {
     return ^NSInteger(NSDate* date){

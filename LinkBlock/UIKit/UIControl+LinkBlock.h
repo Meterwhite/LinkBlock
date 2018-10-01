@@ -8,18 +8,16 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(UIControlLinkBlock)
-/** <^(BOOL enable)> */
+#pragma mark - Foundation Mirror/镜像
 LBDeclare UIControl*  (^controlEnable)(BOOL enable);
-/** <^()> */
-LBDeclare UIControl*  (^controlEnableYES)();
-/** <^()> */
-LBDeclare UIControl*  (^controlEnableNO)();
-/** <^(BOOL enable)> */
 LBDeclare UIControl*  (^controlSelected)(BOOL enable);
-/** <^(BOOL enable)> */
 LBDeclare UIControl*  (^controlHighlighted)(BOOL enable);
-/** <^(UIControlContentHorizontalAlignment alignment)> */
 LBDeclare UIControl*  (^controlContentHorizontalAlignment)(UIControlContentHorizontalAlignment alignment);
-/** <^(UIControlContentVerticalAlignment alignment)> */
 LBDeclare UIControl*  (^controlContentVerticalAlignment)(UIControlContentVerticalAlignment alignment);
+
+#pragma mark - Foundation Speed/速度
+LBDeclare UIControl*  (^controlEnableYES)();
+LBDeclare UIControl*  (^controlEnableNO)();
+
+
 @end

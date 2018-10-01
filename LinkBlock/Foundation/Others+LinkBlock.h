@@ -290,8 +290,8 @@ LBDeclare NSNumber*    (^strHasSuffix_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 LBDeclare NSNumber*    (^strRegexIsMatch_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-LBDeclare NSNumber*    (^numIndexIsInStringRange_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+LBDeclareG(numAsIndexToGetValueFromObj) NSNumber*(^numIndexIsInStringRange_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "use numAsIndexToGetValueFromObj");
 LBDeclare NSNumber*    (^strPredicateEvaluate_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 
@@ -572,8 +572,29 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 LBDeclareG(img_viewImageWithName) UIImageView*(^img_viewImageStr)(NSString* imageStr)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to img_viewImageWithName");
 
-//LBDeclare UIImageView*     (^imgSetToImageViewAsWhatSet)(UIImageView* imgView);
-//LBDeclare UIButton*        (^imgSetToButtonAsBGImageAsWhatSet)(UIButton* btn,UIControlState state);
-//LBDeclare UIButton*        (^imgSetToButtonAsWhatSet)(UIButton* btn,UIControlState state);
+LBDeclareG(imgSetToContainerAsWhatSet) UIImageView*(^imgSetToImageViewAsWhatSet)(UIImageView* imgView)
+NS_DEPRECATED_IOS(2_0, 2_0, "use imgSetToContainerAsWhatSet");
+
+LBDeclare UIButton*(^imgSetToButtonAsBGImageAsWhatSet)(UIButton* btn,UIControlState state)
+NS_DEPRECATED_IOS(2_0, 2_0, "use imgSetToContainerAsWhatSet");
+LBDeclare UIButton*(^imgSetToButtonAsWhatSet)(UIButton* btn,UIControlState state)
+NS_DEPRECATED_IOS(2_0, 2_0, "use imgSetToContainerAsWhatSet");
+
+
+LBDeclareG(colorSetToUIForBackground) UIColor*(^colorSetToViewBG)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForBackground");
+LBDeclareG(colorSetToUIForBackground) UIColor*(^colorSetToViewsBG)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForBackground");
+LBDeclareG(colorSetToUIForText) UIColor*(^colorSetToLabText)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForText");
+LBDeclareG(colorSetToUIForText) UIColor*(^colorSetToTxtViewText)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForText");
+LBDeclareG(colorSetToUIForText) UIColor*(^colorSetToTxtFieldText)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForText");
+LBDeclareG(colorSetToUIForText) UIColor*(^colorSetToBtnTitle)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForText");
+
+LBDeclareG(colorToHexStringWithPrefix) NSString*(^colorToHexStrByPrefix)(NSString* prefix)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorToHexStringWithPrefix");
 @end
 

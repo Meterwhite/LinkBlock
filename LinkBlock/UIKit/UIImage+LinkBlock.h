@@ -9,19 +9,24 @@
 
 @interface NSObject(UIImageLinkBlock)
 
-#pragma mark - Foundation Mirror/镜像
-
 #pragma mark - Foundation Speed/速度
 /** 图片拉伸 */
 LBDeclare UIImage*        (^imgResizableWithCapInsets)(CGFloat top,CGFloat left,CGFloat bottom, CGFloat right);
 /** 图片拉伸 */
 LBDeclare UIImage*        (^imgStretchableImageWithLeftCapWidthAndTopCapHeight)(CGFloat lWidth,CGFloat tHeight);
 #pragma mark - Foundation Extend/多择
+/** 图片取色 */
+LBDeclare UIColor*         (^imgGetPatternColor)(void);
+/** 矫正方向的图片 */
+LBDeclare UIImage*         (^imgOrientationFix)(void);
 
 #pragma mark - Weak coding/弱类型编码
 /** 图片转控件 */
 LBDeclare UIImageView*     (^imgToUIImageView)(void);
-
+/**
+ *  container∈{.respondsToSelector(setImage:,setImage:forState:,setBackground:,setBackgroundImage:)}
+ *  forState = UIControlStateNormal
+ */
 LBDeclare UIImage*         (^imgSetToContainer)(id container);
 LBDeclare NSObject*        (^imgSetToContainerAsWhatSet)(id container);
 
@@ -57,10 +62,6 @@ LBDeclare UIImage*         (^imgBlurDarkEffect)(void);
 LBDeclare UIImage*         (^imgRenderingMode)(UIImageRenderingMode mode);
 /** 水印；图片合并到图片； */
 LBDeclare UIImage*         (^imgAddImg)(UIImage* aImg , CGRect rect);
-/** 图片取色 */
-LBDeclare UIColor*         (^imgGetPatternColor)(void);
-/** 矫正方向的图片 */
-LBDeclare UIImage*         (^imgOrientationFix)(void);
 
 
 @end

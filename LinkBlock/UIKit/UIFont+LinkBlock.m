@@ -9,12 +9,7 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(UIFontLinkBlock)
-/**
- 根据字体获得行高
- 
- @param line 行数
- @return 行高
- */
+
 - (CGFloat (^)(NSUInteger))fontHeightWithLine
 {
     return ^CGFloat(NSUInteger line){

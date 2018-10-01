@@ -8,11 +8,11 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(UIColorLinkBlock)
-- (NSString *(^)(NSString *))colorToHexStrByPrefix
+- (NSString *(^)(NSString *))colorToHexStringWithPrefix
 {
     return ^id(NSString* prefix){
         LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorToHexStrByPrefix,prefix)
+        LinkGroupHandle_REF(colorToHexStringWithPrefix,prefix)
         NSMutableString* reStr = [NSMutableString string];
         if([prefix isKindOfClass:[NSString class]]) [reStr appendString:prefix];
         CGFloat r;CGFloat g;CGFloat b;CGFloat a;
@@ -263,68 +263,55 @@
     };
 }
 
-- (UIColor *(^)(UIView *))colorSetToViewBG
+
+- (UIColor *(^)(id))colorSetToUIForBackground
 {
-    return ^id(UIView* view){
+    return ^id(id obj){
         LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetToViewBG,view)
-        view.backgroundColor = _self;
+        LinkGroupHandle_REF(colorSetToUIForBackground,obj)
+        
+        if([obj respondsToSelector:@selector(setBackgroundColor:)]){
+            
+            [obj setBackgroundColor:_self];
+        }else if([obj respondsToSelector:@selector(objectEnumerator)]){
+            
+            NSEnumerator* enumerator = [obj objectEnumerator];
+            id item;
+            while ((item = enumerator.nextObject)) {
+                [_self colorSetToUIForBackground](item);
+            }
+        }
+        
         return _self;
     };
 }
 
-- (UIColor *(^)(NSArray<UIView*> *))colorSetToViewsBG
+- (UIColor *(^)(id))colorSetToUIForText
 {
-    return ^id(NSArray<UIView*>* views){
+    return ^id(id obj){
         LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetToViewsBG,views)
-        [views enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL *stop) {
-            if([view isKindOfClass:[UIView class]])
-                view.backgroundColor = _self;
-        }];
+        LinkGroupHandle_REF(colorSetToUIForText,obj)
+        
+        if([obj respondsToSelector:@selector(setTextColor:)]){
+            
+            [obj setBackgroundColor:_self];
+        }else if([obj respondsToSelector:@selector(setTitleColor:forState:)]){
+            
+            [obj setTitleColor:_self forState:UIControlStateNormal];
+        }else if([obj respondsToSelector:@selector(objectEnumerator)]){
+            
+            NSEnumerator* enumerator = [obj objectEnumerator];
+            id item;
+            while ((item = enumerator.nextObject)) {
+                [_self colorSetToUIForText](item);
+            }
+        }
+        
         return _self;
     };
 }
 
-- (UIColor *(^)(UILabel *))colorSetToLabText
-{
-    return ^id(UILabel* lab){
-        LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetToLabText , lab)
-        lab.textColor = _self;
-        return _self;
-    };
-}
 
-- (UIColor *(^)(UITextView *))colorSetToTxtViewText
-{
-    return ^id(UITextView* txtV){
-        LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetToTxtViewText , txtV)
-        txtV.textColor = _self;
-        return _self;
-    };
-}
-
-- (UIColor *(^)(UITextField *))colorSetToTxtFieldText
-{
-    return ^id(UITextField* txtF){
-        LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetToTxtFieldText , txtF)
-        txtF.textColor = _self;
-        return _self;
-    };
-}
-
-- (UIColor *(^)(UIButton *, UIControlState))colorSetToBtnTitle
-{
-    return ^id(UIButton* btn, UIControlState state){
-        LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetToBtnTitle , btn,state)
-        [btn setTitleColor:_self forState:state];
-        return _self;
-    };
-}
 
 - (UIColor *(^)(double))colorBrightnessPercent
 {

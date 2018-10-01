@@ -420,10 +420,6 @@
             [container setBackgroundImage:_self];
         }
         
-        if([container objIsCollectionAs]().boolValue){
-            [_self objAddTo](container);
-        }
-
         return _self;
     };
 }

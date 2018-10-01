@@ -9,55 +9,59 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(UIColorLinkBlock)
-/** <^(NSString* prefix)>颜色转16进制字符串，返回为：prefix+颜色。发生错误时返回NSNull */
-LBDeclare NSString*        (^colorToHexStrByPrefix)(NSString* prefix);
-/** <^(CGSize size)>根据颜色创建图片 */
-LBDeclare UIImage*         (^colorToUIImage)(CGSize size);
-/** <^()> */
+#pragma mark - Foundation Mirror/镜像
+
+#pragma mark - Foundation Speed/速度
 LBDeclare CGFloat          (^colorRed)(void);
-/** <^()> */
 LBDeclare CGFloat          (^colorGreen)(void);
-/** <^()> */
 LBDeclare CGFloat          (^colorBlue)(void);
-/** <^()> */
 LBDeclare CGFloat          (^colorAlpha)(void);
-/** <^()> */
 LBDeclare CGFloat          (^colorHue)(void);
-/** <^()> */
 LBDeclare CGFloat          (^colorSaturation)(void);
-/** <^()> */
 LBDeclare CGFloat          (^colorBrightness)(void);
-/** <^(CGFloat value)>设置红色，返回新对象 */
+/** 设置红色，return new obj */
 LBDeclare UIColor*         (^colorRedSet)(CGFloat value);
-/** <^(CGFloat value)> */
 LBDeclare UIColor*         (^colorGreenSet)(CGFloat value);
-/** <^(CGFloat value)> */
 LBDeclare UIColor*         (^colorBlueSet)(CGFloat value);
-/** <^(CGFloat value)> */
 LBDeclare UIColor*         (^colorAlphaSet)(CGFloat value);
+/** 色调，return new obj */
+LBDeclare UIColor*         (^colorHueSet)(CGFloat value);
+/** 饱和度，return new obj */
+LBDeclare UIColor*         (^colorSaturationSet)(CGFloat value);
+/** 亮度，return new obj */
+LBDeclare UIColor*         (^colorBrightnessSet)(CGFloat value);
+
+#pragma mark - Foundation Extend/多择
+
+#pragma mark - Weak coding/弱类型编码
+/** return @"0xF2F2F2"(prefix=@"0x")||NSNull */
+LBDeclare NSString*        (^colorToHexStringWithPrefix)(NSString* prefix);
+/** 根据颜色创建图片 */
+LBDeclare UIImage*         (^colorToUIImage)(CGSize size);
+/**
+ *  作为背景色
+ *  toObj∈{NSArray||{.respondsToSelector(setTextColor:,setTitleColor:forState:) }}
+ */
+LBDeclare UIColor*         (^colorSetToUIForBackground)(id toObj);
+/**
+ *  作为文本色
+ *  toObj∈{NSArray||{.respondsToSelector(setTextColor:,setTitleColor:forState:) }}
+ */
+LBDeclare UIColor*         (^colorSetToUIForText)(id toObj);
+
+
+
+
+#pragma mark - LinkBlock
 /** <^(double percent)>调节亮度,percent ∈ [-1,1] */
 LBDeclare UIColor*         (^colorBrightnessPercent)(double percent);
 /** <^()>变暗40%，接近系统变暗效果 */
 LBDeclare UIColor*         (^colorHighlightDarkColor)(void);
 /** <^()>变亮40% */
 LBDeclare UIColor*         (^colorHighlightLightColor)(void);
-/** <^(CGFloat value)>设置色调，返回新对象 */
-LBDeclare UIColor*         (^colorHueSet)(CGFloat value);
-/** <^(CGFloat value)>设置饱和度，返回新对象 */
-LBDeclare UIColor*         (^colorSaturationSet)(CGFloat value);
-/** <^(CGFloat value)>设置亮度，返回新对象 */
-LBDeclare UIColor*         (^colorBrightnessSet)(CGFloat value);
 
-/** <^(UIView* view)> */
-LBDeclare UIColor*         (^colorSetToViewBG)(UIView* view);
-/** <^(NSArray<UIView*>* views)> */
-LBDeclare UIColor*         (^colorSetToViewsBG)(NSArray<UIView*>* views);
-/** <^(UILabel* lab)> */
-LBDeclare UIColor*         (^colorSetToLabText)(UILabel* lab);
-/** <^(UITextView* txtView)> */
-LBDeclare UIColor*         (^colorSetToTxtViewText)(UITextView* txtView);
-/** <^(UITextField* txtField)> */
-LBDeclare UIColor*         (^colorSetToTxtFieldText)(UITextField* txtField);
-/** <^(UIButton* btn, UIControlState state)> */
-LBDeclare UIColor*         (^colorSetToBtnTitle)(UIButton* btn, UIControlState state);
+
+
+
+
 @end
