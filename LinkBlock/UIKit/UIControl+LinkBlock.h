@@ -16,8 +16,8 @@ LBDeclare UIControl*  (^controlContentHorizontalAlignment)(UIControlContentHoriz
 LBDeclare UIControl*  (^controlContentVerticalAlignment)(UIControlContentVerticalAlignment alignment);
 
 #pragma mark - Foundation Speed/速度
-LBDeclare UIControl*  (^controlEnableYES)();
-LBDeclare UIControl*  (^controlEnableNO)();
+LBDeclare UIControl*  (^controlEnableYES)(void);
+LBDeclare UIControl*  (^controlEnableNO)(void);
 
 
 @end

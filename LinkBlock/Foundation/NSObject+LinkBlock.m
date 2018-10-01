@@ -1625,56 +1625,52 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject *(^)())objToNSJsonObject
+- (NSObject *(^)(void))objToNSJsonObject
 {
-    return ^id(id objs){
+    return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objToNSJsonObject,objs)
+        LinkGroupHandle_REF(objToNSJsonObject)
         
         return linkObjNotNil([_self _lb_obj2JsonValueDepth:NO includeFoundation:NO]);
     };
 }
 
-- (NSObject *(^)())objToNSJsonObjectDepth
+- (NSObject *(^)(void))objToNSJsonObjectDepth
 {
-    return ^id(id objs){
+    return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objToNSJsonObjectDepth,objs)
+        LinkGroupHandle_REF(objToNSJsonObjectDepth)
         
         return linkObjNotNil([_self _lb_obj2JsonValueDepth:YES includeFoundation:NO]);
     };
 }
 
-- (NSObject *(^)())objToNSJsonObjectFoundation
+- (NSObject *(^)(void))objToNSJsonObjectFoundation
 {
-    return ^id(id objs){
+    return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objToNSJsonObjectFoundation,objs)
+        LinkGroupHandle_REF(objToNSJsonObjectFoundation)
         
         return linkObjNotNil([_self _lb_obj2JsonValueDepth:NO includeFoundation:YES]);
     };
 }
 
-- (NSObject *(^)())objToNSJsonObjectDepthAndFoundation
+- (NSObject *(^)(void))objToNSJsonObjectDepthAndFoundation
 {
-    return ^id(id objs){
+    return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objToNSJsonObjectDepthAndFoundation,objs)
+        LinkGroupHandle_REF(objToNSJsonObjectDepthAndFoundation)
         
         return linkObjNotNil([_self _lb_obj2JsonValueDepth:YES includeFoundation:YES]);
     };
 }
 
-- (NSDictionary *(^)())objToNSDictionary
+- (NSDictionary *(^)(void))objToNSDictionary
 {
-//
-//    if(!self.objIsCollectionAs().boolValue){
-//        return (id)self.objToNSJsonObject;
-//    }
     
-    return ^id(id objs){
+    return ^id(){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objToNSDictionary,objs)
+        LinkGroupHandle_REF(objToNSDictionary)
         
         if([_self isKindOfClass:NSDictionary.class]) return _self;
 
@@ -2186,7 +2182,7 @@ DefineKindOfClassAs(NSNumber)
                     case LinkReturnLink:
                         return self;
                     case LinkReturnCondition:
-                        (((LinkReturn*)self).returnValue = LinkReturnLink);
+                        (((LinkReturn*)self).returnType = LinkReturnLink);
                         return self;
                     default:
                         return self;

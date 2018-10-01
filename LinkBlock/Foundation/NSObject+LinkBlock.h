@@ -252,12 +252,12 @@ LBDeclare NSArray*     (^objPerformsSelectorArgumentsAsWhatReturns)(SEL sel0,NSA
 /** for NSJSONSerialization */
 LBDeclare NSString*    (^objToJsonString)(void);
 /** retrun value can be used to NSJSONSerialization  */
-LBDeclare NSObject*    (^objToNSJsonObject)();
-LBDeclare NSObject*    (^objToNSJsonObjectDepth)();
-LBDeclare NSObject*    (^objToNSJsonObjectFoundation)();
-LBDeclare NSObject*    (^objToNSJsonObjectDepthAndFoundation)();
+LBDeclare NSObject*    (^objToNSJsonObject)(void);
+LBDeclare NSObject*    (^objToNSJsonObjectDepth)(void);
+LBDeclare NSObject*    (^objToNSJsonObjectFoundation)(void);
+LBDeclare NSObject*    (^objToNSJsonObjectDepthAndFoundation)(void);
 /** self is not a collection object  */
-LBDeclare NSDictionary*(^objToNSDictionary)();
+LBDeclare NSDictionary*(^objToNSDictionary)(void);
 LBDeclare NSDictionary*(^objToNSDictionaryWithKeys)(NSArray* asKey);
 /** <^()> <JSValue & NSString> to nsnumber */
 LBDeclare NSNumber*    (^objToNSNumber)(void);
@@ -438,8 +438,10 @@ NS_INLINE id _LB_MakeObj(id object){
  @param ... 该函数需要以nil作为结尾
  */
 NS_INLINE LinkInfo* _LB_MakeObjs(id object0, ...){
+    if(!object0) return [LinkError new];
     va_list args;
-    return object0?(va_start(args, object0),[LinkGroup groupWithObjs:object0 args:args]):[LinkError new];
+    va_start(args, object0);
+    return [LinkGroup groupWithObjs:object0 args:args];
 }
 /**
  默认值对象

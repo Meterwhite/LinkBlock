@@ -110,7 +110,7 @@
     };
 }
 
-- (UILabel *(^)())labHighlightedTextColorLightByTextColor
+- (UILabel *(^)(void))labHighlightedTextColorLightByTextColor
 {
     return ^id(){
         LinkHandle_REF(UILabel)
@@ -120,7 +120,7 @@
     };
 }
 
-- (UILabel *(^)())labHighlightedTextColorDarkByTextColor
+- (UILabel *(^)(void))labHighlightedTextColorDarkByTextColor
 {
     return ^id(){
         LinkHandle_REF(UILabel)

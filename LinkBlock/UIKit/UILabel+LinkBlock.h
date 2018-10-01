@@ -29,9 +29,9 @@ LBDeclare CGFloat          (^labFontSystemSizeGet)(void);
 
 #pragma mark - LinkBlock
 /** 根据当前标题的亮色（40%）设置高亮状态标题色 */
-LBDeclare UILabel*         (^labHighlightedTextColorLightByTextColor)();
+LBDeclare UILabel*         (^labHighlightedTextColorLightByTextColor)(void);
 /** 根据当前标题的暗色（40%）设置高亮状态标题色 */
-LBDeclare UILabel*         (^labHighlightedTextColorDarkByTextColor)();
+LBDeclare UILabel*         (^labHighlightedTextColorDarkByTextColor)(void);
 
 
 @end

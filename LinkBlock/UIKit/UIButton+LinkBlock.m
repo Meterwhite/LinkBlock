@@ -130,7 +130,7 @@
     };
 }
 
-- (UIButton *(^)())btnHighlightedTitleColorLightByNormalState
+- (UIButton *(^)(void))btnHighlightedTitleColorLightByNormalState
 {
     return ^id(){
         LinkHandle_REF(UIButton)
@@ -141,7 +141,7 @@
     };
 }
 
-- (UIButton *(^)())btnHighlightedTitleColorDarkByNormalState
+- (UIButton *(^)(void))btnHighlightedTitleColorDarkByNormalState
 {
     return ^id(){
         LinkHandle_REF(UIButton)

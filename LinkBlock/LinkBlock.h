@@ -47,7 +47,8 @@
 //////////////////////////////////////////////////////////////////////
 //MARK:基础
 //////////////////////////////////////////////////////////////////////
-//包装一个对象为安全链条起始对象（需要取值时），参数为id类型时使用linkObj_id(obj)来实现.语法
+
+/** 包装一个对象为安全链条起始对象（需要取值时），参数为id类型时使用linkObj_id(obj)来实现.语法 */
 #ifndef linkObj
 #define linkObj(object) ((typeof(object))_LB_MakeObj(object))
 #endif
@@ -66,72 +67,6 @@
 #define linkEnd linkEnd
 #endif
 
-//////////////////////////////////////////////////////////////////////
-//MARK:新增！DynamicLink-动态脚本解析
-//////////////////////////////////////////////////////////////////////
-/**
- *由当前对象执行DynamicLink脚本并返回结果
- *object.linkEvalCode( code , arg0 , arg1 , ...)
- @return 注意链条中的任何值类型返回值会被自动装箱
- */
-#ifndef linkEvalCode
-#define linkEvalCode(code , args...) linkEvalCode(code , ##args, nil, NSNotFound)
-#endif
-
-/**
- *使用一个对象和参数列表来执行DynamicLink脚本并返回结果
- *code.linkCodeEval( target , arg0 , arg1 , ...)
- @return 注意链条中的任何值类型返回值会被自动装箱
- */
-#ifndef linkCodeEval
-#define linkCodeEval(obj , args...) linkCodeEval(obj, ##args, nil, NSNotFound)
-#endif
-
-/**
- 仅仅执行一段不需要任何参数的DynamicLink脚本并返回结果
- @return 注意链条中的任何值类型返回值会被自动装箱
- */
-#ifndef EvalLinkBlock
-#define EvalLinkBlock(code) linkObj_id(code).linkCodeEval(NSNil, nil)
-#endif
-/**
- 使用目标对象执行一段不需要任何参数的DynamicLink脚本并返回结果
- @return 注意链条中的任何值类型返回值会被自动装箱
- */
-#ifndef EvalLinkBlockWithTarget
-#define EvalLinkBlockWithTarget(target,code) linkObj_id(code).linkCodeEval(linkObj(target), nil)
-#endif
-
-/*
- *DynamicLink概览(动态脚本解析):
- *@"LinkBlock代码".linkCodeEval(目标对象,参数列表....);
- *
- *
- *命令：
- *DynamicLink脚本使用linkBlock的原生调用方式，还支持属性样式的调用
- *1.当调用名称后跟随"()"时："actionName().actionName()..."，系统会把actionName当成linkBlock去调用
- *2.如果调用中没有"()"，"actionName.actionName..."会被系统解释为属性样式的调用；将调用当成对象的属性、对象的无参方法、类名、或者LinkBlock命令
- *其中LinkBlock命令目前包括:1.创建对象命令："ClassName+New";2.LinkBlock宏定义:"NSNil","AttrDictNew"
- *
- *注意！动态链条并不支持不定参数的block调用，使用中会报出警告。系统认为所有不定参数的block的参数个数为1个，这会造成潜在的分歧。
- *
- *
- *字面参数：
- *字面参数是在DynamicLink中通过字面创建的值，它写在"()"内；形如："ActionName(3.1415926)"
- *支持类型：数字，十六进制的数字，字符串，布尔值，c字符串，字符，NSNumber，SEL，struct in NSValue，Class；参考:DynamicLinkArgument.h
- *字面量参数暂时不能是可以接受参数的linkBlock调用
- *字符串中不能再有双引号
- *
- *
- *入参顺序：
- *参数的入参顺序和脚本中调用的入参顺序完全一一对应；
- *传参目前只能给在第一层的调用传参，下层调用只能通过字面量传参
- *如果脚本中存在一个字面参数则参数列表中不再需要传递这个参数；
- *如果要通过参数列表传递nil，可以使用NSNil。或者在脚本中使用字面量"nil","NULL"
- *
- *特别的：
- *使用动态脚本解析可以实现在返回值为值类型的block后继续调用的方式，这在原生代码中是不能做到的。因为动态脚本解析的所有返回值都是装箱形式的
- */
 
 
 
@@ -267,6 +202,79 @@
 #define linkReturn linkReturn
 #endif
 
+
+
+//////////////////////////////////////////////////////////////////////
+//MARK:新增！DynamicLink-动态脚本解析
+//////////////////////////////////////////////////////////////////////
+/**
+ *由当前对象执行DynamicLink脚本并返回结果
+ *object.linkEvalCode( code , arg0 , arg1 , ...)
+ @return 注意链条中的任何值类型返回值会被自动装箱
+ */
+#ifndef linkEvalCode
+#define linkEvalCode(code , args...) linkEvalCode(code , ##args, nil, NSNotFound)
+#endif
+
+/**
+ *使用一个对象和参数列表来执行DynamicLink脚本并返回结果
+ *code.linkCodeEval( target , arg0 , arg1 , ...)
+ @return 注意链条中的任何值类型返回值会被自动装箱
+ */
+#ifndef linkCodeEval
+#define linkCodeEval(obj , args...) linkCodeEval(obj, ##args, nil, NSNotFound)
+#endif
+
+/**
+ 仅仅执行一段不需要任何参数的DynamicLink脚本并返回结果
+ @return 注意链条中的任何值类型返回值会被自动装箱
+ */
+#ifndef EvalLinkBlock
+#define EvalLinkBlock(code) linkObj_id(code).linkCodeEval(NSNil, nil)
+#endif
+/**
+ 使用目标对象执行一段不需要任何参数的DynamicLink脚本并返回结果
+ @return 注意链条中的任何值类型返回值会被自动装箱
+ */
+#ifndef EvalLinkBlockWithTarget
+#define EvalLinkBlockWithTarget(target,code) linkObj_id(code).linkCodeEval(linkObj(target), nil)
+#endif
+
+/*
+ *DynamicLink概览(动态脚本解析):
+ *@"LinkBlock代码".linkCodeEval(目标对象,参数列表....);
+ *
+ *
+ *命令：
+ *DynamicLink脚本使用linkBlock的原生调用方式，还支持属性样式的调用
+ *1.当调用名称后跟随"()"时："actionName().actionName()..."，系统会把actionName当成linkBlock去调用
+ *2.如果调用中没有"()"，"actionName.actionName..."会被系统解释为属性样式的调用；将调用当成对象的属性、对象的无参方法、类名、或者LinkBlock命令
+ *其中LinkBlock命令目前包括:1.创建对象命令："ClassName+New";2.LinkBlock宏定义:"NSNil","AttrDictNew"
+ *
+ *注意！动态链条并不支持不定参数的block调用，使用中会报出警告。系统认为所有不定参数的block的参数个数为1个，这会造成潜在的分歧。
+ *
+ *
+ *字面参数：
+ *字面参数是在DynamicLink中通过字面创建的值，它写在"()"内；形如："ActionName(3.1415926)"
+ *支持类型：数字，十六进制的数字，字符串，布尔值，c字符串，字符，NSNumber，SEL，struct in NSValue，Class；参考:DynamicLinkArgument.h
+ *字面量参数暂时不能是可以接受参数的linkBlock调用
+ *字符串中不能再有双引号
+ *
+ *
+ *入参顺序：
+ *参数的入参顺序和脚本中调用的入参顺序完全一一对应；
+ *传参目前只能给在第一层的调用传参，下层调用只能通过字面量传参
+ *如果脚本中存在一个字面参数则参数列表中不再需要传递这个参数；
+ *如果要通过参数列表传递nil，可以使用NSNil。或者在脚本中使用字面量"nil","NULL"
+ *
+ *特别的：
+ *使用动态脚本解析可以实现在返回值为值类型的block后继续调用的方式，这在原生代码中是不能做到的。因为动态脚本解析的所有返回值都是装箱形式的
+ */
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////
 //MARK:配置
 //////////////////////////////////////////////////////////////////////
@@ -373,3 +381,5 @@
 #ifndef viewAddSubviews
 #define viewAddSubviews(view0,args...) viewAddSubviews(view0,args...,nil)
 #endif
+
+

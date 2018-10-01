@@ -19,7 +19,7 @@
     };
 }
 
-- (UIControl *(^)())controlEnableYES
+- (UIControl *(^)(void))controlEnableYES
 {
     return ^id(){
         LinkHandle_REF(UIControl)
@@ -29,7 +29,7 @@
     };
 }
 
-- (UIControl *(^)())controlEnableNO
+- (UIControl* (^)(void))controlEnableNO
 {
     return ^id(){
         LinkHandle_REF(UIControl)

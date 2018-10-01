@@ -91,13 +91,13 @@ LBDeclare NSObject*    (^numAsIndexToGetValueFromObj)(id obj);
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
- ...objIsEqualAs(...).linkIf_YES...LinkElse...
+ ...NSNumber.linkIf_YES...LinkElse...
  */
 LBDeclare_F NSObject*    linkIf_YES;
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
- ...objIsEqualAs(...).linkIf_NO...LinkElse...
+ ...NSNumber.linkIf_NO...LinkElse...
  */
 LBDeclare_F NSObject*    linkIf_NO;
 @end
