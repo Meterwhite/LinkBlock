@@ -10,5 +10,5 @@
 
 @interface NSObject(NSLayoutConstraintLinkBlock)
 #pragma mark - Foundation Mirror/镜像
-LBDeclare NSLayoutConstraint* (^constraintConstant)(CGFloat constant);
+@property LB_BK NSLayoutConstraint* (^constraintConstant)(CGFloat constant);
 @end

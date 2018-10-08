@@ -12,18 +12,18 @@
 #endif
 @interface NSObject(UIScrollViewLinkBlock)
 #pragma mark - Foundation Mirror/镜像
-LBDeclare UIScrollView*        (^scroll_viewContentSize)(CGFloat w , CGFloat h);
-LBDeclare UIScrollView*        (^scroll_viewContentInserts)(CGFloat top , CGFloat left , CGFloat bottom , CGFloat right);
-LBDeclare UIScrollView*        (^scroll_viewContentOffset)(CGFloat w , CGFloat h);
-LBDeclare UIScrollView*        (^scroll_viewDelegate)(id<UIScrollViewDelegate> delegate);
-LBDeclare UIScrollView*        (^scroll_viewShowsHorizontal)(BOOL b);
-LBDeclare UIScrollView*        (^scroll_viewShowsVertical)(BOOL b);
-LBDeclare UIScrollView*        (^scroll_viewBounce)(BOOL b);
-LBDeclare UIScrollView*        (^scroll_viewPagingEnabled)(BOOL b);
-LBDeclare UIScrollView*        (^scroll_viewScrollEnabled)(BOOL b);
-LBDeclare UIScrollView*        (^scroll_viewDelaysContentTouches)(BOOL b);
-LBDeclare UIScrollView*        (^scroll_viewCanCancelContentTouches)(BOOL b);
-LBDeclare UIScrollView*        (^scroll_viewDirectionalLockEnabled)(BOOL b);
+@property LB_BK UIScrollView*        (^scroll_viewContentSize)(CGFloat w , CGFloat h);
+@property LB_BK UIScrollView*        (^scroll_viewContentInserts)(CGFloat top , CGFloat left , CGFloat bottom , CGFloat right);
+@property LB_BK UIScrollView*        (^scroll_viewContentOffset)(CGFloat w , CGFloat h);
+@property LB_BK UIScrollView*        (^scroll_viewDelegate)(id<UIScrollViewDelegate> delegate);
+@property LB_BK UIScrollView*        (^scroll_viewShowsHorizontal)(BOOL b);
+@property LB_BK UIScrollView*        (^scroll_viewShowsVertical)(BOOL b);
+@property LB_BK UIScrollView*        (^scroll_viewBounce)(BOOL b);
+@property LB_BK UIScrollView*        (^scroll_viewPagingEnabled)(BOOL b);
+@property LB_BK UIScrollView*        (^scroll_viewScrollEnabled)(BOOL b);
+@property LB_BK UIScrollView*        (^scroll_viewDelaysContentTouches)(BOOL b);
+@property LB_BK UIScrollView*        (^scroll_viewCanCancelContentTouches)(BOOL b);
+@property LB_BK UIScrollView*        (^scroll_viewDirectionalLockEnabled)(BOOL b);
 
 
 @end

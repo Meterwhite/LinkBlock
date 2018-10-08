@@ -9,7 +9,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 @interface NSObject(JSValueLinkBlock)
-LBDeclare JSManagedValue*      (^jsValueToManagedValue)(id owner);
-LBDeclare JSValue*             (^jsValueAddToSelfManagedRef)(id owner);
-LBDeclare JSValue*             (^jsValueCallFunc)(NSArray* args);
+@property LB_BK JSManagedValue*      (^jsValueToManagedValue)(id owner);
+@property LB_BK JSValue*             (^jsValueAddToSelfManagedRef)(id owner);
+@property LB_BK JSValue*             (^jsValueCallFunc)(NSArray* args);
 @end

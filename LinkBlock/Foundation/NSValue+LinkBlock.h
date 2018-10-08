@@ -15,36 +15,36 @@
 
 @interface NSObject(NSValueLinkBlock)
 #pragma mark - Foundation Speed/速度
-LBDeclare CGFloat          (^valueCGRectX)(void);
-LBDeclare CGFloat          (^valueCGRectY)(void);
-LBDeclare CGPoint          (^valueCGRectOrigin)(void);
-LBDeclare CGSize           (^valueCGRectSize)(void);
-LBDeclare CGFloat          (^valueCGRectMinX)(void);
-LBDeclare CGFloat          (^valueCGRectMidX)(void);
-LBDeclare CGFloat          (^valueCGRectMaxX)(void);
-LBDeclare CGFloat          (^valueCGRectMinY)(void);
-LBDeclare CGFloat          (^valueCGRectMidY)(void);
-LBDeclare CGFloat          (^valueCGRectMaxY)(void);
-LBDeclare CGFloat          (^valueCGRectWidth)(void);
-LBDeclare CGFloat          (^valueCGRectHeight)(void);
-LBDeclare NSNumber*        (^valueCGRectContainsRect)(CGRect rect);
-LBDeclare NSNumber*        (^valueCGRectContainsPoint)(CGPoint rect);
-LBDeclare CGFloat          (^valueCGSizeWidth)(void);
-LBDeclare CGFloat          (^valueCGSizeHeight)(void);
-LBDeclare CGFloat          (^valueCGPointX)(void);
-LBDeclare CGFloat          (^valueCGPointY)(void);
-LBDeclare CGFloat          (^valueCGVectorX)(void);
-LBDeclare CGFloat          (^valueCGVectorY)(void);
-LBDeclare NSUInteger       (^valueNSRangeLength)(void);
-LBDeclare NSUInteger       (^valueNSRangeLocation)(void);
+@property LB_BK CGFloat          (^valueCGRectX)(void);
+@property LB_BK CGFloat          (^valueCGRectY)(void);
+@property LB_BK CGPoint          (^valueCGRectOrigin)(void);
+@property LB_BK CGSize           (^valueCGRectSize)(void);
+@property LB_BK CGFloat          (^valueCGRectMinX)(void);
+@property LB_BK CGFloat          (^valueCGRectMidX)(void);
+@property LB_BK CGFloat          (^valueCGRectMaxX)(void);
+@property LB_BK CGFloat          (^valueCGRectMinY)(void);
+@property LB_BK CGFloat          (^valueCGRectMidY)(void);
+@property LB_BK CGFloat          (^valueCGRectMaxY)(void);
+@property LB_BK CGFloat          (^valueCGRectWidth)(void);
+@property LB_BK CGFloat          (^valueCGRectHeight)(void);
+@property LB_BK NSNumber*        (^valueCGRectContainsRect)(CGRect rect);
+@property LB_BK NSNumber*        (^valueCGRectContainsPoint)(CGPoint rect);
+@property LB_BK CGFloat          (^valueCGSizeWidth)(void);
+@property LB_BK CGFloat          (^valueCGSizeHeight)(void);
+@property LB_BK CGFloat          (^valueCGPointX)(void);
+@property LB_BK CGFloat          (^valueCGPointY)(void);
+@property LB_BK CGFloat          (^valueCGVectorX)(void);
+@property LB_BK CGFloat          (^valueCGVectorY)(void);
+@property LB_BK NSUInteger       (^valueNSRangeLength)(void);
+@property LB_BK NSUInteger       (^valueNSRangeLocation)(void);
 
 #pragma mark - Foundation Extend/补充
-/** <^()> 数字或结构体是否是初始值 */
-LBDeclare BOOL             (^valueIsBlank)(void);
-/** <^()> NSNumber,c number */
-LBDeclare NSNumber *       (^valueIsNumber)(void);
-/** <^()> struc and Class */
-LBDeclare NSNumber *       (^valueIsStruct)(void);
+/** 数字或结构体是否是初始值 */
+@property LB_BK BOOL             (^valueIsBlank)(void);
+/** NSNumber,c number */
+@property LB_BK NSNumber *       (^valueIsNumber)(void);
+/** struc and Class */
+@property LB_BK NSNumber *       (^valueIsStruct)(void);
 
 
 

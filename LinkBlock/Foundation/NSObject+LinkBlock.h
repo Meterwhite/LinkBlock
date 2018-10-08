@@ -16,76 +16,76 @@
 @interface NSObject(LinkBlock)
 
 #pragma mark - Foundation Mirror
-LBDeclare NSObject*    (^objCopy)(void);
-LBDeclare NSObject*    (^objMutableCopy)(void);
+@property LB_BK NSObject*    (^objCopy)(void);
+@property LB_BK NSObject*    (^objMutableCopy)(void);
 /** NSLog(@"%@",self); */
-LBDeclare NSObject*    (^nslog)(void);
-LBDeclare BOOL         (^objIsEqual)(id obj);
-LBDeclare NSNumber*    (^objIsEqualAs)(id obj);
-LBDeclare NSString*    (^objClassName)(void);
-LBDeclare NSString*    (^objSuperclassName)(void);
+@property LB_BK NSObject*    (^nslog)(void);
+@property LB_BK BOOL         (^objIsEqual)(id obj);
+@property LB_BK NSNumber*    (^objIsEqualAs)(id obj);
+@property LB_BK NSString*    (^objClassName)(void);
+@property LB_BK NSString*    (^objSuperclassName)(void);
 
-LBDeclare BOOL         (^objIsRespondsSEL)(SEL sel);
-LBDeclare NSNumber*    (^objIsRespondsSELAs)(SEL sel);
-LBDeclare BOOL         (^objIsKindOf)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsKindOfAs)( __unsafe_unretained Class clazz);
-LBDeclare BOOL         (^objIsSubClassOf)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsSubClassOfAs)( __unsafe_unretained Class clazz);
-LBDeclare BOOL         (^objIsMemberOfClass)( __unsafe_unretained Class clazz);
-LBDeclare NSNumber*    (^objIsMemberOfClassAs)( __unsafe_unretained Class clazz);
+@property LB_BK BOOL         (^objIsRespondsSEL)(SEL sel);
+@property LB_BK NSNumber*    (^objIsRespondsSELAs)(SEL sel);
+@property LB_BK BOOL         (^objIsKindOf)( __unsafe_unretained Class clazz);
+@property LB_BK NSNumber*    (^objIsKindOfAs)( __unsafe_unretained Class clazz);
+@property LB_BK BOOL         (^objIsSubClassOf)( __unsafe_unretained Class clazz);
+@property LB_BK NSNumber*    (^objIsSubClassOfAs)( __unsafe_unretained Class clazz);
+@property LB_BK BOOL         (^objIsMemberOfClass)( __unsafe_unretained Class clazz);
+@property LB_BK NSNumber*    (^objIsMemberOfClassAs)( __unsafe_unretained Class clazz);
 
 /** result nil==>NSNull , NSNull.linkEnd == nil */
-LBDeclare NSObject*    (^objValueForKey)(NSString* key);
+@property LB_BK NSObject*    (^objValueForKey)(NSString* key);
 /** result nil==>NSNull , NSNull.linkEnd == nil */
-LBDeclare NSObject*    (^objValueForKeyPath)(NSString* key);
-LBDeclare NSObject*    (^objSetValueForKey)(id value,NSString* key);
-LBDeclare NSObject*    (^objSetValueForKeyPath)(id value,NSString* key);
-LBDeclare NSObject*    (^objSetValuesWithKeyValues)(NSDictionary<NSString *,id> * keyValues);
-LBDeclare NSDictionary*(^objKeyValueWithKeys)(NSArray<NSString*>*keys);
-LBDeclare NSObject*    (^objPerformSelector)(SEL sel);
+@property LB_BK NSObject*    (^objValueForKeyPath)(NSString* key);
+@property LB_BK NSObject*    (^objSetValueForKey)(id value,NSString* key);
+@property LB_BK NSObject*    (^objSetValueForKeyPath)(id value,NSString* key);
+@property LB_BK NSObject*    (^objSetValuesWithKeyValues)(NSDictionary<NSString *,id> * keyValues);
+@property LB_BK NSDictionary*(^objKeyValueWithKeys)(NSArray<NSString*>*keys);
+@property LB_BK NSObject*    (^objPerformSelector)(SEL sel);
 
 #pragma mark - Foundation Fast
 /** 是否是block对象 */
-LBDeclare BOOL         (^objIsKindOfNSBlock)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSStringAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSArrayAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSDictionaryAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfUIViewAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSValueAs)(void);
-LBDeclare NSNumber*    (^objIsKindOfNSNumberAs)(void);
-LBDeclare NSObject*    (^objSetValueForKdelegate)(id value);
-LBDeclare NSObject*    (^objSetValueForKdataSource)(id value);
-LBDeclare NSObject*    (^objSetValueForKtext)(id value);
+@property LB_BK BOOL         (^objIsKindOfNSBlock)(void);
+@property LB_BK NSNumber*    (^objIsKindOfNSStringAs)(void);
+@property LB_BK NSNumber*    (^objIsKindOfNSArrayAs)(void);
+@property LB_BK NSNumber*    (^objIsKindOfNSDictionaryAs)(void);
+@property LB_BK NSNumber*    (^objIsKindOfUIViewAs)(void);
+@property LB_BK NSNumber*    (^objIsKindOfNSValueAs)(void);
+@property LB_BK NSNumber*    (^objIsKindOfNSNumberAs)(void);
+@property LB_BK NSObject*    (^objSetValueForKdelegate)(id value);
+@property LB_BK NSObject*    (^objSetValueForKdataSource)(id value);
+@property LB_BK NSObject*    (^objSetValueForKtext)(id value);
 /** 打印对象引用计数器 */
-LBDeclare_F NSObject*  logRetainCount;
+@property LB_F NSObject*  logRetainCount;
 /** <^()>获取对象的引用计数器 */
-LBDeclare_F CFIndex    objRetainCount;
+@property LB_F CFIndex    objRetainCount;
 
 
 #pragma mark - Foundation Extent
 /** 是否是可变类型*/
-LBDeclare BOOL         (^objIsMutable)(void);
-LBDeclare NSNumber*    (^objIsMutableAs)(void);
+@property LB_BK BOOL         (^objIsMutable)(void);
+@property LB_BK NSNumber*    (^objIsMutableAs)(void);
 /** 可变拷贝并且操作到子项 */
-LBDeclare NSObject*    (^objMutableCopyEnumerate)(void);
+@property LB_BK NSObject*    (^objMutableCopyEnumerate)(void);
 /** <^()> 不可变对象转为可变对象，否则不会发生任何事 */
-LBDeclare NSObject*    (^objNeedMutable)(void);
+@property LB_BK NSObject*    (^objNeedMutable)(void);
 /** <^(NSString* key)>输出对象Key对应的值 */
-LBDeclare NSObject*    (^nslogValueForKey)(NSString* key);
+@property LB_BK NSObject*    (^nslogValueForKey)(NSString* key);
 /** <^(NSString* key)> */
-LBDeclare NSObject*    (^nslogValueForKeyPath)(NSString* key);
+@property LB_BK NSObject*    (^nslogValueForKeyPath)(NSString* key);
 /** asKey∈{NSString,NSArray} */
-LBDeclare NSObject*    (^objSetNilForKey)(id asKey);
+@property LB_BK NSObject*    (^objSetNilForKey)(id asKey);
 /** asKey∈{NSString,NSArray} */
-LBDeclare NSObject*    (^objSetRandomStringForKey)(id asKey, NSUInteger len);
+@property LB_BK NSObject*    (^objSetRandomStringForKey)(id asKey, NSUInteger len);
 /** asKey∈{NSString,NSArray} */
-LBDeclare NSObject*    (^objSetRandomStringzh_CNForKey)(id asKey, NSUInteger len);
+@property LB_BK NSObject*    (^objSetRandomStringzh_CNForKey)(id asKey, NSUInteger len);
 /** asKey∈{NSString,NSArray}随机数字字符串，不会以'0'作为开始 */
-LBDeclare NSObject*    (^objSetRandomStringNumberForKey)(id asKey, NSUInteger len);
+@property LB_BK NSObject*    (^objSetRandomStringNumberForKey)(id asKey, NSUInteger len);
 /** asKey∈{NSString,NSArray} set integer value */
-LBDeclare NSObject*    (^objSetRandomNumberForKey)(id asKey, uint32_t max);
+@property LB_BK NSObject*    (^objSetRandomNumberForKey)(id asKey, uint32_t max);
 /** asKey∈{NSString,NSArray} set double value */
-LBDeclare NSObject*    (^objSetRandomDoubleForKey)(id asKey, uint32_t max, NSUInteger len);
+@property LB_BK NSObject*    (^objSetRandomDoubleForKey)(id asKey, uint32_t max, NSUInteger len);
 /**
  *  asKey∈{NSString,NSArray} set NSDate
  *  days∈{NSNumber,NSArray<NSNumber>}
@@ -93,7 +93,7 @@ LBDeclare NSObject*    (^objSetRandomDoubleForKey)(id asKey, uint32_t max, NSUIn
  *  days == @[@(-30) , @(30)]，random in the past 30 days or next 30 days
  *  days == nil or @0，random in the past 24 hours
  */
-LBDeclare NSObject*    (^objSetRandomDateForKey)(id asKey,id days);
+@property LB_BK NSObject*    (^objSetRandomDateForKey)(id asKey,id days);
 /**
  *  <^(NSString* key)>
  *  bool取反: bool type=<YES/NO>,NSNumber 同理<@YES/@NO>,
@@ -104,83 +104,83 @@ LBDeclare NSObject*    (^objSetRandomDateForKey)(id asKey,id days);
  *  UIEdgeInsets,NSDirectionalEdgeInsets 交换上下值,交换左右值
  *  特别的：属性类型是c的直接量属性时,无法区分这三种类型<bool,char,xyShort>,此处按bool对待
  */
-LBDeclare NSObject*    (^objReverseValueForKey)(NSString* key);
+@property LB_BK NSObject*    (^objReverseValueForKey)(NSString* key);
 /** 字符串类型和数字类型随机赋较短的值，排除readonly和无'_成员变量'的属性 */
 /** <^()> 清空所有可访问的属性的值为默认值，排除readonly和无'_成员变量'的属性 */
-LBDeclare NSObject*    (^objSetAllValuesBlank)(void);
+@property LB_BK NSObject*    (^objSetAllValuesBlank)(void);
 
-LBDeclare NSObject*    (^objPerformSelectors)(SEL sel0,...);
-LBDeclare NSObject*    (^objPerformSelectorArgument)(SEL sel,id arg);
-LBDeclare NSObject*    (^objPerformsSelectorArguments)(SEL sel0,NSArray* args0,...);
+@property LB_BK NSObject*    (^objPerformSelectors)(SEL sel0,...);
+@property LB_BK NSObject*    (^objPerformSelectorArgument)(SEL sel,id arg);
+@property LB_BK NSObject*    (^objPerformsSelectorArguments)(SEL sel0,NSArray* args0,...);
 /**
  *返回调用结果的形式
  *调用void返回方法时返回结果为NSNull,所有nil的返回值也都装箱为NSNull；
  **/
-LBDeclare NSObject*    (^objPerformSelectorAsWhatReturn)(SEL sel);
-LBDeclare NSArray*     (^objPerformSelectorsAsWhatReturns)(SEL sel0,...);
-LBDeclare NSObject*    (^objPerformSelectorArgumentAsWhatReturn)(SEL sel,id arg);
-LBDeclare NSArray*     (^objPerformsSelectorArgumentsAsWhatReturns)(SEL sel0,NSArray*args0,...);
+@property LB_BK NSObject*    (^objPerformSelectorAsWhatReturn)(SEL sel);
+@property LB_BK NSArray*     (^objPerformSelectorsAsWhatReturns)(SEL sel0,...);
+@property LB_BK NSObject*    (^objPerformSelectorArgumentAsWhatReturn)(SEL sel,id arg);
+@property LB_BK NSArray*     (^objPerformsSelectorArgumentsAsWhatReturns)(SEL sel0,NSArray*args0,...);
 
 
 
 #pragma mark - Weak coding/弱类型编码
 /** for NSJSONSerialization */
-LBDeclare NSString*    (^objToJsonString)(void);
+@property LB_BK NSString*    (^objToJsonString)(void);
 /** retrun value can be used to NSJSONSerialization  */
-LBDeclare NSObject*    (^objToNSJsonObject)(void);
-LBDeclare NSObject*    (^objToNSJsonObjectDepth)(void);
-LBDeclare NSObject*    (^objToNSJsonObjectFoundation)(void);
-LBDeclare NSObject*    (^objToNSJsonObjectDepthAndFoundation)(void);
+@property LB_BK NSObject*    (^objToNSJsonObject)(void);
+@property LB_BK NSObject*    (^objToNSJsonObjectDepth)(void);
+@property LB_BK NSObject*    (^objToNSJsonObjectFoundation)(void);
+@property LB_BK NSObject*    (^objToNSJsonObjectDepthAndFoundation)(void);
 /** self is not a collection object  */
-LBDeclare NSDictionary*(^objToNSDictionary)(void);
-LBDeclare NSDictionary*(^objToNSDictionaryWithKeys)(NSArray* asKey);
+@property LB_BK NSDictionary*(^objToNSDictionary)(void);
+@property LB_BK NSDictionary*(^objToNSDictionaryWithKeys)(NSArray* asKey);
 /** <^()> <JSValue & NSString> to nsnumber */
-LBDeclare NSNumber*    (^objToNSNumber)(void);
+@property LB_BK NSNumber*    (^objToNSNumber)(void);
 /** 集合中的前一个元素 objs∈{NSArray,NSOrderedSet} */
-LBDeclare NSObject*    (^objGetPrevItemFromObjs)(id objs);
+@property LB_BK NSObject*    (^objGetPrevItemFromObjs)(id objs);
 /** 集合中的后一个元素 */
-LBDeclare NSObject*    (^objGetNextItemFromObjs)(id objs);
+@property LB_BK NSObject*    (^objGetNextItemFromObjs)(id objs);
 /** 判断子项;obs∈{UIView,CALayer,UIViewController,NSIndexSet,.objectEnumerator} */
-LBDeclare NSNumber*    (^objIsSubitemOfObjAs)(id obj);
+@property LB_BK NSNumber*    (^objIsSubitemOfObjAs)(id obj);
 /** 判断集合子项;objs∈{.objectEnumerator,NSIndexSet} */
-LBDeclare BOOL         (^objIsSubitemOfObjs)(id objs);
-LBDeclare NSNumber*    (^objIsSubitemOfObjsAs)(id objs);
+@property LB_BK BOOL         (^objIsSubitemOfObjs)(id objs);
+@property LB_BK NSNumber*    (^objIsSubitemOfObjsAs)(id objs);
 /** 判断集合子项;objs∈{.keyEnumerator} */
-LBDeclare BOOL         (^objIsKeyOfObjs)(id objs);
-LBDeclare NSNumber*    (^objIsKeyOfObjsAs)(id objs);
+@property LB_BK BOOL         (^objIsKeyOfObjs)(id objs);
+@property LB_BK NSNumber*    (^objIsKeyOfObjsAs)(id objs);
 /** 判断是否是数字类型或数字的字符串 */
-LBDeclare NSNumber*    (^objIsNumberAs)(void);
+@property LB_BK NSNumber*    (^objIsNumberAs)(void);
 /** 判断集合类型∈{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
-LBDeclare NSNumber*    (^objIsCollectionAs)(void);
+@property LB_BK NSNumber*    (^objIsCollectionAs)(void);
 /** <^(id obj)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
-LBDeclare NSObject*    (^objAdd)(id obj);
+@property LB_BK NSObject*    (^objAdd)(id obj);
 /** <^(id obj)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
-LBDeclare NSObject*    (^objAddTo)(id obj);
+@property LB_BK NSObject*    (^objAddTo)(id obj);
 /** objAddTo调用后，将链条切换到参数 */
-LBDeclare NSObject*    (^objAddToAsWhatSet)(id obj);
+@property LB_BK NSObject*    (^objAddToAsWhatSet)(id obj);
 /** <^(id obj , NSUInteger idx)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
-LBDeclare NSObject*    (^objInsert)(id obj , NSUInteger idx);
+@property LB_BK NSObject*    (^objInsert)(id obj , NSUInteger idx);
 /** <^(id obj , NSUInteger idx)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
-LBDeclare NSObject*    (^objInsertTo)(id obj , NSUInteger idx);
+@property LB_BK NSObject*    (^objInsertTo)(id obj , NSUInteger idx);
 /** objInsertTo调用后，将链条切换到参数 */
-LBDeclare NSObject*    (^objInsertToAsWhatSet)(id obj , NSUInteger idx);
+@property LB_BK NSObject*    (^objInsertToAsWhatSet)(id obj , NSUInteger idx);
 /** <^(id obj)>弱类型化移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项, */
-LBDeclare NSObject*    (^objRemove)(id obj);
+@property LB_BK NSObject*    (^objRemove)(id obj);
 /** <^(id obj)>弱类型化移除;<UIView>时为移除子视图,<String>时为移除字符串,<Array>等集合类型为移除子项,<Dictionary>时为移除键相关的项.<UILable|UITextFild|UITextView|UISearchBar>时为清除文本内容 */
-LBDeclare NSObject*    (^objRemoveAll)(void);
+@property LB_BK NSObject*    (^objRemoveAll)(void);
 
 /** <^(id obj)>弱类型化移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
-LBDeclare NSObject*    (^objRemoveFrom)(id obj);
+@property LB_BK NSObject*    (^objRemoveFrom)(id obj);
 /** objRemoveFrom调用后，将链条切换到参数 */
-LBDeclare NSObject*    (^objRemoveFromAsWhatSet)(id obj);
+@property LB_BK NSObject*    (^objRemoveFromAsWhatSet)(id obj);
 
 
 
 #pragma mark - LinkBlock
 /** 打印json形式的对象 */
-LBDeclare NSObject*    (^po)(void);
+@property LB_BK NSObject*    (^po)(void);
 /** 打印json形式的对象，深度遍历的，展开的 */
-LBDeclare NSObject*    (^poDetail)(void);
+@property LB_BK NSObject*    (^poDetail)(void);
 /** <^(id obj)>弱类型化判断对象是否有内容
  检查项为：
  字符串是否有内容
@@ -189,30 +189,30 @@ LBDeclare NSObject*    (^poDetail)(void);
  控件是否有子控件
  用户模型是否赋值
  */
-LBDeclare BOOL         (^objIsBlank)(void);
-LBDeclare BOOL         (^objIsNSNull)(void);
-LBDeclare NSNumber*    (^objIsNSNullAs)(void);
+@property LB_BK BOOL         (^objIsBlank)(void);
+@property LB_BK BOOL         (^objIsNSNull)(void);
+@property LB_BK NSNumber*    (^objIsNSNullAs)(void);
 
 /** <^()> 通过序列化的方式复制一份完全独立的对象 */
-LBDeclare NSObject*    (^objCopyByArchive)(void);
+@property LB_BK NSObject*    (^objCopyByArchive)(void);
 
-LBDeclare BOOL         (^objIsEqualToEach)(id obj,...);
-LBDeclare NSNumber*    (^objIsEqualToEachAs)(id obj,...);
-LBDeclare BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
-LBDeclare NSNumber*    (^objIsEqualToEachInArrayAs)(NSArray* arr);
-LBDeclare BOOL         (^objIsEqualToSomeone)(id obj,...);
-LBDeclare NSNumber*    (^objIsEqualToSomeoneAs)(id obj,...);
-LBDeclare BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
-LBDeclare NSNumber*    (^objIsEqualToSomeoneInArrayAs)(NSArray* arr);
+@property LB_BK BOOL         (^objIsEqualToEach)(id obj,...);
+@property LB_BK NSNumber*    (^objIsEqualToEachAs)(id obj,...);
+@property LB_BK BOOL         (^objIsEqualToEachInArray)(NSArray* arr);
+@property LB_BK NSNumber*    (^objIsEqualToEachInArrayAs)(NSArray* arr);
+@property LB_BK BOOL         (^objIsEqualToSomeone)(id obj,...);
+@property LB_BK NSNumber*    (^objIsEqualToSomeoneAs)(id obj,...);
+@property LB_BK BOOL         (^objIsEqualToSomeoneInArray)(NSArray* arr);
+@property LB_BK NSNumber*    (^objIsEqualToSomeoneInArrayAs)(NSArray* arr);
 
 
 
 
 #pragma mark - Block
 /** <^()>block的参数个数 */
-LBDeclare NSUInteger    (^blockArgsCount)(void);
+@property LB_BK NSUInteger    (^blockArgsCount)(void);
 /** <^()>block的返回类型 */
-LBDeclare const char *  (^blockReturnType)(void);
+@property LB_BK const char *  (^blockReturnType)(void);
 #pragma mark - Class
 /** 判断Foundation类型 */
 + (BOOL)classIsFoundation;
@@ -292,18 +292,18 @@ LBDeclare const char *  (^blockReturnType)(void);
 
 #pragma mark - Link
 @property (nonatomic,readonly) id              linkEnd;
-LBDeclare_F NSArray*        linkEnds;
-LBDeclare id                (^linkEndsAt)(NSUInteger idx);
-LBDeclare NSObject*         (^linkAnd)(id obj);
-LBDeclare NSObject*         (^linkTo)(id obj);
-LBDeclare NSObject*         (^linkOut)(NSUInteger idx);
-LBDeclare NSObject*         (^linkAt)(NSUInteger idx);
-LBDeclare_F NSObject*       linkFirstObj;
-LBDeclare_F NSObject*       linkLastObj;
-LBDeclare NSObject*         (^linkLoop)(NSUInteger count);
-LBDeclare NSObject*         (^linkIf)(BOOL condition);
-LBDeclare_F NSObject*       linkElse;
-LBDeclare_F NSObject*       linkReturn;
+@property LB_F NSArray*        linkEnds;
+@property LB_BK id                (^linkEndsAt)(NSUInteger idx);
+@property LB_BK NSObject*         (^linkAnd)(id obj);
+@property LB_BK NSObject*         (^linkTo)(id obj);
+@property LB_BK NSObject*         (^linkOut)(NSUInteger idx);
+@property LB_BK NSObject*         (^linkAt)(NSUInteger idx);
+@property LB_F NSObject*       linkFirstObj;
+@property LB_F NSObject*       linkLastObj;
+@property LB_BK NSObject*         (^linkLoop)(NSUInteger count);
+@property LB_BK NSObject*         (^linkIf)(BOOL condition);
+@property LB_F NSObject*       linkElse;
+@property LB_F NSObject*       linkReturn;
 
 - (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
 - (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;
@@ -331,7 +331,7 @@ LBDeclare_F NSObject*       linkReturn;
 /**
  End with "nil,NSNotFond" in linkBlock for structures
  */
-LBDeclare NSObject*  (^linkEvalCode)(NSString* code , ...);
+@property LB_BK NSObject*  (^linkEvalCode)(NSString* code , ...);
 @end
 
 

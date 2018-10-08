@@ -14,14 +14,14 @@
 @interface NSObject(NSMutableStringLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
-LBDeclare NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
-LBDeclare NSMutableString*     (^m_strAppend)(id obj);
-LBDeclare NSMutableString*     (^m_strReplace)(NSString* replaceStr, NSString* withStr);
-LBDeclare NSMutableString*     (^m_strDeleteInRange)(NSRange range);
+@property LB_BK NSMutableString*     (^m_strInsertStrAt)(NSString* str, NSUInteger idx);
+@property LB_BK NSMutableString*     (^m_strAppend)(id obj);
+@property LB_BK NSMutableString*     (^m_strReplace)(NSString* replaceStr, NSString* withStr);
+@property LB_BK NSMutableString*     (^m_strDeleteInRange)(NSRange range);
 
 #pragma mark - Foundation Speed/速度
 /** @"" */
-LBDeclare NSMutableString*     (^m_strClear)(void);
+@property LB_BK NSMutableString*     (^m_strClear)(void);
 
 
 @end

@@ -10,5 +10,5 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 @interface NSObject(JSManagedValueLinkBlock)
-LBDeclare JSManagedValue* (^jsManagedValueAddToManagedRef)(JSVirtualMachine* virtualMachine, id owner);
+@property LB_BK JSManagedValue* (^jsManagedValueAddToManagedRef)(JSVirtualMachine* virtualMachine, id owner);
 @end

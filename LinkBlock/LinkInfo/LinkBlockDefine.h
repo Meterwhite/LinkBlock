@@ -9,30 +9,22 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#ifndef ForLB
-#define ForLB (nonatomic,copy,readonly)
+#ifndef LB_BK
+#define LB_BK (nonatomic,copy,readonly)
 #endif
-
-/**
- 定义LinkBlock属性
- */
-#ifndef LBDeclare
-#define LBDeclare @property (nonatomic,copy,readonly)
-#endif
-
 
 /**
  定义LinkBlock方法
  */
-#ifndef LBDeclare_F
-#define LBDeclare_F @property (nonatomic,readonly)
+#ifndef  LB_F
+#define  LB_F (nonatomic,readonly)
 #endif
 
 /**
  定义LinkBlock属性并设置getter方法
  */
-#ifndef LBDeclareG
-#define LBDeclareG(getname) @property (nonatomic,copy,readonly,getter=getname)
+#ifndef LB_BKG
+#define LB_BKG(getname) (nonatomic,copy,readonly,getter=getname)
 #endif
 
 //////////////////////////////////////////////////////////////////////

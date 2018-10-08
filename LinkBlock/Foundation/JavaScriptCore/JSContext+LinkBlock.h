@@ -11,24 +11,24 @@
 @interface NSObject(JSContextLinkBlock)
 
 #pragma mark - Foundation Speed/速度
-LBDeclare JSValue*     (^jsContextValue)(id key);
-LBDeclare JSContext*   (^jsContextSetValue)(NSObject <NSCopying> * key, id value);
-LBDeclare JSValue*     (^jsContextEval)(NSString* script);
-LBDeclare JSValue*     (^jsContextCallFunc)(NSString* func , NSArray* args);
+@property LB_BK JSValue*     (^jsContextValue)(id key);
+@property LB_BK JSContext*   (^jsContextSetValue)(NSObject <NSCopying> * key, id value);
+@property LB_BK JSValue*     (^jsContextEval)(NSString* script);
+@property LB_BK JSValue*     (^jsContextCallFunc)(NSString* func , NSArray* args);
 
 #pragma mark - LinkBlock
 
-LBDeclare JSValue*     (^jsContextGetElementById)(NSString* elementId, NSString* appendScript);
-LBDeclare JSValue*     (^jsContextGetElementsByName)(NSString* name, NSString* appendScript);
-LBDeclare JSValue*     (^jsContextGetElementsByTagName)(NSString* tagName, NSString* appendScript);
-LBDeclare NSString*    (^jsContextTitle)(void);
-LBDeclare NSString*    (^jsContextHTML)(void);
-LBDeclare NSString*    (^jsContextLocationHref)(void);
-LBDeclare JSContext*   (^jsContextLocationReload)(void);
-LBDeclare JSContext*   (^jsContextWrite)(NSString* str);
-LBDeclare JSContext*   (^jsContextAlert)(NSString* str);
-LBDeclare JSContext*   (^jsContextHistoryBack)(void);
-LBDeclare JSContext*   (^jsContextHistoryForward)(void);
+@property LB_BK JSValue*     (^jsContextGetElementById)(NSString* elementId, NSString* appendScript);
+@property LB_BK JSValue*     (^jsContextGetElementsByName)(NSString* name, NSString* appendScript);
+@property LB_BK JSValue*     (^jsContextGetElementsByTagName)(NSString* tagName, NSString* appendScript);
+@property LB_BK NSString*    (^jsContextTitle)(void);
+@property LB_BK NSString*    (^jsContextHTML)(void);
+@property LB_BK NSString*    (^jsContextLocationHref)(void);
+@property LB_BK JSContext*   (^jsContextLocationReload)(void);
+@property LB_BK JSContext*   (^jsContextWrite)(NSString* str);
+@property LB_BK JSContext*   (^jsContextAlert)(NSString* str);
+@property LB_BK JSContext*   (^jsContextHistoryBack)(void);
+@property LB_BK JSContext*   (^jsContextHistoryForward)(void);
 /** page ∈ {-1,0,1,2...} */
-LBDeclare JSContext*   (^jsContextHistoryGo)(NSString* page);
+@property LB_BK JSContext*   (^jsContextHistoryGo)(NSString* page);
 @end

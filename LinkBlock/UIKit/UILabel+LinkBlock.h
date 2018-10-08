@@ -13,25 +13,25 @@
 @interface NSObject(UILabelLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
-LBDeclare UILabel*         (^labAlignment)(NSTextAlignment alighment);
-LBDeclare UILabel*         (^labNumberOfLines)(NSInteger lines);
-LBDeclare UILabel*         (^labText)(NSString* txt);
-LBDeclare UILabel*         (^labTextColor)(UIColor* color);
-LBDeclare UILabel*         (^labFont)(UIFont* font);
-LBDeclare UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
+@property LB_BK UILabel*         (^labAlignment)(NSTextAlignment alighment);
+@property LB_BK UILabel*         (^labNumberOfLines)(NSInteger lines);
+@property LB_BK UILabel*         (^labText)(NSString* txt);
+@property LB_BK UILabel*         (^labTextColor)(UIColor* color);
+@property LB_BK UILabel*         (^labFont)(UIFont* font);
+@property LB_BK UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
 #pragma mark - Foundation Speed/速度
-LBDeclare UILabel*         (^labAlignmentCenter)(void);
-LBDeclare UILabel*         (^labAlignmentRight)(void);
-LBDeclare UILabel*         (^labAlignmentLeft)(void);
+@property LB_BK UILabel*         (^labAlignmentCenter)(void);
+@property LB_BK UILabel*         (^labAlignmentRight)(void);
+@property LB_BK UILabel*         (^labAlignmentLeft)(void);
 #pragma mark - Foundation Extend/补充
-LBDeclare CGFloat          (^labFontSystemSizeGet)(void);
+@property LB_BK CGFloat          (^labFontSystemSizeGet)(void);
 
 
 #pragma mark - LinkBlock
 /** 根据当前标题的亮色（40%）设置高亮状态标题色 */
-LBDeclare UILabel*         (^labHighlightedTextColorLightByTextColor)(void);
+@property LB_BK UILabel*         (^labHighlightedTextColorLightByTextColor)(void);
 /** 根据当前标题的暗色（40%）设置高亮状态标题色 */
-LBDeclare UILabel*         (^labHighlightedTextColorDarkByTextColor)(void);
+@property LB_BK UILabel*         (^labHighlightedTextColorDarkByTextColor)(void);
 
 
 @end
@@ -39,8 +39,8 @@ LBDeclare UILabel*         (^labHighlightedTextColorDarkByTextColor)(void);
 #pragma mark - LinkBlock
 @interface UILabel(UILabelLinkBlock)
 /** 扩展触摸识别区域；如果扩展范围和其它控件重叠，应该禁用它的交互或者将本控件置于它之上； */
-LBDeclare UILabel* (^labExtensionOfTouchSide)(UIEdgeInsets insets);
+@property LB_BK UILabel* (^labExtensionOfTouchSide)(UIEdgeInsets insets);
 
 /** 扩展出没识别区域；rects内是参考自身坐标系的相对位置 */
-LBDeclare UILabel* (^labExtensionOfTouchRects)(NSArray<NSString*>* rects);
+@property LB_BK UILabel* (^labExtensionOfTouchRects)(NSArray<NSString*>* rects);
 @end

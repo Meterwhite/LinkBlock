@@ -805,4 +805,58 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
         return [(id)self timeIntervalSince1970];
     };
 }
+
+
+- (BOOL (^)(id))strPredicateEvaluate
+{
+    return ^(id obj){
+        return self.strPredicateEvaluateAs(obj).boolValue;
+    };
+}
+- (NSNumber *(^)(id))strPredicateEvaluateAs
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPredicateEvaluateAs , obj)
+        return @([[NSPredicate predicateWithFormat:_self] evaluateWithObject:obj]);
+    };
+}
+
+- (NSArray *(^)(NSArray *))strPredicateFilteredArray
+{
+    return ^id(NSArray* arr){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPredicateFilteredArray , arr)
+        return [arr filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:_self]];
+    };
+}
+
+- (NSString *(^)(id))strPredicateFilterMutable
+{
+    return ^id(id collection){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strPredicateFilterMutable,collection)
+        if([collection respondsToSelector:@selector(filterUsingPredicate:)]){
+            [collection filterUsingPredicate:[NSPredicate predicateWithFormat:_self]];
+        }
+        return _self;
+    };
+}
+- (NSObject *(^)(id))strKeyForValueWith
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strKeyForValueWith, obj)
+        return [obj valueForKey:_self];
+    };
+}
+
+- (NSObject *(^)(id))strKeyPathForValueWith
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strKeyPathForValueWith, obj)
+        return [obj valueForKeyPath:_self];
+    };
+}
 @end

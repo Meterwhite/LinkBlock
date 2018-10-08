@@ -13,18 +13,18 @@
 @interface NSObject(NSIndexPathLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
-LBDeclare NSIndexPath*      (^idxPathAdding)(NSUInteger idx);
-LBDeclare NSIndexPath*      (^idxPathRemovingLast)(void);
-LBDeclare NSUInteger        (^idxPathIndexAtPosition)(NSUInteger position);
+@property LB_BK NSIndexPath*      (^idxPathAdding)(NSUInteger idx);
+@property LB_BK NSIndexPath*      (^idxPathRemovingLast)(void);
+@property LB_BK NSUInteger        (^idxPathIndexAtPosition)(NSUInteger position);
 
 #pragma mark - Foundation Speed/速度
-LBDeclare BOOL              (^idxPathIsEqualSection)(NSInteger section);
-LBDeclare BOOL              (^idxPathIsEqualRow)(NSInteger row);
-LBDeclare BOOL              (^idxPathIsEqualItem)(NSInteger item);
+@property LB_BK BOOL              (^idxPathIsEqualSection)(NSInteger section);
+@property LB_BK BOOL              (^idxPathIsEqualRow)(NSInteger row);
+@property LB_BK BOOL              (^idxPathIsEqualItem)(NSInteger item);
 
 #pragma mark - LinkBlock
-LBDeclare NSArray*          (^idxPathToNSArray)(void);
-LBDeclare NSString*         (^idxPathToNSStringUsingJson)(void);
+@property LB_BK NSArray*          (^idxPathToNSArray)(void);
+@property LB_BK NSString*         (^idxPathToNSStringUsingJson)(void);
 
 
 @end

@@ -9,5 +9,5 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(NSErrorLinkBlock)
-LBDeclare NSObject*           (^errorValueInUserInfo)(id key);
+@property LB_BK NSObject*           (^errorValueInUserInfo)(id key);
 @end

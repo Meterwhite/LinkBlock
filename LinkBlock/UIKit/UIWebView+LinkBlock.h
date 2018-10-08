@@ -15,10 +15,10 @@
 @interface NSObject(UIWebViewLinkBlock)
 
 #pragma mark - Foundation Speed/速度
-LBDeclare JSContext*      (^webViewContext)(void);
-LBDeclare NSString*       (^webViewEvalScript)(NSString* script);
-LBDeclare NSString*       (^webViewTitle)(void);
-LBDeclare NSString*       (^webViewLocationHref)(void);
-LBDeclare NSString*       (^webViewHTML)(void);
+@property LB_BK JSContext*      (^webViewContext)(void);
+@property LB_BK NSString*       (^webViewEvalScript)(NSString* script);
+@property LB_BK NSString*       (^webViewTitle)(void);
+@property LB_BK NSString*       (^webViewLocationHref)(void);
+@property LB_BK NSString*       (^webViewHTML)(void);
 
 @end

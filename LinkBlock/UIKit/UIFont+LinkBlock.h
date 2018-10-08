@@ -15,10 +15,9 @@
 
 #pragma mark - Weak coding/弱类型编码
 
-LBDeclare UIFont*       (^fontSetToControl)(id asControl);
+@property LB_BK UIFont*       (^fontSetToControl)(id asControl);
 
 #pragma mark - LinkBlock
-/** 根据字体获得高度*/
-LBDeclare CGFloat       (^fontHeightWithLine)(NSUInteger line);
+@property LB_BK CGFloat       (^fontHeightWithLine)(NSUInteger line);
 
 @end

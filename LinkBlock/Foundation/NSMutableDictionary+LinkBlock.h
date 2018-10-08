@@ -14,13 +14,13 @@
 @interface NSObject(NSMutableDictionaryLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
-LBDeclare NSMutableDictionary* (^m_dictSetWithKeyObject)(id key , id object);
-LBDeclare NSMutableDictionary* (^m_dictAddEntries)(NSDictionary* dict);
+@property LB_BK NSMutableDictionary* (^m_dictSetWithKeyObject)(id key , id object);
+@property LB_BK NSMutableDictionary* (^m_dictAddEntries)(NSDictionary* dict);
 
 
 #pragma mark - LinkBlock
-LBDeclare NSMutableDictionary* (^m_dictReplaceForKey)(id key, id newKey);
-LBDeclare NSMutableDictionary* (^m_dictReplaceForKeyDepth)(id key, id newKey);
+@property LB_BK NSMutableDictionary* (^m_dictReplaceForKey)(id key, id newKey);
+@property LB_BK NSMutableDictionary* (^m_dictReplaceForKeyDepth)(id key, id newKey);
 
 
 #pragma mark - Foundation Speed/速度
@@ -36,27 +36,27 @@ LBDeclare NSMutableDictionary* (^m_dictReplaceForKeyDepth)(id key, id newKey);
 #endif
 
 
-LBDeclare NSMutableDictionary* (^makeAttrDictFontSizeAndTextColor)(CGFloat fontSize , UIColor* titleColor);
-LBDeclare NSMutableDictionary* (^makeAttrDictFont)(UIFont* font);
-LBDeclare NSMutableDictionary* (^makeAttrDictTextColor)(UIColor* textColor);
-LBDeclare NSMutableDictionary* (^makeAttrDictBGColor)(UIColor* bgColor);
-LBDeclare NSMutableDictionary* (^makeAttrDictAttachment)(NSTextAttachment* attachment);
-LBDeclare NSMutableDictionary* (^makeAttrDictParagraphStyle)(NSParagraphStyle* paragraphStyle);
-LBDeclare NSMutableDictionary* (^makeAttrDictLigature)(NSNumber *num);
-LBDeclare NSMutableDictionary* (^makeAttrDictKern)(NSNumber *num);
-LBDeclare NSMutableDictionary* (^makeAttrDictStrikethroughStyle)(NSNumber *num);
-LBDeclare NSMutableDictionary* (^makeAttrDictUnderlineStyle)(NSUnderlineStyle underlineStyle);
-LBDeclare NSMutableDictionary* (^makeAttrDictStrokeColor)(UIColor* bgColor);
-LBDeclare NSMutableDictionary* (^makeAttrDictStrokeWidth)(NSNumber *num);
-LBDeclare NSMutableDictionary* (^makeAttrDictShadow)(NSShadow* shadown);
-LBDeclare NSMutableDictionary* (^makeAttrDictTextEffect)(NSString* textEffect);
-LBDeclare NSMutableDictionary* (^makeAttrDictLink)(NSURL* linkURL);
-LBDeclare NSMutableDictionary* (^makeAttrDictBaselineOffset)(NSNumber *num);
-LBDeclare NSMutableDictionary* (^makeAttrDictUnderlineColor)(UIColor* underlineColor);
-LBDeclare NSMutableDictionary* (^makeAttrDictStrikethroughColor)(UIColor* bgColor);
-LBDeclare NSMutableDictionary* (^makeAttrDictObliquenes)(NSNumber *num);
-LBDeclare NSMutableDictionary* (^makeAttrDictExpansion)(NSNumber *num);
-LBDeclare NSMutableDictionary* (^makeAttrDictWritingDirection)(NSArray* writingDirection);
-LBDeclare NSMutableDictionary* (^makeAttrDictVerticalGlyphForm)(NSNumber *num);
+@property LB_BK NSMutableDictionary* (^makeAttrDictFontSizeAndTextColor)(CGFloat fontSize , UIColor* titleColor);
+@property LB_BK NSMutableDictionary* (^makeAttrDictFont)(UIFont* font);
+@property LB_BK NSMutableDictionary* (^makeAttrDictTextColor)(UIColor* textColor);
+@property LB_BK NSMutableDictionary* (^makeAttrDictBGColor)(UIColor* bgColor);
+@property LB_BK NSMutableDictionary* (^makeAttrDictAttachment)(NSTextAttachment* attachment);
+@property LB_BK NSMutableDictionary* (^makeAttrDictParagraphStyle)(NSParagraphStyle* paragraphStyle);
+@property LB_BK NSMutableDictionary* (^makeAttrDictLigature)(NSNumber *num);
+@property LB_BK NSMutableDictionary* (^makeAttrDictKern)(NSNumber *num);
+@property LB_BK NSMutableDictionary* (^makeAttrDictStrikethroughStyle)(NSNumber *num);
+@property LB_BK NSMutableDictionary* (^makeAttrDictUnderlineStyle)(NSUnderlineStyle underlineStyle);
+@property LB_BK NSMutableDictionary* (^makeAttrDictStrokeColor)(UIColor* bgColor);
+@property LB_BK NSMutableDictionary* (^makeAttrDictStrokeWidth)(NSNumber *num);
+@property LB_BK NSMutableDictionary* (^makeAttrDictShadow)(NSShadow* shadown);
+@property LB_BK NSMutableDictionary* (^makeAttrDictTextEffect)(NSString* textEffect);
+@property LB_BK NSMutableDictionary* (^makeAttrDictLink)(NSURL* linkURL);
+@property LB_BK NSMutableDictionary* (^makeAttrDictBaselineOffset)(NSNumber *num);
+@property LB_BK NSMutableDictionary* (^makeAttrDictUnderlineColor)(UIColor* underlineColor);
+@property LB_BK NSMutableDictionary* (^makeAttrDictStrikethroughColor)(UIColor* bgColor);
+@property LB_BK NSMutableDictionary* (^makeAttrDictObliquenes)(NSNumber *num);
+@property LB_BK NSMutableDictionary* (^makeAttrDictExpansion)(NSNumber *num);
+@property LB_BK NSMutableDictionary* (^makeAttrDictWritingDirection)(NSArray* writingDirection);
+@property LB_BK NSMutableDictionary* (^makeAttrDictVerticalGlyphForm)(NSNumber *num);
 @end
 

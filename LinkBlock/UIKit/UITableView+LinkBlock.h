@@ -14,8 +14,8 @@
 @interface NSObject(UITableViewLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
-LBDeclare UITableView*       (^tab_viewDelegate)(id<UITableViewDelegate> delegate);
-LBDeclare UITableView*       (^tab_viewDataSource)(id<UITableViewDataSource> datasource);
-LBDeclare UITableView*       (^tab_viewShowsHorizontal)(BOOL b);
-LBDeclare UITableView*       (^tab_viewShowsVertical)(BOOL b);
+@property LB_BK UITableView*       (^tab_viewDelegate)(id<UITableViewDelegate> delegate);
+@property LB_BK UITableView*       (^tab_viewDataSource)(id<UITableViewDataSource> datasource);
+@property LB_BK UITableView*       (^tab_viewShowsHorizontal)(BOOL b);
+@property LB_BK UITableView*       (^tab_viewShowsVertical)(BOOL b);
 @end

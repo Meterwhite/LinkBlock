@@ -43,34 +43,34 @@
 @property(nonatomic,copy,readonly)
     CAAnimation*(^animationRemovedOnCompletion)(BOOL removedOnCompletion);
 
-LBDeclare CAAnimation*              (^animationTimingFunction)(CAMediaTimingFunction* timingFunction);
+@property LB_BK CAAnimation*              (^animationTimingFunction)(CAMediaTimingFunction* timingFunction);
 
 #pragma mark -- CAPropertyAnimation
-LBDeclare CAPropertyAnimation*      (^animationKeyPath)(NSString *keyPath);
-LBDeclare CAPropertyAnimation*      (^animationValueFunction)(CAValueFunction *valueFunction);
+@property LB_BK CAPropertyAnimation*      (^animationKeyPath)(NSString *keyPath);
+@property LB_BK CAPropertyAnimation*      (^animationValueFunction)(CAValueFunction *valueFunction);
 
 #pragma mark -- CAKeyframeAnimation
-LBDeclare CAKeyframeAnimation*      (^animationValues)(NSArray *values);
-LBDeclare CAKeyframeAnimation*      (^animationPath)(CGPathRef path);
-LBDeclare CAKeyframeAnimation*      (^animationKeyTimes)(NSArray<NSNumber *> *keyTimes);
-LBDeclare CAKeyframeAnimation*      (^animationTimingFunctions)(NSArray<CAMediaTimingFunction *> *timingFunctions);
-LBDeclare CAKeyframeAnimation*      (^animationCalculationMode)(NSString *calculationMode);
-LBDeclare CAKeyframeAnimation*      (^animationTensionValues)(NSArray<NSNumber *> *tensionValues);
-LBDeclare CAKeyframeAnimation*      (^animationContinuityValues)(NSArray<NSNumber *> *continuityValues);
-LBDeclare CAKeyframeAnimation*      (^animationBiasValues)(NSArray<NSNumber *> *biasValues);
-LBDeclare CAKeyframeAnimation*      (^animationRotationMode)(NSString *rotationMode);
+@property LB_BK CAKeyframeAnimation*      (^animationValues)(NSArray *values);
+@property LB_BK CAKeyframeAnimation*      (^animationPath)(CGPathRef path);
+@property LB_BK CAKeyframeAnimation*      (^animationKeyTimes)(NSArray<NSNumber *> *keyTimes);
+@property LB_BK CAKeyframeAnimation*      (^animationTimingFunctions)(NSArray<CAMediaTimingFunction *> *timingFunctions);
+@property LB_BK CAKeyframeAnimation*      (^animationCalculationMode)(NSString *calculationMode);
+@property LB_BK CAKeyframeAnimation*      (^animationTensionValues)(NSArray<NSNumber *> *tensionValues);
+@property LB_BK CAKeyframeAnimation*      (^animationContinuityValues)(NSArray<NSNumber *> *continuityValues);
+@property LB_BK CAKeyframeAnimation*      (^animationBiasValues)(NSArray<NSNumber *> *biasValues);
+@property LB_BK CAKeyframeAnimation*      (^animationRotationMode)(NSString *rotationMode);
 
 #pragma mark -- CASpringAnimation
-LBDeclare CASpringAnimation*        (^animationMass)(CGFloat mass);
-LBDeclare CASpringAnimation*        (^animationStiffness)(CGFloat stiffness);
-LBDeclare CASpringAnimation*        (^animationDamping)(CGFloat damping);
-LBDeclare CASpringAnimation*        (^animationInitialVelocity)(CGFloat initialVelocity);
+@property LB_BK CASpringAnimation*        (^animationMass)(CGFloat mass);
+@property LB_BK CASpringAnimation*        (^animationStiffness)(CGFloat stiffness);
+@property LB_BK CASpringAnimation*        (^animationDamping)(CGFloat damping);
+@property LB_BK CASpringAnimation*        (^animationInitialVelocity)(CGFloat initialVelocity);
 
 #pragma mark -- CABasicAnimation
-LBDeclare CABasicAnimation*         (^animationFromValue)(id value);
-LBDeclare CABasicAnimation*         (^animationToValue)(id value);
-LBDeclare CABasicAnimation*         (^animationByValue)(id value);
+@property LB_BK CABasicAnimation*         (^animationFromValue)(id value);
+@property LB_BK CABasicAnimation*         (^animationToValue)(id value);
+@property LB_BK CABasicAnimation*         (^animationByValue)(id value);
 
 #pragma mark -- CAAnimationGroup
-LBDeclare CAAnimationGroup*         (^animationGroupAnimations)(NSArray<CAAnimation *> *animations);
+@property LB_BK CAAnimationGroup*         (^animationGroupAnimations)(NSArray<CAAnimation *> *animations);
 @end

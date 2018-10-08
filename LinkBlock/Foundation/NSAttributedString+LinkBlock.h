@@ -10,24 +10,24 @@
 @interface NSObject(NSAttributedStringLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
-LBDeclare BOOL     (^attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
-LBDeclare NSNumber*(^attr_strIsEqualToAttrStrAs)(NSAttributedString* attrStr);
+@property LB_BK BOOL     (^attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
+@property LB_BK NSNumber*(^attr_strIsEqualToAttrStrAs)(NSAttributedString* attrStr);
 
 
 
 #pragma mark - Foundation Speed/速度
 /** use boundingRectWithSize */
-LBDeclare CGRect   (^attr_strSize)(CGFloat maxWidth);
-LBDeclare NSValue* (^attr_strSizeAs)(CGFloat maxWidth);
-LBDeclare CGRect   (^attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
-LBDeclare NSValue* (^attr_strSizeWithOptionsAs)(CGFloat maxWidth, NSStringDrawingOptions optoins);
+@property LB_BK CGRect   (^attr_strSize)(CGFloat maxWidth);
+@property LB_BK NSValue* (^attr_strSizeAs)(CGFloat maxWidth);
+@property LB_BK CGRect   (^attr_strSizeWithOptions)(CGFloat maxWidth, NSStringDrawingOptions optoins);
+@property LB_BK NSValue* (^attr_strSizeWithOptionsAs)(CGFloat maxWidth, NSStringDrawingOptions optoins);
 
 
 #pragma mark - Weak coding/弱类型编码
 /** switch link to paramiter */
-LBDeclare UIImage* (^attr_strDrawToImageAsWhatSet)(UIImage* image, CGRect rect);
+@property LB_BK UIImage* (^attr_strDrawToImageAsWhatSet)(UIImage* image, CGRect rect);
 /** switch link to paramiter */
-LBDeclare UIView* (^attr_strSetToControlAsWhatSet)(UIView* control);
+@property LB_BK UIView* (^attr_strSetToControlAsWhatSet)(UIView* control);
 
 
 @end

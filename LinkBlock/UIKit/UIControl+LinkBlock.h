@@ -9,15 +9,15 @@
 
 @interface NSObject(UIControlLinkBlock)
 #pragma mark - Foundation Mirror/镜像
-LBDeclare UIControl*  (^controlEnable)(BOOL enable);
-LBDeclare UIControl*  (^controlSelected)(BOOL enable);
-LBDeclare UIControl*  (^controlHighlighted)(BOOL enable);
-LBDeclare UIControl*  (^controlContentHorizontalAlignment)(UIControlContentHorizontalAlignment alignment);
-LBDeclare UIControl*  (^controlContentVerticalAlignment)(UIControlContentVerticalAlignment alignment);
+@property LB_BK UIControl*  (^controlEnable)(BOOL enable);
+@property LB_BK UIControl*  (^controlSelected)(BOOL enable);
+@property LB_BK UIControl*  (^controlHighlighted)(BOOL enable);
+@property LB_BK UIControl*  (^controlContentHorizontalAlignment)(UIControlContentHorizontalAlignment alignment);
+@property LB_BK UIControl*  (^controlContentVerticalAlignment)(UIControlContentVerticalAlignment alignment);
 
 #pragma mark - Foundation Speed/速度
-LBDeclare UIControl*  (^controlEnableYES)(void);
-LBDeclare UIControl*  (^controlEnableNO)(void);
+@property LB_BK UIControl*  (^controlEnableYES)(void);
+@property LB_BK UIControl*  (^controlEnableNO)(void);
 
 
 @end

@@ -9,11 +9,11 @@
 #import "LinkBlockDefine.h"
 
 @interface NSObject(NSURLLinkBlock)
-/** 系统照片url转图像，缩略图 */
-LBDeclare UIImage*         (^urlAssetsToUIImageByThumbnail)(void);
-/** 系统照片url转图像，高清图 */
-LBDeclare UIImage*         (^urlAssetsToUIImageByFullResolution)(void);
-/** 系统照片url转图像，全屏相片 */
-LBDeclare UIImage*         (^urlAssetsToUIImageByFullScreen)(void);
-LBDeclare NSData*          (^urlToNSDataFromContents)(void);
+/** url of system photo lib to UIImage.Thumbnail/缩略图 */
+@property LB_BK UIImage*         (^urlAssetsToUIImageByThumbnail)(void);
+/** FullResolution/高清图 */
+@property LB_BK UIImage*         (^urlAssetsToUIImageByFullResolution)(void);
+/** FullScreen/全屏相片 */
+@property LB_BK UIImage*         (^urlAssetsToUIImageByFullScreen)(void);
+@property LB_BK NSData*          (^urlToNSDataFromContents)(void);
 @end

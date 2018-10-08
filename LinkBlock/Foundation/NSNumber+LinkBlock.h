@@ -14,79 +14,79 @@
 /**
  use the same name macros of this is better
  */
-LBDeclare BOOL         (^numIsEqualToNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsEqualToNumAs)(NSNumber* num);
-LBDeclare BOOL         (^numIsGreatThanNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsGreatThanNumAs)(NSNumber* num);
-LBDeclare BOOL         (^numIsGreatEqualNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsGreatEqualNumAs)(NSNumber* num);
-LBDeclare BOOL         (^numIsLessThanNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsLessThanNumAs)(NSNumber* num);
-LBDeclare BOOL         (^numIsLessEqualNum)(NSNumber* num);
-LBDeclare NSNumber*    (^numIsLessEqualNumAs)(NSNumber* num);
+@property LB_BK BOOL         (^numIsEqualToNum)(NSNumber* num);
+@property LB_BK NSNumber*    (^numIsEqualToNumAs)(NSNumber* num);
+@property LB_BK BOOL         (^numIsGreatThanNum)(NSNumber* num);
+@property LB_BK NSNumber*    (^numIsGreatThanNumAs)(NSNumber* num);
+@property LB_BK BOOL         (^numIsGreatEqualNum)(NSNumber* num);
+@property LB_BK NSNumber*    (^numIsGreatEqualNumAs)(NSNumber* num);
+@property LB_BK BOOL         (^numIsLessThanNum)(NSNumber* num);
+@property LB_BK NSNumber*    (^numIsLessThanNumAs)(NSNumber* num);
+@property LB_BK BOOL         (^numIsLessEqualNum)(NSNumber* num);
+@property LB_BK NSNumber*    (^numIsLessEqualNumAs)(NSNumber* num);
 /** Determine Integer type/是否是整数类型 */
-LBDeclare BOOL         (^numIsIntegerType)(void);
+@property LB_BK BOOL         (^numIsIntegerType)(void);
 /** Determine Floating type/是否是浮点数类型 */
-LBDeclare BOOL         (^numIsFloatingType)(void);
+@property LB_BK BOOL         (^numIsFloatingType)(void);
 /** Determine c char/是否是c字符类型 */
-LBDeclare BOOL         (^numIsCharType)(void);
-LBDeclare BOOL         (^numIsBOOL)(void);
-LBDeclare BOOL         (^numIsChar)(void);
-LBDeclare BOOL         (^numIsShort)(void);
-LBDeclare BOOL         (^numIsInt)(void);
-LBDeclare BOOL         (^numIsLong)(void);
-LBDeclare BOOL         (^numIsLongLong)(void);
-LBDeclare BOOL         (^numIsUnsignedChar)(void);
-LBDeclare BOOL         (^numIsUnsignedShort)(void);
-LBDeclare BOOL         (^numIsUnsignedInt)(void);
-LBDeclare BOOL         (^numIsUnsignedLong)(void);
-LBDeclare BOOL         (^numIsUnsignedLongLong)(void);
-LBDeclare BOOL         (^numIsFloat)(void);
-LBDeclare BOOL         (^numIsDouble)(void);
+@property LB_BK BOOL         (^numIsCharType)(void);
+@property LB_BK BOOL         (^numIsBOOL)(void);
+@property LB_BK BOOL         (^numIsChar)(void);
+@property LB_BK BOOL         (^numIsShort)(void);
+@property LB_BK BOOL         (^numIsInt)(void);
+@property LB_BK BOOL         (^numIsLong)(void);
+@property LB_BK BOOL         (^numIsLongLong)(void);
+@property LB_BK BOOL         (^numIsUnsignedChar)(void);
+@property LB_BK BOOL         (^numIsUnsignedShort)(void);
+@property LB_BK BOOL         (^numIsUnsignedInt)(void);
+@property LB_BK BOOL         (^numIsUnsignedLong)(void);
+@property LB_BK BOOL         (^numIsUnsignedLongLong)(void);
+@property LB_BK BOOL         (^numIsFloat)(void);
+@property LB_BK BOOL         (^numIsDouble)(void);
 /** Determine 0(NSDecimalNumber.zero) */
-LBDeclare BOOL         (^numIsZero)(void);
-LBDeclare NSNumber*    (^numIsZeroAs)(void);
+@property LB_BK BOOL         (^numIsZero)(void);
+@property LB_BK NSNumber*    (^numIsZeroAs)(void);
 
 
 #pragma mark - Foundation Extend/补充
 /** Determine if include the value of decimal places:1.00=YES/包含小数位 */
-LBDeclare BOOL         (^numHasDecimalValue)(void);
-LBDeclare NSNumber*    (^numHasDecimalValueAs)(void);
+@property LB_BK BOOL         (^numHasDecimalValue)(void);
+@property LB_BK NSNumber*    (^numHasDecimalValueAs)(void);
 /** 判断奇数 */
-LBDeclare BOOL         (^numIsOdd)(void);
-LBDeclare NSNumber*    (^numIsOddAs)(void);
+@property LB_BK BOOL         (^numIsOdd)(void);
+@property LB_BK NSNumber*    (^numIsOddAs)(void);
 /** 判断偶数 */
-LBDeclare BOOL         (^numIsEven)(void);
-LBDeclare NSNumber*    (^numIsEvenAs)(void);
+@property LB_BK BOOL         (^numIsEven)(void);
+@property LB_BK NSNumber*    (^numIsEvenAs)(void);
 /** 判断负数 */
-LBDeclare BOOL         (^numIsNegative)(void);
-LBDeclare NSNumber*    (^numIsNegativeAs)(void);
+@property LB_BK BOOL         (^numIsNegative)(void);
+@property LB_BK NSNumber*    (^numIsNegativeAs)(void);
 /** 判断NaN(notANumber) */
-LBDeclare BOOL         (^numIsNaN)(void);
+@property LB_BK BOOL         (^numIsNaN)(void);
 /** 取相反数 (YES.NO),(123,-123) */
-LBDeclare NSNumber*    (^numReverse)(void);
+@property LB_BK NSNumber*    (^numReverse)(void);
 
 
 
 
 #pragma mark - Weak coding/弱类型编码
-LBDeclare NSDate*      (^numToNSDateSince1970)(void);
-LBDeclare UIFont*      (^numToUIFontSystemSize)(void);
+@property LB_BK NSDate*      (^numToNSDateSince1970)(void);
+@property LB_BK UIFont*      (^numToUIFontSystemSize)(void);
 /** @(0x969696) */
-LBDeclare UIColor*     (^numToUIColorFromHex)(void);
+@property LB_BK UIColor*     (^numToUIColorFromHex)(void);
 /**
  @(3.1415926)=>@"3.14" by digit==2
  digit==0 means integer
  */
-LBDeclare NSString*           (^numToStrFloating)(NSUInteger digit);
+@property LB_BK NSString*           (^numToStrFloating)(NSUInteger digit);
 /** @(0.231) => @"23.1%",digit==1 */
-LBDeclare NSMutableString*    (^numToStrPercent)(NSUInteger digit);
-LBDeclare NSString*    (^numToStrByMaxDecimalWidth)(NSUInteger maxDigit);
+@property LB_BK NSMutableString*    (^numToStrPercent)(NSUInteger digit);
+@property LB_BK NSString*    (^numToStrByMaxDecimalWidth)(NSUInteger maxDigit);
 /**
  *  作为索引取值
  *  objs.class∈{respondsToSelector(objectAtIndex:),UIView,CALayer,NSString,NSAttributeString }
  */
-LBDeclare NSObject*    (^numAsIndexToGetValueFromObj)(id obj);
+@property LB_BK NSObject*    (^numAsIndexToGetValueFromObj)(id obj);
 
 #pragma mark - Link Condition
 /**
@@ -94,13 +94,13 @@ LBDeclare NSObject*    (^numAsIndexToGetValueFromObj)(id obj);
  用法与linkIf相似
  <NSNumber>.linkIf_YES...LinkElse...
  */
-LBDeclare_F NSObject*    linkIf_YES;
+@property LB_F NSObject*    linkIf_YES;
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
  ...NSNumber.linkIf_NO...LinkElse...
  */
-LBDeclare_F NSObject*    linkIf_NO;
+@property LB_F NSObject*    linkIf_NO;
 @end
 
 @interface NSNumber (NSNumberLinkBlock)

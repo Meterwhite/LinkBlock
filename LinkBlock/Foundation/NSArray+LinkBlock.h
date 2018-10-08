@@ -14,120 +14,112 @@
 @interface NSObject(NSArraryLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
-LBDeclare NSObject*                (^arrAt)(NSUInteger idx);
-LBDeclare BOOL                     (^arrContains)(id obj);
-LBDeclare NSNumber*                (^arrContainsAs)(id obj);
-LBDeclare NSMutableArray*          (^arrSubFrom)(NSUInteger idx);
-LBDeclare NSMutableArray*          (^arrSubTo)(NSUInteger idx);
-LBDeclare NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
-LBDeclare NSObject*                (^arrLast)(void);
-LBDeclare NSObject*                (^arrFirst)(void);
+@property LB_BK NSObject*                (^arrAt)(NSUInteger idx);
+@property LB_BK BOOL                     (^arrContains)(id obj);
+@property LB_BK NSNumber*                (^arrContainsAs)(id obj);
+@property LB_BK NSMutableArray*          (^arrSubFrom)(NSUInteger idx);
+@property LB_BK NSMutableArray*          (^arrSubTo)(NSUInteger idx);
+@property LB_BK NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
+@property LB_BK NSObject*                (^arrLast)(void);
+@property LB_BK NSObject*                (^arrFirst)(void);
 
 #pragma mark - Foundation Speed/速度
-LBDeclare NSUInteger               (^arrIndexOfObj)(id obj);
-LBDeclare NSNumber*                (^arrIndexOfObjAs)(id obj);
-LBDeclare BOOL                     (^arrContainsIndex)(NSUInteger idx);
-LBDeclare NSNumber*                (^arrContainsIndexAs)(NSUInteger idx);
-LBDeclare NSUInteger               (^arrCountOfObj)(id obj);
-LBDeclare NSNumber*                (^arrCountOfObjAs)(id obj);
-LBDeclare NSMutableArray*          (^arrAddToArrAsWhatSet)(NSMutableArray* arr);
-LBDeclare NSMutableArray*          (^arrReversed)(void);
-LBDeclare NSIndexSet*              (^arrGetValuesIndexForValue)(id value);
+@property LB_BK NSUInteger               (^arrIndexOfObj)(id obj);
+@property LB_BK NSNumber*                (^arrIndexOfObjAs)(id obj);
+@property LB_BK BOOL                     (^arrContainsIndex)(NSUInteger idx);
+@property LB_BK NSNumber*                (^arrContainsIndexAs)(NSUInteger idx);
+@property LB_BK NSUInteger               (^arrCountOfObj)(id obj);
+@property LB_BK NSNumber*                (^arrCountOfObjAs)(id obj);
+@property LB_BK NSMutableArray*          (^arrAddToArrAsWhatSet)(NSMutableArray* arr);
+@property LB_BK NSMutableArray*          (^arrReversed)(void);
+@property LB_BK NSIndexSet*              (^arrGetValuesIndexForValue)(id value);
 /** use compare: to sort value */
-LBDeclare NSMutableArray*          (^arrSort)(BOOL ascending);
-LBDeclare NSMutableArray*          (^arrSortByKey)(NSString* key, BOOL ascending);
+@property LB_BK NSMutableArray*          (^arrSort)(BOOL ascending);
+@property LB_BK NSMutableArray*          (^arrSortByKey)(NSString* key, BOOL ascending);
 
 #pragma mark - Foundation Extend/补充
 /** join item as string,like join() of javescript  */
-LBDeclare NSMutableString*         (^arrJoin)(NSString* split);
+@property LB_BK NSMutableString*         (^arrJoin)(NSString* split);
 
 /** "age>20" */
-LBDeclare NSMutableArray*          (^arrFilter)(NSString* predicateFormat,...);
+@property LB_BK NSMutableArray*          (^arrFilter)(NSString* predicateFormat,...);
 /** return NSNull if array.count==0 */
-LBDeclare NSObject*                (^arrAny)(void);
-LBDeclare NSMutableArray*          (^arrObjsWithKindOfClass)(Class typeClass);
-LBDeclare BOOL                     (^arrContainsKeyValue)(NSString* key,id value);
-LBDeclare NSNumber*                (^arrContainsKeyValueAs)(NSString* key,id value);
+@property LB_BK NSObject*                (^arrAny)(void);
+@property LB_BK NSMutableArray*          (^arrObjsWithKindOfClass)(Class typeClass);
+@property LB_BK BOOL                     (^arrContainsKeyValue)(NSString* key,id value);
+@property LB_BK NSNumber*                (^arrContainsKeyValueAs)(NSString* key,id value);
 
 
 
 #pragma mark - Weak coding/弱类型编码
 /** @[@0,@1,@2] */
-LBDeclare NSIndexPath*     (^arrToNSIndexPath)(void);
-LBDeclare NSMutableArray*  (^arrAddObj)(id obj);
-LBDeclare NSMutableArray*  (^arrRemoveAll)(void);
-LBDeclare NSMutableArray*  (^arrInsertObjAt)(id obj, NSUInteger index);
-LBDeclare NSMutableArray*  (^arrInsertArrayAt)(NSArray* arr, NSUInteger index);
-LBDeclare NSMutableArray*  (^arrInsertToArrayAt)(NSMutableArray* arr, NSUInteger index);
-LBDeclare NSMutableArray*  (^arrAddObjs)(NSArray* arr);
-LBDeclare NSMutableArray*  (^arrRemoveObj)(id obj);
+@property LB_BK NSIndexPath*     (^arrToNSIndexPath)(void);
+@property LB_BK NSMutableArray*  (^arrAddObj)(id obj);
+@property LB_BK NSMutableArray*  (^arrRemoveAll)(void);
+@property LB_BK NSMutableArray*  (^arrInsertObjAt)(id obj, NSUInteger index);
+@property LB_BK NSMutableArray*  (^arrInsertArrayAt)(NSArray* arr, NSUInteger index);
+@property LB_BK NSMutableArray*  (^arrInsertToArrayAt)(NSMutableArray* arr, NSUInteger index);
+@property LB_BK NSMutableArray*  (^arrAddObjs)(NSArray* arr);
+@property LB_BK NSMutableArray*  (^arrRemoveObj)(id obj);
 /** not overflow */
-LBDeclare NSMutableArray*  (^arrRemoveAt)(NSUInteger index);
+@property LB_BK NSMutableArray*  (^arrRemoveAt)(NSUInteger index);
 /** not overflow */
-LBDeclare NSMutableArray*  (^arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
+@property LB_BK NSMutableArray*  (^arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
 /** add object only one */
-LBDeclare NSMutableArray*  (^arrAddObjOnlyOne)(id obj);
+@property LB_BK NSMutableArray*  (^arrAddObjOnlyOne)(id obj);
 /** insert before */
-LBDeclare NSMutableArray*  (^arrInsertObjBeforeTo)(id insert, id beforeTo);
+@property LB_BK NSMutableArray*  (^arrInsertObjBeforeTo)(id insert, id beforeTo);
 /** insert next */
-LBDeclare NSMutableArray*  (^arrInsertObjNextTo)(id insert, id nextTo);
+@property LB_BK NSMutableArray*  (^arrInsertObjNextTo)(id insert, id nextTo);
 /** previous item */
-LBDeclare NSObject*        (^arrGetPrevItemForObj)(id obj);
+@property LB_BK NSObject*        (^arrGetPrevItemForObj)(id obj);
 /** next item */
-LBDeclare NSObject*        (^arrGetNextItemForObj)(id obj);
+@property LB_BK NSObject*        (^arrGetNextItemForObj)(id obj);
 
 
 #pragma mark - LinkBlock
-LBDeclare NSMutableArray*          (^arrKeyValueMatchedObjs)(NSString* key,id value);
-LBDeclare NSMutableArray*          (^arrKeyValuesMatchedObjs)(NSDictionary<NSString*,id>* kv);
-LBDeclare NSMutableArray*          (^arrReplaceObjWith)(id obj,id newObj);
+@property LB_BK NSMutableArray*          (^arrKeyValueMatchedObjs)(NSString* key,id value);
+@property LB_BK NSMutableArray*          (^arrKeyValuesMatchedObjs)(NSDictionary<NSString*,id>* kv);
+@property LB_BK NSMutableArray*          (^arrReplaceObjWith)(id obj,id newObj);
 /** join array-type item to one array*/
-LBDeclare NSMutableArray*          (^arrJoinArr)(void);
-LBDeclare NSMutableDictionary*     (^arrJoinDict)(void);
+@property LB_BK NSMutableArray*          (^arrJoinArr)(void);
+@property LB_BK NSMutableDictionary*     (^arrJoinDict)(void);
 /** add or replace an object if key-value matched */
-LBDeclare NSMutableArray*(^arrAddOrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
-LBDeclare NSMutableArray*(^arrInsertOrReplaceWhenObjValueMatchedForKeyAt)(id obj , NSString* key, NSUInteger idx);
+@property LB_BK NSMutableArray*(^arrAddOrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
+@property LB_BK NSMutableArray*(^arrInsertOrReplaceWhenObjValueMatchedForKeyAt)(id obj , NSString* key, NSUInteger idx);
 /** replace an object if key-value matched */
-LBDeclare NSMutableArray*(^arrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
-LBDeclare NSMutableArray*(^arrReplaceWhenObjsValueMatchedForKey)(NSArray* objs , NSString* key);
+@property LB_BK NSMutableArray*(^arrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
+@property LB_BK NSMutableArray*(^arrReplaceWhenObjsValueMatchedForKey)(NSArray* objs , NSString* key);
 /** split array,each subarray has same length.Return self if count==0  */
-LBDeclare NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
-LBDeclare NSNumber*                (^arrMaxNumber)(void);
-LBDeclare NSNumber*                (^arrMinNumber)(void);
+@property LB_BK NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
+@property LB_BK NSNumber*                (^arrMaxNumber)(void);
+@property LB_BK NSNumber*                (^arrMinNumber)(void);
 /**
  Difference set by key-value,each item must has the same key.
  做'差集'(数组每项必须含字段key)
  */
-LBDeclare NSMutableArray*          (^arrMinusArrByKey)(NSArray* arr, NSString* key);
+@property LB_BK NSMutableArray*          (^arrMinusArrByKey)(NSArray* arr, NSString* key);
 /**
  union set by key-value,each item must has the same key./并集
  */
-LBDeclare NSMutableArray*          (^arrUnionArrByKey)(NSArray* arr, NSString* key);
+@property LB_BK NSMutableArray*          (^arrUnionArrByKey)(NSArray* arr, NSString* key);
 /**
  intersection set by key-value,each item must has the same key./交集
  */
-LBDeclare NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString* key);
+@property LB_BK NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString* key);
 
-LBDeclare NSMutableArray*          (^arrReplaceKeyForDictionaryItem)(id key,id newKey);
+@property LB_BK NSMutableArray*          (^arrReplaceKeyForDictionaryItem)(id key,id newKey);
 /** arrReplaceKeyForDictionaryItem().Deep traversal */
-LBDeclare NSMutableArray*          (^arrReplaceKeyForDictionaryItemDepth)(id key,id newKey);
+@property LB_BK NSMutableArray*          (^arrReplaceKeyForDictionaryItemDepth)(id key,id newKey);
 /**
  Sort NSValue-NSRange.If isCombine=YES NSRange(0,2) will contain NSRange(0,1).
 */
-LBDeclare NSMutableArray<NSValue*>*(^arrSortRange)(BOOL ascending,BOOL isCombine);
-
-
-
-
+@property LB_BK NSMutableArray<NSValue*>*(^arrSortRange)(BOOL ascending,BOOL isCombine);
 
 
 #pragma mark - Link Objects/多对象
-/**
- 使数组内对象执行多个链式编程，使用ends()可获取结果集合，
- 如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
- Arrary.makeLinkObjs....
- */
-LBDeclare_F NSObject*              makeLinkObjs;
+@property LB_F NSObject*              makeLinkObjs;
+
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

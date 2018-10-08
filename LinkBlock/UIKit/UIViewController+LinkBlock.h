@@ -14,15 +14,15 @@
 @interface NSObject(UIViewControllerLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
-LBDeclare UIViewController*    (^vcAddChildVC)(UIViewController* childVC);
-LBDeclare UIViewController*    (^vcTitle)(NSString* title);
-LBDeclare UIViewController*    (^vcNavigationControllerPushVC)(UIViewController* vc);
-LBDeclare UIViewController*    (^vcNavigationControllerPopTo)(UIViewController* vc);
-LBDeclare UIViewController*    (^vcNavigationControllerPop)(void);
-LBDeclare UIViewController*    (^vcHidesBottomBarWhenPushed)(BOOL b);
-LBDeclare UIViewController*    (^vcHidesBottomBarWhenPushedYES)(void);
+@property LB_BK UIViewController*    (^vcAddChildVC)(UIViewController* childVC);
+@property LB_BK UIViewController*    (^vcTitle)(NSString* title);
+@property LB_BK UIViewController*    (^vcNavigationControllerPushVC)(UIViewController* vc);
+@property LB_BK UIViewController*    (^vcNavigationControllerPopTo)(UIViewController* vc);
+@property LB_BK UIViewController*    (^vcNavigationControllerPop)(void);
+@property LB_BK UIViewController*    (^vcHidesBottomBarWhenPushed)(BOOL b);
+@property LB_BK UIViewController*    (^vcHidesBottomBarWhenPushedYES)(void);
 
 #pragma mark - Foundation Speed/速度
-LBDeclare UIViewController*    (^vcViewAddSubview)(UIView* view);
+@property LB_BK UIViewController*    (^vcViewAddSubview)(UIView* view);
 
 @end
