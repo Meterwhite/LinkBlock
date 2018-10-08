@@ -564,8 +564,6 @@ return self.FuncName##AsWhatSet;\
 }
 #endif
 
-ChangeNameForLink_ONE(attr_strSetToLabel)
-ChangeNameForLink_ONE(m_attr_strSetToLabel)
 ChangeNameForLink_ONE(objAddTo)
 ChangeNameForLink_ONE(objRemoveFrom)
 
@@ -574,17 +572,17 @@ ChangeNameForLink_ONE(objRemoveFrom)
 - (NSObject *(^)(id, NSUInteger))imgSetToBtnBGImg_linkTo
 {return self.imgSetToButtonAsWhatSet;}
 - (NSObject *(^)(id, NSUInteger))strSetToBtn_linkTo
-{return (id)self.strSetToViewContentAsWhatSet;}
+{return (id)self.strSetToControlContentAsWhatSet;}
 - (NSObject *(^)(id, NSUInteger))imgSetToBtn_linkTo
 {return self.imgSetToButtonAsWhatSet;}
 - (NSObject *(^)(id))strSetToTxtField_linkTo
-{return (id)self.strSetToViewContentAsWhatSet;}
+{return (id)self.strSetToControlContentAsWhatSet;}
 - (NSObject *(^)(id))strSetToTxtView_linkTo
-{return (id)self.strSetToViewContentAsWhatSet;}
+{return (id)self.strSetToControlContentAsWhatSet;}
 - (NSObject *(^)(id))imgSetToImgView_linkTo
 {return self.imgSetToImageViewAsWhatSet;}
 - (NSObject *(^)(id))strSetToLab_linkTo
-{return (id)self.strSetToViewContentAsWhatSet;}
+{return (id)self.strSetToControlContentAsWhatSet;}
 - (NSObject *(^)(void))strPathUnarchiveObject_linkTo
 {return self.strPathUnarchiveObjectAsWhatReturn;}
 - (NSObject *(^)(id, CGRect))attr_strDrawToImg_linkTo

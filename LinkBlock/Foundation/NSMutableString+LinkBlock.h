@@ -28,6 +28,6 @@ LBDeclare NSMutableString*     (^m_strClear)(void);
 
 
 @interface NSMutableString (NSMutableStringLinkBlock)
-/** 遍历同时可修改字符串，遍历按元字符组成的序列，即汉字，emoji，都作为一个字符。返回修改后结果 */
+/** Enumerate string by composed and modify. */
 - (void)m_strEnumerateComposedModifiedUsingBlock:(void(^)(NSString** string,NSRange range,BOOL *stop))block;
 @end

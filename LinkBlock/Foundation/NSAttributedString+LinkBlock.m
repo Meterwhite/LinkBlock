@@ -82,13 +82,15 @@
     };
 }
 
-- (UILabel *(^)(UILabel *))attr_strSetToLabelAsWhatSet
+- (UIView *(^)(UIView *))attr_strSetToControlAsWhatSet
 {
-    return ^id(UILabel* lab){
+    return ^id(id control){
         LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strSetToLabelAsWhatSet,lab)
-        lab.attributedText = _self;
-        return linkObj(lab);
+        LinkGroupHandle_REF(attr_strSetToControlAsWhatSet,control)
+        
+        if([control respondsToSelector:@selector(setAttributedText:)])
+            [control setAttributedText:_self];
+        return linkObj(control);
     };
 }
 @end

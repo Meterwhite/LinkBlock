@@ -299,9 +299,9 @@
     };
 }
 
-- (UILabel *(^)(UILabel *))m_attr_strSetToLabelAsWhatSet
+- (UIView *(^)(UIView *))m_attr_strSetToControlAsWhatSet
 {
-    return self.attr_strSetToLabelAsWhatSet;
+    return self.attr_strSetToControlAsWhatSet;
 }
 
 @end

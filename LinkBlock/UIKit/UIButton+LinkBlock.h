@@ -55,7 +55,7 @@ LBDeclare UIButton* (^btnImageUIControlStateReserved)(UIImage* img);
 
 
 
-#pragma mark - Foundation Extend/多择
+#pragma mark - Foundation Extend/补充
 LBDeclare UIButton* (^btnTitleFont)(UIFont* font);
 LBDeclare UIButton* (^btnTitleFontSystemSizeSet)(CGFloat size);
 LBDeclare CGFloat   (^btnTitleFontSystemSizeGet)(void);

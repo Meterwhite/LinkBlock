@@ -11,7 +11,9 @@
 @interface NSObject(NSNumberLinkBlock)
 
 #pragma mark - Foundation Speed/速度
-/** '=';宏定义覆盖后可传入数字直接量 */
+/**
+ use the same name macros of this is better
+ */
 LBDeclare BOOL         (^numIsEqualToNum)(NSNumber* num);
 LBDeclare NSNumber*    (^numIsEqualToNumAs)(NSNumber* num);
 LBDeclare BOOL         (^numIsGreatThanNum)(NSNumber* num);
@@ -22,11 +24,11 @@ LBDeclare BOOL         (^numIsLessThanNum)(NSNumber* num);
 LBDeclare NSNumber*    (^numIsLessThanNumAs)(NSNumber* num);
 LBDeclare BOOL         (^numIsLessEqualNum)(NSNumber* num);
 LBDeclare NSNumber*    (^numIsLessEqualNumAs)(NSNumber* num);
-/** 是否是整数类型 */
+/** Determine Integer type/是否是整数类型 */
 LBDeclare BOOL         (^numIsIntegerType)(void);
-/** 是否是浮点数类型 */
+/** Determine Floating type/是否是浮点数类型 */
 LBDeclare BOOL         (^numIsFloatingType)(void);
-/** 是否是c字符类型 */
+/** Determine c char/是否是c字符类型 */
 LBDeclare BOOL         (^numIsCharType)(void);
 LBDeclare BOOL         (^numIsBOOL)(void);
 LBDeclare BOOL         (^numIsChar)(void);
@@ -41,15 +43,13 @@ LBDeclare BOOL         (^numIsUnsignedLong)(void);
 LBDeclare BOOL         (^numIsUnsignedLongLong)(void);
 LBDeclare BOOL         (^numIsFloat)(void);
 LBDeclare BOOL         (^numIsDouble)(void);
-/** 判断0(NSDecimalNumber.zero) */
+/** Determine 0(NSDecimalNumber.zero) */
 LBDeclare BOOL         (^numIsZero)(void);
 LBDeclare NSNumber*    (^numIsZeroAs)(void);
 
 
-#pragma mark - Foundation Extend/多择
-/** 是否包含小数位的值，
- YES：小数位==0 ;ex 1.00=YES
- NO：小数位>0 */
+#pragma mark - Foundation Extend/补充
+/** Determine if include the value of decimal places:1.00=YES/包含小数位 */
 LBDeclare BOOL         (^numHasDecimalValue)(void);
 LBDeclare NSNumber*    (^numHasDecimalValueAs)(void);
 /** 判断奇数 */
@@ -70,16 +70,17 @@ LBDeclare NSNumber*    (^numReverse)(void);
 
 
 #pragma mark - Weak coding/弱类型编码
-/** 数字转日期 */
 LBDeclare NSDate*      (^numToNSDateSince1970)(void);
 LBDeclare UIFont*      (^numToUIFontSystemSize)(void);
-/** @(0x969696).numToUIColorFromHex()十六进制转颜色 */
+/** @(0x969696) */
 LBDeclare UIColor*     (^numToUIColorFromHex)(void);
-/** <^(NSUInteger digit小数位数)>小数转字符串：digit：小数位数；digit=6 => 0.618000；digit=0时转为整数 */
+/**
+ @(3.1415926)=>@"3.14" by digit==2
+ digit==0 means integer
+ */
 LBDeclare NSString*           (^numToStrFloating)(NSUInteger digit);
-/** <^(NSUInteger digit小数位数)>小数转百分比:@(0.231)->@"23.1%"，digit：小数位数 */
+/** @(0.231) => @"23.1%",digit==1 */
 LBDeclare NSMutableString*    (^numToStrPercent)(NSUInteger digit);
-/** 小数转字符串，限定最宽小数位数，超过的部分将进行四舍五入；整数时没有任何改变;当digit=0时小数将转为整数 */
 LBDeclare NSString*    (^numToStrByMaxDecimalWidth)(NSUInteger maxDigit);
 /**
  *  作为索引取值
@@ -91,7 +92,7 @@ LBDeclare NSObject*    (^numAsIndexToGetValueFromObj)(id obj);
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
- ...NSNumber.linkIf_YES...LinkElse...
+ <NSNumber>.linkIf_YES...LinkElse...
  */
 LBDeclare_F NSObject*    linkIf_YES;
 /**

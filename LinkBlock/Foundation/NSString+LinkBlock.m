@@ -872,29 +872,29 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 
-- (NSUInteger (^)(NSString *))strLengthComposedAndCustom
+- (NSUInteger (^)(NSString *))strCustomComposedLength
 {
     return ^NSUInteger(NSString* reg){
         LinkHandle_VAL_IFNOT(NSString){
             return 0;
         }
-        LinkGroupHandle_VAL(strLengthComposedAndCustom,reg)
+        LinkGroupHandle_VAL(strCustomComposedLength,reg)
         
-        NSUInteger re = 0;
+        NSUInteger ret = 0;
         NSMutableString* tempString = [_self mutableCopy];
         if(reg){
             NSError* error;
             NSRegularExpression* regExp = [[NSRegularExpression alloc] initWithPattern:reg options:0 error:&error];
             if(!error){
-                re += [regExp replaceMatchesInString:tempString options:0 range:NSMakeRange(0, tempString.length) withTemplate:@""];
+                ret += [regExp replaceMatchesInString:tempString options:0 range:NSMakeRange(0, tempString.length) withTemplate:@""];
             }
         }
         NSRange range;
         for(int i=0; i<tempString.length; i+=range.length){
             range = [tempString rangeOfComposedCharacterSequenceAtIndex:i];
-            re++;
+            ret++;
         }
-        return re;
+        return ret;
     };
 }
 
@@ -2256,11 +2256,11 @@ void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
     };
 }
 
-- (UIView *(^)(UIView *))strSetToViewContentAsWhatSet
+- (UIView *(^)(UIView *))strSetToControlContentAsWhatSet
 {
     return ^id(UIView* view){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToViewContentAsWhatSet, view)
+        LinkGroupHandle_REF(strSetToControlContentAsWhatSet, view)
         
         if([view isKindOfClass:UIButton.class]){
             

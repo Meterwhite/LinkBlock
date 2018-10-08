@@ -31,7 +31,7 @@ LBDeclare UIColor*         (^colorSaturationSet)(CGFloat value);
 /** 亮度，return new obj */
 LBDeclare UIColor*         (^colorBrightnessSet)(CGFloat value);
 
-#pragma mark - Foundation Extend/多择
+#pragma mark - Foundation Extend/补充
 
 #pragma mark - Weak coding/弱类型编码
 /** return @"0xF2F2F2"(prefix=@"0x")||NSNull */
@@ -42,12 +42,12 @@ LBDeclare UIImage*         (^colorToUIImage)(CGSize size);
  *  作为背景色
  *  toObj∈{NSArray||{.respondsToSelector(setTextColor:,setTitleColor:forState:) }}
  */
-LBDeclare UIColor*         (^colorSetToUIForBackground)(id toObj);
+LBDeclare UIColor*         (^colorSetToUIBackground)(id toObj);
 /**
  *  作为文本色
  *  toObj∈{NSArray||{.respondsToSelector(setTextColor:,setTitleColor:forState:) }}
  */
-LBDeclare UIColor*         (^colorSetToUIForText)(id toObj);
+LBDeclare UIColor*         (^colorSetToUIText)(id toObj);
 
 
 

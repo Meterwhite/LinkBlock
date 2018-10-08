@@ -14,130 +14,6 @@
 #import "Others+LinkBlock.h"
 
 @interface NSObject(LinkBlock)
-#pragma mark - links
-/** 
- <- linkEnd>获取链条返回值，并将错误转nil
- ... = linkObj(..)...linkEnd;
- ... = linkObj(..)...linkIf(...)...linkEnd;
- */
-LBDeclare_F id              linkEnd;
-/**
- <- linkEnds>多对象链式编程获取多个链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...linkEnds;
- */
-LBDeclare_F NSArray*        linkEnds;
-/** 
- <^(NSUInteger idx)>多对象链式编程获取某一链条返回值，并将错误转nil
- ... = linkObj(...)...linkLoop(...)...linkEndsAt(index);
- */
-LBDeclare id                (^linkEndsAt)(NSUInteger idx);
-/** 
- <^(id obj)>使新对象加入链条
- ...linkAnd(obj1)...linkAnd(obj2)...
- ... = ...linkAnd(obj1)...linkAnd(obj2)...linkEnds;
- */
-LBDeclare NSObject*         (^linkAnd)(id obj);
-/**
- <^(id obj)>以新对象执行其后链条，可以与linkIf，linkElse配合
- linkObjs...linkTo(aNewObj)...
- ...linkIf(...)...linkTo(aNewObj)...linkElse...
- */
-LBDeclare NSObject*         (^linkTo)(id obj);
-/** 
- <^(NSUInteger idx)>使多对象链条中移除一个
- linkObjs...linkOut(index)...
- */
-LBDeclare NSObject*         (^linkOut)(NSUInteger idx);
-/** 
- <^(NSUInteger idx)>取出多对象链条中一个对象作为当前链条对象
- linkObjs...linkAt(index)...
- */
-LBDeclare NSObject*         (^linkAt)(NSUInteger idx);
-/**
- <^()>取出多对象链条中第一个
- linkObjs...linkFirstObj...
- */
-LBDeclare_F NSObject*       linkFirstObj;
-/**
- <^()>取出多对象链条中最后一个
- linkObjs...linkLastObj...
- */
-LBDeclare_F NSObject*       linkLastObj;
-/** 
- <^(NSUInteger count)>使其后的链条复制指定次数的重复执行效果。所以...linkLoop(...)...m_arrAddObj([NSObject new])...添加的是同一个对象。这里添加不同对象应使用方法linkLoopIn:block:。
- ...linkLoop(count)...
- */
-LBDeclare NSObject*         (^linkLoop)(NSUInteger count);
-/** 
- <^()>根据条件是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行；取值需使用linkEnd
- ...linkIf(...)...linkIf(...)...linkElse...
- ... = ...linkLoop(...)...linkIf(...)...linkEnds();
- */
-LBDeclare NSObject*         (^linkIf)(BOOL condition);
-/** 
- <^()>从中断语句中恢复执行其后语句，与前一个linkIf配合使用；取值需使用linkEnd
- ...linkIf(...)...linkIf(...)...linkElse...
- */
-LBDeclare_F NSObject*       linkElse;
-/**
- <^()>使其后语句跳空至末尾（优先级高于其他条件）；可与分支配合；取值需使用linkEnd
- ...[linkInBlock:^(NSObject* fromObj){
-    if(...){
-        ...linkReturn;
-    }
- }]...linkEnd;
- */
-LBDeclare_F NSObject*       linkReturn;
-/** 
- 链条分支，返回源对象，在链条内处理新分支
- ...[linkInBlock:^(NSObject* link){
-    link...
- }]...
- */
-- (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
-
-/**
- 异步在主队列中执行block
- */
-- (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;
-
-/**
- 异步在全局队列中执行block
- */
-- (NSObject*)linkAsy_global_queue:(void(^)(NSObject* link))block;
-
-/**
- 执行指定次数block
- */
-- (NSObject*)linkLoopIn:(NSUInteger)count block:(void(^)(NSObject* link, NSUInteger index))block;
-
-/**
- 在主队列中延迟执行block
- */
-- (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block;
-
-
-/**
- 该方法不会像linkFirstObj，linkLastObj，linkAt一样中断多对象链条
-
- @param from 设置多对象链条中的对象起始索引
- @param to 设置多对象链条中的结束对象的索引
- @param block code...
- @return 原对象
- */
-- (NSObject*)linkFrom:(NSUInteger)fromIdx
-                   to:(NSUInteger)toIdx
-                block:(void(^)(NSUInteger idx , NSObject* obj))block;
-
-
-/**
- 该方法不会像linkFirstObj，linkLastObj，linkAt一样中断多对象链条
-
- @param idx 对象索引
- @param block code...
- @return 原对象
- */
-- (NSObject*)linkAt:(NSUInteger)idx block:(void(^)(NSObject* obj))block;
 
 
 #pragma mark - Foundation Mirror
@@ -415,27 +291,57 @@ LBDeclare const char *  (^blockReturnType)(void);
 -                  (CALayer*)                   asCALayer;
 
 
+#pragma mark - Link
+@property (nonatomic,readonly) id              linkEnd;
+LBDeclare_F NSArray*        linkEnds;
+LBDeclare id                (^linkEndsAt)(NSUInteger idx);
+LBDeclare NSObject*         (^linkAnd)(id obj);
+LBDeclare NSObject*         (^linkTo)(id obj);
+LBDeclare NSObject*         (^linkOut)(NSUInteger idx);
+LBDeclare NSObject*         (^linkAt)(NSUInteger idx);
+LBDeclare_F NSObject*       linkFirstObj;
+LBDeclare_F NSObject*       linkLastObj;
+LBDeclare NSObject*         (^linkLoop)(NSUInteger count);
+LBDeclare NSObject*         (^linkIf)(BOOL condition);
+LBDeclare_F NSObject*       linkElse;
+LBDeclare_F NSObject*       linkReturn;
+
+- (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
+- (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;
+- (NSObject*)linkAsy_global_queue:(void(^)(NSObject* link))block;
+
+/**
+ 重复执行
+ Perform the specified number of times to link
+ */
+- (NSObject*)linkLoopIn:(NSUInteger)count block:(void(^)(NSObject* link, NSUInteger index))block;
+- (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block;
+
+
+/** Do not change next link */
+- (NSObject*)linkFrom:(NSUInteger)fromIndex
+                   to:(NSUInteger)toIndex
+                block:(void(^)(NSUInteger idx , NSObject* obj))block;
+
+/** Do not change next link */
+- (NSObject*)linkAt:(NSUInteger)idx
+              block:(void(^)(NSObject* obj))block;
+
+
 #pragma mark - 动态解析 DynamicLink
 /**
- @param ... 参数以nil,NSNotFond结尾，以其可以区分结构体
+ End with "nil,NSNotFond" in linkBlock for structures
  */
-LBDeclare NSObject*            (^linkEvalCode)(NSString* code , ...);
+LBDeclare NSObject*  (^linkEvalCode)(NSString* code , ...);
 @end
 
 
 
-
-/**
- 包装一个对象为安全链条起始对象
- */
 NS_INLINE id _LB_MakeObj(id object){
     return object?object:[LinkError new];
 }
 /**
- 包装多个对象为多对象链条起始对象
-
- @param object0 必要的参数
- @param ... 该函数需要以nil作为结尾
+ end with nil
  */
 NS_INLINE LinkInfo* _LB_MakeObjs(id object0, ...){
     if(!object0) return [LinkError new];
@@ -443,16 +349,11 @@ NS_INLINE LinkInfo* _LB_MakeObjs(id object0, ...){
     va_start(args, object0);
     return [LinkGroup groupWithObjs:object0 args:args];
 }
-/**
- 默认值对象
- */
+
 NS_INLINE id _LB_DefaultObj(id obj , id instead){
     return obj?obj:instead;
 }
 
-/**
- 非空对象
- */
 NS_INLINE id _LB_NotNilObj(id obj){
     return obj?obj:[NSNull null];
 }

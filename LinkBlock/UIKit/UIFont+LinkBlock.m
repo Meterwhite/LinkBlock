@@ -21,4 +21,26 @@
         return line*[[[NSAttributedString alloc] initWithString:@" " attributes:@{NSFontAttributeName:_self}] size].height;
     };
 }
+
+- (UIFont *(^)(id))fontSetToControl
+{
+    return ^id(id asControl){
+        LinkHandle_REF(UIFont)
+        LinkGroupHandle_REF(fontSetToControl,asControl)
+        
+        if(![asControl isKindOfClass:NSArray.class]){
+            asControl = [NSArray arrayWithObject:asControl];
+        }
+        
+        [asControl enumerateObjectsUsingBlock:^(id ctrl,NSUInteger idx,BOOL* stop) {
+            
+            if([ctrl isKindOfClass:UIButton.class])
+                ctrl = [ctrl titleLabel];
+            if([ctrl respondsToSelector:@selector(setFont:)])
+               [ctrl setFont:_self];
+        }];
+        
+        return _self;
+    };
+}
 @end

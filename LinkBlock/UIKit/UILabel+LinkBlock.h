@@ -23,7 +23,7 @@ LBDeclare UILabel*         (^labFontSystemSizeSet)(CGFloat fontSize);
 LBDeclare UILabel*         (^labAlignmentCenter)(void);
 LBDeclare UILabel*         (^labAlignmentRight)(void);
 LBDeclare UILabel*         (^labAlignmentLeft)(void);
-#pragma mark - Foundation Extend/多择
+#pragma mark - Foundation Extend/补充
 LBDeclare CGFloat          (^labFontSystemSizeGet)(void);
 
 

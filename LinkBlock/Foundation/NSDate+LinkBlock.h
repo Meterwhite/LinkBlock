@@ -30,7 +30,7 @@ LBDeclare NSInteger         (^dateMinut)(void);
 LBDeclare NSNumber*         (^dateMinutAs)(void);
 LBDeclare NSInteger         (^dateSec)(void);
 LBDeclare NSNumber*         (^dateSecAs)(void);
-/// 计算时间差
+/// Calculate the time difference/计算时间差
 /** self-date */
 LBDeclare NSInteger        (^dateMinusYear)(NSDate* date);
 LBDeclare NSInteger        (^dateMinusMonth)(NSDate* date);
@@ -38,7 +38,7 @@ LBDeclare NSInteger        (^dateMinusDay)(NSDate* date);
 LBDeclare NSInteger        (^dateMinusHour)(NSDate* date);
 LBDeclare NSInteger        (^dateMinusMinut)(NSDate* date);
 LBDeclare NSInteger        (^dateMinusSec)(NSDate* date);
-/// 修改时间
+/// modify date/修改时间
 LBDeclare NSDate*          (^dateAddTimeInterval)(NSTimeInterval timeInterval);
 LBDeclare NSDate*          (^dateAddYear)(NSInteger year);
 LBDeclare NSDate*          (^dateAddMonth)(NSInteger month);
@@ -55,28 +55,28 @@ LBDeclare NSDate*        (^dateSetMinut)(NSInteger minut);
 LBDeclare NSDate*        (^dateSetSec)(NSInteger sec);
 
 
-#pragma mark - Foundation Extend/多择
+#pragma mark - Foundation Extend/补充
 
 #pragma mark - Weak coding/弱类型编码
-/** 日期转字符串 formatStr:yyyy-MM-dd */
+/** formatStr=yyyy-MM-dd */
 LBDeclare NSString*        (^dateToStrWithFormat)(NSString* formatStr);
 
 #pragma mark - LinkBlock
-/** 中文星座描述 */
+/** 中文的星座描述 */
 LBDeclare NSString*        (^dateToStrAstrologyzh_CN)(void);
-/** 获取日期的当天起点时间，相对GMT（格林威尼），24小时制 */
+/** get start time of day from the date.GMT,24-Hour */
 LBDeclare NSDate*          (^dateDayAtStart)(void);
-/** 获取日期的当天结束时间，相对GMT（格林威尼），24小时制 */
+/** get end time of day from the date.GMT,24-Hour */
 LBDeclare NSDate*          (^dateDayAtEnd)(void);
-/** 获取当前时区下补充了于GTM（格林威尼）时差后的日期对象 */
+/** get current zone date by added difference from GMT/补充了相对GMT的时区差的日期 */
 LBDeclare NSDate*          (^dateCurrentZone)(void);
-/** 判断闰年 */
+/** 闰年 */
 LBDeclare BOOL             (^dateIsLeapYear)(void);
 LBDeclare NSNumber*        (^dateIsLeapYearAs)(void);
-/** 判断是否在本日 */
+
 LBDeclare BOOL             (^dateIsInToday)(void);
 LBDeclare NSNumber*        (^dateIsInTodayAs)(void);
-/** 判断是否为本月 */
+
 LBDeclare BOOL             (^dateIsInMonth)(void);
 LBDeclare NSNumber*        (^dateIsInMonthAs)(void);
 

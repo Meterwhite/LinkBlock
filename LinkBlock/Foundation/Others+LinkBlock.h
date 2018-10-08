@@ -347,10 +347,10 @@ NS_DEPRECATED_IOS(2_0, 2_0, "strContainsEmojiAs");
 LBDeclare NSNumber*    (^strPathFileExists_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 
-LBDeclare NSObject*     (^attr_strSetToLabel_linkTo)(id lab)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
-LBDeclare NSObject*     (^m_attr_strSetToLabel_linkTo)(id lab)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
+LBDeclareG(attr_strSetToControlAsWhatSet) NSObject*  (^attr_strSetToLabel_linkTo)(id lab)
+NS_DEPRECATED_IOS(2_0, 2_0, "attr_strSetToControlAsWhatSet");
+LBDeclareG(m_attr_strSetToControlAsWhatSet) NSObject* (^m_attr_strSetToLabel_linkTo)(id lab)
+NS_DEPRECATED_IOS(2_0, 2_0, "m_attr_strSetToControlAsWhatSet");
 LBDeclare NSObject*     (^objAddTo_linkTo)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
 
@@ -401,13 +401,13 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformsSelectorArguments");
 
 #pragma mark - 2018.10
 LBDeclare NSObject*     (^strSetToTxtField_linkTo)(id txtField)
-NS_DEPRECATED_IOS(2_0, 2_0, "strSetToViewContentAsWhatSet");
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlContentAsWhatSet");
 LBDeclare NSObject*     (^strSetToTxtView_linkTo)(id txtView)
-NS_DEPRECATED_IOS(2_0, 2_0, "strSetToViewContentAsWhatSet");
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlContentAsWhatSet");
 LBDeclare NSObject*     (^strSetToBtn_linkTo)(id btn, NSUInteger state)
-NS_DEPRECATED_IOS(2_0, 2_0, "strSetToViewContentAsWhatSet");
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlContentAsWhatSet");
 LBDeclare NSObject*     (^strSetToLab_linkTo)(id lab)
-NS_DEPRECATED_IOS(2_0, 2_0, "strSetToViewContentAsWhatSet");
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlContentAsWhatSet");
 LBDeclare BOOL         (^viewIsSubviewTo)(UIView* view)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to viewIsInView");
 LBDeclare BOOL(^viewIsSuperviewTo)(UIView* view)
@@ -453,7 +453,7 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use arrContainsIndexAs");
 LBDeclare NSDictionary*            (^arrToDictByKeyString)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
-LBDeclareG(arrGetValuesIndexWithValue) NSIndexSet*(^arrIndexSetOfValue)(id value)
+LBDeclareG(arrGetValuesIndexForValue) NSIndexSet*(^arrIndexSetOfValue)(id value)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrGetValuesIndexWithValue");
 
 LBDeclare NSMutableArray*          (^arrObjsValueRandom)(void)
@@ -581,20 +581,22 @@ LBDeclare UIButton*(^imgSetToButtonAsWhatSet)(UIButton* btn,UIControlState state
 NS_DEPRECATED_IOS(2_0, 2_0, "use imgSetToContainerAsWhatSet");
 
 
-LBDeclareG(colorSetToUIForBackground) UIColor*(^colorSetToViewBG)(id obj)
+LBDeclareG(colorSetToUIBackground) UIColor*(^colorSetToViewBG)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForBackground");
-LBDeclareG(colorSetToUIForBackground) UIColor*(^colorSetToViewsBG)(id obj)
+LBDeclareG(colorSetToUIBackground) UIColor*(^colorSetToViewsBG)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForBackground");
-LBDeclareG(colorSetToUIForText) UIColor*(^colorSetToLabText)(id obj)
+LBDeclareG(colorSetToUIText) UIColor*(^colorSetToLabText)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForText");
-LBDeclareG(colorSetToUIForText) UIColor*(^colorSetToTxtViewText)(id obj)
+LBDeclareG(colorSetToUIText) UIColor*(^colorSetToTxtViewText)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForText");
-LBDeclareG(colorSetToUIForText) UIColor*(^colorSetToTxtFieldText)(id obj)
+LBDeclareG(colorSetToUIText) UIColor*(^colorSetToTxtFieldText)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForText");
-LBDeclareG(colorSetToUIForText) UIColor*(^colorSetToBtnTitle)(id obj)
+LBDeclareG(colorSetToUIText) UIColor*(^colorSetToBtnTitle)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorSetToUIForText");
 
 LBDeclareG(colorToHexStringWithPrefix) NSString*(^colorToHexStrByPrefix)(NSString* prefix)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to colorToHexStringWithPrefix");
+
+//LBDeclare NSUInteger   (^strLengthComposedAndCustom)(NSString* customReg);
 @end
 

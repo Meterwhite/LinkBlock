@@ -24,11 +24,10 @@ LBDeclare NSValue* (^attr_strSizeWithOptionsAs)(CGFloat maxWidth, NSStringDrawin
 
 
 #pragma mark - Weak coding/弱类型编码
-/** <^(UIImage* image, CGRect rect)>属性文本绘制到图片，链条切换为入参； */
+/** switch link to paramiter */
 LBDeclare UIImage* (^attr_strDrawToImageAsWhatSet)(UIImage* image, CGRect rect);
-/** <^(UILabel* lab)>属性文本设置到Label，链条切换为入参 */
-LBDeclare UILabel* (^attr_strSetToLabelAsWhatSet)(UILabel* lab);
-
+/** switch link to paramiter */
+LBDeclare UIView* (^attr_strSetToControlAsWhatSet)(UIView* control);
 
 
 @end

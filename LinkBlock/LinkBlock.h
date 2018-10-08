@@ -45,23 +45,26 @@
 #import "UIFont+LinkBlock.h"
 
 //////////////////////////////////////////////////////////////////////
-//MARK:基础
+//MARK:Basic
 //////////////////////////////////////////////////////////////////////
 
-/** 包装一个对象为安全链条起始对象（需要取值时），参数为id类型时使用linkObj_id(obj)来实现.语法 */
+/**
+ *  安全的链条
+ *  make a safe link object,checked if nil
+ */
 #ifndef linkObj
 #define linkObj(object) ((typeof(object))_LB_MakeObj(object))
 #endif
 
-//解决id类型不能使用.语法
+///for type id(to use '.')
 #ifndef linkObj_id
 #define linkObj_id(object) ((NSObject*)_LB_MakeObj(object))
 #endif
 
 /**
- <- linkEnd>获取链条返回值，并将LinkError错误转nil
- ... = linkObj...linkEnd;
- ... = linkObj...linkIF(...)...linkEnd;
+ *  ~ = linkObj...linkEnd;
+ *  1.Used to get return value when needed.
+ *  2.convert <LinkError||NSNull> to nil.
  */
 #ifndef linkEnd
 #define linkEnd linkEnd
@@ -71,78 +74,80 @@
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:多对象链条语法
+//MARK:link objects/多对象链条
 //////////////////////////////////////////////////////////////////////
 
 /**
- *包装多个对象为多对象链条起始对象
- * linkObjs( obj0, obj1, obj2, ...)...
+ * linkObjs(obj0,obj1,...)
+ *  安全的多对象的链条
+ *  make a safe link objects.anyone should not be nil
  */
 #ifndef linkObjs
 #define linkObjs(object,args...) _LB_MakeObjs(object,##args,nil)
 #endif
 
 /**
- 使数组内对象执行多个链式编程，使用ends()可获取结果集合，
- 如果结尾返回值为值型则该结果为第一个对象的链式执行结果，效果同使用end
- NSArray*.makeLinkObjs...
+ <NSArray>.makeLinkObjs = linkObjs(...)
+ as well as linkObjs/等同于linkObjs
  */
 #ifndef makeLinkObjs
 #define makeLinkObjs makeLinkObjs
 #endif
 /**
- <^(id obj)>使新对象加入链条
- ...linkAnd(aObj)...linkAnd(bObj)...
- ... = ...linkAnd(aObj)...linkAnd(bObj)...ends();
+ add a new into link objects
+ ...linkAnd(object)
  */
 #ifndef linkAnd
 #define linkAnd linkAnd
 #endif
 /**
- <^(NSUInteger idx)>移除一根
- linkObjs...linkOut(index)...
+ remove an object at specified index from link objects
+ ...linkOut(index)
  */
 #ifndef linkOut
 #define linkOut linkOut
 #endif
 /**
- <^(NSUInteger idx)>取出一根
- linkObjs...linkAt(index)...
+ get an object at specified index from link objects
+ ...linkAt(index)
  */
 #ifndef linkAt
 #define linkAt linkAt
 #endif
 /**
- <^()>第一根
- linkObjs...linkFirstObj...
+ get first object from link objects
+ ...linkFirstObj
  */
 #ifndef linkFirstObj
 #define linkFirstObj linkFirstObj
 #endif
 /**
- <^()>最后一根
+ get last object from link objects
  linkObjs...linkLastObj...
  */
 #ifndef linkLastObj
 #define linkLastObj linkLastObj
 #endif
 /**
- <^(NSUInteger count)>重复执行之后的
- ...linkLoop(count)...
+ *  重复执行
+ *  repeat the following link code by copy link objects
+ *  ...linkLoop(count)...
  */
 #ifndef linkLoop
 #define linkLoop linkLoop
 #endif
 /**
- <- ends>多对象链式编程获取多个链条返回值
- NSArray *getResultInArray = linkObjs...linkEnds;
+ *  ~ = linkObjs......linkEnds;
+ *  1.used to get return values of links when needed.
+ *  2.convert <LinkError||NSNull> to nil.
  */
 #ifndef linkEnds
 #define linkEnds linkEnds
 #endif
 /**
- <^(NSUInteger idx)>获取某一根链条的返回值
- id getFirstResult = linkObjs...linkEndsAt(index);
+ *  1.used to get a return value of link objects at specified index.
+ *  2.convert <LinkError||NSNull> to nil.
+ *  ~ = linkObjs...linkEndsAt(index);
  */
 #ifndef linkEndsAt
 #define linkEndsAt linkEndsAt
@@ -150,53 +155,47 @@
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:条件
+//MARK:Link Condition/条件
 //////////////////////////////////////////////////////////////////////
 /**
- <^(id obj)>改变链条对象，可与linkIf，linkElse配合
- ...linkIf(...)...linkTo(...)...linkElse...
+ change link object to others
+ ...linkTo(~)...
  */
 #ifndef linkTo
 #define linkTo linkTo
 #endif
 /**
- <^()>根据条件是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
- ...linkIF(...)...linkIF(...)...linkElse...
- ... = ...linkLoop(...)...linkIF(...)...linkEnds;
+ *  if-else in link
+ *  <NSNumber>.linkIf...CodeYES...LinkElse...CodeNO
  */
 #ifndef linkIf
 #define linkIf linkIf
 #endif
 /**
- <^()>从中断语句中恢复执行其后语句，与前一个linkIf配合使用
- ...linkIF(...)...linkIF(...)...linkElse...
+ *  if-else in link
+ *  <NSNumber>.linkIf...CodeYES...LinkElse...CodeNO
  */
 #ifndef linkElse
 #define linkElse linkElse
 #endif
 /**
- 根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
- 用法与linkIf相似
- ...<@YES/@NO>.linkIf_YES...LinkElse...
+ *  if-else in link
+ *  <NSNumber>.linkIf_YES...CodeYES...LinkElse...CodeNO
  */
 #ifndef linkIf_YES
 #define linkIf_YES linkIf_YES
 #endif
 /**
- 根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
- 用法与linkIf相似
- ...<@YES/@NO>.linkIf_NO...LinkElse...
+ *  if-else in link
+ *  <NSNumber>.linkIf_NO...CodeNO...LinkElse...CodeYES
  */
 #ifndef linkIf_NO
 #define linkIf_NO linkIf_NO
 #endif
 /**
- <^()>使其后语句跳空;可与分支配合
- ...[aNewLink:^(NSObject* fromObj){
- if(...){
- ...linkReturn;
- }
- }]...
+ break and return value.
+ use linkEnd to get the special type value
+ ...linkReturn...linkEnd;
  */
 #ifndef linkReturn
 #define linkReturn linkReturn
@@ -205,97 +204,101 @@
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:新增！DynamicLink-动态脚本解析
+//MARK:Experimental DynamicLink/脚本解析（实验性）
 //////////////////////////////////////////////////////////////////////
+/*
+ *  DynamicLink/脚本解析:
+ *  script.linkCodeEval(targetObject,argumentList....);
+ *
+ *
+ *  DynamicLink used like linkBlock
+ *  1."...actionName()..."The actionName wiil called as linkBlock
+ *  2."...actionName...".The actionName will called as property > non-argument method > LinkBlock command
+ 
+ *  LinkBlock command/命令:
+ *  1.CreateCommand:"ClassName+New";
+ *  2.LinkBlock macros,like 'NSNil','AttrDictNew'
+ *
+ *  note:DynamicLink did not suport the function that use argument list.If do it,system will recive only one agument,This will cause potential differences./不支持不定参数方法，否则只接收一个参数
+ *
+ *
+ *  direct value/直接量：
+ *  direct value used in '()'.Like:"actionName(3.1415926)"
+ *  suport types:number||HexNumber,String,Boolean,c string,char,NSNumber,SEL,struct in NSValue,Class;
+ *  Reference:DynamicLinkArgument.h
+ *
+ *  note:1.If set actionName or func as direct value,it must be non-argument func/方法的直接量必须是无惨的
+ *  2.cannot have double quotes in a string/字符串中不再用双引号
+ *
+ *
+ *  Entry order/入参顺序:
+ *  One-to-one correspondence/一一对应关系
+ *  script:"actionName($0 , 3.14 , $1)" => argument list:($0 , $1)
+ *  Only suport set arguments to outer layer,to inner layer func should use direct value.
+ *  In argument list use NSNil instead nil,or use direct value nil or NULL in script
+ *
+ *  return type:In dynamicLink all return type has been boxed./所有返回值都是装箱的
+ */
+
+
 /**
- *由当前对象执行DynamicLink脚本并返回结果
- *object.linkEvalCode( code , arg0 , arg1 , ...)
- @return 注意链条中的任何值类型返回值会被自动装箱
+ *  execute script from any object and return value.
+ *  anyObject.linkEvalCode(code , arg0 , arg1 , ...)
+ *  note:any return value has been boxed
  */
 #ifndef linkEvalCode
 #define linkEvalCode(code , args...) linkEvalCode(code , ##args, nil, NSNotFound)
 #endif
 
 /**
- *使用一个对象和参数列表来执行DynamicLink脚本并返回结果
- *code.linkCodeEval( target , arg0 , arg1 , ...)
- @return 注意链条中的任何值类型返回值会被自动装箱
+ *  execute script with an object and return value.
+ *  code.linkCodeEval( target , arg0 , arg1 , ...)
+ *  note:any return value has been boxed
  */
 #ifndef linkCodeEval
 #define linkCodeEval(obj , args...) linkCodeEval(obj, ##args, nil, NSNotFound)
 #endif
 
 /**
- 仅仅执行一段不需要任何参数的DynamicLink脚本并返回结果
- @return 注意链条中的任何值类型返回值会被自动装箱
+ *  only execute script and return value.
+ *  EvalLinkBlock(script)
+ *  note:any return value has been boxed
  */
 #ifndef EvalLinkBlock
 #define EvalLinkBlock(code) linkObj_id(code).linkCodeEval(NSNil, nil)
 #endif
 /**
- 使用目标对象执行一段不需要任何参数的DynamicLink脚本并返回结果
- @return 注意链条中的任何值类型返回值会被自动装箱
+ *  only execute script by a target object and return value.
+ *  EvalLinkBlockWithTarget(target ,script)
+ *  note:any return value has been boxed
  */
 #ifndef EvalLinkBlockWithTarget
 #define EvalLinkBlockWithTarget(target,code) linkObj_id(code).linkCodeEval(linkObj(target), nil)
 #endif
 
-/*
- *DynamicLink概览(动态脚本解析):
- *@"LinkBlock代码".linkCodeEval(目标对象,参数列表....);
- *
- *
- *命令：
- *DynamicLink脚本使用linkBlock的原生调用方式，还支持属性样式的调用
- *1.当调用名称后跟随"()"时："actionName().actionName()..."，系统会把actionName当成linkBlock去调用
- *2.如果调用中没有"()"，"actionName.actionName..."会被系统解释为属性样式的调用；将调用当成对象的属性、对象的无参方法、类名、或者LinkBlock命令
- *其中LinkBlock命令目前包括:1.创建对象命令："ClassName+New";2.LinkBlock宏定义:"NSNil","AttrDictNew"
- *
- *注意！动态链条并不支持不定参数的block调用，使用中会报出警告。系统认为所有不定参数的block的参数个数为1个，这会造成潜在的分歧。
- *
- *
- *字面参数：
- *字面参数是在DynamicLink中通过字面创建的值，它写在"()"内；形如："ActionName(3.1415926)"
- *支持类型：数字，十六进制的数字，字符串，布尔值，c字符串，字符，NSNumber，SEL，struct in NSValue，Class；参考:DynamicLinkArgument.h
- *字面量参数暂时不能是可以接受参数的linkBlock调用
- *字符串中不能再有双引号
- *
- *
- *入参顺序：
- *参数的入参顺序和脚本中调用的入参顺序完全一一对应；
- *传参目前只能给在第一层的调用传参，下层调用只能通过字面量传参
- *如果脚本中存在一个字面参数则参数列表中不再需要传递这个参数；
- *如果要通过参数列表传递nil，可以使用NSNil。或者在脚本中使用字面量"nil","NULL"
- *
- *特别的：
- *使用动态脚本解析可以实现在返回值为值类型的block后继续调用的方式，这在原生代码中是不能做到的。因为动态脚本解析的所有返回值都是装箱形式的
- */
-
-
 
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:配置
+//MARK:Configuration/配置
 //////////////////////////////////////////////////////////////////////
-/** 关闭警告 Close the warning */
+/** Close the warning */
 #ifndef LinkBlockWarningClose
 #define LinkBlockWarningClose ([LinkInfo linkBlockWarningClose])
 #endif
-/** 允许警告(默认) Allow warning (default) */
+/** Allow warning (default) */
 #ifndef LinkBlockWarningOpen
 #define LinkBlockWarningOpen ([LinkInfo linkBlockWarningOpen])
 #endif
 
 //////////////////////////////////////////////////////////////////////
-//MARK:其他方法
+//MARK:Other function
 //////////////////////////////////////////////////////////////////////
-/** 默认值对象 */
+/** Default value for object */
 #ifndef linkObjDefault
 #define linkObjDefault(object,default) ((typeof(object))_LB_DefaultObj(object,default))
 #endif
 
-/** 非空对象或NSNull */
 #ifndef linkObjNotNil
 #define linkObjNotNil(object) ((typeof(object))_LB_NotNilObj(object))
 #endif

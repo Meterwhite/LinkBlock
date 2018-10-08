@@ -19,9 +19,7 @@ LBDeclare NSMutableDictionary* (^m_dictAddEntries)(NSDictionary* dict);
 
 
 #pragma mark - LinkBlock
-/** 替换字典中的key */
 LBDeclare NSMutableDictionary* (^m_dictReplaceForKey)(id key, id newKey);
-/** 深度遍历 */
 LBDeclare NSMutableDictionary* (^m_dictReplaceForKeyDepth)(id key, id newKey);
 
 

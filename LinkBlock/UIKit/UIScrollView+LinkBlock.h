@@ -24,7 +24,6 @@ LBDeclare UIScrollView*        (^scroll_viewScrollEnabled)(BOOL b);
 LBDeclare UIScrollView*        (^scroll_viewDelaysContentTouches)(BOOL b);
 LBDeclare UIScrollView*        (^scroll_viewCanCancelContentTouches)(BOOL b);
 LBDeclare UIScrollView*        (^scroll_viewDirectionalLockEnabled)(BOOL b);
-#pragma mark - Foundation Speed/速度
 
 
 @end

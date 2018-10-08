@@ -14,7 +14,7 @@
 LBDeclare UIImage*        (^imgResizableWithCapInsets)(CGFloat top,CGFloat left,CGFloat bottom, CGFloat right);
 /** 图片拉伸 */
 LBDeclare UIImage*        (^imgStretchableImageWithLeftCapWidthAndTopCapHeight)(CGFloat lWidth,CGFloat tHeight);
-#pragma mark - Foundation Extend/多择
+#pragma mark - Foundation Extend/补充
 /** 图片取色 */
 LBDeclare UIColor*         (^imgGetPatternColor)(void);
 /** 矫正方向的图片 */

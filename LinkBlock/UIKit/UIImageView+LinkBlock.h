@@ -22,6 +22,7 @@ LBDeclare UIImageView*         (^img_viewHighlight)(BOOL b);
 LBDeclare UIImageView*         (^img_viewAnimationImages)( NSArray<UIImage *>* imgs);
 LBDeclare UIImageView*         (^img_viewHighlightedAnimationImages)( NSArray<UIImage *>* imgs);
 #pragma mark - Foundation Speed/速度
+/** set image */
 LBDeclare UIImageView*         (^img_viewImageWithName)(NSString* imageStr);
 
 

@@ -92,12 +92,14 @@ return self.funcName;
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrJoin,split)
         NSMutableString* ret = [NSMutableString new];
-        [_self enumerateObjectsUsingBlock:^(id  _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+        [_self enumerateObjectsUsingBlock:^(id  item, NSUInteger idx, BOOL * stop) {
+            
             if(![item isKindOfClass:[NSString class]]){
-                [ret appendString:[item description]];
-            }else{
-                [ret appendString:item];
+                item = [item description];
             }
+            
+            [ret appendString:item];
+            
             if(split && idx!=_self.count-1){
                 [ret appendString:split];
             }
@@ -292,11 +294,11 @@ return self.funcName;
     };
 }
 
-- (NSIndexSet *(^)(id))arrGetValuesIndexWithValue
+- (NSIndexSet *(^)(id))arrGetValuesIndexForValue
 {
     return ^id(id value){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrGetValuesIndexWithValue,value)
+        LinkGroupHandle_REF(arrGetValuesIndexForValue,value)
         return  [_self indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if([obj isEqual:value])
                 return YES;

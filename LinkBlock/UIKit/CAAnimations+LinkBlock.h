@@ -34,7 +34,7 @@
 
 
 /**
- 整合CAAnimation，CAPropertyAnimation，CABasicAnimation，CAKeyframeAnimation，CASpringAnimation的扩展
+ include CAAnimation，CAPropertyAnimation，CABasicAnimation，CAKeyframeAnimation，CASpringAnimation的扩展
  */
 @interface NSObject(CAAnimationsLinkBlock)
 #pragma mark - Foundation Mirror/镜像

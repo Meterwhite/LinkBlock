@@ -38,7 +38,7 @@ LBDeclare CGFloat          (^valueCGVectorY)(void);
 LBDeclare NSUInteger       (^valueNSRangeLength)(void);
 LBDeclare NSUInteger       (^valueNSRangeLocation)(void);
 
-#pragma mark - Foundation Extend/多择
+#pragma mark - Foundation Extend/补充
 /** <^()> 数字或结构体是否是初始值 */
 LBDeclare BOOL             (^valueIsBlank)(void);
 /** <^()> NSNumber,c number */

@@ -264,11 +264,11 @@
 }
 
 
-- (UIColor *(^)(id))colorSetToUIForBackground
+- (UIColor *(^)(id))colorSetToUIBackground
 {
     return ^id(id obj){
         LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetToUIForBackground,obj)
+        LinkGroupHandle_REF(colorSetToUIBackground,obj)
         
         if([obj respondsToSelector:@selector(setBackgroundColor:)]){
             
@@ -278,7 +278,7 @@
             NSEnumerator* enumerator = [obj objectEnumerator];
             id item;
             while ((item = enumerator.nextObject)) {
-                [_self colorSetToUIForBackground](item);
+                [_self colorSetToUIBackground](item);
             }
         }
         
@@ -286,11 +286,11 @@
     };
 }
 
-- (UIColor *(^)(id))colorSetToUIForText
+- (UIColor *(^)(id))colorSetToUIText
 {
     return ^id(id obj){
         LinkHandle_REF(UIColor)
-        LinkGroupHandle_REF(colorSetToUIForText,obj)
+        LinkGroupHandle_REF(colorSetToUIText,obj)
         
         if([obj respondsToSelector:@selector(setTextColor:)]){
             
@@ -303,7 +303,7 @@
             NSEnumerator* enumerator = [obj objectEnumerator];
             id item;
             while ((item = enumerator.nextObject)) {
-                [_self colorSetToUIForText](item);
+                [_self colorSetToUIText](item);
             }
         }
         

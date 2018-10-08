@@ -2292,20 +2292,22 @@ DefineKindOfClassAs(NSNumber)
             if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
                 
                 NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                NSArray* tempArr = [group.linkObjects subarrayWithRange:NSMakeRange(0, count)];
-                NSMutableArray* valueArr = [NSMutableArray new];
-                [tempArr enumerateObjectsUsingBlock:^(NSObject*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    [valueArr addObject:obj.linkEnd];
+                NSArray* array = [group.linkObjects subarrayWithRange:NSMakeRange(0, count)];
+                NSMutableArray* valueArray = [NSMutableArray new];
+                [array enumerateObjectsUsingBlock:^(NSObject* obj, NSUInteger idx, BOOL* stop) {
+                    
+                    obj = obj.linkEnd?:NSNull.null;
+                    [valueArray addObject:obj];
                 }];
-                [group.linkObjects setArray:valueArr];
+                [group.linkObjects setArray:valueArray];
             }
             return [group.linkObjects copy];
         }else if ([self isKindOfClass:[LinkReturn class]]){
             
-            NSObject* reVal = ((LinkReturn*)self).returnValue;
-            if([reVal isKindOfClass:[LinkGroup class]])
-                return reVal.linkEnds;
-            return reVal.linkEnd;
+            NSObject* ret = ((LinkReturn*)self).returnValue;
+            if([ret isKindOfClass:[LinkGroup class]])
+                return ret.linkEnds;
+            return ret.linkEnd;
         }
     }
     return (id)self;
@@ -2327,8 +2329,9 @@ DefineKindOfClassAs(NSNumber)
                     NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
                     [group.linkObjects setArray:[group.linkObjects subarrayWithRange:NSMakeRange(0, count)]];
                 }
-                if(idx < group.linkObjects.count)
-                    return group.linkObjects[idx];
+                if(idx < group.linkObjects.count){
+                    return [group.linkObjects[idx] linkEnd];
+                }
                 return nil;
             }else if ([self isKindOfClass:[LinkReturn class]]){
                 
@@ -2339,8 +2342,9 @@ DefineKindOfClassAs(NSNumber)
                         NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
                         [group.linkObjects setArray:[group.linkObjects subarrayWithRange:NSMakeRange(0, count)]];
                     }
-                    if(idx < group.linkObjects.count)
-                        return group.linkObjects[idx];
+                    if(idx < group.linkObjects.count){
+                        return [group.linkObjects[idx] linkEnd];
+                    }
                     return nil;
                 }
             }

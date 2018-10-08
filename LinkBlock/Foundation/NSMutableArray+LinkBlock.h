@@ -17,9 +17,9 @@ LBDeclare NSMutableArray*  (^m_arrAddObjs)(NSArray* array);
 LBDeclare NSMutableArray*  (^m_arrInsertObjAt)(id obj, NSUInteger index);
 LBDeclare NSMutableArray*  (^m_arrInsertArrayAt)(NSArray* array, NSUInteger index);
 LBDeclare NSMutableArray*  (^m_arrRemoveObj)(id obj);
-/** 不会溢出 */
+/** not overflow */
 LBDeclare NSMutableArray*  (^m_arrRemoveAt)(NSUInteger index);
-/** 不会溢出 */
+/** not overflow */
 LBDeclare NSMutableArray*  (^m_arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
 LBDeclare NSMutableArray*  (^m_arrRemoveAll)(void);
 
@@ -36,27 +36,20 @@ LBDeclare NSMutableArray*  (^m_arrReplaceObjWith)(id obj,id withObj);
 
 #pragma mark - LinkBlock
 /**
- *对数组子项为NSRange值的NSValue对象进行排序；
- *isCombine：NSRange(0,2)将与子集NSRange(0,1)合并
- **/
+ Sort NSValue-NSRange.If isCombine=YES NSRange(0,2) will contain NSRange(0,1).
+ */
 LBDeclare NSMutableArray<NSValue*>* (^m_arrSortRange)(BOOL ascending, BOOL isCombine);
 
-/** 添加或替换对象，如果指定键的值匹配 */
+/** add or replace an object if key-value matched */
 LBDeclare NSMutableArray*          (^m_arrAddOrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
 LBDeclare NSMutableArray*          (^m_arrInsertOrReplaceWhenObjValueMatchedForKeyAt)(id obj , NSString* key, NSUInteger idx);
-/** 尝试替换一项，如果指定键的值匹配 */
+/** replace an object if key-value matched */
 LBDeclare NSMutableArray*          (^m_arrReplaceWhenObjValueMatchedForKey)(id obj,NSString* key);
 LBDeclare NSMutableArray*          (^m_arrReplaceWhenObjsValueMatchedForKey)(NSArray* objs,NSString* key);
 
-/** m_arrReplaceDictionaryKey()的深度遍历 */
+/** arrReplaceKeyForDictionaryItem().Deep traversal */
 LBDeclare NSMutableArray*          (^m_arrReplaceKeyForDictionaryItemDepth)(id key,id newKey);
-/** 替换数组中字典的key */
 LBDeclare NSMutableArray*          (^m_arrReplaceKeyForDictionaryItem)(id key,id newKey);
-
-
-
-
-
 
 
 @end

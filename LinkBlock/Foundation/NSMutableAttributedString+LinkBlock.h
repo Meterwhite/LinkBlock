@@ -49,14 +49,13 @@ LBDeclare NSMutableAttributedString* (^m_attr_strDeleteStrInRange)(NSRange range
 /** <^(NSString *str,NSRange range)> */
 LBDeclare NSMutableAttributedString* (^m_attr_strReplaceStrWithStrInRange)(NSString *str,NSRange range);
 
-/** <^(NSString *forStr,NSDictionary* attrDict)>给匹配的内容设置属性 */
-LBDeclare NSMutableAttributedString* (^m_attr_strSetAttrForStr)(NSString *forStr,NSDictionary* attrDict);
-/** <^(NSString *forStr,NSDictionary* attrDict, NSRange range)>给匹配的内容设置属性 */
+LBDeclare NSMutableAttributedString* (^m_attr_strSetAttrForStr)(NSString *tagStr,NSDictionary* attrDict);
+
 LBDeclare NSMutableAttributedString* (^m_attr_strSetAttrForStrInRange)(NSString *forStr,NSDictionary* attrDict, NSRange range);
-/** <^(NSDictionary *attrDict, NSRange range)> */
+
 LBDeclare NSMutableAttributedString* (^m_attr_strSetAttrDictInRange)(NSDictionary *attrDict, NSRange range);
-/** <^(NSDictionary* attrDict)> */
+
 LBDeclare NSMutableAttributedString* (^m_attr_strSetAttrDict)(NSDictionary* attrDict);
-/** <^(UILabel* lab)>属性文本设置到Label，切换链条到参数 */
-LBDeclare UILabel* (^m_attr_strSetToLabelAsWhatSet)(UILabel* lab);
+
+LBDeclare UIView* (^m_attr_strSetToControlAsWhatSet)(UIView* ctrl);
 @end
