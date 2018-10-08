@@ -15,7 +15,6 @@
 
 @interface NSObject(LinkBlock)
 
-
 #pragma mark - Foundation Mirror
 LBDeclare NSObject*    (^objCopy)(void);
 LBDeclare NSObject*    (^objMutableCopy)(void);

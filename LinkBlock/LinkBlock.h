@@ -50,13 +50,13 @@
 
 /**
  *  安全的链条
- *  make a safe link object,checked if nil
+ *  make a safe object for link,check if nil
  */
 #ifndef linkObj
 #define linkObj(object) ((typeof(object))_LB_MakeObj(object))
 #endif
 
-///for type id(to use '.')
+///for type id
 #ifndef linkObj_id
 #define linkObj_id(object) ((NSObject*)_LB_MakeObj(object))
 #endif
@@ -69,8 +69,6 @@
 #ifndef linkEnd
 #define linkEnd linkEnd
 #endif
-
-
 
 
 //////////////////////////////////////////////////////////////////////
