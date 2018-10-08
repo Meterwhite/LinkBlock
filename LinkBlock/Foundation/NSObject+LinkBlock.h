@@ -136,25 +136,23 @@
 @property LB_BK NSDictionary*(^objToNSDictionaryWithKeys)(NSArray* asKey);
 /** <^()> <JSValue & NSString> to nsnumber */
 @property LB_BK NSNumber*    (^objToNSNumber)(void);
-/** 集合中的前一个元素 objs∈{NSArray,NSOrderedSet} */
+/** objs∈{NSArray,NSOrderedSet} */
 @property LB_BK NSObject*    (^objGetPrevItemFromObjs)(id objs);
-/** 集合中的后一个元素 */
 @property LB_BK NSObject*    (^objGetNextItemFromObjs)(id objs);
-/** 判断子项;obs∈{UIView,CALayer,UIViewController,NSIndexSet,.objectEnumerator} */
+/** obs∈{UIView,CALayer,UIViewController,NSIndexSet,.objectEnumerator} */
 @property LB_BK NSNumber*    (^objIsSubitemOfObjAs)(id obj);
-/** 判断集合子项;objs∈{.objectEnumerator,NSIndexSet} */
+/** objs∈{.objectEnumerator,NSIndexSet} */
 @property LB_BK BOOL         (^objIsSubitemOfObjs)(id objs);
 @property LB_BK NSNumber*    (^objIsSubitemOfObjsAs)(id objs);
-/** 判断集合子项;objs∈{.keyEnumerator} */
+/** objs∈{.keyEnumerator} */
 @property LB_BK BOOL         (^objIsKeyOfObjs)(id objs);
 @property LB_BK NSNumber*    (^objIsKeyOfObjsAs)(id objs);
-/** 判断是否是数字类型或数字的字符串 */
+/** Determine object if is NSNumber or number of string */
 @property LB_BK NSNumber*    (^objIsNumberAs)(void);
-/** 判断集合类型∈{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
+/** Determine type or protocol{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
 @property LB_BK NSNumber*    (^objIsCollectionAs)(void);
-/** <^(id obj)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
+
 @property LB_BK NSObject*    (^objAdd)(id obj);
-/** <^(id obj)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
 @property LB_BK NSObject*    (^objAddTo)(id obj);
 /** objAddTo调用后，将链条切换到参数 */
 @property LB_BK NSObject*    (^objAddToAsWhatSet)(id obj);
@@ -164,36 +162,30 @@
 @property LB_BK NSObject*    (^objInsertTo)(id obj , NSUInteger idx);
 /** objInsertTo调用后，将链条切换到参数 */
 @property LB_BK NSObject*    (^objInsertToAsWhatSet)(id obj , NSUInteger idx);
-/** <^(id obj)>弱类型化移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项, */
+/** self,obj∈{NSString , .responseToSelector(removeObject:,removeFromSuperview,removeFromSuperlayer,removeFromParentViewController,removeIndex:) } */
 @property LB_BK NSObject*    (^objRemove)(id obj);
-/** <^(id obj)>弱类型化移除;<UIView>时为移除子视图,<String>时为移除字符串,<Array>等集合类型为移除子项,<Dictionary>时为移除键相关的项.<UILable|UITextFild|UITextView|UISearchBar>时为清除文本内容 */
-@property LB_BK NSObject*    (^objRemoveAll)(void);
-
-/** <^(id obj)>弱类型化移除;UIView时为移除子视图,String时为移除字符串,Array等集合类型为移除子项,Dictionary时为移除键相关的项 */
 @property LB_BK NSObject*    (^objRemoveFrom)(id obj);
-/** objRemoveFrom调用后，将链条切换到参数 */
+/** call objRemoveFrom then switch link to your paramiter */
 @property LB_BK NSObject*    (^objRemoveFromAsWhatSet)(id obj);
-
+@property LB_BK NSObject*    (^objRemoveAll)(void);
 
 
 #pragma mark - LinkBlock
-/** 打印json形式的对象 */
+/** print object as json string */
 @property LB_BK NSObject*    (^po)(void);
-/** 打印json形式的对象，深度遍历的，展开的 */
 @property LB_BK NSObject*    (^poDetail)(void);
-/** <^(id obj)>弱类型化判断对象是否有内容
- 检查项为：
- 字符串是否有内容
- NSValue是否有内容，其中NSNumber对0检查，结构体对默认值进行检查，其他队NULL进行检查
- 容器类对象是否有内容
- 控件是否有子控件
- 用户模型是否赋值
+/** Determine if object contain info/对象是否有内容
+ check：
+ String Type - Empty
+ NSValue Type(NSNumber-0，Struct-DefaultValue，Others-NULL)
+ Collection contains item
+ UIView contains subview
+ Custom Type - nil
  */
 @property LB_BK BOOL         (^objIsBlank)(void);
 @property LB_BK BOOL         (^objIsNSNull)(void);
 @property LB_BK NSNumber*    (^objIsNSNullAs)(void);
 
-/** <^()> 通过序列化的方式复制一份完全独立的对象 */
 @property LB_BK NSObject*    (^objCopyByArchive)(void);
 
 @property LB_BK BOOL         (^objIsEqualToEach)(id obj,...);
@@ -207,54 +199,30 @@
 
 
 
-
 #pragma mark - Block
-/** <^()>block的参数个数 */
 @property LB_BK NSUInteger    (^blockArgsCount)(void);
-/** <^()>block的返回类型 */
 @property LB_BK const char *  (^blockReturnType)(void);
+
 #pragma mark - Class
-/** 判断Foundation类型 */
+/** Determine if Foundation type */
 + (BOOL)classIsFoundation;
-/** 当前类型是否包含属性（@property value），不包括父类 */
 + (BOOL)classContainProperty:(NSString*)property;
-/** 当前类型是否包含成员变量（_value）不包括父类 */
 + (BOOL)classContainIvar:(NSString*)ivarName;
-/** 获取当前类型的成员变量名列表 */
 + (NSArray<NSString*>*)classGetIvarList;
-/** 获取当前类型的属性名列表（@property value） */
 + (NSArray<NSString*>*)classGetPropertyList;
-/**
- 获取当前类型属性的类型字符串
- @param key 属性名
- @return 属性类型的字符串；基本类型数据返回形如：i,q,l...(参考：property type encodings)
- */
+/** reference:property type encodings */
 + (NSString*)classGetPropertyType:(NSString*)key;
-/**
- *  获取当前类型及父类的属性名列表（不包含NSObject以及NSObject扩展属性）
- *  @param includeFoundation 是否包含基础类型
- */
+/** Depth Traversal */
 + (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation;
-/** 获取实例方法名列表 */
 - (NSArray<NSString*>*)objGetInstanceMethodList;
-/** 获取类方法名列表 */
 + (NSArray<NSString*>*)classGetClassMethodList;
-/** 获取协议名列表 */
 + (NSArray<NSString*>*)classGetProtocolList;
-/**
- *  向上遍历所有类
- *  @param includeFoundation 遍历时是否包含Foundation类型
- */
+/** Depth Traversal */
 + (void)classEnumerateUsingBlock:(void(^)(Class clazz , BOOL* stop))block
                includeFoundation:(BOOL)includeFoundation;
 
-/**
- *  遍历所有属性（propertyType：属性类型的字符串；基本类型数据形如：i,q,l...(参考：property type encodings或objValueRandom内部实现)
- *
- *  @param includeFoundation 遍历时是否包含Foundation类型
- */
-+ (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block
-                        includeFoundation:(BOOL)includeFoundation;
+/** propertyName reference:property type encodings */
++ (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block includeFoundation:(BOOL)includeFoundation;
 
 //MARK: 强制类型声明
 -                  (NSString*)                  asNSString;
@@ -291,7 +259,7 @@
 
 
 #pragma mark - Link
-@property (nonatomic,readonly) id              linkEnd;
+@property LB_F  id             linkEnd;
 @property LB_F NSArray*        linkEnds;
 @property LB_BK id                (^linkEndsAt)(NSUInteger idx);
 @property LB_BK NSObject*         (^linkAnd)(id obj);

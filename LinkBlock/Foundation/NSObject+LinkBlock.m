@@ -349,12 +349,15 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objAdd , obj)
         
-        if([self isKindOfClass:[NSMutableArray class]] ||
-           [self isKindOfClass:[NSMutableSet class]] ||
-           [self isKindOfClass:[NSHashTable class]] ||
-           [self isKindOfClass:[NSMutableOrderedSet class]]){
+        if([self respondsToSelector:@selector(addObject:)]){
             
             [_self addObject:obj];
+        }else if([self respondsToSelector:@selector(addAnimations:)]){
+            
+            [_self addAnimations:obj];
+        }else if([self respondsToSelector:@selector(addIndex:)]){
+            
+            [_self addIndex:[obj unsignedIntegerValue]];
         }else if ([self isKindOfClass:[NSString class]]){
             
             if(!_self.objIsMutable()){
@@ -365,15 +368,15 @@
                 
                 _self.strAppend(obj);
             }
-        }else if ([self isKindOfClass:[UIView class]] &&
+        }else if ([self respondsToSelector:@selector(addSubview:)] &&
                   [obj isKindOfClass:[UIView class]]){
             
             [_self addSubview:obj];
-        }else if ([self isKindOfClass:[CALayer class]] &&
+        }else if ([self respondsToSelector:@selector(addSublayer:)] &&
                   [obj isKindOfClass:[CALayer class]]){
             
             [_self addSublayer:obj];
-        }else if ([self isKindOfClass:[NSMutableDictionary class]] &&
+        }else if ([_self respondsToSelector:@selector(addEntriesFromDictionary:)] &&
                   [obj isKindOfClass:[NSDictionary class]]){
             
             [_self addEntriesFromDictionary:obj];
@@ -391,13 +394,16 @@
         
         if(!obj) return _self;
         
-        if([obj isKindOfClass:[NSMutableArray class]] ||
-           [obj isKindOfClass:[NSMutableSet class]] ||
-           [obj isKindOfClass:[NSHashTable class]] ||
-           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+        if([obj respondsToSelector:@selector(addObject:)]){
             
             [obj addObject:_self];
-        }else if ([obj objIsMutable]()){
+        }else if([obj respondsToSelector:@selector(addIndex:)]){
+            
+            if([_self isKindOfClass:NSNumber.class]){
+                [obj addIndex:[_self unsignedIntegerValue]];
+            }
+        }else if ([obj respondsToSelector:@selector(appendString:)] &&
+                  [obj objIsMutable]()){
             
             [obj appendString:_self];
         }else if ([self isKindOfClass:[UIView class]] &&
@@ -562,36 +568,31 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objRemoveAll)
         
-        
-        if([self isKindOfClass:[UILabel class]]||
-           [self isKindOfClass:[UITextField class]]||
-           [self isKindOfClass:[UITextView class]]||
-           [self isKindOfClass:[UISearchBar class]]
-           ){
+        if([_self respondsToSelector:@selector(setText:)]){
             
-            if([[_self valueForKey:@"text"] length]){
+            if([[_self text] length]){
                 
-                [_self setValue:nil forKey:@"text"];
-                return _self;
+                [_self setText:@""];
             }
-        }
-        
-        if([self isKindOfClass:[NSMutableArray class]] ||
-           [self isKindOfClass:[NSMutableDictionary class]] ||
-           [self isKindOfClass:[NSMutableSet class]] ||
-           [self isKindOfClass:[NSHashTable class]] ||
-           [self isKindOfClass:[NSMutableOrderedSet class]] ||
-           [self isKindOfClass:[NSCache class]] ||
-           [self isKindOfClass:[NSMapTable class]]){
+        }else if([_self respondsToSelector:@selector(removeAllObjects)]){
             
             [_self removeAllObjects];
-        }else if ([self isKindOfClass:[NSString class]]){
+        }else if ([_self respondsToSelector:@selector(removeAllIndexes)]){
             
-            _self = [NSMutableString new];
-        }else if ([self isKindOfClass:[UIView class]]){
+            [_self removeAllIndexes];
+        }else if ([_self respondsToSelector:@selector(removeAllPoints)]){
+            
+            [_self removeAllPoints];
+        }else if ([_self respondsToSelector:@selector(removeAllSegments)]){
+            
+            [_self removeAllSegments];
+        }else if ([_self isKindOfClass:[NSString class]] && [_self objIsMutable]()){
+            
+            [_self setString:@""];
+        }else if ([_self isKindOfClass:[UIView class]]){
             
             [[_self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        }else if ([self isKindOfClass:[CALayer class]]){
+        }else if ([_self isKindOfClass:[CALayer class]]){
             
             [[_self sublayers] makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
         }
@@ -739,13 +740,10 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objRemove , obj)
         
-        if([self isKindOfClass:[NSMutableArray class]] ||
-           [self isKindOfClass:[NSMutableSet class]] ||
-           [self isKindOfClass:[NSHashTable class]] ||
-           [self isKindOfClass:[NSMutableOrderedSet class]]){
+        if([_self respondsToSelector:@selector(removeObject:)]){
             
             [_self removeObject:obj];
-        }else if ([self isKindOfClass:[NSString class]] &&
+        }else if ([_self isKindOfClass:[NSString class]] &&
                   [obj isKindOfClass:[NSString class]]){
             
             if(!_self.objIsMutable()){
@@ -774,6 +772,17 @@
         }else if ([self isKindOfClass:[NSMutableDictionary class]]){
             
             [_self removeObjectForKey:obj];
+        }else if([_self respondsToSelector:@selector(removeFromParentViewController)]){
+            
+            if([[obj parentViewController] isEqual:_self]){
+                [obj removeFromParentViewController];
+            }
+        }else if([_self respondsToSelector:@selector(removeIndex:)]){
+            
+            if([obj isKindOfClass:NSNumber.class]){
+                
+                [_self removeIndex:[obj unsignedIntegerValue]];
+            }
         }
         
         return _self;
@@ -786,37 +795,43 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objRemoveFrom , obj)
         if(NSEqualNil(obj)) return _self;
-        if([obj isKindOfClass:[NSMutableArray class]] ||
-           [obj isKindOfClass:[NSMutableSet class]]   ||
-           [obj isKindOfClass:[NSHashTable class]]    ||
-           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+        
+        if([obj respondsToSelector:@selector(removeObject:)]){
             
             [obj removeObject:_self];
-        }else if ([self isKindOfClass:[NSString class]] &&
-                  [obj objIsMutable]() &&
-                  [_self isKindOfClass:NSString.class]){
+        }else if ([_self isKindOfClass:[NSString class]] &&
+                  [obj objIsMutable]()){
             
             [obj replaceOccurrencesOfString:_self
                                  withString:@""
                                     options:0
                                       range:NSMakeRange(0, [obj length])];
-        }else if ([self isKindOfClass:[UIView class]] &&
-                  [obj isKindOfClass:[UIView class]]){
+        }else if ([_self respondsToSelector:@selector(removeFromSuperview)]){
             
             if([_self superview] == obj){
                 
                 [_self removeFromSuperview];
             }
-        }else if ([self isKindOfClass:[CALayer class]] &&
-                  [obj isKindOfClass:[CALayer class]]){
+        }else if ([_self respondsToSelector:@selector(removeFromSuperlayer)]){
             
             if([_self superlayer] == obj){
                 
                 [_self removeFromSuperlayer];
             }
-        }else if ([obj isKindOfClass:[NSMutableDictionary class]]){
+        }else if ([obj respondsToSelector:@selector(removeObjectForKey:)]){
             
             [obj removeObjectForKey:_self];
+        }else if ([obj respondsToSelector:@selector(removeFromParentViewController)]){
+            
+            if([_self parentViewController] == obj){
+                [_self removeFromParentViewController];
+            }
+        }
+        else if ([obj respondsToSelector:@selector(removeIndex:)]){
+            
+            if([_self isKindOfClass:NSNumber.class]){
+                [obj removeIndex:[_self unsignedIntegerValue]];
+            }
         }
         
         return _self;
