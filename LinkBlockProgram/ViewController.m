@@ -29,6 +29,14 @@
     
     man.objSetValueForKeyByRegex(@"XXXX", @"name");
     
+    NSPredicate* predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        
+        NSLog(@"%@",bindings);
+        return YES;
+    }];
+    
+    [predicate evaluateWithObject:man];
+    
     @"END".nslog();
     return;
 //

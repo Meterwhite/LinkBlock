@@ -12,7 +12,7 @@
 #import "LinkHelper.h"
 #import "LinkBlockInvocation.h"
 
-@implementation NSObject(LinkBlock)
+@implementation NSObject(LinkBlockNSObject)
 
 - (NSObject *(^)(NSString *, ...))linkEvalCode
 {

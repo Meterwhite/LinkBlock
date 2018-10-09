@@ -13,7 +13,7 @@
 #import "LinkReturn.h"
 #import "Others+LinkBlock.h"
 
-@interface NSObject(LinkBlock)
+@interface NSObject(LinkBlockNSObject)
 
 #pragma mark - Foundation Mirror
 @property LB_BK NSObject*    (^objCopy)(void);
@@ -289,7 +289,7 @@
 @property LB_BK const char *  (^blockReturnType)(void);
 
 #pragma mark - Class
-/** Determine if Foundation type */
+/** Determine if is Foundation type */
 + (BOOL)classIsFoundation;
 + (BOOL)classContainProperty:(NSString*)property;
 + (BOOL)classContainIvar:(NSString*)ivarName;
