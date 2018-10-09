@@ -45,7 +45,14 @@
 @property LB_BK NSObject*    (^objPerformSelector)(SEL sel);
 
 #pragma mark - Foundation Fast
-/** 是否是block对象 */
+/**
+ <^NSNumber*(NSString* predicateFormat,...)>
+ Refer to : evaluateWithObject:
+ */
+@property LB_BK NSNumber*    (^objEvaluatePredicateAs)(NSString* predicateFormat,...);
+/** <^BOOL(NSString* predicateFormat,...)> */
+@property LB_BK BOOL         (^objEvaluatePredicate)(NSString* predicateFormat,...);
+/** Determine if is block */
 @property LB_BK BOOL         (^objIsKindOfNSBlock)(void);
 @property LB_BK NSNumber*    (^objIsKindOfNSStringAs)(void);
 @property LB_BK NSNumber*    (^objIsKindOfNSArrayAs)(void);
@@ -56,10 +63,8 @@
 @property LB_BK NSObject*    (^objSetValueForKdelegate)(id value);
 @property LB_BK NSObject*    (^objSetValueForKdataSource)(id value);
 @property LB_BK NSObject*    (^objSetValueForKtext)(id value);
-/** 打印对象引用计数器 */
-@property LB_F NSObject*  logRetainCount;
-/** <^()>获取对象的引用计数器 */
-@property LB_F CFIndex    objRetainCount;
+@property LB_FN NSObject*  logRetainCount;
+@property LB_FN CFIndex    objRetainCount;
 
 
 #pragma mark - Foundation Extent
@@ -70,9 +75,7 @@
 @property LB_BK NSObject*    (^objMutableCopyEnumerate)(void);
 /** <^()> 不可变对象转为可变对象，否则不会发生任何事 */
 @property LB_BK NSObject*    (^objNeedMutable)(void);
-/** <^(NSString* key)>输出对象Key对应的值 */
 @property LB_BK NSObject*    (^nslogValueForKey)(NSString* key);
-/** <^(NSString* key)> */
 @property LB_BK NSObject*    (^nslogValueForKeyPath)(NSString* key);
 /** asKey∈{NSString,NSArray} */
 @property LB_BK NSObject*    (^objSetNilForKey)(id asKey);
@@ -113,7 +116,7 @@
 @property LB_BK NSObject*    (^objPerformSelectorArgument)(SEL sel,id arg);
 @property LB_BK NSObject*    (^objPerformsSelectorArguments)(SEL sel0,NSArray* args0,...);
 /**
- *返回调用结果的形式
+ *Return function return value
  *调用void返回方法时返回结果为NSNull,所有nil的返回值也都装箱为NSNull；
  **/
 @property LB_BK NSObject*    (^objPerformSelectorAsWhatReturn)(SEL sel);
@@ -152,25 +155,107 @@
 /** Determine type or protocol{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
 @property LB_BK NSNumber*    (^objIsCollectionAs)(void);
 
+
+/**
+ self ∈ {
+ NSString ,NSMutableString ,
+ .responsetoSelector(
+    addObject:, addEntriesFromDictionary:,
+    appendAttributedString:, addSubview:, addSublayer:,
+    appendData:, appendPath:, addIndex:
+ )}
+ note:String∈{NSString , NSMutableString}
+ */
 @property LB_BK NSObject*    (^objAdd)(id obj);
+/** Refer to:objAdd */
 @property LB_BK NSObject*    (^objAddTo)(id obj);
-/** objAddTo调用后，将链条切换到参数 */
+/** switch link object to parameter */
 @property LB_BK NSObject*    (^objAddToAsWhatSet)(id obj);
-/** <^(id obj , NSUInteger idx)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
+
+
+/**
+ self ∈ {
+    NSString,NSMutableString,
+    .responseToSelector(
+        insertObject:atIndex:,
+        insertSubview:atIndex:,
+        insertSublayer:atIndex:
+    )
+ }
+ */
 @property LB_BK NSObject*    (^objInsert)(id obj , NSUInteger idx);
-/** <^(id obj , NSUInteger idx)>弱类型化添加;UIView时为添加子视图,String时为拼接字符串,Array等集合类型为添加子项 */
+/** Refer to:objInsert */
 @property LB_BK NSObject*    (^objInsertTo)(id obj , NSUInteger idx);
-/** objInsertTo调用后，将链条切换到参数 */
+/** switch link object to parameter */
 @property LB_BK NSObject*    (^objInsertToAsWhatSet)(id obj , NSUInteger idx);
-/** self,obj∈{NSString , .responseToSelector(removeObject:,removeFromSuperview,removeFromSuperlayer,removeFromParentViewController,removeIndex:) } */
+
+/**
+ self∈{
+ NSString,NSMutableString,
+ .responseToSelector(removeObject:,
+    removeFromSuperview,
+    removeFromSuperlayer,
+    removeFromParentViewController,
+    removeIndex:
+    removeObjectForKey:
+ )
+ }
+ */
 @property LB_BK NSObject*    (^objRemove)(id obj);
+/** Refer to:objRemove */
 @property LB_BK NSObject*    (^objRemoveFrom)(id obj);
-/** call objRemoveFrom then switch link to your paramiter */
+/** switch link object to parameter */
 @property LB_BK NSObject*    (^objRemoveFromAsWhatSet)(id obj);
+
+
+/**
+ self   ∈   {
+    NSString,NSMutableString,UIView,CALayer,
+    .responseToSelector(
+        removeAllObjects,removeAllIndexes,
+        removeAllPoints,removeAllSegments,
+        setText:
+    )
+ }
+ note:setText: means setText:@"";
+ */
 @property LB_BK NSObject*    (^objRemoveAll)(void);
 
 
+/**
+ self   ∈   {
+    .responseToSelector(
+        count,
+        length
+    )
+ }
+ Return @(NSNotFound) if not response to sel.
+ */
+@property LB_BK NSNumber*    (^objLengthAs)(void);
+@property LB_BK NSUInteger   (^objLength)(void);
+/** As weall as objLength */
+@property LB_BK NSUInteger   (^objCount)(void);
+
 #pragma mark - LinkBlock
+/** search is ignoring Case  */
+@property LB_BK NSObject*    (^objSetValueForKeyByMatch)(id value, NSString* matchKey);
+/** set value for all matched key by regex */
+@property LB_BK NSObject*    (^objSetValueForKeyByRegex)(id value, NSString* regexOfKey);
+/**
+ <^NSNumber*(NSString* keyPath,NSString* predicateFormat,...)>
+ Refer to : objEvaluatePredicateAs
+ */
+@property LB_BK NSNumber*    (^objEvaluateValueForKeyPathAs)(NSString* keyPath,NSString* predicateFormat,...);
+/** <^BOOL(NSString* keyPath,NSString* predicateFormat,...)> */
+@property LB_BK BOOL         (^objEvaluateValueForKeyPath)(NSString* keyPath,NSString* predicateFormat,...);
+/**
+ <^NSObject*(id value, NSString* keyPath,NSString* predicateFormat,...)>
+ If self matched by predicate call setValue:forkeyPath:
+ Refer to : objEvaluatePredicateAs.
+ */
+@property LB_BK NSObject*    (^objSetValueForKeyPathWhenEvaluated)(id value, NSString* keyPath,NSString* predicateFormat,...);
+
+
 /** print object as json string */
 @property LB_BK NSObject*    (^po)(void);
 @property LB_BK NSObject*    (^poDetail)(void);
@@ -259,19 +344,23 @@
 
 
 #pragma mark - Link
-@property LB_F  id             linkEnd;
-@property LB_F NSArray*        linkEnds;
-@property LB_BK id                (^linkEndsAt)(NSUInteger idx);
-@property LB_BK NSObject*         (^linkAnd)(id obj);
-@property LB_BK NSObject*         (^linkTo)(id obj);
-@property LB_BK NSObject*         (^linkOut)(NSUInteger idx);
-@property LB_BK NSObject*         (^linkAt)(NSUInteger idx);
-@property LB_F NSObject*       linkFirstObj;
-@property LB_F NSObject*       linkLastObj;
-@property LB_BK NSObject*         (^linkLoop)(NSUInteger count);
-@property LB_BK NSObject*         (^linkIf)(BOOL condition);
-@property LB_F NSObject*       linkElse;
-@property LB_F NSObject*       linkReturn;
+@property LB_FN id             linkEnd;
+@property LB_FN NSArray*       linkEnds;
+@property LB_BK id             (^linkEndsAt)(NSUInteger idx);
+
+@property LB_BK NSObject*      (^linkAnd)(id obj);
+@property LB_BK NSObject*      (^linkOut)(NSUInteger idx);
+
+@property LB_BK NSObject*      (^linkTo)(id obj);
+@property LB_BK NSObject*      (^linkAt)(NSUInteger idx);
+@property LB_FN NSObject*      linkFirstObj;
+@property LB_FN NSObject*      linkLastObj;
+
+@property LB_BK NSObject*      (^linkLoop)(NSUInteger count);
+
+@property LB_BK NSObject*      (^linkIf)(BOOL condition);
+@property LB_FN NSObject*      linkElse;
+@property LB_FN NSObject*      linkReturn;
 
 - (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
 - (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;
@@ -295,7 +384,7 @@
               block:(void(^)(NSObject* obj))block;
 
 
-#pragma mark - 动态解析 DynamicLink
+#pragma mark - DynamicLink/脚本解析
 /**
  End with "nil,NSNotFond" in linkBlock for structures
  */
@@ -308,7 +397,7 @@ NS_INLINE id _LB_MakeObj(id object){
     return object?object:[LinkError new];
 }
 /**
- end with nil
+ need to end with nil
  */
 NS_INLINE LinkInfo* _LB_MakeObjs(id object0, ...){
     if(!object0) return [LinkError new];

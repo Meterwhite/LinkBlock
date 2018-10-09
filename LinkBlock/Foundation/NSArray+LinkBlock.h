@@ -118,7 +118,7 @@
 
 
 #pragma mark - Link Objects/多对象
-@property LB_F NSObject*              makeLinkObjs;
+@property LB_FN NSObject*              makeLinkObjs;
 
 @end
 

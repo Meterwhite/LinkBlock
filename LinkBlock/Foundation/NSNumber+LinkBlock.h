@@ -94,13 +94,13 @@
  用法与linkIf相似
  <NSNumber>.linkIf_YES...LinkElse...
  */
-@property LB_F NSObject*    linkIf_YES;
+@property LB_FN NSObject*    linkIf_YES;
 /**
  根据引用型布尔值判断是否中断其后语句，如果当前语句已中断则由当前条件决定其后是否执行
  用法与linkIf相似
  ...NSNumber.linkIf_NO...LinkElse...
  */
-@property LB_F NSObject*    linkIf_NO;
+@property LB_FN NSObject*    linkIf_NO;
 @end
 
 @interface NSNumber (NSNumberLinkBlock)

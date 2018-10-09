@@ -349,38 +349,47 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objAdd , obj)
         
-        if([self respondsToSelector:@selector(addObject:)]){
-            
-            [_self addObject:obj];
-        }else if([self respondsToSelector:@selector(addAnimations:)]){
-            
-            [_self addAnimations:obj];
-        }else if([self respondsToSelector:@selector(addIndex:)]){
-            
-            [_self addIndex:[obj unsignedIntegerValue]];
-        }else if ([self isKindOfClass:[NSString class]]){
+        //NSNull means not to check
+        NSArray* infos = @[
+                          @[LBSELString(addObject:),NSNull.class],
+                          @[LBSELString(addEntriesFromDictionary:),NSDictionary.class],
+                          @[LBSELString(appendAttributedString:),NSAttributedString.class],
+                          @[LBSELString(addSubview:),UIView.class],
+                          @[LBSELString(addSublayer:),CALayer.class],
+                          @[LBSELString(appendData:),NSData.class],
+                          @[LBSELString(appendPath:),UIBezierPath.class],
+                          @[LBSELString(addIndex:),NSNumber.class],
+                        ];
+        SEL sel;    Class clazzNeed;
+        
+        
+        if ([_self isKindOfClass:[NSString class]]){
             
             if(!_self.objIsMutable()){
-                
-                _self = [self mutableCopy];
-                _self.m_strAppend(obj);
-            }else{
-                
-                _self.strAppend(obj);
+                _self = [_self mutableCopy];
             }
-        }else if ([self respondsToSelector:@selector(addSubview:)] &&
-                  [obj isKindOfClass:[UIView class]]){
+            _self.strAppend(obj);
             
-            [_self addSubview:obj];
-        }else if ([self respondsToSelector:@selector(addSublayer:)] &&
-                  [obj isKindOfClass:[CALayer class]]){
-            
-            [_self addSublayer:obj];
-        }else if ([_self respondsToSelector:@selector(addEntriesFromDictionary:)] &&
-                  [obj isKindOfClass:[NSDictionary class]]){
-            
-            [_self addEntriesFromDictionary:obj];
+            goto CALL_RET;
         }
+        
+        for (int i=0; i<infos.count; i++) {
+            
+            sel = NSSelectorFromString(infos[i][0]);
+            clazzNeed = infos[i][1];
+            
+            if([_self respondsToSelector:sel]){
+                
+                if(clazzNeed == NSNull.class    ||
+                   [obj isKindOfClass:clazzNeed]){
+                    
+                    [_self _lb_performSelector:sel withObject:obj];
+                }
+                goto CALL_RET;
+            }
+        }
+        
+    CALL_RET:
         
         return _self;
     };
@@ -394,31 +403,44 @@
         
         if(!obj) return _self;
         
-        if([obj respondsToSelector:@selector(addObject:)]){
+        //NSNull means not to check
+        NSArray* infos = @[
+                           @[LBSELString(addObject:),NSNull.class],
+                           @[LBSELString(addEntriesFromDictionary:),NSDictionary.class],
+                           @[LBSELString(appendAttributedString:),NSAttributedString.class],
+                           @[LBSELString(addSubview:),UIView.class],
+                           @[LBSELString(addSublayer:),CALayer.class],
+                           @[LBSELString(appendData:),NSData.class],
+                           @[LBSELString(appendPath:),UIBezierPath.class],
+                           @[LBSELString(addIndex:),NSNumber.class],
+                           ];
+        SEL sel;    Class clazzNeed;
+        
+        
+        if ([obj respondsToSelector:@selector(appendString:)]){
             
-            [obj addObject:_self];
-        }else if([obj respondsToSelector:@selector(addIndex:)]){
-            
-            if([_self isKindOfClass:NSNumber.class]){
-                [obj addIndex:[_self unsignedIntegerValue]];
-            }
-        }else if ([obj respondsToSelector:@selector(appendString:)] &&
-                  [obj objIsMutable]()){
-            
-            [obj appendString:_self];
-        }else if ([self isKindOfClass:[UIView class]] &&
-                  [obj isKindOfClass:[UIView class]]){
-            
-            [obj addSubview:_self];
-        }else if ([self isKindOfClass:[CALayer class]] &&
-                  [obj isKindOfClass:[CALayer class]]){
-            
-            [obj addSublayer:_self];
-        }else if ([self isKindOfClass:[NSDictionary class]] &&
-                  [obj isKindOfClass:[NSMutableDictionary class]]){
-            
-            [obj addEntriesFromDictionary:obj];
+            if([obj objIsMutable]())
+                [obj appendString:_self];
+            goto CALL_RET;
         }
+        
+        for (int i=0; i<infos.count; i++) {
+            
+            sel = NSSelectorFromString(infos[i][0]);
+            clazzNeed = infos[i][1];
+            
+            if([obj respondsToSelector:sel]){
+                
+                if(clazzNeed == NSNull.class    ||
+                   [_self isKindOfClass:clazzNeed]){
+                    
+                    [obj _lb_performSelector:sel withObject:_self];
+                }
+                goto CALL_RET;
+            }
+        }
+        
+    CALL_RET:
         
         return _self;
     };
@@ -427,36 +449,13 @@
 - (NSObject *(^)(id))objAddToAsWhatSet
 {
     return ^id(id obj){
+        
+        if(!obj) return NSNull.null;
+        
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objAddToAsWhatSet , obj)
         
-        if([obj isKindOfClass:[NSMutableArray class]] ||
-           [obj isKindOfClass:[NSMutableSet class]] ||
-           [obj isKindOfClass:[NSHashTable class]] ||
-           [obj isKindOfClass:[NSMutableOrderedSet class]]){
-            
-            [obj addObject:_self];
-        }else if ([self isKindOfClass:[NSString class]] &&
-                  [obj isKindOfClass:[NSString class]]){
-            
-            if([obj objIsMutable]()){
-                
-                [obj appendString:_self];
-            }else{
-                
-                obj = [obj mutableCopy] ;
-                [obj appendString:_self];
-            }
-        }else if ([self isKindOfClass:[UIView class]] &&
-                  [obj isKindOfClass:[UIView class]]){
-            
-            [obj addSubview:_self];
-        }else if ([self isKindOfClass:[CALayer class]] &&
-                  [obj isKindOfClass:[CALayer class]]){
-            
-            [obj addSublayer:_self];
-        }
-        
+        self.objAddTo(obj);
         return linkObj(obj);
     };
 }
@@ -467,30 +466,43 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objInsert , obj , idx)
         
-        if([self isKindOfClass:[NSMutableArray class]] ||
-           [self isKindOfClass:[NSMutableOrderedSet class]]){
+        if(!obj) return _self;
+        
+        //NSNull means not to check
+        NSArray* infos = @[
+                           @[LBSELString(insertObject:atIndex:),NSNull.class],
+                           @[LBSELString(insertSubview:atIndex:),UIView.class],
+                           @[LBSELString(insertSublayer:atIndex:),CALayer.class],
+                           ];
+        SEL sel;    Class clazzNeed;
+        
+        
+        if([_self isKindOfClass:NSString.class]){
             
-            [_self insertObject:obj atIndex:idx];
-        }else if ([self isKindOfClass:[NSString class]] &&
-                  [obj isKindOfClass:[NSString class]]){
+            if(!_self.strIsMutableAs().boolValue)
+                _self = _self.mutableCopy;
             
-            if([_self objIsMutable]()){
-                
-                [_self insertString:obj atIndex:idx];
-            }else{
-                
-                _self = [_self mutableCopy];
-                [_self insertString:obj atIndex:idx];
-            }
-        }else if ([self isKindOfClass:[UIView class]] &&
-                  [obj isKindOfClass:[UIView class]]){
-            
-            [_self insertSubview:obj atIndex:idx];
-        }else if ([self isKindOfClass:[CALayer class]] &&
-                  [obj isKindOfClass:[CALayer class]]){
-            
-            [_self insertSublayer:obj atIndex:(unsigned)idx];
+            [_self insertString:obj atIndex:idx];
+            goto CALL_RET;
         }
+        
+        for (int i=0; i<infos.count; i++) {
+            
+            sel = NSSelectorFromString(infos[i][0]);
+            clazzNeed = infos[i][1];
+            
+            if([_self respondsToSelector:sel]){
+                
+                if(clazzNeed == NSNull.class    ||
+                   [obj isKindOfClass:clazzNeed]){
+                    
+                    [_self _lb_performSelector:sel withObject:obj];
+                }
+                goto CALL_RET;
+            }
+        }
+        
+    CALL_RET:
         
         return _self;
     };
@@ -499,29 +511,45 @@
 - (NSObject *(^)(id, NSUInteger))objInsertTo
 {
     return ^id(id obj , NSUInteger idx){
+        
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objInsertTo , obj , idx)
         
-        if([obj isKindOfClass:[NSMutableArray class]] ||
-           [obj isKindOfClass:[NSMutableOrderedSet class]]){
+        if(!obj) return _self;
+        
+        //NSNull means not to check
+        NSArray* infos = @[
+                           @[LBSELString(insertObject:atIndex:),NSNull.class],
+                           @[LBSELString(insertSubview:atIndex:),UIView.class],
+                           @[LBSELString(insertSublayer:atIndex:),CALayer.class],
+                           ];
+        SEL sel;    Class clazzNeed;
+        
+        
+        if([obj isKindOfClass:NSString.class]){
             
-            [obj insertObject:_self atIndex:idx];
-        }else if ([obj isKindOfClass:NSMutableString.class] &&
-                  [obj objIsMutable]()){
-            
-            if(![_self isKindOfClass:NSString.class])
-                _self = _self.description;
-            if(_self)
-                [obj insertString:_self atIndex:idx];
-        }else if ([self isKindOfClass:[UIView class]] &&
-                  [obj isKindOfClass:[UIView class]]){
-            
-            [obj insertSubview:_self atIndex:idx];
-        }else if ([self isKindOfClass:[CALayer class]] &&
-                  [obj isKindOfClass:[CALayer class]]){
-            
-            [obj insertSublayer:_self atIndex:(unsigned)idx];
+            if([obj objIsMutable]())
+                [_self insertString:obj atIndex:idx];
+            goto CALL_RET;
         }
+        
+        for (int i=0; i<infos.count; i++) {
+            
+            sel = NSSelectorFromString(infos[i][0]);
+            clazzNeed = infos[i][1];
+            
+            if([obj respondsToSelector:sel]){
+                
+                if(clazzNeed == NSNull.class    ||
+                   [_self isKindOfClass:clazzNeed]){
+                    
+                    [obj _lb_performSelector:sel withObject:_self];
+                }
+                goto CALL_RET;
+            }
+        }
+        
+    CALL_RET:
         
         return _self;
     };
@@ -530,34 +558,13 @@
 - (NSObject *(^)(id, NSUInteger))objInsertToAsWhatSet
 {
     return ^id(id obj , NSUInteger idx){
+        
+        if(!obj) return NSNull.null;
+        
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objInsertToAsWhatSet , obj , idx)
         
-        if([obj isKindOfClass:[NSMutableArray class]] ||
-           [obj isKindOfClass:[NSMutableOrderedSet class]]){
-            
-            [obj insertObject:_self atIndex:idx];
-        }else if ([self isKindOfClass:[NSString class]] &&
-                  [obj isKindOfClass:[NSString class]]){
-            
-            if([obj objIsMutable]()){
-                
-                [obj insertString:_self atIndex:idx];
-            }else{
-                
-                obj = [obj mutableCopy];
-                [obj insertString:_self atIndex:idx];
-            }
-        }else if ([self isKindOfClass:[UIView class]] &&
-                  [obj isKindOfClass:[UIView class]]){
-            
-            [obj insertSubview:_self atIndex:idx];
-        }else if ([self isKindOfClass:[CALayer class]] &&
-                  [obj isKindOfClass:[CALayer class]]){
-            
-            [obj insertSublayer:_self atIndex:(unsigned)idx];
-        }
-        
+        self.objInsertTo(obj, idx);
         return linkObj(obj);
     };
 }
@@ -568,27 +575,39 @@
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objRemoveAll)
         
+        //NSNull means not to check
+        NSArray* infos = @[
+                           LBSELString(removeAllObjects),
+                           LBSELString(removeAllIndexes),
+                           LBSELString(removeAllPoints),
+                           LBSELString(removeAllSegments),
+                           ];
+        
+        SEL sel;
+        for (int i=0; i<infos.count; i++) {
+            
+            sel = NSSelectorFromString(infos[i]);
+            
+            if([_self respondsToSelector:sel]){
+                
+                [_self _lb_performSelector:sel];
+                goto CALL_RET;
+            }
+        }
+        
+        
         if([_self respondsToSelector:@selector(setText:)]){
             
-            if([[_self text] length]){
+            [_self setText:@""];
+        }else if ([_self isKindOfClass:[NSString class]]){
+            
+            if([_self objIsMutable]()){
                 
-                [_self setText:@""];
+                [_self setString:@""];
+            }else{
+                
+                _self = @"";
             }
-        }else if([_self respondsToSelector:@selector(removeAllObjects)]){
-            
-            [_self removeAllObjects];
-        }else if ([_self respondsToSelector:@selector(removeAllIndexes)]){
-            
-            [_self removeAllIndexes];
-        }else if ([_self respondsToSelector:@selector(removeAllPoints)]){
-            
-            [_self removeAllPoints];
-        }else if ([_self respondsToSelector:@selector(removeAllSegments)]){
-            
-            [_self removeAllSegments];
-        }else if ([_self isKindOfClass:[NSString class]] && [_self objIsMutable]()){
-            
-            [_self setString:@""];
         }else if ([_self isKindOfClass:[UIView class]]){
             
             [[_self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -597,8 +616,118 @@
             [[_self sublayers] makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
         }
         
+    CALL_RET:
+        
         return _self;
     };
+}
+
+- (NSNumber *(^)(void))objLengthAs
+{
+    return ^id(void){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objLengthAs)
+        
+        if([_self respondsToSelector:@selector(count)]){
+            return @([(id)_self count]);
+        }
+        
+        if([_self respondsToSelector:@selector(length)]){
+            return @([(id)_self length]);
+        }
+        
+        return @(NSNotFound);
+    };
+}
+- (NSUInteger (^)(void))objLength
+{
+    return ^NSUInteger(void){
+        return self.objLengthAs().unsignedIntegerValue;
+    };
+}
+- (NSUInteger (^)(void))objCount
+{
+    return self.objLength;
+}
+
+- (NSObject *(^)(id, NSString*))objSetValueForKeyByRegex
+{
+    return ^id(id value, NSString* key){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSetValueForKeyByRegex, value ,key)
+        
+        [self _lb_setValue:value forKey:key option:NSRegularExpressionSearch];
+        return _self;
+    };
+}
+- (NSObject *(^)(id, NSString *))objSetValueForKeyByMatch
+{
+    return ^id(id value, NSString* key){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSetValueForKeyByRegex, value ,key)
+        
+        [self _lb_setValue:value forKey:key option:NSCaseInsensitiveSearch];
+        return _self;
+    };
+}
+
+- (void)_lb_setValue:(id)value forKey:(NSString*)key option:(NSStringCompareOptions)option
+{
+    __block objc_property_t* properties;
+    @try {
+        
+        [self.class classEnumerateUsingBlock:^(Class clazz, BOOL *stop) {
+            
+            unsigned int outCount, i;
+            properties = class_copyPropertyList(clazz, &outCount);
+            for(i=0 ; i< outCount; i++){
+                
+                NSString* pName = @(property_getName(properties[i]));
+                
+                if(![pName rangeOfString:key options:option].length) continue;
+                
+                NSString *attrs = @(property_getAttributes(properties[i]));
+                NSUInteger dotLoc = [attrs rangeOfString:@","].location;
+                NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
+                NSString *code = nil;
+                NSUInteger loc = 1;
+                if (dotLoc == NSNotFound) { // 没有
+                    code = [attrs substringFromIndex:loc];
+                } else {
+                    code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+                }
+                
+                if([attrInfos containsObject:@"R"]){
+                    //只读属性
+                    continue;
+                }else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){
+                    //无值
+                    continue;
+                }
+                
+                //KVCDisabled
+                if (code.length == 0) {
+                    continue;
+                }else if (
+                          [code isEqualToString:@":"] ||//SEL
+                          [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
+                          [code isEqualToString:@"^{objc_method=}"]//Method
+                          ) {
+                    continue;
+                }
+                
+                [self setValue:value forKey:pName];
+            }
+            free(properties);
+        } includeFoundation:NO];
+        
+    } @catch (NSException *exception) {
+        
+        free(properties);
+        NSLog(@"Error from :%s;NSException=%@;",__func__,[exception description]);
+    }
 }
 
 - (BOOL (^)(void))objIsBlank
@@ -633,7 +762,7 @@
         }
         
         //customer`s model
-        //Obj∈NSObject|Obj∈...∈NSObject
+        //Obj⊆NSObject || Obj⊆...⊆NSObject
         if(self.superclass == [NSObject class] || ![self.class classIsFoundation]){
             
             unsigned int outCount, i;
@@ -653,10 +782,10 @@
                     code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
                 }
                 
-                if([attrInfos containsObject:@"R"]){//只读属性
+                if([attrInfos containsObject:@"R"]){//readonly
                     continue;
                 }
-                else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){//无值
+                else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){//void
                     continue;
                 }
                 
@@ -1833,7 +1962,7 @@ DefineKindOfClassAs(NSNumber)
         }];
     }@catch (NSException *exception) {
         
-        NSLog(@"error from :%s,process of convert json value has been interrupted;NSException=%@;",__func__,[exception description]);
+        NSLog(@"Error from :%s,process of convert json value has been interrupted;NSException=%@;",__func__,[exception description]);
     }@finally {
         
         return dictionary;
@@ -1843,6 +1972,159 @@ DefineKindOfClassAs(NSNumber)
 - (NSDictionary *(^)(NSArray *))objToNSDictionaryWithKeys
 {
     return self.objKeyValueWithKeys;
+}
+
+- (NSNumber *(^)(NSString *, NSString *, ...))objEvaluateValueForKeyPathAs
+{
+    return ^id(NSString *key ,NSString *predicateFormat, ...){
+        
+        BOOL ret = NO;
+        
+        va_list args;
+        va_start(args, predicateFormat);
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
+        va_end(args);
+        
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            NSMutableArray* returnObjs = [NSMutableArray new];
+            for (int i=0; i<group.linkObjects.count; i++) {
+                ret = [predicate evaluateWithObject:[group.linkObjects[i] valueForKeyPath:key]];
+                [returnObjs addObject:@(ret)];
+            }
+            [group.linkObjects setArray:returnObjs];
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        if([predicateFormat isKindOfClass:[NSString class]]){
+            ret = [predicate evaluateWithObject:[self valueForKeyPath:key]];
+        }
+        return @(ret);
+    };
+}
+
+- (NSNumber *(^)(NSString *, ...))objEvaluatePredicateAs
+{
+    return ^id(NSString *predicateFormat, ...){
+        
+        BOOL ret = NO;
+        
+        va_list args;
+        va_start(args, predicateFormat);
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
+        va_end(args);
+        
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            NSMutableArray* returnObjs = [NSMutableArray new];
+            for (int i=0; i<group.linkObjects.count; i++) {
+                ret = [predicate evaluateWithObject:group.linkObjects[i]];
+                [returnObjs addObject:@(ret)];
+            }
+            [group.linkObjects setArray:returnObjs];
+            return group;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        if([predicateFormat isKindOfClass:[NSString class]]){
+            ret = [predicate evaluateWithObject:self];
+        }
+        return @(ret);
+    };
+}
+- (BOOL (^)(NSString *, ...))objEvaluatePredicate
+{
+    return ^BOOL(NSString *predicateFormat, ...){
+        
+        BOOL ret = NO;
+        id _self = self;
+        
+        va_list args;
+        va_start(args, predicateFormat);
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
+        va_end(args);
+        
+        ///////////////////////
+        //LinkGroupHandle_VAL
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (id)self;
+            _self = group.linkObjects.firstObject;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        if([predicateFormat isKindOfClass:[NSString class]]){
+            ret = [predicate evaluateWithObject:_self];
+        }
+        return ret;
+    };
+}
+- (BOOL (^)(NSString *, NSString *, ...))objEvaluateValueForKeyPath
+{
+    return ^BOOL(NSString * key,NSString *predicateFormat, ...){
+        
+        BOOL ret = NO;
+        id _self = self;
+        
+        va_list args;
+        va_start(args, predicateFormat);
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
+        va_end(args);
+        
+        ///////////////////////
+        //LinkGroupHandle_VAL
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (id)self;
+            _self = group.linkObjects.firstObject;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        if([predicateFormat isKindOfClass:[NSString class]]){
+            ret = [predicate evaluateWithObject:[_self valueForKeyPath:key]];
+        }
+        return ret;
+    };
+}
+
+- (NSObject *(^)(id, NSString *, NSString *, ...))objSetValueForKeyPathWhenEvaluated
+{
+    return ^id(id value, NSString *keyPath,NSString *predicateFormat, ...){
+        
+        va_list args;
+        va_start(args, predicateFormat);
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
+        va_end(args);
+        
+        ///////////////////////
+        //LinkGroupHandle_REF
+        if([self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (LinkGroup*)self;
+            for (int i=0; i<group.linkObjects.count; i++) {
+                
+                if([predicate evaluateWithObject:group.linkObjects[i]]){
+                    [group.linkObjects[i] setValue:value forKeyPath:keyPath];
+                }
+            }
+            return self;
+        }
+        //LinkGroupHandle_VAL
+        ///////////////////////
+        
+        if([predicate evaluateWithObject:self]){
+            
+            [self setValue:value forKeyPath:keyPath];
+        }
+        
+        return self;
+    };
 }
 
 - (BOOL (^)(void))objIsKindOfNSBlock

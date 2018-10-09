@@ -9,20 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+/** Block */
 #ifndef LB_BK
 #define LB_BK (nonatomic,copy,readonly)
 #endif
 
-/**
- 定义LinkBlock方法
- */
-#ifndef  LB_F
-#define  LB_F (nonatomic,readonly)
+/** Function */
+#ifndef  LB_FN
+#define  LB_FN (nonatomic,readonly)
 #endif
 
-/**
- 定义LinkBlock属性并设置getter方法
- */
+/** Block & Getter */
 #ifndef LB_BKG
 #define LB_BKG(getname) (nonatomic,copy,readonly,getter=getname)
 #endif
@@ -80,6 +77,10 @@ if([self isKindOfClass:[LinkGroup class]]){\
     LinkGroup* group = (LinkGroup*)self;\
     return [group.linkObjects firstObject].blockName(__VA_ARGS__);\
 }
+#endif
+
+#ifndef LBSELString
+#define LBSELString(sel) (NSStringFromSelector(@selector(sel)))
 #endif
 
 //MARK:装箱

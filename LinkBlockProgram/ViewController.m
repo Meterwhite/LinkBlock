@@ -26,7 +26,8 @@
     Man* man = [Man new];
     man.info = UIView.new;
     man.friends = @[[Person new],@"123",@YES, UITextView.new];
-    linkObj(@"").strAppend(@"");
+    
+    man.objSetValueForKeyByRegex(@"XXXX", @"name");
     
     @"END".nslog();
     return;

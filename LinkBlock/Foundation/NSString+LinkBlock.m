@@ -167,7 +167,7 @@
 
 - (NSNumber *(^)(void))strIsMutableAs
 {
-    if([self isKindOfClass:NSString.class]){
+    if([self isKindOfClass:NSMutableString.class]){
         return self.objIsMutableAs;
     }
     return ^id(){return @NO;};
@@ -2160,7 +2160,7 @@ NSString* decimalToHexString(u_char nValue)
         AudioServicesAddSystemSoundCompletion(soundID,
                                               NULL,
                                               NULL,
-                                              LBSystemSoundFinishedPlayingCallback,
+                                              _lb_SystemSoundFinishedPlayingCallback,
                                               NULL
                                               );
         AudioServicesPlaySystemSound(soundID);
@@ -2169,7 +2169,7 @@ NSString* decimalToHexString(u_char nValue)
     };
 }
 //播放后的回调
-void LBSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_data)
+void _lb_SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_data)
 {
     AudioServicesDisposeSystemSoundID(sound_id);
 }
