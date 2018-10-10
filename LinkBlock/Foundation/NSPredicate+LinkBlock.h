@@ -35,7 +35,13 @@
  - (id)where:(NSString *)key lessThanOrEqualTo:(id)value;
  - (id)where:(NSString *)key between:(id)first andThis:(id)second;
  */
-#define NSPredicateIsFalse
+
+#ifndef LBPredicateIsFalse
+#define LBPredicateIsFalse(key,v)
+#endif
+
+
+//#define NSPredicateIsFalse
 
 //NSCompoundPredicate
 @interface NSObject(NSPredicateLinkBlock)

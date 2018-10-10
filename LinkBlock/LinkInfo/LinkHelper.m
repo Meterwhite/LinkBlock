@@ -1013,4 +1013,148 @@ static bool _link_block_configuration_get_is_show_warning = true;
 //    @"end of help".nslog();
 //}
 
+#ifndef LB_BLOCK_SPathWorkerV
+#define LB_BLOCK_SPathWorkerV(from,path,to)\
+^(NSValue* value){\
+    return [NSValue valueWith##to:[value from##Value].path];\
+}
+#endif
+
+#ifndef LB_BLOCK_SPathWorkerN
+#define LB_BLOCK_SPathWorkerN(from,path,to)\
+^(NSValue* value){\
+    return [NSNumber numberWith##to:[value from##Value].path];\
+}
+#endif
+
+static NSDictionary* _link_block_struct_value_path_get_map;
++ (NSDictionary*)link_block_struct_value_path_get_map
+{
+    if(!_link_block_struct_value_path_get_map){
+        
+        _link_block_struct_value_path_get_map =
+        @{
+          @(@encode(CGRect))    :   @{
+                  @"size":LB_BLOCK_SPathWorkerV(CGRect,size,CGSize),
+                  @"origin":LB_BLOCK_SPathWorkerV(CGRect,origin,CGPoint)
+                  }
+          ,
+          @(@encode(CGSize))    :   @{
+                  @"width":LB_BLOCK_SPathWorkerN(CGSize,width,Double),
+                  @"height":LB_BLOCK_SPathWorkerN(CGSize,height,Double)
+                  }
+          ,
+          @(@encode(CGPoint))    :   @{
+                  @"x":LB_BLOCK_SPathWorkerN(CGPoint,x,Double),
+                  @"y":LB_BLOCK_SPathWorkerN(CGPoint,y,Double)
+                  }
+          ,
+          @(@encode(NSRange))    :   @{
+                  @"location":LB_BLOCK_SPathWorkerN(range,location,UnsignedInteger),
+                  @"length":LB_BLOCK_SPathWorkerN(range,length,UnsignedInteger)
+                  }
+          ,@(@encode(UIEdgeInsets))    :   @{
+                  @"top":LB_BLOCK_SPathWorkerN(UIEdgeInsets,top,Double),
+                  @"left":LB_BLOCK_SPathWorkerN(UIEdgeInsets,left,Double),
+                  @"bottom":LB_BLOCK_SPathWorkerN(UIEdgeInsets,bottom,Double),
+                  @"right":LB_BLOCK_SPathWorkerN(UIEdgeInsets,right,Double),
+                  }
+          ,@(@encode(UIOffset))    :   @{
+                  @"horizontal":LB_BLOCK_SPathWorkerN(UIOffset,horizontal,Double),
+                  @"vertical":LB_BLOCK_SPathWorkerN(UIOffset,vertical,Double)
+                  }
+          ,@(@encode(CGVector))    :   @{
+                  @"dx":LB_BLOCK_SPathWorkerN(CGVector,dx,Double),
+                  @"dy":LB_BLOCK_SPathWorkerN(CGVector,dy,Double)
+                  }
+          ,@(@encode(CATransform3D))    :   @{
+                  @"m11":LB_BLOCK_SPathWorkerN(CATransform3D,m11,Double),
+                  @"m12":LB_BLOCK_SPathWorkerN(CATransform3D,m12,Double),
+                  @"m13":LB_BLOCK_SPathWorkerN(CATransform3D,m13,Double),
+                  @"m14":LB_BLOCK_SPathWorkerN(CATransform3D,m14,Double),
+                  @"m21":LB_BLOCK_SPathWorkerN(CATransform3D,m21,Double),
+                  @"m22":LB_BLOCK_SPathWorkerN(CATransform3D,m22,Double),
+                  @"m23":LB_BLOCK_SPathWorkerN(CATransform3D,m23,Double),
+                  @"m24":LB_BLOCK_SPathWorkerN(CATransform3D,m24,Double),
+                  @"m31":LB_BLOCK_SPathWorkerN(CATransform3D,m31,Double),
+                  @"m32":LB_BLOCK_SPathWorkerN(CATransform3D,m32,Double),
+                  @"m33":LB_BLOCK_SPathWorkerN(CATransform3D,m33,Double),
+                  @"m34":LB_BLOCK_SPathWorkerN(CATransform3D,m34,Double),
+                  @"m41":LB_BLOCK_SPathWorkerN(CATransform3D,m41,Double),
+                  @"m42":LB_BLOCK_SPathWorkerN(CATransform3D,m42,Double),
+                  @"m43":LB_BLOCK_SPathWorkerN(CATransform3D,m43,Double),
+                  @"m44":LB_BLOCK_SPathWorkerN(CATransform3D,m44,Double),
+                  }
+          ,@(@encode(CGAffineTransform))    :   @{
+                  @"a":LB_BLOCK_SPathWorkerN(CGAffineTransform,a,Double),
+                  @"b":LB_BLOCK_SPathWorkerN(CGAffineTransform,b,Double),
+                  @"c":LB_BLOCK_SPathWorkerN(CGAffineTransform,c,Double),
+                  @"d":LB_BLOCK_SPathWorkerN(CGAffineTransform,d,Double),
+                  @"tx":LB_BLOCK_SPathWorkerN(CGAffineTransform,tx,Double),
+                  @"ty":LB_BLOCK_SPathWorkerN(CGAffineTransform,ty,Double),
+                  }
+          };
+    }
+    return _link_block_struct_value_path_get_map;
+}
+
+#ifndef LB_BLOCK_SSPathWorkerV
+#define LB_BLOCK_SSPathWorkerV(type,path,vType)\
+^(NSValue* _self,id value){\
+    type identify = [_self type##Value];\
+    identify.path = [value vType##Value];\
+    return [NSValue valueWith##type:identify];\
+}
+#endif
+
+static NSDictionary* _link_block_struct_value_path_set_map;
++ (NSDictionary*)link_block_struct_value_path_set_map
+{
+    if(!_link_block_struct_value_path_set_map){
+        
+        _link_block_struct_value_path_set_map =
+        @{
+          @(@encode(CGRect))    :   @{
+                  @"size":LB_BLOCK_SSPathWorkerV(CGRect,size,CGSize),
+                  @"origin":LB_BLOCK_SSPathWorkerV(CGRect,origin,CGPoint)
+                  },
+          @(@encode(CGSize))    :   @{
+                  @"width":LB_BLOCK_SSPathWorkerV(CGSize,width,unsignedInteger),
+                  @"height":LB_BLOCK_SSPathWorkerV(CGSize,height,unsignedInteger)
+                  },
+          @(@encode(CGPoint))    :   @{
+                  @"x":LB_BLOCK_SSPathWorkerV(CGPoint,x,double),
+                  @"y":LB_BLOCK_SSPathWorkerV(CGPoint,y,double)
+                  },
+          @(@encode(NSRange))    :   @{
+                  @"location":^(NSValue* _self,id value){
+                      NSRange identify = [_self rangeValue];
+                      identify.location = [value unsignedIntegerValue];
+                      return [NSValue valueWithRange:identify];
+                  },
+                  @"length":^(NSValue* _self,id value){
+                      NSRange identify = [_self rangeValue];
+                      identify.length = [value unsignedIntegerValue];
+                      return [NSValue valueWithRange:identify];
+                  }
+                  },
+          @(@encode(UIEdgeInsets))    :   @{
+                  @"top":LB_BLOCK_SSPathWorkerV(UIEdgeInsets,top,double),
+                  @"left":LB_BLOCK_SSPathWorkerV(UIEdgeInsets,left,double),
+                  @"bottom":LB_BLOCK_SSPathWorkerV(UIEdgeInsets,bottom,double),
+                  @"right":LB_BLOCK_SSPathWorkerV(UIEdgeInsets,right,double),
+                  },
+          @(@encode(UIOffset))    :   @{
+                  @"horizontal":LB_BLOCK_SSPathWorkerV(UIOffset,horizontal,double),
+                  @"vertical":LB_BLOCK_SSPathWorkerV(UIOffset,vertical,double),
+                  },
+          @(@encode(CGVector))    :   @{
+                  @"dx":LB_BLOCK_SSPathWorkerV(CGVector,dx,double),
+                  @"dy":LB_BLOCK_SSPathWorkerV(CGVector,dy,double),
+                  },
+          }
+        ;
+    }
+    return _link_block_struct_value_path_set_map;
+}
 @end

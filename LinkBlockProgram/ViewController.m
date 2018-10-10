@@ -22,20 +22,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    self.view.ori
     Man* man = [Man new];
     man.info = UIView.new;
     man.friends = @[[Person new],@"123",@YES, UITextView.new];
     
     man.objSetValueForKeyByRegex(@"XXXX", @"name");
     
-    NSPredicate* predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        
-        NSLog(@"%@",bindings);
-        return YES;
-    }];
+    NSValue* vv = [NSValue valueWithCGRect:CGRectMake(1, 2, 3, 4)];
+    id xx = vv.valueStructValueForKeyPath(@"size.width");
     
-    [predicate evaluateWithObject:man];
     
     @"END".nslog();
     return;

@@ -6,6 +6,7 @@
 //
 
 #import "LinkBlock.h"
+#import "LinkHelper.h"
 #import <objc/runtime.h>
 
 @implementation NSObject(UIViewLinkBlock)
@@ -370,29 +371,28 @@
     };
 }
 
-- (UIView *(^)(void))viewFirstResponderSubViewForInput
+- (UIView *(^)(void))viewFindFirstResponderSubViewOfTextInput
 {
     return ^id(){
         LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewFirstResponderSubViewForInput)
-        __block UIView *re= nil;
-        [_self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
+        LinkGroupHandle_REF(viewFindFirstResponderSubViewOfTextInput)
+        
+        UIView *ret= (id)NSNull.null;
+        
+        for (UIView* view in _self.subviews) {
             
-            if([v isKindOfClass:[UITextView class]] ||
-               [v isKindOfClass:[UITextField class]]||
-               [v isKindOfClass:[UISearchBar class]]){
-                if(v.isFirstResponder){
-                    re= v;
-                    *stop= YES;
-                }
-            }else{
-                re= v.viewFirstResponderSubViewForInput();
-                if(re) {
-                    *stop= YES;
-                }
+            if(view.isFirstResponder &&
+               [view conformsToProtocol:@protocol(UITextInputTraits)]){
+                
+                    ret = view;
+                    break;
+            }else if((ret = view.viewFindFirstResponderSubViewOfTextInput())){
+                
+                break;
             }
-        }];
-        return re;
+        }
+        
+        return ret;
     };
 }
 
@@ -773,14 +773,83 @@ defineViewContentModeTail(BottomRight)
     };
 }
 
+- (NSValue *(^)(NSString *))viewValueForPath
+{
+    return ^id(NSString* path){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewValueForPath,path)
+        
+
+        //only key
+        if(![path containsString:@"."]){
+            return [_self valueForKeyPath:path];
+        }
+        NSArray* pathNodes = [path componentsSeparatedByString:@"."];
+        NSDictionary* pathMap = [LinkHelper link_block_struct_value_path_get_map];
+        if(![@[@"frame",@"bounds",@"center"] containsObject:pathNodes.firstObject]){
+            //normal keyPath
+            return [_self valueForKeyPath:path];
+        }
+        
+        NSUInteger index = 0;
+        NSString* pathNode;
+        NSString* encodeString;
+        id currentMap = pathMap;
+        NSValue* currentValue;
+    CALL_FOR_NODES:
+        
+        if(index >= pathNodes.count)    goto END_FOR_NODES;
+        
+        pathNode = pathNodes[index];
+        
+        currentMap = currentMap[pathNode];
+        encodeString = currentMap[@"encode"];
+        
+        
+        //currentValue=frame
+        if([encodeString isEqualToString:@(@encode(CGRect))]){
+            
+            if(!currentValue){
+                
+            }else{
+                
+            }
+        }else if ([encodeString isEqualToString:@(@encode(CGSize))]){
+            
+        }else if ([encodeString isEqualToString:@(@encode(CGPoint))]){
+            
+        }else if ([encodeString isEqualToString:@(@encode(CGFloat))]){
+            
+        }
+        
+        
+        ++index;
+    END_FOR_NODES:
+        
+        return _self;
+    };
+}
+
+- (UIView *(^)(NSValue * ,NSString *))viewSetValueForPath
+{
+    return ^id(NSValue* value,NSString* path){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewSetValueForPath,value,path)
+        
+        return _self;
+    };
+}
+
 - (NSMutableArray *(^)(Class))viewFindSubviewsOfClass
 {
     return ^id(Class clazz){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewFindSubviewsOfClass,clazz)
         NSMutableArray* re = [NSMutableArray new];
-        [_self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull v, NSUInteger idx, BOOL * _Nonnull stop) {
-            if([v isKindOfClass:clazz]) [re addObject:v];
+        [_self.subviews enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL* stop) {
+            
+            if([view isKindOfClass:clazz])
+                [re addObject:view];
         }];
         return re;
     };

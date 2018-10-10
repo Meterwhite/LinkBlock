@@ -203,6 +203,80 @@
     };
 }
 
+- (NSValue *(^)(NSString *))valueStructValueForKeyPath
+{
+    return ^id(NSString* keyPath){
+        
+        LinkHandle_REF(NSValue)
+        LinkGroupHandle_REF(valueStructValueForKeyPath,keyPath)
+        
+        NSArray* pathNodes = [keyPath componentsSeparatedByString:@"."];
+        
+        if(pathNodes.count == 0) {
+            
+        CALL_RET_NSNULL:
+            
+            return NSNull.null;
+        }
+        
+        NSDictionary* pathMap = [LinkHelper link_block_struct_value_path_get_map];
+        NSDictionary* currentMap = pathMap[@(_self.objCType)];//{size-*,origin-*}
+        
+        if(!currentMap) goto CALL_RET_NSNULL;
+        
+        NSString* currentPath = pathNodes.firstObject;
+        
+        NSValue*(^worker)(NSValue*)  = currentMap[currentPath];
+        
+        NSValue* newValue = worker(_self);
+        
+        if(pathNodes.count == 1)    return newValue;
+        
+        NSUInteger dotIdx = [keyPath rangeOfString:@"."].location+1;
+        
+        if(dotIdx >= keyPath.length) goto CALL_RET_NSNULL;//@"size."
+        
+        return newValue.valueStructValueForKeyPath([keyPath substringFromIndex:dotIdx]);
+    };
+}
+
+- (NSValue *(^)(id, NSString *))valueSetStructValueForKeyPath
+{
+    return ^id(id value,NSString* keyPath){
+        
+        LinkHandle_REF(NSValue)
+        LinkGroupHandle_REF(valueSetStructValueForKeyPath,value,keyPath)
+        
+        NSArray* pathNodes = [keyPath componentsSeparatedByString:@"."];
+        
+        if(pathNodes.count == 0) {
+            
+        CALL_RET_NSNULL:
+            
+            return NSNull.null;
+        }
+#warning <#message#>
+        NSDictionary* pathMap = [LinkHelper link_block_struct_value_path_get_map];
+        NSDictionary* currentMap = pathMap[@(_self.objCType)];//{size-*,origin-*}
+        
+        if(!currentMap) goto CALL_RET_NSNULL;
+        
+        NSString* currentPath = pathNodes.firstObject;
+        
+        NSValue*(^worker)(NSValue*)  = currentMap[currentPath];
+        
+        NSValue* newValue = worker(_self);
+        
+        if(pathNodes.count == 1)    return newValue;
+        
+        NSUInteger dotIdx = [keyPath rangeOfString:@"."].location+1;
+        
+        if(dotIdx >= keyPath.length) goto CALL_RET_NSNULL;//@"size."
+        
+        return newValue.valueStructValueForKeyPath([keyPath substringFromIndex:dotIdx]);
+    };
+}
+
 - (NSUInteger (^)(void))valueNSRangeLocation
 {
     return ^NSUInteger(){

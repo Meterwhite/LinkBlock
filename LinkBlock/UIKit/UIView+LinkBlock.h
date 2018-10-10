@@ -132,16 +132,24 @@
 
 
 #pragma mark - LinkBlock
+
+/**
+ Path include keyPath of KVC.
+ Extend keyPath suport set value to frame,bounds,center,size,origin:
+ @"frame.size.x"
+ */
+@property LB_BK NSValue*     (^viewValueForPath)(NSString* path);
+@property LB_BK UIView*      (^viewSetValueForPath)(NSValue* value,NSString* path);
+
 @property LB_BK NSMutableArray*      (^viewFindSubviewsOfClass)(Class clazz);
-/** <^(CGFloat width)>保持比例设置宽,autolayout（需要宽高约束）优先 */
+/** Set width and aspect ratio.Autolayout first.*/
 @property LB_BK UIView*      (^viewSetWidthAspect)(CGFloat width);
-/** <^(CGFloat height)>保持比例设置高,autolayout（需要宽高约束）优先 */
 @property LB_BK UIView*      (^viewSetHeightAspect)(CGFloat height);
-/** <^()>递归遍历第一响应者的的输入类型控件 */
-@property LB_BK UIView*      (^viewFirstResponderSubViewForInput)(void);
-/** -1索引的兄弟视图 or NSNull */
+/** Traversal for first responder about input control */
+@property LB_BK UIView*      (^viewFindFirstResponderSubViewOfTextInput)(void);
+/** Get previous sibling item(index-1 in superview) else NSNull. */
 @property LB_BK UIView*      (^viewPrevIndexView)(void);
-/** +1索引的兄弟视图 or NSNull */
+/** Get next sibling item(index+1 in superview) else NSNull. */
 @property LB_BK UIView*      (^viewNextIndexView)(void);
 /** 
  *  <^(UIView* aView , BOOL isKeep)>
@@ -267,11 +275,15 @@ NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective");
 @end
 
 @interface UIView (UIViewLinkBlock)
-#pragma mark - Test 测试
-/** 添加一个测试按钮，每次点击idx自增 */
-- (UIButton*)viewAddTestBtn:(CGRect)frame block:(void(^)(NSInteger idx, UIButton* testButton))block;
-/** 遍历子视图，当前视图deep=0 */
+#pragma mark - For test
+/**
+ Add a button for test.
+ self-increase 1 after once click.
+ */
+- (UIButton*)viewAddTestBtn:(CGRect)frame
+                      block:(void(^)(NSInteger idx, UIButton* testButton))block;
+
 - (void)viewEnumerateSubviewsUsingBlock:(void(^)(UIView* subview , NSUInteger depth , NSUInteger idx , BOOL* stop))block;
-/** 遍历父视图 */
+
 - (void)viewEnumerateSuperviewUsingBlock:(void(^)(UIView* superview,BOOL* stop))block;
 @end

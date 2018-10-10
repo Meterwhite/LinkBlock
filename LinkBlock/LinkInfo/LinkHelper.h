@@ -110,6 +110,8 @@
  caseNSDirectionalEdgeInsets:(void(^)(void))caseNSDirectionalEdgeInsets
                      defaule:(void(^)(void))defaule;
 
++ (NSDictionary*)link_block_struct_value_path_get_map;
++ (NSDictionary*)link_block_struct_value_path_set_map;
 
 #pragma mark - 配置
 + (BOOL)link_block_configuration_get_is_show_warning;

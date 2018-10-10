@@ -614,6 +614,7 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BK NSObject*            (^strKeyPathForValueWith)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
-
+@property LB_BKG(viewFindFirstResponderSubViewOfTextInput) UIView*      (^viewFirstResponderSubViewForInput)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "viewFindFirstResponderSubViewOfTextInput");
 @end
 

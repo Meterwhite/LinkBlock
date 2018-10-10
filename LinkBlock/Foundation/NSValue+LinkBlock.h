@@ -38,6 +38,7 @@
 @property LB_BK NSUInteger       (^valueNSRangeLength)(void);
 @property LB_BK NSUInteger       (^valueNSRangeLocation)(void);
 
+
 #pragma mark - Foundation Extend/补充
 /** 数字或结构体是否是初始值 */
 @property LB_BK BOOL             (^valueIsBlank)(void);
@@ -45,7 +46,12 @@
 @property LB_BK NSNumber *       (^valueIsNumber)(void);
 /** struc and Class */
 @property LB_BK NSNumber *       (^valueIsStruct)(void);
-
+/**
+ *  @"frame.size.width" is enable.
+ *  note:NSDirectionalEdgeInsets is not suport
+ */
+@property LB_BK NSValue*         (^valueStructValueForKeyPath)(NSString* keyPath);
+@property LB_BK NSValue*         (^valueSetStructValueForKeyPath)(id value,NSString* keyPath);
 
 
 

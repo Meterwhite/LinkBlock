@@ -63,6 +63,12 @@
 @property LB_BK NSObject*    (^objSetValueForKdelegate)(id value);
 @property LB_BK NSObject*    (^objSetValueForKdataSource)(id value);
 @property LB_BK NSObject*    (^objSetValueForKtext)(id value);
+
+/**
+ view.objSetScreenWidthForKeyPath(@"[<frame||bounds>.]size.width");
+ view.objSetScreenWidthForKeyPath(@"width");
+ */
+//@property LB_BK NSObject*  (^objSetScreenWidthForPath)(NSString* path);
 @property LB_FN NSObject*  logRetainCount;
 @property LB_FN CFIndex    objRetainCount;
 
@@ -108,16 +114,18 @@
  *  特别的：属性类型是c的直接量属性时,无法区分这三种类型<bool,char,xyShort>,此处按bool对待
  */
 @property LB_BK NSObject*    (^objReverseValueForKey)(NSString* key);
-/** 字符串类型和数字类型随机赋较短的值，排除readonly和无'_成员变量'的属性 */
-/** <^()> 清空所有可访问的属性的值为默认值，排除readonly和无'_成员变量'的属性 */
+
+/** Set all value nil or 0 while key accessible  */
 @property LB_BK NSObject*    (^objSetAllValuesBlank)(void);
 
+/** Return self */
 @property LB_BK NSObject*    (^objPerformSelectors)(SEL sel0,...);
 @property LB_BK NSObject*    (^objPerformSelectorArgument)(SEL sel,id arg);
 @property LB_BK NSObject*    (^objPerformsSelectorArguments)(SEL sel0,NSArray* args0,...);
 /**
- *Return function return value
- *调用void返回方法时返回结果为NSNull,所有nil的返回值也都装箱为NSNull；
+ *  Perform selector and return retuslt.
+ *  All result is boxed.
+ *  (void || nil => return NSNull)
  **/
 @property LB_BK NSObject*    (^objPerformSelectorAsWhatReturn)(SEL sel);
 @property LB_BK NSArray*     (^objPerformSelectorsAsWhatReturns)(SEL sel0,...);
@@ -309,39 +317,6 @@
 /** propertyName reference:property type encodings */
 + (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block includeFoundation:(BOOL)includeFoundation;
 
-//MARK: 强制类型声明
--                  (NSString*)                  asNSString;
--                  (NSMutableString*)           asNSMutableString;
--                  (NSArray*)                   asNSArray;
--                  (NSMutableArray*)            asNSMutableArray;
--                  (NSDictionary*)              asNSDictionary;
--                  (NSMutableDictionary*)       asNSMutableDictionary;
--                  (NSAttributedString*)        asNSAttributedString;
--                  (NSMutableAttributedString*) asNSMutableAttributedString;
--                  (NSURL*)                     asNSURL;
--                  (NSUserDefaults*)            asNSUserDefaults;
--                  (NSNumber*)                  asNSNumber;
--                  (NSValue*)                   asNSValue;
--                  (NSDate*)                    asNSDate;
--                  (NSData*)                    asNSData;
--                  (NSSet*)                     asNSSet;
--                  (NSMutableSet*)              asNSMutableSet;
--                  (NSCalendar*)                asNSCalendar;
--                  (UIView*)                    asUIView;
--                  (UIImage*)                   asUIImage;
--                  (UILabel*)                   asUILabel;
--                  (UIControl*)                 asUIControl;
--                  (UIButton*)                  asUIButton;
--                  (UIScrollView*)              asUIScrollView;
--                  (UIImageView*)               asUIImageView;
--                  (UITableView*)               asUITableView;
--                  (UIColor*)                   asUIColor;
--                  (UIViewController*)          asUIViewController;
--                  (UITextField*)               asUITextField;
--                  (UITextView*)                asUITextView;
--                  (UIWebView*)                 asUIWebView;
--                  (CALayer*)                   asCALayer;
-
 
 #pragma mark - Link
 @property LB_FN id             linkEnd;
@@ -389,6 +364,41 @@
  End with "nil,NSNotFond" in linkBlock for structures
  */
 @property LB_BK NSObject*  (^linkEvalCode)(NSString* code , ...);
+
+//MARK: force type declaration/强制类型声明
+-                  (NSString*)                  asNSString;
+-                  (NSMutableString*)           asNSMutableString;
+-                  (NSArray*)                   asNSArray;
+-                  (NSMutableArray*)            asNSMutableArray;
+-                  (NSDictionary*)              asNSDictionary;
+-                  (NSMutableDictionary*)       asNSMutableDictionary;
+-                  (NSAttributedString*)        asNSAttributedString;
+-                  (NSMutableAttributedString*) asNSMutableAttributedString;
+-                  (NSURL*)                     asNSURL;
+-                  (NSUserDefaults*)            asNSUserDefaults;
+-                  (NSNumber*)                  asNSNumber;
+-                  (NSValue*)                   asNSValue;
+-                  (NSDate*)                    asNSDate;
+-                  (NSData*)                    asNSData;
+-                  (NSSet*)                     asNSSet;
+-                  (NSMutableSet*)              asNSMutableSet;
+-                  (NSCalendar*)                asNSCalendar;
+-                  (UIView*)                    asUIView;
+-                  (UIImage*)                   asUIImage;
+-                  (UILabel*)                   asUILabel;
+-                  (UIControl*)                 asUIControl;
+-                  (UIButton*)                  asUIButton;
+-                  (UIScrollView*)              asUIScrollView;
+-                  (UIImageView*)               asUIImageView;
+-                  (UITableView*)               asUITableView;
+-                  (UIColor*)                   asUIColor;
+-                  (UIViewController*)          asUIViewController;
+-                  (UITextField*)               asUITextField;
+-                  (UITextView*)                asUITextView;
+-                  (UIWebView*)                 asUIWebView;
+-                  (CALayer*)                   asCALayer;
+
+
 @end
 
 
