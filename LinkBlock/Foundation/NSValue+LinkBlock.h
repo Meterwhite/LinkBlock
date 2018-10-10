@@ -46,20 +46,18 @@
 @property LB_BK NSNumber *       (^valueIsNumber)(void);
 /** struc and Class */
 @property LB_BK NSNumber *       (^valueIsStruct)(void);
+
+#pragma mark - LinkBlock
 /**
- *  @"frame.size.width" is enable.
- *  note:NSDirectionalEdgeInsets is not suport
+ *  Get value by keyPath for struct of NSValue.
+ *  keyPath is like @"size.width".
+ *  structValue.valueStructValueForKeyPath( @1 , @"size.width" );
  */
 @property LB_BK NSValue*         (^valueStructValueForKeyPath)(NSString* keyPath);
-@property LB_BK NSValue*         (^valueSetStructValueForKeyPath)(id value,NSString* keyPath);
-
-
-
-
-
-
-
-
-
+/**
+ *  Refer to : valueStructValueForKeyPath
+ *  note: New value will be returnd.Use new point to receive it.
+ */
+@property LB_BK NSValue*         (^valueStructSetValueForKeyPath)(id value,NSString* keyPath);
 
 @end

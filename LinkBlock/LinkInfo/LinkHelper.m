@@ -1013,15 +1013,15 @@ static bool _link_block_configuration_get_is_show_warning = true;
 //    @"end of help".nslog();
 //}
 
-#ifndef LB_BLOCK_SPathWorkerV
-#define LB_BLOCK_SPathWorkerV(from,path,to)\
+#ifndef LB_BLOCK_GSPathWorkerV
+#define LB_BLOCK_GSPathWorkerV(from,path,to)\
 ^(NSValue* value){\
     return [NSValue valueWith##to:[value from##Value].path];\
 }
 #endif
 
-#ifndef LB_BLOCK_SPathWorkerN
-#define LB_BLOCK_SPathWorkerN(from,path,to)\
+#ifndef LB_BLOCK_GSPathWorkerN
+#define LB_BLOCK_GSPathWorkerN(from,path,to)\
 ^(NSValue* value){\
     return [NSNumber numberWith##to:[value from##Value].path];\
 }
@@ -1035,71 +1035,84 @@ static NSDictionary* _link_block_struct_value_path_get_map;
         _link_block_struct_value_path_get_map =
         @{
           @(@encode(CGRect))    :   @{
-                  @"size":LB_BLOCK_SPathWorkerV(CGRect,size,CGSize),
-                  @"origin":LB_BLOCK_SPathWorkerV(CGRect,origin,CGPoint)
+                  @"size":LB_BLOCK_GSPathWorkerV(CGRect,size,CGSize),
+                  @"origin":LB_BLOCK_GSPathWorkerV(CGRect,origin,CGPoint)
                   }
           ,
           @(@encode(CGSize))    :   @{
-                  @"width":LB_BLOCK_SPathWorkerN(CGSize,width,Double),
-                  @"height":LB_BLOCK_SPathWorkerN(CGSize,height,Double)
+                  @"width":LB_BLOCK_GSPathWorkerN(CGSize,width,Double),
+                  @"height":LB_BLOCK_GSPathWorkerN(CGSize,height,Double)
                   }
           ,
           @(@encode(CGPoint))    :   @{
-                  @"x":LB_BLOCK_SPathWorkerN(CGPoint,x,Double),
-                  @"y":LB_BLOCK_SPathWorkerN(CGPoint,y,Double)
+                  @"x":LB_BLOCK_GSPathWorkerN(CGPoint,x,Double),
+                  @"y":LB_BLOCK_GSPathWorkerN(CGPoint,y,Double)
                   }
           ,
           @(@encode(NSRange))    :   @{
-                  @"location":LB_BLOCK_SPathWorkerN(range,location,UnsignedInteger),
-                  @"length":LB_BLOCK_SPathWorkerN(range,length,UnsignedInteger)
+                  @"location":LB_BLOCK_GSPathWorkerN(range,location,UnsignedInteger),
+                  @"length":LB_BLOCK_GSPathWorkerN(range,length,UnsignedInteger)
                   }
           ,@(@encode(UIEdgeInsets))    :   @{
-                  @"top":LB_BLOCK_SPathWorkerN(UIEdgeInsets,top,Double),
-                  @"left":LB_BLOCK_SPathWorkerN(UIEdgeInsets,left,Double),
-                  @"bottom":LB_BLOCK_SPathWorkerN(UIEdgeInsets,bottom,Double),
-                  @"right":LB_BLOCK_SPathWorkerN(UIEdgeInsets,right,Double),
+                  @"top":LB_BLOCK_GSPathWorkerN(UIEdgeInsets,top,Double),
+                  @"left":LB_BLOCK_GSPathWorkerN(UIEdgeInsets,left,Double),
+                  @"bottom":LB_BLOCK_GSPathWorkerN(UIEdgeInsets,bottom,Double),
+                  @"right":LB_BLOCK_GSPathWorkerN(UIEdgeInsets,right,Double),
                   }
           ,@(@encode(UIOffset))    :   @{
-                  @"horizontal":LB_BLOCK_SPathWorkerN(UIOffset,horizontal,Double),
-                  @"vertical":LB_BLOCK_SPathWorkerN(UIOffset,vertical,Double)
+                  @"horizontal":LB_BLOCK_GSPathWorkerN(UIOffset,horizontal,Double),
+                  @"vertical":LB_BLOCK_GSPathWorkerN(UIOffset,vertical,Double)
                   }
           ,@(@encode(CGVector))    :   @{
-                  @"dx":LB_BLOCK_SPathWorkerN(CGVector,dx,Double),
-                  @"dy":LB_BLOCK_SPathWorkerN(CGVector,dy,Double)
+                  @"dx":LB_BLOCK_GSPathWorkerN(CGVector,dx,Double),
+                  @"dy":LB_BLOCK_GSPathWorkerN(CGVector,dy,Double)
                   }
           ,@(@encode(CATransform3D))    :   @{
-                  @"m11":LB_BLOCK_SPathWorkerN(CATransform3D,m11,Double),
-                  @"m12":LB_BLOCK_SPathWorkerN(CATransform3D,m12,Double),
-                  @"m13":LB_BLOCK_SPathWorkerN(CATransform3D,m13,Double),
-                  @"m14":LB_BLOCK_SPathWorkerN(CATransform3D,m14,Double),
-                  @"m21":LB_BLOCK_SPathWorkerN(CATransform3D,m21,Double),
-                  @"m22":LB_BLOCK_SPathWorkerN(CATransform3D,m22,Double),
-                  @"m23":LB_BLOCK_SPathWorkerN(CATransform3D,m23,Double),
-                  @"m24":LB_BLOCK_SPathWorkerN(CATransform3D,m24,Double),
-                  @"m31":LB_BLOCK_SPathWorkerN(CATransform3D,m31,Double),
-                  @"m32":LB_BLOCK_SPathWorkerN(CATransform3D,m32,Double),
-                  @"m33":LB_BLOCK_SPathWorkerN(CATransform3D,m33,Double),
-                  @"m34":LB_BLOCK_SPathWorkerN(CATransform3D,m34,Double),
-                  @"m41":LB_BLOCK_SPathWorkerN(CATransform3D,m41,Double),
-                  @"m42":LB_BLOCK_SPathWorkerN(CATransform3D,m42,Double),
-                  @"m43":LB_BLOCK_SPathWorkerN(CATransform3D,m43,Double),
-                  @"m44":LB_BLOCK_SPathWorkerN(CATransform3D,m44,Double),
+                  @"m11":LB_BLOCK_GSPathWorkerN(CATransform3D,m11,Double),
+                  @"m12":LB_BLOCK_GSPathWorkerN(CATransform3D,m12,Double),
+                  @"m13":LB_BLOCK_GSPathWorkerN(CATransform3D,m13,Double),
+                  @"m14":LB_BLOCK_GSPathWorkerN(CATransform3D,m14,Double),
+                  @"m21":LB_BLOCK_GSPathWorkerN(CATransform3D,m21,Double),
+                  @"m22":LB_BLOCK_GSPathWorkerN(CATransform3D,m22,Double),
+                  @"m23":LB_BLOCK_GSPathWorkerN(CATransform3D,m23,Double),
+                  @"m24":LB_BLOCK_GSPathWorkerN(CATransform3D,m24,Double),
+                  @"m31":LB_BLOCK_GSPathWorkerN(CATransform3D,m31,Double),
+                  @"m32":LB_BLOCK_GSPathWorkerN(CATransform3D,m32,Double),
+                  @"m33":LB_BLOCK_GSPathWorkerN(CATransform3D,m33,Double),
+                  @"m34":LB_BLOCK_GSPathWorkerN(CATransform3D,m34,Double),
+                  @"m41":LB_BLOCK_GSPathWorkerN(CATransform3D,m41,Double),
+                  @"m42":LB_BLOCK_GSPathWorkerN(CATransform3D,m42,Double),
+                  @"m43":LB_BLOCK_GSPathWorkerN(CATransform3D,m43,Double),
+                  @"m44":LB_BLOCK_GSPathWorkerN(CATransform3D,m44,Double),
                   }
           ,@(@encode(CGAffineTransform))    :   @{
-                  @"a":LB_BLOCK_SPathWorkerN(CGAffineTransform,a,Double),
-                  @"b":LB_BLOCK_SPathWorkerN(CGAffineTransform,b,Double),
-                  @"c":LB_BLOCK_SPathWorkerN(CGAffineTransform,c,Double),
-                  @"d":LB_BLOCK_SPathWorkerN(CGAffineTransform,d,Double),
-                  @"tx":LB_BLOCK_SPathWorkerN(CGAffineTransform,tx,Double),
-                  @"ty":LB_BLOCK_SPathWorkerN(CGAffineTransform,ty,Double),
+                  @"a":LB_BLOCK_GSPathWorkerN(CGAffineTransform,a,Double),
+                  @"b":LB_BLOCK_GSPathWorkerN(CGAffineTransform,b,Double),
+                  @"c":LB_BLOCK_GSPathWorkerN(CGAffineTransform,c,Double),
+                  @"d":LB_BLOCK_GSPathWorkerN(CGAffineTransform,d,Double),
+                  @"tx":LB_BLOCK_GSPathWorkerN(CGAffineTransform,tx,Double),
+                  @"ty":LB_BLOCK_GSPathWorkerN(CGAffineTransform,ty,Double),
                   }
           };
+        
+        if (@available(iOS 11.0, *)) {
+            
+            NSMutableDictionary* map = _link_block_struct_value_path_get_map.mutableCopy;
+            map[@(@encode(NSDirectionalEdgeInsets))] =
+            @{
+              @"top"     :LB_BLOCK_GSPathWorkerN(directionalEdgeInsets,top,Double),
+              @"leading" :LB_BLOCK_GSPathWorkerN(directionalEdgeInsets,leading,Double),
+              @"bottom"  :LB_BLOCK_GSPathWorkerN(directionalEdgeInsets,bottom,Double),
+              @"trailing":LB_BLOCK_GSPathWorkerN(directionalEdgeInsets,trailing,Double),
+              };
+            _link_block_struct_value_path_get_map = map.copy;
+        }
     }
     return _link_block_struct_value_path_get_map;
 }
 
-#ifndef LB_BLOCK_SSPathWorkerV
-#define LB_BLOCK_SSPathWorkerV(type,path,vType)\
+#ifndef LB_BLOCK_SSPathWorker
+#define LB_BLOCK_SSPathWorker(type,path,vType)\
 ^(NSValue* _self,id value){\
     type identify = [_self type##Value];\
     identify.path = [value vType##Value];\
@@ -1115,16 +1128,16 @@ static NSDictionary* _link_block_struct_value_path_set_map;
         _link_block_struct_value_path_set_map =
         @{
           @(@encode(CGRect))    :   @{
-                  @"size":LB_BLOCK_SSPathWorkerV(CGRect,size,CGSize),
-                  @"origin":LB_BLOCK_SSPathWorkerV(CGRect,origin,CGPoint)
+                  @"size":LB_BLOCK_SSPathWorker(CGRect,size,CGSize),
+                  @"origin":LB_BLOCK_SSPathWorker(CGRect,origin,CGPoint)
                   },
           @(@encode(CGSize))    :   @{
-                  @"width":LB_BLOCK_SSPathWorkerV(CGSize,width,unsignedInteger),
-                  @"height":LB_BLOCK_SSPathWorkerV(CGSize,height,unsignedInteger)
+                  @"width":LB_BLOCK_SSPathWorker(CGSize,width,unsignedInteger),
+                  @"height":LB_BLOCK_SSPathWorker(CGSize,height,unsignedInteger)
                   },
           @(@encode(CGPoint))    :   @{
-                  @"x":LB_BLOCK_SSPathWorkerV(CGPoint,x,double),
-                  @"y":LB_BLOCK_SSPathWorkerV(CGPoint,y,double)
+                  @"x":LB_BLOCK_SSPathWorker(CGPoint,x,double),
+                  @"y":LB_BLOCK_SSPathWorker(CGPoint,y,double)
                   },
           @(@encode(NSRange))    :   @{
                   @"location":^(NSValue* _self,id value){
@@ -1139,21 +1152,75 @@ static NSDictionary* _link_block_struct_value_path_set_map;
                   }
                   },
           @(@encode(UIEdgeInsets))    :   @{
-                  @"top":LB_BLOCK_SSPathWorkerV(UIEdgeInsets,top,double),
-                  @"left":LB_BLOCK_SSPathWorkerV(UIEdgeInsets,left,double),
-                  @"bottom":LB_BLOCK_SSPathWorkerV(UIEdgeInsets,bottom,double),
-                  @"right":LB_BLOCK_SSPathWorkerV(UIEdgeInsets,right,double),
+                  @"top":LB_BLOCK_SSPathWorker(UIEdgeInsets,top,double),
+                  @"left":LB_BLOCK_SSPathWorker(UIEdgeInsets,left,double),
+                  @"bottom":LB_BLOCK_SSPathWorker(UIEdgeInsets,bottom,double),
+                  @"right":LB_BLOCK_SSPathWorker(UIEdgeInsets,right,double),
                   },
           @(@encode(UIOffset))    :   @{
-                  @"horizontal":LB_BLOCK_SSPathWorkerV(UIOffset,horizontal,double),
-                  @"vertical":LB_BLOCK_SSPathWorkerV(UIOffset,vertical,double),
+                  @"horizontal":LB_BLOCK_SSPathWorker(UIOffset,horizontal,double),
+                  @"vertical":LB_BLOCK_SSPathWorker(UIOffset,vertical,double),
                   },
           @(@encode(CGVector))    :   @{
-                  @"dx":LB_BLOCK_SSPathWorkerV(CGVector,dx,double),
-                  @"dy":LB_BLOCK_SSPathWorkerV(CGVector,dy,double),
+                  @"dx":LB_BLOCK_SSPathWorker(CGVector,dx,double),
+                  @"dy":LB_BLOCK_SSPathWorker(CGVector,dy,double),
                   },
-          }
-        ;
+          @(@encode(CATransform3D))    :   @{
+                  @"m11":LB_BLOCK_SSPathWorker(CATransform3D,m11,double),
+                  @"m12":LB_BLOCK_SSPathWorker(CATransform3D,m12,double),
+                  @"m13":LB_BLOCK_SSPathWorker(CATransform3D,m13,double),
+                  @"m14":LB_BLOCK_SSPathWorker(CATransform3D,m14,double),
+                  @"m21":LB_BLOCK_SSPathWorker(CATransform3D,m21,double),
+                  @"m22":LB_BLOCK_SSPathWorker(CATransform3D,m22,double),
+                  @"m23":LB_BLOCK_SSPathWorker(CATransform3D,m23,double),
+                  @"m24":LB_BLOCK_SSPathWorker(CATransform3D,m24,double),
+                  @"m31":LB_BLOCK_SSPathWorker(CATransform3D,m31,double),
+                  @"m32":LB_BLOCK_SSPathWorker(CATransform3D,m32,double),
+                  @"m33":LB_BLOCK_SSPathWorker(CATransform3D,m33,double),
+                  @"m34":LB_BLOCK_SSPathWorker(CATransform3D,m34,double),
+                  @"m41":LB_BLOCK_SSPathWorker(CATransform3D,m41,double),
+                  @"m42":LB_BLOCK_SSPathWorker(CATransform3D,m42,double),
+                  @"m43":LB_BLOCK_SSPathWorker(CATransform3D,m43,double),
+                  @"m44":LB_BLOCK_SSPathWorker(CATransform3D,m44,double),
+                  },
+          @(@encode(CGAffineTransform))    :   @{
+                  @"a":LB_BLOCK_SSPathWorker(CGAffineTransform,a,double),
+                  @"b":LB_BLOCK_SSPathWorker(CGAffineTransform,b,double),
+                  @"c":LB_BLOCK_SSPathWorker(CGAffineTransform,c,double),
+                  @"d":LB_BLOCK_SSPathWorker(CGAffineTransform,d,double),
+                  @"tx":LB_BLOCK_SSPathWorker(CGAffineTransform,tx,double),
+                  @"ty":LB_BLOCK_SSPathWorker(CGAffineTransform,ty,double),
+                  },
+          };
+        
+        if (@available(iOS 11.0, *)) {
+            
+            NSMutableDictionary* map = _link_block_struct_value_path_set_map.mutableCopy;
+            map[@(@encode(NSDirectionalEdgeInsets))] =
+            @{
+              @"top":^(NSValue* _self,id value){
+                  NSDirectionalEdgeInsets identify = [_self directionalEdgeInsetsValue];
+                  identify.top = [value doubleValue];
+                  return [NSValue valueWithDirectionalEdgeInsets:identify];
+              },
+              @"leading":^(NSValue* _self,id value){
+                  NSDirectionalEdgeInsets identify = [_self directionalEdgeInsetsValue];
+                  identify.leading = [value doubleValue];
+                  return [NSValue valueWithDirectionalEdgeInsets:identify];
+              },
+              @"bottom":^(NSValue* _self,id value){
+                  NSDirectionalEdgeInsets identify = [_self directionalEdgeInsetsValue];
+                  identify.bottom = [value doubleValue];
+                  return [NSValue valueWithDirectionalEdgeInsets:identify];
+              },
+              @"trailing":^(NSValue* _self,id value){
+                  NSDirectionalEdgeInsets identify = [_self directionalEdgeInsetsValue];
+                  identify.trailing = [value doubleValue];
+                  return [NSValue valueWithDirectionalEdgeInsets:identify];
+              },
+              };
+            _link_block_struct_value_path_set_map = map.copy;
+        }
     }
     return _link_block_struct_value_path_set_map;
 }

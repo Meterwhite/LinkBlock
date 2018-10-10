@@ -99,7 +99,7 @@
 		4540E41D1EB034A100AC87F1 /* CAAnimations+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimations+LinkBlock.h"; sourceTree = "<group>"; };
 		4540E41E1EB034A100AC87F1 /* CAAnimations+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimations+LinkBlock.m"; sourceTree = "<group>"; };
 		454A9E2E1FE26D8700CEE102 /* LinkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkHelper.h; sourceTree = "<group>"; };
-		454A9E2F1FE26D8700CEE102 /* LinkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkHelper.m; sourceTree = "<group>"; };
+		454A9E2F1FE26D8700CEE102 /* LinkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkHelper.m; sourceTree = "<group>"; wrapsLines = 0; };
 		454A9E321FE3B95600CEE102 /* DynamicLinkArgument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLinkArgument.h; sourceTree = "<group>"; };
 		454A9E331FE3B95600CEE102 /* DynamicLinkArgument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicLinkArgument.m; sourceTree = "<group>"; };
 		454A9E351FE3BB3400CEE102 /* DynamicLinkAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLinkAction.h; sourceTree = "<group>"; };

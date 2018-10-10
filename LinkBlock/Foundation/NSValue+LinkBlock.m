@@ -212,7 +212,7 @@
         
         NSArray* pathNodes = [keyPath componentsSeparatedByString:@"."];
         
-        if(pathNodes.count == 0) {
+        if(pathNodes.count == 0) {//only key
             
         CALL_RET_NSNULL:
             
@@ -220,13 +220,13 @@
         }
         
         NSDictionary* pathMap = [LinkHelper link_block_struct_value_path_get_map];
-        NSDictionary* currentMap = pathMap[@(_self.objCType)];//{size-*,origin-*}
+        NSDictionary* currentMap = pathMap[@(_self.objCType)];
         
-        if(!currentMap) goto CALL_RET_NSNULL;
+        if(!currentMap) goto CALL_RET_NSNULL;//wrong path
         
         NSString* currentPath = pathNodes.firstObject;
         
-        NSValue*(^worker)(NSValue*)  = currentMap[currentPath];
+        NSValue*(^worker)(NSValue* value)  = currentMap[currentPath];
         
         NSValue* newValue = worker(_self);
         
@@ -234,46 +234,50 @@
         
         NSUInteger dotIdx = [keyPath rangeOfString:@"."].location+1;
         
-        if(dotIdx >= keyPath.length) goto CALL_RET_NSNULL;//@"size."
+        if(dotIdx >= keyPath.length) goto CALL_RET_NSNULL;///next path wrong
         
-        return newValue.valueStructValueForKeyPath([keyPath substringFromIndex:dotIdx]);
+        NSString* nextPath = [keyPath substringFromIndex:dotIdx];
+        return newValue.valueStructValueForKeyPath(nextPath);
     };
 }
 
-- (NSValue *(^)(id, NSString *))valueSetStructValueForKeyPath
+- (NSValue *(^)(id, NSString *))valueStructSetValueForKeyPath
 {
     return ^id(id value,NSString* keyPath){
         
         LinkHandle_REF(NSValue)
-        LinkGroupHandle_REF(valueSetStructValueForKeyPath,value,keyPath)
+        LinkGroupHandle_REF(valueStructSetValueForKeyPath,value,keyPath)
         
         NSArray* pathNodes = [keyPath componentsSeparatedByString:@"."];
-        
-        if(pathNodes.count == 0) {
-            
-        CALL_RET_NSNULL:
-            
-            return NSNull.null;
-        }
-#warning <#message#>
-        NSDictionary* pathMap = [LinkHelper link_block_struct_value_path_get_map];
-        NSDictionary* currentMap = pathMap[@(_self.objCType)];//{size-*,origin-*}
-        
-        if(!currentMap) goto CALL_RET_NSNULL;
+        if(pathNodes.count == 0) return _self;
         
         NSString* currentPath = pathNodes.firstObject;
+        NSDictionary* pathMapOfGet = [LinkHelper link_block_struct_value_path_get_map];
+        NSDictionary* currentMapOfGet = pathMapOfGet[@(_self.objCType)];
         
-        NSValue*(^worker)(NSValue*)  = currentMap[currentPath];
+        if(!currentMapOfGet) return _self;//next path is wrong
+        ///worker of get current path value
+        NSValue*(^workerOfGet)(NSValue* value)  = currentMapOfGet[currentPath];
+        NSValue* currentPathValue = workerOfGet(_self);
         
-        NSValue* newValue = worker(_self);
+        ///worker of modify value for self
+        NSDictionary* pathMapOfSet = [LinkHelper link_block_struct_value_path_set_map];
+        NSDictionary* currentMapOfSet = pathMapOfSet[@(_self.objCType)];
+        NSValue*(^workerOfSet)(NSValue* _self,id value)  = currentMapOfSet[currentPath];
         
-        if(pathNodes.count == 1)    return newValue;
         
+        if([currentPathValue isKindOfClass:NSNumber.class]){
+            ///Need modify number value,it means in the last.
+            return workerOfSet(_self,value);
+        }
+        
+        ///Need modify struct value,will modify by traversal
         NSUInteger dotIdx = [keyPath rangeOfString:@"."].location+1;
+        if(dotIdx >= keyPath.length) return _self;///next path wrong like
         
-        if(dotIdx >= keyPath.length) goto CALL_RET_NSNULL;//@"size."
-        
-        return newValue.valueStructValueForKeyPath([keyPath substringFromIndex:dotIdx]);
+        NSString* nextPath = [keyPath substringFromIndex:dotIdx];
+        NSValue* newValue = currentPathValue.valueStructSetValueForKeyPath(value, nextPath);
+        return workerOfSet(_self,newValue);
     };
 }
 

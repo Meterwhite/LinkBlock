@@ -30,7 +30,7 @@
     man.objSetValueForKeyByRegex(@"XXXX", @"name");
     
     NSValue* vv = [NSValue valueWithCGRect:CGRectMake(1, 2, 3, 4)];
-    id xx = vv.valueStructValueForKeyPath(@"size.width");
+    id xx = vv.valueStructSetValueForKeyPath(@(1000),@"size.width");
     
     
     @"END".nslog();

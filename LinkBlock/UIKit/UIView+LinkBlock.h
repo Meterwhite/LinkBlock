@@ -74,11 +74,8 @@
 @property LB_BK UIView*      (^viewBorderColorAndWidth)(UIColor* color,CGFloat w);
 @property LB_BK UIView*      (^viewCornerRadius)(CGFloat radius);
 @property LB_BK UIView*      (^viewCornerRadiusAndClipsToBounds)(CGFloat radius);
-/** <^(UIRectCorner side , CGSize radius)>组合圆角;如果在AutoLayout下，若没有width和height这两个约束可以在改该方法调用前先设置frame来告知准确的尺寸; */
 @property LB_BK UIView*      (^viewCornerRadiusSide)(UIRectCorner side , CGSize radius);
-/** 前置视图 */
 @property LB_BK UIView*      (^viewBringFrontInSuperview)(void);
-/** 下沉视图 */
 @property LB_BK UIView*      (^viewSendBackInSuperview)(void);
 @property LB_BK UIView*      (^viewBGColorWhite)(void);
 @property LB_BK UIView*      (^viewBGColorClear)(void);
@@ -151,64 +148,64 @@
 @property LB_BK UIView*      (^viewPrevIndexView)(void);
 /** Get next sibling item(index+1 in superview) else NSNull. */
 @property LB_BK UIView*      (^viewNextIndexView)(void);
-/** 
- *  <^(UIView* aView , BOOL isKeep)>
- *  更换父视图：即移动视图到另一个视图中作为子视图，参数：aView目标视图 ，isKeep是否保持当前视觉位置不变，否则保持frame不变
- *  (不考虑Autolayou)
+/**
+ *  Change superview.If isKeep==YES means Keep current visual position unchanged.
+ *  更换父视图,isKeep是否保持当前视觉位置不变，否则保持frame不变
+ *  note:Not suport Autolayou
  */
 @property LB_BK UIView*      (^viewConvertSuperviewTo)(UIView* newSuperview , BOOL isKeep);
-/** 判断是否使用Autolayout */
+
 @property LB_BK BOOL         (^viewIsUsingAutolayout)(void);
-/** 判断是否使用Autoresizing */
+
 @property LB_BK BOOL         (^viewIsUsingAutoresizing)(void);
 @property LB_BK UIView*      (^viewRemoveAutoresizing)(void);
 
 #pragma mark - Animation 动画
 @property LB_BK UIView*      (^viewHiddenYESUsingAnimate)(NSTimeInterval during);
 @property LB_BK UIView*      (^viewHiddenNOUsingAnimate)(NSTimeInterval during);
-/** 注：真实移动了视图的位置 */
+/** note: position is changed/真实移动了视图的位置 */
 @property LB_BK UIView*      (^viewAnimateMoveUp)(CGFloat distance, NSTimeInterval time);
 @property LB_BK UIView*      (^viewAnimateMoveDown)(CGFloat distance, NSTimeInterval time);
 @property LB_BK UIView*      (^viewAnimateMoveRight)(CGFloat distance, NSTimeInterval time);
 @property LB_BK UIView*      (^viewAnimateMoveLeft)(CGFloat distance, NSTimeInterval time);
-/** 水平摇晃 */
+/** Shake Horizental/水平摇晃 */
 @property LB_BK UIView*      (^viewAnimateShakeHorizental)(double duration);
-/** 垂直摇晃 */
+/** Shake Vertical/垂直摇晃 */
 @property LB_BK UIView*      (^viewAnimateShakeVertical)(double duration);
 /** 苹果桌面视差效果 */
 @property LB_BK UIView*      (^viewAnimateAppleMotionEffects)(void)
 NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective");
-/** 脉冲形式的放大缩小 */
+/** Pulse scale size/脉冲形式的放大缩小 */
 @property LB_BK UIView*      (^viewAnimatePulse)(CGFloat scale,NSTimeInterval duration,BOOL repeat);
-/** 上翻转 */
+/** Flip from top/上翻转 */
 @property LB_BK UIView*      (^viewAnimateFlipFromTop)
 (
  NSTimeInterval duration,
  NSUInteger repeatCount,
  BOOL shouldAutoreverse
  );
-/** 下翻转 */
+/** Flip from bottom/下翻转 */
 @property LB_BK UIView*      (^viewAnimateFlipFromBottom)
 (
  NSTimeInterval duration,
  NSUInteger repeatCount,
  BOOL shouldAutoreverse
  );
-/** 右翻转 */
+/** Flip from right/右翻转 */
 @property LB_BK UIView*      (^viewAnimateFlipFromRight)
 (
  NSTimeInterval duration,
  NSUInteger repeatCount,
  BOOL shouldAutoreverse
  );
-/** 左翻转 */
+/** Flip from left/左翻转 */
 @property LB_BK UIView*      (^viewAnimateFlipFromLeft)
 (
  NSTimeInterval duration,
  NSUInteger repeatCount,
  BOOL shouldAutoreverse
  );
-/** 旋转动画 */
+/** Rotate/旋转动画 */
 @property LB_BK UIView*      (^viewAnimateRotateToRight)
 (
  CGFloat angle,
@@ -216,7 +213,7 @@ NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective");
  NSUInteger repeatCount,
  BOOL shouldAutoreverse
  );
-/** 旋转动画 */
+/** Rotate/旋转动画 */
 @property LB_BK UIView*      (^viewAnimateRotateToLeft)
 (
  CGFloat angle,
@@ -224,15 +221,11 @@ NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective");
  NSUInteger repeatCount,
  BOOL shouldAutoreverse
 );
-/** 透明度动画 */
 @property LB_BK UIView*      (^viewAnimateOpacity)(CGFloat from,CGFloat to,NSTimeInterval duration);
-/** 移除所有动画 */
 @property LB_BK UIView*      (^viewAnimateRemove)(void);
-/** 是否正在动画 */
 @property LB_BK BOOL         (^viewAnimateIsDoing)(void);
-/** 暂停动画 */
 @property LB_BK UIView*      (^viewAnimatePause)(void);
-/** 恢复动画，在暂停动画后使用 */
+/** Resume animate after pause /恢复暂停的动画 */
 @property LB_BK UIView*      (^viewAnimateResume)(void);
 
 
@@ -252,12 +245,15 @@ NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective");
 
 
 #pragma mark - Autolayout 自动布局
-/** 移除当前视图拥有的约束以及在它父视图中与此相关的约束 */
+/**
+ *  remove constraint from current view and superview
+ *  移除当前视图约束以及父视图中的相关约束
+ */
 @property LB_BK UIView*      (^viewRemoveConstraints)(void);
-/** 设置或修改约束 */
+/** set or modify constraint */
 @property LB_BK UIView*      (^viewConstraintWidth)(CGFloat value);
 @property LB_BK UIView*      (^viewConstraintHeight)(CGFloat value);
-/** 修改约束 */
+/** modify constraint */
 @property LB_BK UIView*      (^viewConstraintTop)(CGFloat value);
 @property LB_BK UIView*      (^viewConstraintBottom)(CGFloat value);
 @property LB_BK UIView*      (^viewConstraintLeading)(CGFloat value);
