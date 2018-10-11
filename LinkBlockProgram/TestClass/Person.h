@@ -21,6 +21,7 @@
 @property (nonatomic,assign) double money;
 @property (nonatomic,strong) NSNumber* tall;
 @property (nonatomic,assign,readonly) BOOL sex;
+@property (nonatomic,assign) BOOL died;
 @property (nonatomic,strong) id info;
 @property (nonatomic,assign) CGRect frame;
 @property (nonatomic,strong) NSArray* friends;

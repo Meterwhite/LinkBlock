@@ -21,6 +21,7 @@
 #import "NSValue+LinkBlock.h"
 #import "NSIndexPath+LinkBlock.h"
 #import "NSError+LinkBlock.h"
+#import "NSPredicate+LinkBlock.h"
 
 #import "JavaScriptCore+LinkBlock.h"
 

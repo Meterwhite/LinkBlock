@@ -32,13 +32,18 @@
 //    NSValue* vv = [NSValue valueWithCGRect:CGRectMake(1, 2, 3, 4)];
 //    id xx = vv.valueStructSetValueForKeyPath(@(1000),@"size.width");
     
-    id xxx =
-    man.objSetValueForFullPath(LBBoxValue(CGRectMake(1, 2, 3, 4)), @"frame")
-    .objValueForFullPath(@"frame");
+//    id xxx =
+//    man.objSetValueForFullPath(LBBoxValue(CGRectMake(1, 2, 3, 4)), @"frame")
+//    .objValueForFullPath(@"frame");
     
+    man.son = man;
+    if([PredicateWitchIsEqual(@"son",man) evaluateWithObject:man]){
+        @"YES".nslog();
+    }else{
+        @"NO".nslog();
+    }
 //    id xxx = man.objSetScreenValueForFullPath(@"frame->size")
 //    .objValueForFullPath(@"frame->size");
-    
     @"END".nslog();
     return;
 //

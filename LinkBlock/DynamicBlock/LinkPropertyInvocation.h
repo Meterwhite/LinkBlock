@@ -11,12 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 属性格式调用
+ Property invocation/属性格式调用
  */
 @interface LinkPropertyInvocation : NSObject
 
 /**
- 构造方法，运行时报错
+ Constructor,Throw error at runtime \构造方法，运行时报错
  */
 + (instancetype)invocationWithCode:(NSString*)code;
 
