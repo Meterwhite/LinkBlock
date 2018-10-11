@@ -245,6 +245,15 @@
 @property LB_BK NSUInteger   (^objCount)(void);
 
 #pragma mark - LinkBlock
+
+/**
+ *  Extend keyPath for [setValue:forKeyPath:].Provides access to key-value pairs of structures.
+ *  Use operator '->' to access structure member in 'fullPath',else 'fullPath' is the same as keyPath.
+ *  exp: @"view.nickNameLable.frame->size->width"
+ */
+@property LB_BK NSObject*    (^objValueForFullPath)(NSString* fullPath);
+/** Refer to : objValueForFullPath */
+@property LB_BK NSObject*    (^objSetValueForFullPath)(id value, NSString* fullPath);
 /** search is ignoring Case  */
 @property LB_BK NSObject*    (^objSetValueForKeyByMatch)(id value, NSString* matchKey);
 /** set value for all matched key by regex */
@@ -262,9 +271,24 @@
  Refer to : objEvaluatePredicateAs.
  */
 @property LB_BK NSObject*    (^objSetValueForKeyPathWhenEvaluated)(id value, NSString* keyPath,NSString* predicateFormat,...);
+/**
+ *  Set screen size,width,height by FullPath.(Fullpath refer to: objValueForFullPath.)
+ *  -
+ *  width : "view.frame->size->width" , "label.myWidth0" ,...
+ *  height: "label.y" , "label.myBottom" ,...
+ *  size  : unclearKey , "mySize"
+ *  -
+ *  Discussion:
+ *  1.When fullPath is for struct that contains '->':
+ *  Set to height when last component of keyPath is euqual to one of {height,y,vertical,top,bottom},otherwise width.
+ *  2.When fullpath is normal keyPath(Ignoring Case):
+ *  Set height if last component of keyPath is contains one of {height,y,vertical,top,bottom} or euqal to y'.If not contains 'width' that will set to size,otherwise set to width.
+ *  In a word : width > height > size.
+ */
+@property LB_BK NSObject*    (^objSetScreenValueForFullPath)(NSString* fullPath);
 
 
-/** print object as json string */
+/** Print object as json string */
 @property LB_BK NSObject*    (^po)(void);
 @property LB_BK NSObject*    (^poDetail)(void);
 /** Determine if object contain info/对象是否有内容
@@ -342,8 +366,7 @@
 - (NSObject*)linkAsy_global_queue:(void(^)(NSObject* link))block;
 
 /**
- 重复执行
- Perform the specified number of times to link
+ Perform the specified number of times to link/重复执行
  */
 - (NSObject*)linkLoopIn:(NSUInteger)count block:(void(^)(NSObject* link, NSUInteger index))block;
 - (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block;

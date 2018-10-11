@@ -92,6 +92,9 @@ NS_INLINE id _LinkBoxValue(const char *type, ...) {
     if (strcmp(type, @encode(id)) == 0) {
         id actual = va_arg(v, id);
         obj = actual;
+    } else if (strcmp(type, @encode(CGRect)) == 0) {
+        CGRect actual = (CGRect)va_arg(v, CGRect);
+        obj = [NSValue value:&actual withObjCType:type];
     } else if (strcmp(type, @encode(CGPoint)) == 0) {
         CGPoint actual = (CGPoint)va_arg(v, CGPoint);
         obj = [NSValue value:&actual withObjCType:type];

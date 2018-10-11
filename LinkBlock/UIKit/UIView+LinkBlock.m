@@ -6,7 +6,6 @@
 //
 
 #import "LinkBlock.h"
-#import "LinkHelper.h"
 #import <objc/runtime.h>
 
 @implementation NSObject(UIViewLinkBlock)
@@ -769,73 +768,6 @@ defineViewContentModeTail(BottomRight)
         if([view isKindOfClass:[UIView class]]){
             [view addSubview:_self];
         }
-        return _self;
-    };
-}
-
-- (NSValue *(^)(NSString *))viewValueForPath
-{
-    return ^id(NSString* path){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewValueForPath,path)
-        
-
-        //only key
-        if(![path containsString:@"."]){
-            return [_self valueForKeyPath:path];
-        }
-        NSArray* pathNodes = [path componentsSeparatedByString:@"."];
-        NSDictionary* pathMap = [LinkHelper link_block_struct_value_path_get_map];
-        if(![@[@"frame",@"bounds",@"center"] containsObject:pathNodes.firstObject]){
-            //normal keyPath
-            return [_self valueForKeyPath:path];
-        }
-        
-        NSUInteger index = 0;
-        NSString* pathNode;
-        NSString* encodeString;
-        id currentMap = pathMap;
-        NSValue* currentValue;
-    CALL_FOR_NODES:
-        
-        if(index >= pathNodes.count)    goto END_FOR_NODES;
-        
-        pathNode = pathNodes[index];
-        
-        currentMap = currentMap[pathNode];
-        encodeString = currentMap[@"encode"];
-        
-        
-        //currentValue=frame
-        if([encodeString isEqualToString:@(@encode(CGRect))]){
-            
-            if(!currentValue){
-                
-            }else{
-                
-            }
-        }else if ([encodeString isEqualToString:@(@encode(CGSize))]){
-            
-        }else if ([encodeString isEqualToString:@(@encode(CGPoint))]){
-            
-        }else if ([encodeString isEqualToString:@(@encode(CGFloat))]){
-            
-        }
-        
-        
-        ++index;
-    END_FOR_NODES:
-        
-        return _self;
-    };
-}
-
-- (UIView *(^)(NSValue * ,NSString *))viewSetValueForPath
-{
-    return ^id(NSValue* value,NSString* path){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewSetValueForPath,value,path)
-        
         return _self;
     };
 }

@@ -2334,12 +2334,12 @@ void _lb_SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_d
     return [self mutableCopy];
 }
 
-- (void)strEnumerateComposedAndCustom:(NSString *)regx usingBlock:(void (^)(NSString *__autoreleasing, NSRange, BOOL, BOOL *))block
+- (void)strEnumerateCustomComposed:(NSString *)regex usingBlock:(void (^)(NSString *__autoreleasing, NSRange, BOOL, BOOL *))block
 {
     if(!block) return;
     
     NSError* error = nil;
-    NSRegularExpression* regExp = [[NSRegularExpression alloc] initWithPattern:regx options:0 error:&error];
+    NSRegularExpression* regExp = [[NSRegularExpression alloc] initWithPattern:regex options:0 error:&error];
     if(!error){
         
         NSRange range; BOOL isCustom = NO; BOOL stop = NO;
@@ -2352,7 +2352,7 @@ void _lb_SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_d
                 [matchs removeObjectAtIndex:0];
                 isCustom = YES;
             }else{
-                //普通元字符
+                //composed
                 range = [self rangeOfComposedCharacterSequenceAtIndex:i];
                 isCustom = NO;
             }

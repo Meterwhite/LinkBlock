@@ -153,7 +153,7 @@
 @property LB_BK NSString*    (^strCopyToGeneralPasteboard)(void);
 
 
-#pragma mark - Weak coding  弱类型编码
+#pragma mark - Weak coding/弱类型编码
 @property LB_BK UIView*              (^strSetToControlContentAsWhatSet)(UIView* textControl);
 /** return NSNull is class did not exist */
 @property LB_BK NSObject*            (^strToObjectFromName)(void);

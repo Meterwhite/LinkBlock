@@ -49,8 +49,8 @@
 
 #pragma mark - LinkBlock
 /**
- *  Get value by keyPath for struct of NSValue.
- *  keyPath is like @"size.width".
+ *  Get value by keyPath from struct of NSValue.
+ *  keyPath is liked @"size.width".
  *  structValue.valueStructValueForKeyPath( @1 , @"size.width" );
  */
 @property LB_BK NSValue*         (^valueStructValueForKeyPath)(NSString* keyPath);

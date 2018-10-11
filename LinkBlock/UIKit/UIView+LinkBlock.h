@@ -129,15 +129,6 @@
 
 
 #pragma mark - LinkBlock
-
-/**
- Path include keyPath of KVC.
- Extend keyPath suport set value to frame,bounds,center,size,origin:
- @"frame.size.x"
- */
-@property LB_BK NSValue*     (^viewValueForPath)(NSString* path);
-@property LB_BK UIView*      (^viewSetValueForPath)(NSValue* value,NSString* path);
-
 @property LB_BK NSMutableArray*      (^viewFindSubviewsOfClass)(Class clazz);
 /** Set width and aspect ratio.Autolayout first.*/
 @property LB_BK UIView*      (^viewSetWidthAspect)(CGFloat width);
@@ -150,8 +141,8 @@
 @property LB_BK UIView*      (^viewNextIndexView)(void);
 /**
  *  Change superview.If isKeep==YES means Keep current visual position unchanged.
- *  更换父视图,isKeep是否保持当前视觉位置不变，否则保持frame不变
  *  note:Not suport Autolayou
+ *  更换父视图,isKeep是否保持当前视觉位置不变，否则保持frame不变
  */
 @property LB_BK UIView*      (^viewConvertSuperviewTo)(UIView* newSuperview , BOOL isKeep);
 

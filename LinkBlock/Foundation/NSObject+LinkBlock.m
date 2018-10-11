@@ -650,6 +650,78 @@
     return self.objLength;
 }
 
+- (NSObject *(^)(NSString *))objValueForFullPath
+{
+    return ^id(NSString* fullPath){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objValueForFullPath,fullPath)
+        
+        if(!fullPath){
+            
+        CALL_RET_NSNULL:
+            
+            return NSNull.null;
+        }
+        
+        if(![fullPath containsString:@"->"]){
+            
+        CALL_RET_NORMAL_KVC:
+            ///Are you confusing '.' and '->'?
+            return linkObjNotNil([_self valueForKeyPath:fullPath]);
+        }
+        
+        ///separete struct path from full path
+        NSUInteger opIdx = [fullPath rangeOfString:@"->"].location;
+        NSString* keyPath = [fullPath substringToIndex:opIdx];
+        if(opIdx + 1 == fullPath.length-1) goto CALL_RET_NORMAL_KVC;//wrong struct path like @"...->"
+        NSString* structPath = [fullPath substringFromIndex:opIdx+2];
+        
+        
+        NSValue* keyPathValue = [self valueForKeyPath:keyPath];
+        if(![keyPathValue isKindOfClass:NSValue.class]) goto CALL_RET_NSNULL;//wrong keypath befor structPath
+        
+        ///Adjust oprator : @"->" => @"."
+        structPath = [structPath stringByReplacingOccurrencesOfString:@"->" withString:@"."];
+        return keyPathValue.valueStructValueForKeyPath(structPath);
+    };
+}
+
+- (NSObject *(^)(id, NSString *))objSetValueForFullPath
+{
+    return ^id(id value , NSString* fullPath){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSetValueForFullPath,value,fullPath)
+        
+        if(!fullPath){
+            
+            return _self;
+        }
+        
+        if(![fullPath containsString:@"->"]){
+            ///Are you confusing '.' and '->'?
+            [_self setValue:value forKeyPath:fullPath];
+            return _self;
+        }
+        
+        ///separete struct path from full path
+        NSUInteger opIdx = [fullPath rangeOfString:@"->"].location;
+        NSString* keyPath = [fullPath substringToIndex:opIdx];
+        if(opIdx + 1 == fullPath.length-1) return _self;//wrong struct path like @"...->"
+        NSString* structPath = [fullPath substringFromIndex:opIdx+2];
+        
+        ///Find new value
+        NSValue* keyPathValue = [self valueForKeyPath:keyPath];
+        if(![keyPathValue isKindOfClass:NSValue.class]) return _self;//wrong
+        ///Adjust oprator : @"->" => @"."
+        structPath = [structPath stringByReplacingOccurrencesOfString:@"->" withString:@"."];
+        NSValue* newKeyPathValue = keyPathValue.valueStructSetValueForKeyPath(value,structPath);
+        [_self setValue:newKeyPathValue forKeyPath:keyPath];
+        return _self;
+    };
+}
+
 - (NSObject *(^)(id, NSString*))objSetValueForKeyByRegex
 {
     return ^id(id value, NSString* key){
@@ -2124,6 +2196,87 @@ DefineKindOfClassAs(NSNumber)
         }
         
         return self;
+    };
+}
+
+- (NSObject *(^)(NSString *))objSetScreenValueForFullPath
+{
+    return ^id(NSString* fullPath){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSetScreenValueForFullPath, fullPath)
+        
+        //'...width' > 'frame.size'
+        NSUInteger lastSTIdx = [fullPath rangeOfString:@"->" options:NSBackwardsSearch].location;
+        NSUInteger lastDotIdx = [fullPath rangeOfString:@"." options:NSBackwardsSearch].location;
+
+        if(lastSTIdx  == 0 || lastSTIdx  == fullPath.length-1 ||
+           lastDotIdx == 0 || lastDotIdx == fullPath.length-1 ){
+            //wrong path
+            return _self;
+        }
+
+        NSString* keyPath;
+        NSString* structPath;
+        NSString* lastPath;
+        NSValue* screenValue;
+        CGSize screenSize = [UIScreen mainScreen].bounds.size;
+        
+        if(lastSTIdx == NSNotFound){
+            
+            if(lastDotIdx == NSNotFound){
+                //'key'
+                lastPath = fullPath;
+                keyPath = fullPath;
+            }else{
+                //'.'...
+                lastPath = [fullPath substringFromIndex:lastDotIdx+1];
+                keyPath = [fullPath substringToIndex:lastDotIdx];
+            }
+            
+            if([@[@"height",@"vertical",@"top",@"bottom"] containsObject:lastPath.lowercaseString]
+               ||
+               [lastPath.lowercaseString isEqualToString:@"y"]){
+                
+                screenValue = [NSNumber numberWithDouble:screenSize.height];
+            }else if (![lastPath.lowercaseString containsString:@"width"] &&
+                      [lastPath.lowercaseString containsString:@"size"]){
+                
+                screenValue = [NSValue valueWithCGSize:screenSize];
+            }else{
+                screenValue = [NSNumber numberWithDouble:screenSize.width];
+            }
+        }else{
+            
+            //'->'...
+            NSUInteger firstSTIdx = [fullPath rangeOfString:@"->"].location;
+            keyPath = [fullPath substringToIndex:firstSTIdx];
+            structPath = [fullPath substringFromIndex:firstSTIdx+2];
+            lastPath = [fullPath substringFromIndex:lastSTIdx+2];
+            
+            if([lastPath isEqualToString:@"size"]){
+                
+                screenValue = [NSValue valueWithCGSize:screenSize];
+            }else if([@[@"height",@"y",@"vertical",@"top",@"bottom"] containsObject:lastPath]){
+                
+                screenValue = [NSNumber numberWithDouble:screenSize.height];
+            }else{
+                
+                screenValue = [NSNumber numberWithDouble:screenSize.width];
+            }
+        }
+        
+        
+        if(structPath){
+            ///Means value is from modify old value.
+            NSValue* toModifyValue = [_self valueForKeyPath:keyPath];
+            structPath = [structPath stringByReplacingOccurrencesOfString:@"->" withString:@"."];
+            screenValue = toModifyValue.valueStructSetValueForKeyPath(screenValue, structPath);
+        }
+        
+        [_self setValue:screenValue forKeyPath:keyPath];
+        
+        return _self;
     };
 }
 

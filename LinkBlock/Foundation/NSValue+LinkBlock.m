@@ -232,7 +232,7 @@
         
         if(pathNodes.count == 1)    return newValue;
         
-        NSUInteger dotIdx = [keyPath rangeOfString:@"."].location+1;
+        NSUInteger dotIdx = [keyPath rangeOfString:@"."].location + 1;
         
         if(dotIdx >= keyPath.length) goto CALL_RET_NSNULL;///next path wrong
         
@@ -265,17 +265,16 @@
         NSDictionary* currentMapOfSet = pathMapOfSet[@(_self.objCType)];
         NSValue*(^workerOfSet)(NSValue* _self,id value)  = currentMapOfSet[currentPath];
         
-        
-        if([currentPathValue isKindOfClass:NSNumber.class]){
-            ///Need modify number value,it means in the last.
+        NSUInteger dotIdx = [keyPath rangeOfString:@"."].location;
+        if(dotIdx == NSNotFound){
+            ///It means in the last.
             return workerOfSet(_self,value);
         }
         
         ///Need modify struct value,will modify by traversal
-        NSUInteger dotIdx = [keyPath rangeOfString:@"."].location+1;
-        if(dotIdx >= keyPath.length) return _self;///next path wrong like
+        if(dotIdx >= keyPath.length-1) return _self;///next path wrong like
         
-        NSString* nextPath = [keyPath substringFromIndex:dotIdx];
+        NSString* nextPath = [keyPath substringFromIndex:dotIdx + 1];
         NSValue* newValue = currentPathValue.valueStructSetValueForKeyPath(value, nextPath);
         return workerOfSet(_self,newValue);
     };
