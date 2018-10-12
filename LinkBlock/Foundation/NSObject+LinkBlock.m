@@ -2537,7 +2537,7 @@ DefineKindOfClassAs(NSNumber)
     return _self;
 }
 
-- (NSObject *(^)(id))linkAnd
+- (NSObject *(^)(id))linkAdd
 {
     return ^id(id obj){
         LinkHandle_REF(NSObject)
@@ -2558,31 +2558,8 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject *(^)(id))linkTo
-{
-    return ^id(id obj){
-        
-        if([self isKindOfClass:[LinkInfo class]]){
-            if(((LinkError*)self).infoType == LinkInfoError){
-                
-                ((LinkError*)self).throwCount++;
-            }else if(((LinkReturn*)self).infoType == LinkInfoReturn){
-                
-                return self;
-            }
-        }
-        
-        LinkGroupHandle_REF(linkTo,obj)
-        if(obj){
-            return obj;
-        }
-        else{
-            return self;
-        }
-    };
-}
 
-- (NSObject *(^)(NSUInteger idx))linkOut
+- (NSObject *(^)(NSUInteger idx))linkRemoveAt
 {
     return ^id(NSUInteger idx){
         LinkHandle_REF(NSObject)
@@ -2604,56 +2581,7 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject *(^)(NSUInteger))linkAt
-{
-    return ^id(NSUInteger idx){
-        LinkHandle_REF(NSObject)
-        if([_self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (id)_self;
-            if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                if(idx > count-1) return group;
-                return group.linkObjects[idx];
-            }else{
-                if(idx>group.linkObjects.count-1) return group;
-                return group.linkObjects[idx];
-            }
-        }
-        return _self;
-    };
-}
 
-- (NSObject *)linkFirstObj
-{
-    LinkHandle_REF(NSObject)
-    if([_self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (id)_self;
-        if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-            NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-            if(!count) return group;
-            return group.linkObjects.firstObject;
-        }else{
-            return group.linkObjects.firstObject;
-        }
-    }
-    return _self;
-}
-
-- (NSObject *)linkLastObj
-{
-    LinkHandle_REF(NSObject)
-    if([_self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (id)_self;
-        if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-            NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-            if(!count) return group;
-            return group.linkObjects.lastObject;
-        }else{
-            return group.linkObjects.lastObject;
-        }
-    }
-    return _self;
-}
 
 - (NSObject *(^)(NSUInteger))linkLoop
 {

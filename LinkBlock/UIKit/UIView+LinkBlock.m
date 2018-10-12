@@ -765,7 +765,7 @@ defineViewContentModeTail(BottomRight)
     return ^id(__weak UIView* view){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewAddToView,view)
-        if([view isKindOfClass:[UIView class]]){
+        if([view respondsToSelector:@selector(addSubview:)]){
             [view addSubview:_self];
         }
         return _self;

@@ -616,5 +616,15 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
 @property LB_BKG(viewFindFirstResponderSubViewOfTextInput) UIView*      (^viewFirstResponderSubViewForInput)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "viewFindFirstResponderSubViewOfTextInput");
+
+@property LB_BK NSObject*      (^linkTo)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+
+@property LB_BK NSObject*      (^linkAt)(NSUInteger idx);
+@property LB_FN NSObject*      linkFirstObj;
+@property LB_FN NSObject*      linkLastObj;
+
+//@property LB_BK NSObject*      (^linkAdd)(id obj);
+//@property LB_BK NSObject*      (^linkOut)(NSUInteger idx);
 @end
 

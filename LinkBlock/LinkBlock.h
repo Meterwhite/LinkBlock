@@ -94,17 +94,17 @@
 #endif
 /**
  add a new into link objects
- ...linkAnd(object)
+ ...linkAdd(object)
  */
-#ifndef linkAnd
-#define linkAnd linkAnd
+#ifndef linkAdd
+#define linkAdd linkAdd
 #endif
 /**
  remove an object at specified index from link objects
- ...linkOut(index)
+ ...linkRemoveAt(index)
  */
-#ifndef linkOut
-#define linkOut linkOut
+#ifndef linkRemoveAt
+#define linkRemoveAt linkRemoveAt
 #endif
 /**
  get an object at specified index from link objects
