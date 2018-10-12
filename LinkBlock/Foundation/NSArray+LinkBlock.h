@@ -36,6 +36,9 @@
 /** use compare: to sort value */
 @property LB_BK NSMutableArray*          (^arrSort)(BOOL ascending);
 @property LB_BK NSMutableArray*          (^arrSortByKey)(NSString* key, BOOL ascending);
+@property LB_BK NSMutableArray*          (^arrSortByKeyAscending)(NSString* key);
+@property LB_BK NSMutableArray*          (^arrSortByKeyDescending)(NSString* key);
+
 
 #pragma mark - Foundation Extend/补充
 /** join item as string,like join() of javescript  */

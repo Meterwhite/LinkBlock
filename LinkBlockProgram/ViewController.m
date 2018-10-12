@@ -25,6 +25,7 @@
 //    self.view.ori
     Man* man = [Man new];
     man.info = UIView.new;
+    man.name = @"AAA";
     man.friends = @[[Person new],@"123",@YES, UITextView.new];
     
     man.objSetValueForKeyByRegex(@"XXXX", @"name");
@@ -35,13 +36,57 @@
 //    id xxx =
 //    man.objSetValueForFullPath(LBBoxValue(CGRectMake(1, 2, 3, 4)), @"frame")
 //    .objValueForFullPath(@"frame");
+    Man* man0 = [Man new];
+    man0.name = @"BBB";
+    man0.objsSelectByPredicateString(@"").viewSetX(12)
+    .___Code_Initialization___
+    .viewSetX(123);
     
-    man.son = man;
-    if([PredicateWitchIsEqual(@"son",man) evaluateWithObject:man]){
-        @"YES".nslog();
-    }else{
-        @"NO".nslog();
-    }
+    UIViewNew
+    .___Code_Initialization___
+    .viewSetFrame(0, 1, 2, 3).viewBGColor(nil).imgSetToContainerAsWhatSet(@"")
+    .___Code_LinkChanged___
+    .whatSet.objAdd(@"").viewSetY(12)
+    ;
+    
+    
+    //fromWhatSet
+    
+//    NSDictionary* dict = @{
+//        @"members": @[man,man0]
+//    };
+//    
+//    Class type;
+//    NSString* witch;
+//    NSString* value;
+//    PredicateWitchIsKindOfClass(SELF_KEY, NSObject);
+    //PredicateWitchPropertyLike()
+//
+//    [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, id bindings) {
+//
+//        NSMutableArray* result = NSMutableArrayNew;
+//
+//        NSArray* plist = [[evaluatedObject class] classGetAllPropertyList:YES];
+//        plist = [plist filteredArrayUsingPredicate:PredicateWitchLike(plist, value)];
+//        [plist enumerateObjectsUsingBlock:^(NSString* property,NSUInteger i,BOOL* stop) {
+//            id valueNeedCompare = [evaluatedObject valueForKey:property];
+//            for (UIView *subView in [evaluatedObject subviews]) {
+//                if(valueNeedCompare == subView){
+//
+//                }
+//            }
+//
+//        }];
+//        return NO;
+//    }];
+    
+    
+//    man.son = man;
+//    if([PredicateWitchIsEqual(@"son",man) evaluateWithObject:man]){
+//        @"YES".nslog();
+//    }else{
+//        @"NO".nslog();
+//    }
 //    id xxx = man.objSetScreenValueForFullPath(@"frame->size")
 //    .objValueForFullPath(@"frame->size");
     @"END".nslog();

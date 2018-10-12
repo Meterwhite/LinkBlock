@@ -410,7 +410,7 @@ return self.funcName;
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrSort,ascending)
         
-        if([self isKindOfClass:[NSMutableArray class]]){
+        if([self respondsToSelector:@selector(sortUsingComparator:)]){
             
             [_self sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                 return [obj1 compare:obj2]*(ascending?1:-1);
@@ -431,12 +431,44 @@ return self.funcName;
         LinkGroupHandle_REF(arrSortByKey,key,ascending)
         
         NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
-        if([_self isKindOfClass:[NSMutableArray class]]){
-            
+        if([_self respondsToSelector:@selector(sortUsingDescriptors:)]){
+        
             [_self sortUsingDescriptors:@[sort]];
             return _self;
         }
             
+        return [_self sortedArrayUsingDescriptors:@[sort]];
+    };
+}
+- (NSMutableArray *(^)(NSString *))arrSortByKeyAscending
+{
+    return ^id(NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrSortByKeyAscending,key)
+        
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES];
+        if([_self respondsToSelector:@selector(sortUsingDescriptors:)]){
+            
+            [_self sortUsingDescriptors:@[sort]];
+            return _self;
+        }
+        
+        return [_self sortedArrayUsingDescriptors:@[sort]];
+    };
+}
+- (NSMutableArray *(^)(NSString *))arrSortByKeyDescending
+{
+    return ^id(NSString* key){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrSortByKeyDescending,key)
+        
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key ascending:NO];
+        if([_self respondsToSelector:@selector(sortUsingDescriptors:)]){
+            
+            [_self sortUsingDescriptors:@[sort]];
+            return _self;
+        }
+        
         return [_self sortedArrayUsingDescriptors:@[sort]];
     };
 }

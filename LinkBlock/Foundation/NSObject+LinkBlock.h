@@ -229,6 +229,16 @@
  */
 @property LB_BK NSObject*    (^objRemoveAll)(void);
 
+/**
+ Type of objs is kind of collection that can be sort;
+ */
+@property LB_BK NSObject<NSFastEnumeration>*(^objsSortByKey)(NSString* key,BOOL ascending);
+@property LB_BK NSObject<NSFastEnumeration>*(^objsSortByKeyAscending)(NSString* key);
+@property LB_BK NSObject<NSFastEnumeration>*(^objsSortByKeyDescending)(NSString* key);
+@property LB_BK NSObject<NSFastEnumeration>*(^objsFilterByPredicate)(NSPredicate* pred);
+/** 'select' means not to modify original object */
+@property LB_BK NSObject<NSFastEnumeration>*(^objsSelectByPredicate)(NSPredicate* pred);
+@property LB_BK NSObject<NSFastEnumeration>*(^objsSelectByPredicateString)(NSString* pred);
 
 /**
  self   ∈   {
@@ -243,6 +253,7 @@
 @property LB_BK NSUInteger   (^objLength)(void);
 /** As weall as objLength */
 @property LB_BK NSUInteger   (^objCount)(void);
+
 
 #pragma mark - LinkBlock
 
@@ -288,7 +299,7 @@
 @property LB_BK NSObject*    (^objSetScreenValueForFullPath)(NSString* fullPath);
 
 
-/** Print object as json string */
+/** !Print object as json string */
 @property LB_BK NSObject*    (^po)(void);
 @property LB_BK NSObject*    (^poDetail)(void);
 /** Determine if object contain info/对象是否有内容
@@ -327,7 +338,7 @@
 + (BOOL)classContainIvar:(NSString*)ivarName;
 + (NSArray<NSString*>*)classGetIvarList;
 + (NSArray<NSString*>*)classGetPropertyList;
-/** reference:property type encodings */
+/** reference:property type encodings;<(NSString*)key> */
 + (NSString*)classGetPropertyType:(NSString*)key;
 /** Depth Traversal */
 + (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation;
@@ -360,6 +371,13 @@
 @property LB_BK NSObject*      (^linkIf)(BOOL condition);
 @property LB_FN NSObject*      linkElse;
 @property LB_FN NSObject*      linkReturn;
+
+@property LB_FN NSObject*      whatSet;
+
+@property LB_FN NSObject*      ___Code_Initialization___;
+@property LB_FN NSObject*      ___Code_LinkChanged___;
+@property LB_FN NSObject*      ___Code_IsMultipleObjects___;
+@property LB_FN NSObject*      ___Code_IsSingleObject___;
 
 - (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
 - (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;

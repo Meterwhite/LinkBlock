@@ -650,6 +650,121 @@
     return self.objLength;
 }
 
+- (NSObject<NSFastEnumeration> *(^)(NSString *, BOOL))objsSortByKey
+{
+    return ^id(NSString* key,BOOL ascending){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsSortByKey,key,ascending)
+        
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
+        
+        if([_self respondsToSelector:@selector(sortUsingDescriptors:)]){
+            [_self sortUsingDescriptors:@[sort]];
+        }else if ([_self respondsToSelector:@selector(sortedArrayUsingDescriptors:)]){
+            return [_self sortedArrayUsingDescriptors:@[sort]];
+        }
+        return _self;
+    };
+}
+- (NSObject<NSFastEnumeration> *(^)(NSString *))objsSortByKeyAscending
+{
+    return ^id(NSString* key){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsSortByKeyAscending,key)
+        
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES];
+        
+        if([_self respondsToSelector:@selector(sortUsingDescriptors:)]){
+            [_self sortUsingDescriptors:@[sort]];
+        }else if ([_self respondsToSelector:@selector(sortedArrayUsingDescriptors:)]){
+            return [_self sortedArrayUsingDescriptors:@[sort]];
+        }
+        return _self;
+    };
+}
+- (NSObject<NSFastEnumeration> *(^)(NSString *))objsSortByKeyDescending
+{
+    return ^id(NSString* key){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsSortByKeyDescending,key)
+        
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:key ascending:NO];
+        
+        if([_self respondsToSelector:@selector(sortUsingDescriptors:)]){
+            [_self sortUsingDescriptors:@[sort]];
+        }else if ([_self respondsToSelector:@selector(sortedArrayUsingDescriptors:)]){
+            return [_self sortedArrayUsingDescriptors:@[sort]];
+        }
+        return _self;
+    };
+}
+
+- (NSObject<NSFastEnumeration> *(^)(NSPredicate *))objsFilterByPredicate
+{
+    return ^id(NSPredicate* pred){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsFilterByPredicate,pred)
+        
+        if([_self respondsToSelector:@selector(filterUsingPredicate:)]){
+            [_self filterUsingPredicate:pred];
+        }else if([_self respondsToSelector:@selector(filteredArrayUsingPredicate:)]){
+            return [_self filteredArrayUsingPredicate:pred];
+        }else if([_self respondsToSelector:@selector(filteredSetUsingPredicate:)]){
+            return [_self filteredSetUsingPredicate:pred];
+        }else if([_self respondsToSelector:@selector(filteredOrderedSetUsingPredicate:)]){
+            return [_self filteredOrderedSetUsingPredicate:pred];
+        }
+        return _self;
+    };
+}
+
+- (NSObject<NSFastEnumeration> *(^)(NSPredicate *))objsSelectByPredicate
+{
+    return ^id(NSPredicate* pred){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsFilterByPredicate,pred)
+        
+        if([_self respondsToSelector:@selector(filterUsingPredicate:)]){
+            _self = _self.copy;
+        }
+        if([_self respondsToSelector:@selector(filteredArrayUsingPredicate:)]){
+            return [_self filteredArrayUsingPredicate:pred];
+        }else if([_self respondsToSelector:@selector(filteredSetUsingPredicate:)]){
+            return [_self filteredSetUsingPredicate:pred];
+        }else if([_self respondsToSelector:@selector(filteredOrderedSetUsingPredicate:)]){
+            return [_self filteredOrderedSetUsingPredicate:pred];
+        }
+        return _self;
+    };
+}
+
+- (NSObject<NSFastEnumeration> *(^)(NSString *))objsSelectByPredicateString
+{
+    return ^id(NSString* predString){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsSelectByPredicateString,predString)
+        
+        if([_self respondsToSelector:@selector(filterUsingPredicate:)]){
+            _self = _self.copy;
+        }
+        NSPredicate* pred = [NSPredicate predicateWithFormat:predString];
+        if([_self respondsToSelector:@selector(filteredArrayUsingPredicate:)]){
+            return [_self filteredArrayUsingPredicate:pred];
+        }else if([_self respondsToSelector:@selector(filteredSetUsingPredicate:)]){
+            return [_self filteredSetUsingPredicate:pred];
+        }else if([_self respondsToSelector:@selector(filteredOrderedSetUsingPredicate:)]){
+            return [_self filteredOrderedSetUsingPredicate:pred];
+        }
+        return _self;
+    };
+}
+
 - (NSObject *(^)(NSString *))objValueForFullPath
 {
     return ^id(NSString* fullPath){
