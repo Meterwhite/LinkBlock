@@ -2580,7 +2580,25 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-
+-  (NSObject *(^)(NSString *, ...))linkSelect
+{
+    return ^id(NSString *predicateStr,...){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroup* group;
+        if([_self isKindOfClass:[LinkGroup class]]){
+            
+            if(group.linkObjects.count) return self;
+            
+            va_list args;
+            va_start(args, predicateStr);
+            NSPredicate* pred= [NSPredicate predicateWithFormat:predicateStr arguments:args];
+            va_end(args);
+            [group.linkObjects filterUsingPredicate:pred];
+        }
+        return self;
+    };
+}
 
 - (NSObject *(^)(NSUInteger))linkLoop
 {
@@ -3778,15 +3796,27 @@ LB_Punctuate(thisLinkObj)
 LB_Punctuate(thisLinkObjs)
 LB_Punctuate(thisValue)
 LB_Punctuate(thisValues)
+
 LB_Punctuate(aNumberValue)
-//LB_Punctuate(<#..#>)
-//LB_Punctuate(<#..#>)
-//LB_Punctuate(<#..#>)
-//LB_Punctuate(<#..#>)
-//LB_Punctuate(<#..#>)
-//LB_Punctuate(<#..#>)
-//LB_Punctuate(<#..#>)
-//LB_Punctuate(<#..#>)
+LB_Punctuate(aBOOLObject)
+LB_Punctuate(aFloatNumber)
+LB_Punctuate(aDoubleNumber)
+LB_Punctuate(anIntNumber)
+LB_Punctuate(anIntegerNumber)
+LB_Punctuate(anUnsignedIntNumber)
+LB_Punctuate(anUnsignedIntegerNumber)
+LB_Punctuate(aLongNumber)
+LB_Punctuate(aLongLongNumber)
+LB_Punctuate(aUnsignedLongNumber)
+LB_Punctuate(aUnsignedLongLongNumber)
+LB_Punctuate(aCGRectValue)
+LB_Punctuate(aCGSizeValue)
+LB_Punctuate(aCGPointValue)
+LB_Punctuate(aNSRangeValue)
+
+
+
+
 
 - (void)_lb_performSelector:(SEL)aSelector
 {

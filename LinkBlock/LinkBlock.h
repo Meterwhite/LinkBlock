@@ -108,6 +108,14 @@
 #endif
 
 /**
+ fileter link objects.
+ ...linkSelect(@"age > %@",age);
+ */
+#ifndef linkSelect
+#define linkSelect linkSelect
+#endif
+
+/**
  *  重复执行
  *  repeat the following link code by copy link objects
  *  ...linkLoop(count)...

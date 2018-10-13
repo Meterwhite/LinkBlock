@@ -360,42 +360,38 @@
 
 @property LB_BK NSObject*      (^linkPush)(id obj);
 @property LB_BK NSObject*      (^linkPop)(void);
-
-///@property LB_BK NSObject*      (^linkSelect)(NSString* predicate,...);
-
+@property LB_BK NSObject*      (^linkSelect)(NSString* predicate,...);
 @property LB_BK NSObject*      (^linkLoop)(NSUInteger count);
 
 @property LB_BK NSObject*      (^linkIf)(BOOL condition);
 @property LB_FN NSObject*      linkElse;
 @property LB_FN NSObject*      linkReturn;
 
-
+#warning 注释
 @property LB_FN NSObject*      whatSet;//AsWhatSet
 
-#warning <#message#>
-///////////////////////////////////////////////////
 @property LB_FN NSObject*      thisLinkObj;
 @property LB_FN LinkGroup*     thisLinkObjs;
 @property LB_FN NSObject*      thisValue;
 @property LB_FN NSObject*      thisValues;
 
 @property LB_FN NSNumber*      aNumberValue;
-//@property LB_FN NSNumber*      aBOOLObject;
-//@property LB_FN NSNumber*      aFloatNumber;
-//@property LB_FN NSNumber*      aDoubleNumber;
-//@property LB_FN NSNumber*      anIntNumber;
-//@property LB_FN NSNumber*      anIntegerNumber;
-//@property LB_FN NSNumber*      anUnsignedIntNumber;
-//@property LB_FN NSNumber*      anUnsignedIntegerNumber;
-//@property LB_FN NSNumber*      aLongNumber;
-//@property LB_FN NSNumber*      aLongLongNumber;
-//@property LB_FN NSNumber*      aUnsignedLongNumber;
-//@property LB_FN NSNumber*      aUnsignedLongLongNumber;
-//@property LB_FN NSValue*       aCGRectValue;
-//@property LB_FN NSValue*       aCGSizeValue;
-//@property LB_FN NSValue*       aCGPointValue;
-//@property LB_FN NSValue*       aNSRangeValue;
-////////////////////////////////////////////////////////////
+@property LB_FN NSNumber*      aBOOLObject;
+@property LB_FN NSNumber*      aFloatNumber;
+@property LB_FN NSNumber*      aDoubleNumber;
+@property LB_FN NSNumber*      anIntNumber;
+@property LB_FN NSNumber*      anIntegerNumber;
+@property LB_FN NSNumber*      anUnsignedIntNumber;
+@property LB_FN NSNumber*      anUnsignedIntegerNumber;
+@property LB_FN NSNumber*      aLongNumber;
+@property LB_FN NSNumber*      aLongLongNumber;
+@property LB_FN NSNumber*      aUnsignedLongNumber;
+@property LB_FN NSNumber*      aUnsignedLongLongNumber;
+@property LB_FN NSValue*       aCGRectValue;
+@property LB_FN NSValue*       aCGSizeValue;
+@property LB_FN NSValue*       aCGPointValue;
+@property LB_FN NSValue*       aNSRangeValue;
+
 
 - (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
 - (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;
