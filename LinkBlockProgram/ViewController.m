@@ -49,7 +49,7 @@
 //    .viewAddToView(self.view)
 //    .objAddToAsWhatSet(@"myArray")
 //    .whatSet.objAdd(@"").arrFirst()
-//    .numIsOddAs().aBOOLObject
+//    .numIsOddAs().aBOOLValue
 //    .arrFilter(@"....").thisValue.nslog()
 //    .objGetPrevItemFromObjs(@"objs").thisValue.objAddTo(@"objs")
 //    .objToNSDictionary().thisValue.dictSetValue(@"name", @"AAA");

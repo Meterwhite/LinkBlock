@@ -367,16 +367,42 @@
 @property LB_FN NSObject*      linkElse;
 @property LB_FN NSObject*      linkReturn;
 
-#warning 注释
-@property LB_FN NSObject*      whatSet;//AsWhatSet
+#pragma mrak - Link Punctuate/断句
 
-@property LB_FN NSObject*      thisLinkObj;
+/**
+ Link Punctuate
+ This is a comment used to punctuate linkBlock when linkBlock state has changed.
+ Link Punctuate will do noting, it just return self.
+*/
+
+/**
+ ...XXXXAsWhatSet(valueSet).whatSet...;
+ after function 'XXXXAsWhatSet' the 'whatSet' is indicate link object be replaced by valueSet.
+ */
+@property LB_FN NSObject*      whatSet;
+
+/**
+ 指示链条的类型
+ Indicate the state of link has changed.
+ ...linkPush(~).linkPush(~).thisLinkObjs...
+ */
 @property LB_FN LinkGroup*     thisLinkObjs;
+@property LB_FN NSObject*      thisLinkObj;
+
+/**
+ 指示链条对象已经由返回值替换
+ 'thisXXXX' indicate that the link object has changed since the last call;
+ */
 @property LB_FN NSObject*      thisValue;
 @property LB_FN NSObject*      thisValues;
+@property LB_FN NSNumber*      thisNumber;
 
-@property LB_FN NSNumber*      aNumberValue;
-@property LB_FN NSNumber*      aBOOLObject;
+/**
+ 指示NSNumber的本身类型
+ ...numIsOddAs().aBOOLValue.boolValue
+ Use 'aXXX' after 'XXXAs' to indicate that What the specific type of NSNumber
+ */
+@property LB_FN NSNumber*      aBOOLValue;
 @property LB_FN NSNumber*      aFloatNumber;
 @property LB_FN NSNumber*      aDoubleNumber;
 @property LB_FN NSNumber*      anIntNumber;
@@ -391,6 +417,7 @@
 @property LB_FN NSValue*       aCGSizeValue;
 @property LB_FN NSValue*       aCGPointValue;
 @property LB_FN NSValue*       aNSRangeValue;
+
 
 
 - (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
