@@ -41,10 +41,8 @@
 
 
 #pragma mark - Foundation Extend/补充
-/** join item as string,like join() of javescript  */
+/** Join item as string,like it in javescript  */
 @property LB_BK NSMutableString*         (^arrJoin)(NSString* split);
-
-/** "age>20" */
 @property LB_BK NSMutableArray*          (^arrFilter)(NSString* predicateFormat,...);
 /** return NSNull if array.count==0 */
 @property LB_BK NSObject*                (^arrAny)(void);

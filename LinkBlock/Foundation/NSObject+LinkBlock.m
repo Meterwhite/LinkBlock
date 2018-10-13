@@ -2537,7 +2537,7 @@ DefineKindOfClassAs(NSNumber)
     return _self;
 }
 
-- (NSObject *(^)(id))linkAdd
+- (NSObject *(^)(id))linkPush
 {
     return ^id(id obj){
         LinkHandle_REF(NSObject)
@@ -2559,21 +2559,20 @@ DefineKindOfClassAs(NSNumber)
 }
 
 
-- (NSObject *(^)(NSUInteger idx))linkRemoveAt
+- (NSObject *(^)(void))linkPop
 {
-    return ^id(NSUInteger idx){
+    return ^id(){
         LinkHandle_REF(NSObject)
         if([_self isKindOfClass:[LinkGroup class]]){
             LinkGroup* group = (id)_self;
             if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
                 NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                if(idx > count-1) return group;
+                if(count<1) return group;
                 group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(count-1);
-                id forOut = group.linkObjects[idx];
-                [group.linkObjects removeObject:forOut];
+                [group.linkObjects removeLastObject];
             }else{
-                if(idx>group.linkObjects.count-1) return group;
-                [group.linkObjects removeObjectAtIndex:idx];
+                if(group.linkObjects.count<1) return group;
+                [group.linkObjects removeLastObject];
             }
             return group;
         }
@@ -3765,6 +3764,29 @@ LBMarcoLinkTransType(NSMutableSet)
 LBMarcoLinkTransType(NSSet)
 LBMarcoLinkTransType(NSCalendar)
 LBMarcoLinkTransType(CALayer)
+
+#ifndef LB_Punctuate
+#define LB_Punctuate(func)\
+- (id)func\
+{\
+    return self;\
+}
+#endif
+
+LB_Punctuate(whatSet)
+LB_Punctuate(thisLinkObj)
+LB_Punctuate(thisLinkObjs)
+LB_Punctuate(thisValue)
+LB_Punctuate(thisValues)
+LB_Punctuate(aNumberValue)
+//LB_Punctuate(<#..#>)
+//LB_Punctuate(<#..#>)
+//LB_Punctuate(<#..#>)
+//LB_Punctuate(<#..#>)
+//LB_Punctuate(<#..#>)
+//LB_Punctuate(<#..#>)
+//LB_Punctuate(<#..#>)
+//LB_Punctuate(<#..#>)
 
 - (void)_lb_performSelector:(SEL)aSelector
 {

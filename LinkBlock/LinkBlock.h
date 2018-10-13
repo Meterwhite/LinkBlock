@@ -94,39 +94,19 @@
 #endif
 /**
  add a new into link objects
- ...linkAdd(object)
+ ...linkPush(object)
  */
-#ifndef linkAdd
-#define linkAdd linkAdd
+#ifndef linkPush
+#define linkPush linkPush
 #endif
 /**
- remove an object at specified index from link objects
- ...linkRemoveAt(index)
+ remove last object at specified index from link objects
+ ...linkPop()
  */
-#ifndef linkRemoveAt
-#define linkRemoveAt linkRemoveAt
+#ifndef linkPop
+#define linkPop linkPop
 #endif
-/**
- get an object at specified index from link objects
- ...linkAt(index)
- */
-#ifndef linkAt
-#define linkAt linkAt
-#endif
-/**
- get first object from link objects
- ...linkFirstObj
- */
-#ifndef linkFirstObj
-#define linkFirstObj linkFirstObj
-#endif
-/**
- get last object from link objects
- linkObjs...linkLastObj...
- */
-#ifndef linkLastObj
-#define linkLastObj linkLastObj
-#endif
+
 /**
  *  重复执行
  *  repeat the following link code by copy link objects

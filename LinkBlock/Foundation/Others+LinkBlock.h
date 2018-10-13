@@ -620,11 +620,15 @@ NS_DEPRECATED_IOS(2_0, 2_0, "viewFindFirstResponderSubViewOfTextInput");
 @property LB_BK NSObject*      (^linkTo)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
+@property LB_BKG(linkPush) NSObject*      (^linkAnd)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "linkPush");
+@property LB_BK NSObject*      (^linkOut)(NSUInteger idx)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+
 @property LB_BK NSObject*      (^linkAt)(NSUInteger idx);
 @property LB_FN NSObject*      linkFirstObj;
 @property LB_FN NSObject*      linkLastObj;
 
-//@property LB_BK NSObject*      (^linkAdd)(id obj);
-//@property LB_BK NSObject*      (^linkOut)(NSUInteger idx);
+
 @end
 

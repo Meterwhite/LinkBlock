@@ -80,9 +80,4 @@
 @property LB_BK BOOL             (^dateIsInMonth)(void);
 @property LB_BK NSNumber*        (^dateIsInMonthAs)(void);
 
-
-
-
-
-
 @end

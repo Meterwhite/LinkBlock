@@ -41,25 +41,20 @@
     
     
     man0.objsSelectByPredicateString(@"")
-    .___Link_Separator___
     .viewSetX(123).viewSetX(12);
     
-    UILabelNew
-    .viewSetFrame(0, 1, 2, 3)
-    .labText(@"hhhh")
-    .viewAddToView(self.view)
-    .objAddToAsWhatSet(@"myArray")
-    .___Link_Separator___
-    .whatSet.objAdd(@"").arrFirst()
-    .numIsOddAs().aBOOLObject
-    .arrFilter(@"....").whatReturn.nslog()
-    .objGetPrevItemFromObjs(@"objs").whatGet.objAddTo(@"objs")
-    .objToNSDictionary().whatReturn.dictSetValue(@"name", @"AAA");
+//    UILabelNew
+//    .viewSetFrame(0, 1, 2, 3)
+//    .labText(@"hhhh")
+//    .viewAddToView(self.view)
+//    .objAddToAsWhatSet(@"myArray")
+//    .whatSet.objAdd(@"").arrFirst()
+//    .numIsOddAs().aBOOLObject
+//    .arrFilter(@"....").thisValue.nslog()
+//    .objGetPrevItemFromObjs(@"objs").thisValue.objAddTo(@"objs")
+//    .objToNSDictionary().thisValue.dictSetValue(@"name", @"AAA");
     
-    id xx;
-    [xx unsignedLongLongValue];
-    //fromWhatSet
-    NSUInteger;
+
 //    NSDictionary* dict = @{
 //        @"members": @[man,man0]
 //    };
@@ -180,7 +175,7 @@
 //    NSMutableArray* arrC = [NSMutableArray arrayWithObjects:@"C", nil];
 //    NSArray* linkResults = @[arrA,arrB,arrC].makeLinkObjs.m_arrAddObj(@"E").linkEnds;
 //    //写法三
-//    linkResults = arrA.linkAdd(arrB).linkAdd(arrC).m_arrAddObj(@"D").linkEnds;
+//    linkResults = arrA.linkPush(arrB).linkPush(arrC).m_arrAddObj(@"D").linkEnds;
 //    //写法四，简单粗暴的重复执行之后链条100次，这种情况不需要for循环了
 //    linkResults = arrA.linkLoop(100).m_arrAddObj(@"F").linkEnds;
 //

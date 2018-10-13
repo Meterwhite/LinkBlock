@@ -23,7 +23,6 @@
 /** @"" */
 @property LB_BK NSMutableString*     (^m_strClear)(void);
 
-
 @end
 
 

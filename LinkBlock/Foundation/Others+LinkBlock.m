@@ -933,4 +933,25 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
     }
     return _self;
 }
+- (NSObject *(^)(NSUInteger idx))linkOut
+{
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSObject)
+        if([_self isKindOfClass:[LinkGroup class]]){
+            LinkGroup* group = (id)_self;
+            if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
+                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
+                if(idx > count-1) return group;
+                group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(count-1);
+                id forOut = group.linkObjects[idx];
+                [group.linkObjects removeObject:forOut];
+            }else{
+                if(idx>group.linkObjects.count-1) return group;
+                [group.linkObjects removeObjectAtIndex:idx];
+            }
+            return group;
+        }
+        return _self;
+    };
+}
 @end

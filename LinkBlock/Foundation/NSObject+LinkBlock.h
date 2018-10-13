@@ -358,9 +358,9 @@
 @property LB_FN NSArray*       linkEnds;
 @property LB_BK id             (^linkEndsAt)(NSUInteger idx);
 
-@property LB_BK NSObject*      (^linkAdd)(id obj);
+@property LB_BK NSObject*      (^linkPush)(id obj);
+@property LB_BK NSObject*      (^linkPop)(void);
 
-@property LB_BK NSObject*      (^linkRemoveAt)(NSUInteger idx);
 ///@property LB_BK NSObject*      (^linkSelect)(NSString* predicate,...);
 
 @property LB_BK NSObject*      (^linkLoop)(NSUInteger count);
@@ -370,41 +370,32 @@
 @property LB_FN NSObject*      linkReturn;
 
 
+@property LB_FN NSObject*      whatSet;//AsWhatSet
 
-@property LB_FN NSObject*      ___Link_Separator___;
-@property LB_FN NSObject*      asLinkObj;
-@property LB_FN LinkGroup*     asLinkObjs;
-@property LB_FN NSObject*      whatSet;
-@property LB_FN NSObject*      whatGet;
-@property LB_FN NSObject*      whatReturn;
-
-@property LB_FN NSObject*      thatValue;
-//@property LB_FN NSObject*      whatObject;
-//@property LB_FN NSObject*      whatIndex;
-//@property LB_FN NSObject*      whatSubitem;
-
-@property LB_FN NSValue*       aCGRectValue;
-@property LB_FN NSValue*       aCGSizeValue;
-@property LB_FN NSValue*       aCGPointValue;
-@property LB_FN NSValue*       aNSRangeValue;
+#warning <#message#>
+///////////////////////////////////////////////////
+@property LB_FN NSObject*      thisLinkObj;
+@property LB_FN LinkGroup*     thisLinkObjs;
+@property LB_FN NSObject*      thisValue;
+@property LB_FN NSObject*      thisValues;
 
 @property LB_FN NSNumber*      aNumberValue;
-@property LB_FN NSNumber*      aBOOLObject;
-@property LB_FN NSNumber*      aFloatNumber;
-@property LB_FN NSNumber*      aDoubleNumber;
-@property LB_FN NSNumber*      anIntNumber;
-@property LB_FN NSNumber*      anIntegerNumber;
-@property LB_FN NSNumber*      anUnsignedIntNumber;
-@property LB_FN NSNumber*      anUnsignedIntegerNumber;
-@property LB_FN NSNumber*      aLongNumber;
-@property LB_FN NSNumber*      aLongLongNumber;
-@property LB_FN NSNumber*      aUnsignedLongNumber;
-@property LB_FN NSNumber*      aUnsignedLongLongNumber;
-
-//@property LB_FN NSObject*      thatObject;
-
-
-
+//@property LB_FN NSNumber*      aBOOLObject;
+//@property LB_FN NSNumber*      aFloatNumber;
+//@property LB_FN NSNumber*      aDoubleNumber;
+//@property LB_FN NSNumber*      anIntNumber;
+//@property LB_FN NSNumber*      anIntegerNumber;
+//@property LB_FN NSNumber*      anUnsignedIntNumber;
+//@property LB_FN NSNumber*      anUnsignedIntegerNumber;
+//@property LB_FN NSNumber*      aLongNumber;
+//@property LB_FN NSNumber*      aLongLongNumber;
+//@property LB_FN NSNumber*      aUnsignedLongNumber;
+//@property LB_FN NSNumber*      aUnsignedLongLongNumber;
+//@property LB_FN NSValue*       aCGRectValue;
+//@property LB_FN NSValue*       aCGSizeValue;
+//@property LB_FN NSValue*       aCGPointValue;
+//@property LB_FN NSValue*       aNSRangeValue;
+////////////////////////////////////////////////////////////
 
 - (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
 - (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;
