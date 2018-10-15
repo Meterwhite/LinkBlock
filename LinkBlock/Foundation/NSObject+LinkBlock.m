@@ -792,6 +792,35 @@
     };
 }
 
+- (NSObject *(^)(NSUInteger))objsItemAt
+{
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsItemAt,idx)
+        
+        if(LB_RespondsToSEL(_self, objectAtIndex:)){
+            return [_self objectAtIndex:idx];
+        }
+        else if(LB_RespondsToSEL(_self, indexAtPosition:)){
+            return @([_self indexAtPosition:idx]);
+        }
+        
+        return NSNull.null;
+    };
+}
+- (NSNumber *(^)(id))objsIndexOfItemAs
+{
+    return ^id(id item){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsIndexOfItemAs,item)
+        
+        if(LB_RespondsToSEL(_self, indexOfObject:)){
+            return @([_self indexOfObject:item]);
+        }
+        return @(NSNotFound);
+    };
+}
+
 - (NSObject *(^)(void))objsLastItem
 {
     return ^id(){
@@ -799,9 +828,9 @@
         LinkGroupHandle_REF(objsLastItem)
         
         if(LB_RespondsToSEL(_self, lastObject)){
-            [_self lastObject];
+            return [_self lastObject];
         }
-        return _self;
+        return NSNull.null;
     };
 }
 - (NSObject *(^)(void))objsFirstItem
@@ -812,6 +841,30 @@
         
         if(LB_RespondsToSEL(_self, firstObject)){
             [_self firstObject];
+        }
+        return NSNull.null;
+    };
+}
+-(NSObject *(^)(id))objsItemForKey
+{
+    return ^id(id key){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsItemForKey,key)
+        
+        if(LB_RespondsToSEL(_self, objectForKey:)){
+            return [_self objectForKey:key];
+        }
+        return NSNull.null;
+    };
+}
+- (NSObject *(^)(id, id))objsSetItemForKey
+{
+    return ^id(id item,id key){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsSetItemForKey,item,key)
+        
+        if(LB_RespondsToSEL(_self, setObject:forKey:)){
+            [_self setObject:item forKey:key];
         }
         return _self;
     };
@@ -1434,7 +1487,7 @@ DefineKindOfClassAs(NSNumber)
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objIsIndexableAs)
         
-        if(LB_RespondsToSEL(_self, indexOfObject:)) return @YES;
+        if(LB_RespondsToSEL(_self, objectAtIndex:)) return @YES;
         if(LB_RespondsToSEL(_self, characterAtIndex:)) return @YES;
         if(LB_RespondsToSEL(_self, indexAtPosition:)) return @YES;
         if(LB_RespondsToSEL(_self, pointerAtIndex:)) return @YES;

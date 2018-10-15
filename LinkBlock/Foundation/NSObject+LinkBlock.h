@@ -279,19 +279,19 @@
 @property LB_BK NSObject<NSFastEnumeration>*(^objsSelectByPredicate)(NSPredicate* pred);
 @property LB_BK NSObject<NSFastEnumeration>*(^objsSelectByPredicateString)(NSString* pred);
 
-#warning <#message#>
+
 ///MARK: These API are for collection type.
 @property LB_BK NSObject*  (^objsAddItem)(id item);
 @property LB_BK NSObject*  (^objsRemoveAllItem)(void);
 ///MARK: Index-able collection.
-//@property LB_BK NSObject*  (^objsItemAt)(NSUInteger idx);
+@property LB_BK NSObject*  (^objsItemAt)(NSUInteger idx);
 /** ...objsIndexOfItemAs().anUnsignedIntegerNumber... */
-//@property LB_BK NSNumber*  (^objsIndexOfItemAs)(id item);
+@property LB_BK NSNumber*  (^objsIndexOfItemAs)(id item);
 @property LB_BK NSObject*  (^objsLastItem)(void);
 @property LB_BK NSObject*  (^objsFirstItem)(void);
 ///MARK: Key-able collection.
-//@property LB_BK NSObject*  (^objsItemForKey)(id key);
-//@property LB_BK NSObject*  (^objsSetItemForKey)(id item,id key);
+@property LB_BK NSObject*  (^objsItemForKey)(id key);
+@property LB_BK NSObject*  (^objsSetItemForKey)(id item,id key);
 
 
 /**
