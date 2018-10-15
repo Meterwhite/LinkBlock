@@ -8,43 +8,6 @@
 #import "LinkBlock.h"
 
 @implementation NSObject(NSMutableDictionaryLinkBlock)
-- (NSMutableDictionary *(^)(id  , id))m_dictSetWithKeyObject
-{
-    return ^id(id key  , id value){
-        LinkHandle_REF(NSMutableDictionary)
-        LinkGroupHandle_REF(m_dictSetWithKeyObject,key,value)
-        if(value && key ){
-            _self[key]= value;
-        }
-        return _self;
-    };
-}
-
-- (NSMutableDictionary *(^)(id, id))m_dictReplaceForKeyDepth
-{
-    return ^id(id replaceKey, id withKey){
-        return self.dictReplaceForKeyDepth(replaceKey, withKey);
-    };
-}
-
-- (NSMutableDictionary *(^)(id, id))m_dictReplaceForKey
-{
-    return ^id(id replaceKey, id withKey){
-        return self.m_dictReplaceForKey(replaceKey, withKey);
-    };
-}
-
-- (NSMutableDictionary *(^)(NSDictionary *))m_dictAddEntries
-{
-    return ^id(NSDictionary* dict){
-        LinkHandle_REF(NSMutableDictionary)
-        LinkGroupHandle_REF(m_dictAddEntries,dict)
-        [_self addEntriesFromDictionary:dict];
-        return _self;
-    };
-}
-
-
 /** ********************NSAttributeString部分******************** */
 #pragma mark - NSAttributeString部分
 

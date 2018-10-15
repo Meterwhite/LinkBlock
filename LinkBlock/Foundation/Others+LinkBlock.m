@@ -201,8 +201,6 @@
     };
 }
 
-- (NSMutableArray *(^)(id, id))m_arrInsertBehind
-{return self.m_arrInsertObjNextTo;}
 
 - (UIView *(^)(BOOL))viewMasksToBounds
 {return self.viewClipsToBounds;}
@@ -572,17 +570,17 @@ ChangeNameForLink_ONE(objRemoveFrom)
 - (NSObject *(^)(id, NSUInteger))imgSetToBtnBGImg_linkTo
 {return self.imgSetToButtonAsWhatSet;}
 - (NSObject *(^)(id, NSUInteger))strSetToBtn_linkTo
-{return (id)self.strSetToControlContentAsWhatSet;}
+{return (id)self.strSetToControlTextAsWhatSet;}
 - (NSObject *(^)(id, NSUInteger))imgSetToBtn_linkTo
 {return self.imgSetToButtonAsWhatSet;}
 - (NSObject *(^)(id))strSetToTxtField_linkTo
-{return (id)self.strSetToControlContentAsWhatSet;}
+{return (id)self.strSetToControlTextAsWhatSet;}
 - (NSObject *(^)(id))strSetToTxtView_linkTo
-{return (id)self.strSetToControlContentAsWhatSet;}
+{return (id)self.strSetToControlTextAsWhatSet;}
 - (NSObject *(^)(id))imgSetToImgView_linkTo
 {return self.imgSetToImageViewAsWhatSet;}
 - (NSObject *(^)(id))strSetToLab_linkTo
-{return (id)self.strSetToControlContentAsWhatSet;}
+{return (id)self.strSetToControlTextAsWhatSet;}
 - (NSObject *(^)(void))strPathUnarchiveObject_linkTo
 {return self.strPathUnarchiveObjectAsWhatReturn;}
 - (NSObject *(^)(id, CGRect))attr_strDrawToImg_linkTo
@@ -950,6 +948,33 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
                 [group.linkObjects removeObjectAtIndex:idx];
             }
             return group;
+        }
+        return _self;
+    };
+}
+
+
+- (NSMutableArray *(^)(NSMutableArray *, NSUInteger))arrInsertToArrayAt
+{
+    return ^id(NSMutableArray* arr, NSUInteger index){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrInsertToArrayAt,arr,index)
+        return linkObj(arr).m_arrInsertArrayAt(_self,index);
+    };
+}
+
+- (NSMutableDictionary *(^)(id,id))dictSetWithKeyObject
+{
+    return ^id(id key  , id value){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictSetWithKeyObject,key,value)
+        
+        if(!LB_IsKindOfClass(_self, NSMutableDictionary)){
+            LB_MCopy_VAR(_self);
+        }
+        
+        if(value && key){
+            [_self setObject:value forKey:key];
         }
         return _self;
     };

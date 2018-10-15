@@ -12,17 +12,6 @@
 #endif
 
 @interface NSObject(NSMutableDictionaryLinkBlock)
-
-#pragma mark - Foundation Mirror/镜像
-@property LB_BK NSMutableDictionary* (^m_dictSetWithKeyObject)(id key , id object);
-@property LB_BK NSMutableDictionary* (^m_dictAddEntries)(NSDictionary* dict);
-
-
-#pragma mark - LinkBlock
-@property LB_BK NSMutableDictionary* (^m_dictReplaceForKey)(id key, id newKey);
-@property LB_BK NSMutableDictionary* (^m_dictReplaceForKeyDepth)(id key, id newKey);
-
-
 #pragma mark - Foundation Speed/速度
 #pragma  mark - NSAttributeString
 /** ********************For NSAttributeString******************** */

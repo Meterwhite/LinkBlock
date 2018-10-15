@@ -55,26 +55,29 @@
 #pragma mark - Weak coding/弱类型编码
 /** @[@0,@1,@2] */
 @property LB_BK NSIndexPath*     (^arrToNSIndexPath)(void);
+@property LB_BK NSMutableOrderedSet*(^arrToNSOrderedSet)(void);
 @property LB_BK NSMutableArray*  (^arrAddObj)(id obj);
-@property LB_BK NSMutableArray*  (^arrRemoveAll)(void);
+@property LB_BK NSMutableArray*  (^arrAddObjs)(id objs);
+/** Unable overflow */
 @property LB_BK NSMutableArray*  (^arrInsertObjAt)(id obj, NSUInteger index);
-@property LB_BK NSMutableArray*  (^arrInsertArrayAt)(NSArray* arr, NSUInteger index);
-@property LB_BK NSMutableArray*  (^arrInsertToArrayAt)(NSMutableArray* arr, NSUInteger index);
-@property LB_BK NSMutableArray*  (^arrAddObjs)(NSArray* arr);
+/** Unable overflow */
+@property LB_BK NSMutableArray*  (^arrInsertObjsAt)(id objs, NSUInteger index);
+
 @property LB_BK NSMutableArray*  (^arrRemoveObj)(id obj);
-/** not overflow */
+@property LB_BK NSMutableArray*  (^arrRemoveAll)(void);
+/** Unable overflow */
 @property LB_BK NSMutableArray*  (^arrRemoveAt)(NSUInteger index);
-/** not overflow */
-@property LB_BK NSMutableArray*  (^arrRemoveObjsFromTo)(NSUInteger fromIndex,NSUInteger toIndex);
-/** add object only one */
-@property LB_BK NSMutableArray*  (^arrAddObjOnlyOne)(id obj);
-/** insert before */
-@property LB_BK NSMutableArray*  (^arrInsertObjBeforeTo)(id insert, id beforeTo);
-/** insert next */
-@property LB_BK NSMutableArray*  (^arrInsertObjNextTo)(id insert, id nextTo);
-/** previous item */
+/** Unable overflow;Note: 'to' is include.  */
+@property LB_BK NSMutableArray*  (^arrRemoveObjsFromIndexTo)(NSUInteger from,NSUInteger to);
+/** Add object only one */
+@property LB_BK NSMutableArray*  (^arrAddObjUnique)(id obj);
+/** Insert before */
+@property LB_BK NSMutableArray*  (^arrInsertObjBefore)(id insert, id beforThis);
+/** Insert next */
+@property LB_BK NSMutableArray*  (^arrInsertObjNextTo)(id insert, id nextToThis);
+/** Previous item */
 @property LB_BK NSObject*        (^arrGetPrevItemForObj)(id obj);
-/** next item */
+/** Next item */
 @property LB_BK NSObject*        (^arrGetNextItemForObj)(id obj);
 
 
@@ -86,11 +89,11 @@
 @property LB_BK NSMutableArray*          (^arrJoinArr)(void);
 @property LB_BK NSMutableDictionary*     (^arrJoinDict)(void);
 /** add or replace an object if key-value matched */
-@property LB_BK NSMutableArray*(^arrAddOrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
-@property LB_BK NSMutableArray*(^arrInsertOrReplaceWhenObjValueMatchedForKeyAt)(id obj , NSString* key, NSUInteger idx);
+@property LB_BK NSMutableArray*(^arrAddOrReplaceItemCaseValueForKey)(id obj , NSString* key);
+@property LB_BK NSMutableArray*(^arrInsertOrReplaceItemCaseValueForKeyAt)(id obj , NSString* key, NSUInteger idx);
 /** replace an object if key-value matched */
-@property LB_BK NSMutableArray*(^arrReplaceWhenObjValueMatchedForKey)(id obj , NSString* key);
-@property LB_BK NSMutableArray*(^arrReplaceWhenObjsValueMatchedForKey)(NSArray* objs , NSString* key);
+@property LB_BK NSMutableArray*(^arrReplaceItemCaseValueForKey)(id obj,NSString* key);
+@property LB_BK NSMutableArray*(^arrReplaceItemsCaseValueForKey)(NSArray* objs , NSString* key);
 /** split array,each subarray has same length.Return self if count==0  */
 @property LB_BK NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
 @property LB_BK NSNumber*                (^arrMaxNumber)(void);
@@ -109,9 +112,9 @@
  */
 @property LB_BK NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString* key);
 
-@property LB_BK NSMutableArray*          (^arrReplaceKeyForDictionaryItem)(id key,id newKey);
-/** arrReplaceKeyForDictionaryItem().Deep traversal */
-@property LB_BK NSMutableArray*          (^arrReplaceKeyForDictionaryItemDepth)(id key,id newKey);
+@property LB_BK NSMutableArray*          (^arrReplaceItemKeyForDictionaryItem)(id key,id newKey);
+/** arrReplaceItemKeyForDictionaryItem().Deep traversal */
+@property LB_BK NSMutableArray*          (^arrReplaceItemKeyForDictionaryItemDepth)(id key,id newKey);
 /**
  Sort NSValue-NSRange.If isCombine=YES NSRange(0,2) will contain NSRange(0,1).
 */

@@ -162,7 +162,23 @@
 @property LB_BK NSNumber*    (^objIsNumberAs)(void);
 /** Determine type or protocol{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
 @property LB_BK NSNumber*    (^objIsCollectionAs)(void);
+#warning <#message#>
+/**
+ Array-able means collection can convert to array object;
+ */
+@property LB_BK NSNumber*  (^objIsArrayableCollectionAs)(void);
+@property LB_BK NSNumber*  (^objIsArrayableAs)(void);
+/**
+ Dictionary-able means collection can convert to dictionary object;
+ */
+@property LB_BK NSNumber*  (^objIsDictionaryableCollectionAs)(void);
+@property LB_BK NSNumber*  (^objIsDictionaryableAs)(void);
 
+@property LB_BK NSNumber*  (^objIsKeyValueCollectionAs)(void);
+/**
+ Hash collection is collection of disorder type
+ */
+@property LB_BK NSNumber*  (^objIsHashCollectionAs)(void);
 
 /**
  self ∈ {
@@ -239,6 +255,20 @@
 /** 'select' means not to modify original object */
 @property LB_BK NSObject<NSFastEnumeration>*(^objsSelectByPredicate)(NSPredicate* pred);
 @property LB_BK NSObject<NSFastEnumeration>*(^objsSelectByPredicateString)(NSString* pred);
+
+#warning <#message#>
+///MARK: These API are for collection type.
+
+///MARK: Array-able collection.
+@property LB_BK NSObject*  (^objsItemAt)(NSUInteger idx);
+/** ...objsIndexOfItemAs().anUnsignedIntegerNumber... */
+@property LB_BK NSNumber*  (^objsIndexOfItemAs)(id item);
+@property LB_BK NSObject*  (^objsLastItem)(void);
+@property LB_BK NSObject*  (^objsFirstItem)(void);
+
+///MARK: Key-value collection.
+@property LB_BK NSObject*  (^objsItemForKey)(id key);
+@property LB_BK NSObject*  (^objsSetItemForKey)(id item,id key);
 
 /**
  self   ∈   {

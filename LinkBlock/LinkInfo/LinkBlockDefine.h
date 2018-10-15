@@ -24,6 +24,18 @@
 #define LB_BKG(getname) (nonatomic,copy,readonly,getter=getname)
 #endif
 
+#ifndef LB_MCopy_VAR
+#define LB_MCopy_VAR(var) (var = [var mutableCopy])
+#endif
+
+#ifndef LB_RespondsToSEL
+#define LB_RespondsToSEL(var,sel) ([var respondsToSelector:@selector(sel)])
+#endif
+
+#ifndef LB_IsKindOfClass
+#define LB_IsKindOfClass(var,clazz) ([var isKindOfClass:[clazz class]])
+#endif
+
 //////////////////////////////////////////////////////////////////////
 //MARK:控制
 //////////////////////////////////////////////////////////////////////
@@ -79,8 +91,8 @@ if([self isKindOfClass:[LinkGroup class]]){\
 }
 #endif
 
-#ifndef LBSELString
-#define LBSELString(sel) (NSStringFromSelector(@selector(sel)))
+#ifndef LB_SELAsString
+#define LB_SELAsString(sel) (NSStringFromSelector(@selector(sel)))
 #endif
 
 //MARK:装箱

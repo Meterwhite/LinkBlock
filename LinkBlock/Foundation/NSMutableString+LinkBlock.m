@@ -43,7 +43,7 @@
             
             _self = (id)_self.objNeedMutable();
             if(!_self.objIsMutable()){
-                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@转化不可变对象错误",_self]] logError];
+                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ cant convert to mutable type!",_self]] logError];
                 return _self;
             }
         }

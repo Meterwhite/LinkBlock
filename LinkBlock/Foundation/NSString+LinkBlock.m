@@ -42,17 +42,33 @@
     };
 }
 
-- (NSString *(^)(id))strAppend
+- (NSString *(^)(NSString*))strAppend
 {
-    if(self.objIsMutable()){
-        return self.m_strAppend;
-    }
+    return ^id(NSString* string){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strAppend,string)
+        
+        if(!LB_IsKindOfClass(string, NSString)) return _self;
+        return [_self stringByAppendingString:string];
+    };
+}
+- (NSMutableString *(^)(id))strAppendObj
+{
     return ^id(id obj){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strAppend,obj)
         
         if(!obj) return _self;
-        return [_self stringByAppendingString:obj];
+        if(!LB_IsKindOfClass(obj, NSString)) obj = [obj description];
+        if(!LB_IsKindOfClass(obj, NSString)) return _self;
+        
+        ///Determine if immutable string
+        if(_self.copy == _self){
+            LB_MCopy_VAR(_self);
+        }
+        
+        [_self appendString:obj];
+        return _self;
     };
 }
 
@@ -84,31 +100,20 @@
     };
 }
 
-- (NSString *(^)(NSString *, NSUInteger))strInsertAt
+- (NSMutableString *(^)(NSString *, NSUInteger))strInsertStrAt
 {
-    return ^id(NSString* str, NSUInteger index){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strInsertAt,str,index)
-        
-        if([str isKindOfClass:[NSString class]]){
-            NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
-            [tNewMStr insertString:str atIndex:index];
-            return [tNewMStr copy];
-        }
-        
-        return _self;
-    };
+    if([self copy] == self){
+        return [[self mutableCopy] m_strInsertStrAt];
+    }
+    return self.m_strInsertStrAt;
 }
 
-- (NSString *(^)(NSRange))strDeleteInRange
+- (NSMutableString *(^)(NSRange))strDeleteInRange
 {
-    return ^id(NSRange range){
-        LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strDeleteInRange,range)
-        NSMutableString *tNewMStr= [NSMutableString stringWithString: _self];
-        [tNewMStr deleteCharactersInRange:range];
-        return [tNewMStr copy];
-    };
+    if([self copy] == self){
+        return [[self mutableCopy] m_strDeleteInRange];
+    }
+    return self.m_strDeleteInRange;
 }
 
 - (NSString *(^)(NSUInteger))strAt
@@ -2203,11 +2208,11 @@ void _lb_SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_d
     };
 }
 
-- (UIView *(^)(UIView *))strSetToControlContentAsWhatSet
+- (UIView *(^)(UIView *))strSetToControlTextAsWhatSet
 {
     return ^id(UIView* view){
         LinkHandle_REF(NSString)
-        LinkGroupHandle_REF(strSetToControlContentAsWhatSet, view)
+        LinkGroupHandle_REF(strSetToControlTextAsWhatSet, view)
         
         if([view isKindOfClass:UIButton.class]){
             

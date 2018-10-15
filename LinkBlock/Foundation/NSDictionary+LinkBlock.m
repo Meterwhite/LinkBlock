@@ -9,18 +9,14 @@
 
 @implementation NSObject(NSDictionaryLinkBlock)
 
-
-- (NSObject* (^)(id))dictObjectForKey
+- (NSObject* (^)(id))dictObjectForKeyAsLinkObj
 {
     return ^id(id key){
         LinkHandle_REF(NSDictionary)
-        LinkGroupHandle_REF(dictObjectForKey,key)
+        LinkGroupHandle_REF(dictObjectForKeyAsLinkObj,key)
         return linkObjNotNil(_self[key]);
     };
 }
-
-
-
 
 - (BOOL (^)(id))dictContainsKey
 {
@@ -83,7 +79,7 @@
             }
             if([value isKindOfClass:[NSArray class]]){//层次遍历数组
                 
-                ret[key] = ((NSArray*)value).arrReplaceKeyForDictionaryItemDepth(replaceKey, withKey);
+                ret[key] = ((NSArray*)value).arrReplaceItemKeyForDictionaryItemDepth(replaceKey, withKey);
             }
             
             if([[ret allKeys] containsObject:replaceKey]){//替换键
@@ -114,20 +110,37 @@
     };
 }
 
-- (NSMutableDictionary *(^)(id,id))dictSetWithKeyObject
+
+- (NSMutableDictionary *(^)(id, id))dictSetObjectForKey
 {
-    if([self isKindOfClass:NSMutableDictionary.class])
-        return self.m_dictSetWithKeyObject;
-    
-    return [[self mutableCopy] m_dictSetWithKeyObject];
+    return ^id(id obj,id key){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictSetObjectForKey,obj,key)
+        
+        if(!LB_IsKindOfClass(_self, NSMutableDictionary)){
+            LB_MCopy_VAR(_self);
+        }
+        
+        if(obj && key){
+            [_self setObject:obj forKey:key];
+        }
+        return _self;
+    };
 }
 
 - (NSMutableDictionary *(^)(NSDictionary *))dictAddEntries
 {
-    if([self isKindOfClass:NSMutableDictionary.class])
-        return self.m_dictAddEntries;
-    
-    return [[self mutableCopy] m_dictAddEntries];
+    return ^id(NSDictionary* dict){
+        LinkHandle_REF(NSDictionary)
+        LinkGroupHandle_REF(dictAddEntries,dict)
+        
+        if(!LB_IsKindOfClass(_self, NSMutableDictionary)){
+            LB_MCopy_VAR(_self);
+        }
+        
+        [_self addEntriesFromDictionary:dict];
+        return _self;
+    };
 }
 - (NSObject *(^)(void))dictForid
 {
@@ -155,6 +168,4 @@ dictForUIImageXXX(UIImagePickerControllerMediaURL)
 dictForUIImageXXX(UIImagePickerControllerCropRect)
 dictForUIImageXXX(UIImagePickerControllerEditedImage)
 dictForUIImageXXX(UIImagePickerControllerOriginalImage)
-
-
 @end

@@ -10,16 +10,15 @@
 @interface NSObject(NSStringLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
+@property LB_BK NSString*    (^strAppend)(NSString* str);
+/** <^(NSString* replace, NSString* with)> */
+@property LB_BK NSString*    (^strReplace)(NSString* replace, NSString* with);
 @property LB_BK NSMutableString* (^strMutableCopy)(void);
 @property LB_BK BOOL         (^strIsEqualStr)(NSString* str);
 @property LB_BK NSNumber*    (^strIsEqualStrAs)(NSString* str);
 @property LB_BK NSNumber*    (^strLengthAs)(void);
-@property LB_BK NSString*    (^strAppend)(id obj);
 @property LB_BK NSString*    (^strAppendFormat)(NSString* formatStr , ...);
 @property LB_BK NSString*    (^strReplaceInRange)(NSString* str, NSRange range);
-@property LB_BK NSString*    (^strReplace)(NSString* replaceStr, NSString* withStr);
-@property LB_BK NSString*    (^strInsertAt)(NSString* str, NSUInteger index);
-@property LB_BK NSString*    (^strDeleteInRange)(NSRange range);
 @property LB_BK BOOL         (^strContains)(id obj);
 @property LB_BK NSNumber*    (^strContainsAs)(id obj);
 @property LB_BK NSRange      (^strRangeOfStr)(NSString* str);
@@ -154,7 +153,17 @@
 
 
 #pragma mark - Weak coding/弱类型编码
-@property LB_BK UIView*              (^strSetToControlContentAsWhatSet)(UIView* textControl);
+/**
+ *  This is compound strAppend.'self' may be mutable copy if it immutable.
+ *  obj ∈ {__kindof NSString, NSObject};NSObject in strAppend will call description.
+ */
+@property LB_BK NSMutableString*(^strAppendObj)(id obj);
+/** m_strInsertStrAt > strInsertStrAt;'self' may be mutable copy if it immutable. */
+@property LB_BK NSMutableString*(^strInsertStrAt)(NSString* str,NSUInteger index);
+/** m_strDeleteInRange > strDeleteInRange;'self' may be mutable copy if it immutable. */
+@property LB_BK NSMutableString*(^strDeleteInRange)(NSRange range);
+
+@property LB_BK UIView*              (^strSetToControlTextAsWhatSet)(UIView* textControl);
 /** return NSNull is class did not exist */
 @property LB_BK NSObject*            (^strToObjectFromName)(void);
 /** 0xcccccc , #cccccc , cccccc */

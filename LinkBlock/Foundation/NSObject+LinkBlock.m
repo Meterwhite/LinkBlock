@@ -351,14 +351,14 @@
         
         //NSNull means not to check
         NSArray* infos = @[
-                          @[LBSELString(addObject:),NSNull.class],
-                          @[LBSELString(addEntriesFromDictionary:),NSDictionary.class],
-                          @[LBSELString(appendAttributedString:),NSAttributedString.class],
-                          @[LBSELString(addSubview:),UIView.class],
-                          @[LBSELString(addSublayer:),CALayer.class],
-                          @[LBSELString(appendData:),NSData.class],
-                          @[LBSELString(appendPath:),UIBezierPath.class],
-                          @[LBSELString(addIndex:),NSNumber.class],
+                          @[LB_SELAsString(addObject:),NSNull.class],
+                          @[LB_SELAsString(addEntriesFromDictionary:),NSDictionary.class],
+                          @[LB_SELAsString(appendAttributedString:),NSAttributedString.class],
+                          @[LB_SELAsString(addSubview:),UIView.class],
+                          @[LB_SELAsString(addSublayer:),CALayer.class],
+                          @[LB_SELAsString(appendData:),NSData.class],
+                          @[LB_SELAsString(appendPath:),UIBezierPath.class],
+                          @[LB_SELAsString(addIndex:),NSNumber.class],
                         ];
         SEL sel;    Class clazzNeed;
         
@@ -405,14 +405,14 @@
         
         //NSNull means not to check
         NSArray* infos = @[
-                           @[LBSELString(addObject:),NSNull.class],
-                           @[LBSELString(addEntriesFromDictionary:),NSDictionary.class],
-                           @[LBSELString(appendAttributedString:),NSAttributedString.class],
-                           @[LBSELString(addSubview:),UIView.class],
-                           @[LBSELString(addSublayer:),CALayer.class],
-                           @[LBSELString(appendData:),NSData.class],
-                           @[LBSELString(appendPath:),UIBezierPath.class],
-                           @[LBSELString(addIndex:),NSNumber.class],
+                           @[LB_SELAsString(addObject:),NSNull.class],
+                           @[LB_SELAsString(addEntriesFromDictionary:),NSDictionary.class],
+                           @[LB_SELAsString(appendAttributedString:),NSAttributedString.class],
+                           @[LB_SELAsString(addSubview:),UIView.class],
+                           @[LB_SELAsString(addSublayer:),CALayer.class],
+                           @[LB_SELAsString(appendData:),NSData.class],
+                           @[LB_SELAsString(appendPath:),UIBezierPath.class],
+                           @[LB_SELAsString(addIndex:),NSNumber.class],
                            ];
         SEL sel;    Class clazzNeed;
         
@@ -470,9 +470,9 @@
         
         //NSNull means not to check
         NSArray* infos = @[
-                           @[LBSELString(insertObject:atIndex:),NSNull.class],
-                           @[LBSELString(insertSubview:atIndex:),UIView.class],
-                           @[LBSELString(insertSublayer:atIndex:),CALayer.class],
+                           @[LB_SELAsString(insertObject:atIndex:),NSNull.class],
+                           @[LB_SELAsString(insertSubview:atIndex:),UIView.class],
+                           @[LB_SELAsString(insertSublayer:atIndex:),CALayer.class],
                            ];
         SEL sel;    Class clazzNeed;
         
@@ -519,9 +519,9 @@
         
         //NSNull means not to check
         NSArray* infos = @[
-                           @[LBSELString(insertObject:atIndex:),NSNull.class],
-                           @[LBSELString(insertSubview:atIndex:),UIView.class],
-                           @[LBSELString(insertSublayer:atIndex:),CALayer.class],
+                           @[LB_SELAsString(insertObject:atIndex:),NSNull.class],
+                           @[LB_SELAsString(insertSubview:atIndex:),UIView.class],
+                           @[LB_SELAsString(insertSublayer:atIndex:),CALayer.class],
                            ];
         SEL sel;    Class clazzNeed;
         
@@ -577,10 +577,10 @@
         
         //NSNull means not to check
         NSArray* infos = @[
-                           LBSELString(removeAllObjects),
-                           LBSELString(removeAllIndexes),
-                           LBSELString(removeAllPoints),
-                           LBSELString(removeAllSegments),
+                           LB_SELAsString(removeAllObjects),
+                           LB_SELAsString(removeAllIndexes),
+                           LB_SELAsString(removeAllPoints),
+                           LB_SELAsString(removeAllSegments),
                            ];
         
         SEL sel;
