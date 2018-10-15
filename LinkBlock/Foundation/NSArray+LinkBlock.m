@@ -1032,7 +1032,7 @@
                 [rangeRules addObject:[NSValue valueWithRange:range]];
             }
         }];
-        rangeRules.m_arrSortRange(YES,YES);
+        rangeRules.arrSortRange(YES,YES);
         
         NSRange range; BOOL isCustom = NO; BOOL stop = NO;
         for(int i=0; (i<string.length && !stop); i+=range.length){

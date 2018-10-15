@@ -765,6 +765,58 @@
     };
 }
 
+- (NSObject *(^)(id))objsAddItem
+{
+    return ^id(id obj){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsAddItem,obj)
+        
+        if(LB_RespondsToSEL(_self, addObject:)){
+            [_self addObject:obj];
+        }
+        return _self;
+    };
+}
+- (NSObject *(^)(void))objsRemoveAllItem
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsRemoveAllItem)
+        
+        if(LB_RespondsToSEL(_self, removeAllObjects)){
+            [_self removeAllObjects];
+        }else if(LB_RespondsToSEL(_self, removeAllIndexes)){
+            [_self removeAllIndexes];
+        }
+        return _self;
+    };
+}
+
+- (NSObject *(^)(void))objsLastItem
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsLastItem)
+        
+        if(LB_RespondsToSEL(_self, lastObject)){
+            [_self lastObject];
+        }
+        return _self;
+    };
+}
+- (NSObject *(^)(void))objsFirstItem
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsFirstItem)
+        
+        if(LB_RespondsToSEL(_self, firstObject)){
+            [_self firstObject];
+        }
+        return _self;
+    };
+}
+
 - (NSObject *(^)(NSString *))objValueForFullPath
 {
     return ^id(NSString* fullPath){
@@ -1372,6 +1424,61 @@ DefineKindOfClassAs(NSNumber)
         if([_self conformsToProtocol:@protocol(NSFastEnumeration)]) return @YES;
         if([_self isKindOfClass:NSIndexSet.class]) return @YES;
         if([_self isKindOfClass:NSIndexPath.class]) return @YES;
+        return @NO;
+    };
+}
+
+- (NSNumber *(^)(void))objIsIndexableAs
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsIndexableAs)
+        
+        if(LB_RespondsToSEL(_self, indexOfObject:)) return @YES;
+        if(LB_RespondsToSEL(_self, characterAtIndex:)) return @YES;
+        if(LB_RespondsToSEL(_self, indexAtPosition:)) return @YES;
+        if(LB_RespondsToSEL(_self, pointerAtIndex:)) return @YES;
+        if(LB_RespondsToSEL(_self, resultAtIndex:)) return @YES;
+        if(LB_RespondsToSEL(_self, rangeAtIndex:)) return @YES;
+        if(LB_RespondsToSEL(_self, valueAtIndex:)) return @YES;
+        if(LB_RespondsToSEL(_self, glyphAtIndex:)) return @YES;
+        return @NO;
+    };
+}
+
+- (NSNumber *(^)(void))objIsKeyableAs
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsIndexableAs)
+        
+        if(LB_RespondsToSEL(_self, objectForKey:)) return @YES;
+        if(LB_RespondsToSEL(_self, propertyForKey:)) return @YES;
+        return @NO;
+    };
+}
+
+- (NSNumber *(^)(void))objIsDictionaryableAs
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsDictionaryableAs)
+        
+        if(LB_IsKindOfClass(_self, NSDictionary)) return @YES;
+        if(LB_RespondsToSEL(_self, dictionaryRepresentation)) return @YES;
+        return @NO;
+    };
+}
+
+- (NSNumber *(^)(void))objIsArrayableAs
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objIsArrayableAs)
+        
+        if(LB_IsKindOfClass(_self, NSArray)) return @YES;
+        if(LB_RespondsToSEL(_self, allObjects)) return @YES;
+        if(LB_RespondsToSEL(_self, array)) return @YES;
         return @NO;
     };
 }

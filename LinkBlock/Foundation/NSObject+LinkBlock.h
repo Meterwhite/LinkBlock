@@ -162,23 +162,46 @@
 @property LB_BK NSNumber*    (^objIsNumberAs)(void);
 /** Determine type or protocol{<NSFastEnumeration>,NSIndexSet,NSIndexPath} */
 @property LB_BK NSNumber*    (^objIsCollectionAs)(void);
-#warning <#message#>
+
 /**
- Array-able means collection can convert to array object;
+ object that can get item by index
+ obj ∈  {
+    .responseToSelector(
+        indexOfObject:,characterAtInde:,
+        indexAtPosition:,pointerAtIndex:,
+        resultAtIndex:,rangeAtIndex:,
+        valueAtIndex:,glyphAtIndex:)
+ }
  */
-@property LB_BK NSNumber*  (^objIsArrayableCollectionAs)(void);
+@property LB_BK NSNumber*  (^objIsIndexableAs)(void);
+/**
+ Collection that can get item by key
+ obj ∈ {
+    .responseToSelector(
+        objectForKey:,propertyForKey:
+    )
+ }
+ */
+@property LB_BK NSNumber*  (^objIsKeyableAs)(void);
+/**
+ Array-able means object can convert to array object;
+ obj ∈  {
+    __kindof NSArray,
+    .responseToSelector(
+    allObjects,array
+ )
+ }
+ */
 @property LB_BK NSNumber*  (^objIsArrayableAs)(void);
 /**
- Dictionary-able means collection can convert to dictionary object;
+ Dictionary-able means object can convert to dictionary object;
+ obj ∈  {
+    __kindof NSDictionary,
+    .responseToSelector(
+        dictionaryRepresentation
+    )
  */
-@property LB_BK NSNumber*  (^objIsDictionaryableCollectionAs)(void);
 @property LB_BK NSNumber*  (^objIsDictionaryableAs)(void);
-
-@property LB_BK NSNumber*  (^objIsKeyValueCollectionAs)(void);
-/**
- Hash collection is collection of disorder type
- */
-@property LB_BK NSNumber*  (^objIsHashCollectionAs)(void);
 
 /**
  self ∈ {
@@ -258,17 +281,18 @@
 
 #warning <#message#>
 ///MARK: These API are for collection type.
-
-///MARK: Array-able collection.
-@property LB_BK NSObject*  (^objsItemAt)(NSUInteger idx);
+@property LB_BK NSObject*  (^objsAddItem)(id item);
+@property LB_BK NSObject*  (^objsRemoveAllItem)(void);
+///MARK: Index-able collection.
+//@property LB_BK NSObject*  (^objsItemAt)(NSUInteger idx);
 /** ...objsIndexOfItemAs().anUnsignedIntegerNumber... */
-@property LB_BK NSNumber*  (^objsIndexOfItemAs)(id item);
+//@property LB_BK NSNumber*  (^objsIndexOfItemAs)(id item);
 @property LB_BK NSObject*  (^objsLastItem)(void);
 @property LB_BK NSObject*  (^objsFirstItem)(void);
+///MARK: Key-able collection.
+//@property LB_BK NSObject*  (^objsItemForKey)(id key);
+//@property LB_BK NSObject*  (^objsSetItemForKey)(id item,id key);
 
-///MARK: Key-value collection.
-@property LB_BK NSObject*  (^objsItemForKey)(id key);
-@property LB_BK NSObject*  (^objsSetItemForKey)(id item,id key);
 
 /**
  self   ∈   {
