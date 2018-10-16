@@ -22,11 +22,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSMutableArray* arr2D = NSMutableArray2DNew(3, 3);
-//    arr2D.m2DArrarySetObjectAt(@"AAA", 2, 1);
+    UIView* view;
     
+    UIButton* button;
+
     
-    @"END".nslog();
+    UILabelNew.thisValue
+    .viewSetOrigin(0, 0)
+    .objSetScreenValueForFullPath(@"frame->size")
+    .labText(@"a lable")
+    .viewBGColor(@"#cccccc".strToUIColorFromHex())
+    .viewAddToView(self.view);
+    
     return;
 //
 //    NSObject* str = [NSString stringWithFormat:@"123%d",123];

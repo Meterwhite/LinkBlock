@@ -1,11 +1,12 @@
 # LinkBlock
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
-## 【概览】
+## 【介绍】
 * LinkBlock是objc`链式编程`语法糖扩展，目的压缩重复动作
 * 有大量的代码都是不需要阅读的，使用Linkblock可以`整理废话`
-* 使用Fundation常见API
+* Fundation的搬运工
 * 持续维护，向后兼容
+* 作废API将保留半年
 
 ## 【导入】
 - 【将`LinkBlock`文件夹中的所有源代码拽入项目中】
@@ -13,28 +14,32 @@
 - 【提示：最好不要在pch文件中引用，避免污染整个项目的属性提示；在.h文件中查看注释；貌似最新的xcode智能提示有问题】
 ```objc
 #import "LinkBlock.h"
-//or use pod
+//Or use pod
 ```
 
 
-## 【通常】
+## 【概览】
 ### 【同一个对象的同一类动作的压缩】
 - 【示例】
 ```objc
-这里对label有重复的同类操作。我们知道这些代码在完成后几乎就不会被阅读
-UILabel* label = [[UILabel alloc] init];
-label.frame = CGRectMake(50, 50, 50, 50);
-label.backgroundColor = [UIColor redColor];
-[self.view addSubview:label];
-NSLog(@"%@",label);
 
-使用LinkBlock可以流畅的写`废话`
-UILabelNew
-.labText(@"文本")
-.viewSetFrame(50, 50, 50, 50)
-.viewBGColor(@"#CCCCCC".strToUIColorFromHex())
-.viewAddToView(self.view)
-.nslog();
+NSLog(@"%@",object); 
+==> object.nslog();
+
+view.frame = CGRectMake(1, 2, 3, 4);
+==> view.viewSetFrame(1, 2, 3, 4);
+
+[self.view addSubview:view];
+==> view.viewAddToView(self.view);
+
+CGSize screenSize = [UIScreen mainScreen].bounds.size;
+CGRect frame = view.frame;
+frame.size.width = screenSize.width;
+view.frame = frame;
+==> view.objSetScreenValueForFullPath(@"frame->size->width");
+
+[button setTitle:@"Normal Text" forState:UIControlStateNormal];
+==> button.btnTitleUIControlStateNormal(@"Normal Text");
 ```
 
 ### 【细节】
@@ -74,16 +79,18 @@ UIButton+Title+UIControlStateNormal 对应 btnTitleUIControlStateNormal
 ```
 - 【写法规范】
 ```
-notNilObject.linkBlock()...;
+_NonnullObject.linkBlock()...;
 
-linkObj(maybeNilObject).linkBlock()...;
+<linkObj(_NullableObject)>.linkBlock()...;
 
-id getResultObj = ...linkBlockHasRerutnObj().linkEnd;
+id getResultObj = ...linkBlockRerutnObj().<linkEnd>;
 
-int getResultInt = ...linkBlockHasRerutnInt();
+...linkBlockRerutnOtherObj().<thisValue>.someBlock()...;
 
-最规范：
-linkObj(...)...linkEnd;
+...linkBlockRerutnANumber<As>().<aBOOLValue>...;
+
+...linkBlockRerutn<AsWahtSet>(parameterToSet).whatSet.someBlock()...;
+
 ```
 
 - 【错误】

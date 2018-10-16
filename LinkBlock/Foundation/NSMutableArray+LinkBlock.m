@@ -14,6 +14,39 @@
     return self==NSNull.null ? nil : self;;
 }
 
+- (NSNumber *(^)(void))m2DArraryCountAs
+{
+    return ^id(){
+        
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryCountAs)
+        
+        return @(_self.count*[_self.firstObject count]);
+    };
+}
+
+- (NSNumber *(^)(void))m2DArraryRowCountAs
+{
+    return ^id(){
+        
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryRowCountAs)
+        
+        return @(_self.count);
+    };
+}
+
+- (NSNumber *(^)(void))m2DArraryColCountAs
+{
+    return ^id(){
+        
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryColCountAs)
+        
+        return @([_self.firstObject count]);
+    };
+}
+
 - (NSObject *(^)(NSUInteger, NSUInteger))m2DArraryObjectAt
 {
     return ^id(NSUInteger x,NSUInteger y){
@@ -21,11 +54,12 @@
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m2DArraryObjectAt,x,y)
         
-        CGPoint info = _self.accessibilityActivationPoint;
-        if(!info.x || !info.y || x > info.x-1 || y > info.y-1){
+        if(!_self.firstObject || !_self.count)
             return NSNull.null;
-        }
-        return [_self objectAtIndex:x*info.y + y];
+        if(x > [_self.firstObject count] || y > _self.count-1)
+            return NSNull.null;
+        
+        return _self[x][y];
     };
 }
 
@@ -38,11 +72,12 @@
         
         if(!obj) return _self;
         
-        CGPoint info = _self.accessibilityActivationPoint;
-        if(!info.x || !info.y ||x > info.x-1 || y > info.y-1){
+        if(!_self.firstObject || !_self.count)
             return _self;
-        }
-        [_self setObject:obj atIndexedSubscript:x*info.y + y];
+        if(x > [_self.firstObject count] || y > _self.count-1)
+            return _self;
+       
+        _self[x][y] = obj;
         return _self;
     };
 }
@@ -54,11 +89,12 @@
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m2DArraryCleanObjectAt,x,y)
         
-        CGPoint info = _self.accessibilityActivationPoint;
-        if(!info.x || !info.y ||x > info.x-1 || y > info.y-1){
+        if(!_self.firstObject || !_self.count)
             return _self;
-        }
-        [_self setObject:NSNull.null atIndexedSubscript:x*info.y + y];
+        if(x > [_self.firstObject count] || y > _self.count-1)
+            return _self;
+        
+        _self[x][y] = NSNull.null;
         return _self;
     };
 }
@@ -70,38 +106,36 @@
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m2DArraryCleanAllObjects)
         
-        CGPoint info = _self.accessibilityActivationPoint;
-        if(!info.x || !info.y){
+        if(!_self.firstObject || !_self.count)
             return _self;
-        }
+        
         id non = NSNull.null;
-        for (NSUInteger i=0; i<_self.count; i++) {
-            
-            if(non != _self[i]){
-                _self[i] = non;
-            }
-        }
+        [_self enumerateObjectsUsingBlock:^(NSMutableArray* rowArray, NSUInteger y, BOOL* stop) {
+            [rowArray enumerateObjectsUsingBlock:^(id item, NSUInteger x, BOOL * _Nonnull stop) {
+                if(item != non){
+                    rowArray[x] = non;
+                }
+            }];
+        }];
         return _self;
     };
 }
--(NSMutableArray *(^)(id))m2DArraryCleanObject
+- (NSMutableArray *(^)(id))m2DArraryCleanObject
 {
     return ^id(id obj){
         
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m2DArraryCleanObject,obj)
         
-        CGPoint info = _self.accessibilityActivationPoint;
-        if(!info.x || !info.y){
+        if(!_self.firstObject || !_self.count)
             return _self;
-        }
+        
         id non = NSNull.null;
-        for (NSUInteger i=0; i<_self.count; i++) {
-            
-            if([obj isEqual:_self[i]]){
-                _self[i] = non;
-            }
-        }
+        [_self enumerateObjectsUsingBlock:^(NSMutableArray* rowArray, NSUInteger x, BOOL* stop) {
+            [rowArray enumerateObjectsUsingBlock:^(id item, NSUInteger y, BOOL * _Nonnull stop) {
+                rowArray[y] = non;
+            }];
+        }];
         return _self;
     };
 }
@@ -113,19 +147,129 @@
         LinkHandle_REF(NSMutableArray)
         LinkGroupHandle_REF(m2DArraryIndexOfObject,obj)
         
-        if(!obj) return NSNull.null;
-        
-        CGPoint info = _self.accessibilityActivationPoint;
-        if(!info.x || !info.y){
+        if(!obj)
             return NSNull.null;
-        }
         
-        NSUInteger idx = [_self indexOfObject:obj];
-        NSUInteger row = floor(idx / (NSUInteger)info.x);
-        NSUInteger col = (idx % (NSUInteger)info.y);
-        return [NSValue valueWithCGPoint:CGPointMake(row , col)];
+        if(!_self.firstObject || !_self.count)
+            return NSNull.null;
+        
+        __block NSValue* ret;
+        [_self enumerateObjectsUsingBlock:^(NSMutableArray* rowArray, NSUInteger x, BOOL* stop) {
+            NSUInteger y = [rowArray indexOfObject:obj];
+            if(y != NSNotFound){
+                ret = [NSValue valueWithCGPoint:CGPointMake(x , y)];
+                *stop = YES;
+            }
+        }];
+        
+        return ret?:NSNull.null;
     };
 }
 
+- (NSArray<NSValue *> *(^)(id obj))m2DArraryIndexesOfObject
+{
+    return ^id(id obj){
+        
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryIndexOfObject,obj)
+        
+        if(!obj)
+            return NSNull.null;
+        
+        if(!_self.firstObject || !_self.count)
+            return NSNull.null;
+        
+        NSMutableArray* ret = NSMutableArrayNew;
+        [_self enumerateObjectsUsingBlock:^(NSMutableArray* rowArray, NSUInteger x, BOOL* stop) {
+            NSUInteger y = [rowArray indexOfObject:obj];
+            if(y != NSNotFound){
+                [ret addObject:[NSValue valueWithCGPoint:CGPointMake(x , y)]];
+                *stop = YES;
+            }
+        }];
+        return ret;
+    };
+}
 
+- (NSArray *(^)(NSUInteger))m2DArraryObjectsForRow
+{
+    return ^id(NSUInteger row){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryObjectsForRow,row)
+        
+        if(!_self.count || row > [_self.firstObject count] - 1)
+            return NSNull.null;
+        
+        return _self[row];
+    };
+}
+
+- (NSArray *(^)(NSUInteger))m2DArraryObjectsForCol
+{
+    return ^id(NSUInteger col){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryObjectsForCol,col)
+        
+        if(!_self.count || col > [_self count] - 1)
+            return NSNull.null;
+        
+        NSMutableArray* ret = NSMutableArrayNew;
+        
+        [_self enumerateObjectsUsingBlock:^(NSMutableArray* rowArray, NSUInteger x, BOOL* stop) {
+            [ret addObject:rowArray[col]];
+        }];
+        return ret;
+    };
+}
+
+- (NSObject *(^)(NSUInteger))m2DArraryCleanObjectsForRow
+{
+    return ^id(NSUInteger row){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryCleanObjectsForRow,row)
+        
+        if(!_self.count || row > [_self.firstObject count] - 1)
+            return _self;
+        
+        _self[row] = NSNull.null;
+        return _self;
+    };
+}
+
+- (NSObject *(^)(NSUInteger))m2DArraryCleanObjectsForCol
+{
+    return ^id(NSUInteger col){
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryCleanObjectsForCol,col)
+        
+        if(!_self.count || col > [_self count] - 1)
+            return _self;
+        
+        id non = NSNull.null;
+        [_self enumerateObjectsUsingBlock:^(NSMutableArray* rowArray, NSUInteger x, BOOL* stop) {
+            rowArray[col] = non;
+        }];
+        return _self;
+    };
+}
+
+- (NSNumber *(^)(id))m2DArraryContainsObjectAs
+{
+    return ^id(id obj){
+        
+        LinkHandle_REF(NSMutableArray)
+        LinkGroupHandle_REF(m2DArraryContainsObjectAs,obj)
+        
+        if(!_self.firstObject || !_self.count)
+            return _self;
+        
+        id non = NSNull.null;
+        [_self enumerateObjectsUsingBlock:^(NSMutableArray* rowArray, NSUInteger x, BOOL* stop) {
+            [rowArray enumerateObjectsUsingBlock:^(id item, NSUInteger y, BOOL * _Nonnull stop) {
+                rowArray[y] = non;
+            }];
+        }];
+        return _self;
+    };
+}
 @end

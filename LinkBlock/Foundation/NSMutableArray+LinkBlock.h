@@ -18,12 +18,22 @@
 
 @property LB_FN id thisValueFor2DArray;
 
-@property LB_BK NSObject*    (^m2DArraryObjectAt)(NSUInteger x,NSUInteger y);
-@property LB_BK NSMutableArray*    (^m2DArrarySetObjectAt)(id obj,NSUInteger x,NSUInteger y);
-@property LB_BK NSMutableArray*    (^m2DArraryCleanObject)(id obj);
-@property LB_BK NSMutableArray*    (^m2DArraryCleanObjectAt)(NSUInteger x,NSUInteger y);
-@property LB_BK NSMutableArray*    (^m2DArraryCleanAllObjects)(void);
+/**
+ ...m2DArraryCountAs().anUnsignedIntegerNumber...
+ */
+@property LB_BK NSNumber*       (^m2DArraryCountAs)(void);
+@property LB_BK NSNumber*       (^m2DArraryRowCountAs)(void);
+@property LB_BK NSNumber*       (^m2DArraryColCountAs)(void);
+/**
+ ...m2DArraryCountAs().aBOOLValue...
+ */
+@property LB_BK NSNumber*       (^m2DArraryContainsObjectAs)(id obj);
 
+@property LB_BK NSObject*       (^m2DArraryObjectAt)(NSUInteger x,NSUInteger y);
+@property LB_BK NSMutableArray* (^m2DArrarySetObjectAt)(id obj,NSUInteger x,NSUInteger y);
+@property LB_BK NSMutableArray* (^m2DArraryCleanObject)(id obj);
+@property LB_BK NSMutableArray* (^m2DArraryCleanObjectAt)(NSUInteger x,NSUInteger y);
+@property LB_BK NSMutableArray* (^m2DArraryCleanAllObjects)(void);
 
 
 /**
@@ -33,15 +43,13 @@
 /**
  return NSArray<NSValue-CGPoint>*
  */
-@property LB_BK NSArray<NSValue*>*(^m2DArraryIndexesOfObject)(NSUInteger x,NSUInteger y);
+@property LB_BK NSArray<NSValue*>*(^m2DArraryIndexesOfObject)(id obj);
 
 @property LB_BK NSArray*    (^m2DArraryObjectsForRow)(NSUInteger row);
 @property LB_BK NSArray*    (^m2DArraryObjectsForCol)(NSUInteger col);
-@property LB_BK NSObject*    (^m2DArraryCleanRow)(NSUInteger row);
-@property LB_BK NSObject*    (^m2DArraryCleanCol)(NSUInteger row);
+@property LB_BK NSObject*    (^m2DArraryCleanObjectsForRow)(NSUInteger row);
+@property LB_BK NSObject*    (^m2DArraryCleanObjectsForCol)(NSUInteger col);
 
-
-@property LB_BK NSMutableArray*    (^m2DArraryMutableCopy)(void);
 @end
 
 
@@ -49,11 +57,17 @@
 
 NS_INLINE NSMutableArray* LB_2DArray_New(NSUInteger x,NSUInteger y){
     
-    NSUInteger count = x*y;
-    NSMutableArray* array2D = [NSMutableArray arrayWithCapacity:count];
+    NSMutableArray* arrayCol = [NSMutableArray arrayWithCapacity:y];
     id nullObj = NSNull.null;
-    while (count--) [array2D addObject:nullObj];
-    [array2D setAccessibilityActivationPoint:CGPointMake(x, y)];
+    NSUInteger col = y;
+    while (col--) {
+        [arrayCol addObject:nullObj];
+    }
+    NSMutableArray* array2D = [NSMutableArray arrayWithCapacity:y];
+    NSUInteger row = x;
+    while (row--) {
+        [array2D addObject:[arrayCol mutableCopy]];
+    }
     return array2D;
 }
 
