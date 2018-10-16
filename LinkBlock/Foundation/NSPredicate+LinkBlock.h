@@ -129,6 +129,7 @@
 #endif
 
 #pragma mark - LinkBlcok declare
+
 #ifndef PredicateWitchIsKindOfClass
 #define PredicateWitchIsKindOfClass(witch,type)\
 ([NSPredicate predicateWithBlock:^BOOL(id evaluatedObject,id bindings) {\
@@ -139,14 +140,20 @@
 }])
 #endif
 
+#ifndef PredicateWitchNotNSNull
+#define PredicateWitchNotNSNull(witch)\
+([NSPredicate predicateWithFormat:@"SELF!=%@",NSNull.null])
+#endif
+
 @interface NSObject(NSPredicateLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像
+@property LB_BK NSPredicate*(^predWithSubstitutionVariables)(NSDictionary* variables);
+@property LB_BK NSObject<NSFastEnumeration>* (^predFilterObjs)(id objs);
+/** equal to ^andPredicate */
 @property LB_BK NSCompoundPredicate* (^predAnd)(NSPredicate* predicate);
 @property LB_BK NSCompoundPredicate* (^predNot)(NSPredicate* predicate);
 @property LB_BK NSCompoundPredicate* (^predOr)(NSPredicate* predicate);
-@property LB_BK NSPredicate*(^predWithSubstitutionVariables)(NSDictionary* variables);
-@property LB_BK NSObject<NSFastEnumeration>* (^predFilterObjs)(id objs);
 
 #pragma mark - Foundation Speed/速度
 /**

@@ -65,7 +65,7 @@
 /**
  *  ~ = linkObj...linkEnd;
  *  1.Used to get return value when needed.
- *  2.convert <LinkError||NSNull> to nil.
+ *  2.convert <LinkError || NSNull> to nil.
  */
 #ifndef linkEnd
 #define linkEnd linkEnd

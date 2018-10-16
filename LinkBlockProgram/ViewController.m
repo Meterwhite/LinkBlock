@@ -19,79 +19,13 @@
 
 @implementation ViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.ori
-    Man* man = [Man new];
-    man.info = UIView.new;
-    man.name = @"AAA";
-    man.friends = @[[Person new],@"123",@YES, UITextView.new];
     
-    man.objSetValueForKeyByRegex(@"XXXX", @"name");
-    
-//    NSValue* vv = [NSValue valueWithCGRect:CGRectMake(1, 2, 3, 4)];
-//    id xx = vv.valueStructSetValueForKeyPath(@(1000),@"size.width");
-    
-//    id xxx =
-//    man.objSetValueForFullPath(LBBoxValue(CGRectMake(1, 2, 3, 4)), @"frame")
-//    .objValueForFullPath(@"frame");
-    Man* man0 = [Man new];
-    man0.name = @"BBB";
+//    NSMutableArray* arr2D = NSMutableArray2DNew(3, 3);
+//    arr2D.m2DArrarySetObjectAt(@"AAA", 2, 1);
     
     
-    man0.objsSelectByPredicateString(@"")
-    .viewSetX(123).viewSetX(12);
-    
-//    UILabelNew
-//    .viewSetFrame(0, 1, 2, 3)
-//    .labText(@"hhhh")
-//    .viewAddToView(self.view)
-//    .objAddToAsWhatSet(@"myArray")
-//    .whatSet.objAdd(@"").arrFirst()
-//    .numIsOddAs().aBOOLValue
-//    .arrFilter(@"....").thisValue.nslog()
-//    .objGetPrevItemFromObjs(@"objs").thisValue.objAddTo(@"objs")
-//    .objToNSDictionary().thisValue.dictSetValue(@"name", @"AAA");
-    
-
-//    NSDictionary* dict = @{
-//        @"members": @[man,man0]
-//    };
-//    
-//    Class type;
-//    NSString* witch;
-//    NSString* value;
-//    PredicateWitchIsKindOfClass(SELF_KEY, NSObject);
-    //PredicateWitchPropertyLike()
-//
-//    [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, id bindings) {
-//
-//        NSMutableArray* result = NSMutableArrayNew;
-//
-//        NSArray* plist = [[evaluatedObject class] classGetAllPropertyList:YES];
-//        plist = [plist filteredArrayUsingPredicate:PredicateWitchLike(plist, value)];
-//        [plist enumerateObjectsUsingBlock:^(NSString* property,NSUInteger i,BOOL* stop) {
-//            id valueNeedCompare = [evaluatedObject valueForKey:property];
-//            for (UIView *subView in [evaluatedObject subviews]) {
-//                if(valueNeedCompare == subView){
-//
-//                }
-//            }
-//
-//        }];
-//        return NO;
-//    }];
-    
-    
-//    man.son = man;
-//    if([PredicateWitchIsEqual(@"son",man) evaluateWithObject:man]){
-//        @"YES".nslog();
-//    }else{
-//        @"NO".nslog();
-//    }
-//    id xxx = man.objSetScreenValueForFullPath(@"frame->size")
-//    .objValueForFullPath(@"frame->size");
     @"END".nslog();
     return;
 //

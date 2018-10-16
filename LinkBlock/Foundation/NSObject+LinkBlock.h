@@ -323,6 +323,8 @@
 @property LB_BK NSObject*    (^objSetValueForKeyByMatch)(id value, NSString* matchKey);
 /** set value for all matched key by regex */
 @property LB_BK NSObject*    (^objSetValueForKeyByRegex)(id value, NSString* regexOfKey);
+@property LB_BK NSNumber*    (^objEachValueIsTrueForKeyPathsAs)(id<NSFastEnumeration> keyPaths);
+@property LB_BK NSNumber*    (^objSomeValueIsTrueForKeyPathsAs)(id<NSFastEnumeration> keyPaths);
 /**
  <^NSNumber*(NSString* keyPath,NSString* predicateFormat,...)>
  Refer to : objEvaluatePredicateAs

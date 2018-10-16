@@ -1022,6 +1022,40 @@
     }
 }
 
+- (NSNumber *(^)(id<NSFastEnumeration>))objEachValueIsTrueForKeyPathsAs
+{
+    return ^id(id keyPaths){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objEachValueIsTrueForKeyPathsAs,keyPaths)
+        
+        if(![keyPaths conformsToProtocol:@protocol(NSFastEnumeration)])
+            return @NO;
+        
+        for (id keyPath in keyPaths) {
+            
+            if([[_self valueForKeyPath:keyPath] boolValue]) continue;
+            return @NO;
+        }
+        return @YES;
+    };
+}
+- (NSNumber *(^)(id<NSFastEnumeration>))objSomeValueIsTrueForKeyPathsAs
+{
+    return ^id(id keyPaths){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objSomeValueIsTrueForKeyPathsAs,keyPaths)
+        
+        if(![keyPaths conformsToProtocol:@protocol(NSFastEnumeration)])
+            return @NO;
+        
+        for (id keyPath in keyPaths) {
+            
+            if([[_self valueForKeyPath:keyPath] boolValue]) return @YES;
+        }
+        return @NO;
+    };
+}
+
 - (BOOL (^)(void))objIsBlank
 {
     
@@ -2945,7 +2979,7 @@ DefineKindOfClassAs(NSNumber)
             return ((LinkReturn*)self).returnValue;
         }
     }
-    return self;
+    return self==NSNull.null ? nil : self;
 }
 
 - (NSArray* )linkEnds
