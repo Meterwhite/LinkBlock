@@ -7,8 +7,6 @@
 //
 
 #import "LinkBlockDefine.h"
-
-
 /**
  Each change is retained for 6 months.
  The dprecated method more than 6 months will be deleted!
@@ -437,16 +435,12 @@ NS_DEPRECATED_IOS(2_0, 2_0, "fixed to viewSubviewsExclusiveTouch");
 
 @property LB_BKG(arrContains) BOOL(^arrContain)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "fixed to arrContains");
-@property LB_BKG(arrContainsAs) NSNumber*(^arrContainAs)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "fixed to arrContainsAs");
 
 @property LB_BKG(arrAddToArrAsWhatSet) NSMutableArray*(^arrAddToArr)(NSMutableArray* arr)
 NS_DEPRECATED_IOS(2_0, 2_0, "arrAddToArrAsWhatSet");
 
 @property LB_BKG(arrContainsIndex) BOOL(^arrContainIndex)(NSUInteger idx)
 NS_DEPRECATED_IOS(2_0, 2_0, "use arrContainsIndex");
-@property LB_BKG(arrContainsIndexAs) NSNumber*(^arrContainIndexAs)(NSUInteger idx)
-NS_DEPRECATED_IOS(2_0, 2_0, "use arrContainsIndexAs");
 
 @property LB_BK NSDictionary*            (^arrToDictByKeyNumber)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "use arrContainsIndexAs");
@@ -468,8 +462,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "rename arrGetPrevItemForObj");
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrGetNextItemForObj");
 
 @property LB_BKG(arrContainsKeyValue) BOOL(^arrKeyValueContain)(NSString* key,id eqValue)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename arrKeyValueMatchedObjs");
-@property LB_BKG(arrContainsKeyValueAs) NSNumber*(^arrKeyValueContainAs)(NSString* key,id eqValue)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrKeyValueMatchedObjs");
 @property LB_BKG(arrKeyValueMatchedObjs) NSMutableArray*(^arrKeyValueMatchObjs)(NSString* key,id value)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrKeyValueMatchedObjs");

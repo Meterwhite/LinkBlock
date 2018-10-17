@@ -1,26 +1,27 @@
 # LinkBlock
 ![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
 
-## 【介绍】
-* LinkBlock是objc`链式编程`语法糖扩展，目的压缩重复动作
-* 有大量的代码都是不需要阅读的，使用Linkblock可以`整理废话`
-* Fundation的搬运工
+## 【Introduction/介绍】
+* LinkBlock是objc`链式编程`语法糖扩展，可以压缩大量不需要阅读的代码
+* 低学习成本，因为它是Fundation API的搬运工
 * 持续维护，向后兼容
 * 作废API将保留半年
+* Syntactic sugar of objc , it use block to reduce code that you don't need to read.
+* Easy to use,it is the porter of the Fundation API
+* Continuous maintenance, backward compatibility
+* Deprecate API will remain for 0.5 year
 
-## 【导入】
-- 【将`LinkBlock`文件夹中的所有源代码拽入项目中】
-- 【导入主头文件：`#import "LinkBlock.h"`】
-- 【提示：最好不要在pch文件中引用，避免污染整个项目的属性提示；在.h文件中查看注释；貌似最新的xcode智能提示有问题】
+## 【Import/导入】
+* Drag directory `LinkBlock` into project
+* `#import "LinkBlock.h"`
+* Pod is suported.
 ```objc
 #import "LinkBlock.h"
-//Or use pod
 ```
 
 
-## 【概览】
-### 【同一个对象的同一类动作的压缩】
-- 【示例】
+## 【Overview/概览】
+### Examples/示例
 ```objc
 
 NSLog(@"%@",object); 
@@ -48,75 +49,155 @@ view.frame = frame;
 
 ```
 
-### 【ABCD】
-- 【A-Foundation Mirror】
+## 【A-B-C-D】
+### A Foundation-mirror
+- These blocks are copied from Foundation.
+- Have the same parameters and return values.
 ```objc
-///These blocks are copied from Foundation.
-///Have the same parameters and return values.
 ...strAppend(~)...
 ...objValueForKey(value,key)...
 ```
-- 【B-Foundation Speed】
+### B Foundation-speed
+- Some common parameters has been filled for you.
+- It has some of the most basic functions.
 ```objc
-///Some common parameters has been filled for you.
-///It has some of the most basic functions.
 ...viewHiddenYES()...
 ...arrSort(~)...
 ```
-- 【C-Foundation Extend】
+### C Foundation-extend
+- Provide some APIs that should have.
+- It has some of the most basic functions.
 ```objc
-///Provide some APIs that should have.
-///It has some of the most basic functions.
 ...strLengthASCII()...
 ...imgOrientationFix(~)...
 ...viewAddToView(~)...
 ```
-- 【D-Weak coding/弱类型编码】
+### D Weak-coding/弱类型编码
+- These APIs make the object type no longer important, but only need to care about the function.
+- Some APIs provide cross-type conversion capabilities.
 ```objc
-///These APIs make the object type no longer important, but only need to care about the function.
-///Some APIs provide cross-type conversion capabilities.
 ...objAdd(~)...
 ...strToUIImage()...
 ```
 
-### 【Detail/细节】
-- 【Call/调用】
+## 【Call/调用】
+### Linkblock will return self or what value method retuend.
 ```objc
-Linkblock will return self or what value you need.
-_NonnullObject.linkBlock0().linkBlock1().linkBlock2();
+_NonnullObject.linkBlock0().linkBlock1().linkBlock2()...
 
-
-Use linkEnd when getting the return value.If not the result is unexpected.
-id obj = ...linkBlockReturnObj().linkEnd;
-
-
+linkObj(_NullableObject).linkBlock0().linkBlock1().linkBlock2()...
 ```
-
-- 【Name/命名】
+### Use linkEnd when getting the return value.If not the result is unexpected.
 ```objc
-
-anyObject.<originalClassName+functionName[+EnumName][+parameterName][+others]>
-Exp:btnTitleUIControlStateNormal
-
-Order of parameters/参数顺序：
-Order of parameters are the same as Foundation or described by method name.
+id getTheValue = ...linkBlockReturnAValue().linkEnd;
 ```
-- 【Standard/写法规范】
+## 【Name/命名】
+### linkObject.<KindOfClass+Function[+Enum][+parameter][+others]>
 ```objc
-//<Important!>
+_NonnullObject.btnTitleUIControlStateNormal()...
+```
+### Order of parameters/参数顺序
+- Order of parameters are the same as Foundation or described by method name.
+
+### Standard/写法规范
+```objc
+///Important content is in '<>';
 
 _NonnullObject.linkBlock()...;
 
 <linkObj(_NullableObject)>.linkBlock()...;
 
-id getResultObj = ...linkBlockRerutnObj().<linkEnd>;
+id getValue = ...linkBlockRerutnValue().<linkEnd>;
+```
+### Force type declaration/强制类型声明
+- Rule:as+ClassName
+```objc
+NSString text = ...linkBlockRerutnUIView().asUILable.text;
+[idObject asUILable].text;
+```
 
-...linkBlockRerutnOtherObj().<thisValue>.someBlock()...;
+### Link Indicate/链条指示
+- When linkBlock object has changed,use this block to draw attention and it easy to read./指示,便于阅读
+- Link Indicate will do noting, it just return self.
+```objc
+1.
+...linkBlockReturnNotSelf().<thisValue>.someBlock()...;
+Use `thisValue`,`thisValues`,`thisNumber` to indicate that linkBlock object has changed.
+/指示链条对象变更
 
+2.
+linkObjs(...).thisLinkObjs...
+Use `thisLinkObjs`,`thisLinkObj` to indicate state of link./指示链条状态
+
+3.
 ...linkBlockRerutnANumber<As>().<aBOOLValue>...;
+All linkBlock return NSNumber value it has suffix 'As'.
+Use block named `a+TypeObject` to draw attention./指示NSNumber类型
 
-...linkBlockRerutn<AsWahtSet>(parameterToSet).whatSet.someBlock()...;
+4.
+...linkBlockRerutn<AsWhatSet>(parameterToSet).whatSet...;
+If linkBlock return value is parameters of itself ,it has suffix 'AsWhatSet'.
+Use `whatSet` to indicate that next linkObj is the parameters of previous linkObj. 
+/指示链条对象被切换到参数
 
+Refer to `NSObject+LinkBlock.h`
+```
+
+## 【Link objects/多对象】
+### Combine link objects into one,more efficient./超效率
+```
+linkObjs(viewA,viewB,...)...viewAddToView(self.view);
+
+//Hide one view and show others.
+linkObjs(viewA,viewB,...).viewHiddenYES().linkAt(selectedIndex).viewHiddenNO();
+```
+### Code of linkObjs
+```objc
+
+Create linkObjs
+linkObjs(a,b,c...).thisLinkObjs...;//Main/主要
+
+@[a,b,c...].makeLinkObjs.thisLinkObjs...;//Minor/次要
+
+a.linkPush(b).linkPush(c).thisLinkObjs...;//Minor/次要
+
+Get result
+NSArray *getResultInArray = linkObjs...linkEnds;//主要
+```
+### Modify link obejcts
+```
+1.
+...<linkPop()>.thisLinkObjs...
+Remove last link object from linkObjs
+
+2.
+linkObjs...<linkAt(index)>.thisLinkObj...
+Get linkObj from linkObjs and return it as next linkObj.
+
+3.
+...linkLoop(count,^(NSObject* link,NSUInteger idx){
+    thisLinkObj.objAdd(~);
+})...
+Repeat execute the code using block.
+
+*/
+```
+
+## 【Simple Conditional/简单条件】
+```objc
+
+...aNumberValue.linkIf...linkElse...;
+
+...aNumberValue.linkIf_YES...LinkElse...;
+
+///Force return/强制返回
+id resultFromLinkBlock0 = ...linkIf_YES...linkReturn...LinkElse...linkEnd;
+```
+
+## 【Others/其他】
+- 【调用项目外方法】
+```objc
+person.objPerformSelectorsWithArgs(~);
 ```
 
 - 【LinkError】
@@ -136,153 +217,20 @@ LinkBlock在执行的时候可能产生三种错误
 3是LinkBlock最常见的错误，如果我们不能保证起始对象为不为空都应该使用linkObj()
 ```
 
-## 【Link objects/多对象】
-- 【多个对象操作的合并，更进一步的压缩】
-```
-linkObjs(viewA,viewB,...)...viewAddToView(self.view);
-
-Exp：Hide one view another show.
-linkObjs(viewA,viewB,...).viewHiddenYES().linkAt(selectedIndex).viewHiddenNO();
-```
-- 【写法规范】
-```objc
-
-//联结
-linkObjs(a,b,c...).thisLinkObjs...;//主要
-
-@[a,b,c...].makeLinkObjs.thisLinkObjs...;//次要
-
-a.linkPush(b).linkPush(c).thisLinkObjs...;//次要
-
-
-//取值
-NSArray *getResultInArray = linkObjs...linkEnds;//主要
-
-id getFirstResult = linkObjs...linkEnd;//次要
-
-int getFirstResultInt = linkObjs...linkBlockReturnInt();//次要
-
-```
-
-- 【操作多对象的链条】
-```
-链条索引以0为开始计：
-//移除一根
-...linkOut(index)...
-
-//取出一根
-...linkAt(index)...
-
-//第一根
-...linkFirstObj...
-
-//最后一根
-...linkLastObj...
-
-
-//取某一根链条的返回值
-id getFirstResult = linkObjs...linkEndsAt(index);
-
-//简单重复执行之后的
- ...linkLoop(count)...
-/*注意不要在后面创建对象：
-...linkLoop(count).arrAddObj([NSObject new])...
-这里添加的只是同一个对象并没有多次创建新对象
-复杂的重复执行由方法[object linkLoopIn:block:]完成
-*/
-```
-
-## 【简单条件】
-- 【线性折叠简单的判断逻辑】
-```objc
-
-//判断
-...linkIf...codeA...linkElse...codeB...;
-
-//两择
-...<@YES/@NO>.linkIf_YES...codeA...LinkElse...codeB...;
-...<@YES/@NO>.linkIf_NO...codeA...LinkElse...codeB...;
-
-//强返
-id resultFromLinkBlock0 = ...linkBlock0().linkReturn...linkEnd;
-```
-
-## 【其他】
-- 【强制类型声明】
-```
-一般用于父与子类型声明的还原
-规则：as+<ClassName>
-UITableView *table = ...asUITableView;
-```
-- 【弱类型】
-```objc
-...objAdd(<View>|<String>|<Array>|<Collection>)...
-
-...objInsert...
-
-...objRemoveAll...
-
-...objRemoveFrom...
-
-...objIsBlank...
-
-一般的arrAddObj 等同于 m_arrAddObj，另外不可变对象会默认的被转换为可变
-```
-
-
-
-- 【调用其它对象的方法组】
-```objc
-person.objPerformSelectorsWithArgs(
-                     @selector(answerQuestion:),@[@"how big"],
-                     @selector(answerQuestion:question2:),@[@"how long",[NSNull null],@"what color"],
-                     @selector(answerQuestion:question2:question3:),@[],
-                     @selector(viewDidLoad),@[]//此处会在控制台打印未能找到方法的错误
-                     );
-```
--  【测试】
-```objc
-//清除模型值
-...objValuesClean()...
-//模型随机值
-...objValuesRandom()...
-//模型随机字符串
-...objSetRandomStringForKey(...)...
-//模型随机数字
-...objSetRandomNumberForKey(...)...
-//打印对象的字典
-...po()...
-
-//简单重复执行
-...linkLoop(count)...
-//复杂重复执行
-[linkLoopIn:count block:^(NSObject* link, NSUInteger index){
-    link...
-}]...
-```
-
-- 【创建字符串属性字典】
-```objc
-AttrDictNew.makeAttrDictFont...makeAttrDictTextColor...
-```
-
-- 【连续比较】
-```objc
-...objIsEqualToEach(...)...
-...objIsEqualToSomeone(...)...
-```
-
-- 更多参见API
-```objc
-//... ...
-```
-
 ## 其他
 - Mail:quxingyi@outlook.com
 
+-
+
+-
+
+-
+
+-
+
 ## 【实验性的】
-### 【以字符串的方式执行LinkBlock代码】
-- Describe【描述】
+### 以脚本的方式执行LinkBlock
+- Describe/描述
 ```objc
 //动态脚本(DynamicLink)解析的4种使用方式
 //1

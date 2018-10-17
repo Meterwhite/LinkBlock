@@ -51,13 +51,13 @@
 
 /**
  *  安全的链条
- *  make a safe object for link,check if nil
+ *  Create linkObject.Make a safe object for link,check if nil.
  */
 #ifndef linkObj
 #define linkObj(object) ((typeof(object))_LB_MakeObj(object))
 #endif
 
-///for type id
+///For type of id
 #ifndef linkObj_id
 #define linkObj_id(object) ((NSObject*)_LB_MakeObj(object))
 #endif
@@ -73,13 +73,13 @@
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:link objects/多对象链条
+//MARK:link objects/多对象的链条
 //////////////////////////////////////////////////////////////////////
 
 /**
- * linkObjs(obj0,obj1,...)
+ * linkObjs(a,b,c...)
  *  安全的多对象的链条
- *  make a safe link objects.anyone should not be nil
+ *  Craete link objects.Each one should not be nil.
  */
 #ifndef linkObjs
 #define linkObjs(object,args...) _LB_MakeObjs(object,##args,nil)
@@ -93,14 +93,14 @@
 #define makeLinkObjs makeLinkObjs
 #endif
 /**
- add a new into link objects
+ Add a new into link objects
  ...linkPush(object)
  */
 #ifndef linkPush
 #define linkPush linkPush
 #endif
 /**
- remove last object at specified index from link objects
+ Remove last object at specified index from link objects
  ...linkPop()
  */
 #ifndef linkPop
@@ -108,7 +108,7 @@
 #endif
 
 /**
- fileter link objects.
+ Fileter link objects.
  ...linkSelect(@"age > %@",age);
  */
 #ifndef linkSelect
@@ -117,7 +117,7 @@
 
 /**
  *  重复执行
- *  repeat the following link code by copy link objects
+ *  Repeat the following link code by copy link objects
  *  ...linkLoop(count)...
  */
 #ifndef linkLoop
@@ -145,36 +145,36 @@
 //MARK:Link Condition/条件
 //////////////////////////////////////////////////////////////////////
 /**
- change link object to others
- ...linkTo(~)...
+ Get linkObj from linkObjs and return it as next linkObj.
+ ...linkAt(~)...
  */
-#ifndef linkTo
-#define linkTo linkTo
+#ifndef linkAt
+#define linkAt linkAt
 #endif
 /**
  *  if-else in link
- *  <NSNumber>.linkIf...CodeYES...LinkElse...CodeNO
+ *  <NSNumber>.linkIf...LinkElse...
  */
 #ifndef linkIf
 #define linkIf linkIf
 #endif
 /**
  *  if-else in link
- *  <NSNumber>.linkIf...CodeYES...LinkElse...CodeNO
+ *  <NSNumber>.linkIf...LinkElse...
  */
 #ifndef linkElse
 #define linkElse linkElse
 #endif
 /**
  *  if-else in link
- *  <NSNumber>.linkIf_YES...CodeYES...LinkElse...CodeNO
+ *  <NSNumber>.linkIf_YES...LinkElse...
  */
 #ifndef linkIf_YES
 #define linkIf_YES linkIf_YES
 #endif
 /**
  *  if-else in link
- *  <NSNumber>.linkIf_NO...CodeNO...LinkElse...CodeYES
+ *  <NSNumber>.linkIf_NO...LinkElse...
  */
 #ifndef linkIf_NO
 #define linkIf_NO linkIf_NO
@@ -188,7 +188,92 @@
 #define linkReturn linkReturn
 #endif
 
+//////////////////////////////////////////////////////////////////////
+//MARK:Link Indicate/链条指示 Refer to `NSObject+LinkBlock.h`
+//////////////////////////////////////////////////////////////////////
+#ifndef whatSet
+#define whatSet whatSet
+#endif
 
+#ifndef thisLinkObjs
+#define thisLinkObjs thisLinkObjs
+#endif
+
+#ifndef thisLinkObj
+#define thisLinkObj thisLinkObj
+#endif
+
+#ifndef thisValue
+#define thisValue thisValue
+#endif
+
+#ifndef thisValues
+#define thisValues thisValues
+#endif
+
+#ifndef thisNumber
+#define thisNumber thisNumber
+#endif
+
+#ifndef aBOOLValue
+#define aBOOLValue aBOOLValue
+#endif
+
+#ifndef aFloatNumber
+#define aFloatNumber aFloatNumber
+#endif
+
+#ifndef aDoubleNumber
+#define aDoubleNumber aDoubleNumber
+#endif
+
+#ifndef anIntNumber
+#define anIntNumber anIntNumber
+#endif
+
+#ifndef anIntegerNumber
+#define anIntegerNumber anIntegerNumber
+#endif
+
+#ifndef anUnsignedIntNumber
+#define anUnsignedIntNumber anUnsignedIntNumber
+#endif
+
+#ifndef anUnsignedIntegerNumber
+#define anUnsignedIntegerNumber anUnsignedIntegerNumber
+#endif
+
+#ifndef aLongNumber
+#define aLongNumber aLongNumber
+#endif
+
+#ifndef aLongLongNumber
+#define aLongLongNumber aLongLongNumber
+#endif
+
+#ifndef aUnsignedLongNumber
+#define aUnsignedLongNumber aUnsignedLongNumber
+#endif
+
+#ifndef aUnsignedLongLongNumber
+#define aUnsignedLongLongNumber aUnsignedLongLongNumber
+#endif
+
+#ifndef aCGRectValue
+#define aCGRectValue aCGRectValue
+#endif
+
+#ifndef aCGSizeValue
+#define aCGSizeValue aCGSizeValue
+#endif
+
+#ifndef aCGPointValue
+#define aCGPointValue aCGPointValue
+#endif
+
+#ifndef aNSRangeValue
+#define aNSRangeValue aNSRangeValue
+#endif
 
 //////////////////////////////////////////////////////////////////////
 //MARK:Experimental DynamicLink/脚本解析（实验性）
@@ -369,5 +454,3 @@
 #ifndef viewAddSubviews
 #define viewAddSubviews(view0,args...) viewAddSubviews(view0,args...,nil)
 #endif
-
-

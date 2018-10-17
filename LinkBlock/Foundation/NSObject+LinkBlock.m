@@ -2663,14 +2663,12 @@ DefineKindOfClassAs(NSNumber)
 {
     return ^id(id obj){
         LinkHandle_REF(NSObject)
-        LinkGroup* group = self.thisLinkObjs;
+        
         if([self isKindOfClass:[LinkGroup class]]){
-            group = (id)_self;
-            [group.linkObjects addObject:obj];
-            return group;
+            [self.thisLinkObjs.linkObjects addObject:obj];
+            return self;
         }
-        group = [LinkGroup groupWithObjs:_self,obj,nil];
-        return group;
+        return [LinkGroup groupWithObjs:_self,obj,nil];
     };
 }
 
@@ -2679,13 +2677,12 @@ DefineKindOfClassAs(NSNumber)
 {
     return ^id(){
         LinkHandle_REF(NSObject)
-        if([_self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = self.thisLinkObjs;
-            if(!group.linkObjects.count) return group;
-            [group.linkObjects removeLastObject];
-            return group;
+        if([self isKindOfClass:[LinkGroup class]]){
+            
+            [self.thisLinkObjs.linkObjects removeLastObject];
+            return self;
         }
-        return _self;
+        return self;
     };
 }
 
@@ -3891,36 +3888,36 @@ LBMarcoLinkTransType(CALayer)
 
 
 
-#ifndef LB_Punctuate
-#define LB_Punctuate(func)\
+#ifndef LB_Indicate
+#define LB_Indicate(func)\
 - (id)func\
 {\
     return self;\
 }
 #endif
 
-LB_Punctuate(whatSet)
-LB_Punctuate(thisLinkObj)
-LB_Punctuate(thisLinkObjs)
-LB_Punctuate(thisValue)
-LB_Punctuate(thisValues)
+LB_Indicate(whatSet)
+LB_Indicate(thisLinkObj)
+LB_Indicate(thisLinkObjs)
+LB_Indicate(thisValue)
+LB_Indicate(thisValues)
 
-LB_Punctuate(thisNumber)
-LB_Punctuate(aBOOLValue)
-LB_Punctuate(aFloatNumber)
-LB_Punctuate(aDoubleNumber)
-LB_Punctuate(anIntNumber)
-LB_Punctuate(anIntegerNumber)
-LB_Punctuate(anUnsignedIntNumber)
-LB_Punctuate(anUnsignedIntegerNumber)
-LB_Punctuate(aLongNumber)
-LB_Punctuate(aLongLongNumber)
-LB_Punctuate(aUnsignedLongNumber)
-LB_Punctuate(aUnsignedLongLongNumber)
-LB_Punctuate(aCGRectValue)
-LB_Punctuate(aCGSizeValue)
-LB_Punctuate(aCGPointValue)
-LB_Punctuate(aNSRangeValue)
+LB_Indicate(thisNumber)
+LB_Indicate(aBOOLValue)
+LB_Indicate(aFloatNumber)
+LB_Indicate(aDoubleNumber)
+LB_Indicate(anIntNumber)
+LB_Indicate(anIntegerNumber)
+LB_Indicate(anUnsignedIntNumber)
+LB_Indicate(anUnsignedIntegerNumber)
+LB_Indicate(aLongNumber)
+LB_Indicate(aLongLongNumber)
+LB_Indicate(aUnsignedLongNumber)
+LB_Indicate(aUnsignedLongLongNumber)
+LB_Indicate(aCGRectValue)
+LB_Indicate(aCGSizeValue)
+LB_Indicate(aCGPointValue)
+LB_Indicate(aNSRangeValue)
 
 
 

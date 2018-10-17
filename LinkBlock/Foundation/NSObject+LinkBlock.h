@@ -343,7 +343,7 @@
  *  -
  *  width : "view.frame->size->width" , "label.myWidth0" ,...
  *  height: "label.y" , "label.myBottom" ,...
- *  size  : unclearKey , "mySize"
+ *  size  : <unclearKey> , "mySize"
  *  -
  *  Discussion:
  *  1.When fullPath is for struct that contains '->':
@@ -414,54 +414,61 @@
 @property LB_FN NSArray*       linkEnds;
 @property LB_BK id             (^linkEndsAt)(NSUInteger idx);
 
-
-
 @property LB_BK NSObject*      (^linkPush)(id obj);
 @property LB_BK NSObject*      (^linkPop)(void);
 @property LB_BK NSObject*      (^linkAt)(NSUInteger idx);
 @property LB_BK NSObject*      (^linkSelect)(NSString* predicate,...);
-
-@property LB_BK NSObject*      (^linkLoop)(NSUInteger count,void(^)(NSObject* linkObj,NSUInteger idx));
+/** Repeat execute the code using block. */
+@property LB_BK NSObject*      (^linkLoop)(NSUInteger count,void(^)(NSObject* thisLinkObj,NSUInteger idx));
 
 @property LB_BK NSObject*      (^linkIf)(BOOL condition);
+/**
+ This block must behind `linkIf`
+ */
 @property LB_FN NSObject*      linkElse;
+/** After `linkReturn` no block can be executed; */
 @property LB_FN NSObject*      linkReturn;
 
-#pragma mrak - Link Punctuate/断句
+#pragma mrak - Link Indicate/链条指示
 /**
  *******************
- Link Punctuate
- This is a comment used to punctuate linkBlock when linkBlock state has changed.
- Link Punctuate will do noting, it just return self.
+ Link Indicate
+ When linkBlock object has changed,use this block to draw attention.
+ Link Indicate will do noting, it just return self.
  *******************
 */
 
 /**
- ...XXXXAsWhatSet(valueSet).whatSet...;
- after function 'XXXXAsWhatSet' the 'whatSet' is indicate link object be replaced by valueSet.
+ ...linkBlockRerutn<AsWhatSet>(parameterToSet).whatSet...;
+ If linkBlock return value is parameters of itself ,it has suffix 'AsWhatSet'.
+ Use `whatSet` to indicate that next linkObj is the parameters of previous linkObj.
  */
 @property LB_FN NSObject*      whatSet;
 
 /**
  指示链条的类型
- Indicate the state of link has changed.
+ Use `thisLinkObjs`,`thisLinkObj` to indicate state of link.
  ...linkPush(~).linkPush(~).thisLinkObjs...
  */
 @property LB_FN LinkGroup*     thisLinkObjs;
+/** Use `thisLinkObjs`,`thisLinkObj` to indicate state of link. */
 @property LB_FN NSObject*      thisLinkObj;
 
 /**
- 指示链条对象已经由返回值替换
- 'thisXXXX' indicate that the link object has changed since the last call;
+ 指示链条对象变更
+ Use `thisValue`,`thisValues`,`thisNumber` to indicate that linkBlock object has changed.
  */
 @property LB_FN NSObject*      thisValue;
+/** indicate that linkBlock object has changed. */
 @property LB_FN NSObject*      thisValues;
+/** indicate that linkBlock object has changed. */
 @property LB_FN NSNumber*      thisNumber;
 
 /**
- 指示NSNumber的本身类型
- ...numIsOddAs().aBOOLValue.boolValue
- Use 'aXXX' after 'XXXAs' to indicate that What the specific type of NSNumber
+ 指示NSNumber类型
+ ...linkBlockRerutnANumber<As>().<aBOOLValue>...;
+ All linkBlock return NSNumber value it has suffix 'As'.
+ Use block named `a+TypeObject` to draw attention.
  */
 @property LB_FN NSNumber*      aBOOLValue;
 @property LB_FN NSNumber*      aFloatNumber;

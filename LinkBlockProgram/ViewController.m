@@ -22,9 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIView* view;
+//    UIView* view;
     
-    [self.view addSubview:view];
+    
     
 //
 //    UIButton* button;
