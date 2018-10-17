@@ -11,7 +11,7 @@
 #import "DynamicLink.h"
 #import <objc/runtime.h>
 #import <JavaScriptCore/JavaScriptCore.h>
-
+#import "NSNil.h"
 
 @interface LinkHelper<__covariant ObjectType>()
 @property (nonatomic,strong) id target;

@@ -11,6 +11,7 @@
 #import "DynamicLink.h"
 #import "LinkHelper.h"
 #import "LinkBlockInvocation.h"
+#import "NSNil.h"
 
 @implementation NSObject(LinkBlockNSObject)
 

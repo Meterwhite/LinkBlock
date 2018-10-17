@@ -7,6 +7,7 @@
 //
 
 #import "LinkBlock.h"
+#import "NSNil.h"
 
 @implementation NSObject(NSDateLinkBlock)
 - (NSNumber *(^)(void))dateTimeIntervalSince1970As
