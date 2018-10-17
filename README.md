@@ -40,45 +40,71 @@ view.frame = frame;
 
 [button setTitle:@"Normal Text" forState:UIControlStateNormal];
 ==> button.btnTitleUIControlStateNormal(@"Normal Text");
+
+[self.view addSubview:viewA];
+[self.view addSubview:viewB];
+[self.view addSubview:viewC];
+==> linkObjs(viewA,viewB,viewC).viewAddToView(self.view);
+
 ```
 
-### 【细节】
-- 【调用】
+### 【ABCD】
+- 【A-Foundation Mirror】
+```objc
+///These blocks are copied from Foundation.
+///Have the same parameters and return values.
+...strAppend(~)...
+...objValueForKey(value,key)...
 ```
-任意对象像属性一样直接使用点语法
-anyObject.linkBlock0();
-
-如果对应的原生的Fundation方法没有返回值，在LinkBlock中会返回自身，所以可以连续书写
-anyObject.linkBlock0().linkBlock1().linkBlock2();
-
-
-如果对应的原生的Fundation方法有返回的对象
-id obj = anyObject.linkBlockReturnObj().linkEnd;
-/*
-* linkEnd:
-* 不使用linkEnd取值，则无法保证结果的类型正确，
-* 因为中间可能发生错误，这之后一个错误对象会沿着链条传
-* 递，linkEnd可以过滤改对象返回nil
-*/
-
-对应的原生的Fundation方法返回数值，直接获取即可
-int value = anyObject.linkBlockReturnInt();
+- 【B-Foundation Speed】
+```objc
+///Some common parameters has been filled for you.
+///It has some of the most basic functions.
+...viewHiddenYES()...
+...arrSort(~)...
+```
+- 【C-Foundation Extend】
+```objc
+///Provide some APIs that should have.
+///It has some of the most basic functions.
+...strLengthASCII()...
+...imgOrientationFix(~)...
+...viewAddToView(~)...
+```
+- 【D-Weak coding/弱类型编码】
+```objc
+///These APIs make the object type no longer important, but only need to care about the function.
+///Some APIs provide cross-type conversion capabilities.
+...objAdd(~)...
+...strToUIImage()...
 ```
 
-- 【命名】
+### 【Detail/细节】
+- 【Call/调用】
+```objc
+Linkblock will return self or what value you need.
+_NonnullObject.linkBlock0().linkBlock1().linkBlock2();
+
+
+Use linkEnd when getting the return value.If not the result is unexpected.
+id obj = ...linkBlockReturnObj().linkEnd;
+
+
 ```
-使用前应该清楚原方法所属的类
-规则：
+
+- 【Name/命名】
+```objc
+
 anyObject.<originalClassName+functionName[+EnumName][+parameterName][+others]>
-描述：
-LinkBlock的命名由2大部分组成：类缩写名和方法名
-UIButton+Title+UIControlStateNormal 对应 btnTitleUIControlStateNormal
+Exp:btnTitleUIControlStateNormal
 
-入参顺序：
-和原生Fundation一致，和方法名描述的一致
+Order of parameters/参数顺序：
+Order of parameters are the same as Foundation or described by method name.
 ```
-- 【写法规范】
-```
+- 【Standard/写法规范】
+```objc
+//<Important!>
+
 _NonnullObject.linkBlock()...;
 
 <linkObj(_NullableObject)>.linkBlock()...;
@@ -93,8 +119,8 @@ id getResultObj = ...linkBlockRerutnObj().<linkEnd>;
 
 ```
 
-- 【错误】
-```
+- 【LinkError】
+```objc
 由于LinkBlock主要是处理`废话`的，所以它是尽量不崩溃的
 对于逻辑错误，例如：
 anyObject.arrRemoveAt(errorIndex)...;
@@ -110,23 +136,23 @@ LinkBlock在执行的时候可能产生三种错误
 3是LinkBlock最常见的错误，如果我们不能保证起始对象为不为空都应该使用linkObj()
 ```
 
-## 【多对象】
+## 【Link objects/多对象】
 - 【多个对象操作的合并，更进一步的压缩】
 ```
 linkObjs(viewA,viewB,...)...viewAddToView(self.view);
 
-示例：多个控件一个显示其他隐藏
+Exp：Hide one view another show.
 linkObjs(viewA,viewB,...).viewHiddenYES().linkAt(selectedIndex).viewHiddenNO();
 ```
 - 【写法规范】
 ```objc
 
 //联结
-linkObjs(a,b,c...).linkBlock()...;//主要
+linkObjs(a,b,c...).thisLinkObjs...;//主要
 
-@[a,b,c...].makeLinkObjs.linkBlock()...;//次要
+@[a,b,c...].makeLinkObjs.thisLinkObjs...;//次要
 
-a.linkAnd(b).linkAnd(c)...linkBlock()...;//次要
+a.linkPush(b).linkPush(c).thisLinkObjs...;//次要
 
 
 //取值

@@ -43,9 +43,9 @@
 /** 数字或结构体是否是初始值 */
 @property LB_BK BOOL             (^valueIsBlank)(void);
 /** NSNumber,c number */
-@property LB_BK NSNumber *       (^valueIsNumber)(void);
+@property LB_BK NSNumber *       (^valueIsNumberAs)(void);
 /** struc and Class */
-@property LB_BK NSNumber *       (^valueIsStruct)(void);
+@property LB_BK NSNumber *       (^valueIsStructAs)(void);
 
 #pragma mark - LinkBlock
 /**

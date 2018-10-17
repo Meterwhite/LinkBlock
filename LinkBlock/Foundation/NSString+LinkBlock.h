@@ -212,6 +212,7 @@
 @property LB_BK NSString*    (^strPathSoundPlay)(void);
 
 @property LB_BK NSString*    (^strPathArchiveObject)(id<NSCoding>obj);
+/** ...strPathUnarchiveObjectAsWhatReturn().thisValue... */
 @property LB_BK NSObject*    (^strPathUnarchiveObjectAsWhatReturn)(void);
 
 

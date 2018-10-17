@@ -44,7 +44,7 @@
 @property LB_BK NSDictionary*(^objKeyValueWithKeys)(NSArray<NSString*>*keys);
 @property LB_BK NSObject*    (^objPerformSelector)(SEL sel);
 
-#pragma mark - Foundation Fast
+#pragma mark - Foundation Speed/速度
 /**
  <^NSNumber*(NSString* predicateFormat,...)>
  Refer to : evaluateWithObject:
@@ -135,7 +135,7 @@
 
 
 #pragma mark - Weak coding/弱类型编码
-/** for NSJSONSerialization */
+/** From NSJSONSerialization */
 @property LB_BK NSString*    (^objToJsonString)(void);
 /** retrun value can be used to NSJSONSerialization  */
 @property LB_BK NSObject*    (^objToNSJsonObject)(void);
@@ -414,8 +414,11 @@
 @property LB_FN NSArray*       linkEnds;
 @property LB_BK id             (^linkEndsAt)(NSUInteger idx);
 
+
+
 @property LB_BK NSObject*      (^linkPush)(id obj);
 @property LB_BK NSObject*      (^linkPop)(void);
+@property LB_BK NSObject*      (^linkAt)(NSUInteger idx);
 @property LB_BK NSObject*      (^linkSelect)(NSString* predicate,...);
 
 @property LB_BK NSObject*      (^linkLoop)(NSUInteger count,void(^)(NSObject* linkObj,NSUInteger idx));

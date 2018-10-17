@@ -23,11 +23,11 @@
 #pragma mark - Weak coding/弱类型编码
 @property LB_BK UIImageView*     (^imgToUIImageView)(void);
 /**
- *  container∈{.respondsToSelector(setImage:,setImage:forState:,setBackground:,setBackgroundImage:)}
+ *  control∈{.respondsToSelector(setImage:,setImage:forState:,setBackground:,setBackgroundImage:)}
  *  forState = UIControlStateNormal
  */
-@property LB_BK UIImage*         (^imgSetToContainer)(id container);
-@property LB_BK NSObject*        (^imgSetToContainerAsWhatSet)(id container);
+@property LB_BK UIImage*         (^imgSetToControl)(id control);
+@property LB_BK NSObject*        (^imgSetToControlAsWhatSet)(id container);
 
 
 

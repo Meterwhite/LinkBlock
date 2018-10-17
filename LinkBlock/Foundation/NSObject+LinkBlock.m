@@ -1425,7 +1425,7 @@ DefineKindOfClassAs(NSNumber)
         return self.strIsNumberAs;
     }
     
-    return self.valueIsNumber;
+    return self.valueIsNumberAs;
 }
 
 - (NSObject *(^)(void))objMutableCopyEnumerate
@@ -2948,6 +2948,18 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
+- (NSObject *(^)(NSUInteger))linkAt
+{
+    return ^id(NSUInteger idx){
+        LinkHandle_REF(NSObject)
+        if([_self isKindOfClass:[LinkGroup class]]){
+            if(idx>self.thisLinkObjs.linkObjects.count-1) return self;
+            return self.thisLinkObjs.linkObjects[idx];
+        }
+        return _self;
+    };
+}
+
 - (NSObject* (^)(NSString*))objValueForKey
 {
     return ^id(NSString* key){
@@ -3556,7 +3568,8 @@ Link_objSetValueForK(text)
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objPerformSelectorAsWhatReturn, sel)
         if(![_self respondsToSelector:sel]){
-            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",_self,NSStringFromSelector(sel)]] logError];
+            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",_self,NSStringFromSelector(sel)]] logError];
+            return NSNull.null;
         }
         return LBObjcValue([_self _lb_performSelector:sel withArg:nil]);
     };
@@ -3567,11 +3580,11 @@ Link_objSetValueForK(text)
     return ^id(SEL sel , id obj){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objPerformSelectorArgument, sel , obj)
-        if([_self respondsToSelector:sel]){
-            [_self _lb_performSelector:sel withObject:obj];
-        }else{
-            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",_self,NSStringFromSelector(sel)]] logError];
+        if(![_self respondsToSelector:sel]){
+            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",_self,NSStringFromSelector(sel)]] logError];
+            return NSNull.null;
         }
+        [_self _lb_performSelector:sel withObject:obj];
         return _self;
     };
 }
@@ -3582,7 +3595,7 @@ Link_objSetValueForK(text)
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objPerformSelectorArgumentAsWhatReturn, sel , obj)
         if(![_self respondsToSelector:sel]){
-            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",_self,NSStringFromSelector(sel)]] logError];
+            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",_self,NSStringFromSelector(sel)]] logError];
         }
         return LBObjcValue([_self _lb_performSelector:sel withArg:obj]);
     };
@@ -3599,7 +3612,7 @@ Link_objSetValueForK(text)
             if([group.linkObjects.firstObject respondsToSelector:sel]){
                 [group.linkObjects.firstObject _lb_performSelector:sel];
             }else{
-                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",group.linkObjects.firstObject,NSStringFromSelector(sel)]] logError];
+                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",group.linkObjects.firstObject,NSStringFromSelector(sel)]] logError];
             }
             va_list args;
             va_start(args, sel);
@@ -3609,7 +3622,7 @@ Link_objSetValueForK(text)
                     if([group.linkObjects[i] respondsToSelector:parm]){
                         [group.linkObjects[i] _lb_performSelector:parm];
                     }else{
-                        [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",group.linkObjects[i],NSStringFromSelector(sel)]] logError];
+                        [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",group.linkObjects[i],NSStringFromSelector(sel)]] logError];
                     }
                 }
             }
@@ -3621,7 +3634,7 @@ Link_objSetValueForK(text)
         if([_self respondsToSelector:sel]){
             [_self _lb_performSelector:sel];
         }else{
-            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",self,NSStringFromSelector(sel)]] logError];
+            [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",self,NSStringFromSelector(sel)]] logError];
         }
         va_list args;
         va_start(args, sel);
@@ -3630,7 +3643,7 @@ Link_objSetValueForK(text)
             if([_self respondsToSelector:parm]){
                 [_self _lb_performSelector:parm];
             }else{
-                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@不能响应方法:%@",self,NSStringFromSelector(sel)]] logError];
+                [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",self,NSStringFromSelector(sel)]] logError];
             }
         }
         va_end(args);

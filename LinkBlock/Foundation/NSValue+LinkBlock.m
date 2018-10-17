@@ -137,7 +137,7 @@
     };
 }
 
-- (NSNumber *(^)(void))valueIsNumber
+- (NSNumber *(^)(void))valueIsNumberAs
 {
     return ^id(){
         LinkHandle_REF(NSValue)
@@ -170,11 +170,11 @@
     };
 }
 
-- (NSNumber *(^)(void))valueIsStruct
+- (NSNumber *(^)(void))valueIsStructAs
 {
     return ^id(){
         LinkHandle_REF(NSValue)
-        LinkGroupHandle_REF(valueIsStruct)
+        LinkGroupHandle_REF(valueIsStructAs)
         
         if([self isKindOfClass:[NSNumber class]]){
             return @NO;

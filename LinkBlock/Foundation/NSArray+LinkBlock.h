@@ -22,10 +22,10 @@
 @property LB_BK NSArray*                 (^arrObjsFromIndexTo)(NSUInteger from, NSUInteger to);
 @property LB_BK NSObject*                (^arrLast)(void);
 @property LB_BK NSObject*                (^arrFirst)(void);
-
-#pragma mark - Foundation Speed/速度
 @property LB_BK NSUInteger               (^arrIndexOfObj)(id obj);
 @property LB_BK NSNumber*                (^arrIndexOfObjAs)(id obj);
+
+#pragma mark - Foundation Speed/速度
 @property LB_BK BOOL                     (^arrContainsIndex)(NSUInteger idx);
 @property LB_BK NSNumber*                (^arrContainsIndexAs)(NSUInteger idx);
 @property LB_BK NSUInteger               (^arrCountOfObj)(id obj);

@@ -139,12 +139,11 @@
 }
 
 /**
- 改方法引用于：https://github.com/lukabernardi/LBBlurredImage
- 参数理解请参考原文
+ Refer to：https://github.com/lukabernardi/LBBlurredImage
  */
 - (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor maskImage:(UIImage *)maskImage
 {
-    UIImage* _self = (id)self;
+    UIImage* _self = self.asUIImage;
     // Check pre-conditions.
     if (_self.size.width < 1 || _self.size.height < 1) {
         return (id)[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"*** error: invalid size: (%.2f x %.2f). Both dimensions must be >= 1: %@", _self.size.width, _self.size.height, self]];
@@ -402,11 +401,11 @@
     };
 }
 
-- (UIImage *(^)(id))imgSetToContainer
+- (UIImage *(^)(id))imgSetToControl
 {
     return ^id(id container){
         LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToContainer,container)
+        LinkGroupHandle_REF(imgSetToControl,container)
         
         if(!container) return _self;
         
@@ -424,14 +423,14 @@
     };
 }
 
-- (NSObject *(^)(id))imgSetToContainerAsWhatSet
+- (NSObject *(^)(id))imgSetToControlAsWhatSet
 {
     return ^id(id container){
         LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToContainer,container)
+        LinkGroupHandle_REF(imgSetToControl,container)
         
         if(!container) return _self;
-        self.imgSetToContainer(container);
+        self.imgSetToControl(container);
         return container;
     };
     

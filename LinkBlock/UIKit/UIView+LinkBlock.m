@@ -1332,147 +1332,6 @@ defineViewContentModeTail(BottomRight)
     };
 }
 
-- (UIView *(^)(UIView *))viewCopyX
-{
-    return ^id(UIView* fromView){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewCopyX,fromView)
-        CGRect frame = _self.frame;
-        frame.origin.x = fromView.frame.origin.x;
-        _self.frame= fromView.frame;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *))viewCopyY
-{
-    return ^id(UIView* fromView){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewCopyY,fromView)
-        CGRect frame = _self.frame;
-        frame.origin.y = fromView.frame.origin.y;
-        _self.frame= fromView.frame;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *))viewCopyFrame
-{
-    return ^id(UIView* fromView){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewCopyFrame,fromView)
-        _self.frame= fromView.frame;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *))viewCopySize
-{
-    return ^id(UIView* fromView){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewCopySize,fromView)
-        CGRect frame = _self.frame;
-        frame.size= fromView.frame.size;
-        _self.frame = frame;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *))viewCopyOrigin
-{
-    return ^id(UIView* fromView){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewCopyOrigin,fromView)
-        CGRect frame = _self.frame;
-        frame.origin= fromView.frame.origin;
-        _self.frame = frame;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *))viewCopyCenter
-{
-    return ^id(UIView* fromView){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewCopyCenter,fromView)
-        _self.center = fromView.center;
-        return _self;
-    };
-}
-
-
-
-- (UIView *(^)(UIView *))viewCopyCenterX
-{
-    return ^id(UIView* fromView){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewCopyCenterX,fromView)
-        CGPoint center = _self.center;
-        center.x= fromView.center.x;
-        _self.center = center;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *))viewCopyCenterY
-{
-    return ^id(UIView* fromView){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewCopyCenterY,fromView)
-        CGPoint center = _self.center;
-        center.y= fromView.center.y;
-        _self.center = center;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *, CGFloat))viewTopTo
-{
-    return ^id(UIView* toView, CGFloat margin){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewTopTo,toView,margin)
-        CGRect frame = _self.frame;
-        frame.origin.y = toView.viewMaxY()+ margin;
-        _self.frame = frame;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *, CGFloat))viewBottomTo
-{
-    return ^id(UIView* toView, CGFloat margin){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewBottomTo,toView,margin)
-        CGRect frame = _self.frame;
-        frame.origin.y = toView.frame.origin.y - margin;
-        _self.frame = frame;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *, CGFloat))viewLeftTo
-{
-    return ^id(UIView* toView, CGFloat margin){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewLeftTo,toView,margin)
-        CGRect frame = _self.frame;
-        frame.origin.x = toView.frame.origin.x - frame.size.width- margin;
-        _self.frame = frame;
-        return _self;
-    };
-}
-
-- (UIView *(^)(UIView *, CGFloat))viewRightTo
-{
-    return ^id(UIView* toView, CGFloat margin){
-        LinkHandle_REF(UIView)
-        LinkGroupHandle_REF(viewRightTo,toView,margin)
-        CGRect frame = _self.frame;
-        frame.origin.x = toView.viewMaxX() + margin;
-        _self.frame = frame;
-        return _self;
-    };
-}
 
 - (CGFloat (^)(void))viewMaxX
 {
@@ -1501,8 +1360,7 @@ defineViewContentModeTail(BottomRight)
     return ^id(){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewBringFrontInSuperview)
-        if(_self.superview)
-            [_self.superview bringSubviewToFront:_self];
+        [_self.superview bringSubviewToFront:_self];
         return _self;
     };
 }
@@ -1512,8 +1370,7 @@ defineViewContentModeTail(BottomRight)
     return ^id(){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSendBackInSuperview)
-        if(_self.superview)
-            [_self.superview sendSubviewToBack:_self];
+        [_self.superview sendSubviewToBack:_self];
         return _self;
     };
 }

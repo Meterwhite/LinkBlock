@@ -14,76 +14,76 @@
  The dprecated method more than 6 months will be deleted!
  */
 @interface NSObject(OtherLinkBlock)
-@property LB_BK BOOL (^arrIsContainer)(id obj)
+@property LB_BKG(arrContains) BOOL (^arrIsContainer)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "fixed to arrContain");
 
-@property LB_BK BOOL (^strIsContain)(NSString* str)
+@property LB_BKG(strContains) BOOL (^strIsContain)(NSString* str)
 NS_DEPRECATED_IOS(2_0, 2_0, "use strContains instead");
 
 @property LB_BK NSArray* (^arrValuesOfType)(Class typeClass)
 NS_DEPRECATED_IOS(2_0, 2_0, "use arrObjsOfType instead");
 
-@property LB_BK BOOL     (^strIsContainEmoji)(void)
+@property LB_BKG(strContainsEmoji) BOOL(^strIsContainEmoji)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "use strContainEmoji instead");
 
-@property LB_BK NSNumber* (^strIsContainEmoji_n)(void)
+@property LB_BKG(strContainsEmojiAs) NSNumber* (^strIsContainEmoji_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "use strContainEmojiAs instead");
 
-@property LB_BK UIImage* (^attr_strDrawImgRect)(UIImage* image, CGRect rect)
+@property LB_BKG(attr_strDrawToImageAsWhatSet) UIImage* (^attr_strDrawImgRect)(UIImage* image, CGRect rect)
 NS_DEPRECATED_IOS(2_0, 2_0, "use attr_strDrawToImgAsWhatSet instead");
 
 - (NSObject*)newLink:(void(^)(NSObject* fromObj))aNewLink
 NS_DEPRECATED_IOS(2_0, 2_0, "use -[* linkInBlock] instead-[* newLink]");
 
-@property LB_BK NSMutableArray*      (^arrAddTo)(NSMutableArray* arr)
-NS_DEPRECATED_IOS(2_0, 2_0, "use arrAddToArr instead");
+@property LB_BKG(arrAddToArrAsWhatSet) NSMutableArray*(^arrAddTo)(NSMutableArray* arr)
+NS_DEPRECATED_IOS(2_0, 2_0, "use arrAddToArrAsWhatSet instead");
 
-@property LB_BK id           (^valueForKey)(NSString* key)
+@property LB_BKG(objValueForKey) id(^valueForKey)(NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objValueForKey instead");
 
-@property LB_BK NSObject*    (^setValueForKey)(id value,NSString* key)
+@property LB_BKG(objSetValueForKey) NSObject*(^setValueForKey)(id value,NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKey instead");
 
-@property LB_BK id           (^valueForKeyPath)(NSString* key)
+@property LB_BKG(objValueForKeyPath) id(^valueForKeyPath)(NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objValueForKeyPath instead");
 
-@property LB_BK NSObject*    (^setValueForKeyPath)(id value,NSString* key)
+@property LB_BKG(objSetValueForKeyPath)NSObject*(^setValueForKeyPath)(id value,NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKeyPath instead");
 
-@property LB_BK id           (^valueForKeySafe)(NSString* key)
+@property LB_BKG(objValueForKey) id(^valueForKeySafe)(NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objValueForKey instead");
 
-@property LB_BK NSObject*    (^setValueForKeySafe)(id value,NSString* key)
+@property LB_BKG(objSetValueForKey) NSObject*(^setValueForKeySafe)(id value,NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKey instead");
 
-@property LB_BK id           (^valueForKeyPathSafe)(NSString* key)
+@property LB_BKG(objValueForKeyPath) id(^valueForKeyPathSafe)(NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objValueForKeyPath instead");
 
-@property LB_BK NSObject*    (^setValueForKeyPathSafe)(id value,NSString* key)
+@property LB_BKG(objSetValueForKeyPath)NSObject*(^setValueForKeyPathSafe)(id value,NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKeyPath instead");
 
-@property LB_BK BOOL         (^isKindOf)( __unsafe_unretained Class classKind)
+@property LB_BKG(objIsKindOf) BOOL(^isKindOf)( __unsafe_unretained Class classKind)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsKindOf instead");
 
-@property LB_BK NSNumber*    (^isKindOf_n)( __unsafe_unretained Class classKind)
+@property LB_BKG(objIsKindOfAs) NSNumber*(^isKindOf_n)( __unsafe_unretained Class classKind)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsKindOf_n instead");
 
-@property LB_BK BOOL         (^isSubClassOf)( __unsafe_unretained Class classKind)
+@property LB_BKG(objIsSubClassOf) BOOL(^isSubClassOf)( __unsafe_unretained Class classKind)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsSubClassOf instead");
 
-@property LB_BK NSNumber*    (^isSubClassOf_n)( __unsafe_unretained Class classKind)
+@property LB_BKG(objIsSubClassOfAs) NSNumber*(^isSubClassOf_n)( __unsafe_unretained Class classKind)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsSubClassOf_n instead");
 
-@property LB_BK BOOL         (^isRespondsSEL)(SEL theSEL)
+@property LB_BKG(objIsRespondsSEL) BOOL(^isRespondsSEL)(SEL theSEL)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsRespondsSEL instead");
 
-@property LB_BK NSNumber*    (^isRespondsSEL_n)(SEL theSEL)
+@property LB_BKG(objIsRespondsSELAs)NSNumber*(^isRespondsSEL_n)(SEL theSEL)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsRespondsSEL_n instead");
 
-@property LB_BK NSString*    (^className)(void)
+@property LB_BKG(objClassName) NSString*(^className)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objClassName instead");
 
-@property LB_BK NSString*    (^superclassName)(void)
+@property LB_BKG(objSuperclassName) NSString*(^superclassName)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objSuperclassName instead");
 
 @property LB_BK NSObject*    (^setTo)(id* toObject)
@@ -113,7 +113,7 @@ NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrInsertNext");
 
 
 
-@property LB_BK UIView*      (^viewMasksToBounds)(BOOL b)
+@property LB_BKG(viewClipsToBounds) UIView*(^viewMasksToBounds)(BOOL b)
 NS_DEPRECATED_IOS(2_0, 2_0, "use viewClipsToBounds instead");
 
 @property LB_BK NSObject*    (^nslogTitle)(NSString* title)
@@ -125,13 +125,13 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use po() instead；dol po() rename to poDetail()");
 @property LB_BK NSObject*    (^logInfo)(NSString* info)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
-@property LB_BK NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict)
+@property LB_BKG(strUILinesCount) NSInteger    (^strLinesCountAboutView)(CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to strUILinesCount");
 
-@property LB_BK NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict)
+@property LB_BKG(strSubToUILine) NSString*    (^strSubToLineAboutView)(NSInteger toLine, CGFloat maxWidth,NSDictionary<NSAttributedStringKey,id>* attrDict)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to strSubToUILine");
 
-@property LB_BK NSRange (^strSubRangeToMaxLineIfAppendStrAboutView )(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict , BOOL* isFullOfLines)
+@property LB_BKG(strSubRangeToMaxUILineIfAppendStr) NSRange (^strSubRangeToMaxLineIfAppendStrAboutView )(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict , BOOL* isFullOfLines)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to strSubRangeToMaxUILineIfAppendStr");
 
 @property LB_BK void*  (^numValue)(void)
@@ -143,42 +143,39 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BK NSValue* (^valueCGPointSetToViews)(NSArray* views)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
-@property LB_BK UIView*      (^viewSetFrameOfCGRect)(CGRect frame)
+@property LB_BKG(viewSetFrameVal) UIView*      (^viewSetFrameOfCGRect)(CGRect frame)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to viewSetFrameVal");
 
-@property LB_BK UIView*      (^viewSetOriginOfCGPoint)(CGPoint origin)
+@property LB_BKG(viewSetOriginVal) UIView*      (^viewSetOriginOfCGPoint)(CGPoint origin)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to viewSetOriginVal");
 
-@property LB_BK UIView*      (^viewSetCenterOfCGPoint)(CGPoint center)
+@property LB_BKG(viewSetCenterVal) UIView*      (^viewSetCenterOfCGPoint)(CGPoint center)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to viewSetCenterVal");
 
-@property LB_BK UIView*      (^viewSetSizeOfCGSize)(CGSize size)
+@property LB_BKG(viewSetSizeVal) UIView*      (^viewSetSizeOfCGSize)(CGSize size)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to viewSetSizeVal");
 
-@property LB_BK UIView*      (^viewConvertSuperverTo)(UIView* aView , BOOL isKeep)
+@property LB_BKG(viewConvertSuperviewTo) UIView*      (^viewConvertSuperverTo)(UIView* aView , BOOL isKeep)
 NS_DEPRECATED_IOS(2_0, 2_0, "fixed to viewConvertSuperviewTo");
 
-@property LB_BK NSMutableArray*      (^viewFindSubviews)(Class clazz)
+@property LB_BKG(viewFindSubviewsOfClass) NSMutableArray*      (^viewFindSubviews)(Class clazz)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to viewFindSubviewsOfClass");
 
-@property LB_BK NSMutableString*     (^m_strAppenStr)(NSString* str)
+@property LB_BKG(m_strAppend) NSMutableString*(^m_strAppenStr)(NSString* str)
 NS_DEPRECATED_IOS(2_0, 2_0, "fixed to m_strAppend");
 
-- (BOOL (^)(void))objIsMutableType
+@property LB_BKG(objIsMutable)  BOOL(^objIsMutableType)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to objIsMutable");
 
-@property LB_BK NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr)
+@property LB_BKG(m_strReplace) NSMutableString*     (^m_strReplaceStr)(NSString* replaceStr, NSString* withStr)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to m_strReplace");
 
-@property LB_BK NSString*    (^strAppendObj)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename to strAppend");
-
-@property LB_BK NSObject*    (^objMutableCopyDeep)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename to objMutableCopyEnumerable");
+@property LB_BKG(objMutableCopyEnumerate) NSObject*    (^objMutableCopyDeep)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "rename to objMutableCopyEnumerate");
 
 @property LB_BK NSObject*    (^objValuesRandom)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objSetRandom... instead");
-@property LB_BK NSObject*    (^objValuesClean)(void);
+@property LB_BKG(objSetAllValuesBlank) NSObject*    (^objValuesClean)(void);
 
 @property LB_BK NSObject*    (^objMustType)(Class clazz)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
@@ -186,211 +183,211 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 NS_DEPRECATED_IOS(2_0, 2_0, "can be instead");
 @property LB_BK NSObject*    (^objRemoveFromArr)(NSMutableArray* arr)
 NS_DEPRECATED_IOS(2_0, 2_0, "can be instead");
-@property LB_BK NSObject*    (^objBeforeInArr)(NSArray* inArr)
+@property LB_BKG(objGetPrevItemFromObjs) NSObject*    (^objBeforeInArr)(NSArray* inArr)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objGetPrevItemFromObjs");
-@property LB_BK NSObject*    (^objNextInArr)(NSArray* inArr)
+@property LB_BKG(objGetNextItemFromObjs) NSObject*    (^objNextInArr)(NSArray* inArr)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objGetNextItemFromObjs");
-@property LB_BK BOOL         (^objIsInArr)(id obj)
+@property LB_BKG(objIsSubitemOfObjs) BOOL         (^objIsInArr)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsSubitemOfObjs");
-@property LB_BK BOOL         (^objIsInDictValues)(id obj)
+@property LB_BKG(objIsSubitemOfObjs) BOOL         (^objIsInDictValues)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsSubitemOfObjs");
-@property LB_BK NSNumber*    (^objIsInDictValues_n)(id obj)
+@property LB_BKG(objIsSubitemOfObjsAs) NSNumber*    (^objIsInDictValues_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsSubitemOfObjsAs");
-@property LB_BK NSNumber*    (^objIsInArr_n)(id obj)
+@property LB_BKG(objIsSubitemOfObjsAs) NSNumber*    (^objIsInArr_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsSubitemOfObjsAs");
-@property LB_BK BOOL         (^objIsInDictKeys)(id obj)
+@property LB_BKG(objIsKeyOfObjs) BOOL         (^objIsInDictKeys)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsKeyOfObjs");
-@property LB_BK NSNumber*    (^objIsInDictKeys_n)(id obj)
+@property LB_BKG(objIsKeyOfObjsAs) NSNumber*    (^objIsInDictKeys_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objIsKeyOfObjsAs");
 
-@property LB_BK NSObject*    (^objSetValueForKey_delegate)(id value)
+@property LB_BKG(objSetValueForKdelegate) NSObject*    (^objSetValueForKey_delegate)(id value)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to objSetValueForKdelegate");
-@property LB_BK NSObject*    (^objSetValueForKey_dataSource)(id value)
+@property LB_BKG(objSetValueForKdataSource) NSObject*    (^objSetValueForKey_dataSource)(id value)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to objSetValueForKdataSource");
-@property LB_BK NSObject*    (^objSetValueForKey_text)(id value)
+@property LB_BKG(objSetValueForKtext) NSObject*    (^objSetValueForKey_text)(id value)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to objSetValueForKtext");
 
 @property LB_BK NSObject*    (^objSetToDict)(NSMutableDictionary* dict, id<NSCopying> key)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
-@property LB_BK NSString*        (^dateAstrology)(void)
+@property LB_BKG(dateToStrAstrologyzh_CN) NSString*        (^dateAstrology)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to dateToStrAstrologyzh_CN");//
 
-@property LB_BK NSNumber*    (^objIsKindOfNSString)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "add new suffix:As");
-@property LB_BK NSNumber*    (^objIsKindOfNSArray)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "add new suffix:As");
-@property LB_BK NSNumber*    (^objIsKindOfNSDictionary)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "add new suffix:As");
-@property LB_BK NSNumber*    (^objIsKindOfUIView)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "add new suffix:As");
-@property LB_BK NSNumber*    (^objIsKindOfNSValue)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "add new suffix:As");
-@property LB_BK NSNumber*    (^objIsKindOfNSNumber)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "add new suffix:As");
+@property LB_BKG(objIsKindOfNSStringAs) NSNumber*    (^objIsKindOfNSString)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "Add suffix 'As':As");
+@property LB_BKG(objIsKindOfNSArrayAs) NSNumber*    (^objIsKindOfNSArray)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "Add suffix 'As':As");
+@property LB_BKG(objIsKindOfNSDictionaryAs) NSNumber*    (^objIsKindOfNSDictionary)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "Add suffix 'As':As");
+@property LB_BKG(objIsKindOfUIViewAs) NSNumber*    (^objIsKindOfUIView)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "Add suffix 'As':As");
+@property LB_BKG(objIsKindOfNSValueAs) NSNumber*    (^objIsKindOfNSValue)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "Add suffix 'As':As");
+@property LB_BKG(objIsKindOfNSNumberAs) NSNumber*    (^objIsKindOfNSNumber)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "Add suffix 'As':As");
 
 #pragma mark - subffix change
 // special
-@property LB_BK NSValue* (^attr_strSizeWithOptions_n)(CGFloat maxWidth, NSStringDrawingOptions optoins)
+@property LB_BKG(attr_strSizeWithOptionsAs) NSValue* (^attr_strSizeWithOptions_n)(CGFloat maxWidth, NSStringDrawingOptions optoins)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*                (^arrContainIndex_n)(NSUInteger idx)
+@property LB_BKG(arrContainsIndexAs) NSNumber*                (^arrContainIndex_n)(NSUInteger idx)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSValue* (^attr_strSize_n)(CGFloat maxWidth)
+@property LB_BKG(attr_strSizeAs) NSValue* (^attr_strSize_n)(CGFloat maxWidth)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsKindOf_n)(Class clazz)
+@property LB_BKG(objIsKindOfAs) NSNumber*    (^objIsKindOf_n)(Class clazz)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsSubClassOf_n)(Class clazz)
+@property LB_BKG(objIsSubClassOfAs) NSNumber*    (^objIsSubClassOf_n)(Class clazz)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsMemberOfClass_n)(Class clazz)
+@property LB_BKG(objIsMemberOfClassAs) NSNumber*    (^objIsMemberOfClass_n)(Class clazz)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsRespondsSEL_n)(SEL sel)
+@property LB_BKG(objIsRespondsSELAs) NSNumber*    (^objIsRespondsSEL_n)(SEL sel)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsEqualToEach_n)(id obj,...)
+@property LB_BKG(objIsEqualToEachAs) NSNumber*    (^objIsEqualToEach_n)(id obj,...)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsEqualToSomeone_n)(id obj,...)
+@property LB_BKG(objIsEqualToSomeoneAs) NSNumber*    (^objIsEqualToSomeone_n)(id obj,...)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strIszh_CNInRange_n)(NSRange range)
+@property LB_BKG(strIszh_CNInRangeAs) NSNumber*    (^strIszh_CNInRange_n)(NSRange range)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSValue*     (^strSizeWithFontAndMaxWidth_n)(UIFont* font , CGFloat maxWidth)
+@property LB_BKG(strSizeWithFontAndMaxWidthAs) NSValue*     (^strSizeWithFontAndMaxWidth_n)(UIFont* font , CGFloat maxWidth)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSValue*     (^strSizeWithFontAndMaxSize_n)(UIFont* font, CGSize maxSize)
+@property LB_BKG(strSizeWithFontAndMaxSizeAs) NSValue*     (^strSizeWithFontAndMaxSize_n)(UIFont* font, CGSize maxSize)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 
 // one
-@property LB_BK NSNumber*    (^arrContain_n)(id obj)
+@property LB_BKG(arrContainsAs) NSNumber*    (^arrContain_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "arrContainsAs");
+@property LB_BKG(arrIndexOfObjAs) NSNumber*    (^arrIndexOfObj_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "arrIndexOfObjAs");
+@property LB_BKG(attr_strIsEqualToAttrStrAs) NSNumber*       (^attr_strIsEqualToAttrStr_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "attr_strIsEqualToAttrStrAs");
+@property LB_BKG(dictGetBOOLAs) NSNumber*    (^dictGetBOOL_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^arrIndexOfObj_n)(id obj)
+@property LB_BKG(numIsEqualToNumAs) NSNumber*    (^numIsEqualToNum_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*       (^attr_strIsEqualToAttrStr_n)(id obj)
+@property LB_BKG(numIsGreatThanNumAs) NSNumber*    (^numIsGreatThanNum_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^dictGetBOOL_n)(id obj)
+@property LB_BKG(numIsGreatEqualNumAs) NSNumber*    (^numIsGreatEqualNum_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsEqualToNum_n)(id obj)
+@property LB_BKG(numIsLessThanNumAs) NSNumber*    (^numIsLessThanNum_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsGreatThanNum_n)(id obj)
+@property LB_BKG(numIsLessEqualNumAs) NSNumber*    (^numIsLessEqualNum_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsGreatEqualNum_n)(id obj)
+@property LB_BKG(objIsEqualAs) NSNumber*    (^objIsEqual_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsLessThanNum_n)(id obj)
+@property LB_BKG(objIsEqualToEachInArrayAs) NSNumber*    (^objIsEqualToEachInArray_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsLessEqualNum_n)(id obj)
+@property LB_BKG(objIsEqualToSomeoneInArrayAs) NSNumber*    (^objIsEqualToSomeoneInArray_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsEqual_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsEqualToEachInArray_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsEqualToSomeoneInArray_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strIsEqualStr_n)(id obj)
+@property LB_BKG(strIsEqualStrAs) NSNumber*    (^strIsEqualStr_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 @property LB_BKG(strContainsAs) NSNumber*    (^strContain_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "strContainsAs");
-@property LB_BK NSValue*     (^strSizeWithFont_n)(id obj)
+@property LB_BKG(strSizeWithFontAs) NSValue*     (^strSizeWithFont_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strHasPrefix_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strHasSuffix_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strRegexIsMatch_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+@property LB_BKG(strHasPrefixAs) NSNumber*    (^strHasPrefix_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "strHasPrefixAs");
+@property LB_BKG(strHasSuffixAs) NSNumber*    (^strHasSuffix_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "strHasSuffixAs");
+@property LB_BKG(strRegexIsMatchAs) NSNumber*    (^strRegexIsMatch_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "strRegexIsMatchAs");
 @property LB_BKG(numAsIndexToGetValueFromObj) NSNumber*(^numIndexIsInStringRange_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "use numAsIndexToGetValueFromObj");
-@property LB_BK NSNumber*    (^strPredicateEvaluate_n)(id obj)
+@property LB_BKG(strPredicateEvaluateAs) NSNumber*    (^strPredicateEvaluate_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 
-@property LB_BK NSNumber*                (^arrKeyValueContain_n)(NSString* key,id eqValue)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+@property LB_BKG(arrContainsKeyValueAs) NSNumber*                (^arrKeyValueContain_n)(NSString* key,id eqValue)
+NS_DEPRECATED_IOS(2_0, 2_0, "arrContainsKeyValueAs");
 
 
 // none
-@property LB_BK NSNumber*        (^dateTimeIntervalSince1970_n)(void)
+@property LB_BKG(dateTimeIntervalSince1970As) NSNumber*(^dateTimeIntervalSince1970_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*         (^dateYear_n)(void)
+@property LB_BKG(dateYearAs) NSNumber*(^dateYear_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*         (^dateMonth_n)(void)
+@property LB_BKG(dateMonthAs) NSNumber*(^dateMonth_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*         (^dateDay_n)(void)
+@property LB_BKG(dateDayAs) NSNumber*(^dateDay_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*         (^dateHour_n)(void)
+@property LB_BKG(dateHourAs) NSNumber*(^dateHour_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*         (^dateMinut_n)(void)
+@property LB_BKG(dateMinutAs) NSNumber*(^dateMinut_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*         (^dateSec_n)(void)
+@property LB_BKG(dateSecAs) NSNumber*(^dateSec_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*        (^dateIsLeapYear_n)(void)
+@property LB_BKG(dateIsLeapYearAs) NSNumber*(^dateIsLeapYear_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*        (^dateIsInToday_n)(void)
+@property LB_BKG(dateIsInTodayAs) NSNumber*(^dateIsInToday_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*        (^dateIsInMonth_n)(void)
+@property LB_BKG(dateIsInMonthAs) NSNumber*(^dateIsInMonth_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numHasDecimalValue_n)(void)
+@property LB_BKG(numHasDecimalValueAs) NSNumber*(^numHasDecimalValue_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsOdd_n)(void)
+@property LB_BKG(numIsOddAs) NSNumber*(^numIsOdd_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsEven_n)(void)
+@property LB_BKG(numIsEvenAs) NSNumber*(^numIsEven_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsNegative_n)(void)
+@property LB_BKG(numIsNegativeAs) NSNumber*(^numIsNegative_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^numIsZero_n)(void)
+@property LB_BKG(numIsZeroAs) NSNumber*(^numIsZero_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^objIsNSNull_n)(void)
+@property LB_BKG(objIsNSNullAs) NSNumber*(^objIsNSNull_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strContainzh_CN_n)(void)
+@property LB_BKG(strContainszh_CNAs) NSNumber*    (^strContainzh_CN_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "strContainszh_CNAs");
-@property LB_BK NSNumber*    (^strIsBlank_n)(void)
+@property LB_BKG(strIsBlankAs) NSNumber*(^strIsBlank_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strIsEmoji_n)(void)
+@property LB_BKG(strIsEmojiAs) NSNumber*(^strIsEmoji_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strLength_n)(void)
+@property LB_BKG(strLengthAs) NSNumber*(^strLength_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BK NSNumber*    (^strIsNumber_n)(void)
+@property LB_BKG(strIsNumberAs) NSNumber*(^strIsNumber_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 @property LB_BKG(strContainsEmojiAs) NSNumber*(^strContainEmoji_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "strContainsEmojiAs");
-@property LB_BK NSNumber*    (^strPathFileExists_n)(void)
+@property LB_BKG(strPathFileExistsAs) NSNumber*    (^strPathFileExists_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 
 @property LB_BKG(attr_strSetToControlAsWhatSet) NSObject*  (^attr_strSetToLabel_linkTo)(id lab)
 NS_DEPRECATED_IOS(2_0, 2_0, "attr_strSetToControlAsWhatSet");
 @property LB_BKG(m_attr_strSetToControlAsWhatSet) NSObject* (^m_attr_strSetToLabel_linkTo)(id lab)
 NS_DEPRECATED_IOS(2_0, 2_0, "m_attr_strSetToControlAsWhatSet");
-@property LB_BK NSObject*     (^objAddTo_linkTo)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
+@property LB_BKG(objAddToAsWhatSet) NSObject*     (^objAddTo_linkTo)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "objAddToAsWhatSet");
 
 
-@property LB_BK NSObject*     (^imgSetToImgView_linkTo)(id imgView)
+@property LB_BKG(imgSetToControlAsWhatSet) NSObject*(^imgSetToImgView_linkTo)(id imgView)
+NS_DEPRECATED_IOS(2_0, 2_0, "imgSetToControlAsWhatSet");
+
+@property LB_BKG(objRemoveFromAsWhatSet) NSObject* (^objRemoveFrom_linkTo)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "objRemoveFromAsWhatSet");
+
+
+@property LB_BKG(objInsertToAsWhatSet) NSObject*     (^objInsertTo_linkTo)(id obj , NSUInteger idx)
+NS_DEPRECATED_IOS(2_0, 2_0, "objInsertToAsWhatSet");
+
+@property LB_BKG(imgSetToControlAsWhatSet) NSObject*     (^imgSetToBtnBGImg_linkTo)(id btn)
+NS_DEPRECATED_IOS(2_0, 2_0, "imgSetToControlAsWhatSet");
+@property LB_BKG(imgSetToControlAsWhatSet) NSObject*(^imgSetToBtn_linkTo)(id btn)
+NS_DEPRECATED_IOS(2_0, 2_0, "imgSetToControlAsWhatSet");
+
+@property LB_BKG(strPathUnarchiveObjectAsWhatReturn) NSObject* (^strPathUnarchiveObject_linkTo)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "strPathUnarchiveObjectAsWhatReturn");
+@property LB_BKG(attr_strDrawToImageAsWhatSet)UIImage*(^attr_strDrawToImg_linkTo)(id image, CGRect rect)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
 
-@property LB_BK NSObject*     (^objRemoveFrom_linkTo)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
-
-
-@property LB_BK NSObject*     (^objInsertTo_linkTo)(id obj , NSUInteger idx)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
-
-@property LB_BK NSObject*     (^imgSetToBtnBGImg_linkTo)(id btn,NSUInteger state)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
-@property LB_BK NSObject*     (^imgSetToBtn_linkTo)(id btn,NSUInteger state)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
-
-@property LB_BK NSObject*     (^strPathUnarchiveObject_linkTo)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
-@property LB_BK NSObject*      (^attr_strDrawToImg_linkTo)(id image, CGRect rect)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_linkTochanged to AsWhatSet");
-
-@property LB_BK NSObject*    (^objPerformSelector_linkToReturnValue)(SEL sel)
+@property LB_BKG(objPerformSelectorAsWhatReturn) NSObject*    (^objPerformSelector_linkToReturnValue)(SEL sel)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformSelectorAsWhatReturn");
-@property LB_BK NSObject*    (^objPerformSelectorWithArg_linkToReturnValue)(SEL sel , id arg)
+@property LB_BKG(objPerformSelectorArgumentAsWhatReturn) NSObject*    (^objPerformSelectorWithArg_linkToReturnValue)(SEL sel , id arg)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformSelectorArgumentAsWhatReturn");
 #ifndef objPerformSelectors_linkToReturnValues
 #define objPerformSelectors_linkToReturnValues(sel,args...) objPerformSelectors_linkToReturnValues(sel,##args,nil)
 #endif
-@property LB_BK NSArray*     (^objPerformSelectors_linkToReturnValues)(SEL sel0 , ...)
+@property LB_BKG(objPerformSelectorsAsWhatReturns) NSArray*     (^objPerformSelectors_linkToReturnValues)(SEL sel0 , ...)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformSelectorsAsWhatReturns");
 #ifndef objPerformSelectorsWithArgs_linkToReturnValues
 #define objPerformSelectorsWithArgs_linkToReturnValues(sel,args...) objPerformSelectorsWithArgs_linkToReturnValues(sel,##args,nil)
 #endif
-@property LB_BK NSArray*     (^objPerformSelectorsWithArgs_linkToReturnValues)(SEL sel0 , NSArray* args0 , ...)
+@property LB_BKG(objPerformsSelectorArgumentsAsWhatReturns) NSArray*     (^objPerformSelectorsWithArgs_linkToReturnValues)(SEL sel0 , NSArray* args0 , ...)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformsSelectorArgumentsAsWhatReturns");
 
 @property LB_BKG(objPerformSelectorArgument) NSObject*    (^objPerformSelectorWithArg)(SEL sel,id arg)
@@ -403,17 +400,17 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformSelectorArgument");
 NS_DEPRECATED_IOS(2_0, 2_0, "use objPerformsSelectorArguments");
 
 #pragma mark - 2018.10
-@property LB_BK NSObject*     (^strSetToTxtField_linkTo)(id txtField)
+@property LB_BKG(strSetToControlTextAsWhatSet)NSObject*(^strSetToTxtField_linkTo)(id txtField)
 NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlContentAsWhatSet");
-@property LB_BK NSObject*     (^strSetToTxtView_linkTo)(id txtView)
+@property LB_BKG(strSetToControlTextAsWhatSet) NSObject*(^strSetToTxtView_linkTo)(id txtView)
 NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlContentAsWhatSet");
-@property LB_BK NSObject*     (^strSetToBtn_linkTo)(id btn, NSUInteger state)
+@property LB_BKG(strSetToControlTextAsWhatSet) NSObject*(^strSetToBtn_linkTo)(id btn)
 NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlContentAsWhatSet");
-@property LB_BK NSObject*     (^strSetToLab_linkTo)(id lab)
-NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlContentAsWhatSet");
-@property LB_BK BOOL         (^viewIsSubviewTo)(UIView* view)
+@property LB_BKG(strSetToControlTextAsWhatSet) NSObject*(^strSetToLab_linkTo)(id lab)
+NS_DEPRECATED_IOS(2_0, 2_0, "strSetToControlTextAsWhatSet");
+@property LB_BKG(viewIsInView) BOOL         (^viewIsSubviewTo)(UIView* view)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to viewIsInView");
-@property LB_BK BOOL(^viewIsSuperviewTo)(UIView* view)
+@property LB_BKG(viewContainsView) BOOL(^viewIsSuperviewTo)(UIView* view)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to viewContainsView");
 
 
@@ -444,7 +441,7 @@ NS_DEPRECATED_IOS(2_0, 2_0, "fixed to arrContains");
 NS_DEPRECATED_IOS(2_0, 2_0, "fixed to arrContainsAs");
 
 @property LB_BKG(arrAddToArrAsWhatSet) NSMutableArray*(^arrAddToArr)(NSMutableArray* arr)
-NS_DEPRECATED_IOS(2_0, 2_0, "add new suffix:AsWhatSet");
+NS_DEPRECATED_IOS(2_0, 2_0, "arrAddToArrAsWhatSet");
 
 @property LB_BKG(arrContainsIndex) BOOL(^arrContainIndex)(NSUInteger idx)
 NS_DEPRECATED_IOS(2_0, 2_0, "use arrContainsIndex");
@@ -549,13 +546,9 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BKG(img_viewImageWithName) UIImageView*(^img_viewImageStr)(NSString* imageStr)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to img_viewImageWithName");
 
-@property LB_BKG(imgSetToContainerAsWhatSet) UIImageView*(^imgSetToImageViewAsWhatSet)(UIImageView* imgView)
-NS_DEPRECATED_IOS(2_0, 2_0, "use imgSetToContainerAsWhatSet");
+@property LB_BKG(imgSetToControlAsWhatSet) UIImageView*(^imgSetToImageViewAsWhatSet)(UIImageView* imgView)
+NS_DEPRECATED_IOS(2_0, 2_0, "imgSetToImageViewAsWhatSet");
 
-@property LB_BK UIButton*(^imgSetToButtonAsBGImageAsWhatSet)(UIButton* btn,UIControlState state)
-NS_DEPRECATED_IOS(2_0, 2_0, "use imgSetToContainerAsWhatSet");
-@property LB_BK UIButton*(^imgSetToButtonAsWhatSet)(UIButton* btn,UIControlState state)
-NS_DEPRECATED_IOS(2_0, 2_0, "use imgSetToContainerAsWhatSet");
 
 
 @property LB_BKG(colorSetToUIBackground) UIColor*(^colorSetToViewBG)(id obj)
@@ -602,8 +595,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use linkPush");
 @property LB_BK NSObject*      (^linkOut)(NSUInteger idx)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
-@property LB_BK NSObject*      (^linkAt)(NSUInteger idx)
-NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_FN NSObject*      linkFirstObj
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_FN NSObject*      linkLastObj
@@ -710,6 +701,29 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 - (NSObject*)linkLoopIn:(NSUInteger)count block:(void(^)(NSObject* link, NSUInteger index))block
 NS_DEPRECATED_IOS(2_0, 2_0, "use linkForLoop(@,@?) instead");
 
-
+@property LB_BK UIView*      (^viewCopyX)(UIView* fromView)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewCopyY)(UIView* fromView)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewCopyFrame)(UIView* fromView)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewCopySize)(UIView* fromView)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewCopyOrigin)(UIView* fromView)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewCopyCenter)(UIView* fromView)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewCopyCenterX)(UIView* fromView)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewCopyCenterY)(UIView* fromView)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewTopTo)(UIView* toView, CGFloat margin)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewLeftTo)(UIView* toView, CGFloat margin)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK UIView*      (^viewRightTo)(UIView* toView, CGFloat margin)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @end
 

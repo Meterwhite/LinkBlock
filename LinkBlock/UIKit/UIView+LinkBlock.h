@@ -103,7 +103,7 @@
 
 
 
-#pragma mark - Foundation Extend/多则
+#pragma mark - Foundation Extend/补充
 @property LB_BK UIView*      (^viewAddSubviews)(UIView* v0,...);
 @property LB_BK UIView*      (^viewAddToView)(__weak UIView* view);
 @property LB_BK UIView*      (^viewRemoveAllSubview)(void);
@@ -219,32 +219,16 @@ NS_DEPRECATED_IOS(2_0, 7_0, "ios more than 7.0 effective");
 /** Resume animate after pause /恢复暂停的动画 */
 @property LB_BK UIView*      (^viewAnimateResume)(void);
 
-
-#pragma mark - copy position 参考布局
-@property LB_BK UIView*      (^viewCopyX)(UIView* fromView);
-@property LB_BK UIView*      (^viewCopyY)(UIView* fromView);
-@property LB_BK UIView*      (^viewCopyFrame)(UIView* fromView);
-@property LB_BK UIView*      (^viewCopySize)(UIView* fromView);
-@property LB_BK UIView*      (^viewCopyOrigin)(UIView* fromView);
-@property LB_BK UIView*      (^viewCopyCenter)(UIView* fromView);
-@property LB_BK UIView*      (^viewCopyCenterX)(UIView* fromView);
-@property LB_BK UIView*      (^viewCopyCenterY)(UIView* fromView);
-@property LB_BK UIView*      (^viewTopTo)(UIView* toView, CGFloat margin);
-@property LB_BK UIView*      (^viewLeftTo)(UIView* toView, CGFloat margin);
-@property LB_BK UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin);
-@property LB_BK UIView*      (^viewRightTo)(UIView* toView, CGFloat margin);
-
-
 #pragma mark - Autolayout 自动布局
 /**
  *  remove constraint from current view and superview
  *  移除当前视图约束以及父视图中的相关约束
  */
 @property LB_BK UIView*      (^viewRemoveConstraints)(void);
-/** set or modify constraint */
+/** Craete or modify constraint value */
 @property LB_BK UIView*      (^viewConstraintWidth)(CGFloat value);
 @property LB_BK UIView*      (^viewConstraintHeight)(CGFloat value);
-/** modify constraint */
+/** Only modify constraint value,if it exsist */
 @property LB_BK UIView*      (^viewConstraintTop)(CGFloat value);
 @property LB_BK UIView*      (^viewConstraintBottom)(CGFloat value);
 @property LB_BK UIView*      (^viewConstraintLeading)(CGFloat value);

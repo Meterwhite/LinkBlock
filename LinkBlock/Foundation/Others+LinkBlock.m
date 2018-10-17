@@ -14,12 +14,6 @@
 - (NSUInteger (^)(void))strLength
 {return ^(){return self.asNSString.length;};}
 
-- (BOOL (^)(NSString *))strIsContain
-{return self.strContains;}
-
-- (BOOL (^)(id))arrIsContainer
-{return self.arrContains;}
-
 - (NSArray *(^)(__unsafe_unretained Class))arrValuesOfType
 {
     return ^id(__unsafe_unretained Class typeClass){
@@ -46,52 +40,6 @@
     return _self;
 }
 
-- (BOOL (^)(void))strIsContainEmoji
-{return self.strContainsEmoji;}
-
-- (NSNumber *(^)(void))strIsContainEmoji_n
-{return self.strContainsEmojiAs;}
-- (UIImage *(^)(UIImage *, CGRect))attr_strDrawImgRect
-{return self.attr_strDrawImgRect;}
-- (NSMutableArray *(^)(NSMutableArray *))arrAddTo
-{return self.arrAddToArrAsWhatSet;}
-
-- (id (^)(NSString *))valueForKeySafe
-{return self.objValueForKey;}
-
-- (NSObject *(^)(id ,NSString* ))setValueForKeySafe
-{return self.objSetValueForKey;}
-
-- (id (^)(NSString *))valueForKeyPathSafe
-{return self.objValueForKeyPath;}
-
-- (NSObject *(^)(id ,NSString* ))setValueForKeyPathSafe
-{return self.objSetValueForKeyPath;}
-
-- (BOOL (^)( __unsafe_unretained Class))isKindOf
-{return self.objIsKindOf;}
-
-- (NSNumber *(^)(__unsafe_unretained Class))isKindOf_n
-{return self.objIsKindOfAs;}
-
-- (BOOL (^)(__unsafe_unretained Class))isSubClassOf
-{return self.objIsSubClassOf;}
-
-- (NSNumber *(^)(__unsafe_unretained Class))isSubClassOf_n
-{return self.objIsSubClassOfAs;}
-
-- (BOOL (^)(SEL))isRespondsSEL
-{return self.objIsRespondsSEL;}
-
-- (NSNumber *(^)(SEL))isRespondsSEL_n
-{return self.objIsRespondsSELAs;}
-
-- (NSString *(^)(void))className
-{return self.objClassName;}
-
-- (NSString *(^)(void))superclassName
-{return self.objSuperclassName;}
-
 - (NSObject *(^)(id*))setTo
 {return self.objSetTo;}
 
@@ -104,19 +52,6 @@
         return _self;
     };
 }
-
-
-- (id (^)(NSString *))valueForKey
-{return self.objValueForKey;}
-
-- (NSObject *(^)(id, NSString* ))setValueForKey
-{return self.objSetValueForKey;}
-
-- (id (^)(NSString *))valueForKeyPath
-{return self.objValueForKeyPath;}
-
-- (NSObject *(^)(id , NSString* ))setValueForKeyPath
-{return self.objSetValueForKeyPath;}
 
 - (NSObject *(^)(void))objValueRandom
 {return self.objValuesRandom;}
@@ -202,9 +137,6 @@
 }
 
 
-- (UIView *(^)(BOOL))viewMasksToBounds
-{return self.viewClipsToBounds;}
-
 - (NSObject *(^)(NSString *))nslogTitle
 {
     return ^id(NSString* title){
@@ -224,15 +156,6 @@
         return self;
     };
 }
-
-- (NSInteger (^)(CGFloat, NSDictionary<NSAttributedStringKey,id> *))strLinesCountAboutView
-{return self.strUILinesCount;}
-
-- (NSString *(^)(NSInteger, CGFloat, NSDictionary<NSAttributedStringKey,id> *))strSubToLineAboutView
-{return self.strSubToUILine;}
-
-- (NSRange (^)(NSUInteger, CGFloat, NSString *, NSDictionary<NSAttributedStringKey,id> *, BOOL *))strSubRangeToMaxLineIfAppendStrAboutView
-{return self.strSubRangeToMaxUILineIfAppendStr;}
 
 - (void *(^)(void))numValue
 {return ^void*(void){return nil;};}
@@ -268,38 +191,6 @@
         return _self;
     };
 }
-- (NSString *(^)(id))strAppendObj
-{return self.strAppend;}
-
-- (UIView *(^)(CGRect))viewSetFrameOfCGRect
-{return self.viewSetFrameVal;}
-
-- (UIView *(^)(CGPoint))viewSetOriginOfCGPoint
-{return self.viewSetOriginVal;}
-
-- (UIView *(^)(CGPoint))viewSetCenterOfCGPoint
-{return self.viewSetCenterVal;}
-
-- (UIView *(^)(CGSize))viewSetSizeOfCGSize
-{return self.viewSetSizeVal;}
-
-- (UIView *(^)(UIView *, BOOL))viewConvertSuperverTo
-{return self.viewConvertSuperviewTo;}
-
-- (NSMutableArray *(^)(__unsafe_unretained Class))viewFindSubviews
-{return self.viewFindSubviewsOfClass;}
-
-- (NSMutableString *(^)(NSString *))m_strAppenStr
-{return self.m_strAppend;}
-
-- (BOOL (^)(void))objIsMutableType
-{return self.objIsMutable;}
-
-- (NSMutableString *(^)(NSString *, NSString *))m_strReplaceStr
-{return self.m_strReplace;}
-
-- (NSObject *(^)(void))objMutableCopyDeep
-{return self.objMutableCopyEnumerate;}
 
 - (NSObject *(^)(void))objValuesRandom
 {
@@ -387,8 +278,6 @@
         return _self;
     };
 }
-- (NSObject *(^)(void))objValuesClean
-{return self.objSetAllValuesBlank;}
 
 - (NSObject* (^)(__unsafe_unretained Class))objMustType
 {
@@ -427,33 +316,6 @@
     };
 }
 
-- (NSObject *(^)(NSArray *))objBeforeInArr
-{return self.objGetPrevItemFromObjs;}
-- (NSObject *(^)(NSArray *))objNextInArr
-{return self.objGetNextItemFromObjs;}
-
-- (BOOL (^)(id))objIsInArr
-{return self.objIsSubitemOfObjs;}
-- (NSNumber *(^)(id))objIsInArr_n
-{return self.objIsSubitemOfObjsAs;}
-
-- (BOOL (^)(id))objIsInDictValues
-{return self.objIsSubitemOfObjs;}
-- (NSNumber *(^)(id))objIsInDictValues_n
-{return self.objIsSubitemOfObjsAs;}
-
-- (BOOL (^)(id))objIsInDictKeys
-{return self.objIsKeyOfObjs;}
-- (NSNumber *(^)(id))objIsInDictKeys_n
-{return self.objIsKeyOfObjsAs;}
-- (NSObject *(^)(id))objSetValueForKey_delegate
-{return self.objSetValueForKdelegate;}
-- (NSObject *(^)(id))objSetValueForKey_dataSource
-{return self.objSetValueForKdataSource;}
--(NSObject *(^)(id))objSetValueForKey_text
-{return self.objSetValueForKtext;}
-
-
 - (NSObject *(^)(NSMutableDictionary *, id<NSCopying>))objSetToDict
 {
     return ^id(NSMutableDictionary* dict, id<NSCopying> key){
@@ -464,171 +326,7 @@
     };
 }
 
-- (NSString *(^)(void))dateAstrology
-{return self.dateToStrAstrologyzh_CN;}
-
-#ifndef ChangeNameForN_VOID
-#define ChangeNameForN_VOID(FuncName) \
-- (NSNumber *(^)(void))FuncName##_n\
-{\
-return self.FuncName##As;\
-}
-#endif
-
-ChangeNameForN_VOID(dateTimeIntervalSince1970)
-ChangeNameForN_VOID(dateYear)
-ChangeNameForN_VOID(dateMonth)
-ChangeNameForN_VOID(dateDay)
-ChangeNameForN_VOID(dateHour)
-ChangeNameForN_VOID(dateMinut)
-ChangeNameForN_VOID(dateSec)
-ChangeNameForN_VOID(dateIsLeapYear)
-ChangeNameForN_VOID(dateIsInToday)
-ChangeNameForN_VOID(dateIsInMonth)
-ChangeNameForN_VOID(numHasDecimalValue)
-ChangeNameForN_VOID(numIsOdd)
-ChangeNameForN_VOID(numIsEven)
-ChangeNameForN_VOID(numIsNegative)
-ChangeNameForN_VOID(numIsZero)
-ChangeNameForN_VOID(objIsNSNull)
-ChangeNameForN_VOID(strIsBlank)
-ChangeNameForN_VOID(strIsEmoji)
-ChangeNameForN_VOID(strLength)
-ChangeNameForN_VOID(strIsNumber)
-ChangeNameForN_VOID(strPathFileExists)
-
-#ifndef ChangeNameForN_ONE
-#define ChangeNameForN_ONE(FuncName) \
-- (NSNumber *(^)(id obj))FuncName##_n\
-{\
-return self.FuncName##As;\
-}
-#endif
-
-ChangeNameForN_ONE(arrContain)
-ChangeNameForN_ONE(arrIndexOfObj)
-ChangeNameForN_ONE(attr_strIsEqualToAttrStr)
-ChangeNameForN_ONE(dictGetBOOL)
-ChangeNameForN_ONE(numIsEqualToNum)
-ChangeNameForN_ONE(numIsGreatThanNum)
-ChangeNameForN_ONE(numIsGreatEqualNum)
-ChangeNameForN_ONE(numIsLessThanNum)
-ChangeNameForN_ONE(numIsLessEqualNum)
-ChangeNameForN_ONE(objIsEqual)
-ChangeNameForN_ONE(objIsEqualToEachInArray)
-ChangeNameForN_ONE(objIsEqualToSomeoneInArray)
-ChangeNameForN_ONE(strIsEqualStr)
-ChangeNameForN_ONE(strHasPrefix)
-ChangeNameForN_ONE(strHasSuffix)
-ChangeNameForN_ONE(strRegexIsMatch)
-ChangeNameForN_ONE(strPredicateEvaluate)
-
-- (NSValue *(^)(id))strSizeWithFont_n
-{return self.strSizeWithFontAs;}
-- (NSNumber *(^)(NSString *, id))arrKeyValueContain_n
-{return self.arrContainsKeyValueAs;}
-- (NSValue *(^)(CGFloat, NSStringDrawingOptions))attr_strSizeWithOptions_n
-{return self.attr_strSizeWithOptionsAs;}
-- (NSNumber *(^)(NSUInteger))arrContainIndex_n
-{return self.arrContainsIndexAs;}
-- (NSValue *(^)(CGFloat))attr_strSize_n
-{return self.attr_strSizeAs;}
-- (NSNumber *(^)(__unsafe_unretained Class))objIsKindOf_n
-{return self.objIsKindOfAs;}
-- (NSNumber *(^)(__unsafe_unretained Class))objIsSubClassOf_n
-{return self.objIsSubClassOfAs;}
-- (NSNumber *(^)(__unsafe_unretained Class))objIsMemberOfClass_n
-{return self.objIsMemberOfClassAs;}
-- (NSNumber *(^)(SEL))objIsRespondsSEL_n
-{return self.objIsRespondsSELAs;}
-- (NSNumber *(^)(id, ...))objIsEqualToEach_n
-{return self.objIsEqualToEachAs;}
-- (NSNumber *(^)(id, ...))objIsEqualToSomeone_n
-{return self.objIsEqualToSomeoneAs;}
-- (NSNumber *(^)(NSRange))strIszh_CNInRange_n
-{return self.strIszh_CNInRangeAs;}
-- (NSValue *(^)(UIFont *, CGFloat))strSizeWithFontAndMaxWidth_n
-{return self.strSizeWithFontAndMaxWidthAs;}
-- (NSValue *(^)(UIFont *, CGSize))strSizeWithFontAndMaxSize_n
-{return self.strSizeWithFontAndMaxSizeAs;}
-
-#pragma mark - _link_ one
-
-#ifndef ChangeNameForLink_ONE
-#define ChangeNameForLink_ONE(FuncName) \
-- (NSObject *(^)(id obj))FuncName##_linkTo\
-{\
-return self.FuncName##AsWhatSet;\
-}
-#endif
-
-ChangeNameForLink_ONE(objAddTo)
-ChangeNameForLink_ONE(objRemoveFrom)
-
-- (NSObject *(^)(id, NSUInteger))objInsertTo_linkTo
-{return self.objInsertToAsWhatSet;}
-- (NSObject *(^)(id, NSUInteger))imgSetToBtnBGImg_linkTo
-{return self.imgSetToButtonAsWhatSet;}
-- (NSObject *(^)(id, NSUInteger))strSetToBtn_linkTo
-{return (id)self.strSetToControlTextAsWhatSet;}
-- (NSObject *(^)(id, NSUInteger))imgSetToBtn_linkTo
-{return self.imgSetToButtonAsWhatSet;}
-- (NSObject *(^)(id))strSetToTxtField_linkTo
-{return (id)self.strSetToControlTextAsWhatSet;}
-- (NSObject *(^)(id))strSetToTxtView_linkTo
-{return (id)self.strSetToControlTextAsWhatSet;}
-- (NSObject *(^)(id))imgSetToImgView_linkTo
-{return self.imgSetToImageViewAsWhatSet;}
-- (NSObject *(^)(id))strSetToLab_linkTo
-{return (id)self.strSetToControlTextAsWhatSet;}
-- (NSObject *(^)(void))strPathUnarchiveObject_linkTo
-{return self.strPathUnarchiveObjectAsWhatReturn;}
-- (NSObject *(^)(id, CGRect))attr_strDrawToImg_linkTo
-{return self.attr_strDrawToImageAsWhatSet;}
-- (NSObject *(^)(SEL))objPerformSelector_linkToReturnValue
-{return self.objPerformSelectorAsWhatReturn;}
-- (NSObject *(^)(SEL, id))objPerformSelectorWithArg_linkToReturnValue
-{return self.objPerformSelectorArgumentAsWhatReturn;}
-- (NSArray *(^)(SEL, ...))objPerformSelectors_linkToReturnValues
-{return self.objPerformSelectorsAsWhatReturns;}
-- (NSArray *(^)(SEL, NSArray *, ...))objPerformSelectorsWithArgs_linkToReturnValues
-{return self.objPerformsSelectorArgumentsAsWhatReturns;}
-
-- (BOOL (^)(id<NSCopying>))dictContaineKey
-{return self.dictContainsKey;}
-- (BOOL (^)(id))dictContaineValue
-{return self.dictContainsValue;}
-- (NSNumber *(^)(id))dictContaineKey_n
-{return self.dictContainsKeyAs;}
-- (NSNumber *(^)(id))dictContaineValue_n
-{return self.dictContainsValueAs;}
-
-#ifndef ChangeNameAppend_As
-#define ChangeNameAppend_As(FuncName) \
-- (NSNumber* (^)(void))FuncName\
-{\
-return self.FuncName##As;\
-}
-#endif
-
-ChangeNameAppend_As(objIsKindOfNSString)
-ChangeNameAppend_As(objIsKindOfNSArray)
-ChangeNameAppend_As(objIsKindOfNSDictionary)
-ChangeNameAppend_As(objIsKindOfUIView)
-ChangeNameAppend_As(objIsKindOfNSValue)
-ChangeNameAppend_As(objIsKindOfNSNumber)
-
 #pragma mark - 2018.10
-- (BOOL (^)(UIView *))viewIsSubviewTo
-{return self.viewIsInView;}
--(BOOL (^)(UIView *))viewIsSuperviewTo
-{return self.viewContainsView;}
-
-
-- (NSNumber *(^)(void))strContainzh_CN_n
-{return self.strContainszh_CNAs;}
-- (BOOL (^)(NSString *))strContain
-{return self.strContains;}
 
 - (NSArray *(^)(id, NSString *))arrSetValueForKey
 {
@@ -730,9 +428,9 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
     };
 }
 
-- (NSNumber* (^)(id<NSCopying>))dictGetBOOLAs
+- (NSNumber* (^)(id))dictGetBOOLAs
 {
-    return ^id(id<NSCopying> key){
+    return ^id(id key){
         LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictGetBOOLAs,key)
         if(_self[key] && ![_self[key] isKindOfClass:[NSNull class]]){//@(0),@"1",...
@@ -778,32 +476,12 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
     };
 }
 
--(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsWhatSet
-{
-    return ^id(UIButton* btn,UIControlState state){
-        LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToButtonAsWhatSet,btn,state)
-        [btn setImage:_self forState:state];
-        return linkObj(btn);
-    };
-}
-
--(UIButton *(^)(UIButton *,UIControlState))imgSetToButtonAsBGImageAsWhatSet
-{
-    return ^id(UIButton* btn,UIControlState state){
-        LinkHandle_REF(UIImage)
-        LinkGroupHandle_REF(imgSetToButtonAsBGImageAsWhatSet,btn,state)
-        [btn setImage:_self forState:state];
-        return linkObj(btn);
-    };
-}
 - (NSTimeInterval (^)(void))dateTimeIntervalSince1970
 {
     return ^NSTimeInterval(){
         return [(id)self timeIntervalSince1970];
     };
 }
-
 
 - (BOOL (^)(id))strPredicateEvaluate
 {
@@ -881,18 +559,7 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
         }
     };
 }
-- (NSObject *(^)(NSUInteger))linkAt
-{
-    return ^id(NSUInteger idx){
-        LinkHandle_REF(NSObject)
-        if([_self isKindOfClass:[LinkGroup class]]){
-            
-            if(idx>self.thisLinkObjs.linkObjects.count-1) return self;
-            return self.thisLinkObjs.linkObjects[idx];
-        }
-        return _self;
-    };
-}
+
 
 - (NSObject *)linkFirstObj
 {
@@ -1027,6 +694,148 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
         block(_self , i);
     
     return _self;
+}
+
+- (UIView *(^)(UIView *))viewCopyX
+{
+    return ^id(UIView* fromView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewCopyX,fromView)
+        CGRect frame = _self.frame;
+        frame.origin.x = fromView.frame.origin.x;
+        _self.frame= fromView.frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *))viewCopyY
+{
+    return ^id(UIView* fromView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewCopyY,fromView)
+        CGRect frame = _self.frame;
+        frame.origin.y = fromView.frame.origin.y;
+        _self.frame= fromView.frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *))viewCopyFrame
+{
+    return ^id(UIView* fromView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewCopyFrame,fromView)
+        _self.frame= fromView.frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *))viewCopySize
+{
+    return ^id(UIView* fromView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewCopySize,fromView)
+        CGRect frame = _self.frame;
+        frame.size= fromView.frame.size;
+        _self.frame = frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *))viewCopyOrigin
+{
+    return ^id(UIView* fromView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewCopyOrigin,fromView)
+        CGRect frame = _self.frame;
+        frame.origin= fromView.frame.origin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *))viewCopyCenter
+{
+    return ^id(UIView* fromView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewCopyCenter,fromView)
+        _self.center = fromView.center;
+        return _self;
+    };
+}
+
+
+
+- (UIView *(^)(UIView *))viewCopyCenterX
+{
+    return ^id(UIView* fromView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewCopyCenterX,fromView)
+        CGPoint center = _self.center;
+        center.x= fromView.center.x;
+        _self.center = center;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *))viewCopyCenterY
+{
+    return ^id(UIView* fromView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewCopyCenterY,fromView)
+        CGPoint center = _self.center;
+        center.y= fromView.center.y;
+        _self.center = center;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *, CGFloat))viewTopTo
+{
+    return ^id(UIView* toView, CGFloat margin){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewTopTo,toView,margin)
+        CGRect frame = _self.frame;
+        frame.origin.y = toView.viewMaxY()+ margin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *, CGFloat))viewBottomTo
+{
+    return ^id(UIView* toView, CGFloat margin){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewBottomTo,toView,margin)
+        CGRect frame = _self.frame;
+        frame.origin.y = toView.frame.origin.y - margin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *, CGFloat))viewLeftTo
+{
+    return ^id(UIView* toView, CGFloat margin){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewLeftTo,toView,margin)
+        CGRect frame = _self.frame;
+        frame.origin.x = toView.frame.origin.x - frame.size.width- margin;
+        _self.frame = frame;
+        return _self;
+    };
+}
+
+- (UIView *(^)(UIView *, CGFloat))viewRightTo
+{
+    return ^id(UIView* toView, CGFloat margin){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewRightTo,toView,margin)
+        CGRect frame = _self.frame;
+        frame.origin.x = toView.viewMaxX() + margin;
+        _self.frame = frame;
+        return _self;
+    };
 }
 
 @end
