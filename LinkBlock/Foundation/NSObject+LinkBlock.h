@@ -383,11 +383,11 @@
 
 
 
-#pragma mark - Block
+#pragma mark - NSBlock
 @property LB_BK NSUInteger    (^blockArgsCount)(void);
 @property LB_BK const char *  (^blockReturnType)(void);
 
-#pragma mark - Class
+#pragma mark - NSClass
 /** Determine if is Foundation type */
 + (BOOL)classIsFoundation;
 + (BOOL)classContainProperty:(NSString*)property;
@@ -409,7 +409,7 @@
 + (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block includeFoundation:(BOOL)includeFoundation;
 
 
-#pragma mark - Link
+#pragma mark - Link control
 @property LB_FN id             linkEnd;
 @property LB_FN NSArray*       linkEnds;
 @property LB_BK id             (^linkEndsAt)(NSUInteger idx);
@@ -417,18 +417,20 @@
 @property LB_BK NSObject*      (^linkPush)(id obj);
 @property LB_BK NSObject*      (^linkPop)(void);
 @property LB_BK NSObject*      (^linkSelect)(NSString* predicate,...);
-@property LB_BK NSObject*      (^linkLoop)(NSUInteger count);
+
+@property LB_BK NSObject*      (^linkLoop)(NSUInteger count,void(^)(NSObject* linkObj,NSUInteger idx));
 
 @property LB_BK NSObject*      (^linkIf)(BOOL condition);
 @property LB_FN NSObject*      linkElse;
 @property LB_FN NSObject*      linkReturn;
 
 #pragma mrak - Link Punctuate/断句
-
 /**
+ *******************
  Link Punctuate
  This is a comment used to punctuate linkBlock when linkBlock state has changed.
  Link Punctuate will do noting, it just return self.
+ *******************
 */
 
 /**
@@ -474,68 +476,53 @@
 @property LB_FN NSValue*       aCGPointValue;
 @property LB_FN NSValue*       aNSRangeValue;
 
-
-
-- (NSObject*)linkInBlock:(void(^)(NSObject* link))block;
-- (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block;
-- (NSObject*)linkAsy_global_queue:(void(^)(NSObject* link))block;
-
-/**
- Perform the specified number of times to link/重复执行
- */
-- (NSObject*)linkLoopIn:(NSUInteger)count block:(void(^)(NSObject* link, NSUInteger index))block;
-- (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block;
-
-
-/** Do not change next link */
-- (NSObject*)linkFrom:(NSUInteger)fromIndex
-                   to:(NSUInteger)toIndex
-                block:(void(^)(NSUInteger idx , NSObject* obj))block;
-
-/** Do not change next link */
-- (NSObject*)linkAt:(NSUInteger)idx
-              block:(void(^)(NSObject* obj))block;
-
-
 #pragma mark - DynamicLink/脚本解析
 /**
  End with "nil,NSNotFond" in linkBlock for structures
  */
 @property LB_BK NSObject*  (^linkEvalCode)(NSString* code , ...);
 
-//MARK: force type declaration/强制类型声明
--                  (NSString*)                  asNSString;
--                  (NSMutableString*)           asNSMutableString;
--                  (NSArray*)                   asNSArray;
--                  (NSMutableArray*)            asNSMutableArray;
--                  (NSDictionary*)              asNSDictionary;
--                  (NSMutableDictionary*)       asNSMutableDictionary;
--                  (NSAttributedString*)        asNSAttributedString;
--                  (NSMutableAttributedString*) asNSMutableAttributedString;
--                  (NSURL*)                     asNSURL;
--                  (NSUserDefaults*)            asNSUserDefaults;
--                  (NSNumber*)                  asNSNumber;
--                  (NSValue*)                   asNSValue;
--                  (NSDate*)                    asNSDate;
--                  (NSData*)                    asNSData;
--                  (NSSet*)                     asNSSet;
--                  (NSMutableSet*)              asNSMutableSet;
--                  (NSCalendar*)                asNSCalendar;
--                  (UIView*)                    asUIView;
--                  (UIImage*)                   asUIImage;
--                  (UILabel*)                   asUILabel;
--                  (UIControl*)                 asUIControl;
--                  (UIButton*)                  asUIButton;
--                  (UIScrollView*)              asUIScrollView;
--                  (UIImageView*)               asUIImageView;
--                  (UITableView*)               asUITableView;
--                  (UIColor*)                   asUIColor;
--                  (UIViewController*)          asUIViewController;
--                  (UITextField*)               asUITextField;
--                  (UITextView*)                asUITextView;
--                  (UIWebView*)                 asUIWebView;
--                  (CALayer*)                   asCALayer;
+#pragma mark - Force type declaration/强制类型声明
+///MARK: Force type declaration will do noting
+- (NSString*)                  asNSString;
+- (NSMutableString*)           asNSMutableString;
+- (NSArray*)                   asNSArray;
+- (NSMutableArray*)            asNSMutableArray;
+- (NSDictionary*)              asNSDictionary;
+- (NSMutableDictionary*)       asNSMutableDictionary;
+- (NSAttributedString*)        asNSAttributedString;
+- (NSMutableAttributedString*) asNSMutableAttributedString;
+- (NSURL*)                     asNSURL;
+- (NSUserDefaults*)            asNSUserDefaults;
+- (NSNumber*)                  asNSNumber;
+- (NSValue*)                   asNSValue;
+- (NSDate*)                    asNSDate;
+- (NSData*)                    asNSData;
+- (NSSet*)                     asNSSet;
+- (NSMutableSet*)              asNSMutableSet;
+- (NSCalendar*)                asNSCalendar;
+- (NSOrderedSet*)              asNSOrderedSet;
+- (NSMutableOrderedSet*)       asNSMutableOrderedSet;
+- (NSHashTable*)               asNSHashTable;
+- (NSMapTable*)                asNSMapTable;
+- (NSIndexPath*)               asNSIndexPath;
+- (NSIndexSet*)                asNSIndexSet;
 
+- (UIView*)                    asUIView;
+- (UIImage*)                   asUIImage;
+- (UILabel*)                   asUILabel;
+- (UIControl*)                 asUIControl;
+- (UIButton*)                  asUIButton;
+- (UIScrollView*)              asUIScrollView;
+- (UIImageView*)               asUIImageView;
+- (UITableView*)               asUITableView;
+- (UIColor*)                   asUIColor;
+- (UIViewController*)          asUIViewController;
+- (UITextField*)               asUITextField;
+- (UITextView*)                asUITextView;
+- (UIWebView*)                 asUIWebView;
+
+- (CALayer*)                   asCALayer;
 
 @end
 

@@ -755,7 +755,7 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
         LinkHandle_REF(NSDictionary)
         LinkGroupHandle_REF(dictGetNoNSNull,key)
         if(!_self[key] || [_self[key] isKindOfClass:[NSNull class]] ){
-            return nil;
+            return NSNull.null;
         }
         return _self[key];
     };
@@ -886,15 +886,9 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
     return ^id(NSUInteger idx){
         LinkHandle_REF(NSObject)
         if([_self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (id)_self;
-            if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                if(idx > count-1) return group;
-                return group.linkObjects[idx];
-            }else{
-                if(idx>group.linkObjects.count-1) return group;
-                return group.linkObjects[idx];
-            }
+            
+            if(idx>self.thisLinkObjs.linkObjects.count-1) return self;
+            return self.thisLinkObjs.linkObjects[idx];
         }
         return _self;
     };
@@ -904,14 +898,8 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
 {
     LinkHandle_REF(NSObject)
     if([_self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (id)_self;
-        if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-            NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-            if(!count) return group;
-            return group.linkObjects.firstObject;
-        }else{
-            return group.linkObjects.firstObject;
-        }
+        
+        return self.thisLinkObjs.linkObjects.firstObject;
     }
     return _self;
 }
@@ -920,14 +908,8 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
 {
     LinkHandle_REF(NSObject)
     if([_self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (id)_self;
-        if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-            NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-            if(!count) return group;
-            return group.linkObjects.lastObject;
-        }else{
-            return group.linkObjects.lastObject;
-        }
+        
+       return self.thisLinkObjs.linkObjects.lastObject;
     }
     return _self;
 }
@@ -936,18 +918,10 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
     return ^id(NSUInteger idx){
         LinkHandle_REF(NSObject)
         if([_self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (id)_self;
-            if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                if(idx > count-1) return group;
-                group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(count-1);
-                id forOut = group.linkObjects[idx];
-                [group.linkObjects removeObject:forOut];
-            }else{
-                if(idx>group.linkObjects.count-1) return group;
-                [group.linkObjects removeObjectAtIndex:idx];
-            }
-            return group;
+            
+            if(idx>self.thisLinkObjs.linkObjects.count-1) return self;
+            [self.thisLinkObjs.linkObjects removeObjectAtIndex:idx];
+            return self;
         }
         return _self;
     };
@@ -979,4 +953,80 @@ ChangeNameAppend_As(objIsKindOfNSNumber)
         return _self;
     };
 }
+
+- (NSObject *)linkFrom:(NSUInteger)from to:(NSUInteger)to block:(void (^)(NSUInteger, NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    if([self isKindOfClass:[LinkGroup class]]){
+        LinkGroup* group = self.thisLinkObjs;
+        [group.linkObjects.arrObjsFromIndexTo(from,to) enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(block){
+                block(idx,obj);
+            }
+        }];
+    }
+    return self;
+}
+
+- (NSObject *)linkAt:(NSUInteger)idx block:(void (^)(NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    if([self isKindOfClass:[LinkGroup class]]){
+        if(block){
+            LinkGroup* group = self.thisLinkObjs;
+            if(idx<group.linkObjects.count-1){
+                block(group.linkObjects[idx]);
+            }
+        }
+    }
+    return self;
+}
+
+- (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block
+{
+    LinkHandle_REF(NSObject)
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if(block)   block(_self);
+    });
+    return _self;
+}
+
+- (NSObject *)linkAsy_main_queue:(void (^)(NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(block)   block(_self);
+    });
+    return _self;
+}
+
+- (NSObject *)linkAsy_global_queue:(void (^)(NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        if(block)   block(_self);
+    });
+    return _self;
+}
+
+- (NSObject *)linkInBlock:(void (^)(NSObject *))block
+{
+    LinkHandle_REF(NSObject)
+    if(block)   block(_self);
+    return _self;
+}
+- (NSObject *)linkLoopIn:(NSUInteger)count block:(void (^)(NSObject *, NSUInteger))block
+{
+    LinkHandle_REF(NSObject)
+    
+    if(!block)
+        return _self;
+    
+    for (int i=0; i<count; i++)
+        block(_self , i);
+    
+    return _self;
+}
+
 @end

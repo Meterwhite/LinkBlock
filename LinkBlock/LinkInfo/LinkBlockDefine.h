@@ -72,7 +72,7 @@ if([self isKindOfClass:[LinkError class]] || (![self isKindOfClass:[currType cla
 #ifndef LinkGroupHandle_REF
 #define LinkGroupHandle_REF(blockName , ...)\
 if([self isKindOfClass:[LinkGroup class]]){\
-    LinkGroup* group = (LinkGroup*)self;\
+    LinkGroup* group = self.thisLinkObjs;\
     NSMutableArray* returnObjs = [NSMutableArray new];\
     for (int i=0; i<group.linkObjects.count; i++) {\
         id re = group.linkObjects[i].blockName(__VA_ARGS__);\
@@ -86,7 +86,7 @@ if([self isKindOfClass:[LinkGroup class]]){\
 #ifndef LinkGroupHandle_VAL
 #define LinkGroupHandle_VAL(blockName , ...) \
 if([self isKindOfClass:[LinkGroup class]]){\
-    LinkGroup* group = (LinkGroup*)self;\
+    LinkGroup* group = self.thisLinkObjs;\
     return [group.linkObjects firstObject].blockName(__VA_ARGS__);\
 }
 #endif

@@ -727,7 +727,7 @@ defineViewContentModeTail(BottomRight)
         //LinkGroupHandle_VAL
         if([self isKindOfClass:[LinkGroup class]]){
             
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* newObjs = [NSMutableArray new];
             [group.linkObjects enumerateObjectsUsingBlock:^(id view, NSUInteger idx, BOOL * _Nonnull stop) {
                 

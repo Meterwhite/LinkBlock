@@ -14,7 +14,7 @@
 {
     LinkHandle_REF(NSArray)
     if([self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (id)_self;
+        LinkGroup* group = _self.thisLinkObjs;
         LinkGroup* newGroup = [LinkGroup groupWithArr:group.linkObjects];
         newGroup.userInfo = [group.userInfo mutableCopy];
         newGroup.throwCount = group.throwCount;
@@ -252,7 +252,7 @@
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* returnObjs = [NSMutableArray new];
             
             va_list args;

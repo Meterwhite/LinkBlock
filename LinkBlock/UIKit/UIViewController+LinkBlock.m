@@ -89,4 +89,75 @@
         return _self;
     };
 }
+
++ (UIViewController*)_lb_currentViewController {
+    
+    // Find best view controller
+    UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    return [UIViewController _lb_findCurrentVCFrom:viewController];
+}
++(UIViewController*)_lb_findCurrentVCFrom:(UIViewController*)vc {
+    
+    if (vc.presentedViewController) {
+        
+        // Return presented view controller
+        return [UIViewController _lb_findCurrentVCFrom:vc.presentedViewController];
+        
+    } else if ([vc isKindOfClass:[UISplitViewController class]]) {
+        
+        // Return right hand side
+        UISplitViewController* svc = (UISplitViewController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [UIViewController _lb_findCurrentVCFrom:svc.viewControllers.lastObject];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+        
+        // Return top view
+        UINavigationController* svc = (UINavigationController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [UIViewController _lb_findCurrentVCFrom:svc.topViewController];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        
+        // Return visible view
+        UITabBarController* svc = (UITabBarController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [UIViewController _lb_findCurrentVCFrom:svc.selectedViewController];
+        else
+            return vc;
+        
+    } else {
+        
+        // Unknown view controller type, return last child view controller
+        return vc;
+    }
+}
+
+- (UIViewController *(^)(BOOL, void (^)(void)))vcpresentedFromCurrentController
+{
+    return ^id(BOOL animated,void(^completion)(void)){
+        
+        LinkHandle_REF(UIViewController)
+        LinkGroupHandle_REF(vcpresentedFromCurrentController,animated,completion)
+        
+        [[self.class _lb_currentViewController] presentViewController:_self animated:animated completion:completion];
+        return _self;
+    };
+}
+
+- (UIViewController *(^)(BOOL))vcPushedFromCurrentControllerNavigation
+{
+    return ^id(BOOL animated){
+        
+        LinkHandle_REF(UIViewController)
+        LinkGroupHandle_REF(vcPushedFromCurrentControllerNavigation,animated)
+        
+        [[self.class _lb_currentViewController].navigationController pushViewController:_self animated:animated];
+        return _self;
+    };
+}
 @end

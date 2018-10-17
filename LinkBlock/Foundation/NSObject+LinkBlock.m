@@ -22,7 +22,7 @@
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* returnObjs = [NSMutableArray new];
             va_list args;
             va_start(args, code);
@@ -1654,7 +1654,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_VAL
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             return [group.linkObjects firstObject].objIsEqualToEachInArray(objs);
         }
         //LinkGroupHandle_VAL
@@ -1683,7 +1683,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_VAL
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* newObjs = [NSMutableArray new];
             [group.linkObjects enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [newObjs addObject: @(obj.objIsEqualToEachInArray(objs))];
@@ -1773,7 +1773,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_VAL
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             return [group.linkObjects firstObject].objIsEqualToSomeoneInArray(objs);
         }
         //LinkGroupHandle_VAL
@@ -1800,7 +1800,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_VAL
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* newObjs = [NSMutableArray new];
             [group.linkObjects enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [newObjs addObject: @(obj.objIsEqualToSomeoneInArray(objs))];
@@ -2369,7 +2369,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* returnObjs = [NSMutableArray new];
             for (int i=0; i<group.linkObjects.count; i++) {
                 ret = [predicate evaluateWithObject:[group.linkObjects[i] valueForKeyPath:key]];
@@ -2402,7 +2402,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* returnObjs = [NSMutableArray new];
             for (int i=0; i<group.linkObjects.count; i++) {
                 ret = [predicate evaluateWithObject:group.linkObjects[i]];
@@ -2435,7 +2435,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_VAL
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (id)self;
+            LinkGroup* group = self.thisLinkObjs;
             _self = group.linkObjects.firstObject;
         }
         //LinkGroupHandle_VAL
@@ -2462,7 +2462,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_VAL
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (id)self;
+            LinkGroup* group = self.thisLinkObjs;
             _self = group.linkObjects.firstObject;
         }
         //LinkGroupHandle_VAL
@@ -2487,7 +2487,7 @@ DefineKindOfClassAs(NSNumber)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             for (int i=0; i<group.linkObjects.count; i++) {
                 
                 if([predicate evaluateWithObject:group.linkObjects[i]]){
@@ -2659,92 +2659,14 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject *)linkInBlock:(void (^)(NSObject *))block
-{
-    LinkHandle_REF(NSObject)
-    if(block)   block(_self);
-    return _self;
-}
-
-- (NSObject *)linkLoopIn:(NSUInteger)count block:(void (^)(NSObject *, NSUInteger))block
-{
-    LinkHandle_REF(NSObject)
-    for (int i=0; i<count; i++) {
-        if(block)   block(_self , i);
-    }
-    return _self;
-}
-
-- (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block
-{
-    LinkHandle_REF(NSObject)
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if(block)   block(_self);
-    });
-    return _self;
-}
-
-- (NSObject *)linkFrom:(NSUInteger)from to:(NSUInteger)to block:(void (^)(NSUInteger, NSObject *))block
-{
-    LinkHandle_REF(NSObject)
-    if([self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (LinkGroup*)self;
-        [group.linkObjects.arrObjsFromIndexTo(from,to) enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if(block){
-                block(idx,obj);
-            }
-        }];
-    }
-    return self;
-}
-
-- (NSObject *)linkAt:(NSUInteger)idx block:(void (^)(NSObject *))block
-{
-    LinkHandle_REF(NSObject)
-    if([self isKindOfClass:[LinkGroup class]]){
-        if(block){
-            LinkGroup* group = (id)self;
-            if(idx<group.linkObjects.count-1){
-                block(group.linkObjects[idx]);
-            }
-        }
-    }
-    return self;
-}
-
-- (NSObject *)linkAsy_main_queue:(void (^)(NSObject *))block
-{
-    LinkHandle_REF(NSObject)
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(block)   block(_self);
-    });
-    return _self;
-}
-
-- (NSObject *)linkAsy_global_queue:(void (^)(NSObject *))block
-{
-    LinkHandle_REF(NSObject)
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        if(block)   block(_self);
-    });
-    return _self;
-}
-
 - (NSObject *(^)(id))linkPush
 {
     return ^id(id obj){
         LinkHandle_REF(NSObject)
-        LinkGroup* group;
+        LinkGroup* group = self.thisLinkObjs;
         if([self isKindOfClass:[LinkGroup class]]){
             group = (id)_self;
-            if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(count+1);
-                [group.linkObjects insertObject:obj atIndex:count];
-            }else{
-                [group.linkObjects addObject:obj];
-            }
+            [group.linkObjects addObject:obj];
             return group;
         }
         group = [LinkGroup groupWithObjs:_self,obj,nil];
@@ -2758,16 +2680,9 @@ DefineKindOfClassAs(NSNumber)
     return ^id(){
         LinkHandle_REF(NSObject)
         if([_self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (id)_self;
-            if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                if(count<1) return group;
-                group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(count-1);
-                [group.linkObjects removeLastObject];
-            }else{
-                if(group.linkObjects.count<1) return group;
-                [group.linkObjects removeLastObject];
-            }
+            LinkGroup* group = self.thisLinkObjs;
+            if(!group.linkObjects.count) return group;
+            [group.linkObjects removeLastObject];
             return group;
         }
         return _self;
@@ -2779,7 +2694,7 @@ DefineKindOfClassAs(NSNumber)
     return ^id(NSString *predicateStr,...){
         
         LinkHandle_REF(NSObject)
-        LinkGroup* group;
+        LinkGroup* group = self.thisLinkObjs;
         if([_self isKindOfClass:[LinkGroup class]]){
             
             if(group.linkObjects.count) return self;
@@ -2794,28 +2709,26 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject *(^)(NSUInteger))linkLoop
+- (NSObject *(^)(NSUInteger, void (^)(NSObject *, NSUInteger)))linkLoop
 {
-    return ^id(NSUInteger count){
+    return ^id(NSUInteger count,void(^block)(NSObject* linkObj,NSUInteger idx)){
+        
         LinkHandle_REF(NSObject)
-        LinkGroup* group;
+        LinkGroup* group = self.thisLinkObjs;
         if([self isKindOfClass:[LinkGroup class]]){
             group = (id)_self;
-            group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(group.linkObjects.count);
-            NSArray* copyObjs = [group.linkObjects copy];
-            //复制链条
-            for (int i=0; i<count; i++) {
-                [group.linkObjects addObject:copyObjs];
-            }
+            [group.linkObjects enumerateObjectsUsingBlock:^(NSObject*linkObj, NSUInteger idx, BOOL* stop) {
+                for (int i=0; i<count; i++) {
+                    block(linkObj,i);
+                }
+            }];
             return group;
         }
-        //新Loop
-        group = [LinkGroup group];
-        group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] = @(1);
+
         for (int i=0; i<count; i++) {
-            [group.linkObjects addObject:_self];
+            block(_self,i);
         }
-        return group;
+        return _self;
     };
 }
 
@@ -2861,7 +2774,7 @@ DefineKindOfClassAs(NSNumber)
         return self;
     }
     if([self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (LinkGroup*)self;
+        LinkGroup* group = self.thisLinkObjs;
         NSMutableArray* returnObjs = [NSMutableArray new];
         for (int i=0; i<group.linkObjects.count; i++) {
             id re = group.linkObjects[i].linkElse;
@@ -2894,7 +2807,7 @@ DefineKindOfClassAs(NSNumber)
             }
         }
     if([self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (LinkGroup*)self;
+        LinkGroup* group = self.thisLinkObjs;
         NSMutableArray* returnObjs = [NSMutableArray new];
         for (int i=0; i<group.linkObjects.count; i++) {
             id re = group.linkObjects[i].linkReturn;
@@ -2915,7 +2828,6 @@ DefineKindOfClassAs(NSNumber)
         return _self;
     };
 }
-
 
 - (NSObject *)logRetainCount
 {
@@ -2973,7 +2885,7 @@ DefineKindOfClassAs(NSNumber)
             return nil;
         }else if([self isKindOfClass:[LinkGroup class]]){
             
-            return [((LinkGroup*)self).linkObjects firstObject];
+            return [(self.thisLinkObjs).linkObjects firstObject];
         }else if ([self isKindOfClass:[LinkReturn class]]){
             
             return ((LinkReturn*)self).returnValue;
@@ -2992,20 +2904,7 @@ DefineKindOfClassAs(NSNumber)
             return nil;
         }else if([self isKindOfClass:[LinkGroup class]]){
             
-            LinkGroup* group = (id)self;
-            if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                
-                NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                NSArray* array = [group.linkObjects subarrayWithRange:NSMakeRange(0, count)];
-                NSMutableArray* valueArray = [NSMutableArray new];
-                [array enumerateObjectsUsingBlock:^(NSObject* obj, NSUInteger idx, BOOL* stop) {
-                    
-                    obj = obj.linkEnd?:NSNull.null;
-                    [valueArray addObject:obj];
-                }];
-                [group.linkObjects setArray:valueArray];
-            }
-            return [group.linkObjects copy];
+            return [self.thisLinkObjs.linkObjects copy];
         }else if ([self isKindOfClass:[LinkReturn class]]){
             
             NSObject* ret = ((LinkReturn*)self).returnValue;
@@ -3028,13 +2927,9 @@ DefineKindOfClassAs(NSNumber)
                 NSLog(@"%@",[self description]);
                 return nil;
             }else if([self isKindOfClass:[LinkGroup class]]){
-                LinkGroup* group = (id)self;
-                if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                    NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                    [group.linkObjects setArray:[group.linkObjects subarrayWithRange:NSMakeRange(0, count)]];
-                }
-                if(idx < group.linkObjects.count){
-                    return [group.linkObjects[idx] linkEnd];
+                
+                if(idx < self.thisLinkObjs.linkObjects.count){
+                    return [self.thisLinkObjs.linkObjects[idx] linkEnd];
                 }
                 return nil;
             }else if ([self isKindOfClass:[LinkReturn class]]){
@@ -3042,10 +2937,6 @@ DefineKindOfClassAs(NSNumber)
                 LinkGroup* group = ((LinkReturn*)self).returnValue;
                 if([group isKindOfClass:[LinkGroup class]]){
                     
-                    if(group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)]){
-                        NSInteger count = [group.userInfo[@(LinkGroupHandleTypeLoopOriginCount)] integerValue];
-                        [group.linkObjects setArray:[group.linkObjects subarrayWithRange:NSMakeRange(0, count)]];
-                    }
                     if(idx < group.linkObjects.count){
                         return [group.linkObjects[idx] linkEnd];
                     }
@@ -3061,7 +2952,7 @@ DefineKindOfClassAs(NSNumber)
 {
     return ^id(NSString* key){
         LinkHandle_VAL_IFNOT(NSObject){
-            return nil;
+            return NSNull.null;
         }
         LinkGroupHandle_VAL(objValueForKey,key)
         return linkObjNotNil([_self valueForKey:key]);
@@ -3082,7 +2973,7 @@ DefineKindOfClassAs(NSNumber)
 {
     return ^id(NSString* key){
         LinkHandle_VAL_IFNOT(NSObject){
-            return nil;
+            return NSNull.null;
         }
         LinkGroupHandle_VAL(objValueForKeyPath,key)
         return linkObjNotNil([_self valueForKeyPath:key]);
@@ -3704,7 +3595,7 @@ Link_objSetValueForK(text)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             if([group.linkObjects.firstObject respondsToSelector:sel]){
                 [group.linkObjects.firstObject _lb_performSelector:sel];
             }else{
@@ -3756,7 +3647,7 @@ Link_objSetValueForK(text)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             [results addObject: LBObjcValue([group.linkObjects.firstObject _lb_performSelector:sel withArg:nil])];
             va_list args;
             va_start(args, sel);
@@ -3795,7 +3686,7 @@ Link_objSetValueForK(text)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             currentSEL = sel0; currentArgs = args0;
             [group.linkObjects.firstObject _lb_performSelector:currentSEL withArgs:currentArgs];
             currentSEL = nil; currentArgs = nil;
@@ -3868,7 +3759,7 @@ Link_objSetValueForK(text)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             currentSEL = sel0; currentArgs = args0;
             [group.linkObjects.firstObject _lb_performSelector:currentSEL withArgs:currentArgs];
             currentSEL = nil; currentArgs = nil;
@@ -3959,6 +3850,16 @@ LBMarcoLinkTransType(NSNumber)
 LBMarcoLinkTransType(NSValue)
 LBMarcoLinkTransType(NSDate)
 LBMarcoLinkTransType(NSData)
+LBMarcoLinkTransType(NSOrderedSet)
+LBMarcoLinkTransType(NSMutableOrderedSet)
+LBMarcoLinkTransType(NSHashTable)
+LBMarcoLinkTransType(NSMapTable)
+LBMarcoLinkTransType(NSIndexPath)
+LBMarcoLinkTransType(NSIndexSet)
+LBMarcoLinkTransType(NSMutableSet)
+LBMarcoLinkTransType(NSSet)
+LBMarcoLinkTransType(NSCalendar)
+
 LBMarcoLinkTransType(UIView)
 LBMarcoLinkTransType(UILabel)
 LBMarcoLinkTransType(UIControl)
@@ -3972,10 +3873,10 @@ LBMarcoLinkTransType(UITableView)
 LBMarcoLinkTransType(UITextField)
 LBMarcoLinkTransType(UITextView)
 LBMarcoLinkTransType(UIWebView)
-LBMarcoLinkTransType(NSMutableSet)
-LBMarcoLinkTransType(NSSet)
-LBMarcoLinkTransType(NSCalendar)
+
 LBMarcoLinkTransType(CALayer)
+
+
 
 #ifndef LB_Punctuate
 #define LB_Punctuate(func)\

@@ -40,7 +40,7 @@
     ///LinkGroupHandle
     ////////////////////
     if([self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (LinkGroup*)self;
+        LinkGroup* group = self.thisLinkObjs;
         NSMutableArray* returnObjs = [NSMutableArray new];
         for (int i=0; i<group.linkObjects.count; i++) {
             id re = group.linkObjects[i].linkIf_YES;
@@ -85,7 +85,7 @@
     ///LinkGroupHandle
     ////////////////////
     if([self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = (LinkGroup*)self;
+        LinkGroup* group = self.thisLinkObjs;
         NSMutableArray* returnObjs = [NSMutableArray new];
         for (int i=0; i<group.linkObjects.count; i++) {
             id re = group.linkObjects[i].linkIf_NO;
@@ -686,7 +686,7 @@
                 return NSNull.null;
             }
         }
-        return nil;
+        return NSNull.null;
     };
 }
 

@@ -688,5 +688,28 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use dictSetObjectForKey instead and exchange key an
 
 @property LB_BKG(strInsertStrAt) NSString*(^strInsertAt)(NSString* str,NSUInteger index)
 NS_DEPRECATED_IOS(2_0, 2_0, "strInsertStrAt");
+
+
+- (NSObject*)linkFrom:(NSUInteger)fromIndex
+                   to:(NSUInteger)toIndex
+                block:(void(^)(NSUInteger idx , NSObject* obj))block
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+
+- (NSObject*)linkAt:(NSUInteger)idx
+              block:(void(^)(NSObject* obj))block
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+
+- (NSObject*)linkAfterIn:(double)time block:(void(^)(NSObject* link))block
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+- (NSObject*)linkInBlock:(void(^)(NSObject* link))block
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+- (NSObject*)linkAsy_main_queue:(void(^)(NSObject* link))block
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+- (NSObject*)linkAsy_global_queue:(void(^)(NSObject* link))block
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+- (NSObject*)linkLoopIn:(NSUInteger)count block:(void(^)(NSObject* link, NSUInteger index))block
+NS_DEPRECATED_IOS(2_0, 2_0, "use linkForLoop(@,@?) instead");
+
+
 @end
 

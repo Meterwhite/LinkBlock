@@ -22,9 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIView* view;
-    
-    UIButton* button;
+//    UIView* view;
+//    
+//    UIButton* button;
 
     
     UILabelNew.thisValue

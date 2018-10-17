@@ -150,6 +150,7 @@
 @property LB_BK NSComparisonResult (^strCompareNumberSensitive)(NSString* str);
 /** copy to GeneralPasteboard */
 @property LB_BK NSString*    (^strCopyToGeneralPasteboard)(void);
+@property LB_BK NSString*    (^strAlertInCurrentViewController)(NSString* cancelButton);
 
 
 #pragma mark - Weak coding/弱类型编码

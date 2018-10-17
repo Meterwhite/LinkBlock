@@ -367,7 +367,6 @@ NSString* decimalToHexString(u_char nValue)
             unicodeStr = [unicodeStr stringByAppendingString:tempStr];
         }];
         return unicodeStr;
-        return nil;
     };
 }
 
@@ -437,7 +436,7 @@ NSString* decimalToHexString(u_char nValue)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* returnObjs = [NSMutableArray new];
             va_list args;
             va_start(args, formatStr);
@@ -1336,7 +1335,7 @@ NSString* decimalToHexString(u_char nValue)
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* returnObjs = [NSMutableArray new];
             if(obj1){
                 va_list args;
@@ -2207,6 +2206,20 @@ void _lb_SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_d
         return _self;
     };
 }
+- (NSString *(^)(NSString*))strAlertInCurrentViewController
+{
+    return ^id(NSString* cancelButton){
+        LinkHandle_REF(NSString)
+        LinkGroupHandle_REF(strAlertInCurrentViewController,cancelButton)
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:_self message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* cancel = [UIAlertAction actionWithTitle:cancelButton?:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        
+        return _self.vcpresentedFromCurrentController(YES, nil);
+    };
+}
 
 - (UIView *(^)(UIView *))strSetToControlTextAsWhatSet
 {
@@ -2238,7 +2251,7 @@ void _lb_SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_d
         ///////////////////////
         //LinkGroupHandle_REF
         if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = (LinkGroup*)self;
+            LinkGroup* group = self.thisLinkObjs;
             NSMutableArray* returnObjs = [NSMutableArray new];
             va_list args;
             va_start(args, obj);

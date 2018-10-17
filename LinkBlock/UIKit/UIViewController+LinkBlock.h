@@ -25,4 +25,16 @@
 #pragma mark - Foundation Speed/速度
 @property LB_BK UIViewController*    (^vcViewAddSubview)(UIView* view);
 
+
+#pragma mark - LinkBlock
+
+/**
+ In this block current controller will be find from "keyWindow.rootViewController".
+ Equivalent to [currentController.navigationController pushViewController: animated:];
+ */
+@property LB_BK UIViewController*    (^vcPushedFromCurrentControllerNavigation)(BOOL animated);
+/**
+ In this block current controller will be find from "keyWindow.rootViewController".
+ */
+@property LB_BK UIViewController*    (^vcpresentedFromCurrentController)(BOOL animated,void(^completion)(void));
 @end
