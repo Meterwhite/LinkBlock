@@ -39,8 +39,8 @@ frame.size.width = screenSize.width;
 view.frame = frame;
 ==> view.objSetScreenValueForFullPath(@"frame->size->width");
 
-[button setTitle:@"Normal Text" forState:UIControlStateNormal];
-==> button.btnTitleUIControlStateNormal(@"Normal Text");
+[button setTitle:@"Text" forState:UIControlStateNormal];
+==> button.btnTitleUIControlStateNormal(@"Text");
 
 [self.view addSubview:viewA];
 [self.view addSubview:viewB];
@@ -217,16 +217,22 @@ LinkBlock在执行的时候可能产生三种错误
 3是LinkBlock最常见的错误，如果我们不能保证起始对象为不为空都应该使用linkObj()
 ```
 
-## 其他
-- Mail:quxingyi@outlook.com
+## Author
+- Contact me : quxingyi@outlook.com
+
+
 
 -
 
--
+
 
 -
 
+
+
 -
+
+
 
 ## 【实验性的】
 ### 以脚本的方式执行LinkBlock

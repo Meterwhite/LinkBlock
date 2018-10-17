@@ -27,8 +27,9 @@
     
     
 //
-//    UIButton* button;
-
+    UIButton* button;
+    button.clipsToBounds = YES;
+    button.viewClipsToBoundsYES()
     
     UILabelNew.thisValue
     .viewSetOrigin(0, 0)
