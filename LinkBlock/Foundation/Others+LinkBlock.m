@@ -837,4 +837,53 @@
     };
 }
 
+
+- (NSNumber *(^)(void))arrMaxNumber
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrMaxNumber)
+        __block NSNumber* max = _self[0];
+        [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
+            if([num isKindOfClass:[NSNumber class]])
+                if(max.doubleValue < num.doubleValue)
+                    max = num;
+        }];
+        return max;
+    };
+}
+
+- (NSNumber *(^)(void))arrMinNumber
+{
+    return ^id(){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrMinNumber)
+        __block NSNumber* min = _self[0];
+        [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
+            if([num isKindOfClass:[NSNumber class]])
+                if(min.doubleValue > num.doubleValue)
+                    min = num;
+        }];
+        return min;
+    };
+}
+//- (BOOL (^)(NSAttributedString *))attr_strIsEqualToAttrStr
+//{
+//    return ^(NSAttributedString* attrStr){
+//        LinkHandle_VAL_IFNOT(NSAttributedString){
+//            return NO;
+//        }
+//        LinkGroupHandle_VAL(attr_strIsEqualToAttrStr,attrStr)
+//        return [_self isEqualToAttributedString:attrStr];
+//    };
+//}
+//
+//- (NSNumber* (^)(NSAttributedString *))attr_strIsEqualToAttrStrAs
+//{
+//    return ^id(NSAttributedString* attrStr){
+//        LinkHandle_REF(NSAttributedString)
+//        LinkGroupHandle_REF(attr_strIsEqualToAttrStrAs,attrStr)
+//        return @([_self isEqualToAttributedString:attrStr]);
+//    };
+//}
 @end

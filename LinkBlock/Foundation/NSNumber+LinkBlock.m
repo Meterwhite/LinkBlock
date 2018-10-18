@@ -308,26 +308,6 @@
     };
 }
 
-- (BOOL (^)(NSNumber *))numIsEqualToNum
-{
-    return ^(NSNumber* num){
-        LinkHandle_VAL_IFNOT(NSNumber){
-            return NO;
-        }
-        LinkGroupHandle_VAL(numIsEqualToNum,num)
-        return [_self isEqualToNumber:num];
-    };
-}
-
-- (NSNumber* (^)(NSNumber *))numIsEqualToNumAs
-{
-    return ^id(NSNumber* num){
-        LinkHandle_REF(NSNumber)
-        LinkGroupHandle_REF(numIsEqualToNumAs,num)
-        return @([_self isEqualToNumber:num]);
-    };
-}
-
 - (BOOL (^)(NSNumber*))numIsGreatThanNum
 {
     return ^BOOL(NSNumber* num){

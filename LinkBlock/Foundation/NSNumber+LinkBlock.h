@@ -14,8 +14,6 @@
 /**
  use the same name macros of this is better
  */
-@property LB_BK BOOL         (^numIsEqualToNum)(NSNumber* num);
-@property LB_BK NSNumber*    (^numIsEqualToNumAs)(NSNumber* num);
 @property LB_BK BOOL         (^numIsGreatThanNum)(NSNumber* num);
 @property LB_BK NSNumber*    (^numIsGreatThanNumAs)(NSNumber* num);
 @property LB_BK BOOL         (^numIsGreatEqualNum)(NSNumber* num);

@@ -256,11 +256,7 @@ NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 NS_DEPRECATED_IOS(2_0, 2_0, "arrContainsAs");
 @property LB_BKG(arrIndexOfObjAs) NSNumber*    (^arrIndexOfObj_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "arrIndexOfObjAs");
-@property LB_BKG(attr_strIsEqualToAttrStrAs) NSNumber*       (^attr_strIsEqualToAttrStr_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "attr_strIsEqualToAttrStrAs");
 @property LB_BKG(dictGetBOOLAs) NSNumber*    (^dictGetBOOL_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
-@property LB_BKG(numIsEqualToNumAs) NSNumber*    (^numIsEqualToNum_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
 @property LB_BKG(numIsGreatThanNumAs) NSNumber*    (^numIsGreatThanNum_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
@@ -496,8 +492,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BK BOOL         (^dictGetBOOL)(id<NSCopying> key)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK NSNumber*    (^dictGetBOOLAs)(id<NSCopying> key)
-NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BK id           (^dictGetNoNSNull)(id key)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BK NSTimeInterval   (^dateTimeIntervalSince1970)(void)
@@ -567,8 +561,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BK NSArray*(^strPredicateFilteredArray)(NSArray* arr)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BK BOOL(^strPredicateEvaluate)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK NSNumber*(^strPredicateEvaluateAs)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
 @property LB_BK NSObject*            (^strKeyForValueWith)(id obj)
@@ -703,19 +695,40 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BK UIView*      (^viewCopyOrigin)(UIView* fromView)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK UIView*      (^viewCopyCenter)(UIView* fromView)
+@property LB_BK UIView*(^viewCopyCenter)(UIView* fromView)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK UIView*      (^viewCopyCenterX)(UIView* fromView)
+@property LB_BK UIView*(^viewCopyCenterX)(UIView* fromView)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK UIView*      (^viewCopyCenterY)(UIView* fromView)
+@property LB_BK UIView*(^viewCopyCenterY)(UIView* fromView)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK UIView*      (^viewTopTo)(UIView* toView, CGFloat margin)
+@property LB_BK UIView*(^viewTopTo)(UIView* toView, CGFloat margin)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK UIView*      (^viewLeftTo)(UIView* toView, CGFloat margin)
+@property LB_BK UIView*(^viewLeftTo)(UIView* toView, CGFloat margin)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK UIView*      (^viewBottomTo)(UIView* toView, CGFloat margin)
+@property LB_BK UIView*(^viewBottomTo)(UIView* toView, CGFloat margin)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK UIView*      (^viewRightTo)(UIView* toView, CGFloat margin)
+@property LB_BK UIView*(^viewRightTo)(UIView* toView, CGFloat margin)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+
+@property LB_BK NSNumber*(^arrMaxNumber)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK NSNumber*(^arrMinNumber)(void)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BKG(objIsEqual) BOOL(^attr_strIsEqualToAttrStr)(id attrStr)
+NS_DEPRECATED_IOS(2_0, 2_0, "objIsEqual");
+
+@property LB_BKG(objIsEqualAs) NSNumber*(^attr_strIsEqualToAttrStr_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "objIsEqualAs");
+@property LB_BKG(objIsEqual) BOOL(^numIsEqualToNum)(id num)
+NS_DEPRECATED_IOS(2_0, 2_0, "objIsEqualAs");
+@property LB_BKG(objIsEqualAs) NSNumber*(^numIsEqualToNum_n)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "objIsEqualAs");
+
+@property LB_BK NSNumber*    (^dictGetBOOLAs)(id<NSCopying> key)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BK NSNumber*(^strPredicateEvaluateAs)(id obj)
+NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
+@property LB_BKG(objIsEqualAs) NSNumber*(^attr_strIsEqualToAttrStrAs)(id attrStr)
+NS_DEPRECATED_IOS(2_0, 2_0, "objIsEqualAs");
 @end
 

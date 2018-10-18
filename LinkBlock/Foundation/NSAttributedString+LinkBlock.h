@@ -9,12 +9,6 @@
 
 @interface NSObject(NSAttributedStringLinkBlock)
 
-#pragma mark - Foundation Mirror/镜像
-@property LB_BK BOOL     (^attr_strIsEqualToAttrStr)(NSAttributedString* attrStr);
-@property LB_BK NSNumber*(^attr_strIsEqualToAttrStrAs)(NSAttributedString* attrStr);
-
-
-
 #pragma mark - Foundation Speed/速度
 /** use boundingRectWithSize */
 @property LB_BK CGRect   (^attr_strSize)(CGFloat maxWidth);

@@ -294,36 +294,6 @@
     };
 }
 
-- (NSNumber *(^)(void))arrMaxNumber
-{
-    return ^id(){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrMaxNumber)
-        __block NSNumber* max = _self[0];
-        [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
-            if([num isKindOfClass:[NSNumber class]])
-                if(max.doubleValue < num.doubleValue)
-                    max = num;
-        }];
-        return max;
-    };
-}
-
-- (NSNumber *(^)(void))arrMinNumber
-{
-    return ^id(){
-        LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrMinNumber)
-        __block NSNumber* min = _self[0];
-        [_self enumerateObjectsUsingBlock:^(NSNumber* num, NSUInteger idx, BOOL *stop) {
-            if([num isKindOfClass:[NSNumber class]])
-                if(min.doubleValue > num.doubleValue)
-                    min = num;
-        }];
-        return min;
-    };
-}
-
 - (NSObject *(^)(void))arrLast
 {
     return ^id(){
@@ -472,70 +442,69 @@
 
 - (NSMutableArray *(^)(NSArray *, NSString *))arrMinusArrByKey
 {
-    return ^id(NSArray* arr, NSString* key){
+    return ^id(NSArray* arr, NSString* keyPath){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrMinusArrByKey,arr,key)
-        NSMutableArray* re = [NSMutableArray new];
+        LinkGroupHandle_REF(arrMinusArrByKey,arr,keyPath)
+        NSMutableArray* ret = [NSMutableArray new];
         __block BOOL hasItem;
         [_self enumerateObjectsUsingBlock:^(id fromItem, NSUInteger i, BOOL * stopI) {
             hasItem = NO;
             [arr enumerateObjectsUsingBlock:^(id toItem, NSUInteger j, BOOL * stopJ) {
                 
-                if(linkObj((NSObject*)[fromItem valueForKeyPath:key]).objIsEqual([toItem valueForKeyPath:key])){
+                if([[fromItem valueForKeyPath:keyPath] isEqual: [toItem valueForKeyPath:keyPath]]){
                     hasItem = YES; *stopJ = YES;
                 }
             }];
             if(!hasItem){
-                [re addObject:fromItem];
+                [ret addObject:fromItem];
             }
         }];
-        return re;
+        return ret;
     };
 }
 
 - (NSMutableArray *(^)(NSArray *, NSString *))arrUnionArrByKey
 {
-    return ^id(NSArray* arr, NSString* key){
+    return ^id(NSArray* arr, NSString* keyPath){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrMinusArrByKey,arr,key)
-        NSMutableArray* re = [NSMutableArray arrayWithArray:_self];
+        LinkGroupHandle_REF(arrMinusArrByKey,arr,keyPath)
+        NSMutableArray* ret = [NSMutableArray arrayWithArray:_self];
         __block BOOL hasItem;
         [_self enumerateObjectsUsingBlock:^(id fromItem, NSUInteger i, BOOL * stopI) {
             hasItem = NO;
             [arr enumerateObjectsUsingBlock:^(id toItem, NSUInteger j, BOOL * stopJ) {
                 
-                if(linkObj((NSObject*)[fromItem valueForKeyPath:key]).objIsEqual([toItem valueForKeyPath:key])){
+                if([[fromItem valueForKeyPath:keyPath] isEqual: [toItem valueForKeyPath:keyPath]]){
                     hasItem = YES; *stopJ = YES;
                 }
             }];
             if(!hasItem){
-                [re addObject:fromItem];
+                [ret addObject:fromItem];
             }
         }];
-        return re;
+        return ret;
     };
 }
 
 - (NSMutableArray *(^)(NSArray *, NSString *))arrInterectArrByKey
 {
-    return ^id(NSArray* arr, NSString* key){
+    return ^id(NSArray* arr, NSString* keyPath){
         LinkHandle_REF(NSArray)
-        LinkGroupHandle_REF(arrMinusArrByKey,arr,key)
-        NSMutableArray* re = [NSMutableArray new];
+        LinkGroupHandle_REF(arrMinusArrByKey,arr,keyPath)
+        NSMutableArray* ret = [NSMutableArray new];
         __block BOOL hasItem;
         [_self enumerateObjectsUsingBlock:^(id fromItem, NSUInteger i, BOOL * stopI) {
             hasItem = NO;
             [arr enumerateObjectsUsingBlock:^(id toItem, NSUInteger j, BOOL * stopJ) {
-                
-                if(linkObj((NSObject*)[fromItem valueForKeyPath:key]).objIsEqual([toItem valueForKeyPath:key])){
+                if([[fromItem valueForKeyPath:keyPath] isEqual: [toItem valueForKeyPath:keyPath]]){
                     hasItem = YES; *stopJ = YES;
                 }
             }];
             if(hasItem){
-                [re addObject:fromItem];
+                [ret addObject:fromItem];
             }
         }];
-        return re;
+        return ret;
     };
 }
 
@@ -630,17 +599,15 @@
         if(![objs respondsToSelector:@selector(indexOfObject:)])
             return _self;
         
-        ///NSMutableArray or NSMutableOrderedSet?
+        ///NSMutableArray or NSMutableOrderedSet
         if(![_self respondsToSelector:@selector(addObjectsFromArray:)]){
             _self = _self.mutableCopy;
         }
         
         if([objs isKindOfClass:NSArray.class]){
             [_self addObjectsFromArray:objs];
-        }else if([objs isKindOfClass:NSOrderedSet.class]){
-            [(id)_self unionOrderedSet:objs];
-        }else if([objs isKindOfClass:NSSet.class]){
-            [(id)_self unionSet:objs];
+        }else if([objs objIsArrayableAs]()){
+            [_self addObjectsFromArray:[objs objsArrayRepresentation]()];
         }
         return _self;
     };

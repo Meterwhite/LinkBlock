@@ -1565,38 +1565,40 @@ DefineKindOfClassAs(NSNumber)
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objIsEqualAs,obj)
         
-        BOOL (^blockCompare)(id obj1, id obj2);
-        if([_self isKindOfClass:[NSString class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToString:obj2];};
-        }else if ([_self isKindOfClass:[NSNumber class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToNumber:obj2];};
-        }else if ([_self isKindOfClass:[NSValue class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToValue:obj2];};
-        }else if ([_self isKindOfClass:[NSDate class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToDate:obj2];};
-        }else if ([_self isKindOfClass:[NSData class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToData:obj2];};
-        }else if ([_self isKindOfClass:[NSArray class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToArray:obj2];};
-        }else if ([_self isKindOfClass:[NSDictionary class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToDictionary:obj2];};
-        }else if ([_self isKindOfClass:[NSSet class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToSet:obj2];};
-        }else if ([_self isKindOfClass:[NSIndexSet class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToIndexSet:obj2];};
-        }else if ([_self isKindOfClass:[NSAttributedString class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToAttributedString:obj2];};
-        }else if ([_self isKindOfClass:[NSTimeZone class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToTimeZone:obj2];};
-        }else if ([_self isKindOfClass:[NSHashTable class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToHashTable:obj2];};
-        }else if ([_self isKindOfClass:[NSOrderedSet class]]){
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToOrderedSet:obj2];};
-        }else{
-            blockCompare = ^(id obj1, id obj2){return [obj1 isEqual:obj2];};
-        }
+        return [NSNumber numberWithBool:[_self isEqual:obj]];
         
-        return @(blockCompare(_self,obj));
+//        BOOL (^blockCompare)(id obj1, id obj2);
+//        if([_self isKindOfClass:[NSString class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToString:obj2];};
+//        }else if ([_self isKindOfClass:[NSNumber class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToNumber:obj2];};
+//        }else if ([_self isKindOfClass:[NSValue class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToValue:obj2];};
+//        }else if ([_self isKindOfClass:[NSDate class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToDate:obj2];};
+//        }else if ([_self isKindOfClass:[NSData class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToData:obj2];};
+//        }else if ([_self isKindOfClass:[NSArray class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToArray:obj2];};
+//        }else if ([_self isKindOfClass:[NSDictionary class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToDictionary:obj2];};
+//        }else if ([_self isKindOfClass:[NSSet class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToSet:obj2];};
+//        }else if ([_self isKindOfClass:[NSIndexSet class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToIndexSet:obj2];};
+//        }else if ([_self isKindOfClass:[NSAttributedString class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToAttributedString:obj2];};
+//        }else if ([_self isKindOfClass:[NSTimeZone class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToTimeZone:obj2];};
+//        }else if ([_self isKindOfClass:[NSHashTable class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToHashTable:obj2];};
+//        }else if ([_self isKindOfClass:[NSOrderedSet class]]){
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqualToOrderedSet:obj2];};
+//        }else{
+//            blockCompare = ^(id obj1, id obj2){return [obj1 isEqual:obj2];};
+//        }
+        
+//        return @(blockCompare(_self,obj));
     };
 }
 
@@ -2097,6 +2099,40 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
+- (NSArray *(^)(void))objsArrayRepresentation
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsArrayRepresentation)
+        
+        if(LB_IsKindOfClass(_self, NSArray))
+            return self;
+        if(LB_RespondsToSEL(_self, allObjects))
+            return [(id)_self allObjects];
+        if(LB_RespondsToSEL(_self, array))
+            return [(id)_self array];
+        
+        return NSNull.null;
+    };
+}
+
+- (NSDictionary *(^)(void))objsDictionaryRepresentation
+{
+    return ^id(){
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objsDictionaryRepresentation)
+        
+        if(LB_IsKindOfClass(_self, NSDictionary))
+            return self;
+        
+        if(LB_RespondsToSEL(_self, dictionaryRepresentation)){
+            return [(id)_self dictionaryRepresentation];
+        }
+        
+        return NSNull.null;
+    };
+}
+
 - (BOOL (^)(id))objIsKeyOfObjs
 {
     return ^BOOL(id objs){
@@ -2553,6 +2589,36 @@ DefineKindOfClassAs(NSNumber)
         [_self setValue:screenValue forKeyPath:keyPath];
         
         return _self;
+    };
+}
+
+- (NSObject *(^)(id, id))objCopyValueFromObjectByFullPath
+{
+    return ^id(id srcObj,id asFullPath){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objCopyValueFromObjectByFullPath,srcObj,asFullPath)
+        if(!srcObj) return _self;
+        
+        NSUInteger count = 1;
+        id aFullPath = asFullPath;
+        if(![asFullPath isKindOfClass:NSArray.class]){
+            
+            goto CALL_SET_VALUE;
+        }
+        
+        count = [asFullPath count];
+        
+    CALL_FOR:
+        
+        if(count == 0) return self;
+        aFullPath = [asFullPath objectAtIndex:count];
+        
+    CALL_SET_VALUE:
+        self.objSetValueForFullPath([srcObj objValueForFullPath](aFullPath).linkEnd,aFullPath);
+        --count;
+        
+        goto CALL_FOR;
     };
 }
 

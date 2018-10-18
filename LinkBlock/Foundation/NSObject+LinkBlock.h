@@ -140,7 +140,7 @@
 /** self is not a collection object  */
 @property LB_BK NSDictionary*(^objToNSDictionary)(void);
 @property LB_BK NSDictionary*(^objToNSDictionaryWithKeys)(NSArray* asKey);
-/** <^()> <JSValue & NSString> to nsnumber */
+/** <JSValue & NSString> to nsnumber */
 @property LB_BK NSNumber*    (^objToNSNumber)(void);
 /** objs∈{NSArray,NSOrderedSet} */
 @property LB_BK NSObject*    (^objGetPrevItemFromObjs)(id objs);
@@ -287,7 +287,10 @@
 ///MARK: Key-able collection.
 @property LB_BK NSObject*  (^objsItemForKey)(id key);
 @property LB_BK NSObject*  (^objsSetItemForKey)(id item,id key);
-
+/** Refer to: objIsArrayableAs(). */
+@property LB_BK NSArray*   (^objsArrayRepresentation)(void);
+/** Refer to: objIsDictionaryableAs() */
+@property LB_BK NSDictionary*   (^objsDictionaryRepresentation)(void);
 
 /**
  self   ∈   {
@@ -300,7 +303,7 @@
  */
 @property LB_BK NSNumber*    (^objLengthAs)(void);
 @property LB_BK NSUInteger   (^objLength)(void);
-/** As weall as objLength */
+/** Same as `objLength` */
 @property LB_BK NSUInteger   (^objCount)(void);
 
 
@@ -309,7 +312,8 @@
 /**
  *  Extend keyPath for [setValue:forKeyPath:].Provides access to key-value pairs of structures.
  *  Use operator '->' to access structure member in 'fullPath',else 'fullPath' is the same as keyPath.
- *  exp: @"view.nickNameLable.frame->size->width"
+ *  :
+ *  @"view.nickNameLable.frame->size->width"
  */
 @property LB_BK NSObject*    (^objValueForFullPath)(NSString* fullPath);
 /** Refer to : objValueForFullPath */
@@ -348,6 +352,13 @@
  *  In a word : width > height > size.
  */
 @property LB_BK NSObject*    (^objSetScreenValueForFullPath)(NSString* fullPath);
+/**
+ *  Refer to : objValueForFullPath
+ *  Same as:
+ *  [B setValue:[A valueForKeyPath:keyPath] forKey:keyPath];
+ *  Note: asFullPath    ∈   {NSString,NSArray<NSString>}
+ */
+@property LB_BK NSObject*    (^objCopyValueFromObjectByFullPath)(id srcObj,id asFullPath);
 
 
 /** !Print object as json string */

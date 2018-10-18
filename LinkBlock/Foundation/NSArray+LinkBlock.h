@@ -96,21 +96,19 @@
 @property LB_BK NSMutableArray*(^arrReplaceItemsCaseValueForKey)(NSArray* objs , NSString* key);
 /** split array,each subarray has same length.Return self if count==0  */
 @property LB_BK NSMutableArray*          (^arrSplitWithCount)(NSUInteger count);
-@property LB_BK NSNumber*                (^arrMaxNumber)(void);
-@property LB_BK NSNumber*                (^arrMinNumber)(void);
 /**
  Difference set by key-value,each item must has the same key.
  做'差集'(数组每项必须含字段key)
  */
-@property LB_BK NSMutableArray*          (^arrMinusArrByKey)(NSArray* arr, NSString* key);
+@property LB_BK NSMutableArray*          (^arrMinusArrByKey)(NSArray* arr, NSString* keyPath);
 /**
  union set by key-value,each item must has the same key./并集
  */
-@property LB_BK NSMutableArray*          (^arrUnionArrByKey)(NSArray* arr, NSString* key);
+@property LB_BK NSMutableArray*          (^arrUnionArrByKey)(NSArray* arr, NSString* keyPath);
 /**
  intersection set by key-value,each item must has the same key./交集
  */
-@property LB_BK NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString* key);
+@property LB_BK NSMutableArray*          (^arrInterectArrByKey)(NSArray* arr, NSString* keyPath);
 
 @property LB_BK NSMutableArray*          (^arrReplaceItemKeyForDictionaryItem)(id key,id newKey);
 /** arrReplaceItemKeyForDictionaryItem().Deep traversal */

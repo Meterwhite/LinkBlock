@@ -81,13 +81,14 @@ view.frame = frame;
 ```
 
 ## 【Call/调用】
-### Linkblock will return self or what value method retuend.
+### Linkblock will return self or what value method returnd.
 ```objc
 _NonnullObject.linkBlock0().linkBlock1().linkBlock2()...
 
 linkObj(_NullableObject).linkBlock0().linkBlock1().linkBlock2()...
 ```
 ### Use linkEnd when getting the return value.If not the result is unexpected.
+- LinkBlock return NSNull instead of nil;
 ```objc
 id getTheValue = ...linkBlockReturnAValue().linkEnd;
 ```
@@ -216,14 +217,13 @@ Kind of Error：
 
 
 1: Use linkObj(~) to create a secure object.
-2、3: This error would be printed by NSLog.
+2,3: This error would be printed by NSLog.
 ```
 
 ## Author
 - Contact me : quxingyi@outlook.com
 
 
-
 -
 
 
@@ -233,7 +233,6 @@ Kind of Error：
 
 
 -
-
 
 
 ## 【Experimental/实验性的】
@@ -248,8 +247,9 @@ script.linkCodeEval(targetObject,arg...);
 2.
 targetObject.linkEvalCode(script,arg...);
 
-3. Execute script directly;
-EvalLinkBlock(@"代码");
+3. 
+EvalLinkBlock(@"代码");//Execute script directly;
+
 4. 
 EvalLinkBlockWithTarget(targetObject,arg...);
 ```

@@ -48,26 +48,6 @@
     };
 }
 
-- (BOOL (^)(NSAttributedString *))attr_strIsEqualToAttrStr
-{
-    return ^(NSAttributedString* attrStr){
-        LinkHandle_VAL_IFNOT(NSAttributedString){
-            return NO;
-        }
-        LinkGroupHandle_VAL(attr_strIsEqualToAttrStr,attrStr)
-        return [_self isEqualToAttributedString:attrStr];
-    };
-}
-
-- (NSNumber* (^)(NSAttributedString *))attr_strIsEqualToAttrStrAs
-{
-    return ^id(NSAttributedString* attrStr){
-        LinkHandle_REF(NSAttributedString)
-        LinkGroupHandle_REF(attr_strIsEqualToAttrStrAs,attrStr)
-        return @([_self isEqualToAttributedString:attrStr]);
-    };
-}
-
 - (UIImage *(^)(UIImage *, CGRect))attr_strDrawToImageAsWhatSet
 {
     return ^id(UIImage* image, CGRect rect){

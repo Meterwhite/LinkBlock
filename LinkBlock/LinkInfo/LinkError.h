@@ -8,7 +8,7 @@
 #import "LinkBlockDefine.h"
 
 /**
- LinkError can response to unknown method and not crash.This feature make linkBlock more secure.When unknown method called it will do noting but log itself./
+ LinkError can response to unknown method and not crash.This feature make linkBlock more safe.When unknown method called it will do noting but log itself./
  可以响应未知方法而不崩溃，响应未知方法时会打印错误信息
  */
 @interface LinkError : LinkInfo
