@@ -225,31 +225,30 @@ NS_DEPRECATED_IOS(2_0, 2_0, "Add suffix 'As':As");
 NS_DEPRECATED_IOS(2_0, 2_0, "Add suffix 'As':As");
 
 #pragma mark - subffix change
-// special
 @property LB_BKG(attr_strSizeWithOptionsAs) NSValue* (^attr_strSizeWithOptions_n)(CGFloat maxWidth, NSStringDrawingOptions optoins)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(arrContainsIndexAs) NSNumber*                (^arrContainIndex_n)(NSUInteger idx)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(attr_strSizeAs) NSValue* (^attr_strSize_n)(CGFloat maxWidth)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsKindOfAs) NSNumber*    (^objIsKindOf_n)(Class clazz)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsSubClassOfAs) NSNumber*    (^objIsSubClassOf_n)(Class clazz)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsMemberOfClassAs) NSNumber*    (^objIsMemberOfClass_n)(Class clazz)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsRespondsSELAs) NSNumber*    (^objIsRespondsSEL_n)(SEL sel)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsEqualToEachAs) NSNumber*    (^objIsEqualToEach_n)(id obj,...)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsEqualToSomeoneAs) NSNumber*    (^objIsEqualToSomeone_n)(id obj,...)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strIszh_CNInRangeAs) NSNumber*    (^strIszh_CNInRange_n)(NSRange range)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strSizeWithFontAndMaxWidthAs) NSValue*     (^strSizeWithFontAndMaxWidth_n)(UIFont* font , CGFloat maxWidth)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strSizeWithFontAndMaxSizeAs) NSValue*     (^strSizeWithFontAndMaxSize_n)(UIFont* font, CGSize maxSize)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 
 // one
 @property LB_BKG(arrContainsAs) NSNumber*    (^arrContain_n)(id obj)
@@ -257,27 +256,27 @@ NS_DEPRECATED_IOS(2_0, 2_0, "arrContainsAs");
 @property LB_BKG(arrIndexOfObjAs) NSNumber*    (^arrIndexOfObj_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "arrIndexOfObjAs");
 @property LB_BKG(dictGetBOOLAs) NSNumber*    (^dictGetBOOL_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numIsGreatThanNumAs) NSNumber*    (^numIsGreatThanNum_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numIsGreatEqualNumAs) NSNumber*    (^numIsGreatEqualNum_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numIsLessThanNumAs) NSNumber*    (^numIsLessThanNum_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numIsLessEqualNumAs) NSNumber*    (^numIsLessEqualNum_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsEqualAs) NSNumber*    (^objIsEqual_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsEqualToEachInArrayAs) NSNumber*    (^objIsEqualToEachInArray_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsEqualToSomeoneInArrayAs) NSNumber*    (^objIsEqualToSomeoneInArray_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strIsEqualStrAs) NSNumber*    (^strIsEqualStr_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strContainsAs) NSNumber*    (^strContain_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "strContainsAs");
 @property LB_BKG(strSizeWithFontAs) NSValue*     (^strSizeWithFont_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strHasPrefixAs) NSNumber*    (^strHasPrefix_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "strHasPrefixAs");
 @property LB_BKG(strHasSuffixAs) NSNumber*    (^strHasSuffix_n)(id obj)
@@ -287,7 +286,7 @@ NS_DEPRECATED_IOS(2_0, 2_0, "strRegexIsMatchAs");
 @property LB_BKG(numAsIndexToGetValueFromObj) NSNumber*(^numIndexIsInStringRange_n)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "use numAsIndexToGetValueFromObj");
 @property LB_BKG(strPredicateEvaluateAs) NSNumber*    (^strPredicateEvaluate_n)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 
 @property LB_BKG(arrContainsKeyValueAs) NSNumber*                (^arrKeyValueContain_n)(NSString* key,id eqValue)
 NS_DEPRECATED_IOS(2_0, 2_0, "arrContainsKeyValueAs");
@@ -295,51 +294,51 @@ NS_DEPRECATED_IOS(2_0, 2_0, "arrContainsKeyValueAs");
 
 // none
 @property LB_BKG(dateTimeIntervalSince1970As) NSNumber*(^dateTimeIntervalSince1970_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateYearAs) NSNumber*(^dateYear_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateMonthAs) NSNumber*(^dateMonth_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateDayAs) NSNumber*(^dateDay_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateHourAs) NSNumber*(^dateHour_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateMinutAs) NSNumber*(^dateMinut_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateSecAs) NSNumber*(^dateSec_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateIsLeapYearAs) NSNumber*(^dateIsLeapYear_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateIsInTodayAs) NSNumber*(^dateIsInToday_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(dateIsInMonthAs) NSNumber*(^dateIsInMonth_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numHasDecimalValueAs) NSNumber*(^numHasDecimalValue_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numIsOddAs) NSNumber*(^numIsOdd_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numIsEvenAs) NSNumber*(^numIsEven_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numIsNegativeAs) NSNumber*(^numIsNegative_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(numIsZeroAs) NSNumber*(^numIsZero_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(objIsNSNullAs) NSNumber*(^objIsNSNull_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strContainszh_CNAs) NSNumber*    (^strContainzh_CN_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "strContainszh_CNAs");
 @property LB_BKG(strIsBlankAs) NSNumber*(^strIsBlank_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strIsEmojiAs) NSNumber*(^strIsEmoji_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strLengthAs) NSNumber*(^strLength_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strIsNumberAs) NSNumber*(^strIsNumber_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 @property LB_BKG(strContainsEmojiAs) NSNumber*(^strContainEmoji_n)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "strContainsEmojiAs");
 @property LB_BKG(strPathFileExistsAs) NSNumber*    (^strPathFileExists_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "suffix name_nchanged to As");
+NS_DEPRECATED_IOS(2_0, 2_0, "suffix _n changed to As");
 
 @property LB_BKG(attr_strSetToControlAsWhatSet) NSObject*  (^attr_strSetToLabel_linkTo)(id lab)
 NS_DEPRECATED_IOS(2_0, 2_0, "attr_strSetToControlAsWhatSet");
