@@ -40,8 +40,8 @@
 - (instancetype)initWithReturnValue:(id)returnValue returnType:(LinkReturnType)returnType conditionType:(LinkConditionType)conditionType
 {
     if(self = [self initWithReturnValue:returnValue]){
-        self.returnType = returnType;
-        self.condition = conditionType;
+        _returnType = returnType;
+        _condition = conditionType;
     }
     return self;
 }

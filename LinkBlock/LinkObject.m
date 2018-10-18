@@ -272,7 +272,7 @@
                 case LinkReturnCondition:
                 {
                     ((LinkReturn*)self).returnType = LinkReturnLink;
-                    ((LinkReturn*)self).condition = LinkConditionNon;
+                    [self setValue:@(LinkConditionNon) forKey:@"condition"];
                     return self;
                 }
                 default:

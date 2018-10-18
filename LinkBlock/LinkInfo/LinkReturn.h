@@ -22,7 +22,7 @@ typedef enum LinkConditionType{
 @interface LinkReturn : LinkInfo
 @property (nonatomic,strong) id returnValue;
 @property (nonatomic,assign) LinkReturnType returnType;
-@property (nonatomic,assign) LinkConditionType condition;
+@property (nonatomic,assign,readonly) LinkConditionType condition;
 
 
 /**
