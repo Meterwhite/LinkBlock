@@ -9,12 +9,31 @@
 #import "LinkInfo.h"
 
 typedef enum LinkReturnType{
-    LinkReturnLink,//返回中断
-    LinkReturnCondition,//条件中断...linkIf...linkElse...
+    LinkReturnLink,//Force interruption/硬中断
+    LinkReturnCondition,//Conditional interruption/软中断
 }LinkReturnType;
+
+typedef enum LinkConditionType{
+    LinkConditionNon,
+    LinkConditionIF,
+    LinkConditionELSE,
+}LinkConditionType;
+
 @interface LinkReturn : LinkInfo
 @property (nonatomic,strong) id returnValue;
 @property (nonatomic,assign) LinkReturnType returnType;
+@property (nonatomic,assign) LinkConditionType condition;
+
+
+/**
+ Case LinkReturnCondition Default condition is LinkConditionIF
+ */
 - (instancetype)initWithReturnValue:(id)returnValue;
+
+/**
+ Case LinkReturnCondition Default condition is LinkConditionIF
+ */
 - (instancetype)initWithReturnValue:(id)returnValue returnType:(LinkReturnType)returnType;
+
+- (instancetype)initWithReturnValue:(id)returnValue returnType:(LinkReturnType)returnType conditionType:(LinkConditionType)conditionType;
 @end

@@ -119,11 +119,6 @@
  Sort NSValue-NSRange.If isCombine=YES NSRange(0,2) will contain NSRange(0,1).
 */
 @property LB_BK NSMutableArray<NSValue*>*(^arrSortRange)(BOOL ascending,BOOL isCombine);
-
-
-#pragma mark - Link Objects/多对象
-@property LB_FN NSObject*              makeLinkObjs;
-
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

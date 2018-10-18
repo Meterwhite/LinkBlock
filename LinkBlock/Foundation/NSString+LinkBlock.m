@@ -2239,44 +2239,6 @@ void _lb_SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_d
     };
 }
 
-
-#pragma mark - LinkCode
-
-
-- (NSObject *(^)(id , ...))linkCodeEval
-{
-    return ^id(id obj, ...){
-        LinkHandle_REF(NSString)
-        
-        ///////////////////////
-        //LinkGroupHandle_REF
-        if([self isKindOfClass:[LinkGroup class]]){
-            LinkGroup* group = self.thisLinkObjs;
-            NSMutableArray* returnObjs = [NSMutableArray new];
-            va_list args;
-            va_start(args, obj);
-            for (int i=0; i<group.linkObjects.count; i++) {
-                DynamicLink* link = [DynamicLink dynamicLinkWithCode:_self];
-                id result = [link invoke:obj args:&args];
-                [returnObjs addObject:result];
-            }
-            va_end(args);
-            [group.linkObjects setArray:returnObjs];
-            return group;
-        }
-        //LinkGroupHandle_VAL
-        ///////////////////////
-        
-        va_list vList;
-        va_start(vList , obj);
-        DynamicLink* link = [DynamicLink dynamicLinkWithCode:_self];
-        id result = [link invoke:obj args:&vList];
-        va_end(vList);
-        
-        return result;
-    };
-}
-
 @end
 
 @implementation NSString (NSStringLinkBlock)

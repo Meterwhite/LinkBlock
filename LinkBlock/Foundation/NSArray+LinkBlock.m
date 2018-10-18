@@ -10,18 +10,6 @@
 
 
 @implementation NSObject(NSArraryLinkBlock)
-- (NSObject *)makeLinkObjs
-{
-    LinkHandle_REF(NSArray)
-    if([self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = _self.thisLinkObjs;
-        LinkGroup* newGroup = [LinkGroup groupWithArr:group.linkObjects];
-        newGroup.userInfo = [group.userInfo mutableCopy];
-        newGroup.throwCount = group.throwCount;
-        return newGroup;
-    }
-    return [LinkGroup groupWithArr:_self];
-}
 
 - (BOOL (^)(NSUInteger))arrContainsIndex
 {
@@ -609,7 +597,7 @@
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrAddObj,obj)
         
-        if([_self respondsToSelector:@selector(addObject:)])
+        if(![_self respondsToSelector:@selector(addObject:)])
             _self = _self.mutableCopy;
         [_self addObject:obj];
         return _self;
@@ -622,7 +610,7 @@
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrAddObjUnique , obj)
         
-        if([_self respondsToSelector:@selector(addObject:)])
+        if(![_self respondsToSelector:@selector(addObject:)])
             _self = _self.mutableCopy;
         
         if(![_self containsObject:obj]){
@@ -826,7 +814,9 @@
         LinkHandle_REF(NSArray)
         LinkGroupHandle_REF(arrReplaceObjWith,obj,withObj)
         
-        if(LB_RespondsToSEL(_self, setObject:atIndex:))
+        if(!LB_RespondsToSEL(_self, setObject:atIndex:)){
+            LB_MCopy_VAR(_self);
+        }
         
         if(!obj || !withObj) return _self;
         

@@ -7,17 +7,13 @@
 
 #import "LinkBlockDefine.h"
 
-
 /**
- *链条错误
- *可以响应未知方法，响应未知方法时会打印错误信息
+ LinkError can response to unknown method and not crash.This feature make linkBlock more secure.When unknown method called it will do noting but log itself./
+ 可以响应未知方法而不崩溃，响应未知方法时会打印错误信息
  */
 @interface LinkError : LinkInfo
-/** 需要类型 */
 @property (nonatomic,copy) NSString* needClass;
-/** 错误类型 */
 @property (nonatomic,copy) NSString* errorClass;
-/** 所在函数 */
 @property (nonatomic,copy) NSString* inFunc;
 
 - (instancetype)initWithCustomDescription:(NSString*)cDescription;

@@ -691,7 +691,7 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 - (NSObject*)linkAsy_global_queue:(void(^)(NSObject* link))block
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 - (NSObject*)linkLoopIn:(NSUInteger)count block:(void(^)(NSObject* link, NSUInteger index))block
-NS_DEPRECATED_IOS(2_0, 2_0, "use linkForLoop(@,@?) instead");
+NS_DEPRECATED_IOS(2_0, 2_0, "use linkLoop(@,@?) instead");
 
 @property LB_BK UIView*      (^viewCopyX)(UIView* fromView)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");

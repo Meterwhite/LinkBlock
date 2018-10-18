@@ -22,22 +22,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    UIView* view;
+//    UIButton* button;
+    Man* man = [Man new];
+    man.name  = @"AAA";
+    man.nickName = @"BBB";
     
+    man
+    .linkIfNull.nslogValueForKey(@"name")
+    .linkElse.nslogValueForKey(@"nickName")
+    .linkIfNonNull.nslogValueForKey(@"name")
+    .linkElse.nslogValueForKey(@"nickName");
+
     
-    
-//
-    UIButton* button;
-    button.clipsToBounds = YES;
-    button.viewClipsToBoundsYES()
-    
-    UILabelNew.thisValue
-    .viewSetOrigin(0, 0)
-    .objSetScreenValueForFullPath(@"frame->size")
-    .labText(@"a lable")
-    .viewBGColor(@"#cccccc".strToUIColorFromHex())
-    .viewAddToView(self.view);
-    
+    @"END".nslog();
     return;
 //
 //    NSObject* str = [NSString stringWithFormat:@"123%d",123];

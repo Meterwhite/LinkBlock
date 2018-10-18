@@ -21,12 +21,12 @@ typedef enum LinkInfoType{
     LinkInfoType _infoType;
 }
 @property (nonatomic,assign,readonly) LinkInfoType infoType;
-/** 传递距离 */
+/** index of error/传递距离 */
 @property (nonatomic,assign) NSInteger throwCount;
 @property (nonatomic,strong) NSMutableDictionary* userInfo;
 - (void)cleanUserInfo;
 
-#pragma mark - 配置Config
+#pragma mark - Config
 + (void)linkBlockWarningClose;
 + (void)linkBlockWarningOpen;
 @end

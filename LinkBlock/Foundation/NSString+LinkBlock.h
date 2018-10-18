@@ -249,12 +249,6 @@
 @property LB_BK NSString*            (^strURLEncode)(NSStringEncoding encode);
 @property LB_BK NSString*            (^strURLDecode)(NSStringEncoding encode);
 
-#pragma mark - DynamicLink 动态
-/**
- @param ... 参数以"nll,NSNotFond"结尾，以其可以区分结构体
- */
-@property LB_BK NSObject*    (^linkCodeEval)(id obj, ...);
-
 @end
 
 @interface NSString (NSStringLinkBlock)

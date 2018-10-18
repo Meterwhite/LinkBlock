@@ -175,8 +175,8 @@ linkObjs...<linkAt(index)>.thisLinkObj...
 Get linkObj from linkObjs and return it as next linkObj.
 
 3.
-...linkLoop(count,^(NSObject* link,NSUInteger idx){
-    thisLinkObj.objAdd(~);
+...linkLoop(count,^(NSObject* loopObject,NSUInteger idx){
+    loopObject.objAdd(~);
 })...
 Repeat execute the code using block.
 
@@ -202,19 +202,21 @@ person.objPerformSelectorsWithArgs(~);
 
 - 【LinkError】
 ```objc
-由于LinkBlock主要是处理`废话`的，所以它是尽量不崩溃的
-对于逻辑错误，例如：
-anyObject.arrRemoveAt(errorIndex)...;
-LinkBlock内部遇到简单的不合法的参数一般选择`不执行`而不是崩溃。
+If there is no need to crash LinkBlock tends to printed the error by NSLog./无必要则不崩溃
+LinkError can response to unknown method and not crash./可以响应未知方法而不崩溃
+This feature make linkBlock more secure./更加安全
+When unknown method called it will do noting but log itself./响应未知方法时会打印错误信息
 
-产生的错误：
-LinkBlock在执行的时候可能产生三种错误
-1.类型错误。2.内部错误。3.起始对象为nil
-1、2的处理方式：
-在控制台打印错误，明确在链条第几处
-3的处理方式：
-起始对象为nil报错的原因是把nil当做block调用：nil();
-3是LinkBlock最常见的错误，如果我们不能保证起始对象为不为空都应该使用linkObj()
+
+Kind of Error：
+
+1.call linkBlock from `nil`
+2.Type error 
+3.Parameters error
+
+
+1: Use linkObj(~) to create a secure object.
+2、3: This error would be printed by NSLog.
 ```
 
 ## Author
@@ -234,46 +236,53 @@ LinkBlock在执行的时候可能产生三种错误
 
 
 
-## 【实验性的】
-### 以脚本的方式执行LinkBlock
+## 【Experimental/实验性的】
+### Execute linkBlock by script;/脚本解析
 - Describe/描述
 ```objc
-//动态脚本(DynamicLink)解析的4种使用方式
-//1
-@"代码".linkCodeEval(目标对象 , 参数列表);
-//2
-目标对象.linkEvalCode(@"代码" , 参数列表);
-//3 执行一段脚本
-EvalLinkBlock(@"代码");
-//4 使用目标对象执行一段脚本
-EvalLinkBlockWithTarget(目标对象 , @"代码");
+4 ways:
 
-/*
-*DynamicLink概览:
-*@"代码".linkCodeEval(目标对象,参数列表....);
-*
-*
-*命令：
-*DynamicLink脚本使用linkBlock的原生调用方式，还支持属性样式的调用
-*1.当调用名称后跟随"()"时："actionName().actionName()..."，系统会把actionName当成linkBlock去调用
-*2.如果调用中没有"()"，"actionName.actionName..."会被系统解释为属性样式的调用；将调用当成对象的属性、对象的无参方法、类名、或者LinkBlock命令
-*其中LinkBlock命令目前包括:1.创建对象命令："ClassName+New";2.LinkBlock宏定义:"NSNil","AttrDictNew"
-*
-*注意！动态链条并不支持不定参数的block调用，使用中会报出警告。系统认为所有不定参数的block的参数个数为1个，这会造成潜在的分歧。
-*
-*
-*字面参数：
-*字面参数是在DynamicLink中通过字面创建的值，它写在"()"内；形如："ActionName(3.1415926)"
-*支持类型：数字，十六进制的数字，字符串，布尔值，c字符串，字符，NSNumber，SEL，struct in NSValue，Class；参考:DynamicLinkArgument.h
-*字面量参数暂时不能是可以接受参数的linkBlock调用
-*字符串中不能再有双引号
-*
-*
-*入参顺序：
-*参数的入参顺序和脚本中调用的入参顺序完全一一对应；
-*传参目前只能给在第一层的调用传参，下层调用只能通过字面量传参
-*如果脚本中存在一个字面参数则参数列表中不再需要传递这个参数；
-*如果要通过参数列表传递nil，可以使用NSNil。或者在脚本中使用字面量"nil","NULL"
-*
-*/
+1.
+script.linkCodeEval(targetObject,arg...);
+
+2.
+targetObject.linkEvalCode(script,arg...);
+
+3. Execute script directly;
+EvalLinkBlock(@"代码");
+4. 
+EvalLinkBlockWithTarget(targetObject,arg...);
+```
+
+### Detail/详细
+
+```objc
+
+DynamicLink used like linkBlock
+1."...actionName()..."The actionName wiil called as linkBlock
+2."...actionName...".The actionName will called as property > non-argument method > LinkBlock command
+
+LinkBlock command/命令:
+1.CreateCommand:"ClassName+New";
+2.LinkBlock macros,like 'NSNil','AttrDictNew'
+
+note:DynamicLink did not suport the function that use argument list.If do it,system will recive only one agument,This will cause potential differences./不支持不定参数方法，否则只接收一个参数
+
+
+direct value/直接量：
+direct value used in '()'.Like:"actionName(3.1415926)"
+suport types:number||HexNumber,String,Boolean,c string,char,NSNumber,SEL,struct in NSValue,Class;
+Reference:DynamicLinkArgument.h
+
+note:1.If set actionName or func as direct value,it must be non-argument func/方法的直接量必须是无惨的
+2.cannot have double quotes in a string/字符串中不再用双引号
+
+
+Entry order/入参顺序:
+One-to-one correspondence/一一对应关系
+script:"actionName($0 , 3.14 , $1)" => argument list:($0 , $1)
+Only suport set arguments to outer layer,to inner layer func should use direct value.
+In argument list use NSNil instead nil,or use direct value nil or NULL in script
+
+return type:In dynamicLink all return type has been boxed./所有返回值都是装箱的
 ```

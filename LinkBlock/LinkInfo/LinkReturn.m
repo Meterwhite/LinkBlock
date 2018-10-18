@@ -15,20 +15,33 @@
     if (self) {
         _infoType = LinkInfoReturn;
         _returnType = LinkReturnLink;
+        _condition = LinkConditionNon;
     }
     return self;
 }
 - (instancetype)initWithReturnValue:(id)returnValue
 {
     if(self = [self init]){
-        self.returnValue = returnValue;
+        _returnValue = returnValue;
     }
     return self;
 }
 - (instancetype)initWithReturnValue:(id)returnValue returnType:(LinkReturnType)returnType
 {
     if(self = [self initWithReturnValue:returnValue]){
+        _returnType = returnType;
+        if(returnType == LinkReturnCondition){
+            _condition = LinkConditionIF;
+        }
+    }
+    return self;
+}
+
+- (instancetype)initWithReturnValue:(id)returnValue returnType:(LinkReturnType)returnType conditionType:(LinkConditionType)conditionType
+{
+    if(self = [self initWithReturnValue:returnValue]){
         self.returnType = returnType;
+        self.condition = conditionType;
     }
     return self;
 }

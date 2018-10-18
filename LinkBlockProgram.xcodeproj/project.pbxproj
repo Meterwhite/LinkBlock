@@ -31,6 +31,7 @@
 		45BFEBED1D34F225007B83B5 /* LinkGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFEBEC1D34F225007B83B5 /* LinkGroup.m */; };
 		45BFEBF01D34F728007B83B5 /* LinkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFEBEF1D34F728007B83B5 /* LinkError.m */; };
 		45C239BF1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C239BE1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m */; };
+		45D7816B2178340C00E8F53E /* LinkObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D7816A2178340C00E8F53E /* LinkObject.m */; };
 		45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */; };
 		45EB72F41FAAC793004984E0 /* UIFont+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EB72F31FAAC793004984E0 /* UIFont+LinkBlock.m */; };
 		9F6508821FE59C2E0039BA9E /* LinkBlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */; };
@@ -131,6 +132,8 @@
 		45BFEBEF1D34F728007B83B5 /* LinkError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkError.m; sourceTree = "<group>"; };
 		45C239BD1FDA943E00E08D01 /* NSIndexPath+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+LinkBlock.h"; sourceTree = "<group>"; };
 		45C239BE1FDA943E00E08D01 /* NSIndexPath+LinkBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+LinkBlock.m"; sourceTree = "<group>"; };
+		45D781692178340C00E8F53E /* LinkObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkObject.h; sourceTree = "<group>"; };
+		45D7816A2178340C00E8F53E /* LinkObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinkObject.m; sourceTree = "<group>"; };
 		45DEF2C31CEB0B950000E453 /* UIBezierPath+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+LinkBlock.h"; sourceTree = "<group>"; };
 		45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIBezierPath+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		45EB72F21FAAC793004984E0 /* UIFont+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+LinkBlock.h"; sourceTree = "<group>"; };
@@ -158,7 +161,7 @@
 		9FBD17171BDB91D500C2F402 /* NSNumber+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+LinkBlock.h"; sourceTree = "<group>"; };
 		9FBD17181BDB91D500C2F402 /* NSNumber+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSNumber+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		9FBD17191BDB91D500C2F402 /* NSObject+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSObject+LinkBlock.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		9FBD171A1BDB91D500C2F402 /* NSObject+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSObject+LinkBlock.m"; sourceTree = "<group>"; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		9FBD171A1BDB91D500C2F402 /* NSObject+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSObject+LinkBlock.m"; sourceTree = "<group>"; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		9FBD171B1BDB91D500C2F402 /* NSString+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LinkBlock.h"; sourceTree = "<group>"; };
 		9FBD171C1BDB91D500C2F402 /* NSString+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSString+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		9FBD171D1BDB91D500C2F402 /* NSURL+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+LinkBlock.h"; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 			isa = PBXGroup;
 			children = (
 				9FBD17211BDB91D500C2F402 /* LinkBlock.h */,
+				45D781692178340C00E8F53E /* LinkObject.h */,
+				45D7816A2178340C00E8F53E /* LinkObject.m */,
 				9FBD17061BDB91D500C2F402 /* Foundation */,
 				9FBD17241BDB91D500C2F402 /* UIKit */,
 				45BFEBE71D34F153007B83B5 /* LinkInfo */,
@@ -603,6 +608,7 @@
 				458AD6001D193BDC00D5B931 /* JSContext+LinkBlock.m in Sources */,
 				9FF373EA1D9ED3F300E5AAEA /* Others+LinkBlock.m in Sources */,
 				9FBD17471BDB91D500C2F402 /* UIControl+LinkBlock.m in Sources */,
+				45D7816B2178340C00E8F53E /* LinkObject.m in Sources */,
 				4520476A1CEDB8D30092ED18 /* CALayer+LinkBlock.m in Sources */,
 				9FBD173C1BDB91D500C2F402 /* NSMutableAttributedString+LinkBlock.m in Sources */,
 				9FFDA2121B835E2F0044097D /* main.m in Sources */,

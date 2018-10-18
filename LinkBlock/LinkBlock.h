@@ -5,13 +5,14 @@
 //  Copyright (c) 2015年 NOVO. All rights reserved.
 //
 
-#import "NSObject+LinkBlock.h"
+#import "LinkObject.h"
 
 #import "NSURL+LinkBlock.h"
 #import "NSDate+LinkBlock.h"
 #import "NSValue+LinkBlock.h"
 #import "NSError+LinkBlock.h"
 #import "NSArray+LinkBlock.h"
+#import "NSObject+LinkBlock.h"
 #import "NSString+LinkBlock.h"
 #import "NSNumber+LinkBlock.h"
 #import "NSIndexPath+LinkBlock.h"
@@ -57,11 +58,6 @@
 #define linkObj(object) ((typeof(object))_LB_MakeObj(object))
 #endif
 
-///For type of id
-#ifndef linkObj_id
-#define linkObj_id(object) ((NSObject*)_LB_MakeObj(object))
-#endif
-
 /**
  *  ~ = linkObj...linkEnd;
  *  1.Used to get return value when needed.
@@ -71,7 +67,10 @@
 #define linkEnd linkEnd
 #endif
 
-
+///For type of id
+#ifndef linkObj_id
+#define linkObj_id(object) ((NSObject*)_LB_MakeObj(object))
+#endif
 //////////////////////////////////////////////////////////////////////
 //MARK:link objects/多对象的链条
 //////////////////////////////////////////////////////////////////////
@@ -142,7 +141,7 @@
 
 
 //////////////////////////////////////////////////////////////////////
-//MARK:Link Condition/条件
+//MARK:Link Condition/简单条件
 //////////////////////////////////////////////////////////////////////
 /**
  Get linkObj from linkObjs and return it as next linkObj.
@@ -153,44 +152,47 @@
 #endif
 /**
  *  if-else in link
- *  <NSNumber>.linkIf...LinkElse...
+ *  :
+ *  ...<linkIf(~)...>...<LinkElse...linkIf(~)...linkIf(~...)>
+ *  `linkElse` has a higher priority.If execute <A> means that <B> would not be execut;
  */
 #ifndef linkIf
 #define linkIf linkIf
 #endif
-/**
- *  if-else in link
- *  <NSNumber>.linkIf...LinkElse...
- */
+/** Refer to : linkIf */
 #ifndef linkElse
 #define linkElse linkElse
 #endif
-/**
- *  if-else in link
- *  <NSNumber>.linkIf_YES...LinkElse...
- */
+/** It is similar to linkIf.`YES` means @YES or !NSNull */
 #ifndef linkIf_YES
 #define linkIf_YES linkIf_YES
 #endif
-/**
- *  if-else in link
- *  <NSNumber>.linkIf_NO...LinkElse...
- */
+/** It is similar to linkIf.`NO` means @NO or NSNull */
 #ifndef linkIf_NO
 #define linkIf_NO linkIf_NO
 #endif
+/** It is similar to linkIf.`Null` means @NO or NSNull.It is the same as linkIf_NO */
+#ifndef linkIfNull
+#define linkIfNull linkIfNull
+#endif
+/** It is similar to linkIf.`NonNull` means @YES or !NSNull.It is the same as linkIf_YES */
+#ifndef linkIfNonNull
+#define linkIfNonNull linkIfNonNull
+#endif
+
 /**
- break and return value.
- use linkEnd to get the special type value
- ...linkReturn...linkEnd;
+ Return value immediately.Following block would not be execute.
+ Then use `linkEnd` to get the result.
+ id getValue = ...linkReturn...linkEnd;
  */
 #ifndef linkReturn
 #define linkReturn linkReturn
 #endif
 
-//////////////////////////////////////////////////////////////////////
-//MARK:Link Indicate/链条指示 Refer to `NSObject+LinkBlock.h`
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////
+//MARK: Link Indicate/链条指示
+//Refer to `NSObject+LinkBlock.h`
+/////////////////////////////////
 #ifndef whatSet
 #define whatSet whatSet
 #endif
@@ -275,9 +277,9 @@
 #define aNSRangeValue aNSRangeValue
 #endif
 
-//////////////////////////////////////////////////////////////////////
-//MARK:Experimental DynamicLink/脚本解析（实验性）
-//////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////
+//MARK:Experimental DynamicLink/脚本解析-实验性
+////////////////////////////////////////////////
 /*
  *  DynamicLink/脚本解析:
  *  script.linkCodeEval(targetObject,argumentList....);
@@ -349,9 +351,9 @@
 #endif
 
 
-//////////////////////////////////////////////////////////////////////
-//MARK:Configuration/配置
-//////////////////////////////////////////////////////////////////////
+//////////////////////////////
+//MARK: Configuration/配置
+//////////////////////////////
 /** Close the warning */
 #ifndef LinkBlockWarningClose
 #define LinkBlockWarningClose ([LinkInfo linkBlockWarningClose])
@@ -361,9 +363,9 @@
 #define LinkBlockWarningOpen ([LinkInfo linkBlockWarningOpen])
 #endif
 
-//////////////////////////////////////////////////////////////////////
-//MARK:Other function
-//////////////////////////////////////////////////////////////////////
+//////////////////////////////////
+//MARK: Other function
+/////////////////////////////////
 /** Default value for object */
 #ifndef linkObjDefault
 #define linkObjDefault(object,default) ((typeof(object))_LB_DefaultObj(object,default))

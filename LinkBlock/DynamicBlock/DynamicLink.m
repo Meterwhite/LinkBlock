@@ -6,11 +6,11 @@
 //  Copyright © 2017年 NOVO. All rights reserved.
 //
 
+#import "LinkObject.h"
 #import "DynamicLink.h"
 #import "DynamicLinkAction.h"
 #import "DynamicLinkArgument.h"
 #import "LinkHelper.h"
-#import "NSObject+LinkBlock.h"
 #import "NSNil.h"
 
 @interface DynamicLink()
