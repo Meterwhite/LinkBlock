@@ -568,7 +568,10 @@
         
         if(![_self respondsToSelector:@selector(addObject:)])
             _self = _self.mutableCopy;
-        [_self addObject:obj];
+        
+        if(obj){
+            [_self addObject:obj];
+        }
         return _self;
     };
 }
@@ -582,7 +585,7 @@
         if(![_self respondsToSelector:@selector(addObject:)])
             _self = _self.mutableCopy;
         
-        if(![_self containsObject:obj]){
+        if(obj && ![_self containsObject:obj]){
             [_self addObject:obj];
         }
         return _self;
@@ -603,6 +606,8 @@
         if(![_self respondsToSelector:@selector(addObjectsFromArray:)]){
             _self = _self.mutableCopy;
         }
+        
+        if(!objs) return _self;
         
         if([objs isKindOfClass:NSArray.class]){
             [_self addObjectsFromArray:objs];
