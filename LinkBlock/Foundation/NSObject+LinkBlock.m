@@ -2107,10 +2107,10 @@ DefineKindOfClassAs(NSNumber)
         
         if(LB_IsKindOfClass(_self, NSArray))
             return self;
+        if(LB_IsKindOfClass(_self, NSOrderedSet))
+            return [(NSOrderedSet*)_self array];
         if(LB_RespondsToSEL(_self, allObjects))
             return [(id)_self allObjects];
-        if(LB_RespondsToSEL(_self, array))
-            return [(id)_self array];
         
         return NSNull.null;
     };

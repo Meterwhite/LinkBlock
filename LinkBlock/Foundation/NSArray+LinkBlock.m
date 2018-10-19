@@ -649,7 +649,7 @@
             _self = _self.mutableCopy;
         
         if([objs isKindOfClass:NSOrderedSet.class]){
-            objs = [(id)objs array];
+            objs = [(NSOrderedSet*)objs array];
         }
         
         [(id)_self insertObjects:objs atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, [objs count])]];
