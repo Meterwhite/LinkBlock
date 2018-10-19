@@ -887,8 +887,18 @@
         }
         
         if(![fullPath containsString:@"->"]){
-            ///Are you confusing '.' and '->'?
-            [_self setValue:value forKeyPath:fullPath];
+            
+            if([_self isKindOfClass:NSValue.class]){
+                
+                if(_self.valueIsStructAs().boolValue){
+                    return _self.valueStructSetValueForKeyPath(value, fullPath);
+                }
+            }else{
+                
+                ///Are you confusing '.' and '->'?
+                [_self setValue:value forKeyPath:fullPath];
+            }
+
             return _self;
         }
         
@@ -909,25 +919,25 @@
     };
 }
 
-- (NSObject *(^)(id, NSString*))objSetValueForKeyByRegex
+- (NSObject *(^)(id, NSString*))objSetValueForRegexKey
 {
-    return ^id(id value, NSString* key){
+    return ^id(id value, NSString* regexKey){
         
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetValueForKeyByRegex, value ,key)
+        LinkGroupHandle_REF(objSetValueForRegexKey, value ,regexKey)
         
-        [self _lb_setValue:value forKey:key option:NSRegularExpressionSearch];
+        [self _lb_setValue:value forKey:regexKey option:NSRegularExpressionSearch];
         return _self;
     };
 }
-- (NSObject *(^)(id, NSString *))objSetValueForKeyByMatch
+- (NSObject *(^)(id, NSString *))objSetValueForSubkey
 {
-    return ^id(id value, NSString* key){
+    return ^id(id value, NSString* subkey){
         
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetValueForKeyByRegex, value ,key)
+        LinkGroupHandle_REF(objSetValueForRegexKey, value ,subkey)
         
-        [self _lb_setValue:value forKey:key option:NSCaseInsensitiveSearch];
+        [self _lb_setValue:value forKey:subkey option:NSCaseInsensitiveSearch];
         return _self;
     };
 }

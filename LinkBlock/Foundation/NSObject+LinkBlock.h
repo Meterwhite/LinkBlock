@@ -318,10 +318,10 @@
 @property LB_BK NSObject*    (^objValueForFullPath)(NSString* fullPath);
 /** Refer to : objValueForFullPath */
 @property LB_BK NSObject*    (^objSetValueForFullPath)(id value, NSString* fullPath);
-/** search is ignoring Case  */
-@property LB_BK NSObject*    (^objSetValueForKeyByMatch)(id value, NSString* matchKey);
-/** set value for all matched key by regex */
-@property LB_BK NSObject*    (^objSetValueForKeyByRegex)(id value, NSString* regexOfKey);
+/** search is ignoring Case.This block is invalid for the Foundation propertys.It works for custom propertys.  */
+@property LB_BK NSObject*    (^objSetValueForSubkey)(id value, NSString* subkey);
+/** set value for all matched key by regex.This block is invalid for the Foundation propertys.It works for custom propertys. */
+@property LB_BK NSObject*    (^objSetValueForRegexKey)(id value, NSString* regexKey);
 @property LB_BK NSNumber*    (^objEachValueIsTrueForKeyPathsAs)(id<NSFastEnumeration> keyPaths);
 @property LB_BK NSNumber*    (^objSomeValueIsTrueForKeyPathsAs)(id<NSFastEnumeration> keyPaths);
 /**

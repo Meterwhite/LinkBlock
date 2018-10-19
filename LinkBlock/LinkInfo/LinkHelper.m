@@ -919,7 +919,7 @@ static NSArray* _listOfLinkBlockIsIndefiniteParameters;
             @"objIsEqualToSomeone",@"objIsEqualToSomeoneAs",
             @"objPerformSelectorsAsWhatReturns",
             @"objIsEqualToEach",@"objIsEqualToEachAs",
-            @"arrFilter",@"m_arrFilter"];
+            @"arrFilter"];
     }
     return _listOfLinkBlockIsIndefiniteParameters;
 }
