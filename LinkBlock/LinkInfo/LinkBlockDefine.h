@@ -37,19 +37,19 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////
-//MARK:控制
+//MARK: Control
 //////////////////////////////////////////////////////////////////////
-//引用类型的返回值时的预处理
+//Return value is object type.
 #ifndef LinkHandle_REF
 #define LinkHandle_REF(currType)\
 __kindof currType* _self = (currType*)self;\
 if([_self isKindOfClass:[LinkInfo class]]){\
-if(((LinkInfo*)_self).infoType == LinkInfoError){\
-    ((LinkError*)_self).throwCount++;\
-    return (id)self;\
-}else if(((LinkInfo*)self).infoType == LinkInfoReturn){\
-    return (id)self;\
-}\
+    if(((LinkInfo*)_self).infoType == LinkInfoError){\
+        ((LinkError*)_self).throwCount++;\
+        return (id)self;\
+    }else if(((LinkInfo*)self).infoType == LinkInfoReturn){\
+        return (id)self;\
+    }\
 }\
 if(![_self isKindOfClass:[currType class]]&&\
 ![_self isKindOfClass:[LinkInfo class]]){\
@@ -61,14 +61,14 @@ if(![_self isKindOfClass:[currType class]]&&\
 }
 #endif
 
-//值类型的返回值时的预处理
+//Return value is value type.
 #ifndef LinkHandle_VAL_IFNOT
 #define LinkHandle_VAL_IFNOT(currType) \
 __kindof currType* _self = (currType*)self;\
 if([self isKindOfClass:[LinkError class]] || (![self isKindOfClass:[currType class]]&&![self isKindOfClass:[LinkGroup class]]))
 #endif
 
-//多对象链式编程控制引用返回类型时
+//Handle link objects when return value is object type.
 #ifndef LinkGroupHandle_REF
 #define LinkGroupHandle_REF(blockName , ...)\
 if([self isKindOfClass:[LinkGroup class]]){\
@@ -82,7 +82,7 @@ if([self isKindOfClass:[LinkGroup class]]){\
     return (id)group;\
 }
 #endif
-//多对象链式编程控制值返回类型时
+//Handle link objects when return value is value type.
 #ifndef LinkGroupHandle_VAL
 #define LinkGroupHandle_VAL(blockName , ...) \
 if([self isKindOfClass:[LinkGroup class]]){\
@@ -95,7 +95,7 @@ if([self isKindOfClass:[LinkGroup class]]){\
 #define LB_SELAsString(sel) (NSStringFromSelector(@selector(sel)))
 #endif
 
-//MARK:装箱
+///MARK: Box value
 #define LBBoxValue(value) _LinkBoxValue(@encode(__typeof__((value))), (value))
 NS_INLINE id _LinkBoxValue(const char *type, ...) {
     va_list v;

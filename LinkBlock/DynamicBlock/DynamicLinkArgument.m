@@ -38,7 +38,7 @@
             
             _objcValue = [[LinkHelper help:code] valueFromValueCode];
             if(NSEqualNil(_objcValue)){
-                NSLog(@"DynamicLink Error:无法解析的值%@！",code);
+                NSLog(@"DynamicLink Error:unrecognized value %@！",code);
                 _validate = NO;
             }else{
                 _validate = YES;

@@ -71,7 +71,7 @@ typedef enum LinkActionStyle{
             //属性格式调用
             if([[LinkHelper help:propertyName] isUnavailableActionName]){
                 _validate = NO;
-                NSLog(@"DynamicLink Error:%@是明确禁止的调用!",functionName);
+                NSLog(@"DynamicLink Error:%@ is forbidden!",functionName);
                 goto CODE_RETURN;
             }
             _actionName = propertyName;
@@ -90,13 +90,13 @@ typedef enum LinkActionStyle{
                 
                 if([[LinkHelper help:propertyName] isUnavailableActionName]){
                     _validate = NO;
-                    NSLog(@"DynamicLink Error:%@是明确禁止的调用!",functionName);
+                    NSLog(@"DynamicLink Error:%@ is forbidden!",functionName);
                     goto CODE_RETURN;
                 }
                 
                 if([[LinkHelper help:propertyName] isIndefiniteParametersLinkBlockName]){
                     if(LinkHelper.link_block_configuration_get_is_show_warning)
-                        NSLog(@"DynamicLink Warning:使用不定参数的linkBlock可能会造成非预期的行为！，DynamicLink下不定参数的linkBlock只能接受1个参数！");
+                        NSLog(@"DynamicLink Warning:Use va_list method can cause unexpected behavior!Only one parameter can be received.");
                 }
                 
                 //block属性调用
@@ -128,14 +128,14 @@ typedef enum LinkActionStyle{
                     }
                 }];
                 if(argsAsString.count > _numberOfArguments && LinkHelper.link_block_configuration_get_is_show_warning){
-                    NSLog(@"DynamicLink Warning:%@中存在过多的%@个参数！如果这种做法有明确意义，请忽略这个条警告",_stringValue,@(argsAsString.count-_numberOfArguments));
+                    NSLog(@"DynamicLink Warning:%@ has %@ unused parameters.",_stringValue,@(argsAsString.count-_numberOfArguments));
                 }
             }else{
                 
                 //函数调用
                 if([[LinkHelper help:functionName] isUnavailableActionName]){
                     _validate = NO;
-                    NSLog(@"DynamicLink Error:%@是明确禁止的调用!",functionName);
+                    NSLog(@"DynamicLink Error:%@ is forbidden!",functionName);
                 }
             }
         }
@@ -264,7 +264,7 @@ CODE_BLOCK_TYPE:{
             //方法参数是具体 传参是抽象
             if(!LB_TypeEncodingsPassingCheck(arg.objcType , self.objcTypeOfArguments[idx_arg].UTF8String)){
                 
-                NSLog(@"DynamicLink Error:直接量参数中\"%@\"的类型错误;需要类型\"%@\"而不是类型\"%s\";本次将不会赋值;",
+                NSLog(@"DynamicLink Type Error:Argument \"%@\" need the type \"%@\" not the type\"%s\";",
                       arg.stringValue,self.objcTypeOfArguments[idx_arg],arg.objcType);
                 continue;
             }
@@ -377,7 +377,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -395,7 +395,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -410,7 +410,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -425,7 +425,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -440,7 +440,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -455,7 +455,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -470,7 +470,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -485,7 +485,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -500,7 +500,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -515,7 +515,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -530,7 +530,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -545,7 +545,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -560,7 +560,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -575,7 +575,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -590,7 +590,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -605,7 +605,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -619,7 +619,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -633,7 +633,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -647,7 +647,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -661,7 +661,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -675,7 +675,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -689,7 +689,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -703,7 +703,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -717,7 +717,7 @@ CODE_BLOCK_TYPE:{
                 if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                     *end = YES;
                     if(LinkHelper.link_block_configuration_get_is_show_warning){
-                        NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                        NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                     }
                     va_end(check_list);
                     return;
@@ -732,7 +732,7 @@ CODE_BLOCK_TYPE:{
                     if(va_arg(check_list, void*)==NULL&&va_arg(check_list, NSInteger)==NSNotFound){
                         *end = YES;
                         if(LinkHelper.link_block_configuration_get_is_show_warning){
-                            NSLog(@"DynamicLink Warning:在链条的第%ld处调用%@缺少参数;将使用默认值!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
+                            NSLog(@"DynamicLink Warning:Index of linkBlock %ld,%@ need parameters;It will replace with nil!",[self->_indexPath indexAtPosition:0]+1,self->_stringValue);
                         }
                         va_end(check_list);
                         return;
@@ -892,7 +892,7 @@ CODE_BLOCK_TYPE:{
         return re_nsnumber;
     }
     //其他结构体和共用体
-    NSLog(@"DynamicLink Error:不支持的结构体类型或共用体");
+    NSLog(@"DynamicLink Error:Structure or union type is not supported");
     return nil;
 }
     
@@ -912,7 +912,7 @@ CODE_FUNCTION_TYPE:{
     //****************未知类型****************
 CODE_UNKNOWN_TYPE:
     
-    NSLog(@"DynamicLink Error:不能识别或不支持的调用%@", _actionName);
+    NSLog(@"DynamicLink Error:Unrecognized or unsupported method %@", _actionName);
     return nil;
 }
 

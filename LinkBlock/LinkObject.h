@@ -2,8 +2,8 @@
 //  LinkObject.h
 //  LinkBlockProgram
 //
-//  Created by MDLK on 2018/10/18.
-//  Copyright © 2018 QuXingYi. All rights reserved.
+//  Created by Novo on 2018/10/18.
+//  Copyright © 2018 Novo. All rights reserved.
 //
 
 #import "LinkBlockDefine.h"

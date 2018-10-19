@@ -2713,6 +2713,7 @@ DefineKindOfClassAs(NSNumber)
     return ^id(){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(poDetail)
+        
         NSLog(@"%@",[self _lb_obj2JsonValueDepth:YES includeFoundation:NO]);
         return _self;
     };

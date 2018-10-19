@@ -10,9 +10,6 @@
 #import "Person.h"
 #import "Man.h"
 
-#define macroScreenWidth ([UIScreen mainScreen].bounds.size.width)
-#define macroScreenHeight ([UIScreen mainScreen].bounds.size.height)
-
 @interface ViewController ()
 
 @end

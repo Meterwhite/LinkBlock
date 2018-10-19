@@ -283,7 +283,7 @@ static NSString* _lbEncodeFormate = @"_LB%@_";
         
         
         if(state != 0){
-            NSLog(@"DynamicLink Error:检查%@是否中存在不完整的字符串！",code);
+            NSLog(@"DynamicLink Error:Check inner string of %@ if is complete.",code);
             return nil;
         }
         
@@ -379,7 +379,7 @@ static NSString* _lbEncodeFormate = @"_LB%@_";
     }];
     
     if(state != 0){
-        NSLog(@"DynamicLink Error:检查%@是否中存在未完成的括号对！",code);
+        NSLog(@"DynamicLink Error:Check if there are unfinished '()' in %@",code);
         return nil;
     }
     
@@ -737,7 +737,7 @@ static NSString* _lbEncodeFormate = @"_LB%@_";
     if(jsV.isNumber){
         return jsV.toNumber;
     }
-    NSLog(@"DynamicLink Error:不能识别的值%@",self.target);
+    NSLog(@"DynamicLink Error:Unrecognized value %@",self.target);
     return nil;
 }
 

@@ -39,7 +39,7 @@
 - (id)commandInvoke:(id)target
 {
     
-    NSAssert([self.code isKindOfClass:[NSString class]], @"LinkBlock脚本必须是objc字符串");
+    NSAssert([self.code isKindOfClass:[NSString class]], @"DynamicLink script must be objc string.");
     
     //new 命令
     NSRegularExpression* regexOfNew = [NSRegularExpression regularExpressionWithPattern:@"[a-zA-Z_]+\\d*New" options:0 error:0];
@@ -55,7 +55,7 @@
         }
     }
     
-    //硬编码的直接量
+    //硬编码的字面量
     if([[LinkHelper help:self.code] isCodeLinkBlockEncoded]){
         return [[LinkHelper help:self.code] valueFromLinkBlockEncodingCodeAction];
     }
@@ -75,7 +75,7 @@ CODE_PROPERTY_TYPE:{
         
     CODE_CALL_SIGNATURE:
         if(sig.numberOfArguments > 2 && LinkHelper.link_block_configuration_get_is_show_warning){
-            NSLog(@"DynamicLink Warning:%@,没有入参的方法调用!",self.code);
+            NSLog(@"DynamicLink Warning:%@ has no return value.",self.code);
         };
         NSInvocation* invok = [NSInvocation invocationWithMethodSignature:sig];
         invok.selector = sel;
@@ -192,7 +192,7 @@ CODE_PROPERTY_TYPE:{
                 reV = [NSValue valueWithDirectionalEdgeInsets:val];
             }
         } defaule:^{
-            NSLog(@"DynamicLink Error:不支持的结构体类型或共用体");
+            NSLog(@"DynamicLink Error:Structure or union type is not supported");
         }];
         return reV;
     }
@@ -220,7 +220,7 @@ CODE_PROPERTY_TYPE:{
     }
 
     
-    NSLog(@"DynamicLink Error:无法计算%@；不能识别的属性、命令或者无参方法"
+    NSLog(@"DynamicLink Error:Unrecognized %@."
           ,self.code);
     return nil;
 }

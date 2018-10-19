@@ -2,8 +2,8 @@
 //  LinkObject.m
 //  LinkBlockProgram
 //
-//  Created by MDLK on 2018/10/18.
-//  Copyright © 2018 QuXingYi. All rights reserved.
+//  Created by Novo on 2018/10/18.
+//  Copyright © 2018 Novo. All rights reserved.
 //
 
 #import "LinkBlock.h"
@@ -19,13 +19,10 @@
 - (NSObject *)makeLinkObjs
 {
     LinkHandle_REF(NSArray)
-    if([self isKindOfClass:[LinkGroup class]]){
-        LinkGroup* group = _self.thisLinkObjs;
-        LinkGroup* newGroup = [LinkGroup groupWithArr:group.linkObjects];
-        newGroup.userInfo = [group.userInfo mutableCopy];
-        newGroup.throwCount = group.throwCount;
-        return newGroup;
-    }
+    
+    if([self isKindOfClass:[LinkGroup class]])
+        return self;
+    
     return [LinkGroup groupWithArr:_self];
 }
 
