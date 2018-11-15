@@ -3640,14 +3640,14 @@ Link_objSetValueForK(text)
 }
 
 
-- (void)_lb_performSelector:(SEL)aSelector
+- (void)_lb_performSelector:(SEL _Nonnull)aSelector
 {
-    [self performSelector:aSelector];
+    ((void (*)(id, SEL))[self methodForSelector:aSelector])(self, aSelector);
 }
 
 - (void)_lb_performSelector:(SEL)aSelector withObject:(id)obj
 {
-    [self performSelector:aSelector withObject:obj];
+    ((void (*)(id, SEL, id))[self methodForSelector:aSelector])(self, aSelector , obj);
 }
 
 - (id)_lb_performSelector:(SEL)aSelector withArg:(id)arg
