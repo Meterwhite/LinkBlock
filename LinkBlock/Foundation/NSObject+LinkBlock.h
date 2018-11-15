@@ -396,23 +396,23 @@
 
 #pragma mark - NSClass
 /** Determine if is Foundation type */
-+ (BOOL)classIsFoundation;
-+ (BOOL)classContainProperty:(NSString*)property;
-+ (BOOL)classContainIvar:(NSString*)ivarName;
-+ (NSArray<NSString*>*)classGetIvarList;
-+ (NSArray<NSString*>*)classGetPropertyList;
++ (BOOL)lb_classIsBasic;
++ (BOOL)lb_classContainProperty:(NSString*)property;
++ (BOOL)lb_classContainIvar:(NSString*)ivarName;
++ (NSArray<NSString*>*)lb_classGetIvarList;
++ (NSArray<NSString*>*)lb_classGetPropertyList;
 /** reference:property type encodings;<(NSString*)key> */
-+ (NSString*)classGetPropertyType:(NSString*)key;
++ (NSString*)lb_classGetPropertyType:(NSString*)key;
 /** Depth Traversal */
-+ (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation;
-- (NSArray<NSString*>*)objGetInstanceMethodList;
-+ (NSArray<NSString*>*)classGetClassMethodList;
-+ (NSArray<NSString*>*)classGetProtocolList;
++ (NSArray<NSString*>*)lb_classGetAllPropertyList:(BOOL)includeFoundation;
+- (NSArray<NSString*>*)lb_objGetInstanceMethodList;
++ (NSArray<NSString*>*)lb_classGetClassMethodList;
++ (NSArray<NSString*>*)lb_classGetProtocolList;
 /** Depth Traversal */
-+ (void)classEnumerateUsingBlock:(void(^)(Class clazz , BOOL* stop))block
-               includeFoundation:(BOOL)includeFoundation;
++ (void)lb_classEnumerateUsingBlock:(void(^)(Class clazz , BOOL* stop))block
+                       includeBasic:(BOOL)includeBasic;
 
 /** propertyName reference:property type encodings */
-+ (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block includeFoundation:(BOOL)includeFoundation;
++ (void)lb_classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block includeBasic:(BOOL)includeBasic;
 
 @end

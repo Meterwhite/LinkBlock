@@ -24,6 +24,10 @@
 #define LB_BKG(getname) (nonatomic,copy,readonly,getter=getname)
 #endif
 
+#ifndef LBC_BKG
+#define LBC_BKG(getname) (nonatomic,class,readonly,getter=getname)
+#endif
+
 #ifndef LB_MCopy_VAR
 #define LB_MCopy_VAR(var) (var = [var mutableCopy])
 #endif

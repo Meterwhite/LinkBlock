@@ -867,6 +867,32 @@
         return min;
     };
 }
+
++ (BOOL)classIsFoundation
+{return [self lb_classIsBasic];}
+
++ (BOOL)classContainProperty:(NSString*)property
+{return [self lb_classContainProperty:property];}
+
++ (BOOL)classContainIvar:(NSString*)ivarName
+{return [self lb_classContainIvar:ivarName];}
+
++ (NSString*)classGetPropertyType:(NSString*)key
+{return [self lb_classGetPropertyType:key];}
+
++ (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)b
+{return [self lb_classGetAllPropertyList:b];}
+
++ (void)classEnumerateUsingBlock:(void(^)(Class clazz , BOOL* stop))block
+               includeFoundation:(BOOL)b
+{
+    [self lb_classEnumerateUsingBlock:block includeBasic:b];
+}
++ (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block includeFoundation:(BOOL)b
+{
+    [self lb_classPropertysEnumerateUsingBlock:block includeBasic:b];
+}
+
 //- (BOOL (^)(NSAttributedString *))attr_strIsEqualToAttrStr
 //{
 //    return ^(NSAttributedString* attrStr){

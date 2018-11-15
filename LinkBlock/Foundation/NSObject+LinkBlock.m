@@ -13,122 +13,74 @@
 #import "LinkBlockInvocation.h"
 #import "NSNil.h"
 
+#ifndef _LB_performSelector
+#define _LB_performSelector(target , selector) \
+(((void (*)(id, SEL))[target methodForSelector:selector])(target, selector))
+#endif
+
+#ifndef _LB_performSelector1
+#define _LB_performSelector1(target , selector, object)\
+(((void (*)(id, SEL, id))[target methodForSelector:selector])(target, selector, object))
+#endif
+
 @implementation NSObject(LinkBlockNSObject)
 
-+ (BOOL)classIsFoundation
++ (BOOL)lb_classIsBasic
 {
-    //root
+    static NSSet *_baseDataClasses;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        _baseDataClasses =
+        [NSSet setWithObjects:NSClassFromString(@"NSBlock")
+         , [NSNull class],[NSProxy class]
+         , [NSString class],[NSValue class]
+         , [NSArray class],[NSDictionary class]
+         , [NSSet class],[NSOrderedSet class]
+         , [NSMapTable class],[NSHashTable class]
+         , [NSPointerArray class],[NSPointerFunctions class]
+         , [NSIndexSet class],[NSCharacterSet class]
+         , [NSURL class],[NSIndexPath class]
+         , [NSAttributedString class],[NSParagraphStyle class]
+         , [NSData class],[NSCoder class]
+         , [NSFormatter class]
+         , nil];
+    });
+    
+    ///Root
     if(self == [NSObject class] || self == [NSManagedObject class]) return YES;
-    //base
-    if([self isSubclassOfClass:[NSArray class]]) return YES;
-    if([self isSubclassOfClass:[NSDictionary class]]) return YES;
-    if([self isSubclassOfClass:[NSValue class]]) return YES;
-    if([self isSubclassOfClass:[NSString class]]) return YES;
-    if([self isSubclassOfClass:[NSDate class]]) return YES;
-    if([self isSubclassOfClass:[NSData class]]) return YES;
-    if([self isSubclassOfClass:[NSAttributedString class]]) return YES;
-    if([self isSubclassOfClass:[NSURL class]]) return YES;
-    if([self isSubclassOfClass:[NSError class]]) return YES;
-    if([self isSubclassOfClass:[NSSet class] ]) return YES;
-    if([self isSubclassOfClass:[NSPredicate class]]) return YES;
-    if([self isSubclassOfClass:[NSCoder class] ]) return YES;
-    if([self isSubclassOfClass:[NSFormatter class]]) return YES;
-    if([self isSubclassOfClass:[NSMapTable class]]) return YES;
-    if([self isSubclassOfClass:[NSHashTable class]]) return YES;
-    if([self isSubclassOfClass:NSClassFromString(@"NSBlock")]) return YES;
-    if(self == [NSNull class]) return YES;
     
-    //other
-    if(self == [NSBundle class]) return YES;
-    if(self == [NSCalendar class]) return YES;
-    if(self == [NSCharacterSet class]) return YES;
-    if(self == [NSPersonNameComponents class]) return YES;
-    if(self == [NSEnumerator class]) return YES;
-    if(self == [NSExpression class]) return YES;
-    if(self == [NSFileHandle class]) return YES;
-    if(self == [NSFileManager class]) return YES;
-    if(self == [NSHTTPCookie class]) return YES;
-    if(self == [NSHTTPCookieStorage class]) return YES;
-    if(self == [NSIndexPath class]) return YES;
-    if(self == [NSIndexSet class]) return YES;
-    if(self == [NSInvocation class]) return YES;
-    if(self == [NSJSONSerialization class]) return YES;
-    if(self == [NSLocale class]) return YES;
-    if(self == [NSLock class]) return YES;
-    if(self == [NSMethodSignature class]) return YES;
-    if(self == [NSNotification class]) return YES;
-    if(self == [NSNotificationQueue class]) return YES;
-    if(self == [NSOperation class]) return YES;
-    if(self == [NSOrderedSet class]) return YES;
-    if(self == [NSOrthography class]) return YES;
-    if(self == [NSPointerArray class]) return YES;
-    if(self == [NSPointerFunctions class]) return YES;
-    if(self == [NSPort class]) return YES;
-    if(self == [NSProcessInfo class]) return YES;
-    if(self == [NSPropertyListSerialization class]) return YES;
-    if(self == [NSProxy class]) return YES;
-    if(self == [NSRegularExpression class]) return YES;
-    if(self == [NSRunLoop class]) return YES;
-    if(self == [NSScanner class]) return YES;
-    if(self == [NSSortDescriptor class]) return YES;
-    if(self == [NSStream class]) return YES;
-    if(self == [NSTextCheckingResult class]) return YES;
-    if(self == [NSThread class]) return YES;
-    if(self == [NSTimeZone class]) return YES;
-    if(self == [NSTimer class]) return YES;
-    if(self == [NSURLAuthenticationChallenge class]) return YES;
-    if(self == [NSURLCache class]) return YES;
-    if(self == [NSURLConnection class]) return YES;
-    if(self == [NSURLCredential class]) return YES;
-    if(self == [NSURLCredentialStorage class]) return YES;
-    if(self == [NSURLProtectionSpace class]) return YES;
-    if(self == [NSURLProtocol class]) return YES;
-    if(self == [NSURLRequest class]) return YES;
-    if(self == [NSURLResponse class]) return YES;
-    if(self == [NSUserDefaults class]) return YES;
-    if(self == [NSValueTransformer class]) return YES;
-    if(self == [NSXMLParser class]) return YES;
-    
-    if(self == [NSExtensionContext class]) return YES;
-    if(self == [NSExtensionItem class]) return YES;
-    if(self == [NSFileCoordinator class]) return YES;
-    if(self == [NSFileVersion class]) return YES;
-    if(self == [NSFileWrapper class]) return YES;
-    if(self == [NSItemProvider class]) return YES;
-    if(self == [NSMetadataQuery class]) return YES;
-    if(self == [NSProgress class]) return YES;
-    if(self == [NSUbiquitousKeyValueStore class]) return YES;
-    if(self == [NSUndoManager class]) return YES;
-    if(self == [NSURLSession class]) return YES;
-    if(self == [NSUserActivity class]) return YES;
-    if(self == [NSUUID class]) return YES;
-    
-    //UIKit
-    if([self isSubclassOfClass:[UIResponder class]]){
-        if(self == [UIView class]) return YES;
-        if(self == [UIControl class]) return YES;
-        if(class_getSuperclass(self) == [UIControl class]) return YES;
-        return NO;//自定义控件（非直接继承UIControl）
+    id object = nil;
+    NSEnumerator* enumertor = [_baseDataClasses objectEnumerator];
+    while ((object = enumertor.nextObject)) {
+        
+        if([self isSubclassOfClass:object])
+            return YES;
     }
-    if(self == [CALayer class]) return YES;
-    if(self == [UIColor class]) return YES;
-    if(self == [UIViewController class]) return YES;
-    if(self == [UIDevice class]) return YES;
-    if(self == [NSTextAttachment class]) return YES;
-    if(self == [UIScreen class]) return YES;
-    if(self == [UIBezierPath class]) return YES;
     
-    if(self == [UINib class]) return YES;
-    if(self == [UITextChecker class]) return YES;
-    if(self == [UIGestureRecognizer class]) return YES;
-    if(self == [UIStoryboard class]) return YES;
-    if(self == [UIPress class]) return YES;
-    if(self == [UIEvent class]) return YES;
-
+    object = NSStringFromClass(self);
+    if([object length] > 1){
+        
+        object = [object substringToIndex:2];
+        
+        if([self superclass] == [NSObject class]       ||
+           [self superclass] == [UIResponder class]    ||
+           [self superclass] == [UIView class]         ||
+           [self superclass] == [CALayer class]        ||
+           [self superclass] == [CAAnimation class]
+           ){
+            
+            if(([object isEqualToString:@"NS"])     ||
+               ([object isEqualToString:@"UI"])     ||
+               ([object isEqualToString:@"CA"])
+               ) return YES;
+        }
+    }
+    
     return NO;
 }
 
-+ (BOOL)classContainProperty:(NSString*)property
++ (BOOL)lb_classContainProperty:(NSString*)property
 {
     unsigned int outCount, i;
     objc_property_t* properties = class_copyPropertyList([self class], &outCount);
@@ -142,7 +94,7 @@
     return NO;
 }
 
-+ (BOOL)classContainIvar:(NSString*)ivarName
++ (BOOL)lb_classContainIvar:(NSString*)ivarName
 {
     unsigned int outCout ,i ;
     Ivar* ivarList = class_copyIvarList([self class], &outCout);
@@ -156,7 +108,7 @@
     return NO;
 }
 
-+ (NSArray<NSString*>*)classGetIvarList
++ (NSArray<NSString*>*)lb_classGetIvarList
 {
     unsigned int outCount , i;
     Ivar* ivarList = class_copyIvarList([self class], &outCount);
@@ -166,7 +118,7 @@
     free(ivarList);
     return reMArr.copy;
 }
-+ (NSArray<NSString*>*)classGetPropertyList
++ (NSArray<NSString*>*)lb_classGetPropertyList
 {
     unsigned int outCount, i;
     objc_property_t* properties = class_copyPropertyList([self class], &outCount);
@@ -180,7 +132,7 @@
     return reMArr.copy;
 }
 
-+ (NSString *)classGetPropertyType:(NSString *)key
++ (NSString *)lb_classGetPropertyType:(NSString *)key
 {
     NSString *code = nil;
     unsigned int outCount, i;
@@ -206,17 +158,17 @@
     return code;
 }
 
-+ (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation
++ (NSArray<NSString*>*)lb_classGetAllPropertyList:(BOOL)includeFoundation
 {
     NSMutableArray* reArr = [NSMutableArray new];
-    [self classEnumerateUsingBlock:^(__unsafe_unretained Class clazz, BOOL *stop) {
+    [self lb_classEnumerateUsingBlock:^(__unsafe_unretained Class clazz, BOOL *stop) {
         if(clazz == [NSObject class]) return;
-        [reArr addObjectsFromArray:[clazz classGetPropertyList]];
-    } includeFoundation:includeFoundation];
+        [reArr addObjectsFromArray:[clazz lb_classGetPropertyList]];
+    } includeBasic:includeFoundation];
     return reArr.copy;
 }
 
-+ (NSArray<NSString*>*)classGetClassMethodList
++ (NSArray<NSString*>*)lb_classGetClassMethodList
 {
     unsigned int outCount;
     Method* methods = class_copyMethodList(object_getClass(self), &outCount);
@@ -230,7 +182,7 @@
     return reMArr.copy;
 }
 
-- (NSArray<NSString*>*)objGetInstanceMethodList
+- (NSArray<NSString*>*)lb_objGetInstanceMethodList
 {
     unsigned int outCount;
     Method* methods = class_copyMethodList([self class], &outCount);
@@ -244,7 +196,7 @@
     return reMArr.copy;
 }
 
-+ (NSArray<NSString*>*)classGetProtocolList
++ (NSArray<NSString*>*)lb_classGetProtocolList
 {
     unsigned int outCount;
     NSMutableArray* reMArr = [NSMutableArray new];
@@ -260,8 +212,8 @@
     return reMArr.copy;
 }
 
-+ (void)classEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, BOOL *))block
-               includeFoundation:(BOOL)includeFoundation
++ (void)lb_classEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, BOOL *))block
+               includeBasic:(BOOL)includeFoundation
 {
     if(!block)  return;
     BOOL stop = NO;
@@ -270,11 +222,11 @@
         
         block(clazz, &stop);
         clazz = class_getSuperclass(clazz);
-        if(!includeFoundation && [clazz classIsFoundation]) break;
+        if(!includeFoundation && [clazz lb_classIsBasic]) break;
     }
 }
 
-+ (void)classPropertysEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, NSString *, NSString *, BOOL *))block includeFoundation:(BOOL)includeFoundation
++ (void)lb_classPropertysEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, NSString *, NSString *, BOOL *))block includeBasic:(BOOL)includeFoundation
 {
     if(!block)  return;
     BOOL stop = NO;
@@ -305,7 +257,7 @@
         free(properties);
         
         clazz = class_getSuperclass(clazz);
-        if(!includeFoundation && [clazz classIsFoundation]) break;
+        if(!includeFoundation && [clazz lb_classIsBasic]) break;
     }
 }
 
@@ -349,7 +301,7 @@
                 if(clazzNeed == NSNull.class    ||
                    [obj isKindOfClass:clazzNeed]){
                     
-                    [_self _lb_performSelector:sel withObject:obj];
+                    _LB_performSelector1(_self, sel, obj);
                 }
                 goto CALL_RET;
             }
@@ -400,7 +352,7 @@
                 if(clazzNeed == NSNull.class    ||
                    [_self isKindOfClass:clazzNeed]){
                     
-                    [obj _lb_performSelector:sel withObject:_self];
+                    _LB_performSelector1(obj, sel, _self);
                 }
                 goto CALL_RET;
             }
@@ -462,7 +414,7 @@
                 if(clazzNeed == NSNull.class    ||
                    [obj isKindOfClass:clazzNeed]){
                     
-                    [_self _lb_performSelector:sel withObject:obj];
+                    _LB_performSelector1(_self, sel, obj);
                 }
                 goto CALL_RET;
             }
@@ -509,7 +461,7 @@
                 if(clazzNeed == NSNull.class    ||
                    [_self isKindOfClass:clazzNeed]){
                     
-                    [obj _lb_performSelector:sel withObject:_self];
+                    _LB_performSelector1(obj, sel, _self);
                 }
                 goto CALL_RET;
             }
@@ -556,7 +508,7 @@
             
             if([_self respondsToSelector:sel]){
                 
-                [_self _lb_performSelector:sel];
+                _LB_performSelector(_self, sel);
                 goto CALL_RET;
             }
         }
@@ -946,7 +898,7 @@
     __block objc_property_t* properties;
     @try {
         
-        [self.class classEnumerateUsingBlock:^(Class clazz, BOOL *stop) {
+        [self.class lb_classEnumerateUsingBlock:^(Class clazz, BOOL *stop) {
             
             unsigned int outCount, i;
             properties = class_copyPropertyList(clazz, &outCount);
@@ -989,7 +941,7 @@
                 [self setValue:value forKey:pName];
             }
             free(properties);
-        } includeFoundation:NO];
+        } includeBasic:NO];
         
     } @catch (NSException *exception) {
         
@@ -1065,7 +1017,7 @@
         
         //customer`s model
         //Obj⊆NSObject || Obj⊆...⊆NSObject
-        if(self.superclass == [NSObject class] || ![self.class classIsFoundation]){
+        if(self.superclass == [NSObject class] || ![self.class lb_classIsBasic]){
             
             unsigned int outCount, i;
             objc_property_t* properties = class_copyPropertyList([self class], &outCount);
@@ -1934,7 +1886,7 @@ DefineKindOfClassAs(NSNumber)
         
         // single object
         id value = [_self valueForKey:key];
-        const char* objcType = [_self.class classGetPropertyType:key].UTF8String;
+        const char* objcType = [_self.class lb_classGetPropertyType:key].UTF8String;
         
         [LinkHelper helpSwitchObjcType:objcType caseVoid:nil caseId:^{
             
@@ -2309,12 +2261,12 @@ DefineKindOfClassAs(NSNumber)
         return _self;
     }
     
-    if(includeFoundation == NO && [[self class] classIsFoundation])
+    if(includeFoundation == NO && [[self class] lb_classIsBasic])
         return _self;
     
     //single object!so convert is to a dictionary
     NSMutableDictionary* dictionary = NSMutableDictionaryNew;
-    NSArray<NSString*>* properties = [[_self class] classGetAllPropertyList:includeFoundation];
+    NSArray<NSString*>* properties = [[_self class] lb_classGetAllPropertyList:includeFoundation];
     @try {
         
         [properties enumerateObjectsUsingBlock:^(NSString* property, NSUInteger idx, BOOL * stop) {
@@ -2332,7 +2284,7 @@ DefineKindOfClassAs(NSNumber)
                 return;
             }
             
-            BOOL valueIsFoundation = [[value class] classIsFoundation];
+            BOOL valueIsFoundation = [[value class] lb_classIsBasic];
             if([value respondsToSelector:@selector(objectEnumerator)]           ||
                [value respondsToSelector:@selector(dictionaryRepresentation)]   ||
                [value isKindOfClass:NSIndexPath.class]                          ||
@@ -3353,7 +3305,8 @@ Link_objSetValueForK(text)
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objPerformSelector, sel)
         if([_self respondsToSelector:sel]){
-            [_self _lb_performSelector:sel];
+            
+            _LB_performSelector(_self, sel);
         }else{
             NSLog(@"LinkBlock:%@未能找到方法:%@",self,NSStringFromSelector(sel));
         }
@@ -3383,7 +3336,8 @@ Link_objSetValueForK(text)
             [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",_self,NSStringFromSelector(sel)]] logError];
             return NSNull.null;
         }
-        [_self _lb_performSelector:sel withObject:obj];
+        
+        _LB_performSelector1(_self, sel, obj);
         return _self;
     };
 }
@@ -3409,7 +3363,8 @@ Link_objSetValueForK(text)
         if([self isKindOfClass:[LinkGroup class]]){
             LinkGroup* group = self.thisLinkObjs;
             if([group.linkObjects.firstObject respondsToSelector:sel]){
-                [group.linkObjects.firstObject _lb_performSelector:sel];
+                
+                _LB_performSelector(group.linkObjects.firstObject, sel);
             }else{
                 [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",group.linkObjects.firstObject,NSStringFromSelector(sel)]] logError];
             }
@@ -3419,7 +3374,8 @@ Link_objSetValueForK(text)
             while ((parm = va_arg(args, SEL))) {
                 for (int i=1; i<group.linkObjects.count; i++) {
                     if([group.linkObjects[i] respondsToSelector:parm]){
-                        [group.linkObjects[i] _lb_performSelector:parm];
+                        
+                        _LB_performSelector(group.linkObjects[i] , parm);
                     }else{
                         [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",group.linkObjects[i],NSStringFromSelector(sel)]] logError];
                     }
@@ -3431,7 +3387,8 @@ Link_objSetValueForK(text)
         //LinkGroupHandle_VAL
         ///////////////////////
         if([_self respondsToSelector:sel]){
-            [_self _lb_performSelector:sel];
+            
+            _LB_performSelector(_self, sel);
         }else{
             [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",self,NSStringFromSelector(sel)]] logError];
         }
@@ -3440,7 +3397,8 @@ Link_objSetValueForK(text)
         SEL parm;
         while ((parm = va_arg(args, SEL))) {
             if([_self respondsToSelector:parm]){
-                [_self _lb_performSelector:parm];
+                
+                _LB_performSelector(_self, parm);
             }else{
                 [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"%@ not response to sel:%@",self,NSStringFromSelector(sel)]] logError];
             }
@@ -3637,17 +3595,7 @@ Link_objSetValueForK(text)
 - (CFIndex)objRetainCount
 {
     return [[self valueForKey:@"retainCount"] longValue];
-}
-
-
-- (void)_lb_performSelector:(SEL _Nonnull)aSelector
-{
-    ((void (*)(id, SEL))[self methodForSelector:aSelector])(self, aSelector);
-}
-
-- (void)_lb_performSelector:(SEL)aSelector withObject:(id)obj
-{
-    ((void (*)(id, SEL, id))[self methodForSelector:aSelector])(self, aSelector , obj);
+    
 }
 
 - (id)_lb_performSelector:(SEL)aSelector withArg:(id)arg

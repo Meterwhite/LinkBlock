@@ -729,5 +729,41 @@ NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 @property LB_BKG(objIsEqualAs) NSNumber*(^attr_strIsEqualToAttrStrAs)(id attrStr)
 NS_DEPRECATED_IOS(2_0, 2_0, "objIsEqualAs");
+
+#pragma mark - 2018.11.15
+
++ (BOOL)classIsFoundation
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsFoundation");
+
+@property LBC_BKG(lb_classGetIvarList)NSArray<NSString*>* classGetIvarList
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+@property LBC_BKG(lb_classGetPropertyList)NSArray<NSString*>* classGetPropertyList
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+@property LB_BKG(lb_objGetInstanceMethodList)NSArray<NSString*>* objGetInstanceMethodList
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+@property LBC_BKG(lb_classGetClassMethodList)NSArray<NSString*>* classGetClassMethodList
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+@property LBC_BKG(lb_classGetProtocolList)NSArray<NSString*>* classGetProtocolList
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+
++ (BOOL)classContainProperty:(NSString*)property
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+
++ (BOOL)classContainIvar:(NSString*)ivarName
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+
++ (NSString*)classGetPropertyType:(NSString*)key
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+
++ (NSArray<NSString*>*)classGetAllPropertyList:(BOOL)includeFoundation
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+
+
++ (void)classEnumerateUsingBlock:(void(^)(Class clazz , BOOL* stop))block
+               includeFoundation:(BOOL)includeFoundation
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+
++ (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block includeFoundation:(BOOL)includeFoundation
+NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
 @end
 
