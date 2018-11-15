@@ -61,7 +61,6 @@
     if(self == [NSOperation class]) return YES;
     if(self == [NSOrderedSet class]) return YES;
     if(self == [NSOrthography class]) return YES;
-    if(self == [NSOrthography class]) return YES;
     if(self == [NSPointerArray class]) return YES;
     if(self == [NSPointerFunctions class]) return YES;
     if(self == [NSPort class]) return YES;
