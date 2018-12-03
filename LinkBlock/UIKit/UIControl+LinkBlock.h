@@ -18,6 +18,6 @@
 #pragma mark - Foundation Speed/速度
 @property LB_BK UIControl*  (^controlEnableYES)(void);
 @property LB_BK UIControl*  (^controlEnableNO)(void);
-
-
+@property LB_BK UIControl*  (^controlSelectedYES)(void);
+@property LB_BK UIControl*  (^controlSelectedNO)(void);
 @end

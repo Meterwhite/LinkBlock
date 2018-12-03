@@ -79,4 +79,24 @@
     };
 }
 
+- (UIControl *(^)(void))controlSelectedYES
+{
+    return ^id(){
+        LinkHandle_REF(UIControl)
+        LinkGroupHandle_REF(controlSelectedYES)
+        _self.selected=YES;
+        return _self;
+    };
+}
+
+- (UIControl *(^)(void))controlSelectedNO
+{
+    return ^id(){
+        LinkHandle_REF(UIControl)
+        LinkGroupHandle_REF(controlSelectedYES)
+        _self.selected=NO;
+        return _self;
+    };
+}
+
 @end
