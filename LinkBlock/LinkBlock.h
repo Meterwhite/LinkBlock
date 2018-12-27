@@ -454,5 +454,5 @@
 #endif
 
 #ifndef viewAddSubviews
-#define viewAddSubviews(view0,args...) viewAddSubviews(view0,args...,nil)
+#define viewAddSubviews(view0,args...) viewAddSubviews(view0,##args,nil)
 #endif
