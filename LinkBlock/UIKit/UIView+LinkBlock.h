@@ -7,9 +7,7 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UIViewNew
 #define UIViewNew ([UIView new])
-#endif
 @interface NSObject(UIViewLinkBlock)
 
 #pragma mark Foundation Mirror/镜像
@@ -44,7 +42,7 @@
 
 
 #pragma mark - Foundation Speed/速度
-/** <^()> CGRectIsEmpty */
+/** === CGRectIsEmpty */
 @property LB_BK BOOL         (^viewIsZeroSize)(void);
 @property LB_BK CGFloat      (^viewX)(void);
 @property LB_BK CGFloat      (^viewY)(void);
@@ -79,6 +77,7 @@
 @property LB_BK UIView*      (^viewSendBackInSuperview)(void);
 @property LB_BK UIView*      (^viewBGColorWhite)(void);
 @property LB_BK UIView*      (^viewBGColorClear)(void);
+@property LB_BK UIView*      (^viewBGColorRed)(void);
 @property LB_BK UIView*      (^viewBGColorRandom)(void);
 @property LB_BK UIView*      (^viewClipsToBoundsYES)(void);
 @property LB_BK UIView*      (^viewClipsToBoundsNO)(void);
@@ -106,6 +105,7 @@
 #pragma mark - Foundation Extend/补充
 @property LB_BK UIView*      (^viewAddSubviews)(UIView* v0,...);
 @property LB_BK UIView*      (^viewAddToView)(__weak UIView* view);
+@property LB_BK UIView*      (^viewAddToStackViewArranged)(__weak UIStackView* stackView);
 @property LB_BK UIView*      (^viewRemoveAllSubview)(void);
 /** 判断后代视图 */
 @property LB_BK BOOL         (^viewIsInView)(UIView* view);
@@ -115,8 +115,8 @@
 @property LB_BK CGRect       (^viewConvertRectToWindow)(void);
 @property LB_BK UIView*      (^viewSubviewAt)(NSUInteger index);
 @property LB_BK UIView*      (^viewRemoveSubviewAt)(NSUInteger index);
-/** <^()>在父视图中的索引。如果没有则返回-1 */
-@property LB_BK NSInteger    (^viewIndexInSuperview)(void);
+/** <^()>在父视图中的索引。如果没有则返回nil */
+@property LB_BK NSNumber*    (^viewIndexInSuperviewAs)(void);
 /** <^()>视图截屏 */
 @property LB_BK UIImage*     (^viewSnapshot)(void);
 @property LB_BK UIView*      (^viewInsertSubviewAtIndex)(UIView* subView, NSUInteger index);

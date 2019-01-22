@@ -8,9 +8,8 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UIFontNew
 #define UIFontNew(size) ([UIFont systemFontOfSize:size])
-#endif
+
 @interface NSObject(UIFontLinkBlock)
 
 #pragma mark - Weak coding/弱类型编码

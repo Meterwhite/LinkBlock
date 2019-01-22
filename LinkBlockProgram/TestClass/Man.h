@@ -11,4 +11,8 @@
 @interface Man : Person<NSCopying>
 @property (nonatomic,strong) Man* son;
 @property (nonatomic,strong) NSArray<Person*>* family;
+@property (nonatomic,copy) id(^computeAdd)(id a0,id a1);
+
+@property (nonatomic,assign) SEL mySEL;
+
 @end

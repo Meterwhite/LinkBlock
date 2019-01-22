@@ -8,9 +8,7 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UITextViewNew
 #define UITextViewNew ([UITextView new])
-#endif
 @interface NSObject(UITextViewLinkBlock)
 #pragma mark - Foundation Mirror/镜像
 @property LB_BK UITextView*        (^txtViewText)(NSString* text);

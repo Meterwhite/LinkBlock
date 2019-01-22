@@ -99,4 +99,43 @@
     };
 }
 
+#define lb_controlContentHorizontalAlignment(symbol)\
+\
+- (UIControl *(^)(void))controlContentHorizontalAlignment##symbol\
+{\
+    return ^id(){\
+        \
+        LinkHandle_REF(UIControl)\
+        LinkGroupHandle_REF(controlContentHorizontalAlignment##symbol)\
+        \
+        _self.contentHorizontalAlignment = UIControlContentHorizontalAlignment##symbol;\
+        return _self;\
+    };\
+}
+
+lb_controlContentHorizontalAlignment(Center)
+lb_controlContentHorizontalAlignment(Left)
+lb_controlContentHorizontalAlignment(Right)
+lb_controlContentHorizontalAlignment(Fill)
+lb_controlContentHorizontalAlignment(Leading)
+lb_controlContentHorizontalAlignment(Trailing)
+
+//- (UIControl *(^)(void))controlContentVerticalAlignmentCenter
+#define lb_controlContentVerticalAlignment(symbol)\
+\
+- (UIControl *(^)(void))controlContentVerticalAlignment##symbol\
+{\
+    return ^id(){\
+    \
+        LinkHandle_REF(UIControl)\
+        LinkGroupHandle_REF(controlContentVerticalAlignment##symbol)\
+        \
+        _self.contentHorizontalAlignment = UIControlContentVerticalAlignment##symbol;\
+            return _self;\
+    };\
+}
+lb_controlContentVerticalAlignment(Center)
+lb_controlContentVerticalAlignment(Top)
+lb_controlContentVerticalAlignment(Bottom)
+lb_controlContentVerticalAlignment(Fill)
 @end

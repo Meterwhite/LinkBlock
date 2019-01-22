@@ -40,10 +40,12 @@
 #import "UISearchBar+LinkBlock.h"
 #import "UIImageView+LinkBlock.h"
 #import "UITableView+LinkBlock.h"
+#import "UIStackView+LinkBlock.h"
 #import "UIBezierPath+LinkBlock.h"
 #import "CAShapeLayer+LinkBlock.h"
 #import "CAAnimations+LinkBlock.h"
 #import "UIScrollView+LinkBlock.h"
+#import "UITableViewCell+LinkBlock.h"
 #import "UIViewController+LinkBlock.h"
 
 //////////////////////////
@@ -54,23 +56,22 @@
  *  安全的链条
  *  Create linkObject.Make a safe object for link.
  */
-#ifndef linkObj
-#define linkObj(object) ((typeof(object))_LB_MakeObj(object))
-#endif
+#define linkObj(object) \
+    \
+    ((typeof(object))_LB_MakeObj(object))
 
 /**
  *  ~ = linkObj...linkEnd;
  *  1.Used to get return value when needed.
  *  2.convert <LinkError || NSNull> to nil.
  */
-#ifndef linkEnd
 #define linkEnd linkEnd
-#endif
 
 ///For type of id
-#ifndef linkObj_id
-#define linkObj_id(object) ((NSObject*)_LB_MakeObj(object))
-#endif
+#define linkObj_id(object)  \
+    \
+    ((NSObject*)_LB_MakeObj(object))
+
 //////////////////////////////////
 //MARK:link objects/多对象的链条
 //////////////////////////////////
@@ -80,65 +81,50 @@
  *  安全的多对象的链条
  *  Craete link objects.Each one should not be nil.
  */
-#ifndef linkObjs
-#define linkObjs(object,args...) _LB_MakeObjs(object,##args,nil)
-#endif
+#define linkObjs(object,args...)    \
+    \
+    (_LB_MakeObjs(object,##args,nil))
 
 /**
  <NSArray>.makeLinkObjs = linkObjs(...)
  as well as linkObjs/等同于linkObjs
  */
-#ifndef makeLinkObjs
 #define makeLinkObjs makeLinkObjs
-#endif
 /**
  Add a new into link objects
  ...linkPush(object)
  */
-#ifndef linkPush
 #define linkPush linkPush
-#endif
 /**
  Remove last object at specified index from link objects
  ...linkPop()
  */
-#ifndef linkPop
 #define linkPop linkPop
-#endif
 
 /**
  Fileter link objects.
  ...linkSelect(@"age > %@",age);
  */
-#ifndef linkSelect
 #define linkSelect linkSelect
-#endif
 
 /**
  *  重复执行
  *  Repeat the following link code by copy link objects
  *  ...linkLoop(count)...
  */
-#ifndef linkLoop
 #define linkLoop linkLoop
-#endif
 /**
  *  ~ = linkObjs......linkEnds;
  *  1.used to get return values for link objects.
  *  2.convert <LinkError||NSNull> to nil.
  */
-#ifndef linkEnds
 #define linkEnds linkEnds
-#endif
 /**
  *  1.used to get a return value of link objects at specified index.
  *  2.convert <LinkError||NSNull> to nil.
  *  ~ = linkObjs...linkEndsAt(index);
  */
-#ifndef linkEndsAt
 #define linkEndsAt linkEndsAt
-#endif
-
 
 ///////////////////////////////////
 //MARK:Link Condition/简单条件
@@ -147,135 +133,57 @@
  Get linkObj from linkObjs and return it as next linkObj.
  ...linkAt(~)...
  */
-#ifndef linkAt
 #define linkAt linkAt
-#endif
 /**
  *  if-else in link
  *  :
  *  ...<linkIf(~)...>...<LinkElse...linkIf(~)...linkIf(~...)>
  *  `linkElse` has a higher priority.If execute <A> means that <B> would not be execut;
  */
-#ifndef linkIf
 #define linkIf linkIf
-#endif
 /** Refer to : linkIf */
-#ifndef linkElse
 #define linkElse linkElse
-#endif
 /** It is similar to linkIf.`YES` means @YES or !NSNull */
-#ifndef linkIf_YES
 #define linkIf_YES linkIf_YES
-#endif
 /** It is similar to linkIf.`NO` means @NO or NSNull */
-#ifndef linkIf_NO
 #define linkIf_NO linkIf_NO
-#endif
 /** It is similar to linkIf.`Null` means @NO or NSNull.It is the same as linkIf_NO */
-#ifndef linkIfNull
 #define linkIfNull linkIfNull
-#endif
 /** It is similar to linkIf.`NonNull` means @YES or !NSNull.It is the same as linkIf_YES */
-#ifndef linkIfNonNull
 #define linkIfNonNull linkIfNonNull
-#endif
 
 /**
  Return value immediately.Following block would not be execute.
  Then use `linkEnd` to get the result.
  id getValue = ...linkReturn...linkEnd;
  */
-#ifndef linkReturn
 #define linkReturn linkReturn
-#endif
 
 /////////////////////////////////
 //MARK: Link Indicate/链条指示
 //Refer to `NSObject+LinkBlock.h`
 /////////////////////////////////
-#ifndef whatSet
-#define whatSet whatSet
-#endif
-
-#ifndef thisLinkObjs
-#define thisLinkObjs thisLinkObjs
-#endif
-
-#ifndef thisLinkObj
-#define thisLinkObj thisLinkObj
-#endif
-
-#ifndef thisValue
-#define thisValue thisValue
-#endif
-
-#ifndef thisValues
-#define thisValues thisValues
-#endif
-
-#ifndef thisNumber
-#define thisNumber thisNumber
-#endif
-
-#ifndef aBOOLValue
-#define aBOOLValue aBOOLValue
-#endif
-
-#ifndef aFloatNumber
-#define aFloatNumber aFloatNumber
-#endif
-
-#ifndef aDoubleNumber
-#define aDoubleNumber aDoubleNumber
-#endif
-
-#ifndef anIntNumber
-#define anIntNumber anIntNumber
-#endif
-
-#ifndef anIntegerNumber
-#define anIntegerNumber anIntegerNumber
-#endif
-
-#ifndef anUnsignedIntNumber
-#define anUnsignedIntNumber anUnsignedIntNumber
-#endif
-
-#ifndef anUnsignedIntegerNumber
-#define anUnsignedIntegerNumber anUnsignedIntegerNumber
-#endif
-
-#ifndef aLongNumber
-#define aLongNumber aLongNumber
-#endif
-
-#ifndef aLongLongNumber
-#define aLongLongNumber aLongLongNumber
-#endif
-
-#ifndef aUnsignedLongNumber
-#define aUnsignedLongNumber aUnsignedLongNumber
-#endif
-
-#ifndef aUnsignedLongLongNumber
-#define aUnsignedLongLongNumber aUnsignedLongLongNumber
-#endif
-
-#ifndef aCGRectValue
-#define aCGRectValue aCGRectValue
-#endif
-
-#ifndef aCGSizeValue
-#define aCGSizeValue aCGSizeValue
-#endif
-
-#ifndef aCGPointValue
-#define aCGPointValue aCGPointValue
-#endif
-
-#ifndef aNSRangeValue
-#define aNSRangeValue aNSRangeValue
-#endif
+#define whatSet                     whatSet
+#define thisLinkObjs                thisLinkObjs
+#define thisLinkObj                 thisLinkObj
+#define thisValue                   thisValue
+#define thisValues                  thisValues
+#define thisNumber                  thisNumber
+#define aBOOLValue                  aBOOLValue
+#define aFloatNumber                aFloatNumber
+#define aDoubleNumber               aDoubleNumber
+#define anIntNumber                 anIntNumber
+#define anIntegerNumber             anIntegerNumber
+#define anUnsignedIntNumber         anUnsignedIntNumber
+#define anUnsignedIntegerNumber     anUnsignedIntegerNumber
+#define aLongNumber                 aLongNumber
+#define aLongLongNumber             aLongLongNumber
+#define aUnsignedLongNumber         aUnsignedLongNumber
+#define aUnsignedLongLongNumber     aUnsignedLongLongNumber
+#define aCGRectValue                aCGRectValue
+#define aCGSizeValue                aCGSizeValue
+#define aCGPointValue               aCGPointValue
+#define aNSRangeValue               aNSRangeValue
 
 ////////////////////////////////////////////////
 //MARK:Experimental DynamicLink/脚本解析-实验性
@@ -320,139 +228,141 @@
  *  anyObject.linkEvalCode(code , arg0 , arg1 , ...)
  *  note:any return value has been boxed
  */
-#ifndef linkEvalCode
-#define linkEvalCode(code , args...) linkEvalCode(code , ##args, nil, NSNotFound)
-#endif
+#define linkEvalCode(code , args...)    \
+    \
+    linkEvalCode(code , ##args, nil, NSNotFound)
 
 /**
  *  execute script with an object and return value.
  *  code.linkCodeEval( target , arg0 , arg1 , ...)
  *  note:any return value has been boxed
  */
-#ifndef linkCodeEval
-#define linkCodeEval(obj , args...) linkCodeEval(obj, ##args, nil, NSNotFound)
-#endif
+#define linkCodeEval(obj , args...) \
+    \
+    linkCodeEval(obj, ##args, nil, NSNotFound)
 
 /**
  *  only execute script and return value.
  *  EvalLinkBlock(script)
  *  note:any return value has been boxed
  */
-#ifndef EvalLinkBlock
-#define EvalLinkBlock(code) linkObj_id(code).linkCodeEval(NSNil, nil)
-#endif
+#define EvalLinkBlock(code) \
+    \
+    (linkObj_id(code).linkCodeEval(NSNil, nil))
 /**
  *  only execute script by a target object and return value.
  *  EvalLinkBlockWithTarget(target ,script)
  *  note:any return value has been boxed
  */
-#ifndef EvalLinkBlockWithTarget
-#define EvalLinkBlockWithTarget(target,code) linkObj_id(code).linkCodeEval(linkObj(target), nil)
-#endif
+#define EvalLinkBlockWithTarget(target,code)    \
+    \
+    (linkObj_id(code).linkCodeEval(linkObj(target) , nil))
+
 
 
 //////////////////////////////
 //MARK: Configuration/配置
 //////////////////////////////
 /** Close the warning */
-#ifndef LinkBlockWarningClose
-#define LinkBlockWarningClose ([LinkInfo linkBlockWarningClose])
-#endif
+#define LinkBlockWarningClose   \
+    \
+    ([LinkInfo linkBlockWarningClose])
+
 /** Allow warning (default) */
-#ifndef LinkBlockWarningOpen
-#define LinkBlockWarningOpen ([LinkInfo linkBlockWarningOpen])
-#endif
+#define LinkBlockWarningOpen    \
+    \
+    ([LinkInfo linkBlockWarningOpen])
 
 //////////////////////////////////
 //MARK: Other function
 /////////////////////////////////
 /** Default value for object */
-#ifndef linkObjDefault
-#define linkObjDefault(object,default) ((typeof(object))_LB_DefaultObj(object,default))
-#endif
+#define linkObjDefault(object,default)  \
+    \
+    ((typeof(object))_LB_DefaultObj(object,default))
 
-#ifndef linkObjNotNil
-#define linkObjNotNil(object) ((typeof(object))_LB_NotNilObj(object))
-#endif
+#define linkObjNotNil(object)   \
+    \
+    ((typeof(object))_LB_NotNilObj(object))
 
-#ifndef objIsEqualToEach
-#define objIsEqualToEach(obj, args...) objIsEqualToEach(obj,##args,nil)
-#endif
-#ifndef objIsEqualToEachAs
-#define objIsEqualToEachAs(obj, args...) objIsEqualToEachAs(obj,##args,nil)
-#endif
+#define objIsEqualToEach(obj, args...)  \
+    \
+    objIsEqualToEach(obj,##args,nil)
 
-#ifndef objIsEqualToSomeone
-#define objIsEqualToSomeone(obj, args...) objIsEqualToSomeone(obj,##args,nil)
-#endif
+#define objIsEqualToEachAs(obj, args...)    \
+    \
+    objIsEqualToEachAs(obj,##args,nil)
 
-#ifndef objIsEqualToSomeoneAs
-#define objIsEqualToSomeoneAs(obj, args...) objIsEqualToSomeoneAs(obj,##args,nil)
-#endif
+#define objIsEqualToSomeone(obj, args...)   \
+    \
+    objIsEqualToSomeone(obj,##args,nil)
 
-#ifndef strAppendFormat
-#define strAppendFormat(formatStr, args...) strAppendFormat(formatStr,##args,nil)
-#endif
+#define objIsEqualToSomeoneAs(obj, args...) \
+    \
+    objIsEqualToSomeoneAs(obj,##args,nil)
 
-#ifndef numIsEqualToNum
-#define numIsEqualToNum(...) numIsEqualToNum(LBBoxValue((__VA_ARGS__)))
-#endif
-#ifndef numIsEqualToNumAs
-#define numIsEqualToNumAs(...) numIsEqualToNumAs(LBBoxValue((__VA_ARGS__)))
-#endif
+#define strAppendFormat(formatStr, args...) \
+    \
+    strAppendFormat(formatStr , ##args , nil)
 
-#ifndef numIsGreatThanNum
-#define numIsGreatThan(...) numIsGreatThanNum(LBBoxValue((__VA_ARGS__)))
-#endif
-#ifndef numIsGreatThanNumAs
-#define numIsGreatThanNumAs(...) numIsGreatThanNumAs(LBBoxValue((__VA_ARGS__)))
-#endif
+#define numIsEqualToNum(...)    \
+    \
+    numIsEqualToNum(LBBoxValue((__VA_ARGS__)))
 
-#ifndef numIsGreatEqualNum
-#define numIsGreatEqualNum(...) numIsGreatEqualNum(LBBoxValue((__VA_ARGS__)))
-#endif
-#ifndef numIsGreatEqualNumAs
-#define numIsGreatEqualNumAs(...) numIsGreatEqualNumAs(LBBoxValue((__VA_ARGS__)))
-#endif
+#define numIsEqualToNumAs(...)  \
+    \
+    numIsEqualToNumAs(LBBoxValue((__VA_ARGS__)))
 
-#ifndef numIsGreatEqualNum
-#define numIsGreatEqualNum(...) numIsGreatEqualNum(__VA_ARGS__);
-#endif
-#ifndef numIsGreatEqualNumAs
-#define numIsGreatEqualNumAs(...) numIsGreatEqualNumAs(__VA_ARGS__);
-#endif
+#define numIsGreatThan(...) \
+    \
+    numIsGreatThanNum(LBBoxValue((__VA_ARGS__)))
 
-#ifndef numIsLessThanNum
-#define numIsLessThanNum(...) numIsLessThanNum(LBBoxValue((__VA_ARGS__)))
-#endif
-#ifndef numIsLessThanNumAs
-#define numIsLessThanNumAs(...) numIsLessThanNumAs(LBBoxValue((__VA_ARGS__)))
-#endif
+#define numIsGreatThanNumAs(...)    \
+    \
+    numIsGreatThanNumAs(LBBoxValue((__VA_ARGS__)))
 
-#ifndef numIsLessEqualNum
-#define numIsLessEqualNum(...) numIsLessEqualNum(LBBoxValue((__VA_ARGS__)))
-#endif
+#define numIsGreatEqualNum(...) \
+    \
+    numIsGreatEqualNum(LBBoxValue((__VA_ARGS__)))
 
-#ifndef numIsLessEqualNumAs
-#define numIsLessEqualNumAs(...) numIsLessEqualNumAs(LBBoxValue((__VA_ARGS__)))
-#endif
+#define numIsGreatEqualNumAs(...)   \
+    \
+    numIsGreatEqualNumAs(__VA_ARGS__)
 
-#ifndef objPerformSelectors
-#define objPerformSelectors(sel , args...) objPerformSelectors(sel, ##args , nil)
-#endif
+#define numIsLessThanNum(...)   \
+    \
+    numIsLessThanNum(LBBoxValue((__VA_ARGS__)))
 
-#ifndef objPerformsSelectorArguments
-#define objPerformsSelectorArguments(sel0,args0,args...) objPerformsSelectorArguments(sel0,args0,##args,nil)
-#endif
+#define numIsLessThanNumAs(...) \
+    \
+    numIsLessThanNumAs(LBBoxValue((__VA_ARGS__)))
 
-#ifndef objPerformSelectorsAsWhatReturns
-#define objPerformSelectorsAsWhatReturns(sel,args...) objPerformSelectorsAsWhatReturns(sel,##args,nil)
-#endif
 
-#ifndef objPerformsSelectorArgumentsAsWhatReturns
-#define objPerformsSelectorArgumentsAsWhatReturns(sel0,arg0,args...) objPerformsSelectorArgumentsAsWhatReturns(sel0,arg0,##args,nil)
-#endif
+#define numIsLessEqualNum(...)  \
+    \
+    numIsLessEqualNum(LBBoxValue((__VA_ARGS__)))
 
-#ifndef viewAddSubviews
-#define viewAddSubviews(view0,args...) viewAddSubviews(view0,##args,nil)
-#endif
+#define numIsLessEqualNumAs(...)    \
+    \
+    numIsLessEqualNumAs(LBBoxValue((__VA_ARGS__)))
+
+#define objPerformSelectors(sel , args...)  \
+    \
+    objPerformSelectors(sel, ##args , nil)
+
+
+#define objPerformsSelectorArguments(sel0,args0,args...)    \
+    \
+    objPerformsSelectorArguments(sel0,args0,##args,nil)
+
+#define objPerformSelectorsAsWhatReturns(sel,args...)   \
+    \
+    objPerformSelectorsAsWhatReturns(sel,##args,nil)
+
+#define objPerformsSelectorArgumentsAsWhatReturns(sel0,arg0,args...)    \
+    \
+    objPerformsSelectorArgumentsAsWhatReturns(sel0,arg0,##args,nil)
+
+#define viewAddSubviews(view0,args...)  \
+    \
+    viewAddSubviews(view0,##args,nil)

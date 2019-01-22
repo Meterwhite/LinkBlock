@@ -16,7 +16,7 @@
 
 @interface Person : NSObject
 @property (nonatomic,copy) NSString* name;
-@property (nonatomic,copy) NSString* nickName;
+@property (nonatomic,copy) NSMutableString* nickName;
 @property (nonatomic,assign) NSInteger age;
 @property (nonatomic,assign) double money;
 @property (nonatomic,strong) NSNumber* tall;

@@ -8,9 +8,7 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UIViewControllerNew
 #define UIViewControllerNew ([UIViewController new])
-#endif
 @interface NSObject(UIViewControllerLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像

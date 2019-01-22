@@ -11,7 +11,7 @@
 
 - (_Nullable id)thisValueFor2DArray
 {
-    return self==NSNull.null ? nil : self;;
+    return self==NSNull.null ? nil : self;
 }
 
 - (NSNumber *(^)(void))m2DArraryCountAs

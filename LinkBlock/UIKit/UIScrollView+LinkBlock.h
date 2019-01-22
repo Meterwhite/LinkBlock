@@ -7,10 +7,11 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UIScrollViewNew
+
 #define UIScrollViewNew ([UIScrollView new])
-#endif
+
 @interface NSObject(UIScrollViewLinkBlock)
+
 #pragma mark - Foundation Mirror/镜像
 @property LB_BK UIScrollView*        (^scroll_viewContentSize)(CGFloat w , CGFloat h);
 @property LB_BK UIScrollView*        (^scroll_viewContentInserts)(CGFloat top , CGFloat left , CGFloat bottom , CGFloat right);

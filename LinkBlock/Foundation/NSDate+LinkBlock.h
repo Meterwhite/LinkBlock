@@ -18,34 +18,34 @@
 @property LB_BK NSDateComponents*(^dateComponentsAll)(void);
 
 #pragma mark - Foundation Speed/速度
-@property LB_BK NSInteger         (^dateYear)(void);
-@property LB_BK NSNumber*         (^dateYearAs)(void);
-@property LB_BK NSInteger         (^dateMonth)(void);
-@property LB_BK NSNumber*         (^dateMonthAs)(void);
-@property LB_BK NSInteger         (^dateDay)(void);
-@property LB_BK NSNumber*         (^dateDayAs)(void);
-@property LB_BK NSInteger         (^dateHour)(void);
-@property LB_BK NSNumber*         (^dateHourAs)(void);
-@property LB_BK NSInteger         (^dateMinut)(void);
-@property LB_BK NSNumber*         (^dateMinutAs)(void);
-@property LB_BK NSInteger         (^dateSec)(void);
-@property LB_BK NSNumber*         (^dateSecAs)(void);
+@property LB_BK NSInteger      (^dateYear)(void);
+@property LB_BK NSNumber*      (^dateYearAs)(void);
+@property LB_BK NSInteger      (^dateMonth)(void);
+@property LB_BK NSNumber*      (^dateMonthAs)(void);
+@property LB_BK NSInteger      (^dateDay)(void);
+@property LB_BK NSNumber*      (^dateDayAs)(void);
+@property LB_BK NSInteger      (^dateHour)(void);
+@property LB_BK NSNumber*      (^dateHourAs)(void);
+@property LB_BK NSInteger      (^dateMinut)(void);
+@property LB_BK NSNumber*      (^dateMinutAs)(void);
+@property LB_BK NSInteger      (^dateSec)(void);
+@property LB_BK NSNumber*      (^dateSecAs)(void);
 /// Calculate the time difference/计算时间差
 /** self-date */
-@property LB_BK NSInteger        (^dateMinusYear)(NSDate* date);
-@property LB_BK NSInteger        (^dateMinusMonth)(NSDate* date);
-@property LB_BK NSInteger        (^dateMinusDay)(NSDate* date);
-@property LB_BK NSInteger        (^dateMinusHour)(NSDate* date);
-@property LB_BK NSInteger        (^dateMinusMinut)(NSDate* date);
-@property LB_BK NSInteger        (^dateMinusSec)(NSDate* date);
+@property LB_BK NSInteger      (^dateMinusYear)(NSDate* date);
+@property LB_BK NSInteger      (^dateMinusMonth)(NSDate* date);
+@property LB_BK NSInteger      (^dateMinusDay)(NSDate* date);
+@property LB_BK NSInteger      (^dateMinusHour)(NSDate* date);
+@property LB_BK NSInteger      (^dateMinusMinut)(NSDate* date);
+@property LB_BK NSInteger      (^dateMinusSec)(NSDate* date);
 /// modify date/修改时间
-@property LB_BK NSDate*          (^dateAddTimeInterval)(NSTimeInterval timeInterval);
-@property LB_BK NSDate*          (^dateAddYear)(NSInteger year);
-@property LB_BK NSDate*          (^dateAddMonth)(NSInteger month);
-@property LB_BK NSDate*          (^dateAddDay)(NSInteger day);
-@property LB_BK NSDate*          (^dateAddHour)(NSInteger hour);
-@property LB_BK NSDate*          (^dateAddMinut)(NSInteger minut);
-@property LB_BK NSDate*          (^dateAddSec)(NSInteger sec);
+@property LB_BK NSDate*        (^dateAddTimeInterval)(NSTimeInterval timeInterval);
+@property LB_BK NSDate*        (^dateAddYear)(NSInteger year);
+@property LB_BK NSDate*        (^dateAddMonth)(NSInteger month);
+@property LB_BK NSDate*        (^dateAddDay)(NSInteger day);
+@property LB_BK NSDate*        (^dateAddHour)(NSInteger hour);
+@property LB_BK NSDate*        (^dateAddMinut)(NSInteger minut);
+@property LB_BK NSDate*        (^dateAddSec)(NSInteger sec);
 
 @property LB_BK NSDate*        (^dateSetYear)(NSInteger year);
 @property LB_BK NSDate*        (^dateSetMonth)(NSInteger month);

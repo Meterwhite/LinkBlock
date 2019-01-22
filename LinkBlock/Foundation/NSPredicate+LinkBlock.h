@@ -14,136 +14,115 @@
 /**
  SELF_KEY is used to format to make string like "SELF == 0"
  */
-#ifndef SELF_KEY
 #define SELF_KEY (@"SELF")
-#endif
 
-#ifndef NSPredicateNew
-#define PredicateNew(format,args...)\
-([NSPredicate predicateWithFormat:format,##args])
-#endif
+#define PredicateNew(format,args...)    \
+    \
+    ([NSPredicate predicateWithFormat:format,##args])
 
-#ifndef PredicateWitchIsFalse
-#define PredicateWitchIsFalse(witch)\
-([NSPredicate predicateWithFormat:@"%K==0",witch])
-#endif
+#define PredicateWitchIsFalse(witch)    \
+    \
+    ([NSPredicate predicateWithFormat:@"%K==0",witch])
 
-#ifndef PredicateWitchIsTrue
 #define PredicateWitchIsTrue(witch)\
-([NSPredicate predicateWithFormat:@"%K==1",witch])
-#endif
+    \
+    ([NSPredicate predicateWithFormat:@"%K==1",witch])
 
-#ifndef PredicateWitchIsNil
-#define PredicateWitchIsNil(witch)\
-([NSPredicate predicateWithFormat:@"%K==nil",witch])
-#endif
+#define PredicateWitchIsNil(witch)  \
+    \
+    ([NSPredicate predicateWithFormat:@"%K==nil",witch])
 
-#ifndef PredicateWitchNotNil
-#define PredicateWitchNotNil(witch)\
-([NSPredicate predicateWithFormat:@"%K!=nil",witch])
-#endif
+#define PredicateWitchNotNil(witch) \
+    \
+    ([NSPredicate predicateWithFormat:@"%K!=nil",witch])
 
-#ifndef PredicateWitchIsEqual
-#define PredicateWitchIsEqual(witch,value)\
-([NSPredicate predicateWithFormat:@"%K=%@",witch,value])
-#endif
+#define PredicateWitchIsEqual(witch,value)  \
+    \
+    ([NSPredicate predicateWithFormat:@"%K=%@",witch,value])
 
-#ifndef PredicateWitchNotEqual
-#define PredicateWitchNotEqual(witch,value)\
-([NSPredicate predicateWithFormat:@"%K!=%@",witch,value])
-#endif
+#define PredicateWitchNotEqual(witch,value) \
+    \
+    ([NSPredicate predicateWithFormat:@"%K!=%@",witch,value])
 
-#ifndef PredicateWitchIsIn
-#define PredicateWitchIsIn(witch,value)\
-([NSPredicate predicateWithFormat:@"%K IN (%@)",witch,value])
-#endif
+#define PredicateWitchIsIn(witch,value) \
+    \
+    ([NSPredicate predicateWithFormat:@"%K IN (%@)",witch,value])
 
-#ifndef PredicateWitchNotIn
-#define PredicateWitchNotIn(witch,value)\
-([NSPredicate predicateWithFormat:@"NOT %K IN (%@)",witch,value])
-#endif
+#define PredicateWitchNotIn(witch,value)    \
+    \
+    ([NSPredicate predicateWithFormat:@"NOT %K IN (%@)",witch,value])
 
-#ifndef PredicateWitchBeginsWith
-#define PredicateWitchBeginsWith(witch,value)\
-([NSPredicate predicateWithFormat:@"%K BEGINSWITH[cd] %@",witch,value])
-#endif
 
-#ifndef PredicateWitchBeginsWith
-#define PredicateWitchBeginsWith(witch,value)\
-([NSPredicate predicateWithFormat:@"%K BEGINSWITH[cd] %@",witch,value])
-#endif
+#define PredicateWitchBeginsWith(witch,value)   \
+    \
+    ([NSPredicate predicateWithFormat:@"%K BEGINSWITH[cd] %@",witch,value])
 
-#ifndef PredicateWitchNotBeginsWith
-#define PredicateWitchNotBeginsWith(witch,value)\
-([NSPredicate predicateWithFormat:@"NOT %K BEGINSWITH[cd] %@",witch,value])
-#endif
+#define PredicateWitchBeginsWith(witch,value)   \
+    \
+    ([NSPredicate predicateWithFormat:@"%K BEGINSWITH[cd] %@",witch,value])
 
-#ifndef PredicateWitchEndsWith
-#define PredicateWitchEndsWith(witch,value)\
-([NSPredicate predicateWithFormat:@"%K ENDSWITH[cd] %@",witch,value])
-#endif
+#define PredicateWitchNotBeginsWith(witch,value)    \
+    \
+    ([NSPredicate predicateWithFormat:@"NOT %K BEGINSWITH[cd] %@",witch,value])
 
-#ifndef PredicateWitchNotEndsWith
-#define PredicateWitchNotEndsWith(witch,value)\
-([NSPredicate predicateWithFormat:@"NOT %K ENDSWITH[cd] %@",witch,value])
-#endif
+#define PredicateWitchEndsWith(witch,value) \
+    \
+    ([NSPredicate predicateWithFormat:@"%K ENDSWITH[cd] %@",witch,value])
 
-#ifndef PredicateWitchContains
-#define PredicateWitchContains(witch,value)\
-([NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",witch,value])
-#endif
+#define PredicateWitchNotEndsWith(witch,value)  \
+    \
+    ([NSPredicate predicateWithFormat:@"NOT %K ENDSWITH[cd] %@",witch,value])
 
-#ifndef PredicateWitchNotContains
-#define PredicateWitchNotContains(witch,value)\
-([NSPredicate predicateWithFormat:@"NOT %K CONTAINS[cd] %@",witch,value])
-#endif
+#define PredicateWitchContains(witch,value) \
+    \
+    ([NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",witch,value])
 
-#ifndef PredicateWitchLike
-#define PredicateWitchLike(witch,value)\
-([NSPredicate predicateWithFormat:@"%K LIKE[cd] %@",witch,value])
-#endif
+#define PredicateWitchNotContains(witch,value)  \
+    \
+    ([NSPredicate predicateWithFormat:@"NOT %K CONTAINS[cd] %@",witch,value])
 
-#ifndef PredicateWitchGreaterThan
-#define PredicateWitchGreaterThan(witch,value)\
-([NSPredicate predicateWithFormat:@"%K>%@",witch,value])
-#endif
+#define PredicateWitchLike(witch,value) \
+    \
+    ([NSPredicate predicateWithFormat:@"%K LIKE[cd] %@",witch,value])
 
-#ifndef PredicateWitchGreaterThanOrEqual
-#define PredicateWitchGreaterThanOrEqual(witch,value)\
-([NSPredicate predicateWithFormat:@"%K>=%@",witch,value])
-#endif
+#define PredicateWitchGreaterThan(witch,value)  \
+    \
+    ([NSPredicate predicateWithFormat:@"%K>%@",witch,value])
 
-#ifndef PredicateWitchLessThan
-#define PredicateWitchLessThan(witch,value)\
-([NSPredicate predicateWithFormat:@"%K<%@",witch,value])
-#endif
+#define PredicateWitchGreaterThanOrEqual(witch,value)   \
+    \
+    ([NSPredicate predicateWithFormat:@"%K>=%@",witch,value])
 
-#ifndef PredicateWitchLessThanOrEqual
-#define PredicateWitchLessThanOrEqual(witch,value)\
-([NSPredicate predicateWithFormat:@"%K<=%@",witch,value])
-#endif
+#define PredicateWitchLessThan(witch,value) \
+    \
+    ([NSPredicate predicateWithFormat:@"%K<%@",witch,value])
 
-#ifndef PredicateWitchBetween
-#define PredicateWitchBetween(witch,left,right)\
-([NSPredicate predicateWithFormat:@"(%K >= %@) AND (%K < %@)",witch,left,right])
-#endif
+#define PredicateWitchLessThanOrEqual(witch,value)  \
+    \
+    ([NSPredicate predicateWithFormat:@"%K<=%@",witch,value])
+
+
+#define PredicateWitchBetween(witch,left,right) \
+    \
+    ([NSPredicate predicateWithFormat:@"(%K >= %@) AND (%K < %@)",witch,left,right])
+
+
 
 #pragma mark - LinkBlcok declare
 
-#ifndef PredicateWitchIsKindOfClass
 #define PredicateWitchIsKindOfClass(witch,type)\
+    \
 ([NSPredicate predicateWithBlock:^BOOL(id evaluatedObject,id bindings) {\
     if(![witch isEqualToString:SELF_KEY]){\
         evaluatedObject = [evaluatedObject valueForKeyPath:witch];\
     }\
     return [evaluatedObject isKindOfClass:[type class]];\
 }])
-#endif
 
-#ifndef PredicateWitchNotNSNull
-#define PredicateWitchNotNSNull(witch)\
-([NSPredicate predicateWithFormat:@"SELF!=%@",NSNull.null])
-#endif
+#define PredicateWitchNotNSNull(witch)  \
+    \
+    ([NSPredicate predicateWithFormat:@"SELF!=%@",NSNull.null])
+
 
 @interface NSObject(NSPredicateLinkBlock)
 

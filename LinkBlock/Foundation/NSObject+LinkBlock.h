@@ -356,10 +356,38 @@
  *  Refer to : objValueForFullPath
  *  Same as:
  *  [B setValue:[A valueForKeyPath:keyPath] forKey:keyPath];
- *  Note: asFullPath    ∈   {NSString,NSArray<NSString>}
+ *  Note: asFullPath    ∈   {NSString , NSArray<NSString>}
  */
 @property LB_BK NSObject*    (^objCopyValueFromObjectByFullPath)(id srcObj,id asFullPath);
 
+/**
+ key : property name of an object.
+ 
+ return value
+ :
+ @"id"          :       id and id<Protocol>
+ ClassName      :       Like 'NSObject'
+ StructName     :       structual.Like 'CGRect','_NSRange'
+ @"NSBlock"     :       block
+ @"SEL"         :       sel value
+ @"objc_ivar"   :       objc_ivar value
+ @"objc_method" :       objc_method value
+ c type         :       '[unsigned ]char' , '[unsigned ]int' , '[unsigned ]short' ,
+                        '[unsigned ]long' , '[unsigned ]long long' ,
+                        'float' , 'double' , 'bool'
+ nil            :       useless data
+ */
+@property LB_SBK NSString*    (^classProgrammingTypeForKey)(NSString* key);
+
+/**
+ asKey  ∈   {NSString,NSArray<NSString>}
+ The key id property name.
+ 
+ Initialize value for key if the type of the key is explicit.
+ When type is one of 'id','SEL','objc_ivar','objc_method' and 'NSBlock', it will do nothing.
+ 
+ */
+@property LB_BK NSObject*     (^objInitializeValueForKey)(id asKey);
 
 /** !Print object as json string */
 @property LB_BK NSObject*    (^po)(void);

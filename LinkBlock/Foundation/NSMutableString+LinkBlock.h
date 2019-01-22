@@ -8,9 +8,8 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef NSMutableStringNew
 #define NSMutableStringNew ([NSMutableString new])
-#endif
+
 @interface NSObject(NSMutableStringLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像

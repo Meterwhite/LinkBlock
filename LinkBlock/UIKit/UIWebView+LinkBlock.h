@@ -8,9 +8,8 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UIWebViewNew
 #define UIWebViewNew ([UIWebView new])
-#endif
+
 @class JSContext;
 @interface NSObject(UIWebViewLinkBlock)
 

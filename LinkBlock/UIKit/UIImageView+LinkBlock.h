@@ -9,9 +9,9 @@
 #import "LinkBlockDefine.h"
 #import <objc/runtime.h>
 
-#ifndef UIImageViewNew
+
 #define UIImageViewNew ([UIImageView new])
-#endif
+
 @interface NSObject(UIImageViewLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像

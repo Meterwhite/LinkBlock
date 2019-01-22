@@ -7,9 +7,9 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UIButtonNew
+
 #define UIButtonNew ([UIButton buttonWithType:UIButtonTypeCustom])
-#endif
+
 @interface NSObject(UIButtonLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像

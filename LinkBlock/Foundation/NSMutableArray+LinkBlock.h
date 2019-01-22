@@ -6,16 +6,17 @@
 //
 
 #import "LinkBlockDefine.h"
-#ifndef NSMutableArrayNew
-#define NSMutableArrayNew ([NSMutableArray new])
-#endif
 
-#ifndef NSMutable2DArrayNew
+#define NSMutableArrayNew ([NSMutableArray new])
+
 #define NSMutable2DArrayNew(x,y) (LB_2DArray_New(x,y))
-#endif
 
 @interface NSObject(NSMutable2DArrayLinkBlock)
 
+/**
+ Get value from item of 2DArray. NSNull will instead with nil.
+ ...m2DArraryObjectAt(x,y).thisValueFor2DArray;
+ */
 @property LB_FN id thisValueFor2DArray;
 
 /**
@@ -47,8 +48,8 @@
 
 @property LB_BK NSArray*    (^m2DArraryObjectsForRow)(NSUInteger row);
 @property LB_BK NSArray*    (^m2DArraryObjectsForCol)(NSUInteger col);
-@property LB_BK NSObject*    (^m2DArraryCleanObjectsForRow)(NSUInteger row);
-@property LB_BK NSObject*    (^m2DArraryCleanObjectsForCol)(NSUInteger col);
+@property LB_BK NSObject*   (^m2DArraryCleanObjectsForRow)(NSUInteger row);
+@property LB_BK NSObject*   (^m2DArraryCleanObjectsForCol)(NSUInteger col);
 
 @end
 
@@ -70,8 +71,3 @@ NS_INLINE NSMutableArray* LB_2DArray_New(NSUInteger x,NSUInteger y){
     }
     return array2D;
 }
-
-
-//@property LB_BK NSObject*    (^m2DArraryObjectAtPointVal)(CGPoint point);
-//@property LB_BK NSObject*    (^m2DArrarySetObjectAtPointVal)(_Nonnull id obj,CGPoint point);
-//@property LB_BK NSObject*    (^m2DArraryCleanAtPointVal)(CGPoint point);

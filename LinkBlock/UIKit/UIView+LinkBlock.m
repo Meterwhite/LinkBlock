@@ -221,6 +221,16 @@
     };
 }
 
+- (UIView *(^)(void))viewBGColorRed
+{
+    return ^id(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewBGColorClear)
+        _self.backgroundColor=UIColor.redColor;
+        return _self;
+    };
+}
+
 - (UIView *(^)(CGFloat x,CGFloat y))viewSetCenter
 {
     return ^id(CGFloat x,CGFloat y){
@@ -630,27 +640,22 @@ defineViewContentModeTail(BottomRight)
     return ^id(NSUInteger index){
         LinkHandle_REF(UIView)
         LinkGroupHandle_REF(viewSubviewAt,index)
-        if(index< _self.subviews.count) return _self.subviews[index];
-        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"数组%p越界:index=%lu array.count=%lu",_self.subviews,(unsigned long)index,(unsigned long)_self.subviews.count]] logError];
+        if(index < _self.subviews.count) return _self.subviews[index];
+        return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"LinkBlock\n:\n Index overflow %p:index=%lu array.count=%lu",_self.subviews,(unsigned long)index,(unsigned long)_self.subviews.count]] logError];
     };
 }
 
-- (NSInteger (^)(void))viewIndexInSuperview
+- (NSNumber* (^)(void))viewIndexInSuperviewAs
 {
-    return ^NSInteger(){
-        LinkHandle_VAL_IFNOT(UIView){
-            return 0;
-        }
-        LinkGroupHandle_VAL(viewIndexInSuperview)
-        
-        
-        for (NSInteger i=0; i<_self.superview.subviews.count; i++) {
+    return ^NSNumber*(){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewIndexInSuperviewAs)
+        for (NSInteger i=0; i<_self.superview.subviews.count; i++)
             
-            if([_self.superview.subviews[i] isEqual:_self]){
-                return i;
-            }
-        }
-        return -1;
+            if([_self.superview.subviews[i] isEqual:_self])
+                return [NSNumber numberWithInteger:i];
+        
+        return nil;
     };
 }
 
@@ -771,6 +776,18 @@ defineViewContentModeTail(BottomRight)
         return _self;
     };
 }
+- (UIView *(^)(UIStackView *__weak))viewAddToStackViewArranged
+{
+    return ^id(__weak UIStackView* stackView){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewAddToStackViewArranged,stackView)
+        if([stackView respondsToSelector:@selector(addArrangedSubview:)])
+            
+            [stackView addArrangedSubview:_self];
+        
+        return _self;
+    };
+}
 
 - (NSMutableArray *(^)(Class))viewFindSubviewsOfClass
 {
@@ -781,6 +798,7 @@ defineViewContentModeTail(BottomRight)
         [_self.subviews enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL* stop) {
             
             if([view isKindOfClass:clazz])
+                
                 [re addObject:view];
         }];
         return re;

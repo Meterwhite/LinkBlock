@@ -15,79 +15,8 @@
 @property LB_BKG(arrContains) BOOL (^arrIsContainer)(id obj)
 NS_DEPRECATED_IOS(2_0, 2_0, "fixed to arrContain");
 
-@property LB_BKG(strContains) BOOL (^strIsContain)(NSString* str)
-NS_DEPRECATED_IOS(2_0, 2_0, "use strContains instead");
-
-@property LB_BK NSArray* (^arrValuesOfType)(Class typeClass)
-NS_DEPRECATED_IOS(2_0, 2_0, "use arrObjsOfType instead");
-
-@property LB_BKG(strContainsEmoji) BOOL(^strIsContainEmoji)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "use strContainEmoji instead");
-
-@property LB_BKG(strContainsEmojiAs) NSNumber* (^strIsContainEmoji_n)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "use strContainEmojiAs instead");
-
 @property LB_BKG(attr_strDrawToImageAsWhatSet) UIImage* (^attr_strDrawImgRect)(UIImage* image, CGRect rect)
 NS_DEPRECATED_IOS(2_0, 2_0, "use attr_strDrawToImgAsWhatSet instead");
-
-- (NSObject*)newLink:(void(^)(NSObject* fromObj))aNewLink
-NS_DEPRECATED_IOS(2_0, 2_0, "use -[* linkInBlock] instead-[* newLink]");
-
-@property LB_BKG(arrAddToArrAsWhatSet) NSMutableArray*(^arrAddTo)(NSMutableArray* arr)
-NS_DEPRECATED_IOS(2_0, 2_0, "use arrAddToArrAsWhatSet instead");
-
-@property LB_BKG(objValueForKey) id(^valueForKey)(NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objValueForKey instead");
-
-@property LB_BKG(objSetValueForKey) NSObject*(^setValueForKey)(id value,NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKey instead");
-
-@property LB_BKG(objValueForKeyPath) id(^valueForKeyPath)(NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objValueForKeyPath instead");
-
-@property LB_BKG(objSetValueForKeyPath)NSObject*(^setValueForKeyPath)(id value,NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKeyPath instead");
-
-@property LB_BKG(objValueForKey) id(^valueForKeySafe)(NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objValueForKey instead");
-
-@property LB_BKG(objSetValueForKey) NSObject*(^setValueForKeySafe)(id value,NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKey instead");
-
-@property LB_BKG(objValueForKeyPath) id(^valueForKeyPathSafe)(NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objValueForKeyPath instead");
-
-@property LB_BKG(objSetValueForKeyPath)NSObject*(^setValueForKeyPathSafe)(id value,NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKeyPath instead");
-
-@property LB_BKG(objIsKindOf) BOOL(^isKindOf)( __unsafe_unretained Class classKind)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objIsKindOf instead");
-
-@property LB_BKG(objIsKindOfAs) NSNumber*(^isKindOf_n)( __unsafe_unretained Class classKind)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objIsKindOf_n instead");
-
-@property LB_BKG(objIsSubClassOf) BOOL(^isSubClassOf)( __unsafe_unretained Class classKind)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objIsSubClassOf instead");
-
-@property LB_BKG(objIsSubClassOfAs) NSNumber*(^isSubClassOf_n)( __unsafe_unretained Class classKind)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objIsSubClassOf_n instead");
-
-@property LB_BKG(objIsRespondsSEL) BOOL(^isRespondsSEL)(SEL theSEL)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objIsRespondsSEL instead");
-
-@property LB_BKG(objIsRespondsSELAs)NSNumber*(^isRespondsSEL_n)(SEL theSEL)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objIsRespondsSEL_n instead");
-
-@property LB_BKG(objClassName) NSString*(^className)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objClassName instead");
-
-@property LB_BKG(objSuperclassName) NSString*(^superclassName)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objSuperclassName instead");
-
-@property LB_BK NSObject*    (^setTo)(id* toObject)
-NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK NSObject*    (^objSetTo)(id* toObject)
-NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
 @property LB_BK NSObject*    (^objValueRandom)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objSetRandom... instead");
@@ -101,15 +30,9 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use objReverseValueForKey instead");
 @property LB_BK UIImage*         (^imgBlur)(float percent)
 NS_DEPRECATED_IOS(2_0, 2_0, "use imgBlurXXX instead");
 
-@property LB_BK UILabel*         (^labAlignTop)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
-@property LB_BK UILabel*         (^labAlignBottom)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");
 
 @property LB_BK NSMutableArray*  (^arrInsertBehind)(id obj, id behindObj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrInsertNext");
-
-
 
 @property LB_BKG(viewClipsToBounds) UIView*(^viewMasksToBounds)(BOOL b)
 NS_DEPRECATED_IOS(2_0, 2_0, "use viewClipsToBounds instead");
@@ -131,9 +54,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "rename to strSubToUILine");
 
 @property LB_BKG(strSubRangeToMaxUILineIfAppendStr) NSRange (^strSubRangeToMaxLineIfAppendStrAboutView )(NSUInteger maxLine , CGFloat maxWidth, NSString* ifAppendStr ,NSDictionary<NSAttributedStringKey,id>* attrDict , BOOL* isFullOfLines)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to strSubRangeToMaxUILineIfAppendStr");
-
-@property LB_BK void*  (^numValue)(void)
-NS_DEPRECATED_IOS(2_0, 2_0, "not safe");
 
 @property LB_BK NSValue* (^valueCGSizeSetToViews)(NSArray* views)
 NS_DEPRECATED_IOS(2_0, 2_0, "deprecated");

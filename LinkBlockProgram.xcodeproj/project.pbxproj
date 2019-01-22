@@ -27,6 +27,7 @@
 		458AD6011D193BDC00D5B931 /* JSValue+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD5FF1D193BDC00D5B931 /* JSValue+LinkBlock.m */; };
 		458AD6041D194D9200D5B931 /* JSManagedValue+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458AD6031D194D9200D5B931 /* JSManagedValue+LinkBlock.m */; };
 		459388C11D9BCB6600F3DA61 /* UITableView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 459388C01D9BCB6600F3DA61 /* UITableView+LinkBlock.m */; };
+		45A364A921EDC3FF00105E9E /* UIStackView+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A364A821EDC3FF00105E9E /* UIStackView+LinkBlock.m */; };
 		45BFEBEA1D34F186007B83B5 /* LinkInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFEBE91D34F186007B83B5 /* LinkInfo.m */; };
 		45BFEBED1D34F225007B83B5 /* LinkGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFEBEC1D34F225007B83B5 /* LinkGroup.m */; };
 		45BFEBF01D34F728007B83B5 /* LinkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFEBEF1D34F728007B83B5 /* LinkError.m */; };
@@ -34,6 +35,7 @@
 		45D7816B2178340C00E8F53E /* LinkObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D7816A2178340C00E8F53E /* LinkObject.m */; };
 		45DEF2C51CEB0B950000E453 /* UIBezierPath+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */; };
 		45EB72F41FAAC793004984E0 /* UIFont+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EB72F31FAAC793004984E0 /* UIFont+LinkBlock.m */; };
+		45F5CFB121F6EF7800FF903E /* UITableViewCell+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F5CFB021F6EF7800FF903E /* UITableViewCell+LinkBlock.m */; };
 		9F6508821FE59C2E0039BA9E /* LinkBlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */; };
 		9F8D65DD1FF1601700EBDE5A /* LinkPropertyInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D65DC1FF1601700EBDE5A /* LinkPropertyInvocation.m */; };
 		9FBD17371BDB91D500C2F402 /* NSArray+LinkBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD17081BDB91D500C2F402 /* NSArray+LinkBlock.m */; };
@@ -124,6 +126,8 @@
 		458AD6031D194D9200D5B931 /* JSManagedValue+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "JSManagedValue+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		459388BF1D9BCB6600F3DA61 /* UITableView+LinkBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+LinkBlock.h"; sourceTree = "<group>"; };
 		459388C01D9BCB6600F3DA61 /* UITableView+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+LinkBlock.m"; sourceTree = "<group>"; };
+		45A364A721EDC3FF00105E9E /* UIStackView+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIStackView+LinkBlock.h"; sourceTree = "<group>"; };
+		45A364A821EDC3FF00105E9E /* UIStackView+LinkBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIStackView+LinkBlock.m"; sourceTree = "<group>"; };
 		45BFEBE81D34F186007B83B5 /* LinkInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkInfo.h; sourceTree = "<group>"; };
 		45BFEBE91D34F186007B83B5 /* LinkInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkInfo.m; sourceTree = "<group>"; };
 		45BFEBEB1D34F225007B83B5 /* LinkGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkGroup.h; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 		45DEF2C41CEB0B950000E453 /* UIBezierPath+LinkBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIBezierPath+LinkBlock.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		45EB72F21FAAC793004984E0 /* UIFont+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+LinkBlock.h"; sourceTree = "<group>"; };
 		45EB72F31FAAC793004984E0 /* UIFont+LinkBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+LinkBlock.m"; sourceTree = "<group>"; };
+		45F5CFAF21F6EF7800FF903E /* UITableViewCell+LinkBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+LinkBlock.h"; sourceTree = "<group>"; };
+		45F5CFB021F6EF7800FF903E /* UITableViewCell+LinkBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+LinkBlock.m"; sourceTree = "<group>"; };
 		9F6508801FE59C2E0039BA9E /* LinkBlockInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkBlockInvocation.h; sourceTree = "<group>"; };
 		9F6508811FE59C2E0039BA9E /* LinkBlockInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkBlockInvocation.m; sourceTree = "<group>"; };
 		9F8D65DB1FF1601700EBDE5A /* LinkPropertyInvocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkPropertyInvocation.h; sourceTree = "<group>"; };
@@ -396,6 +402,10 @@
 				9FBD17361BDB91D500C2F402 /* UIViewController+LinkBlock.m */,
 				4528C60A1D1A5D3C00B35C97 /* UIWebView+LinkBlock.h */,
 				4528C60B1D1A5D3C00B35C97 /* UIWebView+LinkBlock.m */,
+				45A364A721EDC3FF00105E9E /* UIStackView+LinkBlock.h */,
+				45A364A821EDC3FF00105E9E /* UIStackView+LinkBlock.m */,
+				45F5CFAF21F6EF7800FF903E /* UITableViewCell+LinkBlock.h */,
+				45F5CFB021F6EF7800FF903E /* UITableViewCell+LinkBlock.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -569,11 +579,13 @@
 				453AFBCA1D6EFB4E00012095 /* Person.m in Sources */,
 				9FBD174D1BDB91D500C2F402 /* UIViewController+LinkBlock.m in Sources */,
 				9FBD173E1BDB91D500C2F402 /* NSMutableString+LinkBlock.m in Sources */,
+				45F5CFB121F6EF7800FF903E /* UITableViewCell+LinkBlock.m in Sources */,
 				9FBD17401BDB91D500C2F402 /* NSObject+LinkBlock.m in Sources */,
 				9FBD173F1BDB91D500C2F402 /* NSNumber+LinkBlock.m in Sources */,
 				9FFDA2181B835E2F0044097D /* ViewController.m in Sources */,
 				454A9E341FE3B95600CEE102 /* DynamicLinkArgument.m in Sources */,
 				9FBD17421BDB91D500C2F402 /* NSURL+LinkBlock.m in Sources */,
+				45A364A921EDC3FF00105E9E /* UIStackView+LinkBlock.m in Sources */,
 				9FBD173D1BDB91D500C2F402 /* NSMutableDictionary+LinkBlock.m in Sources */,
 				452047671CED65310092ED18 /* CAShapeLayer+LinkBlock.m in Sources */,
 				9FBD17391BDB91D500C2F402 /* NSDate+LinkBlock.m in Sources */,

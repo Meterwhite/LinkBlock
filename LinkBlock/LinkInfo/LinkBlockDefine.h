@@ -10,35 +10,34 @@
 #import <QuartzCore/QuartzCore.h>
 
 /** Block */
-#ifndef LB_BK
 #define LB_BK (nonatomic,copy,readonly)
-#endif
+
+/** Block */
+#define LB_SBK (nonatomic,copy,readonly,class)
 
 /** Function */
-#ifndef  LB_FN
 #define  LB_FN (nonatomic,readonly)
-#endif
 
 /** Block & Getter */
-#ifndef LB_BKG
-#define LB_BKG(getname) (nonatomic,copy,readonly,getter=getname)
-#endif
+#define LB_BKG(getname) \
+    \
+    (nonatomic,copy,readonly,getter=getname)
 
-#ifndef LBC_BKG
-#define LBC_BKG(getname) (nonatomic,class,readonly,getter=getname)
-#endif
+#define LBC_BKG(getname) \
+    \
+    (nonatomic,class,readonly,getter=getname)
 
-#ifndef LB_MCopy_VAR
-#define LB_MCopy_VAR(var) (var = [var mutableCopy])
-#endif
+#define LB_MCopy_VAR(var) \
+    \
+    (var = [var mutableCopy])
 
-#ifndef LB_RespondsToSEL
-#define LB_RespondsToSEL(var,sel) ([var respondsToSelector:@selector(sel)])
-#endif
+#define LB_RespondsToSEL(var,sel) \
+    \
+    ([var respondsToSelector:@selector(sel)])
 
-#ifndef LB_IsKindOfClass
-#define LB_IsKindOfClass(var,clazz) ([var isKindOfClass:[clazz class]])
-#endif
+#define LB_IsKindOfClass(var,clazz) \
+    \
+    ([var isKindOfClass:[clazz class]])
 
 //////////////////////////////////////////////////////////////////////
 //MARK: Control
@@ -95,9 +94,10 @@ if([self isKindOfClass:[LinkGroup class]]){\
 }
 #endif
 
-#ifndef LB_SELAsString
-#define LB_SELAsString(sel) (NSStringFromSelector(@selector(sel)))
-#endif
+
+#define LB_SELAsString(sel) \
+    \
+    (NSStringFromSelector(@selector(sel)))
 
 ///MARK: Box value
 #define LBBoxValue(value) _LinkBoxValue(@encode(__typeof__((value))), (value))
@@ -161,7 +161,9 @@ NS_INLINE id _LinkBoxValue(const char *type, ...) {
     return obj;
 }
 
-#define LBObjcValue(value) _LinkObjcValue(@encode(__typeof__((value))), (value))
+#define LBObjcValue(value)\
+    \
+    _LinkObjcValue(@encode(__typeof__((value))), (value))
 NS_INLINE id _LinkObjcValue(const char *type, ...) {
     va_list v;
     va_start(v, type);

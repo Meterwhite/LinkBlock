@@ -31,15 +31,31 @@
 
 - (UITableView *(^)(BOOL))tab_viewShowsVertical
 {
-    return ^id(BOOL b){
-        return self.scroll_viewShowsVertical(b);
-    };
+    return (id)self.scroll_viewShowsVertical;
 }
 
 - (UITableView *(^)(BOOL))tab_viewShowsHorizontal
 {
-    return ^id(BOOL b){
-        return self.scroll_viewShowsHorizontal(b);
+    return (id)self.scroll_viewShowsHorizontal;
+}
+
+- (UITableView *(^)(void))tab_viewCellSeparatorStyleNone
+{
+    return ^id(void){
+        LinkHandle_REF(UITableView);
+        LinkGroupHandle_REF(tab_viewCellSeparatorStyleNone);
+        _self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        return _self;
+    };
+}
+
+- (UITableView *(^)(void))tab_viewCellSeparatorStyleSingleLine
+{
+    return ^id(void){
+        LinkHandle_REF(UITableView);
+        LinkGroupHandle_REF(tab_viewCellSeparatorStyleSingleLine);
+        _self.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        return _self;
     };
 }
 @end

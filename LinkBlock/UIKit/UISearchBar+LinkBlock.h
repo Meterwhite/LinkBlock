@@ -8,9 +8,7 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UISearchBarNew
 #define UISearchBarNew ([UISearchBar new])
-#endif
 
 @interface NSObject(UISearchBarLinkBlock)
 @property LB_BK       UISearchBar* (^searchBarText)(NSString* text);
@@ -20,7 +18,9 @@
 @property LB_BK       UISearchBar* (^searchBarShowsCancelButton)(BOOL showsCancelButton);
 @property LB_BK       UISearchBar* (^searchBarShowsSearchResultsButton)(BOOL showsSearchResultsButton);
 @property LB_BK       UISearchBar* (^searchBarBackgroundImage)(UIImage* backgroundImage);
+
 #pragma mark - LinkBlock
+
 /** Get TextField from search bar  */
 @property LB_BK       UITextField* (^searchBarSearchField)(void);
 /** Use to modify border color of searchBar  */

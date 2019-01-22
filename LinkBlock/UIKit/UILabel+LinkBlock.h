@@ -7,9 +7,8 @@
 
 #import "LinkBlockDefine.h"
 
-#ifndef UILabelNew
 #define UILabelNew ([UILabel new])
-#endif
+
 @interface NSObject(UILabelLinkBlock)
 
 #pragma mark - Foundation Mirror/镜像

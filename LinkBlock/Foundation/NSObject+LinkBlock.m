@@ -97,39 +97,39 @@
 + (BOOL)lb_classContainIvar:(NSString*)ivarName
 {
     unsigned int outCout ,i ;
-    Ivar* ivarList = class_copyIvarList([self class], &outCout);
+    Ivar* ivars = class_copyIvarList([self class], &outCout);
     for(i=0;i< outCout;i++){
-        if([ivarName isEqualToString:[NSString stringWithUTF8String:ivar_getName(ivarList[i])]]){
-            free(ivarList);
+        if([ivarName isEqualToString:[NSString stringWithUTF8String:ivar_getName(ivars[i])]]){
+            free(ivars);
             return YES;
         }
     }
-    free(ivarList);
+    free(ivars);
     return NO;
 }
 
 + (NSArray<NSString*>*)lb_classGetIvarList
 {
     unsigned int outCount , i;
-    Ivar* ivarList = class_copyIvarList([self class], &outCount);
-    NSMutableArray* reMArr = [NSMutableArray new];
+    Ivar* ivars = class_copyIvarList([self class], &outCount);
+    NSMutableArray* ret = [NSMutableArray new];
     for(i=0 ; i< outCount; i++)
-        [reMArr addObject:[NSString stringWithUTF8String:ivar_getName(ivarList[i])]];
-    free(ivarList);
-    return reMArr.copy;
+        [ret addObject:[NSString stringWithUTF8String:ivar_getName(ivars[i])]];
+    free(ivars);
+    return ret.copy;
 }
 + (NSArray<NSString*>*)lb_classGetPropertyList
 {
     unsigned int outCount, i;
     objc_property_t* properties = class_copyPropertyList([self class], &outCount);
     
-    NSMutableArray* reMArr = [NSMutableArray new];
+    NSMutableArray* ret = [NSMutableArray new];
     
     for(i=0 ; i< outCount; i++){
-        [reMArr addObject:[NSString stringWithUTF8String:property_getName(properties[i])]];
+        [ret addObject:[NSString stringWithUTF8String:property_getName(properties[i])]];
     }
     free(properties);
-    return reMArr.copy;
+    return ret.copy;
 }
 
 + (NSString *)lb_classGetPropertyType:(NSString *)key
@@ -160,56 +160,56 @@
 
 + (NSArray<NSString*>*)lb_classGetAllPropertyList:(BOOL)includeFoundation
 {
-    NSMutableArray* reArr = [NSMutableArray new];
+    NSMutableArray* ret = [NSMutableArray new];
     [self lb_classEnumerateUsingBlock:^(__unsafe_unretained Class clazz, BOOL *stop) {
         if(clazz == [NSObject class]) return;
-        [reArr addObjectsFromArray:[clazz lb_classGetPropertyList]];
+        [ret addObjectsFromArray:[clazz lb_classGetPropertyList]];
     } includeBasic:includeFoundation];
-    return reArr.copy;
+    return ret.copy;
 }
 
 + (NSArray<NSString*>*)lb_classGetClassMethodList
 {
     unsigned int outCount;
     Method* methods = class_copyMethodList(object_getClass(self), &outCount);
-    NSMutableArray* reMArr = [NSMutableArray new];
+    NSMutableArray* ret = [NSMutableArray new];
     for (int i = 0; i < outCount; i++) {
         SEL name = method_getName(methods[i]);
         NSString* methodName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
-        [reMArr addObject:methodName];
+        [ret addObject:methodName];
     }
     free(methods);
-    return reMArr.copy;
+    return ret.copy;
 }
 
 - (NSArray<NSString*>*)lb_objGetInstanceMethodList
 {
     unsigned int outCount;
     Method* methods = class_copyMethodList([self class], &outCount);
-    NSMutableArray* reMArr = [NSMutableArray new];
+    NSMutableArray* ret = [NSMutableArray new];
     for (int i = 0; i < outCount; i++) {
         SEL name = method_getName(methods[i]);
         NSString* methodName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
-        [reMArr addObject:methodName];
+        [ret addObject:methodName];
     }
     free(methods);
-    return reMArr.copy;
+    return ret.copy;
 }
 
 + (NSArray<NSString*>*)lb_classGetProtocolList
 {
     unsigned int outCount;
-    NSMutableArray* reMArr = [NSMutableArray new];
+    NSMutableArray* ret = [NSMutableArray new];
     
     __unsafe_unretained Protocol **protocols = class_copyProtocolList(self, &outCount);
     
     for (int i = 0; i < outCount; i++) {
         
         NSString* protocolName= [NSString stringWithCString:protocol_getName(protocols[i]) encoding:NSUTF8StringEncoding];
-        [reMArr addObject:protocolName];
+        [ret addObject:protocolName];
     }
     free(protocols);
-    return reMArr.copy;
+    return ret.copy;
 }
 
 + (void)lb_classEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, BOOL *))block
@@ -259,6 +259,275 @@
         clazz = class_getSuperclass(clazz);
         if(!includeFoundation && [clazz lb_classIsBasic]) break;
     }
+}
+
++ (NSString *(^)(NSString*))classProgrammingTypeForKey
+{
+    return ^id(NSString* key){
+        
+        LinkHandle_REF(NSObject)
+        
+        BOOL                stop    =   NO;
+        Class               clazz   =   self;
+        unsigned int        outCount   ,   i;
+        objc_property_t*    properties;
+        
+        while (clazz && !stop) {
+            
+            properties = class_copyPropertyList(clazz, &outCount);
+            for(i=0 ; i< outCount; i++){
+                
+                NSString* pName = @(property_getName(properties[i]));
+                
+                if([pName isEqualToString:key] == NO) continue;
+                
+                
+                NSString *attrs = @(property_getAttributes(properties[i]));
+                NSUInteger dotLoc = [attrs rangeOfString:@","].location;
+                NSString *code = nil;
+                NSUInteger loc = 1;
+                
+                if (dotLoc == NSNotFound) {
+                    code = [attrs substringFromIndex:loc];
+                } else {
+                    code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+                }
+
+                if ([code isEqualToString:@"@"]) {
+                    
+                    return @"id";
+                } else if (code.length == 0) {
+                    
+                    return nil;
+                } else if (code.length > 3 && [code hasPrefix:@"@\""]) {
+                    //对象
+                    // 去掉@"和"，截取中间的类型名称
+                    code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
+                    if([code characterAtIndex:0] == '<'
+                       &&
+                       [code characterAtIndex:code.length-1] == '>'
+                       ){
+                        //id<AProtocol>
+                        return @"id";
+                    }
+                    //ClassName
+                    return code;
+                } else if ([code isEqualToString:@"^{objc_ivar=}"]
+                           ) {
+                    
+                    return @"objc_ivar";
+                }else if([code isEqualToString:@"^{objc_method=}"]){
+                    
+                    return @"objc_method";
+                }else if([code isEqualToString:@"@?"]){
+                    
+                    return @"NSBlock";
+                }else if([code isEqualToString:@":"]){
+                    
+                    return @"SEL";
+                }
+                else if(code.length > 3                                 &&
+                         [code characterAtIndex:0] == '{'               &&
+                         [code characterAtIndex:code.length-1] == '}'   &&
+                         [code containsString:@"="]
+                         ){
+                    //Other structual
+                    code = [[code substringFromIndex:1] componentsSeparatedByString:@"="].firstObject;
+                    return code;
+                }else if ([code isEqualToString:@"c"]){
+                    return @"char";
+                }else if ([code isEqualToString:@"C"]){
+                    return @"unsigned char";
+                }else if ([code isEqualToString:@"i"]){
+                    return @"int";
+                }else if ([code isEqualToString:@"I"]){
+                    return @"unsigned int";
+                }else if ([code isEqualToString:@"s"]){
+                    return @"short";
+                }else if ([code isEqualToString:@"S"]){
+                    return @"unsigned short";
+                }else if ([code isEqualToString:@"l"]){
+                    return @"long";
+                }else if ([code isEqualToString:@"L"]){
+                    return @"unsigned long";
+                }else if ([code isEqualToString:@"q"]){
+                    return @"long long";
+                }else if ([code isEqualToString:@"Q"]){
+                    return @"unsigned long long";
+                }else if ([code isEqualToString:@"f"]){
+                    return @"float";
+                }else if ([code isEqualToString:@"d"]){
+                    return @"double";
+                }else if ([code isEqualToString:@"B"]){
+                    return @"bool";
+                }
+                return nil;
+            }
+            
+            free(properties);
+            clazz = class_getSuperclass(clazz);
+        }
+        
+        return nil;
+    };
+}
+
+- (NSObject *(^)(id))objInitializeValueForKey
+{
+    return ^id(id asKey){
+        
+        LinkHandle_REF(NSObject)
+        LinkGroupHandle_REF(objInitializeValueForKey , asKey)
+        
+        NSInteger count = 1;
+        NSString* key   = asKey;
+        if(![asKey isKindOfClass:NSArray.class]){
+            
+            goto CALL_SET_VALUE;
+        }
+        
+        count = [asKey count];
+        
+    CALL_FOR:
+        
+        if(count == 0) return self;
+        key = [asKey objectAtIndex:count];
+        
+        
+    CALL_SET_VALUE:
+        {
+            BOOL                stop    =   NO;
+            Class               clazz   =   self.class;
+            unsigned int        outCount   ,   i;
+            objc_property_t*    properties;
+            
+            while (clazz && !stop)
+            {
+                
+                properties = class_copyPropertyList(clazz, &outCount);
+                for(i = 0 ; i < outCount; i++)
+                {
+                    
+                    NSString* pName = @(property_getName(properties[i]));
+                    
+                    if([pName isEqualToString:key] == NO)
+                        
+                        continue;
+                    
+                    NSString   *attrs = @(property_getAttributes(properties[i]));
+                    NSUInteger  dotLoc = [attrs rangeOfString:@","].location;
+                    NSArray    *attrInfos = [attrs componentsSeparatedByString:@","];
+                    NSString   *code = nil;
+                    NSUInteger  loc = 1;
+                    
+                    if (dotLoc == NSNotFound) {
+                        code = [attrs substringFromIndex:loc];
+                    } else {
+                        code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+                    }
+                    
+                    if (code.length == 0)
+                    {
+                        stop = YES; break;
+                    }
+                    
+                    if([attrInfos containsObject:@"R"]){
+                        //只读属性
+                        stop = YES; break;
+                    }else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){
+                        //无成员变量
+                        stop = YES; break;
+                    }
+                    
+                    
+                    
+                    if (code.length > 3 && [code hasPrefix:@"@\""])
+                    {
+                        //Object
+                        //Get class type
+                        code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
+                        if([code characterAtIndex:0] == '<'){
+                            //'id<AProtocol>'
+                            stop = YES; break;
+                        }
+                        
+                        Class clz = NSClassFromString(code);
+                        if(clz == nil)
+                        {
+                            stop = YES; break;
+                        }
+                        
+                        if([clz isSubclassOfClass:NSNumber.class]){
+                            
+                            [_self setValue:@0 forKey:pName];
+                        }
+                        
+                        [_self setValue:[clz new] forKey:pName];
+                    }
+                    else if ([code isEqualToString:@(@encode(CGRect))]){
+                        [_self setValue:[NSValue valueWithCGRect:CGRectZero] forKey:pName];
+                    }else if ([code isEqualToString:@(@encode(CGSize))]){
+                        [_self setValue:[NSValue valueWithCGSize:CGSizeZero] forKey:pName];}
+                    else if ([code isEqualToString:@(@encode(CGPoint))]){
+                        [_self setValue:[NSValue valueWithCGPoint:CGPointZero] forKey:pName];}
+                    else if ([code isEqualToString:@(@encode(UIEdgeInsets))]){
+                        [_self setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:pName];
+                    }else if ([code isEqualToString:@(@encode(NSRange))]){
+                        [_self setValue:[NSValue valueWithRange:NSMakeRange(0, 0)] forKey:pName];
+                    }else if ([code isEqualToString:@(@encode(CGVector))]){
+                        [_self setValue:[NSValue valueWithCGVector:CGVectorMake(0.0, 0.0)] forKey:pName];
+                    }else if ([code isEqualToString:@(@encode(UIOffset))]){
+                        [_self setValue:[NSValue valueWithUIOffset:UIOffsetZero] forKey:pName];
+                    }else if ([code isEqualToString:@(@encode(UIOffset))]){
+                        [_self setValue:[NSValue valueWithCATransform3D:CATransform3DIdentity] forKey:pName];
+                    }else if(code.length > 3                               &&
+                            [code characterAtIndex:0] == '{'               &&
+                            [code characterAtIndex:code.length-1] == '}'   &&
+                            [code containsString:@"="])
+                    {
+                        //Other structual
+                        NSValue* structValue = [[_self.class new] valueForKey:pName];
+                        if(structValue) [_self setValue:structValue forKey:pName];
+                    }else if ([code isEqualToString:@"c"]){
+                        [_self setValue:[NSNumber numberWithChar:0] forKey:pName];
+                    }else if ([code isEqualToString:@"C"]){
+                        [_self setValue:[NSNumber numberWithUnsignedChar:0] forKey:pName];
+                    }else if ([code isEqualToString:@"i"]){
+                        [_self setValue:[NSNumber numberWithInt:0] forKey:pName];
+                    }else if ([code isEqualToString:@"I"]){
+                        [_self setValue:[NSNumber numberWithUnsignedInt:0] forKey:pName];
+                    }else if ([code isEqualToString:@"s"]){
+                        [_self setValue:[NSNumber numberWithShort:0] forKey:pName];
+                    }else if ([code isEqualToString:@"S"]){
+                        [_self setValue:[NSNumber numberWithUnsignedShort:0] forKey:pName];
+                    }else if ([code isEqualToString:@"l"]){
+                        [_self setValue:[NSNumber numberWithLong:0] forKey:pName];
+                    }else if ([code isEqualToString:@"L"]){
+                        [_self setValue:[NSNumber numberWithUnsignedLong:0] forKey:pName];
+                    }else if ([code isEqualToString:@"q"]){
+                        [_self setValue:[NSNumber numberWithLongLong:0] forKey:pName];
+                    }else if ([code isEqualToString:@"Q"]){
+                        [_self setValue:[NSNumber numberWithUnsignedLongLong:0] forKey:pName];
+                    }else if ([code isEqualToString:@"f"]){
+                        [_self setValue:[NSNumber numberWithFloat:0.0] forKey:pName];
+                    }else if ([code isEqualToString:@"d"]){
+                        [_self setValue:[NSNumber numberWithDouble:0.0] forKey:pName];
+                    }else if ([code isEqualToString:@"B"]){
+                        [_self setValue:[NSNumber numberWithBool:NO] forKey:pName];
+                    }
+                    
+                    stop = YES; break;
+                }
+                
+                free(properties);
+                clazz = class_getSuperclass(clazz);
+            }
+        }
+        
+        --count;
+        
+        goto CALL_FOR;
+    };
 }
 
 - (NSObject *(^)(id))objAdd
@@ -2583,6 +2852,8 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
+
+
 - (BOOL (^)(void))objIsKindOfNSBlock
 {
     return ^BOOL(){
@@ -3219,82 +3490,92 @@ Link_objSetValueForK(text)
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(objSetAllValuesBlank)
         
-        unsigned int outCount, i;
-        objc_property_t* properties = class_copyPropertyList([self class], &outCount);
-        for(i=0 ; i< outCount; i++){
+        [self.class lb_classEnumerateUsingBlock:^(__unsafe_unretained Class clazz, BOOL *stop) {
             
-            NSString* pName = @(property_getName(properties[i]));
-            NSString *attrs = @(property_getAttributes(properties[i]));
-            NSUInteger dotLoc = [attrs rangeOfString:@","].location;
-            NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
-            NSString *code = nil;
-            NSUInteger loc = 1;
-            if (dotLoc == NSNotFound) { // 没有
-                code = [attrs substringFromIndex:loc];
-            } else {
-                code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
-            }
-            
-            if([attrInfos containsObject:@"R"]){//只读属性
-                continue;
-            }
-            else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){//无值
-                continue;
-            }
-            
-            if ([code isEqualToString:@"@"]) {
-                //id
-                [_self setValue:nil forKey:pName];
-                continue;
-            } else if (code.length == 0) {
-                //KVCDisabled
-                continue;
-            } else if (code.length > 3 && [code hasPrefix:@"@\""]) {//对象
-                [_self setValue:nil forKey:pName];
-            } else if ([code isEqualToString:@":"] ||//SEL
-                       [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
-                       [code isEqualToString:@"^{objc_method=}"] ||//Method
-                       [code isEqualToString:@"@?"]) {//block
-                //KVCDisabled
-                continue;
-            }else if([code isEqualToString:@(@encode(CGRect))]){
-                [_self setValue:[NSValue valueWithCGRect:CGRectZero] forKey:pName];
-                continue;
-            }else if([code isEqualToString:@(@encode(CGPoint))]){
-                [_self setValue:[NSValue valueWithCGPoint:CGPointZero] forKey:pName];
-                continue;
-            }else if([code isEqualToString:@(@encode(CGSize))]){
-                [_self setValue:[NSValue valueWithCGSize:CGSizeZero] forKey:pName];
-                continue;
-            }else if([code isEqualToString:@(@encode(NSRange))]){
-                [_self setValue:[NSValue valueWithRange:NSMakeRange(0, 0)] forKey:pName];
-                continue;
-            }else if([code isEqualToString:@(@encode(UIEdgeInsets))]){
-                [_self setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:pName];
-                continue;
-            }else if([code isEqualToString:@(@encode(UIOffset))]){
-                [_self setValue:[NSValue valueWithUIOffset:UIOffsetZero] forKey:pName];
-                continue;
-            }else if([code isEqualToString:@(@encode(CGVector))]){
-                [_self setValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)] forKey:pName];
-                continue;
-            }
-            
-            
-            // 是否为数字类型
-            NSString *lowerCode = code.lowercaseString;
-            NSArray *numberTypes = @[@"i", @"s", @"c", @"b", @"f", @"d", @"l", @"q", @"c"];
-            if ([numberTypes containsObject:lowerCode]) {
-                //numberType
-                [_self setValue:@0 forKey:pName];
-                if ([lowerCode isEqualToString:@"c"]  || [lowerCode isEqualToString:@"b"]) {
-                    //boolType
-                    [_self setValue:@NO forKey:pName];
+            unsigned int outCount, i;
+            objc_property_t* properties = class_copyPropertyList(clazz, &outCount);
+            for(i=0 ; i< outCount; i++){
+                
+                NSString* pName = @(property_getName(properties[i]));
+                NSString *attrs = @(property_getAttributes(properties[i]));
+                NSUInteger dotLoc = [attrs rangeOfString:@","].location;
+                NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
+                NSString *code = nil;
+                NSUInteger loc = 1;
+                if (dotLoc == NSNotFound) { // 没有
+                    code = [attrs substringFromIndex:loc];
+                } else {
+                    code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+                }
+                if (code.length > 3 && [code hasPrefix:@"@\""]) {//对象
+                    // 去掉@"和"，截取中间的类型名称
+                    code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
+                }
+                
+                if([attrInfos containsObject:@"R"]){//只读属性
+                    continue;
+                }
+                else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){//无值
+                    continue;
+                }
+                
+                if ([code isEqualToString:@"@"]) {
+                    //id
+                    [_self setValue:nil forKey:pName];
+                    continue;
+                } else if (code.length == 0) {
+                    //KVCDisabled
+                    continue;
+                } else if (code.length > 3 && [code hasPrefix:@"@\""]) {//对象
+                    [_self setValue:nil forKey:pName];
+                } else if ([code isEqualToString:@":"] ||//SEL
+                           [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
+                           [code isEqualToString:@"^{objc_method=}"] ||//Method
+                           [code isEqualToString:@"@?"]) {//block
+                    //KVCDisabled
+                    continue;
+                }else if([code isEqualToString:@(@encode(CGRect))]){
+                    [_self setValue:[NSValue valueWithCGRect:CGRectZero] forKey:pName];
+                    continue;
+                }else if([code isEqualToString:@(@encode(CGPoint))]){
+                    [_self setValue:[NSValue valueWithCGPoint:CGPointZero] forKey:pName];
+                    continue;
+                }else if([code isEqualToString:@(@encode(CGSize))]){
+                    [_self setValue:[NSValue valueWithCGSize:CGSizeZero] forKey:pName];
+                    continue;
+                }else if([code isEqualToString:@(@encode(NSRange))]){
+                    [_self setValue:[NSValue valueWithRange:NSMakeRange(0, 0)] forKey:pName];
+                    continue;
+                }else if([code isEqualToString:@(@encode(UIEdgeInsets))]){
+                    [_self setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:pName];
+                    continue;
+                }else if([code isEqualToString:@(@encode(UIOffset))]){
+                    [_self setValue:[NSValue valueWithUIOffset:UIOffsetZero] forKey:pName];
+                    continue;
+                }else if([code isEqualToString:@(@encode(CGVector))]){
+                    [_self setValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)] forKey:pName];
+                    continue;
+                }
+                
+                
+                // 是否为数字类型
+                NSString *lowerCode = code.lowercaseString;
+                NSArray *numberTypes = @[@"i", @"s", @"c", @"b", @"f", @"d", @"l", @"q", @"c"];
+                if ([numberTypes containsObject:lowerCode]) {
+                    //numberType
+                    [_self setValue:@0 forKey:pName];
+                    if ([lowerCode isEqualToString:@"c"]  || [lowerCode isEqualToString:@"b"]) {
+                        //boolType
+                        [_self setValue:@NO forKey:pName];
+                    }
                 }
             }
-        }
+            
+            free(properties);
+            
+        } includeBasic:NO];
         
-        free(properties);
+        
         return _self;
     };
 }
