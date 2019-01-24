@@ -1390,11 +1390,12 @@ NSString* decimalToHexString(u_char nValue)
     return ^id(NSUInteger index){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strLoadNibNamedAt , index)
-        NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
-        if(index >= xibs.count){
-            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"加载xib时数组%p越界",xibs]] logError];
-        }
-        return xibs[index];
+        
+        return
+        
+        [[UINib nibWithNibName:_self bundle:NSBundle.mainBundle]
+         
+          instantiateWithOwner:nil options:nil][index];
     };
 }
 
@@ -1403,11 +1404,15 @@ NSString* decimalToHexString(u_char nValue)
     return ^id(){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strLoadNibNamedFirst)
-        NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
-        if(!xibs.count){
-            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"加载xib时数组%p越界",xibs]] logError];
-        }
-        return xibs.firstObject;
+        
+        
+        return
+        
+        [[[UINib nibWithNibName:_self bundle:NSBundle.mainBundle]
+          
+          instantiateWithOwner:nil options:nil]
+         
+         firstObject];
     };
 }
 
@@ -1416,11 +1421,14 @@ NSString* decimalToHexString(u_char nValue)
     return ^id(){
         LinkHandle_REF(NSString)
         LinkGroupHandle_REF(strLoadNibNamedLast)
-        NSArray* xibs = [[NSBundle mainBundle] loadNibNamed:_self owner:nil options:nil];
-        if(!xibs.count){
-            return [[LinkError errorWithCustomDescription:[NSString stringWithFormat:@"加载xib时数组%p越界",xibs]] logError];
-        }
-        return xibs.lastObject;
+        
+        return
+        
+        [[[UINib nibWithNibName:_self bundle:NSBundle.mainBundle]
+          
+          instantiateWithOwner:nil options:nil]
+         
+         lastObject];
     };
 }
 

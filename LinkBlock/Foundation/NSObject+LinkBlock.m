@@ -303,14 +303,16 @@
                     //对象
                     // 去掉@"和"，截取中间的类型名称
                     code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
-                    if([code characterAtIndex:0] == '<'
+                    NSUInteger protocolLoc = [code rangeOfString:@"<"].location;
+                    if(protocolLoc != NSNotFound
                        &&
                        [code characterAtIndex:code.length-1] == '>'
                        ){
-                        //id<AProtocol>
-                        return @"id";
+                        //?<AProtocol>
+                        if(protocolLoc == 0)    return @"id";
+                        return [code substringToIndex:protocolLoc];
                     }
-                    //ClassName
+                    //Class
                     return code;
                 } else if ([code isEqualToString:@"^{objc_ivar=}"]
                            ) {
