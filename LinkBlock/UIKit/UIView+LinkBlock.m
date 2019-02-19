@@ -635,6 +635,46 @@ defineViewContentModeTail(TopRight)
 defineViewContentModeTail(BottomLeft)
 defineViewContentModeTail(BottomRight)
 
+- (UIView *(^)(UILayoutPriority))viewContentHuggingHorizentalPriority
+{
+    return ^id(UILayoutPriority priority){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewContentHuggingHorizentalPriority,priority)
+        [_self setContentHuggingPriority:priority forAxis:UILayoutConstraintAxisHorizontal];
+        return _self;
+    };
+}
+
+- (UIView *(^)(UILayoutPriority))viewContentHuggingVerticalPriority
+{
+    return ^id(UILayoutPriority priority){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewContentHuggingVerticalPriority,priority)
+        [_self setContentHuggingPriority:priority forAxis:UILayoutConstraintAxisVertical];
+        return _self;
+    };
+}
+
+- (UIView *(^)(UILayoutPriority))viewContentCompressionResistanceHorizentalPriority
+{
+    return ^id(UILayoutPriority priority){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewContentCompressionResistanceHorizentalPriority , priority)
+        [_self setContentCompressionResistancePriority:(UILayoutPriority)priority forAxis:UILayoutConstraintAxisHorizontal];
+        return _self;
+    };
+}
+
+- (UIView *(^)(UILayoutPriority))viewContentCompressionResistanceVerticalPriority
+{
+    return ^id(UILayoutPriority priority){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewContentCompressionResistanceVerticalPriority , priority)
+        [_self setContentCompressionResistancePriority:(UILayoutPriority)priority forAxis:UILayoutConstraintAxisVertical];
+        return _self;
+    };
+}
+
 - (UIView *(^)(NSUInteger))viewSubviewAt
 {
     return ^id(NSUInteger index){
@@ -1764,6 +1804,43 @@ defineViewContentModeTail(BottomRight)
         LinkGroupHandle_REF(viewRemoveAutoresizing)
         _self.autoresizingMask=UIViewAutoresizingNone;
         _self.translatesAutoresizingMaskIntoConstraints=NO;
+        return _self;
+    };
+}
+
+- (UIView *(^)(id))viewConstraintActiveByPriority
+{
+    return ^id(id asPriority){
+        LinkHandle_REF(UIView)
+        LinkGroupHandle_REF(viewConstraintActiveByPriority, asPriority)
+        
+        if([asPriority isKindOfClass:NSArray.class] == NO)
+            
+            asPriority = [NSArray arrayWithObject:asPriority];
+        [_self setContentHuggingPriority:0 forAxis:0];
+        for (NSLayoutConstraint* item in _self.constraints)
+        {
+            //"Height" or "Width" constraint,"self" as its first item, no second item
+            if(item.secondItem == nil   ||
+               //"Aspect ratio" constraint,"self" as its first AND second item
+               [item.firstItem isEqual:item.secondItem])
+            {
+                item.active = [asPriority containsObject:@(item.priority)];
+            }
+        }
+        
+        if(_self.superview.constraints.count == 0)
+            
+            return _self;
+        
+        for (NSLayoutConstraint* item in _self.superview.constraints)
+        {
+            if([item.firstItem isEqual:self] || [item.secondItem isEqual:self])
+            {
+                item.active = [asPriority containsObject:@(item.priority)];
+            }
+        }
+        
         return _self;
     };
 }

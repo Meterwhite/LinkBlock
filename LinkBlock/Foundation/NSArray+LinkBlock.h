@@ -117,6 +117,11 @@
  Sort NSValue-NSRange.If isCombine=YES NSRange(0,2) will contain NSRange(0,1).
 */
 @property LB_BK NSMutableArray<NSValue*>*(^arrSortRange)(BOOL ascending,BOOL isCombine);
+/**
+ IBOutletConllection of constraint
+ asPriority ∈ {NSNumber | NSArray<NSNumber*>}
+ */
+@property LB_BK NSArray*                (^arrConstraintsActiveByPriority)(id asPrioriry);
 @end
 
 @interface NSArray<__covariant ObjectType>(NSArraryLinkBlock)

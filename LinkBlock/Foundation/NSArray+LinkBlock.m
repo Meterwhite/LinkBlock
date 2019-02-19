@@ -849,6 +849,26 @@
     };
 }
 
+- (NSArray *(^)(id))arrConstraintsActiveByPriority
+{
+    return ^id(id asPriority){
+        LinkHandle_REF(NSArray)
+        LinkGroupHandle_REF(arrConstraintsActiveByPriority,asPriority)
+        
+        
+        if([asPriority isKindOfClass:NSArray.class] == NO)
+            
+            asPriority = [NSArray arrayWithObject:asPriority];
+        
+        for (NSLayoutConstraint* item in _self)
+        {
+            item.active = [asPriority containsObject:@(item.priority)];
+        }
+        
+        return _self;
+    };
+}
+
 - (NSMutableArray *(^)(id, NSString *))arrAddOrReplaceItemCaseValueForKey
 {
     return ^id(id obj , NSString* key){

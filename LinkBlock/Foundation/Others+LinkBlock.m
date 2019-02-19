@@ -34,9 +34,6 @@
 - (NSObject *(^)(id))objSetDelegate
 {return self.objSetValueForKdelegate;}
 
-- (NSObject *(^)(NSString *))objBOOLNegationForKey
-{return self.objReverseValueForKey;}
-
 - (UIImage *(^)(float))imgBlur
 {return ^id(float percent){return self.imgBlurLightRadius(percent*(20.0/0.6));};}
 

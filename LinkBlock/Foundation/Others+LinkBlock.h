@@ -24,12 +24,8 @@ NS_DEPRECATED_IOS(2_0, 2_0, "use objSetRandom... instead");
 @property LB_BK NSObject*    (^objSetDelegate)(id delegate)
 NS_DEPRECATED_IOS(2_0, 2_0, "use objSetValueForKdelegate instead");
 
-@property LB_BK NSObject*    (^objBOOLNegationForKey)(NSString * key)
-NS_DEPRECATED_IOS(2_0, 2_0, "use objReverseValueForKey instead");
-
 @property LB_BK UIImage*         (^imgBlur)(float percent)
 NS_DEPRECATED_IOS(2_0, 2_0, "use imgBlurXXX instead");
-
 
 @property LB_BK NSMutableArray*  (^arrInsertBehind)(id obj, id behindObj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrInsertNext");
@@ -526,12 +522,6 @@ NS_DEPRECATED_IOS(2_0, 2_0, "arrRemoveAt");
 NS_DEPRECATED_IOS(2_0, 2_0, "arrRemoveObjsFromIndexTo");
 @property LB_BKG(arrRemoveAll) NSMutableArray*(^m_arrRemoveAll)(void)
 NS_DEPRECATED_IOS(2_0, 2_0, "arrRemoveAll");
-@property LB_BKG(arrAddObjUnique) NSMutableArray*(^m_arrAddObjOnlyOne)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "arrAddObjUnique");
-@property LB_BKG(arrInsertObjBefore) NSMutableArray*(^m_arrInsertObjBeforeTo)(id insert, id nextTo)
-NS_DEPRECATED_IOS(2_0, 2_0, "arrInsertObjBefore");
-@property LB_BKG(arrInsertObjNextTo) NSMutableArray*(^m_arrInsertObjNextTo)(id insert, id nextTo)
-NS_DEPRECATED_IOS(2_0, 2_0, "arrInsertObjNextTo");
 @property LB_BKG(arrSort) NSMutableArray*(^m_arrSort)(BOOL ascending)
 NS_DEPRECATED_IOS(2_0, 2_0, "arrSort");
 @property LB_BKG(arrSortByKey)NSMutableArray*(^m_arrSortByKey)(NSString* key, BOOL ascending)
@@ -544,28 +534,12 @@ NS_DEPRECATED_IOS(2_0, 2_0, "arrReversed");
 NS_DEPRECATED_IOS(2_0, 2_0, "arrReplaceObjWith");
 @property LB_BKG(arrSortRange)NSMutableArray<NSValue*>*(^m_arrSortRange)(BOOL ascending, BOOL isCombine)
 NS_DEPRECATED_IOS(2_0, 2_0, "arrSortRange");
-@property LB_BKG(arrAddObjUnique) NSMutableArray*(^m_arrAddObjNotContain)(id obj)
-NS_DEPRECATED_IOS(2_0, 2_0, "arrAddObjUnique");
-@property LB_BKG(arrInsertObjNextTo)NSMutableArray*(^m_arrInsertBehind)(id obj, id behindObj)
-NS_DEPRECATED_IOS(2_0, 2_0, "arrInsertObjNextTo");
 @property LB_BKG(arrInsertObjNextTo)NSMutableArray*(^arrInsertNext)(id obj, id nextTo)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename arrInsertObjNextTo");
-@property LB_BKG(arrInsertObjBefore)NSMutableArray*(^m_arrInsertBefore)(id obj, id beforeObj)
-NS_DEPRECATED_IOS(2_0, 2_0, "arrInsertObjBefore");
-@property LB_BKG(arrInsertObjNextTo)NSMutableArray*(^m_arrInsertNext)(id obj, id nexObj)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename arrInsertObjNextTo");
 @property LB_BKG(arrReplaceItemCaseValueForKey)NSMutableArray*(^m_arrTryReplaceObjByKey)(id obj,NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrReplaceItemCaseValueForKey");
 @property LB_BKG(arrReplaceItemsCaseValueForKey)NSMutableArray*(^m_arrTryReplaceObjsByKey)(NSArray* objs,NSString* key)
 NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrReplaceItemsCaseValueForKey");
-@property LB_BKG(arrAddOrReplaceItemCaseValueForKey)NSMutableArray*(^m_arrAddOrReplaceObjByKey)(id obj , NSString* key)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrAddOrReplaceItemCaseValueForKey");
-@property LB_BKG(arrInsertOrReplaceItemCaseValueForKeyAt)NSMutableArray*(^m_arrInsertOrReplaceObjByKeyAt)(id obj , NSString* key, NSUInteger idx)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrInsertOrReplaceItemCaseValueForKeyAt");
-@property LB_BKG(arrReplaceItemKeyForDictionaryItemDepth)NSMutableArray*(^m_arrReplaceKeyInDict)(id replaceKey,id withKey)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrReplaceItemKeyForDictionaryItemDepth");
-@property LB_BKG(arrReplaceItemKeyForDictionaryItem)NSMutableArray*(^m_arrReplaceKeyInDictWithoutDeep)(id replaceKey,id withKey)
-NS_DEPRECATED_IOS(2_0, 2_0, "rename to arrReplaceItemKeyForDictionaryItem");
 
 @property LB_BKG(dictAddEntries) NSMutableDictionary* (^dictAddEntries)(NSDictionary* dict)
 NS_DEPRECATED_IOS(2_0, 2_0, "m_dictAddEntries");
@@ -685,5 +659,9 @@ NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
 
 + (void)classPropertysEnumerateUsingBlock:(void(^)(Class clazz,NSString* propertyName,NSString* propertyType,BOOL* stop))block includeFoundation:(BOOL)includeFoundation
 NS_DEPRECATED_IOS(2_0, 2_0, "lb_classIsBasic");
+
+#pragma mark - 2019.02
+@property LB_BKG(nslogValueForKeyPath) NSObject* (^nslogValueForKey)(NSString* key)
+NS_DEPRECATED_IOS(2_0, 2_0, "nslogValueForKeyPath");
 @end
 

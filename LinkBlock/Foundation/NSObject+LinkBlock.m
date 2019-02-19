@@ -2963,22 +2963,12 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject *(^)(NSString *))nslogValueForKey
-{
-    return ^id(NSString* key){
-        LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(nslogValueForKey,key)
-        NSLog(@"%@",[_self valueForKey:key]);
-        return _self;
-    };
-}
-
 - (NSObject *(^)(NSString *))nslogValueForKeyPath
 {
     return ^id(NSString* key){
         LinkHandle_REF(NSObject)
         LinkGroupHandle_REF(nslogValueForKeyPath,key)
-        NSLog(@"%@",[_self valueForKey:key]);
+        NSLog(@"%@",[_self valueForKeyPath:key]);
         return _self;
     };
 }
@@ -3063,11 +3053,11 @@ DefineKindOfClassAs(NSNumber)
     };
 }
 
-- (NSObject *(^)(id,NSUInteger))objSetRandomStringForKey
+- (NSObject *(^)(id,NSUInteger))objSetRandomStringForKeyPath
 {
     return ^id(id key,NSUInteger len){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetRandomStringForKey,key,len)
+        LinkGroupHandle_REF(objSetRandomStringForKeyPath,key,len)
         
         int count;
         id aKey;
@@ -3107,17 +3097,17 @@ DefineKindOfClassAs(NSNumber)
             [text appendString:newStr];
         }
         
-        [_self setValue:[text mutableCopy] forKey:aKey];
+        [_self setValue:[text mutableCopy] forKeyPath:aKey];
         [text deleteCharactersInRange:NSMakeRange(0, text.length)];//clean
         goto CALL_FOR;
     };
 }
 
-- (NSObject *(^)(id,NSUInteger))objSetRandomStringzh_CNForKey
+- (NSObject *(^)(id,NSUInteger))objSetRandomStringzh_CNForKeyPath
 {
     return ^id(id key,NSUInteger len){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetRandomStringzh_CNForKey,key,len)
+        LinkGroupHandle_REF(objSetRandomStringzh_CNForKeyPath,key,len)
         
         int count;
         id aKey;
@@ -3154,18 +3144,18 @@ DefineKindOfClassAs(NSNumber)
                                                     encoding:gbkEncoding]];
         }
         
-        [_self setValue:text forKey:aKey];
+        [_self setValue:text forKeyPath:aKey];
         [text deleteCharactersInRange:NSMakeRange(0, text.length)];//clean
         
         goto CALL_FOR;
     };
 }
 
-- (NSObject *(^)(id,NSUInteger))objSetRandomStringNumberForKey
+- (NSObject *(^)(id,NSUInteger))objSetRandomStringNumberForKeyPath
 {
     return ^id(id key,NSUInteger len){
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetRandomStringNumberForKey,key,len)
+        LinkGroupHandle_REF(objSetRandomStringNumberForKeyPath,key,len)
         
         int count;
         id aKey;
@@ -3203,19 +3193,19 @@ DefineKindOfClassAs(NSNumber)
             [text appendString:charNums[idx]];
         }
         
-        [_self setValue:text forKey:aKey];
+        [_self setValue:text forKeyPath:aKey];
         [text deleteCharactersInRange:NSMakeRange(0, text.length)];//clean
         
         goto CALL_FOR;
     };
 }
 
-- (NSObject *(^)(id, uint32_t))objSetRandomNumberForKey
+- (NSObject *(^)(id, uint32_t))objSetRandomNumberForKeyPath
 {
     return ^id(id key , uint32_t max){
         
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetRandomNumberForKey,key,max)
+        LinkGroupHandle_REF(objSetRandomNumberForKeyPath,key,max)
         
         int count;
         id aKey;
@@ -3241,18 +3231,18 @@ DefineKindOfClassAs(NSNumber)
         
         --count;
         number = [NSNumber numberWithInteger:arc4random_uniform(max)];
-        [_self setValue:number forKey:aKey];
+        [_self setValue:number forKeyPath:aKey];
         
         goto CALL_FOR;
     };
 }
 
-- (NSObject *(^)(id, id))objSetRandomDateForKey
+- (NSObject *(^)(id, id))objSetRandomDateForKeyPath
 {
     return ^id(id key, id days){
         
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetRandomDateForKey,key,days)
+        LinkGroupHandle_REF(objSetRandomDateForKeyPath,key,days)
         
         double lOffset = 0,rOffset = 0;
         
@@ -3303,18 +3293,18 @@ DefineKindOfClassAs(NSNumber)
         double offset = arc4random_uniform((rOffset - lOffset)*86400.0) + lOffset*86400.0;
         offset = offset?offset:(-(double)arc4random_uniform(86400));
         [_self setValue:[NSDate dateWithTimeIntervalSince1970:now+offset]
-                 forKey:aKey];
+                 forKeyPath:aKey];
         
         goto CALL_FOR;
     };
 }
 
-- (NSObject *(^)(id, uint32_t, NSUInteger))objSetRandomDoubleForKey
+- (NSObject *(^)(id, uint32_t, NSUInteger))objSetRandomDoubleForKeyPath
 {
     return ^id(id key, uint32_t max, NSUInteger rightLen){
         
         LinkHandle_REF(NSObject)
-        LinkGroupHandle_REF(objSetRandomDoubleForKey,key,max,rightLen)
+        LinkGroupHandle_REF(objSetRandomDoubleForKeyPath,key,max,rightLen)
         
         int count;
         id aKey;
@@ -3342,7 +3332,7 @@ DefineKindOfClassAs(NSNumber)
         uint32_t integer = arc4random_uniform(max);
         uint32_t decimal = arc4random_uniform(pow(10, rightLen));
         number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d.%d",integer,decimal]];
-        [_self setValue:number forKey:aKey];
+        [_self setValue:number forKeyPath:aKey];
         
         goto CALL_FOR;
     };

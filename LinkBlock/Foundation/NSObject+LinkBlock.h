@@ -76,20 +76,19 @@
 @property LB_BK NSObject*    (^objMutableCopyEnumerate)(void);
 /** <^()> 不可变对象转为可变对象，否则不会发生任何事 */
 @property LB_BK NSObject*    (^objNeedMutable)(void);
-@property LB_BK NSObject*    (^nslogValueForKey)(NSString* key);
 @property LB_BK NSObject*    (^nslogValueForKeyPath)(NSString* key);
 /** asKey∈{NSString,NSArray} */
 @property LB_BK NSObject*    (^objSetNilForKey)(id asKey);
 /** asKey∈{NSString,NSArray} */
-@property LB_BK NSObject*    (^objSetRandomStringForKey)(id asKey, NSUInteger len);
+@property LB_BK NSObject*    (^objSetRandomStringForKeyPath)(id asKey, NSUInteger len);
 /** asKey∈{NSString,NSArray} */
-@property LB_BK NSObject*    (^objSetRandomStringzh_CNForKey)(id asKey, NSUInteger len);
+@property LB_BK NSObject*    (^objSetRandomStringzh_CNForKeyPath)(id asKey, NSUInteger len);
 /** asKey∈{NSString,NSArray}随机数字字符串，不会以'0'作为开始 */
-@property LB_BK NSObject*    (^objSetRandomStringNumberForKey)(id asKey, NSUInteger len);
+@property LB_BK NSObject*    (^objSetRandomStringNumberForKeyPath)(id asKey, NSUInteger len);
 /** asKey∈{NSString,NSArray} set integer value */
-@property LB_BK NSObject*    (^objSetRandomNumberForKey)(id asKey, uint32_t max);
+@property LB_BK NSObject*    (^objSetRandomNumberForKeyPath)(id asKey, uint32_t max);
 /** asKey∈{NSString,NSArray} set double value */
-@property LB_BK NSObject*    (^objSetRandomDoubleForKey)(id asKey, uint32_t max, NSUInteger len);
+@property LB_BK NSObject*    (^objSetRandomDoubleForKeyPath)(id asKey, uint32_t max, NSUInteger len);
 /**
  *  asKey∈{NSString,NSArray} set NSDate
  *  days∈{NSNumber,NSArray<NSNumber>}
@@ -97,7 +96,7 @@
  *  days == @[@(-30) , @(30)]，random in the past 30 days or next 30 days
  *  days == nil or @0，random in the past 24 hours
  */
-@property LB_BK NSObject*    (^objSetRandomDateForKey)(id asKey,id days);
+@property LB_BK NSObject*    (^objSetRandomDateForKeyPath)(id asKey,id days);
 /**
  *  <^(NSString* key)>
  *  bool取反: bool type=<YES/NO>,NSNumber 同理<@YES/@NO>,

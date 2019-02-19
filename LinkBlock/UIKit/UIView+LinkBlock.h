@@ -99,7 +99,10 @@
 @property LB_BK UIView*      (^viewContentModeTopRight)(void);
 @property LB_BK UIView*      (^viewContentModeBottomLeft)(void);
 @property LB_BK UIView*      (^viewContentModeBottomRight)(void);
-
+@property LB_BK UIView*      (^viewContentHuggingHorizentalPriority)(UILayoutPriority priority);
+@property LB_BK UIView*      (^viewContentHuggingVerticalPriority)(UILayoutPriority priority);
+@property LB_BK UIView*      (^viewContentCompressionResistanceHorizentalPriority)(UILayoutPriority priority);
+@property LB_BK UIView*      (^viewContentCompressionResistanceVerticalPriority)(UILayoutPriority priority);
 
 
 #pragma mark - Foundation Extend/补充
@@ -150,6 +153,15 @@
 
 @property LB_BK BOOL         (^viewIsUsingAutoresizing)(void);
 @property LB_BK UIView*      (^viewRemoveAutoresizing)(void);
+
+/**
+ Control constraint version use prioriry value.
+ active = YES; Otherwise NO;
+ 
+ asPriority ∈ {NSNumber | NSArray<NSNumber*>}
+ : @(UILayoutPriority number)
+ */
+@property LB_BK UIView*      (^viewConstraintActiveByPriority)(id asPriority);
 
 #pragma mark - Animation 动画
 @property LB_BK UIView*      (^viewHiddenYESUsingAnimate)(NSTimeInterval during);
