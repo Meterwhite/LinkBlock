@@ -46,7 +46,7 @@
         if(![_self isKindOfClass:[NSMutableArray class]]){
             _self = [_self mutableCopy];
         }
-        return _self.m_arrInsertBehind(obj,behindObj);
+        return _self.arrInsertNext(obj,behindObj);
     };
 }
 
