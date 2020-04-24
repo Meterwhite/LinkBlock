@@ -1,6 +1,6 @@
 # LinkBlock
-> [扩展XIB,Storyboard的编辑功能，强力推荐！](https://github.com/Meterwhite/XICommand)
->> [Expand XIB, Storyboard editing functions, highly recommended!](https://github.com/Meterwhite/XICommand)
+> [XIB执行命令行！](https://github.com/Meterwhite/XICommand)
+>> [Let XIB execute the command line!](https://github.com/Meterwhite/XICommand)
 ## 【Introduction/介绍】
 * LinkBlock是objc`链式编程`语法糖扩展，可以压缩大量不需要阅读的代码
 * 低学习成本，因为它是Fundation API的搬运工
