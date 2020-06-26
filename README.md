@@ -1,8 +1,6 @@
 # LinkBlock
-![LinkBlock icon](http://ico.ooopic.com/ajax/iconpng/?id=98399.png)
-
-## 正在开发：动态的将主要通用第三方库引入链式编程语法形式=>lb_sd_setImageWithString(...)
-## In development: Dynamically load the main universal third-party library into the chain programming syntax form => lb_sd_setImageWithString(...)
+> [XIB执行命令行！](https://github.com/Meterwhite/XICommand)
+>> [Let XIB execute the command line!](https://github.com/Meterwhite/XICommand)
 ## 【Introduction/介绍】
 * LinkBlock是objc`链式编程`语法糖扩展，可以压缩大量不需要阅读的代码
 * 低学习成本，因为它是Fundation API的搬运工
