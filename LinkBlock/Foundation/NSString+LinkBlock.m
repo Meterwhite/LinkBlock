@@ -1015,7 +1015,7 @@ NSString* decimalToHexString(u_char nValue)
         NSMutableString * str_m= [_self mutableCopy];
         [str_m replaceOccurrencesOfString:str
                                   withString:@""
-                                     options:NSBackwardsSearch|NSAnchoredSearch
+                                     options:NSBackwardsSearch | NSAnchoredSearch
                                        range:NSMakeRange(0, _self.length)];
         return str_m.copy;
     };
