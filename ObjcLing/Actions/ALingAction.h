@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Parametric Type Link.
 /// 用户实现属性 at0..at1..at3 可以传nil
 @protocol TLingParametric <NSObject>
-@required
+@optional
 + (const char *)encodeAt:(NSInteger)idx;
 @end
 
@@ -35,8 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSUInteger step;
 
+/// 确定的参数个数
 - (NSUInteger)count;
 
+/// 消息转发到selector
 - (nullable SEL)forwardSEL;
 
 /// return: return new target while not nil;

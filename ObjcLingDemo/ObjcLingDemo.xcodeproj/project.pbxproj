@@ -143,8 +143,8 @@
 		1851E43724EC119200B7F10B /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				1851E43824EC119200B7F10B /* NSObject+ObjcLing.m */,
 				1851E43924EC119200B7F10B /* NSObject+ObjcLing.h */,
+				1851E43824EC119200B7F10B /* NSObject+ObjcLing.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -172,9 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				1851E44224EC119200B7F10B /* NSObjectling_log.h */,
-				1851E44324EC119200B7F10B /* NSObjectling_more.m */,
 				1851E44424EC119200B7F10B /* NSObjectling_log.m */,
 				1851E44524EC119200B7F10B /* NSObjectling_more.h */,
+				1851E44324EC119200B7F10B /* NSObjectling_more.m */,
 			);
 			path = NSObjecttring;
 			sourceTree = "<group>";

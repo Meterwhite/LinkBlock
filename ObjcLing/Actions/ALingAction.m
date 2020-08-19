@@ -31,7 +31,7 @@ NS_INLINE bool pasValue2Ivk(__kindof ALingAction *act, NSInvocation *invoaction,
     return nil;
 }
 
-+ (const char *)encodeForIndex:(NSInteger)idx {
++ (const char *)encodeAt:(NSInteger)idx {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _cached_encode = [NSMapTable mapTableWithKeyOptions: NSPointerFunctionsOpaqueMemory | NSPointerFunctionsOpaquePersonality valueOptions: NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPersonality];
@@ -70,7 +70,7 @@ NS_INLINE bool pasValue2Ivk(__kindof ALingAction *act, NSInvocation *invoaction,
     }
     NSInvocation *ivk = [NSInvocation invocationWithMethodSignature:sig];
     for (NSUInteger i = 2; i < self.count; i++) {
-        const char * code = [self.class encodeForIndex:i];
+        const char * code = [self.class encodeAt:i];
         if(!pasValue2Ivk(self, ivk, code, i)) {
             *err = [TLingErr.alloc init];
         }
@@ -207,142 +207,142 @@ NS_INLINE bool pasValue2Ivk(__kindof ALingAction *act, NSInvocation *invoaction,
     return true;
 }
 
-id getBoxedRevar(NSInvocation *invoaction,const char *objcType) {
-    if(!objcType) return nil;
+/// Get boxed return value
+id getBoxedRevar(NSInvocation *ivk,const char *enc) {
+    if(!enc) return nil;
     id revar;
     do{
-        //常量则位移到类型符
-        if (objcType[0] == _C_CONST) objcType++;
-        if (objcType[0] == _C_ID) { //id and block
-            [invoaction getReturnValue:&revar];
+        if (enc[0] == _C_CONST) enc++;
+        if (enc[0] == _C_ID) { //id and block
+            [ivk getReturnValue:&revar];
             break;
-        }else if (strcmp(objcType, @encode(Class)) == 0){       //Class
+        }else if (strcmp(enc, @encode(Class)) == 0){       //Class
             Class v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = v;
             break;
-        }else if (strcmp(objcType, @encode(IMP)) == 0 ){         //IMP
+        }else if (strcmp(enc, @encode(IMP)) == 0 ){         //IMP
             IMP v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSValue valueWithBytes:&v objCType:@encode(IMP)];
             break;
-        }else if (strcmp(objcType, @encode(SEL)) == 0) {         //SEL
+        }else if (strcmp(enc, @encode(SEL)) == 0) {         //SEL
             SEL v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSValue valueWithBytes:&v objCType:@encode(SEL)];
             break;
-        }else if (strcmp(objcType, @encode(double)) == 0){       //double
+        }else if (strcmp(enc, @encode(double)) == 0){       //double
             double v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithDouble:v];
             break;
-        }else if (strcmp(objcType, @encode(float)) == 0){       //float
+        }else if (strcmp(enc, @encode(float)) == 0){       //float
             float v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithFloat:v];
             break;
-        }else if (objcType[0] == _C_PTR){                           //pointer ( and const pointer)
+        }else if (enc[0] == _C_PTR){                           //pointer ( and const pointer)
             IMP v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSValue valueWithBytes:&v objCType:@encode(IMP)];
             break;
-        }else if (strcmp(objcType, @encode(char *)) == 0) {      //char* (and const char*)
+        }else if (strcmp(enc, @encode(char *)) == 0) {      //char* (and const char*)
             char * v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSString stringWithUTF8String:v];
             break;
-        }else if (strcmp(objcType, @encode(unsigned long)) == 0) {
+        }else if (strcmp(enc, @encode(unsigned long)) == 0) {
             unsigned long v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithUnsignedLong:v];
             break;
-        }else if (strcmp(objcType, @encode(unsigned long long)) == 0) {
+        }else if (strcmp(enc, @encode(unsigned long long)) == 0) {
             unsigned long long v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithLongLong:v];
             break;
-        }else if (strcmp(objcType, @encode(long)) == 0) {
+        }else if (strcmp(enc, @encode(long)) == 0) {
             long v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithLong:v];
             break;
-        }else if (strcmp(objcType, @encode(long long)) == 0) {
+        }else if (strcmp(enc, @encode(long long)) == 0) {
             long long v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithLongLong:v];
             break;
-        }else if (strcmp(objcType, @encode(int)) == 0) {
+        }else if (strcmp(enc, @encode(int)) == 0) {
             int v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithInt:v];
             break;
-        }else if (strcmp(objcType, @encode(unsigned int)) == 0) {
+        }else if (strcmp(enc, @encode(unsigned int)) == 0) {
             unsigned int v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithUnsignedInt:v];
             break;
-        }else if ((strcmp(objcType, @encode(bool)) == 0           ||
-                   strcmp(objcType, @encode(BOOL)) == 0           ||
-                   strcmp(objcType, @encode(char)) == 0           ||
-                   strcmp(objcType, @encode(short)) == 0          ||
-                   strcmp(objcType, @encode(unsigned char)) == 0  ||
-                   strcmp(objcType, @encode(unsigned short)) == 0)){
+        }else if ((strcmp(enc, @encode(bool)) == 0           ||
+                   strcmp(enc, @encode(BOOL)) == 0           ||
+                   strcmp(enc, @encode(char)) == 0           ||
+                   strcmp(enc, @encode(short)) == 0          ||
+                   strcmp(enc, @encode(unsigned char)) == 0  ||
+                   strcmp(enc, @encode(unsigned short)) == 0)){
             short v;
-            [invoaction getReturnValue:&v];
+            [ivk getReturnValue:&v];
             revar = [NSNumber numberWithShort:v];
             break;
         }else{
             //struct union and array
-            if (strcmp(objcType, @encode(CGRect)) == 0){
+            if (strcmp(enc, @encode(CGRect)) == 0){
                 CGRect v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithCGRect:v];
                 break;
-            }else if(strcmp(objcType, @encode(CGPoint)) == 0){
+            }else if(strcmp(enc, @encode(CGPoint)) == 0){
                 CGPoint v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithCGPoint:v];
                 break;
-            }else if (strcmp(objcType, @encode(CGSize)) == 0){
+            }else if (strcmp(enc, @encode(CGSize)) == 0){
                 CGSize v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithCGSize:v];
                 break;
-            }else if (strcmp(objcType, @encode(NSRange)) == 0){
+            }else if (strcmp(enc, @encode(NSRange)) == 0){
                 NSRange v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithRange:v];
                 break;
-            }else if (strcmp(objcType, @encode(UIEdgeInsets)) == 0){
+            }else if (strcmp(enc, @encode(UIEdgeInsets)) == 0){
                 UIEdgeInsets v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithUIEdgeInsets:v];
                 break;
-            }else if (strcmp(objcType, @encode(CGVector)) == 0){
+            }else if (strcmp(enc, @encode(CGVector)) == 0){
                 CGVector v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithCGVector:v];
                 break;
-            }else if (strcmp(objcType, @encode(UIOffset)) == 0){
+            }else if (strcmp(enc, @encode(UIOffset)) == 0){
                 UIOffset v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithUIOffset:v];
                 break;
-            }else if(strcmp(objcType, @encode(CATransform3D)) == 0){
+            }else if(strcmp(enc, @encode(CATransform3D)) == 0){
                 CATransform3D v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithCATransform3D:v];
                 break;
-            }else if(strcmp(objcType, @encode(CGAffineTransform)) == 0){
+            }else if(strcmp(enc, @encode(CGAffineTransform)) == 0){
                 CGAffineTransform v;
-                [invoaction getReturnValue:&v];
+                [ivk getReturnValue:&v];
                 revar = [NSValue valueWithCGAffineTransform:v];
                 break;
             }
             if (@available(iOS 11.0, *)){
-                if(strcmp(objcType, @encode(NSDirectionalEdgeInsets)) == 0){
+                if(strcmp(enc, @encode(NSDirectionalEdgeInsets)) == 0){
                     NSDirectionalEdgeInsets v;
-                    [invoaction getReturnValue:&v];
+                    [ivk getReturnValue:&v];
                     revar = [NSValue valueWithDirectionalEdgeInsets:v];
                     break;
                 }

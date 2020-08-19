@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TLingErr<__covariant ObjectType> : NSException
 
-@property (nullable) ObjectType sender;
+@property (nonatomic,nullable) ObjectType sender;
 
-@property NSUInteger step;
+@property (nonatomic) NSUInteger step;
 
 @property NSMutableDictionary *info;
 
-+ (instancetype)allocFrom:(ObjectType)sender at:(NSUInteger)step;
++ (instancetype)allocWith:(ObjectType)sender;
 
 - (instancetype)initForUserDescription:(NSString *)udes;
 

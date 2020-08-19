@@ -9,15 +9,24 @@
 #import "TLingErr.h"
 
 @implementation TLingErr
+@synthesize sender  = _sender;
+@synthesize step    = _step;
 
-+ (instancetype)errFrom:(id)sender at:(NSUInteger)step {
++ (instancetype)allocWith:(id)sender{
     TLingErr *err = [self alloc];
-    err.sender = sender;
-    err.step = step;
-    err.info = [NSMutableDictionary dictionary];
-    err.info[@"sender"] = sender;
-    err.info[@"step"]   = @(step);
+    err.sender    = sender;
+    err.info      = [NSMutableDictionary dictionary];
     return err;
+}
+
+- (void)setSender:(id)sender {
+    _sender = sender;
+    self.info[@"sender"] = sender;
+}
+
+- (void)setStep:(NSUInteger)step {
+    _step = step;
+    self.info[@"step"] = @(step);
 }
 
 - (instancetype)initForKind:(Class)clz sel:(SEL)sel {

@@ -15,7 +15,7 @@
 }
 
 - (NSObjectling *)lings {
-    return [NSObjectling lingsWith:self];
+    return [NSObjectling lingsWith:(id)self];
 }
 
 @end

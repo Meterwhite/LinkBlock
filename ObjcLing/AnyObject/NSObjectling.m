@@ -11,7 +11,12 @@
 @implementation NSObjectling
 
 - (Class)dependentClass {
-    return [NSObject class];
+    static Class c;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [NSObject class];
+    });
+    return c;
 }
 
 @end

@@ -94,190 +94,190 @@ TLingBlock TLingCallBlockPt(__kindof TLing *ling, SEL sel) {
     do{
         Class actClz = getActionClass(ling, sel);
         if(!actClz) break;
-        const char *objcType = [actClz encodeAt:0];
-        if (objcType[0] == _C_CONST) objcType++;
-        if (objcType[0] == _C_ID) { //id and block
+        const char *enc = [actClz encodeAt:0];
+        if (enc[0] == _C_CONST) enc++;
+        if (enc[0] == _C_ID) { //id and block
             return ^TLing *(id at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(Class)) == 0){       //Class
+        }else if (strcmp(enc, @encode(Class)) == 0){       //Class
             return ^TLing *(Class at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(IMP)) == 0 ){         //IMP
+        }else if (strcmp(enc, @encode(IMP)) == 0 ){         //IMP
             return ^TLing *(IMP at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(SEL)) == 0) {         //SEL
+        }else if (strcmp(enc, @encode(SEL)) == 0) {         //SEL
             return ^TLing *(SEL at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(double)) == 0){       //double
+        }else if (strcmp(enc, @encode(double)) == 0){       //double
             return ^TLing *(double at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(float)) == 0){       //float
+        }else if (strcmp(enc, @encode(float)) == 0){       //float
             return ^TLing *(double at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (objcType[0] == _C_PTR){                           //pointer ( and const pointer)
+        }else if (enc[0] == _C_PTR){                           //pointer ( and const pointer)
             return ^TLing *(void *at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(char *)) == 0) {      //char* (and const char*)
+        }else if (strcmp(enc, @encode(char *)) == 0) {      //char* (and const char*)
             return ^TLing *(char *at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(unsigned long)) == 0) {
+        }else if (strcmp(enc, @encode(unsigned long)) == 0) {
             return ^TLing *(unsigned long at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(unsigned long long)) == 0) {
+        }else if (strcmp(enc, @encode(unsigned long long)) == 0) {
             return ^TLing *(unsigned long long at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(long)) == 0) {
+        }else if (strcmp(enc, @encode(long)) == 0) {
             return ^TLing *(long at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(long long)) == 0) {
+        }else if (strcmp(enc, @encode(long long)) == 0) {
             return ^TLing *(long long at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(int)) == 0) {
+        }else if (strcmp(enc, @encode(int)) == 0) {
             return ^TLing *(int at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if (strcmp(objcType, @encode(unsigned int)) == 0) {
+        }else if (strcmp(enc, @encode(unsigned int)) == 0) {
             return ^TLing *(unsigned int at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if ((strcmp(objcType, @encode(bool)) == 0           ||
-                   strcmp(objcType, @encode(BOOL)) == 0           ||
-                   strcmp(objcType, @encode(char)) == 0           ||
-                   strcmp(objcType, @encode(short)) == 0          ||
-                   strcmp(objcType, @encode(unsigned char)) == 0  ||
-                   strcmp(objcType, @encode(unsigned short)) == 0)){
+        }else if ((strcmp(enc, @encode(bool)) == 0           ||
+                   strcmp(enc, @encode(BOOL)) == 0           ||
+                   strcmp(enc, @encode(char)) == 0           ||
+                   strcmp(enc, @encode(short)) == 0          ||
+                   strcmp(enc, @encode(unsigned char)) == 0  ||
+                   strcmp(enc, @encode(unsigned short)) == 0)){
             return ^TLing *(int at0, ...) {
                 va_list li;
                 va_start(li, at0);
-                return subCallBlockPt(ling, sel, actClz, li, objcType, (short)at0);
+                return subCallBlockPt(ling, sel, actClz, li, enc, (short)at0);
             };
             break;
         }else{
             //struct union and array
-            if (strcmp(objcType, @encode(CGRect)) == 0){
+            if (strcmp(enc, @encode(CGRect)) == 0){
                 return ^TLing *(CGRect at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
-            }else if(strcmp(objcType, @encode(CGPoint)) == 0){
+            }else if(strcmp(enc, @encode(CGPoint)) == 0){
                 return ^TLing *(CGPoint at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
-            }else if (strcmp(objcType, @encode(CGSize)) == 0){
+            }else if (strcmp(enc, @encode(CGSize)) == 0){
                 return ^TLing *(CGSize at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
-            }else if (strcmp(objcType, @encode(NSRange)) == 0){
+            }else if (strcmp(enc, @encode(NSRange)) == 0){
                 return ^TLing *(NSRange at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
-            }else if (strcmp(objcType, @encode(UIEdgeInsets)) == 0){
+            }else if (strcmp(enc, @encode(UIEdgeInsets)) == 0){
                 return ^TLing *(UIEdgeInsets at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
-            }else if (strcmp(objcType, @encode(CGVector)) == 0){
+            }else if (strcmp(enc, @encode(CGVector)) == 0){
                 return ^TLing *(CGVector at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
-            }else if (strcmp(objcType, @encode(UIOffset)) == 0){
+            }else if (strcmp(enc, @encode(UIOffset)) == 0){
                 return ^TLing *(UIOffset at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
-            }else if(strcmp(objcType, @encode(CATransform3D)) == 0){
+            }else if(strcmp(enc, @encode(CATransform3D)) == 0){
                 return ^TLing *(CATransform3D at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
-            }else if(strcmp(objcType, @encode(CGAffineTransform)) == 0){
+            }else if(strcmp(enc, @encode(CGAffineTransform)) == 0){
                 return ^TLing *(CGAffineTransform at0, ...) {
                     va_list li;
                     va_start(li, at0);
-                    return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                    return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                 };
                 break;
             }
             if (@available(iOS 11.0, *)){
-                if(strcmp(objcType, @encode(NSDirectionalEdgeInsets)) == 0){
+                if(strcmp(enc, @encode(NSDirectionalEdgeInsets)) == 0){
                     return ^TLing *(NSDirectionalEdgeInsets at0, ...) {
                         va_list li;
                         va_start(li, at0);
-                        return subCallBlockPt(ling, sel, actClz, li, objcType, at0);
+                        return subCallBlockPt(ling, sel, actClz, li, enc, at0);
                     };
                     break;
                 }
@@ -285,8 +285,8 @@ TLingBlock TLingCallBlockPt(__kindof TLing *ling, SEL sel) {
         }
     }while(0);
     /// Type error
-    return ^TLing *(void *at0, ...) {
-        [ling pushError:[[TLingErr allocFrom:ling.target at:ling.step] initForUserDescription:@"Unsupported parameter type"]];
+    return ^TLing *(CATransform3D at0, ...) {
+        [ling pushError:[[TLingErr allocWith:ling.target] initForUserDescription:@"Unsupported parameter type"]];
         return ling;
     };
 }
@@ -318,7 +318,7 @@ TLing *subCallBlockPt(__kindof TLing *ling, SEL sel, Class actClzz, va_list li, 
 bool sendMsgWork(id target, NSUInteger index, TLing *ling, SEL sel, Class actClzz) {
     if(ling.dependentClass) {
         if(![ling.target isKindOfClass:ling.dependentClass]) {
-            [ling pushError:[[TLingErr allocFrom:ling.count>1?ling.targets:ling.target at:ling.step] initForKind:ling.dependentClass sel:sel]];
+            [ling pushError:[[TLingErr allocWith:ling.count>1?ling.targets:ling.target] initForKind:ling.dependentClass sel:sel]];
             return false;
         }
     }
@@ -341,10 +341,10 @@ bool sendMsgWork(id target, NSUInteger index, TLing *ling, SEL sel, Class actClz
     return true;
 }
 
-bool sendMsgWork_va(id target, NSUInteger index, TLing *ling, SEL sel, Class actClzz, va_list li, const char *enc0, va_list li_self) {
+bool sendMsgWork_va(id target, NSUInteger index, TLing *ling, SEL sel, Class actClzz, va_list li_va, const char *enc0, va_list li_at0) {
     if(ling.dependentClass) {
         if(![target isKindOfClass:ling.dependentClass]) {
-            [ling pushError:[[TLingErr allocFrom:(ling.count > 1) ? ling.targets : ling.target at : ling.step] initForKind:ling.dependentClass sel:sel]];
+            [ling pushError:[[TLingErr allocWith:(ling.count > 1) ? ling.targets : ling.target] initForKind:ling.dependentClass sel:sel]];
             return false;
         }
     }
@@ -353,17 +353,17 @@ bool sendMsgWork_va(id target, NSUInteger index, TLing *ling, SEL sel, Class act
     [act setStep:ling.step];
     for (NSUInteger idx = 0; idx < act.count  ; idx++) {
         if(idx == 0) {
-            setValue2Act(act, idx, enc0, li_self);
+            setValue2Act(act, idx, enc0, li_at0);
         } else {
             const char *code = [actClzz encodeAt:idx];
             if(!code) break;
-            setValue2Act(act, idx, code, li);
+            setValue2Act(act, idx, code, li_va);
         }
     }
     /// Variable parameter list
     if(class_conformsToProtocol(actClzz, @protocol(TLingVariableParametric))) {
         const char *code = [actClzz encodeAt:-1];
-        while (setValue2Act(act, -1, code, li));
+        while (setValue2Act(act, -1, code, li_va));
     }
     TLingErr *err;
     id newTag = [act sendMsg:&err];
@@ -383,7 +383,7 @@ bool sendMsgWork_va(id target, NSUInteger index, TLing *ling, SEL sel, Class act
 
 /// @param idx -1(Variable parameter list)
 bool setValue2Act(ALingAction<TLingParametric, TLingVariableParametric> *act, NSUInteger idx, const char *enc, va_list li) {
-    SEL setter = NSSelectorFromString([NSString stringWithFormat:@"setAt%ld",idx]);
+    SEL setter = NSSelectorFromString([NSString stringWithFormat:@"setAt%ld:",idx]);
     do{
         if(idx == -1) {
             id v = va_arg(li, id);

@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    @"AK".ling.log.done();
+    @"AK".ling.more(@"QQ").log.done();
     
     NSLog(@"");
 }

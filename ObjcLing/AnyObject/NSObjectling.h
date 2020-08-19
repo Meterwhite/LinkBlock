@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObjectling<__covariant ObjectType> : TLing
 
-/// T@"..."
+///
 @property (readonly) NSObjectling *log;
-/// T@?
+/// string,array,number,dictionary,set
+/// 提升为可变
 @property (readonly) NSObjectling *(^more)(id x);
-
 
 @end
 

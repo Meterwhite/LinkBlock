@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObjectling_more : ALingAction<TLingParametric>
+@interface NSObjectling_more : ALingAction
+<
+    TLingParametric,
+    TLingVariableParametric
+>
+
+@property id at0;
+
+- (NSMutableArray *)arrayForValist;
 
 @end
 

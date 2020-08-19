@@ -6,6 +6,7 @@
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
+#import "TLingErr.h"
 #import "ALing.h"
 
 @interface ALing ()
@@ -18,8 +19,8 @@
 {
     self = [super init];
     if (self) {
-        targets= [NSMutableArray arrayWithObject:tag];
-        safe = ALingSafeStateTriggering;
+        targets = [NSMutableArray arrayWithObject:tag];
+        safe    = ALingSafeStateTriggering;
     }
     return self;
 }
@@ -29,7 +30,7 @@
     self = [super init];
     if (self) {
         targets = [tags mutableCopy];
-        safe  = ALingSafeStateTriggering;
+        safe    = ALingSafeStateTriggering;
     }
     return self;
 }
@@ -67,7 +68,8 @@
 }
 
 - (void)pushError:(TLingErr *)err {
-    error = err;
+    err.step = step;
+    error    = err;
     if(safe == ALingSafeStateThrowing) {
         @throw error;
     }
