@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSObjectling *log;
 /// string,array,number,dictionary,set
 /// 提升为可变
-@property (readonly) NSObjectling *(^more)(id x);
+@property (readonly) NSObjectling *(^more)(id obj);
+@property (readonly) NSObjectling *(^moreN)(id obj1, ...) ;
 
 @end
 

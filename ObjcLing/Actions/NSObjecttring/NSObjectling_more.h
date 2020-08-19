@@ -1,9 +1,9 @@
 //
 //  NSObjectling_more.h
-//  ObjcLing
+//  ObjcLingDemo
 //
-//  Created by MeterWhite on 2020/8/17.
-//  Copyright © 2020 meterwhite. All rights reserved.
+//  Created by MeterWhite on 2020/8/19.
+//  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
 #import "ALingAction.h"
@@ -12,13 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObjectling_more : ALingAction
 <
-    TLingParametric,
-    TLingVariableParametric
+    TLingParametric
 >
 
 @property id at0;
-
-- (NSMutableArray *)arrayForValist;
 
 @end
 

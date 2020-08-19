@@ -295,16 +295,16 @@ TLing *subCallBlockPt(__kindof TLing *ling, SEL sel, Class actClzz, va_list li, 
     if(ling.error) {
         return ling;
     }
-    va_list li_self;
-    va_start(li_self, enc0);
+    va_list li_at0;
+    va_start(li_at0, enc0);
     if(ling.count == 1) {
-        if(!sendMsgWork_va(ling.target, 0, ling, sel, actClzz, li, enc0, li_self)) {
+        if(!sendMsgWork_va(ling.target, 0, ling, sel, actClzz, li, enc0, li_at0)) {
             return ling;
         }
     } else if(ling.count > 1) {
         NSUInteger i = 0;
         for (id target in ling) {
-            if(!sendMsgWork_va(target, i++, ling, sel, actClzz, li, enc0, li_self)) {
+            if(!sendMsgWork_va(target, i++, ling, sel, actClzz, li, enc0, li_at0)) {
                 return ling;
             }
         }
@@ -362,8 +362,7 @@ bool sendMsgWork_va(id target, NSUInteger index, TLing *ling, SEL sel, Class act
     }
     /// Variable parameter list
     if(class_conformsToProtocol(actClzz, @protocol(TLingVariableParametric))) {
-        const char *code = [actClzz encodeAt:-1];
-        while (setValue2Act(act, -1, code, li_va));
+        while (setValue2Act(act, -1, @encode(id), li_va));
     }
     TLingErr *err;
     id newTag = [act sendMsg:&err];

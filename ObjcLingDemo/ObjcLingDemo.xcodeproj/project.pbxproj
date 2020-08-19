@@ -20,9 +20,10 @@
 		1851E44C24EC119200B7F10B /* NSObject+ObjcLing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E43824EC119200B7F10B /* NSObject+ObjcLing.m */; };
 		1851E44D24EC119200B7F10B /* ALingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E43D24EC119200B7F10B /* ALingController.m */; };
 		1851E44E24EC119200B7F10B /* ALingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E44024EC119200B7F10B /* ALingAction.m */; };
-		1851E44F24EC119200B7F10B /* NSObjectling_more.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E44324EC119200B7F10B /* NSObjectling_more.m */; };
+		1851E44F24EC119200B7F10B /* NSObjectling_moreN.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E44324EC119200B7F10B /* NSObjectling_moreN.m */; };
 		1851E45024EC119200B7F10B /* NSObjectling_log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E44424EC119200B7F10B /* NSObjectling_log.m */; };
 		1851E45124EC119200B7F10B /* NSObjectling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E44824EC119200B7F10B /* NSObjectling.m */; };
+		1869AB4724ED6A920083DB71 /* NSObjectling_more.m in Sources */ = {isa = PBXBuildFile; fileRef = 1869AB4624ED6A920083DB71 /* NSObjectling_more.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,11 +53,13 @@
 		1851E43F24EC119200B7F10B /* ALingAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALingAction.h; sourceTree = "<group>"; };
 		1851E44024EC119200B7F10B /* ALingAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALingAction.m; sourceTree = "<group>"; };
 		1851E44224EC119200B7F10B /* NSObjectling_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectling_log.h; sourceTree = "<group>"; };
-		1851E44324EC119200B7F10B /* NSObjectling_more.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectling_more.m; sourceTree = "<group>"; };
+		1851E44324EC119200B7F10B /* NSObjectling_moreN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectling_moreN.m; sourceTree = "<group>"; };
 		1851E44424EC119200B7F10B /* NSObjectling_log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectling_log.m; sourceTree = "<group>"; };
-		1851E44524EC119200B7F10B /* NSObjectling_more.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectling_more.h; sourceTree = "<group>"; };
+		1851E44524EC119200B7F10B /* NSObjectling_moreN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectling_moreN.h; sourceTree = "<group>"; };
 		1851E44724EC119200B7F10B /* NSObjectling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectling.h; sourceTree = "<group>"; };
 		1851E44824EC119200B7F10B /* NSObjectling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectling.m; sourceTree = "<group>"; };
+		1869AB4524ED6A920083DB71 /* NSObjectling_more.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectling_more.h; sourceTree = "<group>"; };
+		1869AB4624ED6A920083DB71 /* NSObjectling_more.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSObjectling_more.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,8 +176,10 @@
 			children = (
 				1851E44224EC119200B7F10B /* NSObjectling_log.h */,
 				1851E44424EC119200B7F10B /* NSObjectling_log.m */,
-				1851E44524EC119200B7F10B /* NSObjectling_more.h */,
-				1851E44324EC119200B7F10B /* NSObjectling_more.m */,
+				1869AB4524ED6A920083DB71 /* NSObjectling_more.h */,
+				1869AB4624ED6A920083DB71 /* NSObjectling_more.m */,
+				1851E44524EC119200B7F10B /* NSObjectling_moreN.h */,
+				1851E44324EC119200B7F10B /* NSObjectling_moreN.m */,
 			);
 			path = NSObjecttring;
 			sourceTree = "<group>";
@@ -266,9 +271,10 @@
 				1851E44B24EC119200B7F10B /* TLing.m in Sources */,
 				1851E44D24EC119200B7F10B /* ALingController.m in Sources */,
 				1851E44A24EC119200B7F10B /* ALing.m in Sources */,
+				1869AB4724ED6A920083DB71 /* NSObjectling_more.m in Sources */,
 				1851E42824EC117D00B7F10B /* main.m in Sources */,
 				1851E41A24EC117600B7F10B /* SceneDelegate.m in Sources */,
-				1851E44F24EC119200B7F10B /* NSObjectling_more.m in Sources */,
+				1851E44F24EC119200B7F10B /* NSObjectling_moreN.m in Sources */,
 				1851E44E24EC119200B7F10B /* ALingAction.m in Sources */,
 				1851E45124EC119200B7F10B /* NSObjectling.m in Sources */,
 			);

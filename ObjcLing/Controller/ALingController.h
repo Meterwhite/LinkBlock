@@ -10,8 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TLing;
-
 @interface ALingController<__covariant ObjectType> : NSObject
 
 

@@ -12,8 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject(ObjcLing)
 
+/**
+ * <#...#>
+ */
 @property (readonly) NSObjectling* ling;
 
+/**
+ * <#...#>
+ */
 @property (readonly) NSObjectling* lings;
 
 @end
