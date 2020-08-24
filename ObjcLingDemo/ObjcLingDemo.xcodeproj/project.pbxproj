@@ -23,10 +23,20 @@
 		1851E44F24EC119200B7F10B /* NSObjectling_moreN.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E44324EC119200B7F10B /* NSObjectling_moreN.m */; };
 		1851E45024EC119200B7F10B /* NSObjectling_log.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E44424EC119200B7F10B /* NSObjectling_log.m */; };
 		1851E45124EC119200B7F10B /* NSObjectling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851E44824EC119200B7F10B /* NSObjectling.m */; };
+		185B135124F01D9500FA50DF /* NSArrayling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B135024F01D9500FA50DF /* NSArrayling.m */; };
+		185B135624F0C23B00FA50DF /* NSNumberling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B135524F0C23B00FA50DF /* NSNumberling.m */; };
+		185B135924F0C26400FA50DF /* NSDictionaryling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B135824F0C26400FA50DF /* NSDictionaryling.m */; };
+		185B135C24F0C2E600FA50DF /* NSStringling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B135B24F0C2E600FA50DF /* NSStringling.m */; };
+		185B135F24F0C43E00FA50DF /* NSValueling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B135E24F0C43E00FA50DF /* NSValueling.m */; };
 		1869AB4724ED6A920083DB71 /* NSObjectling_more.m in Sources */ = {isa = PBXBuildFile; fileRef = 1869AB4624ED6A920083DB71 /* NSObjectling_more.m */; };
+		18D14FC024F22C2D00BECE6C /* TLingBranchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D14FBF24F22C2D00BECE6C /* TLingBranchAction.m */; };
+		18D14FC324F29F9F00BECE6C /* TDynamicLingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D14FC224F29F9F00BECE6C /* TDynamicLingInfo.m */; };
+		18D14FC624F2B5AF00BECE6C /* TLingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D14FC524F2B5AF00BECE6C /* TLingListener.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180AAE0424EF5D4600EE14C5 /* LingCoreConnect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LingCoreConnect.h; sourceTree = "<group>"; };
+		180AAE0524EF5E5E00EE14C5 /* LingDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LingDefines.h; sourceTree = "<group>"; };
 		1851E41224EC117600B7F10B /* ObjcLingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjcLingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1851E41524EC117600B7F10B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1851E41624EC117600B7F10B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -58,8 +68,24 @@
 		1851E44524EC119200B7F10B /* NSObjectling_moreN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectling_moreN.h; sourceTree = "<group>"; };
 		1851E44724EC119200B7F10B /* NSObjectling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectling.h; sourceTree = "<group>"; };
 		1851E44824EC119200B7F10B /* NSObjectling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectling.m; sourceTree = "<group>"; };
+		185B134F24F01D9500FA50DF /* NSArrayling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSArrayling.h; sourceTree = "<group>"; };
+		185B135024F01D9500FA50DF /* NSArrayling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSArrayling.m; sourceTree = "<group>"; };
+		185B135424F0C23B00FA50DF /* NSNumberling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSNumberling.h; sourceTree = "<group>"; };
+		185B135524F0C23B00FA50DF /* NSNumberling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSNumberling.m; sourceTree = "<group>"; };
+		185B135724F0C26400FA50DF /* NSDictionaryling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSDictionaryling.h; sourceTree = "<group>"; };
+		185B135824F0C26400FA50DF /* NSDictionaryling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSDictionaryling.m; sourceTree = "<group>"; };
+		185B135A24F0C2E600FA50DF /* NSStringling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSStringling.h; sourceTree = "<group>"; };
+		185B135B24F0C2E600FA50DF /* NSStringling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSStringling.m; sourceTree = "<group>"; };
+		185B135D24F0C43E00FA50DF /* NSValueling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSValueling.h; sourceTree = "<group>"; };
+		185B135E24F0C43E00FA50DF /* NSValueling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSValueling.m; sourceTree = "<group>"; };
 		1869AB4524ED6A920083DB71 /* NSObjectling_more.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectling_more.h; sourceTree = "<group>"; };
 		1869AB4624ED6A920083DB71 /* NSObjectling_more.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSObjectling_more.m; sourceTree = "<group>"; };
+		18D14FBE24F22C2D00BECE6C /* TLingBranchAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLingBranchAction.h; sourceTree = "<group>"; };
+		18D14FBF24F22C2D00BECE6C /* TLingBranchAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLingBranchAction.m; sourceTree = "<group>"; };
+		18D14FC124F29F9F00BECE6C /* TDynamicLingInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDynamicLingInfo.h; sourceTree = "<group>"; };
+		18D14FC224F29F9F00BECE6C /* TDynamicLingInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDynamicLingInfo.m; sourceTree = "<group>"; };
+		18D14FC424F2B5AF00BECE6C /* TLingListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLingListener.h; sourceTree = "<group>"; };
+		18D14FC524F2B5AF00BECE6C /* TLingListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLingListener.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		183239E324EE38FE00B2E8B6 /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+				180AAE0424EF5D4600EE14C5 /* LingCoreConnect.h */,
+				180AAE0524EF5E5E00EE14C5 /* LingDefines.h */,
+			);
+			path = Macros;
+			sourceTree = "<group>";
+		};
 		1851E40924EC117600B7F10B = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +146,7 @@
 		1851E42E24EC119200B7F10B /* ObjcLing */ = {
 			isa = PBXGroup;
 			children = (
+				183239E324EE38FE00B2E8B6 /* Macros */,
 				1851E43E24EC119200B7F10B /* Actions */,
 				1851E44624EC119200B7F10B /* AnyObject */,
 				1851E43724EC119200B7F10B /* Category */,
@@ -125,22 +161,18 @@
 		1851E42F24EC119200B7F10B /* Ling */ = {
 			isa = PBXGroup;
 			children = (
-				1851E43024EC119200B7F10B /* TLingErr.m */,
-				1851E43124EC119200B7F10B /* TLing.h */,
-				1851E43224EC119200B7F10B /* TLingProtocol */,
+				1851E43624EC119200B7F10B /* ALing.h */,
 				1851E43324EC119200B7F10B /* ALing.m */,
+				1851E43124EC119200B7F10B /* TLing.h */,
 				1851E43424EC119200B7F10B /* TLing.m */,
 				1851E43524EC119200B7F10B /* TLingErr.h */,
-				1851E43624EC119200B7F10B /* ALing.h */,
+				1851E43024EC119200B7F10B /* TLingErr.m */,
+				18D14FC124F29F9F00BECE6C /* TDynamicLingInfo.h */,
+				18D14FC224F29F9F00BECE6C /* TDynamicLingInfo.m */,
+				18D14FC424F2B5AF00BECE6C /* TLingListener.h */,
+				18D14FC524F2B5AF00BECE6C /* TLingListener.m */,
 			);
 			path = Ling;
-			sourceTree = "<group>";
-		};
-		1851E43224EC119200B7F10B /* TLingProtocol */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TLingProtocol;
 			sourceTree = "<group>";
 		};
 		1851E43724EC119200B7F10B /* Category */ = {
@@ -164,8 +196,10 @@
 		1851E43E24EC119200B7F10B /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				18D14FBD24F22BD600BECE6C /* Manual */,
 				1851E43F24EC119200B7F10B /* ALingAction.h */,
 				1851E44024EC119200B7F10B /* ALingAction.m */,
+				185B134E24F01D7400FA50DF /* NSArrayling */,
 				1851E44124EC119200B7F10B /* NSObjecttring */,
 			);
 			path = Actions;
@@ -187,10 +221,44 @@
 		1851E44624EC119200B7F10B /* AnyObject */ = {
 			isa = PBXGroup;
 			children = (
+				185B135224F0C1FE00FA50DF /* UIKit */,
 				1851E44724EC119200B7F10B /* NSObjectling.h */,
 				1851E44824EC119200B7F10B /* NSObjectling.m */,
+				185B134F24F01D9500FA50DF /* NSArrayling.h */,
+				185B135024F01D9500FA50DF /* NSArrayling.m */,
+				185B135424F0C23B00FA50DF /* NSNumberling.h */,
+				185B135524F0C23B00FA50DF /* NSNumberling.m */,
+				185B135724F0C26400FA50DF /* NSDictionaryling.h */,
+				185B135824F0C26400FA50DF /* NSDictionaryling.m */,
+				185B135A24F0C2E600FA50DF /* NSStringling.h */,
+				185B135B24F0C2E600FA50DF /* NSStringling.m */,
+				185B135D24F0C43E00FA50DF /* NSValueling.h */,
+				185B135E24F0C43E00FA50DF /* NSValueling.m */,
 			);
 			path = AnyObject;
+			sourceTree = "<group>";
+		};
+		185B134E24F01D7400FA50DF /* NSArrayling */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NSArrayling;
+			sourceTree = "<group>";
+		};
+		185B135224F0C1FE00FA50DF /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		18D14FBD24F22BD600BECE6C /* Manual */ = {
+			isa = PBXGroup;
+			children = (
+				18D14FBE24F22C2D00BECE6C /* TLingBranchAction.h */,
+				18D14FBF24F22C2D00BECE6C /* TLingBranchAction.m */,
+			);
+			path = Manual;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,20 +331,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D14FC024F22C2D00BECE6C /* TLingBranchAction.m in Sources */,
+				185B135924F0C26400FA50DF /* NSDictionaryling.m in Sources */,
 				1851E45024EC119200B7F10B /* NSObjectling_log.m in Sources */,
 				1851E41D24EC117600B7F10B /* ViewController.m in Sources */,
 				1851E44924EC119200B7F10B /* TLingErr.m in Sources */,
+				185B135124F01D9500FA50DF /* NSArrayling.m in Sources */,
 				1851E41724EC117600B7F10B /* AppDelegate.m in Sources */,
 				1851E44C24EC119200B7F10B /* NSObject+ObjcLing.m in Sources */,
 				1851E44B24EC119200B7F10B /* TLing.m in Sources */,
+				185B135F24F0C43E00FA50DF /* NSValueling.m in Sources */,
 				1851E44D24EC119200B7F10B /* ALingController.m in Sources */,
 				1851E44A24EC119200B7F10B /* ALing.m in Sources */,
+				18D14FC324F29F9F00BECE6C /* TDynamicLingInfo.m in Sources */,
 				1869AB4724ED6A920083DB71 /* NSObjectling_more.m in Sources */,
 				1851E42824EC117D00B7F10B /* main.m in Sources */,
 				1851E41A24EC117600B7F10B /* SceneDelegate.m in Sources */,
 				1851E44F24EC119200B7F10B /* NSObjectling_moreN.m in Sources */,
+				185B135624F0C23B00FA50DF /* NSNumberling.m in Sources */,
 				1851E44E24EC119200B7F10B /* ALingAction.m in Sources */,
 				1851E45124EC119200B7F10B /* NSObjectling.m in Sources */,
+				18D14FC624F2B5AF00BECE6C /* TLingListener.m in Sources */,
+				185B135C24F0C2E600FA50DF /* NSStringling.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

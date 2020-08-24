@@ -18,7 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    @"AK".ling.more(@"QQ").moreN(@"JJ",@"PP",nil).log.done();
+//    @"AK".ling.more(@"QQ").moreN(@"JJ",@"PP",nil).log.done();
+    
+    
+    NSString *str;
+    
+    NSObjectling<NSArrayling*>* ling;
+    NSArrayling* arrayling;
+    arrayling.branchIN(^__kindof TLing * _Nonnull(NSArrayling * _Nonnull ling) {
+        return ling;
+    }).at(12).done();
     
     NSLog(@"");
 }

@@ -82,6 +82,26 @@ NS_INLINE bool pasValue2Ivk(__kindof ALingAction *act, NSInvocation *invoaction,
     return nil;
 }
 
+//+ (Class)assoClass {
+//    static Class _value;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        id v = [NSStringFromClass(self) componentsSeparatedByString:@"_"].firstObject;
+//        _value = NSClassFromString(v);
+//    });
+//    return _value;
+//}
+
++ (SEL)associatedSEL {
+    static SEL _value;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        id v = [NSStringFromClass(self) componentsSeparatedByString:@"_"].lastObject;
+        _value = NSSelectorFromString(v);
+    });
+    return _value;
+}
+
 @end
 
 NS_INLINE bool pasValue2Ivk(__kindof ALingAction *act, NSInvocation *invoaction,const char *objcType, NSUInteger idx) {

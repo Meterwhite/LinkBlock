@@ -10,6 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define TLing(obj) ((typeof(ling.T)<typeof(obj)>*)obj.ling)
+
+/// obj.ling
+
 @interface NSObject(ObjcLing)
 
 /**

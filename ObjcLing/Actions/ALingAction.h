@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class TLingErr;
+@class TLingErr,TDynamicLingInfo;
 NS_ASSUME_NONNULL_BEGIN
 
 /// Parametric Type Link.
@@ -29,20 +29,26 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /// Abstract Action Link
-@interface ALingAction: NSObject
+@interface ALingAction: NSObject {
+    Class dependentClass;
+}
 
-@property id target;
+#pragma mark - User rewrite
 
-@property NSUInteger step;
+@property (nonatomic) id target;
+
+@property (nonatomic) NSUInteger step;
+
+@property (nonatomic) TDynamicLingInfo *dynamicLingInfo;
+
+/// return: return new target while not nil;
+- (nullable id)sendMsg:(TLingErr *_Nullable*_Nullable)err;
 
 /// 确定的参数个数
 - (NSUInteger)count;
 
 /// 消息转发到selector
 - (nullable SEL)forwardSEL;
-
-/// return: return new target while not nil;
-- (nullable id)sendMsg:(TLingErr *_Nullable*_Nullable)err;
 
 @end
 

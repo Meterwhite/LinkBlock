@@ -15,22 +15,31 @@
 
 @implementation ALing
 
-- (instancetype)initWithTarget:(id)tag
+- (instancetype)init
 {
     self = [super init];
     if (self) {
+        dynamicActions  = [NSMutableArray arrayWithCapacity:0];
+        safe    = ALingSafeKindTriggering;
+        status  = ALingStatusExecuting;
+    }
+    return self;
+}
+
+- (instancetype)initWithTarget:(id)tag
+{
+    self = [self init];
+    if (self) {
         targets = [NSMutableArray arrayWithObject:tag];
-        safe    = ALingSafeStateTriggering;
     }
     return self;
 }
 
 - (instancetype)initWithTargets:(NSArray *)tags
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         targets = [tags mutableCopy];
-        safe    = ALingSafeStateTriggering;
     }
     return self;
 }
@@ -41,6 +50,18 @@
 
 + (instancetype)lingsWith:(NSMutableArray *)targets {
     return [[self alloc] initWithTargets:targets];
+}
+
++ (instancetype)lingWithLing:(ALing *)ling {
+    ALing *newLing = [[self alloc] init];
+    newLing->dynamicActions =   ling->dynamicActions;
+    newLing->targets        =   ling->targets;
+    newLing->status         =   ling->status;
+    newLing->error          =   ling->error;
+    newLing->safe           =   ling->safe;
+    newLing->step           =   ling->step;
+    newLing->observed       =   ling->observed;
+    return newLing;
 }
 
 - (id)target {
@@ -70,9 +91,13 @@
 - (void)pushError:(TLingErr *)err {
     err.step = step;
     error    = err;
-    if(safe == ALingSafeStateThrowing) {
+    if(safe == ALingSafeKindThrowing) {
         @throw error;
     }
+}
+
+- (void)returnLing {
+    status = ALingStatusReturning;
 }
 
 - (Class)dependentClass {

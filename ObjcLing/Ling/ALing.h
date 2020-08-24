@@ -9,21 +9,30 @@
 #import <Foundation/Foundation.h>
 
 typedef enum : NSUInteger {
-    ALingSafeStateTrying    ,
-    ALingSafeStateTriggering,
-    ALingSafeStateThrowing  ,
-} ALingSafeState;
+    ALingSafeKindTrying    ,
+    ALingSafeKindTriggering,
+    ALingSafeKindThrowing  ,
+} ALingSafeKind;
 
-@class TLingErr;
+typedef enum : NSUInteger {
+    ALingStatusExecuting,
+    ALingStatusReturning,
+    ALingStatusFuture   ,
+} ALingStatus;
+
+@class TLingErr,ALingAction;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ALing<__covariant ObjectType> : NSObject<NSFastEnumeration> {
 @public
-    ALingSafeState  safe;
+    NSMutableArray<ALingAction*> *dynamicActions;
+    NSMutableArray<ObjectType>   *targets;
+    ALingSafeKind   safe;
     NSUInteger      step;
+    ALingStatus     status;
     TLingErr        *error;
-    NSMutableArray<ObjectType> *targets;
+    bool            observed;
 }
 
 - (ObjectType)target;
@@ -38,11 +47,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)lingsWith:(NSArray<ObjectType> *)targets;
 
++ (instancetype)lingWithLing:(ALing *)ling;
+
 - (void)switchTarget:(ObjectType)target;
 
 - (void)pushError:(TLingErr *)err;
 
+- (void)returnLing;
+
 - (NSUInteger)count;
+
+#pragma mark - Rewriteable
 
 - (nullable Class)dependentClass;
 

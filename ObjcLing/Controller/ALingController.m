@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TDynamicLingInfo.h"
 #import "ALingController.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
@@ -23,7 +24,7 @@ TLing *TLingCallPt(__kindof TLing *ling, SEL sel);
 
 TLingBlock TLingCallBlockPt(__kindof TLing *ling, SEL sel);
 
-bool setValue2Act(ALingAction<TLingParametric, TLingVariableParametric> *act, NSUInteger idx, const char *enc, va_list li);
+bool setValue2Action(ALingAction<TLingParametric, TLingVariableParametric> *act, NSUInteger idx, const char *enc, va_list li);
 
 /// Only subclass
 NS_INLINE bool isASubclass(Class child, Class parent);
@@ -70,18 +71,18 @@ Class getActionClass(__kindof TLing *ling, SEL sel);
 /// @param sel log
 TLing *TLingCallPt(__kindof ALing *ling, SEL sel) {
     /// Error pass
-    if(ling.error) {
+    if(ling.error || ling->status == ALingStatusReturning) {
         return ling;
     }
-    Class actClzz = getActionClass(ling, sel);
+    Class actClz = getActionClass(ling, sel);
     if(ling.count == 1) {
-        if(!sendMsgWork(ling.target, 0, ling, sel, actClzz)) {
+        if(!sendMsgWork(ling.target, 0, ling, sel, actClz)) {
             return ling;
         }
     } else if(ling.count > 1) {
         NSUInteger i = 0;
         for (id target in ling) {
-            if(!sendMsgWork(target, i++, ling, sel, actClzz)) {
+            if(!sendMsgWork(target, i++, ling, sel, actClz)) {
                 return ling;
             }
         }
@@ -194,9 +195,9 @@ TLingBlock TLingCallBlockPt(__kindof TLing *ling, SEL sel) {
                 return subCallBlockPt(ling, sel, actClz, li, enc, at0);
             };
             break;
-        }else if ((strcmp(enc, @encode(bool)) == 0           ||
-                   strcmp(enc, @encode(BOOL)) == 0           ||
-                   strcmp(enc, @encode(char)) == 0           ||
+        }else if ((strcmp(enc, @encode(bool))  == 0          ||
+                   strcmp(enc, @encode(BOOL))  == 0          ||
+                   strcmp(enc, @encode(char))  == 0          ||
                    strcmp(enc, @encode(short)) == 0          ||
                    strcmp(enc, @encode(unsigned char)) == 0  ||
                    strcmp(enc, @encode(unsigned short)) == 0)){
@@ -292,7 +293,7 @@ TLingBlock TLingCallBlockPt(__kindof TLing *ling, SEL sel) {
 }
 
 TLing *subCallBlockPt(__kindof TLing *ling, SEL sel, Class actClzz, va_list li, const char *enc0 , ...) {
-    if(ling.error) {
+    if(ling.error  || ling->status == ALingStatusReturning) {
         return ling;
     }
     va_list li_at0;
@@ -315,16 +316,24 @@ TLing *subCallBlockPt(__kindof TLing *ling, SEL sel, Class actClzz, va_list li, 
 
 @end
 
-bool sendMsgWork(id target, NSUInteger index, TLing *ling, SEL sel, Class actClzz) {
-    if(ling.dependentClass) {
+bool sendMsgWork(id target, NSUInteger index, TLing *ling, SEL sel, Class actClz) {
+    if(ling->status != ALingStatusFuture && ling.dependentClass) {
         if(![ling.target isKindOfClass:ling.dependentClass]) {
             [ling pushError:[[TLingErr allocWith:ling.count>1?ling.targets:ling.target] initForKind:ling.dependentClass sel:sel]];
             return false;
         }
     }
-    ALingAction *act = [[actClzz alloc] init];
+    ALingAction *act = [[actClz alloc] init];
     [act setTarget:ling.target];
     [act setStep:ling.step];
+    if(ling->status == ALingStatusFuture) {
+        TDynamicLingInfo *info = [[TDynamicLingInfo alloc] init];
+        info.sel = sel;
+        info.dependentClass = ling.dependentClass;
+        act.dynamicLingInfo = info;
+        [ling->dynamicActions addObject:act];
+        return false;
+    }
     TLingErr *err;
     id newTag = [act sendMsg:&err];
     if(err) {
@@ -342,7 +351,7 @@ bool sendMsgWork(id target, NSUInteger index, TLing *ling, SEL sel, Class actClz
 }
 
 bool sendMsgWork_va(id target, NSUInteger index, TLing *ling, SEL sel, Class actClzz, va_list li_va, const char *enc0, va_list li_at0) {
-    if(ling.dependentClass) {
+    if(ling->status != ALingStatusFuture && ling.dependentClass) {
         if(![target isKindOfClass:ling.dependentClass]) {
             [ling pushError:[[TLingErr allocWith:(ling.count > 1) ? ling.targets : ling.target] initForKind:ling.dependentClass sel:sel]];
             return false;
@@ -353,16 +362,24 @@ bool sendMsgWork_va(id target, NSUInteger index, TLing *ling, SEL sel, Class act
     [act setStep:ling.step];
     for (NSUInteger idx = 0; idx < act.count  ; idx++) {
         if(idx == 0) {
-            setValue2Act(act, idx, enc0, li_at0);
+            setValue2Action(act, idx, enc0, li_at0);
         } else {
             const char *code = [actClzz encodeAt:idx];
             if(!code) break;
-            setValue2Act(act, idx, code, li_va);
+            setValue2Action(act, idx, code, li_va);
         }
     }
     /// Variable parameter list
     if(class_conformsToProtocol(actClzz, @protocol(TLingVariableParametric))) {
-        while (setValue2Act(act, -1, @encode(id), li_va));
+        while (setValue2Action(act, -1, @encode(id), li_va));
+    }
+    if(ling->status == ALingStatusFuture) {
+        TDynamicLingInfo *info = [[TDynamicLingInfo alloc] init];
+        info.sel = sel;
+        info.dependentClass = ling.dependentClass;
+        act.dynamicLingInfo = info;
+        [ling->dynamicActions addObject:act];
+        return false;
     }
     TLingErr *err;
     id newTag = [act sendMsg:&err];
@@ -381,7 +398,7 @@ bool sendMsgWork_va(id target, NSUInteger index, TLing *ling, SEL sel, Class act
 }
 
 /// @param idx -1(Variable parameter list)
-bool setValue2Act(ALingAction<TLingParametric, TLingVariableParametric> *act, NSUInteger idx, const char *enc, va_list li) {
+bool setValue2Action(ALingAction<TLingParametric, TLingVariableParametric> *act, NSUInteger idx, const char *enc, va_list li) {
     SEL setter = NSSelectorFromString([NSString stringWithFormat:@"setAt%ld:",idx]);
     do{
         if(idx == -1) {
