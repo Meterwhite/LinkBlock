@@ -10,15 +10,6 @@
 
 @implementation TLingBranchAction
 
-+ (SEL)associatedSEL {
-    static SEL _value;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _value = NSSelectorFromString(@"branch");
-    });
-    return _value;
-}
-
 - (NSUInteger)count {
     return 1;
 }
