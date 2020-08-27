@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  ObjcLing
+//  Objcling
 //
 //  Created by MeterWhite on 2020/8/15.
 //  Copyright © 2020 meterwhite. All rights reserved.
@@ -10,7 +10,7 @@
 #import "ObjcLing.h"
 
 @interface ViewController ()
-@property (nullable,nonatomic,strong) NSObjectling *ling;
+@property (nullable,nonatomic,strong) TObjectling *ling;
 @end
 
 @implementation ViewController

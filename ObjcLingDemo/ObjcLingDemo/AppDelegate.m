@@ -1,8 +1,8 @@
 //
 //  AppDelegate.m
-//  ObjcLingDemo
+//  Objcling
 //
-//  Created by MeterWhite on 2020/8/18.
+//  Created by MeterWhite on 2020/8/27.
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
