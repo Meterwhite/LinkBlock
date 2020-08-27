@@ -11,13 +11,8 @@
 @class TViewling;
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol TViewLetling <NSObject>
 
-@protocol TViewLazyling <NSObject>
-
-/// 仅仅.m实现
-@property (readonly) TViewling *hide;
-@property (readonly) TViewling *noHide;
-@property (readonly) TViewling *theHidden;
 
 @end
 
@@ -25,8 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) TViewling *(^text)(NSString *txt);
 
-- (TViewling<TViewLazyling>*)lazy;
+@property (readonly) TViewling<TViewLetling> *hide;
+@property (readonly) TViewling<TViewLetling> *noHide;
+/// ?
+@property (readonly) TViewling *isHidden;
 
+- (TViewling<TViewLetling>*)let;
+/// let
 @end
 
 NS_ASSUME_NONNULL_END

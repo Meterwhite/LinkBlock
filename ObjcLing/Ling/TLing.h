@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,readonly) void(^done)(void);
 
-@property (nonatomic,readonly) void(^notifiedDone)(NSNotificationName ntf);
+@property (nonatomic,readonly) TLing *(^notifiedDone)(NSNotificationName ntf);
 
 - (instancetype)trying;
 

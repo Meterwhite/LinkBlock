@@ -19,9 +19,10 @@
 {
     self = [super init];
     if (self) {
-        dynamicActions  = [NSMutableArray arrayWithCapacity:0];
-        safe    = ALingSafeKindTriggering;
-        status  = ALingStatusExecuting;
+        dynamicActions = [NSMutableArray arrayWithCapacity:0];
+        listeners      = [NSMutableArray arrayWithCapacity:0];
+        safe   = ALingSafeKindTriggering;
+        status = ALingStatusExecuting;
     }
     return self;
 }
@@ -52,15 +53,15 @@
     return [[self alloc] initWithTargets:targets];
 }
 
-+ (instancetype)lingWithLing:(ALing *)ling {
++ (instancetype)lingByLing:(ALing *)ling {
     ALing *newLing = [[self alloc] init];
-    newLing->dynamicActions =   ling->dynamicActions;
-    newLing->targets        =   ling->targets;
-    newLing->status         =   ling->status;
-    newLing->error          =   ling->error;
-    newLing->safe           =   ling->safe;
-    newLing->step           =   ling->step;
-    newLing->observed       =   ling->observed;
+    newLing->dynamicActions = ling->dynamicActions;
+    newLing->listeners      = ling->listeners;
+    newLing->targets        = ling->targets;
+    newLing->status         = ling->status;
+    newLing->error          = ling->error;
+    newLing->safe           = ling->safe;
+    newLing->step           = ling->step;
     return newLing;
 }
 
@@ -107,4 +108,10 @@
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id  _Nullable [])buffer count:(NSUInteger)len {
     return [targets countByEnumeratingWithState:state objects:buffer count:len];
 }
+
+#ifdef DEBUG
+- (void)dealloc {
+    NSLog(@"Objcling : dealoc -- ling ");
+}
+#endif
 @end

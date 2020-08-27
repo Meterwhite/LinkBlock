@@ -29,6 +29,7 @@
 		185B135C24F0C2E600FA50DF /* NSStringling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B135B24F0C2E600FA50DF /* NSStringling.m */; };
 		185B135F24F0C43E00FA50DF /* NSValueling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B135E24F0C43E00FA50DF /* NSValueling.m */; };
 		1869AB4724ED6A920083DB71 /* NSObjectling_more.m in Sources */ = {isa = PBXBuildFile; fileRef = 1869AB4624ED6A920083DB71 /* NSObjectling_more.m */; };
+		18815CDE24F5FF6F008E820E /* TButtonling.m in Sources */ = {isa = PBXBuildFile; fileRef = 18815CDD24F5FF6F008E820E /* TButtonling.m */; };
 		18A7D26124F41D4500778BAB /* TViewling.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A7D26024F41D4500778BAB /* TViewling.m */; };
 		18D14FC024F22C2D00BECE6C /* TLingBranchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D14FBF24F22C2D00BECE6C /* TLingBranchAction.m */; };
 		18D14FC324F29F9F00BECE6C /* TDynamicLingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D14FC224F29F9F00BECE6C /* TDynamicLingInfo.m */; };
@@ -81,6 +82,8 @@
 		185B135E24F0C43E00FA50DF /* NSValueling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSValueling.m; sourceTree = "<group>"; };
 		1869AB4524ED6A920083DB71 /* NSObjectling_more.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectling_more.h; sourceTree = "<group>"; };
 		1869AB4624ED6A920083DB71 /* NSObjectling_more.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSObjectling_more.m; sourceTree = "<group>"; };
+		18815CDC24F5FF6F008E820E /* TButtonling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TButtonling.h; sourceTree = "<group>"; };
+		18815CDD24F5FF6F008E820E /* TButtonling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TButtonling.m; sourceTree = "<group>"; };
 		18A7D25F24F41D4500778BAB /* TViewling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TViewling.h; sourceTree = "<group>"; };
 		18A7D26024F41D4500778BAB /* TViewling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TViewling.m; sourceTree = "<group>"; };
 		18D14FBE24F22C2D00BECE6C /* TLingBranchAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLingBranchAction.h; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 			children = (
 				18A7D25F24F41D4500778BAB /* TViewling.h */,
 				18A7D26024F41D4500778BAB /* TViewling.m */,
+				18815CDC24F5FF6F008E820E /* TButtonling.h */,
+				18815CDD24F5FF6F008E820E /* TButtonling.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 				1851E42824EC117D00B7F10B /* main.m in Sources */,
 				1851E41A24EC117600B7F10B /* SceneDelegate.m in Sources */,
 				1851E44F24EC119200B7F10B /* NSObjectling_moreN.m in Sources */,
+				18815CDE24F5FF6F008E820E /* TButtonling.m in Sources */,
 				185B135624F0C23B00FA50DF /* NSNumberling.m in Sources */,
 				1851E44E24EC119200B7F10B /* ALingAction.m in Sources */,
 				1851E45124EC119200B7F10B /* NSObjectling.m in Sources */,

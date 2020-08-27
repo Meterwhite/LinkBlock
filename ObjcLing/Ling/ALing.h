@@ -20,19 +20,19 @@ typedef enum : NSUInteger {
     ALingStatusFuture   ,
 } ALingStatus;
 
-@class TLingErr,ALingAction;
+@class TLingErr, ALingAction, TLingListener;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ALing<__covariant ObjectType> : NSObject<NSFastEnumeration> {
 @public
-    NSMutableArray<ALingAction*> *dynamicActions;
     NSMutableArray<ObjectType>   *targets;
+    NSMutableArray<ALingAction*> *dynamicActions;
+    NSMutableArray<TLingListener*> *listeners;
     ALingSafeKind   safe;
     NSUInteger      step;
     ALingStatus     status;
     TLingErr        *error;
-    bool            observed;
 }
 
 - (ObjectType)target;
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)lingsWith:(NSArray<ObjectType> *)targets;
 
-+ (instancetype)lingWithLing:(ALing *)ling;
++ (instancetype)lingByLing:(ALing *)ling;
 
 - (void)switchTarget:(ObjectType)target;
 

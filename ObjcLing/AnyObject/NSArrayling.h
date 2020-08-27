@@ -32,10 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Array
 @property (readonly) NSArrayling *(^at)(NSUInteger idx);
 
+@end
 
 #pragma mark - 声明
-
-@end
 
 @interface NSArrayling<__covariant TYPEx> (Generic)
 @property (readonly) NSArrayling *(^branchIN)(TLingNSArraylingbranchIN block);

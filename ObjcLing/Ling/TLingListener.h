@@ -11,9 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TLingListener : NSObject
-
-@property void(^whenNoticed)(NSNotification *ntf);
-
+- (instancetype)initWithNotice:(NSNotificationName)name;
+@property (nonatomic,copy) void(^whenNotified)(NSNotification *ntf);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,24 +8,30 @@
 
 #import "TLingListener.h"
 
+@interface TLingListener ()
+@property (nullable,nonatomic,copy) NSString *name;;
+@end
+
 @implementation TLingListener
 
 - (instancetype)initWithNotice:(NSNotificationName)name
 {
     self = [super init];
     if (self) {
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(noticed:) name:name object:nil];
+        _name = name;
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(notified:) name:_name object:nil];
     }
     return self;
 }
 
 - (void)dealloc {
+    NSLog(@"Objcling: listener -- dealoc ");
     [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
-- (void)noticed:(NSNotification *)ntf {
-    if(_whenNoticed) {
-        _whenNoticed(ntf);
+- (void)notified:(NSNotification *)ntf {
+    if(_whenNotified) {
+        _whenNotified(ntf);
     }
 }
 
