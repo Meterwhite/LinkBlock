@@ -39,7 +39,8 @@
 		1826211424F79B130006DA86 /* TButtonling.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620F724F79B130006DA86 /* TButtonling.m */; };
 		1826211524F79B130006DA86 /* TNumberling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1826210124F79B130006DA86 /* TNumberling.m */; };
 		1826211624F79B130006DA86 /* TValueling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1826210224F79B130006DA86 /* TValueling.m */; };
-		1882290E24F89668007213D8 /* AlingReturnAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882290D24F89668007213D8 /* AlingReturnAction.m */; };
+		1882290E24F89668007213D8 /* AlingStopAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882290D24F89668007213D8 /* AlingStopAction.m */; };
+		18D9D0622500EFEA00E14BA8 /* TlingStopWhileAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D9D0612500EFEA00E14BA8 /* TlingStopWhileAction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,8 +109,10 @@
 		1826210024F79B130006DA86 /* TObjectling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TObjectling.h; sourceTree = "<group>"; };
 		1826210124F79B130006DA86 /* TNumberling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNumberling.m; sourceTree = "<group>"; };
 		1826210224F79B130006DA86 /* TValueling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TValueling.m; sourceTree = "<group>"; };
-		1882290C24F89668007213D8 /* AlingReturnAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlingReturnAction.h; sourceTree = "<group>"; };
-		1882290D24F89668007213D8 /* AlingReturnAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlingReturnAction.m; sourceTree = "<group>"; };
+		1882290C24F89668007213D8 /* AlingStopAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlingStopAction.h; sourceTree = "<group>"; };
+		1882290D24F89668007213D8 /* AlingStopAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlingStopAction.m; sourceTree = "<group>"; };
+		18D9D0602500EFEA00E14BA8 /* TlingStopWhileAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingStopWhileAction.h; sourceTree = "<group>"; };
+		18D9D0612500EFEA00E14BA8 /* TlingStopWhileAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingStopWhileAction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,8 +243,8 @@
 		182620E424F79B130006DA86 /* Dynamiling */ = {
 			isa = PBXGroup;
 			children = (
-				1882290C24F89668007213D8 /* AlingReturnAction.h */,
-				1882290D24F89668007213D8 /* AlingReturnAction.m */,
+				1882290C24F89668007213D8 /* AlingStopAction.h */,
+				1882290D24F89668007213D8 /* AlingStopAction.m */,
 				181DABC224FAC47400C21E42 /* TlingNotifiedINAction.h */,
 				181DABC324FAC47400C21E42 /* TlingNotifiedINAction.m */,
 				181DABC524FB45EA00C21E42 /* TlingTryingAction.h */,
@@ -254,6 +257,8 @@
 				181DABCF24FB468800C21E42 /* TlingAsserttINAction.m */,
 				181DABD124FB469C00C21E42 /* TlingAsserttByAction.h */,
 				181DABD224FB469C00C21E42 /* TlingAsserttByAction.m */,
+				18D9D0602500EFEA00E14BA8 /* TlingStopWhileAction.h */,
+				18D9D0612500EFEA00E14BA8 /* TlingStopWhileAction.m */,
 			);
 			path = Dynamiling;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 				1826210524F79B130006DA86 /* DynamilingInfo.m in Sources */,
 				181DABCD24FB464B00C21E42 /* TlingBranchINAction.m in Sources */,
 				181DABD024FB468800C21E42 /* TlingAsserttINAction.m in Sources */,
+				18D9D0622500EFEA00E14BA8 /* TlingStopWhileAction.m in Sources */,
 				1826210824F79B130006DA86 /* NSObject+Objcling.m in Sources */,
 				181DABCA24FB460700C21E42 /* TlingThrowingAction.m in Sources */,
 				182620C524F79AEA0006DA86 /* main.m in Sources */,
@@ -403,7 +409,7 @@
 				1826211324F79B130006DA86 /* TViewling.m in Sources */,
 				1826211524F79B130006DA86 /* TNumberling.m in Sources */,
 				1826210724F79B130006DA86 /* Tling.m in Sources */,
-				1882290E24F89668007213D8 /* AlingReturnAction.m in Sources */,
+				1882290E24F89668007213D8 /* AlingStopAction.m in Sources */,
 				1826210424F79B130006DA86 /* TlingListener.m in Sources */,
 				181DABC724FB45EA00C21E42 /* TlingTryingAction.m in Sources */,
 				1826210B24F79B130006DA86 /* AlingAction.m in Sources */,

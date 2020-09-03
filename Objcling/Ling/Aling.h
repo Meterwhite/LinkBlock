@@ -25,11 +25,12 @@ typedef enum : NSUInteger {
     AlingStatusFuture   ,
 } AlingStatus;
 
-/// 拆链
+/// 拆箱
 id _Nonnull DelingWith(Aling * _Nonnull ling);
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 抽象链
 @interface Aling<__covariant TargetType> : NSObject<NSFastEnumeration> {
 @public
     NSMutableArray<AlingAction *>   *dynamicActions;
@@ -45,10 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSMutableArray<TargetType> *)targets;
 
-- (TlingErr *)error;
-
-- (NSUInteger)step;
-
 + (instancetype)lingWith:(TargetType)target;
 
 + (instancetype)lingsWith:(NSArray<TargetType> *)targets;
@@ -59,14 +56,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pushError:(TlingErr *)err;
 
-- (instancetype)returnn;
+- (instancetype)stop;
 
-- (NSUInteger)count;
+- (NSUInteger)itemCount;
 
 #pragma mark - Rewriteable
 
 - (nullable Class)dependentClass;
 
+/// 拷贝动态链
+- (instancetype)mutableCopy;
+- (instancetype)dynamilingCopy;
 @end
 
 NS_ASSUME_NONNULL_END

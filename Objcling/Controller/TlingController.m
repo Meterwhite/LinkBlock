@@ -72,7 +72,7 @@ Class getActionClass(__kindof Tling *ling, SEL sel);
 /// @param sel log
 Tling *TlingAutoProperty(__kindof Aling *ling, SEL sel) {
     /// Error pass
-    if(ling->status == AlingStatusReturning || ling.error) {
+    if(ling->status == AlingStatusReturning || ling->error) {
         return ling;
     }
     if(ling->status != AlingStatusFuture) {
@@ -82,11 +82,11 @@ Tling *TlingAutoProperty(__kindof Aling *ling, SEL sel) {
         }
     }
     Class act_class = getActionClass(ling, sel);
-    if(ling.count == 1) {
+    if(ling.itemCount == 1) {
         if(!sendMsgWork(ling.target, 0, ling, sel, act_class)) {
             return ling;
         }
-    } else if(ling.count > 1) {
+    } else if(ling.itemCount > 1) {
         NSUInteger i = 0;
         for (id target in ling) {
             if(!sendMsgWork(target, i++, ling, sel, act_class)) {
@@ -300,22 +300,22 @@ TlingBlock TlingAutoBlockProperty(__kindof Tling *ling, SEL sel) {
 }
 
 Tling *TlingSubAutoBlockProperty(__kindof Tling *ling, SEL sel, Class act_classz, va_list li, const char *enc0 , ...) {
-    if(ling.error  || ling->status == AlingStatusReturning) {
+    if(ling->error  || ling->status == AlingStatusReturning) {
         return ling;
     }
     if(ling->status != AlingStatusFuture) {
         if(![ling.target isKindOfClass:ling.dependentClass]) {
-            [ling pushError:[[TlingErr allocWith:(ling.count > 1) ? ling.targets : ling.target] initForKind:ling.dependentClass sel:sel]];
+            [ling pushError:[[TlingErr allocWith:(ling.itemCount > 1) ? ling.targets : ling.target] initForKind:ling.dependentClass sel:sel]];
             return ling;
         }
     }
     va_list li_at0;
     va_start(li_at0, enc0);
-    if(ling.count == 1) {
+    if(ling.itemCount == 1) {
         if(!sendMsgWork_va(ling.target, 0, ling, sel, act_classz, li, enc0, li_at0)) {
             return ling;
         }
-    } else if(ling.count > 1) {
+    } else if(ling.itemCount > 1) {
         NSUInteger i = 0;
         for (id target in ling) {
             if(!sendMsgWork_va(target, i++, ling, sel, act_classz, li, enc0, li_at0)) {
@@ -332,7 +332,7 @@ Tling *TlingSubAutoBlockProperty(__kindof Tling *ling, SEL sel, Class act_classz
 bool sendMsgWork(id target, NSUInteger index, Tling *ling, SEL sel, Class act_class) {
     AlingAction *act = [[act_class alloc] init];
     [act setTarget:ling.target];
-    [act setStep:ling.step];
+    [act setStep:ling->step];
     if(ling->status == AlingStatusFuture) {
         DynamilingInfo *info = [[DynamilingInfo alloc] init];
         info.dependentClass = ling.dependentClass;
@@ -348,7 +348,7 @@ bool sendMsgWork(id target, NSUInteger index, Tling *ling, SEL sel, Class act_cl
         return false;
     }
     if(newTag) {
-        if(ling.count == 1) {
+        if(ling.itemCount == 1) {
             [ling switchTarget:newTag];
         } else {
             [ling.targets replaceObjectAtIndex:index withObject:newTag];
@@ -360,7 +360,7 @@ bool sendMsgWork(id target, NSUInteger index, Tling *ling, SEL sel, Class act_cl
 bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act_classz, va_list li_va, const char *enc0, va_list li_at0) {
     AlingAction<TlingParametric,TlingVariableParametric> *act = [[act_classz alloc] init];
     [act setTarget:target];
-    [act setStep:ling.step];
+    [act setStep:ling->step];
     for (NSUInteger idx = 0; idx < act.count  ; idx++) {
         if(idx == 0) {
             setValue2Action(act, idx, enc0, li_at0);
@@ -389,7 +389,7 @@ bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act
         return false;
     }
     if(newTag) {
-        if(ling.count == 1) {
+        if(ling.itemCount == 1) {
             [ling switchTarget:newTag];
         } else {
             [ling.targets replaceObjectAtIndex:index withObject:newTag];

@@ -46,6 +46,23 @@ OCLING_CORNECT_IF_EQ(2, CORE_CONNECT_ARGCOUNT(__VA_ARGS__)) \
     return nil; \
 }))
 
+#define sub_iss(...) \
+OCLING_CORNECT_IF_EQ(2, CORE_CONNECT_ARGCOUNT(__VA_ARGS__)) \
+(issIN(^bool(CORE_CONNECT_ARGCOUNT(__VA_ARGS__) _Nonnull x) { \
+    OCLING_CORNECT_TAIL(__VA_ARGS__);\
+})) \
+(issIN(^bool(id _Nonnull x) { \
+    __VA_ARGS__;\
+}))
+
+#define sub_assertt(...) \
+OCLING_CORNECT_IF_EQ(2, CORE_CONNECT_ARGCOUNT(__VA_ARGS__)) \
+(asserttIN(^bool(CORE_CONNECT_ARGCOUNT(__VA_ARGS__) _Nonnull x) { \
+    OCLING_CORNECT_TAIL(__VA_ARGS__);\
+})) \
+(asserttIN(^bool(id _Nonnull x) { \
+    __VA_ARGS__;\
+}))
 
 #define sub_continuee(...) \
 OCLING_CORNECT_IF_EQ(2, CORE_CONNECT_ARGCOUNT(__VA_ARGS__)) \
@@ -74,7 +91,7 @@ OCLING_CORNECT_FOREACH_CXT(typede_TlingBranchIN,,, __VA_ARGS__)
 @class T; \
 typedef __kindof Tling* _Nonnull(^_Nullable Tling##T##branchIN)(T *_Nonnull ling);
 
-typedes_TlingBranchIN(TObjectling,TArrayling)
+typedes_TlingBranchIN(TObjectling, TArrayling)
 
 
 //OCLING_CORNECT_IF_EQ

@@ -6,10 +6,11 @@
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
-#import "AlingReturnAction.h"
+#import "AlingStopAction.h"
 #import "DynamilingInfo.h"
 #import "TlingErr.h"
 #import "Aling.h"
+#import "Tling.h"
 
 @interface Aling ()
 
@@ -79,16 +80,8 @@
     [targets replaceObjectAtIndex:0 withObject:target];
 }
 
-- (NSUInteger)count {
+- (NSUInteger)itemCount {
     return targets.count;
-}
-
-- (TlingErr *)error {
-    return error;
-}
-
-- (NSUInteger)step {
-    return step;
 }
 
 - (void)pushError:(TlingErr *)err {
@@ -99,14 +92,14 @@
     }
 }
 
-- (instancetype)returnn {
+- (instancetype)stop {
     if(status == AlingStatusReturning || error) {
         return self;
     }
     if(status == AlingStatusFuture) {
-        AlingReturnAction *act = [[AlingReturnAction alloc] init];
+        AlingStopAction *act = [[AlingStopAction alloc] init];
         DynamilingInfo *dy = [[DynamilingInfo alloc] init];
-        dy.dynamiling      = self;
+        dy.dependentClass  = nil;
         dy.sel             = _cmd;
         act.dynamilingInfo = dy;
         [dynamicActions addObject:act];
@@ -120,6 +113,34 @@
     return nil;
 }
 
+
+- (instancetype)copy {
+    Aling *newLing = [[self.class alloc] init];
+    newLing->dynamicActions = dynamicActions;
+    newLing->listeners      = listeners;
+    newLing->targets        = targets;
+    newLing->status         = status;
+    newLing->error          = error;
+    newLing->safe           = safe;
+    newLing->step           = step;
+    return newLing;
+}
+
+
+- (instancetype)mutableCopy {
+    Aling *newLing = [[self.class alloc] init];
+    newLing->dynamicActions = [dynamicActions mutableCopy];
+    newLing->listeners      = [listeners mutableCopy];
+    newLing->targets        = [targets mutableCopy];
+    newLing->status         = status;
+    newLing->error          = error;
+    newLing->safe           = safe;
+    newLing->step           = step;
+    return newLing;
+}
+
+#pragma mark - Others
+
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id  _Nullable [])buffer count:(NSUInteger)len {
     return [targets countByEnumeratingWithState:state objects:buffer count:len];
 }
@@ -132,5 +153,5 @@
 @end
 
 id _Nonnull DelingWith(Aling * _Nonnull ling) {
-    return ling.count == 1 ? ling.target : ling.targets;
+    return ling.itemCount == 1 ? ling.target : ling.targets;
 }

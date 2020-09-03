@@ -1,5 +1,5 @@
 //
-//  AlingReturnAction.h
+//  AlingStopAction.h
 //  Objcling
 //
 //  Created by meterwhite on 2020/8/28.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AlingReturnAction : AlingAction
+@interface AlingStopAction : AlingAction
 
 @end
 

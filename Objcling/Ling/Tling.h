@@ -11,12 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 类型化的链条
+/// 类型链
 @interface Tling<__covariant TargetType> : Aling
 
-#pragma mark - 链拆箱
+#pragma mark - 拆箱
 
-/// 如果是多链（lings）返回数组
+/// 如果是多链（lings）返回数组形式
 - (TargetType)get;
 
 - (bool)getBool;
@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary *)getDictionary;
 
+#pragma mark - 功能
+
 #define iss(...) sub_iss(__VA_ARGS__)
 /// 判断
 @property (nonatomic,readonly) bool (^iss)(id CODE_OBJx);
@@ -45,22 +47,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,readonly) bool (^predicated)(NSPredicate *predicate);
 
-/// 接收通知
-@property (nonatomic,readonly) Tling *(^notifiedIN)(NSNotificationName nam,TlingNotifiedIN block);
+/// 在闭包中接收通知
+@property (nonatomic,readonly) Tling *(^notifiedIN)(NSNotificationName nam, TlingNotifiedIN block);
 
 #pragma mark - 控制
 
-/// 这是非动态链的结束语法。有两个功能：抛出执行中的异常。消除未获取变量警告。
+/// 这是非动态链的结束语法。有两个功能：抛出存在的异常。在代码层面上消除未获取变量警告。
 @property (nonatomic,readonly) void(^done)(void);
 
+/// 不抛出异常
 - (instancetype)trying;
 
+/// 立刻抛出异常，如果存在。
 - (instancetype)throwing;
 
+/// 使用作用到target的谓词控制链条的返回
+@property (nonatomic,readonly) Tling *(^stopWhile)(NSPredicate *predicate);
+
+/// 展开链条，允许返回新的链条。
 @property (nonatomic,readonly) Tling *(^branchIN)(TlingBranchIN block);
 
+/// 断言
 @property (nonatomic,readonly) Tling *(^asserttBy)(NSPredicate *predicate);
 
+/**
+ * <#...#>
+ */
 #define assertt(...) sub_assertt(__VA_ARGS__)
 @property (nonatomic,readonly) Tling *(^assertt)(id CODE_OBJx);
 

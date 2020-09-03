@@ -6,6 +6,7 @@
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
+#import "TlingStopWhileAction.h"
 #import "TlingNotifiedINAction.h"
 #import "TlingAsserttByAction.h"
 #import "TlingAsserttINAction.h"
@@ -32,7 +33,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return nil;
     }
     step++;
-    if(self.count > 1) return self.targets;
+    if(self.itemCount > 1) return self.targets;
     return self.target;
 }
 
@@ -43,7 +44,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return false;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     /// 数字，字符串
     if([x respondsToSelector:@selector(boolValue)]) {
@@ -59,7 +60,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return 0;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     /// 数字，字符串
     if([x respondsToSelector:@selector(integerValue)]) {
@@ -75,7 +76,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return 0;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     /// 数字，字符串
     if([x respondsToSelector:@selector(unsignedIntegerValue)]) {
@@ -93,7 +94,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return 0.0;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     /// 数字，字符串
     if([x respondsToSelector:@selector(floatValue)]) {
@@ -109,7 +110,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return 0.0;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     /// 数字，字符串
     if([x respondsToSelector:@selector(doubleValue)]) {
@@ -125,7 +126,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return nil;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     /// 数字  字符串  类
     if([x isKindOfClass:NSString.class]) return x;
@@ -141,7 +142,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return nil;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     if([x isKindOfClass:NSArray.class]) return x;
     if([x respondsToSelector:@selector(allObjects)]) return [x allObjects];
@@ -156,7 +157,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return nil;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     if([x isKindOfClass:NSDictionary.class]) return x;
     if([x respondsToSelector:@selector(dictionaryRepresentation)]) return [x dictionaryRepresentation];
@@ -171,7 +172,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return nil;
     }
     step++;
-    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    NSAssert(self.itemCount == 1, @"Cannot be applied to lings");
     id x = self.target;
     /// 字符串， 数字
     if([x isKindOfClass:NSNumber.class]) return x;
@@ -182,16 +183,12 @@ NSDictionary *arrayToDictionary(NSArray *a);
 - (bool (^)(TlingConditionIN))issIN {
     return ^bool(TlingConditionIN block) {
         NSAssert(self->status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
-        if(self.error) {
+        if(self->error) {
             if(self->safe > AlingSafeKindTrying) @throw self->error;
             return false;
         }
         return block ? block(DelingWith(self)) : false;
     };
-}
-
-- (bool (^)(id _Nonnull))iss {
-    return self.issIN;
 }
 
 - (bool (^)(NSPredicate * _Nonnull))predicated {
@@ -282,6 +279,31 @@ NSDictionary *arrayToDictionary(NSArray *a);
     return self;
 }
 
+- (Tling * _Nonnull (^)(NSPredicate * _Nonnull))stopWhile {
+    return ^ Tling *(NSPredicate *p) {
+        if(self->status == AlingStatusReturning) return self;
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        if(self->status == AlingStatusFuture) {
+            TlingStopWhileAction *act = [[TlingStopWhileAction alloc] init];
+            DynamilingInfo *info = [[DynamilingInfo alloc] init];
+            info.dependentClass  = self.dependentClass;
+            info.sel             = @selector(asserttBy);
+            act.dynamilingInfo   = info;
+            act.predicate        = p;
+            [self->dynamicActions addObject:act];
+            return self;
+        }
+        self->step++;
+        if([p evaluateWithObject:DelingWith(self)]) {
+            self->status = AlingStatusReturning;
+        }
+        return self;
+    };
+}
+
 - (Tling * _Nonnull (^)(TlingBranchIN block))branchIN {
     return ^ Tling *(TlingBranchIN block) {
         if(self->status == AlingStatusReturning) return self;
@@ -349,11 +371,6 @@ NSDictionary *arrayToDictionary(NSArray *a);
         return self;
     };
 }
-
-- (Tling * _Nonnull (^)(id _Nonnull))assertt {
-    return self.asserttIN;
-}
-
 
 #pragma mark - 动态化
 
@@ -439,6 +456,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
     for (AlingAction *act in dynamicActions) {
         act.dynamilingInfo.dynamiling = _self;
         for (id x in targets) {
+            /// 控制
             if(_self->status == AlingStatusReturning) {
                 goto CALL_END;
             }
@@ -448,10 +466,11 @@ NSDictionary *arrayToDictionary(NSArray *a);
             }
             if(act.dynamilingInfo.dependentClass) {
                 if(![x isKindOfClass:act.dynamilingInfo.dependentClass]) {
-                    [_self pushError:[[TlingErr allocWith:(_self.count > 1) ? _self.targets : self.target] initForKind:act.dynamilingInfo.dependentClass sel:act.dynamilingInfo.sel]];
+                    [_self pushError:[[TlingErr allocWith:(_self.itemCount > 1) ? _self.targets : self.target] initForKind:act.dynamilingInfo.dependentClass sel:act.dynamilingInfo.sel]];
                     goto CALL_END;
                 }
             }
+            /// 调用
             [act setTarget:x];
             id newTag = [act sendMsg:&err];
             if(err) {
@@ -459,7 +478,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
                 goto CALL_END;
             }
             if(newTag) {
-                if(self.count == 1) {
+                if(self.itemCount == 1) {
                     [_self switchTarget:newTag];
                 } else {
                     [_self->targets replaceObjectAtIndex:index withObject:newTag];
