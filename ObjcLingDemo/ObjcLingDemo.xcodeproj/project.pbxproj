@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181DABC424FAC47400C21E42 /* TlingNotifiedINAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABC324FAC47400C21E42 /* TlingNotifiedINAction.m */; };
+		181DABC724FB45EA00C21E42 /* TlingTryingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABC624FB45EA00C21E42 /* TlingTryingAction.m */; };
+		181DABCA24FB460700C21E42 /* TlingThrowingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABC924FB460700C21E42 /* TlingThrowingAction.m */; };
+		181DABCD24FB464B00C21E42 /* TlingBranchINAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABCC24FB464B00C21E42 /* TlingBranchINAction.m */; };
+		181DABD024FB468800C21E42 /* TlingAsserttINAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABCF24FB468800C21E42 /* TlingAsserttINAction.m */; };
+		181DABD324FB469C00C21E42 /* TlingAsserttByAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABD224FB469C00C21E42 /* TlingAsserttByAction.m */; };
 		182620B424F79AE50006DA86 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620B324F79AE50006DA86 /* AppDelegate.m */; };
 		182620B724F79AE50006DA86 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620B624F79AE50006DA86 /* SceneDelegate.m */; };
 		182620BA24F79AE50006DA86 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620B924F79AE50006DA86 /* ViewController.m */; };
@@ -21,7 +27,6 @@
 		1826210724F79B130006DA86 /* Tling.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620D324F79B130006DA86 /* Tling.m */; };
 		1826210824F79B130006DA86 /* NSObject+Objcling.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620DA24F79B130006DA86 /* NSObject+Objcling.m */; };
 		1826210924F79B130006DA86 /* TlingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620DE24F79B130006DA86 /* TlingController.m */; };
-		1826210A24F79B130006DA86 /* TlingBranchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620E624F79B130006DA86 /* TlingBranchAction.m */; };
 		1826210B24F79B130006DA86 /* AlingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620E824F79B130006DA86 /* AlingAction.m */; };
 		1826210C24F79B130006DA86 /* NSObjectling_more.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620EC24F79B130006DA86 /* NSObjectling_more.m */; };
 		1826210D24F79B130006DA86 /* NSObjectling_moreN.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620ED24F79B130006DA86 /* NSObjectling_moreN.m */; };
@@ -34,9 +39,22 @@
 		1826211424F79B130006DA86 /* TButtonling.m in Sources */ = {isa = PBXBuildFile; fileRef = 182620F724F79B130006DA86 /* TButtonling.m */; };
 		1826211524F79B130006DA86 /* TNumberling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1826210124F79B130006DA86 /* TNumberling.m */; };
 		1826211624F79B130006DA86 /* TValueling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1826210224F79B130006DA86 /* TValueling.m */; };
+		1882290E24F89668007213D8 /* AlingReturnAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882290D24F89668007213D8 /* AlingReturnAction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181DABC224FAC47400C21E42 /* TlingNotifiedINAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingNotifiedINAction.h; sourceTree = "<group>"; };
+		181DABC324FAC47400C21E42 /* TlingNotifiedINAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingNotifiedINAction.m; sourceTree = "<group>"; };
+		181DABC524FB45EA00C21E42 /* TlingTryingAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingTryingAction.h; sourceTree = "<group>"; };
+		181DABC624FB45EA00C21E42 /* TlingTryingAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingTryingAction.m; sourceTree = "<group>"; };
+		181DABC824FB460700C21E42 /* TlingThrowingAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingThrowingAction.h; sourceTree = "<group>"; };
+		181DABC924FB460700C21E42 /* TlingThrowingAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingThrowingAction.m; sourceTree = "<group>"; };
+		181DABCB24FB464B00C21E42 /* TlingBranchINAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingBranchINAction.h; sourceTree = "<group>"; };
+		181DABCC24FB464B00C21E42 /* TlingBranchINAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingBranchINAction.m; sourceTree = "<group>"; };
+		181DABCE24FB468800C21E42 /* TlingAsserttINAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingAsserttINAction.h; sourceTree = "<group>"; };
+		181DABCF24FB468800C21E42 /* TlingAsserttINAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingAsserttINAction.m; sourceTree = "<group>"; };
+		181DABD124FB469C00C21E42 /* TlingAsserttByAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingAsserttByAction.h; sourceTree = "<group>"; };
+		181DABD224FB469C00C21E42 /* TlingAsserttByAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingAsserttByAction.m; sourceTree = "<group>"; };
 		182620AF24F79AE40006DA86 /* ObjclingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjclingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		182620B224F79AE50006DA86 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		182620B324F79AE50006DA86 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -67,8 +85,6 @@
 		182620E024F79B130006DA86 /* LingCoreConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LingCoreConnect.h; sourceTree = "<group>"; };
 		182620E124F79B130006DA86 /* LingDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LingDefines.h; sourceTree = "<group>"; };
 		182620E324F79B130006DA86 /* AlingAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlingAction.h; sourceTree = "<group>"; };
-		182620E524F79B130006DA86 /* TlingBranchAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TlingBranchAction.h; sourceTree = "<group>"; };
-		182620E624F79B130006DA86 /* TlingBranchAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TlingBranchAction.m; sourceTree = "<group>"; };
 		182620E824F79B130006DA86 /* AlingAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlingAction.m; sourceTree = "<group>"; };
 		182620EA24F79B130006DA86 /* NSObjectling_moreN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectling_moreN.h; sourceTree = "<group>"; };
 		182620EB24F79B130006DA86 /* NSObjectling_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectling_log.h; sourceTree = "<group>"; };
@@ -92,6 +108,8 @@
 		1826210024F79B130006DA86 /* TObjectling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TObjectling.h; sourceTree = "<group>"; };
 		1826210124F79B130006DA86 /* TNumberling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNumberling.m; sourceTree = "<group>"; };
 		1826210224F79B130006DA86 /* TValueling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TValueling.m; sourceTree = "<group>"; };
+		1882290C24F89668007213D8 /* AlingReturnAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlingReturnAction.h; sourceTree = "<group>"; };
+		1882290D24F89668007213D8 /* AlingReturnAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlingReturnAction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,46 +230,57 @@
 			children = (
 				182620E324F79B130006DA86 /* AlingAction.h */,
 				182620E824F79B130006DA86 /* AlingAction.m */,
-				182620E424F79B130006DA86 /* Manual */,
-				182620E724F79B130006DA86 /* NSArrayling */,
-				182620E924F79B130006DA86 /* NSObjecttring */,
+				182620E424F79B130006DA86 /* Dynamiling */,
+				182620E724F79B130006DA86 /* TArrayling */,
+				182620E924F79B130006DA86 /* TObjecttring */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
 		};
-		182620E424F79B130006DA86 /* Manual */ = {
+		182620E424F79B130006DA86 /* Dynamiling */ = {
 			isa = PBXGroup;
 			children = (
-				182620E524F79B130006DA86 /* TlingBranchAction.h */,
-				182620E624F79B130006DA86 /* TlingBranchAction.m */,
+				1882290C24F89668007213D8 /* AlingReturnAction.h */,
+				1882290D24F89668007213D8 /* AlingReturnAction.m */,
+				181DABC224FAC47400C21E42 /* TlingNotifiedINAction.h */,
+				181DABC324FAC47400C21E42 /* TlingNotifiedINAction.m */,
+				181DABC524FB45EA00C21E42 /* TlingTryingAction.h */,
+				181DABC624FB45EA00C21E42 /* TlingTryingAction.m */,
+				181DABC824FB460700C21E42 /* TlingThrowingAction.h */,
+				181DABC924FB460700C21E42 /* TlingThrowingAction.m */,
+				181DABCB24FB464B00C21E42 /* TlingBranchINAction.h */,
+				181DABCC24FB464B00C21E42 /* TlingBranchINAction.m */,
+				181DABCE24FB468800C21E42 /* TlingAsserttINAction.h */,
+				181DABCF24FB468800C21E42 /* TlingAsserttINAction.m */,
+				181DABD124FB469C00C21E42 /* TlingAsserttByAction.h */,
+				181DABD224FB469C00C21E42 /* TlingAsserttByAction.m */,
 			);
-			path = Manual;
+			path = Dynamiling;
 			sourceTree = "<group>";
 		};
-		182620E724F79B130006DA86 /* NSArrayling */ = {
+		182620E724F79B130006DA86 /* TArrayling */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = NSArrayling;
+			path = TArrayling;
 			sourceTree = "<group>";
 		};
-		182620E924F79B130006DA86 /* NSObjecttring */ = {
+		182620E924F79B130006DA86 /* TObjecttring */ = {
 			isa = PBXGroup;
 			children = (
-				182620EA24F79B130006DA86 /* NSObjectling_moreN.h */,
 				182620EB24F79B130006DA86 /* NSObjectling_log.h */,
-				182620EC24F79B130006DA86 /* NSObjectling_more.m */,
-				182620ED24F79B130006DA86 /* NSObjectling_moreN.m */,
 				182620EE24F79B130006DA86 /* NSObjectling_log.m */,
 				182620EF24F79B130006DA86 /* NSObjectling_more.h */,
+				182620EC24F79B130006DA86 /* NSObjectling_more.m */,
+				182620EA24F79B130006DA86 /* NSObjectling_moreN.h */,
+				182620ED24F79B130006DA86 /* NSObjectling_moreN.m */,
 			);
-			path = NSObjecttring;
+			path = TObjecttring;
 			sourceTree = "<group>";
 		};
 		182620F024F79B130006DA86 /* AnyObject */ = {
 			isa = PBXGroup;
 			children = (
-				182620FF24F79B130006DA86 /* New Group */,
 				182620FD24F79B130006DA86 /* TArrayling.h */,
 				182620F324F79B130006DA86 /* TArrayling.m */,
 				182620FC24F79B130006DA86 /* TDictionaryling.h */,
@@ -272,19 +301,12 @@
 		182620F524F79B130006DA86 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				182620F624F79B130006DA86 /* TViewling.m */,
+				182620F924F79B130006DA86 /* TButtonling.h */,
 				182620F724F79B130006DA86 /* TButtonling.m */,
 				182620F824F79B130006DA86 /* TViewling.h */,
-				182620F924F79B130006DA86 /* TButtonling.h */,
+				182620F624F79B130006DA86 /* TViewling.m */,
 			);
 			path = UIKit;
-			sourceTree = "<group>";
-		};
-		182620FF24F79B130006DA86 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,15 +383,19 @@
 				1826211024F79B130006DA86 /* TStringling.m in Sources */,
 				1826210E24F79B130006DA86 /* NSObjectling_log.m in Sources */,
 				1826211124F79B130006DA86 /* TArrayling.m in Sources */,
-				1826210A24F79B130006DA86 /* TlingBranchAction.m in Sources */,
+				181DABC424FAC47400C21E42 /* TlingNotifiedINAction.m in Sources */,
 				1826211224F79B130006DA86 /* TObjectling.m in Sources */,
 				1826210D24F79B130006DA86 /* NSObjectling_moreN.m in Sources */,
 				1826210924F79B130006DA86 /* TlingController.m in Sources */,
 				182620BA24F79AE50006DA86 /* ViewController.m in Sources */,
+				181DABD324FB469C00C21E42 /* TlingAsserttByAction.m in Sources */,
 				182620B424F79AE50006DA86 /* AppDelegate.m in Sources */,
 				1826211624F79B130006DA86 /* TValueling.m in Sources */,
 				1826210524F79B130006DA86 /* DynamilingInfo.m in Sources */,
+				181DABCD24FB464B00C21E42 /* TlingBranchINAction.m in Sources */,
+				181DABD024FB468800C21E42 /* TlingAsserttINAction.m in Sources */,
 				1826210824F79B130006DA86 /* NSObject+Objcling.m in Sources */,
+				181DABCA24FB460700C21E42 /* TlingThrowingAction.m in Sources */,
 				182620C524F79AEA0006DA86 /* main.m in Sources */,
 				1826210324F79B130006DA86 /* TlingErr.m in Sources */,
 				1826210C24F79B130006DA86 /* NSObjectling_more.m in Sources */,
@@ -377,7 +403,9 @@
 				1826211324F79B130006DA86 /* TViewling.m in Sources */,
 				1826211524F79B130006DA86 /* TNumberling.m in Sources */,
 				1826210724F79B130006DA86 /* Tling.m in Sources */,
+				1882290E24F89668007213D8 /* AlingReturnAction.m in Sources */,
 				1826210424F79B130006DA86 /* TlingListener.m in Sources */,
+				181DABC724FB45EA00C21E42 /* TlingTryingAction.m in Sources */,
 				1826210B24F79B130006DA86 /* AlingAction.m in Sources */,
 				1826211424F79B130006DA86 /* TButtonling.m in Sources */,
 				182620B724F79AE50006DA86 /* SceneDelegate.m in Sources */,

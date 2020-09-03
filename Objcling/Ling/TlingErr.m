@@ -2,15 +2,15 @@
 //  TlingErr.m
 //  Objcling
 //
-//  Created by MeterWhite on 2020/8/15.
+//  Created by meterwhite on 2020/8/15.
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
 #import "TlingErr.h"
 
 @implementation TlingErr
-@synthesize sender  = _sender;
-@synthesize step    = _step;
+@synthesize sender = _sender;
+@synthesize step   = _step;
 
 + (instancetype)allocWith:(id)sender{
     TlingErr *err = [self alloc];

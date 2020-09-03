@@ -2,10 +2,12 @@
 //  Aling.m
 //  Objcling
 //
-//  Created by MeterWhite on 2020/8/15.
+//  Created by meterwhite on 2020/8/15.
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
+#import "AlingReturnAction.h"
+#import "DynamilingInfo.h"
 #import "TlingErr.h"
 #import "Aling.h"
 
@@ -21,8 +23,8 @@
     if (self) {
         dynamicActions = [NSMutableArray arrayWithCapacity:0];
         listeners      = [NSMutableArray arrayWithCapacity:0];
-        safe   = ALingSafeKindTriggering;
-        status = ALingStatusExecuting;
+        safe   = AlingSafeKindTriggering;
+        status = AlingStatusExecuting;
     }
     return self;
 }
@@ -92,13 +94,26 @@
 - (void)pushError:(TlingErr *)err {
     err.step = step;
     error    = err;
-    if(safe == ALingSafeKindThrowing) {
+    if(safe == AlingSafeKindThrowing) {
         @throw error;
     }
 }
 
-- (void)returnLing {
-    status = ALingStatusReturning;
+- (instancetype)returnn {
+    if(status == AlingStatusReturning || error) {
+        return self;
+    }
+    if(status == AlingStatusFuture) {
+        AlingReturnAction *act = [[AlingReturnAction alloc] init];
+        DynamilingInfo *dy = [[DynamilingInfo alloc] init];
+        dy.dynamiling      = self;
+        dy.sel             = _cmd;
+        act.dynamilingInfo = dy;
+        [dynamicActions addObject:act];
+    } else {
+        status = AlingStatusReturning;        
+    }
+    return self;
 }
 
 - (Class)dependentClass {
@@ -115,3 +130,7 @@
 }
 #endif
 @end
+
+id _Nonnull DelingWith(Aling * _Nonnull ling) {
+    return ling.count == 1 ? ling.target : ling.targets;
+}

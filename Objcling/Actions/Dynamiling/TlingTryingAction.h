@@ -1,8 +1,8 @@
 //
-//  NSObjectling_more.h
+//  TlingTryingAction.h
 //  Objcling
 //
-//  Created by MeterWhite on 2020/8/19.
+//  Created by meterwhite on 2020/8/30.
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
@@ -10,12 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObjectling_more : AlingAction
-<
-    TlingParametric
->
-
-@property id at0;
+@interface TlingTryingAction : AlingAction
 
 @end
 

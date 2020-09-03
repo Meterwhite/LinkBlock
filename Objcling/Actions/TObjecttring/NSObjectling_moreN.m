@@ -2,7 +2,7 @@
 //  NSObjectling_moreN.m
 //  Objcling
 //
-//  Created by MeterWhite on 2020/8/17.
+//  Created by meterwhite on 2020/8/17.
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
@@ -30,7 +30,7 @@ NSDecimalNumber *more_number (NSObjectling_moreN* ling);
 }
 
 
-#pragma mark - TLingParametric
+#pragma mark - TlingParametric
 - (id)sendMsg:(TlingErr * _Nullable __autoreleasing *)err {
     Class clz = object_getClass(self.target);
     if([clz isSubclassOfClass:NSString.class]) {
@@ -47,7 +47,7 @@ NSDecimalNumber *more_number (NSObjectling_moreN* ling);
     return 1;
 }
 
-#pragma mark - TLingVariableParametric
+#pragma mark - TlingVariableParametric
 - (NSMutableArray *)arrayForValist {
     return self.args;
 }

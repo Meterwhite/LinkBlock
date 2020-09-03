@@ -2,12 +2,14 @@
 //  AlingAction.h
 //  Objcling
 //
-//  Created by MeterWhite on 2020/8/16.
+//  Created by meterwhite on 2020/8/16.
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-@class TlingErr,DynamilingInfo;
+
+@class Tling,TlingErr,DynamilingInfo;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /// Parametric Type Link.
@@ -33,13 +35,16 @@ NS_ASSUME_NONNULL_BEGIN
     Class dependentClass;
 }
 
-#pragma mark - User rewrite
 
 @property (nonatomic) id target;
 
 @property (nonatomic) NSUInteger step;
 
 @property (nonatomic) DynamilingInfo *dynamilingInfo;
+
+@property (nonatomic, readonly)  Tling *dynamiling;
+
+#pragma mark - 可重写
 
 /// return: return new target while not nil;
 - (nullable id)sendMsg:(TlingErr *_Nullable*_Nullable)err;

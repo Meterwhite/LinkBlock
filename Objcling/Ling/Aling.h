@@ -2,37 +2,43 @@
 //  Aling.h
 //  Objcling
 //
-//  Created by MeterWhite on 2020/8/15.
+//  Created by meterwhite on 2020/8/15.
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-typedef enum : NSUInteger {
-    ALingSafeKindTrying    ,
-    ALingSafeKindTriggering,
-    ALingSafeKindThrowing  ,
-} ALingSafeKind;
+@class Aling, TlingErr, AlingAction, TlingListener;
 
 typedef enum : NSUInteger {
-    ALingStatusExecuting,
-    ALingStatusReturning,
-    ALingStatusFuture   ,
-} ALingStatus;
+    AlingSafeKindTrying    ,
+    AlingSafeKindTriggering,
+    AlingSafeKindThrowing  ,
+} AlingSafeKind;
 
-@class TlingErr, AlingAction, TlingListener;
+typedef enum : NSUInteger {
+    /// 状态为执行中
+    AlingStatusExecuting,
+    /// 状态为返回
+    AlingStatusReturning,
+    /// 状态为动态的
+    AlingStatusFuture   ,
+} AlingStatus;
+
+/// 拆链
+id _Nonnull DelingWith(Aling * _Nonnull ling);
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Aling<__covariant TargetType> : NSObject<NSFastEnumeration> {
 @public
-    NSMutableArray<TargetType>   *targets;
-    NSMutableArray<AlingAction*> *dynamicActions;
-    NSMutableArray<TlingListener*> *listeners;
-    ALingSafeKind   safe;
-    NSUInteger      step;
-    ALingStatus     status;
-    TlingErr        *error;
+    NSMutableArray<AlingAction *>   *dynamicActions;
+    NSMutableArray<TlingListener *> *listeners;
+    NSMutableArray<TargetType>      *targets;
+    AlingStatus   status;
+    TlingErr      *error;
+    AlingSafeKind safe;
+    NSUInteger    step;
 }
 
 - (TargetType)target;
@@ -53,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pushError:(TlingErr *)err;
 
-- (void)returnLing;
+- (instancetype)returnn;
 
 - (NSUInteger)count;
 

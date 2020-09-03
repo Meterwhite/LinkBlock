@@ -2,163 +2,483 @@
 //  Tling.m
 //  Objcling
 //
-//  Created by MeterWhite on 2020/8/16.
+//  Created by meterwhite on 2020/8/16.
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
-#import "TlingBranchAction.h"
+#import "TlingNotifiedINAction.h"
+#import "TlingAsserttByAction.h"
+#import "TlingAsserttINAction.h"
+#import "TlingThrowingAction.h"
+#import "TlingBranchINAction.h"
+#import "TlingTryingAction.h"
 #import "DynamilingInfo.h"
 #import "TlingListener.h"
+#import <objc/runtime.h>
 #import "TObjectling.h"
 #import "AlingAction.h"
 #import "LingDefines.h"
 #import "TlingErr.h"
 #import "Tling.h"
 
+NSDictionary *arrayToDictionary(NSArray *a);
+
 @implementation Tling
 
-//- (Tling * _Nonnull (^)(TlingBranchIN block))branchIN {
-//    return ^ Tling *(TlingBranchIN block) {
-//        // 需要增加act
-//        if(self->status == ALingStatusFuture) {
-//            TlingBranchAction *act = [[TlingBranchAction alloc] init];
-//        }
-//        return block ? block(self) : self;
-//    };
-//}
-
-- (Tling *(^)(NSNotificationName _Nonnull))notifiedDone {
-    if(error) {
-        if(safe > ALingSafeKindTrying) {
-            @throw error;
-            return nil;
-        } else {
-            return ^Tling *(NSNotificationName nam){
-                return self;
-            };
-        }
-    }
-    return ^Tling *(NSNotificationName nam){
-        __weak typeof(self) welf = self;
-        TlingListener *lis = [[TlingListener alloc] initWithNotice:nam];
-        [lis setWhenNotified:^(NSNotification * _Nonnull ntf) {
-            [welf dynamicInvoke];
-        }];
-        [self->listeners addObject:lis];
-        return self;
-    };
-}
-
-- (Tling * _Nonnull (^)(NSNotificationName _Nonnull, TlingNotifiedIN))notifiedIN {
-    if(error) {
-        if(safe > ALingSafeKindTrying) {
-            @throw error;
-            return nil;
-        } else {
-            return ^Tling *(NSNotificationName nam, TlingNotifiedIN block){
-                return self;
-            };
-        }
-    }
-    return ^Tling *(NSNotificationName nam, TlingNotifiedIN block){
-        TlingListener *lis = [[TlingListener alloc] initWithNotice:nam];
-        __weak typeof(self) welf = self;
-        [lis setWhenNotified:^(NSNotification * _Nonnull ntf) {
-            if(!block) return;
-            if(welf.count == 1) {
-                block(welf.target, ntf);
-            } else {
-                block(welf.targets, ntf);
-            }
-        }];
-        [self->listeners addObject:lis];
-        return self;
-    };
-}
-
-- (bool (^)(TlingConditionIN))issIN {
-    return ^bool(TlingConditionIN block){
-        if(self.error) {
-            return false;
-        }
-        if(self->status == ALingStatusFuture) {
-            [self dynamicInvoke];
-        }
-        return block ? block(self) : false;
-    };
-}
-
 - (id)get {
-    if(status == ALingStatusFuture) {
-        [self dynamicInvoke];
-    }
-    if(error && safe > ALingSafeKindTrying) {
-        @throw error;
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
         return nil;
     }
-    step ++;
+    step++;
     if(self.count > 1) return self.targets;
     return self.target;
 }
 
-- (instancetype)will {
-    step ++;
-    status = ALingStatusFuture;
-    return self;
+- (bool)getBool {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return false;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    /// 数字，字符串
+    if([x respondsToSelector:@selector(boolValue)]) {
+        return [x boolValue];
+    }
+    return x;
+}
+
+- (NSInteger)getInt {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return 0;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    /// 数字，字符串
+    if([x respondsToSelector:@selector(integerValue)]) {
+        return [x integerValue];
+    }
+    return 0;
+}
+
+- (NSUInteger)getUInt {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return 0;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    /// 数字，字符串
+    if([x respondsToSelector:@selector(unsignedIntegerValue)]) {
+        return [x unsignedIntegerValue];
+    } else if([x isKindOfClass:NSString.class]) {
+        return [[NSDecimalNumber decimalNumberWithString:x] unsignedIntegerValue];
+    }
+    return 0;
+}
+
+- (float)getFloat {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return 0.0;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    /// 数字，字符串
+    if([x respondsToSelector:@selector(floatValue)]) {
+        return [x floatValue];
+    }
+    return 0.0;
+}
+
+- (double)getDouble {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return 0.0;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    /// 数字，字符串
+    if([x respondsToSelector:@selector(doubleValue)]) {
+        return [x doubleValue];
+    }
+    return 0;
+}
+
+- (NSString *)getString {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return nil;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    /// 数字  字符串  类
+    if([x isKindOfClass:NSString.class]) return x;
+    if([x isKindOfClass:NSValue.class]) return [x stringValue];
+    if(object_isClass(x)) return NSStringFromClass(x);
+    return [x description];
+}
+
+- (NSArray *)getArray {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return nil;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    if([x isKindOfClass:NSArray.class]) return x;
+    if([x respondsToSelector:@selector(allObjects)]) return [x allObjects];
+    if([x respondsToSelector:@selector(array)]) return [x array];
+    return nil;
+}
+
+- (NSDictionary *)getDictionary {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return nil;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    if([x isKindOfClass:NSDictionary.class]) return x;
+    if([x respondsToSelector:@selector(dictionaryRepresentation)]) return [x dictionaryRepresentation];
+    if([x isKindOfClass:NSArray.class]) return arrayToDictionary(x);
+    return nil;
+}
+
+- (NSNumber *)getNumber {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return nil;
+    }
+    step++;
+    NSAssert(self.count == 1, @"Cannot be applied to lings");
+    id x = self.target;
+    /// 字符串， 数字
+    if([x isKindOfClass:NSNumber.class]) return x;
+    if([x isKindOfClass:NSString.class]) return [NSDecimalNumber decimalNumberWithString:x];
+    return nil;
+}
+
+- (bool (^)(TlingConditionIN))issIN {
+    return ^bool(TlingConditionIN block) {
+        NSAssert(self->status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+        if(self.error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return false;
+        }
+        return block ? block(DelingWith(self)) : false;
+    };
+}
+
+- (bool (^)(id _Nonnull))iss {
+    return self.issIN;
+}
+
+- (bool (^)(NSPredicate * _Nonnull))predicated {
+    return ^bool(NSPredicate *p) {
+        NSAssert(self->status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return false;
+        }
+        return [p evaluateWithObject:DelingWith(self)];
+    };
+}
+
+- (Tling * _Nonnull (^)(NSNotificationName _Nonnull, TlingNotifiedIN))notifiedIN {
+    return ^Tling *(NSNotificationName nam, TlingNotifiedIN block) {
+        if(self->status == AlingStatusReturning) return self;
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        if(self->status == AlingStatusFuture) {
+            TlingNotifiedINAction *act = [[TlingNotifiedINAction alloc] init];
+            DynamilingInfo *info    = [[DynamilingInfo alloc] init];
+            info.dependentClass     = self.dependentClass;
+            info.sel                = _cmd;
+            act.dynamilingInfo      = info;
+            
+            [self->dynamicActions addObject:act];
+        }
+        self->step++;
+        TlingListener *lis = [[TlingListener alloc] initWithNotice:nam];
+        __weak typeof(self) welf = self;
+        [lis setWhenNotified:^(NSNotification * _Nonnull ntf) {
+            if(!block) return;
+            block(DelingWith(welf), ntf);
+        }];
+        [self->listeners addObject:lis];
+        return self;
+    };
 }
 
 - (void(^)(void))done {
-    if(status == ALingStatusFuture) {
-        [self dynamicInvoke];
-    }
-    if(error && safe > ALingSafeKindTrying) {
+    NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
+    if(error && safe > AlingSafeKindTrying) {
         @throw error;
     }
-    step ++;
-    return ^(){};
+    step++;
+    return ^() {};
 }
 
 - (instancetype)trying {
-    step ++;
-    safe = ALingSafeKindTrying;
+    if(status == AlingStatusReturning) return self;
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return nil;
+    }
+    if(status == AlingStatusFuture) {
+        TlingTryingAction *act  = [[TlingTryingAction alloc] init];
+        DynamilingInfo *info    = [[DynamilingInfo alloc] init];
+        info.dependentClass     = self.dependentClass;
+        info.sel                = _cmd;
+        act.dynamilingInfo      = info;
+        [dynamicActions addObject:act];
+        return self;
+    }
+    step++;
+    safe = AlingSafeKindTrying;
     return self;
 }
 
 - (instancetype)throwing {
-    step ++;
-    safe = ALingSafeKindThrowing;
+    if(status == AlingStatusReturning) return self;
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
+        return nil;
+    }
+    if(status == AlingStatusFuture) {
+        TlingThrowingAction *act  = [[TlingThrowingAction alloc] init];
+        DynamilingInfo *info    = [[DynamilingInfo alloc] init];
+        info.dependentClass     = self.dependentClass;
+        info.sel                = _cmd;
+        act.dynamilingInfo      = info;
+        [dynamicActions addObject:act];
+        return self;
+    }
+    step++;
+    safe = AlingSafeKindThrowing;
     return self;
 }
 
+- (Tling * _Nonnull (^)(TlingBranchIN block))branchIN {
+    return ^ Tling *(TlingBranchIN block) {
+        if(self->status == AlingStatusReturning) return self;
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        if(self->status == AlingStatusFuture) {
+            TlingBranchINAction *act = [[TlingBranchINAction alloc] init];
+            DynamilingInfo *info   = [[DynamilingInfo alloc] init];
+            info.dependentClass    = self.dependentClass;
+            info.sel               = @selector(branchIN);
+            act.dynamilingInfo     = info;
+            act.block              = [block copy];
+            [self->dynamicActions addObject:act];
+            return self;
+        }
+        self->step++;
+        return block ? block(self) : self;
+    };
+}
+
+- (Tling * _Nonnull (^)(NSPredicate * _Nonnull))asserttBy {
+    return ^ Tling *(NSPredicate *p) {
+        if(self->status == AlingStatusReturning) return self;
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        if(self->status == AlingStatusFuture) {
+            TlingAsserttByAction *act = [[TlingAsserttByAction alloc] init];
+            DynamilingInfo *info   = [[DynamilingInfo alloc] init];
+            info.dependentClass    = self.dependentClass;
+            info.sel               = @selector(asserttBy);
+            act.dynamilingInfo     = info;
+            act.predicate          = p;
+            [self->dynamicActions addObject:act];
+            return self;
+        }
+        self->step++;
+        NSAssert([p evaluateWithObject:DelingWith(self)], @"Failure!");
+        return self;
+    };
+}
+
+- (Tling * _Nonnull (^)(TlingConditionIN))asserttIN {
+    return ^ Tling *(TlingConditionIN block) {
+        if(self->status == AlingStatusReturning) return self;
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        if(self->status == AlingStatusFuture) {
+            TlingAsserttINAction *act = [[TlingAsserttINAction alloc] init];
+            DynamilingInfo *info   = [[DynamilingInfo alloc] init];
+            info.dependentClass    = self.dependentClass;
+            info.sel               = @selector(asserttIN);
+            act.dynamilingInfo     = info;
+            act.block              = block;
+            [self->dynamicActions addObject:act];
+            return self;
+        }
+        self->step++;
+        NSAssert(block ? block(DelingWith(self)) : true, @"Failure!");
+        return self;
+    };
+}
+
+- (Tling * _Nonnull (^)(id _Nonnull))assertt {
+    return self.asserttIN;
+}
+
+
+#pragma mark - 动态化
+
+- (instancetype)will {
+    NSAssert(status != AlingStatusFuture, @"Cannot be dynamized multiple times.");
+    if(self->status == AlingStatusReturning) return self;
+    step++;
+    status = AlingStatusFuture;
+    return self;
+}
+
+- (Tling * _Nonnull (^)(void))go {
+    return ^Tling *(void) {
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        if(self->status == AlingStatusFuture) {
+            return [self dynamilingTrigger:nil s:nil];
+        }
+        self->step++;
+        /// Nothing
+        return self;
+    };
+}
+
+- (Tling * _Nonnull (^)(id _Nonnull))goBy {
+    return ^Tling *(id target) {
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        if(self->status == AlingStatusFuture) {
+            return [self dynamilingTrigger:target s:nil];
+        }
+        self->step++;
+        /// Nothing
+        return self;
+    };
+}
+
+- (Tling * _Nonnull (^)(NSArray * _Nonnull))goBys {
+    return ^Tling *(id targets) {
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        if(self->status == AlingStatusFuture) {
+            return [self dynamilingTrigger:nil s:targets];
+        }
+        self->step++;
+        /// Nothing
+        return self;
+    };
+}
+
+- (Tling *(^)(NSNotificationName _Nonnull))notifiedGo {
+    return ^Tling *(NSNotificationName nam) {
+        NSAssert(self->status != AlingStatusFuture, @"Cannot be applied to non-dynamic ling.");
+        if(self->error) {
+            if(self->safe > AlingSafeKindTrying) @throw self->error;
+            return self;
+        }
+        __weak typeof(self) welf = self;
+        TlingListener *lis = [[TlingListener alloc] initWithNotice:nam];
+        [lis setWhenNotified:^(NSNotification * _Nonnull ntf) {
+            [welf dynamilingTrigger:nil s:nil];
+        }];
+        [self->listeners addObject:lis];
+        self->step++;
+        return self;
+    };
+}
+
 #pragma mark - dynamic
-- (void)dynamicInvoke {
+- (__kindof Aling *)dynamilingTrigger:(id)target s:(id)targets{
     TlingErr *err;
     NSUInteger index = 0;
+    /// 使用模拟的链
+    Tling *_self = [[Tling alloc] init];
+    _self->status  = AlingStatusExecuting;
+    _self->targets = target ?: targets ?: self->targets;
     for (AlingAction *act in dynamicActions) {
+        act.dynamilingInfo.dynamiling = _self;
         for (id x in targets) {
+            if(_self->status == AlingStatusReturning) {
+                goto CALL_END;
+            }
+            if(_self->error) {
+                if(_self->safe > AlingSafeKindTrying) @throw _self->error;
+                goto CALL_END;
+            }
             if(act.dynamilingInfo.dependentClass) {
                 if(![x isKindOfClass:act.dynamilingInfo.dependentClass]) {
-                    [self pushError:[[TlingErr allocWith:(self.count > 1) ? self.targets : self.target] initForKind:act.dynamilingInfo.dependentClass sel:act.dynamilingInfo.sel]];
-                    return;
+                    [_self pushError:[[TlingErr allocWith:(_self.count > 1) ? _self.targets : self.target] initForKind:act.dynamilingInfo.dependentClass sel:act.dynamilingInfo.sel]];
+                    goto CALL_END;
                 }
             }
             [act setTarget:x];
             id newTag = [act sendMsg:&err];
             if(err) {
-                [self pushError:err];
-                return;
+                [_self pushError:err];
+                goto CALL_END;
             }
-            if(newTag){
+            if(newTag) {
                 if(self.count == 1) {
-                    [self switchTarget:newTag];
+                    [_self switchTarget:newTag];
                 } else {
-                    [targets replaceObjectAtIndex:index withObject:newTag];
+                    [_self->targets replaceObjectAtIndex:index withObject:newTag];
                 }
             }
         }
         index++;
-        step++;
+        _self->step++;
     }
+CALL_END: return _self;
 }
 
 @end
+
+
+NSDictionary *arrayToDictionary(NSArray *a) {
+    NSMutableDictionary *d = [NSMutableDictionary dictionary];
+    for (NSInteger i = 0; i < a.count; i++) {
+        d[@(i)] = a[i];
+    }
+    return [d copy];
+}

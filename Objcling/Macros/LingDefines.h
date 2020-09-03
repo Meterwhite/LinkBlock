@@ -2,12 +2,14 @@
 //  ObjclingDefines.h
 //  Objcling
 //
-//  Created by MeterWhite on 2020/8/21.
+//  Created by meterwhite on 2020/8/21.
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
 #ifndef LingDefines_h
 #define LingDefines_h
+
+#import <UIKit/UIKit.h>
 
 #import <Foundation/Foundation.h>
 #import "LingCoreConnect.h"
