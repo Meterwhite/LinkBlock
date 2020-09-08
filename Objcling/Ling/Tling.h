@@ -11,10 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 类型链
+/**
+ * 类型链
+ */
 @interface Tling<__covariant TargetType> : Aling
 
-#pragma mark - 拆箱
+#pragma mark - 拆箱：获取指定类型的值
 
 /// 如果是多链（lings）返回数组形式
 - (TargetType)get;
@@ -50,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 在闭包中接收通知
 @property (nonatomic,readonly) Tling *(^notifiedIN)(NSNotificationName nam, TlingNotifiedIN block);
 
-#pragma mark - 控制
+#pragma mark - 控制（涉及安全，动态，语法，断言）
 
 /// 这是非动态链的结束语法。有两个功能：抛出存在的异常。在代码层面上消除未获取变量警告。
 @property (nonatomic,readonly) void(^done)(void);

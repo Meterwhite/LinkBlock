@@ -19,17 +19,18 @@
 typedef bool(^_Nullable TlingConditionIN)(id _Nonnull x);
 typedef id _Nullable(^_Nullable TlingxIN)(id _Nonnull x);
 typedef id _Nullable(^_Nullable TlingILoopIN)(NSInteger i, id _Nonnull x);
+typedef id _Nullable(^_Nullable TlingLoopForIN)(NSInteger i);
 typedef NSComparisonResult (^_Nullable TlingSortIN)(id _Nonnull x);
 typedef Tling* _Nonnull(^_Nullable TlingBranchIN)(Tling *_Nonnull ling);
 typedef void(^_Nullable TlingNotifiedIN)(id _Nonnull x, NSNotification * _Nonnull ntf);
 
-#define sub_iloop(from, to, ...) \
+#define sub_floop(from, to, ...) \
 OCLING_CORNECT_IF_EQ(2,CORE_CONNECT_ARGCOUNT(__VA_ARGS__)) \
-(iloop(from, to, ^id _Nullable (NSInteger i, OCLING_CORNECT_HEAD(__VA_ARGS__) _Nonnull x) { \
+(floop(from, to, ^id _Nullable (NSInteger i, OCLING_CORNECT_HEAD(__VA_ARGS__) _Nonnull x) { \
     OCLING_CORNECT_TAIL(__VA_ARGS__);\
     return nil; \
 })) \
-(iloop(from, to, ^id _Nullable (NSInteger i, id _Nonnull x) { \
+(floop(from, to, ^id _Nullable (NSInteger i, id _Nonnull x) { \
     __VA_ARGS__;\
     return nil; \
 }))
@@ -74,12 +75,12 @@ OCLING_CORNECT_IF_EQ(2, CORE_CONNECT_ARGCOUNT(__VA_ARGS__)) \
 }))
 
 
-#define sub_sort(...) \
+#define sub_sortt(...) \
 OCLING_CORNECT_IF_EQ(2, CORE_CONNECT_ARGCOUNT(__VA_ARGS__)) \
-(sort(^NSComparisonResult(CORE_CONNECT_ARGCOUNT(__VA_ARGS__) _Nonnull x) { \
+(sortt(^NSComparisonResult(CORE_CONNECT_ARGCOUNT(__VA_ARGS__) _Nonnull x) { \
     OCLING_CORNECT_TAIL(__VA_ARGS__);\
 })) \
-(sort(^NSComparisonResult(id _Nonnull x) { \
+(sortt(^NSComparisonResult(id _Nonnull x) { \
     __VA_ARGS__;\
 }))
 

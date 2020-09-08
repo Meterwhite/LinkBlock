@@ -389,7 +389,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
             return self;
         }
         if(self->status == AlingStatusFuture) {
-            return [self dynamilingTrigger:nil s:nil];
+            return [self dynamilingGo:nil s:nil];
         }
         self->step++;
         /// Nothing
@@ -404,7 +404,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
             return self;
         }
         if(self->status == AlingStatusFuture) {
-            return [self dynamilingTrigger:target s:nil];
+            return [self dynamilingGo:target s:nil];
         }
         self->step++;
         /// Nothing
@@ -419,7 +419,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
             return self;
         }
         if(self->status == AlingStatusFuture) {
-            return [self dynamilingTrigger:nil s:targets];
+            return [self dynamilingGo:nil s:targets];
         }
         self->step++;
         /// Nothing
@@ -429,7 +429,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
 
 - (Tling *(^)(NSNotificationName _Nonnull))notifiedGo {
     return ^Tling *(NSNotificationName nam) {
-        NSAssert(self->status != AlingStatusFuture, @"Cannot be applied to non-dynamic ling.");
+        NSAssert(self->status == AlingStatusFuture, @"Cannot be applied to non-dynamic ling.");
         if(self->error) {
             if(self->safe > AlingSafeKindTrying) @throw self->error;
             return self;
@@ -437,7 +437,7 @@ NSDictionary *arrayToDictionary(NSArray *a);
         __weak typeof(self) welf = self;
         TlingListener *lis = [[TlingListener alloc] initWithNotice:nam];
         [lis setWhenNotified:^(NSNotification * _Nonnull ntf) {
-            [welf dynamilingTrigger:nil s:nil];
+            [welf dynamilingGo:nil s:nil];
         }];
         [self->listeners addObject:lis];
         self->step++;
@@ -446,13 +446,13 @@ NSDictionary *arrayToDictionary(NSArray *a);
 }
 
 #pragma mark - dynamic
-- (__kindof Aling *)dynamilingTrigger:(id)target s:(id)targets{
+- (__kindof Aling *)dynamilingGo:(id)target s:(id)targets{
     TlingErr *err;
     NSUInteger index = 0;
     /// 使用模拟的链
     Tling *_self = [[Tling alloc] init];
     _self->status  = AlingStatusExecuting;
-    _self->targets = target ?: targets ?: self->targets;
+    _self->targets = target ?: targets ?: nil;
     for (AlingAction *act in dynamicActions) {
         act.dynamilingInfo.dynamiling = _self;
         for (id x in targets) {
@@ -474,10 +474,12 @@ NSDictionary *arrayToDictionary(NSArray *a);
             [act setTarget:x];
             id newTag = [act sendMsg:&err];
             if(err) {
+                /// 处理错误
                 [_self pushError:err];
                 goto CALL_END;
             }
             if(newTag) {
+                /// 新的对象
                 if(self.itemCount == 1) {
                     [_self switchTarget:newTag];
                 } else {

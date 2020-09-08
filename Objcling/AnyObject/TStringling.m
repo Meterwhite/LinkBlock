@@ -8,6 +8,10 @@
 
 #import "TStringling.h"
 
+@interface TStringling ()
+
+@end
+
 @implementation TStringling
 
 @end

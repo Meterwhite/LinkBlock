@@ -8,6 +8,10 @@
 
 #import "TNumberling.h"
 
+@interface TNumberling ()
+
+@end
+
 @implementation TNumberling
 
 @end

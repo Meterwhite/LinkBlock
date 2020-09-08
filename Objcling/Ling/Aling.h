@@ -56,8 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pushError:(TlingErr *)err;
 
-- (instancetype)stop;
-
 - (NSUInteger)itemCount;
 
 #pragma mark - Rewriteable
@@ -65,8 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable Class)dependentClass;
 
 /// 拷贝动态链
-- (instancetype)mutableCopy;
-- (instancetype)dynamilingCopy;
+- (id)copy;
+/// 拷贝动态链
+- (id)mutableCopy;
 @end
 
 NS_ASSUME_NONNULL_END

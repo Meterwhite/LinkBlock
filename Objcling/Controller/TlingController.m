@@ -53,6 +53,7 @@ Class getActionClass(__kindof Tling *ling, SEL sel);
         Class   cAct    = cLi[count - 1];
         if(!isASubclass(cAct, cALingAction)) continue;
         NSArray *infos  = [NSStringFromClass(cAct) componentsSeparatedByString:@"_"];
+        if(infos.count != 2) continue;
         Class   cObj    = NSClassFromString([infos firstObject]);
         SEL     selObj  = NSSelectorFromString([infos lastObject]);
         IMP     actImp;
@@ -538,7 +539,7 @@ NS_INLINE bool isASubclass(Class child, Class parent) {
 
 Class getActionClass(__kindof Tling *ling, SEL sel) {
     Class act_class = nil;
-    for (Class lingC = [ling class]; act_class == nil && lingC != _clz_Tling ; lingC = class_getSuperclass(lingC)) {
+    for (Class lingC = object_getClass(ling); act_class == nil && lingC != _clz_Tling ; lingC = class_getSuperclass(lingC)) {
         act_class = NSClassFromString([NSString stringWithFormat:@"%@_%@",NSStringFromClass(lingC),NSStringFromSelector(sel)]);
     }
     return act_class;

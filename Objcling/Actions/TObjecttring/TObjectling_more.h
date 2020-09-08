@@ -1,5 +1,5 @@
 //
-//  NSObjectling_more.h
+//  TObjectling_more.h
 //  Objcling
 //
 //  Created by meterwhite on 2020/8/19.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObjectling_more : AlingAction
+@interface TObjectling_more : AlingAction
 <
     TlingParametric
 >

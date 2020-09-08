@@ -18,8 +18,7 @@
 
 @implementation Aling
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         dynamicActions = [NSMutableArray arrayWithCapacity:0];
@@ -30,8 +29,7 @@
     return self;
 }
 
-- (instancetype)initWithTarget:(id)tag
-{
+- (instancetype)initWithTarget:(id)tag {
     self = [self init];
     if (self) {
         targets = [NSMutableArray arrayWithObject:tag];
@@ -92,27 +90,9 @@
     }
 }
 
-- (instancetype)stop {
-    if(status == AlingStatusReturning || error) {
-        return self;
-    }
-    if(status == AlingStatusFuture) {
-        AlingStopAction *act = [[AlingStopAction alloc] init];
-        DynamilingInfo *dy = [[DynamilingInfo alloc] init];
-        dy.dependentClass  = nil;
-        dy.sel             = _cmd;
-        act.dynamilingInfo = dy;
-        [dynamicActions addObject:act];
-    } else {
-        status = AlingStatusReturning;        
-    }
-    return self;
-}
-
 - (Class)dependentClass {
     return nil;
 }
-
 
 - (instancetype)copy {
     Aling *newLing = [[self.class alloc] init];
@@ -125,7 +105,6 @@
     newLing->step           = step;
     return newLing;
 }
-
 
 - (instancetype)mutableCopy {
     Aling *newLing = [[self.class alloc] init];

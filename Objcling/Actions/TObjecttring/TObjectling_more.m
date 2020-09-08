@@ -1,27 +1,27 @@
 //
-//  NSObjectling_more.m
+//  TObjectling_more.m
 //  Objcling
 //
 //  Created by meterwhite on 2020/8/19.
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "NSObjectling_moreN.h"
-#import "NSObjectling_more.h"
+#import "TObjectling_moreN.h"
+#import "TObjectling_more.h"
 #import <objc/runtime.h>
 
-@interface NSObjectling_more ()
+@interface TObjectling_more ()
 @property (nullable,nonatomic,strong) id args;
 @end
 
-@implementation NSObjectling_more
+@implementation TObjectling_more
 
 - (NSUInteger)count {
     return 1;
 }
 
 - (id)sendMsg:(TlingErr * _Nullable __autoreleasing *)err {
-    IMP imp = class_getMethodImplementation(NSObjectling_moreN.class, _cmd);
+    IMP imp = class_getMethodImplementation(TObjectling_moreN.class, _cmd);
     return ((id(*)(id,SEL,TlingErr**))imp)(self, _cmd, err);
 }
 

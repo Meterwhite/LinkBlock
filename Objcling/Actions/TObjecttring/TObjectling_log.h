@@ -1,5 +1,5 @@
 //
-//  NSObjectling_log.h
+//  TObjectling_log.h
 //  Objcling
 //
 //  Created by meterwhite on 2020/8/16.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObjectling_log : AlingAction
+@interface TObjectling_log : AlingAction
 
 @end
 

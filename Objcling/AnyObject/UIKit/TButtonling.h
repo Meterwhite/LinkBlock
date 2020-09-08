@@ -10,15 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TButtonling;
-
-@protocol TButtonLetling <TViewLetling>
-
-@end
 
 @interface TButtonling : TViewling
-
-- (TButtonling<TButtonLetling>*)let;
 
 @property (readonly) TButtonling *(^textNormal)(NSString *txt);
 @property (readonly) TButtonling *(^textHighlighted)(NSString *txt);
@@ -54,4 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface TButtonling (Generic)
+
+@end
 NS_ASSUME_NONNULL_END

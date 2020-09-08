@@ -8,6 +8,10 @@
 
 #import "TValueling.h"
 
+@interface TValueling ()
+
+@end
+
 @implementation TValueling
 
 @end

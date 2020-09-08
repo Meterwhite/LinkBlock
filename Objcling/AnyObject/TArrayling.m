@@ -8,6 +8,10 @@
 
 #import "TArrayling.h"
 
+@interface TArrayling ()
+
+@end
+
 @implementation TArrayling
 
 @end

@@ -16,10 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 增
 #pragma mark - 删
 #pragma mark - 改
-#define sort(...) sub_sort(__VA_ARGS__)
+#define sortt(...) sub_sortt(__VA_ARGS__)
 /// <#Description#>
-@property (readonly) TArrayling *(^sort)(id CODE_OBJ_x);
-@property (readonly) TArrayling *(^sortIN)(TlingSortIN block);
+@property (readonly) TArrayling *(^sortt)(id CODE_OBJ_x);
+@property (readonly) TArrayling *(^sorttIN)(TlingSortIN block);
 #pragma mark - 查
 #define loopp(from, to, ...) sub_loopp(__VA_ARGS__)
 /// loop([TargetType,] CODE)
@@ -29,8 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) TArrayling *(^filter)(NSPredicate *predicate);
 @property (readonly) TArrayling *(^filterIN)(TlingConditionIN block);
 
-#pragma mark - Array
 @property (readonly) TArrayling *(^at)(NSUInteger idx);
+
+
 
 @end
 

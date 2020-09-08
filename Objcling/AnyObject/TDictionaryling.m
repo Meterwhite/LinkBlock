@@ -8,6 +8,10 @@
 
 #import "TDictionaryling.h"
 
+@interface TDictionaryling ()
+
+@end
+
 @implementation TDictionaryling
 
 @end

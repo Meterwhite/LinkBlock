@@ -1,26 +1,26 @@
 //
-//  NSObjectling_moreN.m
+//  TObjectling_moreN.m
 //  Objcling
 //
 //  Created by meterwhite on 2020/8/17.
 //  Copyright © 2020 meterwhite. All rights reserved.
 //
 
-#import "NSObjectling_moreN.h"
+#import "TObjectling_moreN.h"
 #import <objc/runtime.h>
 #import "TlingErr.h"
 
-NSMutableString *more_string (NSObjectling_moreN* ling);
+NSMutableString *more_string (TObjectling_moreN* ling);
 
-NSMutableArray  *more_array (NSObjectling_moreN* ling);
+NSMutableArray  *more_array (TObjectling_moreN* ling);
 
-NSDecimalNumber *more_number (NSObjectling_moreN* ling);
+NSDecimalNumber *more_number (TObjectling_moreN* ling);
 
-@interface NSObjectling_moreN ()
+@interface TObjectling_moreN ()
 @property (nonnull,nonatomic,strong) NSMutableArray *args;
 @end
 
-@implementation NSObjectling_moreN
+@implementation TObjectling_moreN
 
 - (NSMutableArray *)args {
     if(!_args) {
@@ -54,7 +54,7 @@ NSDecimalNumber *more_number (NSObjectling_moreN* ling);
 
 @end
 
-NSMutableString *more_string (NSObjectling_moreN* act) {
+NSMutableString *more_string (TObjectling_moreN* act) {
     NSMutableString *rt = [act.target mutableCopy];
     [rt appendString:act.at0];
     if(act.args.count) {
@@ -65,7 +65,7 @@ NSMutableString *more_string (NSObjectling_moreN* act) {
     return rt;
 }
 
-NSMutableArray *more_array (NSObjectling_moreN* act) {
+NSMutableArray *more_array (TObjectling_moreN* act) {
     NSMutableArray *rt = [[act.target class] isSubclassOfClass:NSMutableArray.class] ? act.target : [act.target mutableCopy];
     [rt addObject:act.at0];
     if(act.args.count) {
@@ -87,7 +87,7 @@ NSDecimalNumber *get_decimal(id x) {
     return nil;
 }
 
-NSDecimalNumber *more_number (NSObjectling_moreN* act) {
+NSDecimalNumber *more_number (TObjectling_moreN* act) {
     NSDecimalNumber *rt = get_decimal(act.target);
     NSDecimalNumber *be = get_decimal(act.at0);
     if(!rt || !be) {
