@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TlingController<__covariant TargetType> : NSObject
+@interface TlingController : NSObject
 
 
 @end

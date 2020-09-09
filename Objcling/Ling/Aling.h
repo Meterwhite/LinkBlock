@@ -31,41 +31,42 @@ id _Nonnull DelingWith(Aling * _Nonnull ling);
 NS_ASSUME_NONNULL_BEGIN
 
 /// 抽象链
-@interface Aling<__covariant TargetType> : NSObject<NSFastEnumeration> {
+@interface Aling : NSObject<NSFastEnumeration> {
 @public
     NSMutableArray<AlingAction *>   *dynamicActions;
     NSMutableArray<TlingListener *> *listeners;
-    NSMutableArray<TargetType>      *targets;
+    NSMutableArray*targets;
     AlingStatus   status;
     TlingErr      *error;
     AlingSafeKind safe;
     NSUInteger    step;
 }
 
-- (TargetType)target;
+- (id)target;
 
-- (NSMutableArray<TargetType> *)targets;
+- (NSMutableArray *)targets;
 
-+ (instancetype)lingWith:(TargetType)target;
++ (instancetype)lingWith:(id)target;
 
-+ (instancetype)lingsWith:(NSArray<TargetType> *)targets;
++ (instancetype)lingsWith:(NSArray *)targets;
 
+/// 用于转换链条的类型
 + (instancetype)lingByLing:(Aling *)ling;
 
-- (void)switchTarget:(TargetType)target;
+- (void)switchTarget:(id)target;
 
 - (void)pushError:(TlingErr *)err;
 
 - (NSUInteger)itemCount;
 
-#pragma mark - Rewriteable
+#pragma mark - 自定义重写
 
 - (nullable Class)dependentClass;
 
-/// 拷贝动态链
-- (id)copy;
-/// 拷贝动态链
-- (id)mutableCopy;
+#pragma mark - Foundation
+- (instancetype)copy;
+
+- (instancetype)mutableCopy;
 @end
 
 NS_ASSUME_NONNULL_END

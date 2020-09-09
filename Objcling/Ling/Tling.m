@@ -382,19 +382,17 @@ NSDictionary *arrayToDictionary(NSArray *a);
     return self;
 }
 
-- (Tling * _Nonnull (^)(void))go {
-    return ^Tling *(void) {
-        if(self->error) {
-            if(self->safe > AlingSafeKindTrying) @throw self->error;
-            return self;
-        }
-        if(self->status == AlingStatusFuture) {
-            return [self dynamilingGo:nil s:nil];
-        }
-        self->step++;
-        /// Nothing
+- (Tling *)go {
+    if(error) {
+        if(safe > AlingSafeKindTrying) @throw error;
         return self;
-    };
+    }
+    if(status == AlingStatusFuture) {
+        return [self dynamilingGo:nil s:nil];
+    }
+    step++;
+    /// Nothing
+    return self;
 }
 
 - (Tling * _Nonnull (^)(id _Nonnull))goBy {

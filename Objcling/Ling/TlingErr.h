@@ -10,15 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TlingErr<__covariant TargetType> : NSException
+@interface TlingErr : NSException
 
-@property (nonatomic,nullable) TargetType sender;
+@property (nonatomic,nullable) id sender;
 
 @property (nonatomic) NSUInteger step;
 
 @property NSMutableDictionary *info;
 
-+ (instancetype)allocWith:(TargetType)sender;
++ (instancetype)allocWith:(id)sender;
 
 - (instancetype)initForUserDescription:(NSString *)udes;
 

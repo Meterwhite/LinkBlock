@@ -94,7 +94,7 @@ TDictionaryling<TDictionaryLetling>* (^attributedVerticalGlyphForm)(NSNumber *n)
 
 @end
 
-@interface TDictionaryling<__covariant TargetType> (Generic)
+@interface TDictionaryling (Generic)
 
 @end
 

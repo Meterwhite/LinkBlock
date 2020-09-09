@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TImageViewling (Generic)
+@interface TLabelling (Generic)
 
 @end
 

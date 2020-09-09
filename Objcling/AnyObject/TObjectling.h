@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TObjectling<__covariant TargetType> : Tling
+@interface TObjectling : Tling
 #pragma mark - 增
 
 /// string,array,number,dictionary,set
@@ -37,7 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) TObjectling *(^lessAt)(NSUInteger idx);
 
-@property (readonly) TObjectling *(^deleteFrom)(id obj);
+@property (readonly) TObjectling *(^deleteFrom)(id objs);
+
+/// 数组，字典，字符串
+@property (readonly) TObjectling *clean;
 
 
 #pragma mark - 改
@@ -103,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// 类型延伸
-@interface TObjectling<__covariant TargetType> (Generic)
+@interface TObjectling (Generic)
 @property (readonly) TObjectling *(^branchIN)(TlingTObjectlingbranchIN block);
 @end
 

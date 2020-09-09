@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TViewling<__covariant TargetType> : TObjectling
+@interface TViewling : TObjectling
 
 @property (readonly) TViewling<TViewLetling> *let;
 
@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface TViewling<__covariant TargetType> (Generic)
+@interface TViewling (Generic)
 
 @end
 
