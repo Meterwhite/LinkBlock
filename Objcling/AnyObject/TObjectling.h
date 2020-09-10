@@ -17,32 +17,32 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 增
 /**
  * 增量功能的抽象
- * 拼接字符串，添加集合内容，数字的加法，字典的拼接
+ * 拼接字符串，添加集合内容，数字的加法，子视图的增加，字典的拼接，子视图的增加
  * 注：如果必要则会潜在的把target提升为可变类型
  */
 @property (readonly) TObjectling *(^more)(id obj);
 
 #define moreN(...) moreN(__VA_ARGS__,nil)
 /// more()的可变参数版本。
-@property (readonly) TObjectling *(^moreN)(id obj1, ...) ;
+@property (readonly) TObjectling *(^moreN)(id obj1, ...);
 /**
  * 增量功能的抽象
- * 拼接字符串，添加集合内容，数字的加法
+ * 拼接字符串，添加集合内容，数字的加法，子视图的增加
  * 注：如果必要则会潜在的把target提升为可变类型
  */
 @property (readonly) TObjectling *(^moreAt)(id obj1, NSUInteger idx);
 /**
  * 增量功能的抽象
  * 将对象作为被拼接的内容追加到其他内容
- * 注：如果必要则会潜在的把target或content提升为可变类型
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
-@property (readonly) TObjectling *(^appendto)(id content);
+@property (readonly) TObjectling *(^appendto)(id dst);
 /**
  * 增量功能的抽象
  * 将对象作为被拼接的内容追加到其他内容的索引处
- * 注：如果必要则会潜在的把target或content提升为可变类型
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
-@property (readonly) TObjectling *(^appendtoAt)(id obj, NSUInteger idx);
+@property (readonly) TObjectling *(^appendtoAt)(id dst, NSUInteger idx);
 
 #pragma mark - 删
 /**
@@ -64,12 +64,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 减量功能的抽象
  * 将对象从其他内容中移除，剪切字符串，减少集合内容，数字的减法
- * 注：如果必要则会潜在的把target或content提升为可变类型
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
-@property (readonly) TObjectling *(^deleteFrom)(id content);
+@property (readonly) TObjectling *(^deleteFrom)(id dst);
 /**
  * 减量功能的抽象
  * 集合的清空，字符串的清空
+ * 注：如果必要则会潜在的把target提升为可变类型
  */
 @property (readonly) TObjectling *clean;
 
@@ -110,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) TObjectling *(^outer)(id _Nullable * _Nullable toPtr);
 
-@property (readonly) TObjectling *(^kvcOuter)(NSString *forKey);
+@property (readonly) TObjectling *(^kvcOuter)(id forObj,NSString *forKey);
 
 @property (readonly) TObjectling *(^kvcGet)(NSString *forKey);
 

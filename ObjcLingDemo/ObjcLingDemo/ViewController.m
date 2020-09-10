@@ -23,7 +23,7 @@
         NSLog(@"通知了");
     }).notifiedGo(@"哈哈");
     
-    self.ling.moreN(@"1",@"2");
+    self.imageViewling.let.highlighted.noHighlight.userInteractionEnabled.done();
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [NSNotificationCenter.defaultCenter postNotificationName:@"嘿嘿" object:nil];

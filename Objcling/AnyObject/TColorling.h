@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 类型协助
 @interface TColorling (ObjclingGoing)
+
 #pragma mark - Tling
 /// 在用户的闭包中处理通知
 @property (nonatomic,readonly) TColorling *(^notifiedIN)(NSNotificationName nam, TlingNotifiedIN block);
@@ -79,23 +80,28 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 增量功能的抽象
  * 将对象作为被拼接的内容追加到其他内容
- * 注：如果必要则会潜在的把target或content提升为可变类型
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
-@property (readonly) TColorling *(^appendto)(id content);
+@property (readonly) TColorling *(^appendto)(id dst);
 /**
  * 增量功能的抽象
  * 将对象作为被拼接的内容追加到其他内容的索引处
- * 注：如果必要则会潜在的把target或content提升为可变类型
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
-@property (readonly) TColorling *(^appendtoAt)(id obj, NSUInteger idx);
+@property (readonly) TColorling *(^appendtoAt)(id dst, NSUInteger idx);
 
 #pragma mark - 删
 /**
  * 减量功能的抽象
  * 将对象从其他内容中移除，剪切字符串，减少集合内容，数字的减法
- * 注：如果必要则会潜在的把target或content提升为可变类型
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
-@property (readonly) TColorling *(^deleteFrom)(id content);
+@property (readonly) TColorling *(^deleteFrom)(id dst);
+/**
+ * 减量功能的抽象
+ * 指定字段下的集合的清空，字符串的清空，数字的归零，对象的置为nil
+ */
+@property (readonly) TDictionaryling *(^kvcClean)(NSString *k, ...);
 
 #pragma mark - 改
 @property (readonly) TColorling *(^kvcSet)(id v, NSString *k);
@@ -117,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) TColorling *(^outer)(id _Nullable * _Nullable toPtr);
 
-@property (readonly) TColorling *(^kvcOuter)(NSString *forKey);
+@property (readonly) TColorling *(^kvcOuter)(id forObj,NSString *forKey);
 
 @property (readonly) TColorling *(^kvcGet)(NSString *forKey);
 

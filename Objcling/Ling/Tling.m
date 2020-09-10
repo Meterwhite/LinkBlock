@@ -26,6 +26,10 @@ NSDictionary *arrayToDictionary(NSArray *a);
 
 @implementation Tling
 
+- (instancetype)let {
+    return self;
+}
+
 - (id)get {
     NSAssert(status != AlingStatusFuture, @"Cannot be applied to dynamic ling.");
     if(error) {

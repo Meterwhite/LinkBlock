@@ -94,8 +94,131 @@ TDictionaryling<TDictionaryLetling>* (^attributedVerticalGlyphForm)(NSNumber *n)
 
 @end
 
+#pragma mark - 类型协助
 @interface TDictionaryling (ObjclingGoing)
 
+#pragma mark - Tling
+/// 在用户的闭包中处理通知
+@property (nonatomic,readonly) TDictionaryling *(^notifiedIN)(NSNotificationName nam, TlingNotifiedIN block);
+/// 使用作用到target的谓词控制链条的返回
+@property (nonatomic,readonly) TDictionaryling *(^stopWhile)(NSPredicate *predicate);
+/// 展开链条，允许返回新的链条。
+@property (nonatomic,readonly) TDictionaryling *(^branchIN)(TlingBranchIN block);
+/// 断言
+@property (nonatomic,readonly) TDictionaryling *(^asserttBy)(NSPredicate *predicate);
+/// 断言；在行内判断，如`assertt(x == nil)`。变量x为当前对象，`assertt(Type, x.value > 0)`.
+@property (nonatomic,readonly) TDictionaryling *(^assertt)(id CODE_TYPE_x);
+/// 断言；在闭包中判断
+@property (nonatomic,readonly) TDictionaryling *(^asserttIN)(TlingConditionIN block);
+/// 执行动态链. var x = danamiling.go.get
+@property (nonatomic,readonly) TDictionaryling *go;
+/// 使用指定的对象来执行动态链。
+@property (nonatomic,readonly) TDictionaryling *(^goBy)(id target);
+/// 使用指定的多个对象来执行动态链。
+@property (nonatomic,readonly) TDictionaryling *(^goBys)(NSArray *targets);
+/// 通过通知来触发动态链的执行。
+@property (nonatomic,readonly) TDictionaryling *(^notifiedGo)(NSNotificationName ntf);
+
+#pragma mark - TObjectling
+/**
+ * 增量功能的抽象
+ * 拼接字符串，添加集合内容，数字的加法，子视图的增加，字典的拼接，子视图的增加
+ * 注：如果必要则会潜在的把target提升为可变类型
+ */
+@property (readonly) TDictionaryling *(^more)(id subDic);
+/// more()的可变参数版本。
+@property (readonly) TDictionaryling *(^moreN)(id subDic, ...);
+/**
+ * 增量功能的抽象
+ * 将对象作为被拼接的内容追加到其他内容
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
+ */
+@property (readonly) TDictionaryling *(^appendto)(id dst);
+/**
+ * 增量功能的抽象
+ * 将对象作为被拼接的内容追加到其他内容的索引处
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
+ */
+@property (readonly) TDictionaryling *(^appendtoAt)(id dst, NSUInteger idx);
+
+#pragma mark - 删
+/**
+ * 减量功能的抽象
+ * 剪切字符串，减少集合内容，数字的减法，字典内容的移除
+ * 注：如果必要则会潜在的把target提升为可变类型
+ */
+@property (readonly) TDictionaryling *(^less)(id forKey);
+
+#define lessN(...) lessN(__VA_ARGS__, nil)
+/// less()的可变参数版本。
+@property (readonly) TDictionaryling *(^lessN)(id forKey1, ...) ;
+/**
+ * 减量功能的抽象
+ * 剪切字符串，减少集合内容，数字的减法
+ * 注：如果必要则会潜在的把target提升为可变类型
+ */
+@property (readonly) TDictionaryling *(^lessAt)(NSUInteger idx);
+/**
+ * 减量功能的抽象
+ * 将对象从其他内容中移除，剪切字符串，减少集合内容，数字的减法
+ * 注：如果必要则会潜在的把target或dst提升为可变类型
+ */
+@property (readonly) TDictionaryling *(^deleteFrom)(id dst);
+/**
+ * 减量功能的抽象
+ * 集合的清空，字符串的清空
+ * 注：如果必要则会潜在的把target提升为可变类型
+ */
+@property (readonly) TDictionaryling *clean;
+/**
+ * 减量功能的抽象
+ * 指定字段下的集合的清空，字符串的清空，数字的归零，对象的置为nil
+ */
+@property (readonly) TDictionaryling *(^kvcClean)(NSString *k, ...);
+
+#pragma mark - 改
+/**
+ * ✍🏻️替换key
+ * 注：如果必要则会潜在的把target提升为可变类型
+ */
+@property (readonly) TDictionaryling *(^instead)(id newKey, id oldKey);
+
+@property (readonly) TDictionaryling *(^kvcSet)(id v, NSString *k);
+
+/// 指定字段下的布尔值的反转
+@property (readonly) TDictionaryling *(^kvcToggle)(NSString *k);
+
+#pragma mark - 查
+
+/// floop(from, to[, TargetType, CODE]) 链上的for循环
+@property (readonly) TDictionaryling *(^floop)(NSInteger from, NSInteger to, id CODE_OBJ_x_INT_i);
+
+@property (readonly) TDictionaryling *(^floopIN)(NSInteger from, NSInteger to, TlingILoopIN block);
+
+@property (readonly) TDictionaryling *(^outer)(id _Nullable * _Nullable toPtr);
+
+@property (readonly) TDictionaryling *(^kvcOuter)(id forObj,NSString *forKey);
+
+@property (readonly) TDictionaryling *(^kvcGet)(NSString *forKey);
+
+#pragma mark - 控制
+/// continuee([TargetType,] CODE)
+@property (readonly) TDictionaryling *(^continuee)(id CODE_OBJ_x);
+
+@property (readonly) TDictionaryling *(^continueeIN)(TlingConditionIN block);
+
+#pragma mark - 其他
+
+/// description
+@property (readonly) TDictionaryling *log;
+/// debug description
+@property (readonly) TDictionaryling *delog;
+/// 自定义指定格式的打印 : logFormat(@"...%@...")
+@property (readonly) TDictionaryling *(^logStyled)(NSString *format);
+/// copy for taget
+@property (readonly) TDictionaryling *copied;
+/// mutable copy for taget
+@property (readonly) TDictionaryling *mCopied;
 @end
 
 NS_ASSUME_NONNULL_END
