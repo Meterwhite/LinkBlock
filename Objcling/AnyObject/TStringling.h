@@ -6,7 +6,7 @@
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "Tling.h"
+#import "TObjectling.h"
 
 @class TStringling, TNumberling, UIImageView, TURLling;
 
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TStringling : Tling
+@interface TStringling : TObjectling
 
 @property (readonly) TStringling<TStringLetling> *let;
 
@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TStringling (Generic)
+@interface TStringling (ObjclingGoing)
 
 @end
 

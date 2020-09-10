@@ -6,13 +6,13 @@
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "Tling.h"
+#import "TObjectling.h"
 
 @class TStringling;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TURLling : Tling
+@interface TURLling : TObjectling
 
 #pragma mark - 增
 @property (readonly) TURLling *(^appendPathComponent)(NSString *s);

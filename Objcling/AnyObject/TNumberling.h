@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TNumberling (Generic)
+@interface TNumberling (ObjclingGoing)
 
 @end
 

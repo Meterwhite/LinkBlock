@@ -6,11 +6,11 @@
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "Tling.h"
+#import "TViewling.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TTextFieldling : Tling
+@interface TTextFieldling : TViewling
 
 @property (readonly) TTextFieldling *(^alignment)(NSTextAlignment ali);
 
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TTextFieldling (Generic)
+@interface TTextFieldling (ObjclingGoing)
 
 @end
 NS_ASSUME_NONNULL_END

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "Tling.h"
+#import "TViewling.h"
 
 @class TTextViewling;
 
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TTextViewling : Tling
+@interface TTextViewling : TViewling
 
 @property (readonly) TTextViewling<TTextViewLetling> *let;
 
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TTextViewling (Generic)
+@interface TTextViewling (ObjclingGoing)
 
 @end
 NS_ASSUME_NONNULL_END

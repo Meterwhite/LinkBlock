@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface TButtonling (Generic)
+@interface TButtonling (ObjclingGoing)
 
 @end
 NS_ASSUME_NONNULL_END

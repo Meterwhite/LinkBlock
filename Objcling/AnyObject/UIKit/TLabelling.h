@@ -6,7 +6,7 @@
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "Tling.h"
+#import "TViewling.h"
 
 @class TLabelling;
 
@@ -22,10 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) TLabelling<TLabeLetlling> *alignmentLeft;
 
-
 @end
 
-@interface TLabelling : Tling
+@interface TLabelling : TViewling
 
 @property (readonly) TLabelling<TLabeLetlling> *let;
 
@@ -37,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TLabelling (Generic)
+@interface TLabelling (ObjclingGoing)
 
 @end
 

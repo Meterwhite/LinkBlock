@@ -6,7 +6,7 @@
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "Tling.h"
+#import "TObjectling.h"
 
 @class TDictionaryling;
 
@@ -81,7 +81,7 @@ TDictionaryling<TDictionaryLetling>* (^attributedVerticalGlyphForm)(NSNumber *n)
 
 @end
 
-@interface TDictionaryling : Tling
+@interface TDictionaryling : TObjectling
 
 @property (readonly) TDictionaryling<TDictionaryLetling> *let;
 
@@ -94,7 +94,7 @@ TDictionaryling<TDictionaryLetling>* (^attributedVerticalGlyphForm)(NSNumber *n)
 
 @end
 
-@interface TDictionaryling (Generic)
+@interface TDictionaryling (ObjclingGoing)
 
 @end
 

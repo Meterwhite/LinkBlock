@@ -6,7 +6,7 @@
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "Tling.h"
+#import "TObjectling.h"
 
 @class TArrayling;
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TPredicateling : Tling
+@interface TPredicateling : TObjectling
 
 @property (readonly) TPredicateling *(^and)(NSPredicate *p);
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TPredicateling (Generic)
+@interface TPredicateling (ObjclingGoing)
 
 @end
 

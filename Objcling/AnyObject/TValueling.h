@@ -6,13 +6,13 @@
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
-#import "Tling.h"
+#import "TObjectling.h"
 
 @class TNumberling;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TValueling : Tling
+@interface TValueling : TObjectling
 
 #pragma mark - CGRect
 @property (readonly) TValueling *x;
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TValueling (Generic)
+@interface TValueling (ObjclingGoing)
 
 @end
 

@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface TViewling (Generic)
+@interface TViewling (ObjclingGoing)
 
 @end
 
