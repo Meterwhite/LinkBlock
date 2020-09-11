@@ -47,13 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) TStringling *urlpathGetComponents;
 
-
 @end
 
-@interface TStringling : TObjectling
+@interface TStringling : TObjectling<TlingLetGrammar>
 
 @property (readonly) TStringling<TStringLetling> *let;
-
 
 #pragma mark - 增
 @property (readonly) TStringling *(^append)(NSString *s);

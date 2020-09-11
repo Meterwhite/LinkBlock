@@ -13,23 +13,20 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol TColorLetling <NSObject>
-
 /// 亮40%
-@property (readonly) TColorling<TColorLetling> *lighter;
-
+@property (readonly) TColorling *lighter;
 /// 暗40%
-@property (readonly) TColorling<TColorLetling> *darker;
+@property (readonly) TColorling *darker;
 
-/// 调节亮度 percent ∈ [-1,1]
-@property (readonly) TColorling<TColorLetling> *(^brightness)(NSString *percent);
+@property (readonly) TColorling *(^bgcolorInto)(id control);
 
-@property (readonly) TColorling<TColorLetling> *(^bgcolorInto)(id control);
-
-@property (readonly) TColorling<TColorLetling> *(^textColorInto)(id control);
+@property (readonly) TColorling *(^textColorInto)(id control);
 
 @end
 
-@interface TColorling : TObjectling
+@interface TColorling : TObjectling<TlingLetGrammar>
+
+- (TColorling<TColorLetling> *)let;
 
 @property (readonly) TColorling<TColorLetling> *let;
 
@@ -101,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
  * 减量功能的抽象
  * 指定字段下的集合的清空，字符串的清空，数字的归零，对象的置为nil
  */
-@property (readonly) TDictionaryling *(^kvcClean)(NSString *k, ...);
+@property (readonly) TColorling *(^kvcClean)(NSString *k, ...);
 
 #pragma mark - 改
 @property (readonly) TColorling *(^kvcSet)(id v, NSString *k);

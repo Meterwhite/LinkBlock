@@ -10,8 +10,20 @@
 
 @interface TColorling ()
 
+@property (readonly) TColorling *lighter;
+
+@property (readonly) TColorling *darker;
+
+@property (readonly) TColorling *(^bgcolorInto)(id control);
+
+@property (readonly) TColorling *(^textColorInto)(id control);
+
 @end
 
 @implementation TColorling
+
+- (id)let {
+    return self;
+}
 
 @end

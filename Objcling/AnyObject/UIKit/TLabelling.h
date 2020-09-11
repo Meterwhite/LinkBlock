@@ -13,35 +13,64 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol TLabeLetlling <NSObject>
+
 @property (readonly) TLabelling *noLimitLines;
+
 @property (readonly) TLabelling *alignmentCenter;
+
 @property (readonly) TLabelling *alignmentRight;
+
 @property (readonly) TLabelling *alignmentLeft;
+
 #pragma mark - View
 @property (readonly) TLabelling *userInteractionEnabled;
+
 @property (readonly) TLabelling *userInteractionDisabled;
+
 @property (readonly) TLabelling *hide;
+
 @property (readonly) TLabelling *noHide;
+
 @property (readonly) TLabelling *clip;
+
 @property (readonly) TLabelling *noClip;
+
 @property (readonly) TLabelling *contentScaleToFill;
+
 @property (readonly) TLabelling *contentScaleAspectFit;
+
 @property (readonly) TLabelling *contentScaleAspectFill;
+
 @property (readonly) TLabelling *contentRedraw;
+
 @property (readonly) TLabelling *contentCenter;
+
 @property (readonly) TLabelling *contentTop;
+
 @property (readonly) TLabelling *contentBottom;
+
 @property (readonly) TLabelling *contentLeft;
+
 @property (readonly) TLabelling *contentRight;
+
 @property (readonly) TLabelling *contentTopLeft;
+
 @property (readonly) TLabelling *contentTopRight;
+
 @property (readonly) TLabelling *contentBottomLeft;
+
 @property (readonly) TLabelling *contentBottomRight;
+
 @property (readonly) TLabelling *sendBack;
+
 @property (readonly) TLabelling *bringFront;
+
 @property (readonly) TLabelling *snapshot;
+
 @property (readonly) TLabelling *forceEndEditing;
+
 @property (readonly) TLabelling *removeConstraints;
+
 @end
 
 @interface TLabelling : TViewling

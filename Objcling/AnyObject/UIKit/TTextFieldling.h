@@ -8,9 +8,23 @@
 
 #import "TViewling.h"
 
+@class TTextFieldling;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TTextFieldling : TViewling
+@protocol TTextFieldLetling <NSObject>
+
+@property (readonly) TTextFieldling *alignmentCenter;
+
+@property (readonly) TTextFieldling *alignmentRight;
+
+@property (readonly) TTextFieldling *alignmentLeft;
+
+@end
+
+@interface TTextFieldling : TViewling<TlingLetGrammar>
+
+- (TTextFieldling<TTextFieldLetling> *)let;
 
 @property (readonly) TTextFieldling *(^alignment)(NSTextAlignment ali);
 

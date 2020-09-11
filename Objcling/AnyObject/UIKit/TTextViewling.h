@@ -13,38 +13,72 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol TTextViewLetling <NSObject>
+
 @property (readonly) TTextViewling *editEnable;
+
 @property (readonly) TTextViewling *editDisable;
+
 @property (readonly) TTextViewling *selectEnable;
+
 @property (readonly) TTextViewling *selectDisable;
+
+@property (readonly) TTextViewling *alignmentCenter;
+
+@property (readonly) TTextViewling *alignmentRight;
+
+@property (readonly) TTextViewling *alignmentLeft;
+
 #pragma mark - View
-@property (readonly) TTextViewling *userInteractionEnabled;
-@property (readonly) TTextViewling *userInteractionDisabled;
-@property (readonly) TTextViewling *hide;
-@property (readonly) TTextViewling *noHide;
-@property (readonly) TTextViewling *clip;
-@property (readonly) TTextViewling *noClip;
-@property (readonly) TTextViewling *contentScaleToFill;
-@property (readonly) TTextViewling *contentScaleAspectFit;
-@property (readonly) TTextViewling *contentScaleAspectFill;
-@property (readonly) TTextViewling *contentRedraw;
-@property (readonly) TTextViewling *contentCenter;
-@property (readonly) TTextViewling *contentTop;
-@property (readonly) TTextViewling *contentBottom;
-@property (readonly) TTextViewling *contentLeft;
-@property (readonly) TTextViewling *contentRight;
-@property (readonly) TTextViewling *contentTopLeft;
-@property (readonly) TTextViewling *contentTopRight;
-@property (readonly) TTextViewling *contentBottomLeft;
-@property (readonly) TTextViewling *contentBottomRight;
-@property (readonly) TTextViewling *sendBack;
-@property (readonly) TTextViewling *bringFront;
-@property (readonly) TTextViewling *snapshot;
-@property (readonly) TTextViewling *forceEndEditing;
-@property (readonly) TTextViewling *removeConstraints;
+@property (readonly) TViewling *userInteractionEnabled;
+
+@property (readonly) TViewling *userInteractionDisabled;
+
+@property (readonly) TViewling *hide;
+
+@property (readonly) TViewling *noHide;
+
+@property (readonly) TViewling *clip;
+
+@property (readonly) TViewling *noClip;
+
+@property (readonly) TViewling *contentScaleToFill;
+
+@property (readonly) TViewling *contentScaleAspectFit;
+
+@property (readonly) TViewling *contentScaleAspectFill;
+
+@property (readonly) TViewling *contentRedraw;
+
+@property (readonly) TViewling *contentCenter;
+
+@property (readonly) TViewling *contentTop;
+
+@property (readonly) TViewling *contentBottom;
+
+@property (readonly) TViewling *contentLeft;
+
+@property (readonly) TViewling *contentRight;
+
+@property (readonly) TViewling *contentTopLeft;
+
+@property (readonly) TViewling *contentTopRight;
+
+@property (readonly) TViewling *contentBottomLeft;
+
+@property (readonly) TViewling *contentBottomRight;
+
+@property (readonly) TViewling *sendBack;
+
+@property (readonly) TViewling *bringFront;
+
+@property (readonly) TViewling *snapshot;
+
+@property (readonly) TViewling *forceEndEditing;
+
+@property (readonly) TViewling *removeConstraints;
 @end
 
-@interface TTextViewling : TViewling
+@interface TTextViewling : TViewling<TlingLetGrammar>
 
 - (TTextViewling<TTextViewLetling> *)let;
 

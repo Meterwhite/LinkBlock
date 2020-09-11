@@ -12,17 +12,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol TArrayLetling <NSObject>
-
-@property (readonly) TArrayling<TArrayLetling> *reversed;
-
-@property (readonly) TArrayling<TArrayLetling> *(^addUnique)(id obj);
-
+/// 倒序的数组
+@property (readonly) TArrayling *reversed;
+/// 添加唯一的对象
+@property (readonly) TArrayling *(^addUnique)(id obj);
 @end
 
-@interface TArrayling : TObjectling
+@interface TArrayling : TObjectling<TlingLetGrammar>
+
+- (TArrayling<TArrayLetling>*)let;
 
 #define sortt(...) sub_sortt(__VA_ARGS__)
-/// <#Description#>
+/// 数组排序，在行内提供条件，如`sortt( x... )`。双参数时第一个为x的类型：`sortt( Type, x....)`.
 @property (readonly) TArrayling *(^sortt)(id CODE_OBJ_x);
 
 @property (readonly) TArrayling *(^sorttIN)(TlingSortIN block);

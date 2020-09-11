@@ -9,27 +9,45 @@
 #import "TValueling.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+#warning ...枚举
 @interface TNumberling : TValueling
 
 @property (readonly) TNumberling *(^adding)(id n);
+
 @property (readonly) TNumberling *(^subtracting)(id n);
+
 @property (readonly) TNumberling *(^multiplying)(id n);
+
 @property (readonly) TNumberling *(^dividing)(id n);
+
 @property (readonly) TNumberling *(^greatThan)(id n);
+
 @property (readonly) TNumberling *(^greatEqual)(id n);
+
 @property (readonly) TNumberling *(^lessThan)(id n);
+
 @property (readonly) TNumberling *(^lessEqual)(id n);
+
 @property (readonly) TNumberling *(^forLoopIN)(TlingLoopForIN block);
+
 @property (readonly) TNumberling *is0;
+
 @property (readonly) TNumberling *isNaN;
 /// 相反数
 @property (readonly) TNumberling *opposite;
 
 @end
 
+@protocol TNumberCaseingling <NSObject>
+
+
+
+@end
+
 #pragma mark - 类型协助
 @interface TNumberling (ObjclingGoing)
+
+//- (TNumberling<TNumberCaseingling> *)case;
 
 #pragma mark - Tling
 /// 在用户的闭包中处理通知

@@ -13,36 +13,62 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol TImageViewLetling <NSObject>
+
 @property (readonly) TImageViewling *highlighted;
+
 @property (readonly) TImageViewling *noHighlight;
 #pragma mark - View
-@property (readonly) TImageViewling *userInteractionEnabled;
-@property (readonly) TImageViewling *userInteractionDisabled;
-@property (readonly) TImageViewling *hide;
-@property (readonly) TImageViewling *noHide;
-@property (readonly) TImageViewling *clip;
-@property (readonly) TImageViewling *noClip;
-@property (readonly) TImageViewling *contentScaleToFill;
-@property (readonly) TImageViewling *contentScaleAspectFit;
-@property (readonly) TImageViewling *contentScaleAspectFill;
-@property (readonly) TImageViewling *contentRedraw;
-@property (readonly) TImageViewling *contentCenter;
-@property (readonly) TImageViewling *contentTop;
-@property (readonly) TImageViewling *contentBottom;
-@property (readonly) TImageViewling *contentLeft;
-@property (readonly) TImageViewling *contentRight;
-@property (readonly) TImageViewling *contentTopLeft;
-@property (readonly) TImageViewling *contentTopRight;
-@property (readonly) TImageViewling *contentBottomLeft;
-@property (readonly) TImageViewling *contentBottomRight;
-@property (readonly) TImageViewling *sendBack;
-@property (readonly) TImageViewling *bringFront;
-@property (readonly) TImageViewling *snapshot;
-@property (readonly) TImageViewling *forceEndEditing;
-@property (readonly) TImageViewling *removeConstraints;
+@property (readonly) TViewling *userInteractionEnabled;
+
+@property (readonly) TViewling *userInteractionDisabled;
+
+@property (readonly) TViewling *hide;
+
+@property (readonly) TViewling *noHide;
+
+@property (readonly) TViewling *clip;
+
+@property (readonly) TViewling *noClip;
+
+@property (readonly) TViewling *contentScaleToFill;
+
+@property (readonly) TViewling *contentScaleAspectFit;
+
+@property (readonly) TViewling *contentScaleAspectFill;
+
+@property (readonly) TViewling *contentRedraw;
+
+@property (readonly) TViewling *contentCenter;
+
+@property (readonly) TViewling *contentTop;
+
+@property (readonly) TViewling *contentBottom;
+
+@property (readonly) TViewling *contentLeft;
+
+@property (readonly) TViewling *contentRight;
+
+@property (readonly) TViewling *contentTopLeft;
+
+@property (readonly) TViewling *contentTopRight;
+
+@property (readonly) TViewling *contentBottomLeft;
+
+@property (readonly) TViewling *contentBottomRight;
+
+@property (readonly) TViewling *sendBack;
+
+@property (readonly) TViewling *bringFront;
+
+@property (readonly) TViewling *snapshot;
+
+@property (readonly) TViewling *forceEndEditing;
+
+@property (readonly) TViewling *removeConstraints;
+
 @end
 
-@interface TImageViewling : TViewling
+@interface TImageViewling : TViewling<TlingLetGrammar>
 
 - (TImageViewling<TImageViewLetling>*)let;
 

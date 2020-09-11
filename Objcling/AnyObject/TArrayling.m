@@ -10,9 +10,17 @@
 
 @interface TArrayling ()
 
+@property (readonly) TArrayling *reversed;
+
+@property (readonly) TArrayling *(^addUnique)(id obj);
+
 @end
 
 @implementation TArrayling
+
+- (id)let {
+    return self;
+}
 
 @end
 

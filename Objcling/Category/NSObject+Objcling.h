@@ -8,39 +8,55 @@
 
 #import "TObjectling.h"
 
-@class TArrayling,TStringling,TDictionaryling,TColorling,TNumberling,TPredicateling,TURLling,TValueling,TViewling,TButtonling,TTextViewling,TTextFieldling,TLabelling,TImageViewling;
+@class TArrayling,  TStringling,    TDictionaryling;
+@class TColorling,  TNumberling,    TPredicateling;
+@class TURLling,    TValueling,     TViewling;
+@class TButtonling, TTextViewling,  TTextFieldling;
+@class TLabelling,  TImageViewling;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 
 @interface NSObject(Objcling)
-
 /**
- * <#...#>
+ * 从一个对象获取链对象
  */
-@property (readonly) TObjectling    *ling;
-@property (readonly) TArrayling     *arrayling;
-@property (readonly) TStringling    *stringling;
-@property (readonly) TDictionaryling*dictionaryling;
-@property (readonly) TColorling     *colorling;
-@property (readonly) TNumberling    *numberling;
-@property (readonly) TPredicateling *predicateling;
-@property (readonly) TURLling       *urlling;
-@property (readonly) TValueling     *valueling;
-
-@property (readonly) TViewling      *viewling;
-@property (readonly) TButtonling    *buttonling;
-@property (readonly) TTextViewling  *textViewling;
-@property (readonly) TTextFieldling *textFieldling;
-@property (readonly) TLabelling     *labelling;
-@property (readonly) TImageViewling *imageViewling;
-
+- (TObjectling    *)ling;
 /**
- * 获取一条多链
- * @[_].lings.arrayling...
+ * 从多个对象获取多链对象，多链
+ * @[a, b, c].lings...
  */
-@property (readonly) TObjectling    *lings;
+- (TObjectling    *)lings;
+#pragma mark - 强类型
+- (TArrayling     *)arrayling;
+
+- (TStringling    *)stringling;
+
+- (TDictionaryling*)dictionaryling;
+
+- (TColorling     *)colorling;
+
+- (TNumberling    *)numberling;
+
+- (TPredicateling *)predicateling;
+
+- (TURLling       *)urlling;
+
+- (TValueling     *)valueling;
+
+#pragma mark - 强类型/UIKit
+- (TViewling      *)viewling;
+
+- (TButtonling    *)buttonling;
+
+- (TTextViewling  *)textViewling;
+
+- (TTextFieldling *)textFieldling;
+
+- (TLabelling     *)labelling;
+
+- (TImageViewling *)imageViewling;
 
 @end
 

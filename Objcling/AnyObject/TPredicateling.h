@@ -18,7 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TPredicateling : TObjectling
+@interface TPredicateling : TObjectling<TlingLetGrammar>
+
+- (TPredicateling<TPredicateLetling>*)let;
 
 @property (readonly) TPredicateling *(^and)(NSPredicate *p);
 

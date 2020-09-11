@@ -9,9 +9,13 @@
 #import "TPredicateling.h"
 
 @interface TPredicateling ()
-
+@property (readonly) TArrayling *(^select)(id objects);
 @end
 
 @implementation TPredicateling
+
+- (id)let {
+    return self;
+}
 
 @end
