@@ -24,7 +24,9 @@ UIView *more_view (TObjectling_moreN* act, TlingErr **err);
 NSMutableDictionary *more_dic (TObjectling_moreN* act, TlingErr **err);
 
 @interface TObjectling_moreN ()
+
 @property (nonnull,nonatomic,strong) NSMutableArray *args;
+
 @end
 
 @implementation TObjectling_moreN
@@ -68,10 +70,10 @@ NSMutableDictionary *more_dic (TObjectling_moreN* act, TlingErr **err);
 
 NSMutableString *more_string (TObjectling_moreN* act, TlingErr **err) {
     NSMutableString *rt = ocling_mutablecopy_ifneed(act.target);
-    [rt appendString:act.at0];
+    [rt appendString:ocling_to_string(act.at0)];
     if(act.args.count) {
         for (NSString *vaArg in act.args) {
-            [rt appendString:vaArg];
+            [rt appendString:ocling_to_string(vaArg)];
         }
     }
     return rt;
@@ -79,6 +81,10 @@ NSMutableString *more_string (TObjectling_moreN* act, TlingErr **err) {
 
 NSMutableArray *more_array (TObjectling_moreN* act, TlingErr **err) {
     NSMutableArray *rt = ocling_mutablecopy_ifneed(act.target);
+    if(!act.at0) {
+        // push error
+        return <#expression#>
+    }
     [rt addObject:act.at0];
     if(act.args.count) {
         for (NSString *vaArg in act.args) {
@@ -92,13 +98,17 @@ NSDecimalNumber *more_number (TObjectling_moreN* act, TlingErr **err) {
     NSDecimalNumber *rt = ocling_get_decimal(act.target);
     NSDecimalNumber *be = ocling_get_decimal(act.at0);
     if(!rt || !be) {
-        return nil;
+        return act.target;
     }
     rt = [rt decimalNumberByAdding:be];
     if(act.args.count) {
         for (id vaArg in act.args) {
-            rt = [rt decimalNumberByAdding:ocling_get_decimal(vaArg)];
-            if(!rt) return nil;
+            NSDecimalNumber *n =  ocling_get_decimal(vaArg);
+            if(!n) {
+                // push error
+                return act.target;
+            }
+            rt = [rt decimalNumberByAdding:n];
         }
     }
     return rt;
@@ -106,12 +116,38 @@ NSDecimalNumber *more_number (TObjectling_moreN* act, TlingErr **err) {
 
 UIView *more_view (TObjectling_moreN* act, TlingErr **err) {
     UIView *rt = act.target;
+    if(![act.at0 isKindOfClass:UIView.class]) {
+        // push error
+        return rt;
+    }
     [rt addSubview:act.at0];
+    if(act.args.count) {
+        for (UIView *vaArg in act.args) {
+            if(![vaArg isKindOfClass:UIView.class]) {
+                /// push error
+                return rt;
+            }
+            [rt addSubview:vaArg];
+        }
+    }
     return rt;
 }
 
 NSMutableDictionary *more_dic (TObjectling_moreN* act, TlingErr **err) {
     NSMutableDictionary *rt = ocling_mutablecopy_ifneed(act.target);
+    if(![act.at0 isKindOfClass:NSDictionary.class]) {
+        /// push error
+        return act.target;
+    }
     [rt addEntriesFromDictionary:act.at0];
+    if(act.args.count) {
+        for (NSDictionary *vaArg in act.args) {
+            if(![vaArg isKindOfClass:NSDictionary.class]) {
+                /// push error
+                return rt;
+            }
+            [rt addEntriesFromDictionary:vaArg];
+        }
+    }
     return rt;
 }

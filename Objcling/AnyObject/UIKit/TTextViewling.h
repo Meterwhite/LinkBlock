@@ -148,7 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 删
 /**
  * 减量功能的抽象
- * 剪切字符串，减少集合内容，数字的减法，字典内容的移除
+ * 剪切字符串，减少集合内容，数字的减法，字典内容的移除（传key）
  * 注：如果必要则会潜在的把target提升为可变类型
  */
 @property (readonly) TImageViewling *(^less)(id obj);

@@ -28,9 +28,6 @@ TlingBlock TlingAutoBlockProperty(__kindof Tling *ling, SEL sel);
 
 bool setValue2Action(AlingAction<TActionParametric, TActionVariableParametric> *act, NSUInteger idx, const char *enc, va_list li);
 
-/// Only subclass
-bool ocling_is_a_subclass(Class child, Class parent);
-
 bool sendMsgWork(id target, NSUInteger index, Tling *ling, SEL sel, Class act_classz);
 
 bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act_classz, va_list li, const char *enc0, va_list li_self);
@@ -53,7 +50,7 @@ Class getActionClass(__kindof Tling *ling, SEL sel);
     Protocol *pArgsIn     = @protocol(TActionParametric);
     do {
         Class   cAct    = cLi[count - 1];
-        if(!ocling_is_a_subclass(cAct, cALingAction)) continue;
+        if([cAct isSubclassOfClass:cALingAction] && cAct != cALingAction) continue;
         NSArray *infos  = [NSStringFromClass(cAct) componentsSeparatedByString:@"_"];
         if(infos.count != 2) continue;
         Class   cObj    = NSClassFromString([infos firstObject]);
@@ -70,9 +67,7 @@ Class getActionClass(__kindof Tling *ling, SEL sel);
     free(cLi);
 }
 
-///
-/// @param ling TObjectling
-/// @param sel log
+/// 所有属性形式方法的实现入口
 Tling *TlingAutoProperty(__kindof Aling *ling, SEL sel) {
     /// Error pass
     if(ling->status == AlingStatusReturning || ling->error) {
@@ -101,6 +96,7 @@ Tling *TlingAutoProperty(__kindof Aling *ling, SEL sel) {
     return ling;
 }
 
+/// 所有闭包属性形式方法的实现入口
 TlingBlock TlingAutoBlockProperty(__kindof Tling *ling, SEL sel) {
     do{
         Class act_class = getActionClass(ling, sel);
@@ -302,6 +298,7 @@ TlingBlock TlingAutoBlockProperty(__kindof Tling *ling, SEL sel) {
     };
 }
 
+/// 所有闭包属性形式方法的实现入口2
 Tling *TlingSubAutoBlockProperty(__kindof Tling *ling, SEL sel, Class act_classz, va_list li, const char *enc0 , ...) {
     if(ling->error  || ling->status == AlingStatusReturning) {
         return ling;
@@ -332,7 +329,14 @@ Tling *TlingSubAutoBlockProperty(__kindof Tling *ling, SEL sel, Class act_classz
 
 @end
 
+/// 普通属性形式的发消息的工作
+/// @param target 目标对象
+/// @param index 链的游标
+/// @param ling 链
+/// @param sel 消息名
+/// @param act_class 即将构造方法的类
 bool sendMsgWork(id target, NSUInteger index, Tling *ling, SEL sel, Class act_class) {
+    /// 参考：sendMsgWork_va()
     AlingAction *act = [[act_class alloc] init];
     [act setTarget:ling.target];
     [act setStep:ling->step];
@@ -360,10 +364,21 @@ bool sendMsgWork(id target, NSUInteger index, Tling *ling, SEL sel, Class act_cl
     return true;
 }
 
+/// 普通属性形式的发消息的工作
+/// @param target 目标对象
+/// @param index 链的游标
+/// @param ling 链
+/// @param sel 消息名
+/// @param act_classz 即将构造方法的类
+/// @param li_va 实际的第一个参数之后的参数列表
+/// @param enc0 实际的第一个参数的类型编码
+/// @param li_at0 实际的第一个参数被构造的参数列表
 bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act_classz, va_list li_va, const char *enc0, va_list li_at0) {
+    /// 构造方法
     AlingAction<TActionParametric,TActionVariableParametric> *act = [[act_classz alloc] init];
     [act setTarget:target];
     [act setStep:ling->step];
+    /// 传参
     for (NSUInteger idx = 0; idx < act.count  ; idx++) {
         if(idx == 0) {
             setValue2Action(act, idx, enc0, li_at0);
@@ -373,10 +388,11 @@ bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act
             setValue2Action(act, idx, code, li_va);
         }
     }
-    /// Variable parameter list
+    /// 处理可变参数列表
     if(class_conformsToProtocol(act_classz, @protocol(TActionVariableParametric))) {
         while (setValue2Action(act, -1, @encode(id), li_va));
     }
+    /// 动态链则仅存储后返回
     if(ling->status == AlingStatusFuture) {
         DynamilingInfo *info = [[DynamilingInfo alloc] init];
         info.dependentClass = ling.dependentClass;
@@ -386,12 +402,15 @@ bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act
         return false;
     }
     TlingErr *err;
+    /// 执行方法
     id newTag = [act sendMsg:&err];
+    /// 处理异常
     if(err) {
         [ling pushError:err];
         return false;
     }
     if(newTag) {
+        /// 更新目标对象
         if(ling.itemCount == 1) {
             [ling switchTarget:newTag];
         } else {
@@ -401,7 +420,11 @@ bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act
     return true;
 }
 
-/// @param idx -1(Variable parameter list)
+/// 方法的入参工作
+/// @param act 方法
+/// @param idx 参数的游标，-1指可变参数列表
+/// @param enc 入参参数的类型编码
+/// @param li 入参所属的参数列表
 bool setValue2Action(AlingAction<TActionParametric, TActionVariableParametric> *act, NSUInteger idx, const char *enc, va_list li) {
     SEL setter = NSSelectorFromString([NSString stringWithFormat:@"setAt%ld:",idx]);
     do{
@@ -547,16 +570,6 @@ NSDecimalNumber *ocling_get_decimal(id x) {
     }
     if([x isKindOfClass:NSDecimalNumber.class]) return x;
     return nil;
-}
-
-bool ocling_is_a_subclass(Class child, Class parent) {
-    if(child == parent) return false;
-    for (Class c = child; c != NULL; c = class_getSuperclass(c)) {
-        if (c == parent) {
-            return true;
-        }
-   }
-   return false;
 }
 
 NSSet *ocling_mutable_class_map(void) {

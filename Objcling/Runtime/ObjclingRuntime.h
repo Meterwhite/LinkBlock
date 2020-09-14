@@ -12,9 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 NSDecimalNumber *ocling_get_decimal(id x);
 
-/// 注：不包括父类
-bool ocling_is_a_subclass(Class child, Class parent);
-
 NSSet *ocling_mutable_class_map(void);
 
 /// 是否是可变对象
