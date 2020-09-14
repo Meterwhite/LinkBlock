@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TObjectling_moreN : AlingAction
 <
-    TlingParametric,
-    TlingVariableParametric
+    TActionParametric,
+    TActionVariableParametric
 >
 
-@property id at0;
+@property (nonatomic) id at0;
 
 - (NSMutableArray *)arrayForValist;
 

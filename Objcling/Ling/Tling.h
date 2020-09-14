@@ -13,9 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// let语法；该语法由此接口扩展。提供高杠杆的代码输出方式，提供常见的高度封装功能块
-@protocol TlingLetGrammar <NSObject>
+@protocol TlingLetBranch <NSObject>
 
-- (id)let;
+@required
+
+- (__kindof Tling *)let;
 
 @end
 

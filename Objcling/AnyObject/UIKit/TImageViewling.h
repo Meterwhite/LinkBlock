@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface TImageViewling : TViewling<TlingLetGrammar>
+@interface TImageViewling : TViewling<TlingLetBranch>
 
 - (TImageViewling<TImageViewLetling>*)let;
 
@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 增
 /**
  * 增量功能的抽象
- * 拼接字符串，添加集合内容，数字的加法，子视图的增加，字典的拼接，子视图的增加
+ * 拼接字符串，添加集合内容，数字的加法，子视图的增加，字典的拼接
  * 注：如果必要则会潜在的把target提升为可变类型
  */
 @property (readonly) TImageViewling *(^more)(id obj);
@@ -124,14 +124,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) TImageViewling *(^moreAt)(id obj1, NSUInteger idx);
 /**
  * 增量功能的抽象
- * 将对象作为被拼接的内容追加到其他内容
- * 注：如果必要则会潜在的把target或dst提升为可变类型
+ * 将对象作为被拼接的内容追加到其他内容，有拼接字符串，添加集合内容，子视图的增加
  */
 @property (readonly) TImageViewling *(^appendto)(id dst);
 /**
  * 增量功能的抽象
- * 将对象作为被拼接的内容追加到其他内容的索引处
- * 注：如果必要则会潜在的把target或dst提升为可变类型
+ * 将对象作为被拼接的内容追加到其他内容，有拼接字符串，添加集合内容，子视图的增加
  */
 @property (readonly) TImageViewling *(^appendtoAt)(id dst, NSUInteger idx);
 
@@ -154,7 +152,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 减量功能的抽象
  * 将对象从其他内容中移除，剪切字符串，减少集合内容，数字的减法
- * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
 @property (readonly) TImageViewling *(^deleteFrom)(id dst);
 /**

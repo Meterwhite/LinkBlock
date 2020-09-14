@@ -27,7 +27,6 @@ NS_INLINE bool pasValue2Ivk(__kindof AlingAction *act, NSInvocation *invoaction,
     return 0;
 }
 
-
 - (SEL)forwardSEL {
     return nil;
 }
@@ -66,6 +65,8 @@ NS_INLINE bool pasValue2Ivk(__kindof AlingAction *act, NSInvocation *invoaction,
     goto CALL_RET;
 }
 
+
+/// 实现了默认的消息通过selector转发
 - (id)sendMsg:(TlingErr * _Nullable __autoreleasing *)err {
     if(!self.target || ![self forwardSEL]) return nil;
     NSMethodSignature *sig  = [[self.target class] instanceMethodSignatureForSelector:[self forwardSEL]];
@@ -81,7 +82,7 @@ NS_INLINE bool pasValue2Ivk(__kindof AlingAction *act, NSInvocation *invoaction,
         }
     }
     [ivk invokeWithTarget:self.target];
-    if([self conformsToProtocol:@protocol(TlingBroken)]) {
+    if([self conformsToProtocol:@protocol(TActionLingBroken)]) {
         return getBoxedRevar(ivk, sig.methodReturnType);
     }
     return nil;

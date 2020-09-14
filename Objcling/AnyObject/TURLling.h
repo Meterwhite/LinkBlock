@@ -62,14 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 增
 /**
  * 增量功能的抽象
- * 将对象作为被拼接的内容追加到其他内容
- * 注：如果必要则会潜在的把target或dst提升为可变类型
+ * 将对象作为被拼接的内容追加到其他内容，有拼接字符串，添加集合内容，子视图的增加
  */
 @property (readonly) TURLling *(^appendto)(id dst);
 /**
  * 增量功能的抽象
- * 将对象作为被拼接的内容追加到其他内容的索引处
- * 注：如果必要则会潜在的把target或dst提升为可变类型
+ * 将对象作为被拼接的内容追加到其他内容，有拼接字符串，添加集合内容，子视图的增加
  */
 @property (readonly) TURLling *(^appendtoAt)(id dst, NSUInteger idx);
 
@@ -77,7 +75,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 减量功能的抽象
  * 将对象从其他内容中移除，剪切字符串，减少集合内容，数字的减法
- * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
 @property (readonly) TURLling *(^deleteFrom)(id dst);
 /**

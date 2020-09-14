@@ -1,8 +1,8 @@
 //
-//  TObjectling_more.h
+//  TObjectling_moreAt.h
 //  Objcling
 //
-//  Created by meterwhite on 2020/8/19.
+//  Created by MeterWhite on 2020/9/12.
 //  Copyright © 2020 Meterwhite. All rights reserved.
 //
 
@@ -10,12 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TObjectling_more : AlingAction
+@interface TObjectling_moreAt : AlingAction
 <
     TActionParametric
 >
 
-@property id at0;
+@property (nonatomic) id at0;
+
+@property (nonatomic) NSUInteger at1;
 
 @end
 

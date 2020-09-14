@@ -1,5 +1,5 @@
 //
-//  TlingController.m
+//  ObjclingRuntime.m
 //  Objcling
 //
 //  Created by meterwhite on 2020/8/15.
@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ObjclingRuntime.h"
 #import "DynamilingInfo.h"
-#import "TlingController.h"
+#import <Foundation/Foundation.h>
+#import <objc/NSObject.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import "AlingAction.h"
 #import "TlingErr.h"
 #import "Tling.h"
 
-static Class _clz_Tling;
+static Class _class_Tling;
 
 typedef id TlingBlock;
 
@@ -24,10 +26,10 @@ Tling *TlingAutoProperty(__kindof Tling *ling, SEL sel);
 
 TlingBlock TlingAutoBlockProperty(__kindof Tling *ling, SEL sel);
 
-bool setValue2Action(AlingAction<TlingParametric, TlingVariableParametric> *act, NSUInteger idx, const char *enc, va_list li);
+bool setValue2Action(AlingAction<TActionParametric, TActionVariableParametric> *act, NSUInteger idx, const char *enc, va_list li);
 
 /// Only subclass
-NS_INLINE bool isASubclass(Class child, Class parent);
+bool ocling_is_a_subclass(Class child, Class parent);
 
 bool sendMsgWork(id target, NSUInteger index, Tling *ling, SEL sel, Class act_classz);
 
@@ -35,10 +37,10 @@ bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act
 
 Class getActionClass(__kindof Tling *ling, SEL sel);
 
-@implementation TlingController
+@implementation ObjclingRuntime
 
 + (void)load {
-    _clz_Tling = [Tling class];
+    _class_Tling = [Tling class];
     @autoreleasepool {
         [self registerActions];
     }
@@ -48,10 +50,10 @@ Class getActionClass(__kindof Tling *ling, SEL sel);
     unsigned int count    = 0;
     Class    *cLi         = objc_copyClassList(&count);
     Class    cALingAction = [AlingAction class];
-    Protocol *pArgsIn     = @protocol(TlingParametric);
+    Protocol *pArgsIn     = @protocol(TActionParametric);
     do {
         Class   cAct    = cLi[count - 1];
-        if(!isASubclass(cAct, cALingAction)) continue;
+        if(!ocling_is_a_subclass(cAct, cALingAction)) continue;
         NSArray *infos  = [NSStringFromClass(cAct) componentsSeparatedByString:@"_"];
         if(infos.count != 2) continue;
         Class   cObj    = NSClassFromString([infos firstObject]);
@@ -359,7 +361,7 @@ bool sendMsgWork(id target, NSUInteger index, Tling *ling, SEL sel, Class act_cl
 }
 
 bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act_classz, va_list li_va, const char *enc0, va_list li_at0) {
-    AlingAction<TlingParametric,TlingVariableParametric> *act = [[act_classz alloc] init];
+    AlingAction<TActionParametric,TActionVariableParametric> *act = [[act_classz alloc] init];
     [act setTarget:target];
     [act setStep:ling->step];
     for (NSUInteger idx = 0; idx < act.count  ; idx++) {
@@ -372,7 +374,7 @@ bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act
         }
     }
     /// Variable parameter list
-    if(class_conformsToProtocol(act_classz, @protocol(TlingVariableParametric))) {
+    if(class_conformsToProtocol(act_classz, @protocol(TActionVariableParametric))) {
         while (setValue2Action(act, -1, @encode(id), li_va));
     }
     if(ling->status == AlingStatusFuture) {
@@ -400,7 +402,7 @@ bool sendMsgWork_va(id target, NSUInteger index, Tling *ling, SEL sel, Class act
 }
 
 /// @param idx -1(Variable parameter list)
-bool setValue2Action(AlingAction<TlingParametric, TlingVariableParametric> *act, NSUInteger idx, const char *enc, va_list li) {
+bool setValue2Action(AlingAction<TActionParametric, TActionVariableParametric> *act, NSUInteger idx, const char *enc, va_list li) {
     SEL setter = NSSelectorFromString([NSString stringWithFormat:@"setAt%ld:",idx]);
     do{
         if(idx == -1) {
@@ -526,7 +528,28 @@ bool setValue2Action(AlingAction<TlingParametric, TlingVariableParametric> *act,
     return true;
 }
 
-NS_INLINE bool isASubclass(Class child, Class parent) {
+Class getActionClass(__kindof Tling *ling, SEL sel) {
+    Class act_class = nil;
+    for (Class lingC = object_getClass(ling); act_class == nil && lingC != _class_Tling ; lingC = class_getSuperclass(lingC)) {
+        act_class = NSClassFromString([NSString stringWithFormat:@"%@_%@",NSStringFromClass(lingC),NSStringFromSelector(sel)]);
+    }
+    return act_class;
+}
+
+#pragma mark - Public
+
+NSDecimalNumber *ocling_get_decimal(id x) {
+    if([x isKindOfClass:NSNumber.class]) {
+        return [NSDecimalNumber decimalNumberWithDecimal:[x decimalValue]];
+    }
+    if([x isKindOfClass:NSString.class]) {
+        return [NSDecimalNumber decimalNumberWithString:x];
+    }
+    if([x isKindOfClass:NSDecimalNumber.class]) return x;
+    return nil;
+}
+
+bool ocling_is_a_subclass(Class child, Class parent) {
     if(child == parent) return false;
     for (Class c = child; c != NULL; c = class_getSuperclass(c)) {
         if (c == parent) {
@@ -536,11 +559,72 @@ NS_INLINE bool isASubclass(Class child, Class parent) {
    return false;
 }
 
+NSSet *ocling_mutable_class_map(void) {
+    static NSSet *_value;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _value = [NSSet setWithObjects:
+                  NSMutableArray.class,
+                  NSMutableDictionary.class,
+                  NSMutableSet.class,
+                  NSMutableData.class,
+                  NSMutableIndexSet.class,
+                  NSMutableAttributedString.class,
+                  NSMutableParagraphStyle.class,
+                  NSMutableOrderedSet.class,
+                  NSMutableURLRequest.class,
+                  NSMutableCharacterSet.class,
+                  nil];
+    });
+    return _value;
+}
 
-Class getActionClass(__kindof Tling *ling, SEL sel) {
-    Class act_class = nil;
-    for (Class lingC = object_getClass(ling); act_class == nil && lingC != _clz_Tling ; lingC = class_getSuperclass(lingC)) {
-        act_class = NSClassFromString([NSString stringWithFormat:@"%@_%@",NSStringFromClass(lingC),NSStringFromSelector(sel)]);
+/// 常用方法，提速
+id ocling_mutablecopy_ifneed(id x) {
+    if(!x) return nil;
+    Class c = object_getClass(x);
+    if([ocling_mutable_class_map() containsObject:c]) {
+        return x;
     }
-    return act_class;
+    if([c isSubclassOfClass:NSString.class]) {
+        // 可变字符串的特殊判断
+        if([x copy] != x) return x;
+    }
+    return [x mutableCopy];
+}
+
+bool ocling_is_mutableobject(id x) {
+    Class c = object_getClass(x);
+    if([ocling_mutable_class_map() containsObject:c]) {
+        return x;
+    }
+    if([c isSubclassOfClass:NSString.class]) {
+        // 可变字符串的特殊判断
+        if([x copy] != x) return true;
+    }
+    return false;
+}
+
+NSString *_Nullable ocling_to_string(id x) {
+    if(!x) return nil;
+    Class c = object_getClass(x);
+    if([c isSubclassOfClass:NSString.class]) {
+        return x;
+    }
+    if(class_respondsToSelector(c, @selector(stringValue))) {
+        return [x stringValue];
+    }
+    return [x description];
+}
+
+NSNumber *_Nullable ocling_to_number(id x) {
+    if(!x) return nil;
+    Class c = object_getClass(x);
+    if([c isSubclassOfClass:NSNumber.class]) {
+        return x;
+    }
+    if([c isSubclassOfClass:NSString.class]) {
+        return [NSDecimalNumber decimalNumberWithString:x];
+    }
+    return nil;
 }

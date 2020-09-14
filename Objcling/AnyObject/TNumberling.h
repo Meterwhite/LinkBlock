@@ -9,7 +9,7 @@
 #import "TValueling.h"
 
 NS_ASSUME_NONNULL_BEGIN
-#warning ...枚举
+
 @interface TNumberling : TValueling
 
 @property (readonly) TNumberling *(^adding)(id n);
@@ -38,16 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol TNumberCaseingling <NSObject>
-
-
-
-@end
-
 #pragma mark - 类型协助
 @interface TNumberling (ObjclingGoing)
-
-//- (TNumberling<TNumberCaseingling> *)case;
 
 #pragma mark - Tling
 /// 在用户的闭包中处理通知
@@ -84,14 +76,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * 增量功能的抽象
- * 将对象作为被拼接的内容追加到其他内容
- * 注：如果必要则会潜在的把target或dst提升为可变类型
+ * 将对象作为被拼接的内容追加到其他内容，有拼接字符串，添加集合内容，子视图的增加
  */
 @property (readonly) TNumberling *(^appendto)(id dst);
 /**
  * 增量功能的抽象
- * 将对象作为被拼接的内容追加到其他内容的索引处
- * 注：如果必要则会潜在的把target或dst提升为可变类型
+ * 将对象作为被拼接的内容追加到其他内容，有拼接字符串，添加集合内容，子视图的增加
  */
 @property (readonly) TNumberling *(^appendtoAt)(id dst, NSUInteger idx);
 
@@ -107,7 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 减量功能的抽象
  * 将对象从其他内容中移除，剪切字符串，减少集合内容，数字的减法
- * 注：如果必要则会潜在的把target或dst提升为可变类型
  */
 @property (readonly) TNumberling *(^deleteFrom)(id dst);
 /**
