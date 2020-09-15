@@ -43,6 +43,7 @@
 		1882290E24F89668007213D8 /* AlingStopAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882290D24F89668007213D8 /* AlingStopAction.m */; };
 		18A50EB2250BD96B00EDEF85 /* TObjectling_moreAt.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A50EB1250BD96B00EDEF85 /* TObjectling_moreAt.m */; };
 		18A50EB5250BDCC900EDEF85 /* TObjectling_appendto.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A50EB4250BDCC900EDEF85 /* TObjectling_appendto.m */; };
+		18A8DCD82511067F0057B4EB /* TObjectling_deleteFrom.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A8DCD72511067F0057B4EB /* TObjectling_deleteFrom.m */; };
 		18B5D0E5250775A700B02BD3 /* TURLling.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5D0E4250775A700B02BD3 /* TURLling.m */; };
 		18B5D0E82507872200B02BD3 /* TImageViewling.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5D0E72507872200B02BD3 /* TImageViewling.m */; };
 		18B5D0EB2507C0E300B02BD3 /* TLabelling.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5D0EA2507C0E300B02BD3 /* TLabelling.m */; };
@@ -131,6 +132,8 @@
 		18A50EB1250BD96B00EDEF85 /* TObjectling_moreAt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_moreAt.m; sourceTree = "<group>"; };
 		18A50EB3250BDCC900EDEF85 /* TObjectling_appendto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TObjectling_appendto.h; sourceTree = "<group>"; };
 		18A50EB4250BDCC900EDEF85 /* TObjectling_appendto.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_appendto.m; sourceTree = "<group>"; };
+		18A8DCD62511067F0057B4EB /* TObjectling_deleteFrom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TObjectling_deleteFrom.h; sourceTree = "<group>"; };
+		18A8DCD72511067F0057B4EB /* TObjectling_deleteFrom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_deleteFrom.m; sourceTree = "<group>"; };
 		18B5D0E3250775A700B02BD3 /* TURLling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TURLling.h; sourceTree = "<group>"; };
 		18B5D0E4250775A700B02BD3 /* TURLling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TURLling.m; sourceTree = "<group>"; };
 		18B5D0E62507872200B02BD3 /* TImageViewling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TImageViewling.h; sourceTree = "<group>"; };
@@ -327,6 +330,8 @@
 				18D01ED92510687300939945 /* TObjectling_less.m */,
 				18D01EDB251069EE00939945 /* TObjectling_lessAt.h */,
 				18D01EDC251069EE00939945 /* TObjectling_lessAt.m */,
+				18A8DCD62511067F0057B4EB /* TObjectling_deleteFrom.h */,
+				18A8DCD72511067F0057B4EB /* TObjectling_deleteFrom.m */,
 			);
 			path = TObjecttring;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 				181DABD024FB468800C21E42 /* TlingAsserttINAction.m in Sources */,
 				18B5D0EE2507C3E900B02BD3 /* TTextFieldling.m in Sources */,
 				18D9D0622500EFEA00E14BA8 /* TlingStopWhileAction.m in Sources */,
+				18A8DCD82511067F0057B4EB /* TObjectling_deleteFrom.m in Sources */,
 				1826210824F79B130006DA86 /* NSObject+Objcling.m in Sources */,
 				18B5D0F42507D41300B02BD3 /* TColorling.m in Sources */,
 				181DABCA24FB460700C21E42 /* TlingThrowingAction.m in Sources */,

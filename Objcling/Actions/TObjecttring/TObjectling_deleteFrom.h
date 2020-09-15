@@ -1,5 +1,5 @@
 //
-//  TObjectling_lessAt.h
+//  TObjectling_deleteFrom.h
 //  Objcling
 //
 //  Created by MeterWhite on 2020/9/15.
@@ -10,11 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TObjectling_lessAt : AlingAction
+@interface TObjectling_deleteFrom : AlingAction
 <
     TActionParametric
 >
-@property (nonatomic) NSUInteger at0;
+
+@property (nonatomic) id at0;
 
 @end
 

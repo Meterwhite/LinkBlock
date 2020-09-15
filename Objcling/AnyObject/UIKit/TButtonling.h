@@ -142,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) TButtonling *(^lessAt)(NSUInteger idx);
 /**
  * 减量功能的抽象
- * 将对象从其他内容中移除，剪切字符串，减少集合内容，数字的减法
+ * 从其他内容中移除改对象；修改字符串，移除集合内容，移除视图
  */
 @property (readonly) TButtonling *(^deleteFrom)(id dst);
 /**

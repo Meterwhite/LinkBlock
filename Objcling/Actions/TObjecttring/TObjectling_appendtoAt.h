@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TObjectling_appendtoAt : AlingAction
-
+<
+    TActionParametric
+>
 @property (nonatomic) id at0;
 
 @property (nonatomic) NSUInteger at1;

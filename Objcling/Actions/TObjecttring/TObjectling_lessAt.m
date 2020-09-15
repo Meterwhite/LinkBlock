@@ -28,7 +28,6 @@ NSMutableArray *lessAt_array (TObjectling_lessAt* act, TlingErr **err) {
     return rt;
 }
 
-
 UIView *lessAt_view (TObjectling_lessAt* act, TlingErr **err) {
     UIView  *rt = act.target;
     if(act.at0 >= rt.subviews.count) {

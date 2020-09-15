@@ -114,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 转换
 /// @""
 @property (readonly) TNumberling *isEmpty;
-/// <#Description#>
+/// 是否含义为空,例如：`<null>`，空白符，空字符串等
 @property (readonly) TNumberling *isMeaningNone;
 
 @property (readonly) TNumberling *containsEmoji;
@@ -199,7 +199,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) TStringling *(^lessAt)(NSUInteger idx);
 /**
  * 减量功能的抽象
- * 将对象从其他内容中移除，剪切字符串，减少集合内容，数字的减法
+ * 从其他内容中移除改对象；修改字符串，移除集合内容，移除视图
  */
 @property (readonly) TStringling *(^deleteFrom)(id dst);
 /**
