@@ -97,7 +97,7 @@ NSDecimalNumber *less_number (TObjectling_lessN* act, TlingErr **err) {
     NSDecimalNumber *rt = ocling_get_decimal(act.target);
     NSDecimalNumber *be = ocling_get_decimal(act.at0);
     if(!rt || !be) {
-        return nil;
+        return act.target;
     }
     rt = [rt decimalNumberBySubtracting:be];
     if(act.args.count) {
@@ -123,7 +123,6 @@ UIView *less_view (TObjectling_lessN* act, TlingErr **err) {
             if([rt.subviews containsObject:vaArg]) {
                 [vaArg removeFromSuperview];
             }
-            if(!rt) return nil;
         }
     }
     return rt;

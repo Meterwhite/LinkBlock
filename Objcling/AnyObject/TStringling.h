@@ -60,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 删
 @property (readonly) TStringling *(^deletee)(NSString *s);
 
+@property (readonly) TStringling *(^deleteElemAt)(NSUInteger idx);
+
 @property (readonly) TStringling *(^deleteLeft)(NSString *s);
 
 @property (readonly) TStringling *(^deleteRight)(NSString *s);
@@ -84,14 +86,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) TStringling *(^subRange)(NSRange ran);
 
-@property (readonly) TStringling *(^subElement)(NSUInteger to, NSUInteger from);
+@property (readonly) TStringling *(^subElem)(NSUInteger to, NSUInteger from);
 
-@property (readonly) TStringling *(^subElementFrom)(NSUInteger from);
+@property (readonly) TStringling *(^subElemFrom)(NSUInteger from);
 
-@property (readonly) TStringling *(^subElementTo)(NSUInteger to);
+@property (readonly) TStringling *(^subElemTo)(NSUInteger to);
 
 #pragma mark - 查
 @property (readonly) TStringling *(^at)(NSUInteger idx);
+
+@property (readonly) TStringling *(^elemAt)(NSUInteger idx);
 
 @property (readonly) TStringling *(^contains)(NSString *substr, NSString* with);
 
@@ -105,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) TStringling *lenthUnicode;
 
-@property (readonly) TStringling *lenthElement;
+@property (readonly) TStringling *lenthElem;
 
 #pragma mark - 转换
 /// @""
@@ -189,7 +193,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) TStringling *(^lessN)(id obj1, ...) ;
 /**
  * 减量功能的抽象
- * 剪切字符串，减少集合内容，数字的减法
+ * 修改字符串，减少集合内容，视图的移除
  * 注：如果必要则会潜在的把target提升为可变类型
  */
 @property (readonly) TStringling *(^lessAt)(NSUInteger idx);

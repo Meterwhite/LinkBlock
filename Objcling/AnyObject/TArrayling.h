@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) TArrayling *(^lessN)(id obj1, ...);
 /**
  * 减量功能的抽象
- * 剪切字符串，减少集合内容，数字的减法
+ * 修改字符串，减少集合内容，视图的移除
  * 注：如果必要则会潜在的把target提升为可变类型
  */
 @property (readonly) TArrayling *(^lessAt)(NSUInteger idx);

@@ -52,6 +52,8 @@
 		18B5D0F72507D7FC00B02BD3 /* TPredicateling.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5D0F62507D7FC00B02BD3 /* TPredicateling.m */; };
 		18BF6107250F130000800A3A /* TObjectling_appendtoAt.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BF6106250F130000800A3A /* TObjectling_appendtoAt.m */; };
 		18BF610A250F406100800A3A /* TObjectling_lessN.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BF6109250F406100800A3A /* TObjectling_lessN.m */; };
+		18D01EDA2510687300939945 /* TObjectling_less.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D01ED92510687300939945 /* TObjectling_less.m */; };
+		18D01EDD251069EE00939945 /* TObjectling_lessAt.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D01EDC251069EE00939945 /* TObjectling_lessAt.m */; };
 		18D9D0622500EFEA00E14BA8 /* TlingStopWhileAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D9D0612500EFEA00E14BA8 /* TlingStopWhileAction.m */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +149,10 @@
 		18BF6106250F130000800A3A /* TObjectling_appendtoAt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_appendtoAt.m; sourceTree = "<group>"; };
 		18BF6108250F406100800A3A /* TObjectling_lessN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TObjectling_lessN.h; sourceTree = "<group>"; };
 		18BF6109250F406100800A3A /* TObjectling_lessN.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_lessN.m; sourceTree = "<group>"; };
+		18D01ED82510687300939945 /* TObjectling_less.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TObjectling_less.h; sourceTree = "<group>"; };
+		18D01ED92510687300939945 /* TObjectling_less.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_less.m; sourceTree = "<group>"; };
+		18D01EDB251069EE00939945 /* TObjectling_lessAt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TObjectling_lessAt.h; sourceTree = "<group>"; };
+		18D01EDC251069EE00939945 /* TObjectling_lessAt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_lessAt.m; sourceTree = "<group>"; };
 		18D9D0602500EFEA00E14BA8 /* TlingStopWhileAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingStopWhileAction.h; sourceTree = "<group>"; };
 		18D9D0612500EFEA00E14BA8 /* TlingStopWhileAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingStopWhileAction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -317,6 +323,10 @@
 				182620ED24F79B130006DA86 /* TObjectling_moreN.m */,
 				18BF6108250F406100800A3A /* TObjectling_lessN.h */,
 				18BF6109250F406100800A3A /* TObjectling_lessN.m */,
+				18D01ED82510687300939945 /* TObjectling_less.h */,
+				18D01ED92510687300939945 /* TObjectling_less.m */,
+				18D01EDB251069EE00939945 /* TObjectling_lessAt.h */,
+				18D01EDC251069EE00939945 /* TObjectling_lessAt.m */,
 			);
 			path = TObjecttring;
 			sourceTree = "<group>";
@@ -440,6 +450,7 @@
 				1826210F24F79B130006DA86 /* TDictionaryling.m in Sources */,
 				1826211024F79B130006DA86 /* TStringling.m in Sources */,
 				1826210E24F79B130006DA86 /* TObjectling_log.m in Sources */,
+				18D01EDD251069EE00939945 /* TObjectling_lessAt.m in Sources */,
 				1826211124F79B130006DA86 /* TArrayling.m in Sources */,
 				18BF6107250F130000800A3A /* TObjectling_appendtoAt.m in Sources */,
 				181DABC424FAC47400C21E42 /* TlingNotifiedINAction.m in Sources */,
@@ -452,6 +463,7 @@
 				181DABD324FB469C00C21E42 /* TlingAsserttByAction.m in Sources */,
 				18B5D0F72507D7FC00B02BD3 /* TPredicateling.m in Sources */,
 				182620B424F79AE50006DA86 /* AppDelegate.m in Sources */,
+				18D01EDA2510687300939945 /* TObjectling_less.m in Sources */,
 				1826211624F79B130006DA86 /* TValueling.m in Sources */,
 				1826210524F79B130006DA86 /* DynamilingInfo.m in Sources */,
 				181DABCD24FB464B00C21E42 /* TlingBranchINAction.m in Sources */,

@@ -83,7 +83,7 @@ NSMutableArray *more_array (TObjectling_moreN* act, TlingErr **err) {
     NSMutableArray *rt = ocling_mutablecopy_ifneed(act.target);
     if(!act.at0) {
         // push error
-        return <#expression#>
+        return act.target;
     }
     [rt addObject:act.at0];
     if(act.args.count) {
