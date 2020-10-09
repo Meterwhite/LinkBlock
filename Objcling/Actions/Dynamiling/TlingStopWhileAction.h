@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TlingStopWhileAction : AlingAction
-
+<
+    TActionParametric
+>
 @property (nullable,nonatomic) NSPredicate *predicate;
 
 @end

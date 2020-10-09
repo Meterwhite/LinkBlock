@@ -11,7 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TlingAsserttByAction : AlingAction
+<
+    TActionParametric
+>
 @property (nullable,nonatomic) NSPredicate *predicate;
+
 @end
 
 NS_ASSUME_NONNULL_END

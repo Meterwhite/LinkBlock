@@ -12,7 +12,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TlingBranchINAction : AlingAction
+<
+    TActionParametric
+>
 @property (nullable,nonatomic,copy) TlingBranchIN block;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,7 +15,7 @@
 
 NSMutableString *more_string (TObjectling_moreN* ling, TlingErr **err);
 
-NSMutableArray  *more_array (TObjectling_moreN* ling, TlingErr **err);
+NSMutableArray  *more_col (TObjectling_moreN* ling, TlingErr **err);
 
 NSDecimalNumber *more_number (TObjectling_moreN* ling, TlingErr **err);
 
@@ -45,14 +45,14 @@ NSMutableDictionary *more_dic (TObjectling_moreN* act, TlingErr **err);
     id rt = nil;
     if([c isSubclassOfClass:NSString.class]) {
         rt = more_string(self, err);
-    } else if([c isSubclassOfClass:NSArray.class]) {
-        rt = more_array(self, err);
     } else if([c isSubclassOfClass:NSNumber.class]) {
         rt = more_number(self, err);
     } else if([c isSubclassOfClass:UIView.class]) {
         rt = more_view(self, err);
     } else if([c isSubclassOfClass:NSDictionary.class]) {
         rt = more_dic(self, err);
+    } else {
+        rt = more_col(self, err);
     }
     return self.target == rt ? nil : rt;
 }
@@ -79,11 +79,11 @@ NSMutableString *more_string (TObjectling_moreN* act, TlingErr **err) {
     return rt;
 }
 
-NSMutableArray *more_array (TObjectling_moreN* act, TlingErr **err) {
-    NSMutableArray *rt = ocling_mutablecopy_ifneed(act.target);
-    if(!act.at0) {
+NSMutableArray *more_col (TObjectling_moreN* act, TlingErr **err) {
+    id rt = act.target;
+    if(![rt respondsToSelector:@selector(addObject:)]) {
         // push error
-        return act.target;
+        return rt;
     }
     [rt addObject:act.at0];
     if(act.args.count) {

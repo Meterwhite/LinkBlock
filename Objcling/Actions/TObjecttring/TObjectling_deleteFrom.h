@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 <
     TActionParametric
 >
-
 @property (nonatomic) id at0;
 
 @end

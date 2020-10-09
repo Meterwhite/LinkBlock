@@ -98,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 改
 /**
  * 替换内容
- * 注：如果必要则会潜在的把target提升为可变类型
+ * 注：如有必要会将target提升为可变类型
  */
 @property (readonly) TValueling *(^instead)(id neww, id old);
 

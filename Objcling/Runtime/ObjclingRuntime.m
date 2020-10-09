@@ -641,3 +641,558 @@ NSNumber *_Nullable ocling_to_number(id x) {
     }
     return nil;
 }
+
+const char *ocling_encForKey(id x, NSString *k) {
+    if(!x && !k) return NULL;
+    objc_property_t pt = class_getProperty(object_getClass(x), k.UTF8String);
+    return property_getAttributes(pt);
+}
+
+
+#pragma mark - ObjclingTypeEnc
+
+static NSMutableDictionary <NSString *, ObjclingTypeEnc*>* _cached_enc_prototype;
+
+@interface ObjclingTypeEnc ()
+
+@property (nullable,nonatomic,weak) ObjclingTypeEnc *prototype;
+
+@end
+
+@implementation ObjclingTypeEnc
+@synthesize enc = _enc;
+@synthesize clazz = _clazz;
+@synthesize isObject = _isObject;
+@synthesize isClass = _isClass;
+@synthesize isIMP = _isIMP;
+@synthesize isSEL = _isSEL;
+@synthesize isPointer = _isPointer;
+@synthesize isCString = _isCString;
+@synthesize isCNumber = _isCNumber;
+@synthesize isFloatKind = _isFloatKind;
+@synthesize isDouble = _isDouble;
+@synthesize isFloat = _isFloat;
+@synthesize isIntKind = _isIntKind;
+@synthesize isUnsignedLong = _isUnsignedLong;
+@synthesize isUnsignedLongLong = _isUnsignedLongLong;
+@synthesize isLong = _isLong;
+@synthesize isLongLong = _isLongLong;
+@synthesize isInt = _isInt;
+@synthesize isUnsignedInt = _isUnsignedInt;
+@synthesize isShort = _isShort;
+@synthesize isBOOL = _isBOOL;
+@synthesize isBool = _isBool;
+@synthesize isChar = _isChar;
+@synthesize isUnsignedChar = _isUnsignedChar;
+@synthesize isUnsignedShort = _isUnsignedShort;
+@synthesize isStruct = _isStruct;
+@synthesize isCGRect = _isCGRect;
+@synthesize isCGPoint = _isCGPoint;
+@synthesize isCGSize = _isCGSize;
+@synthesize isNSRange = _isNSRange;
+@synthesize isUIEdgeInsets = _isUIEdgeInsets;
+@synthesize isCGVector = _isCGVector;
+@synthesize isUIOffset = _isUIOffset;
+@synthesize isCATransform3D = _isCATransform3D;
+@synthesize isCGAffineTransform = _isCGAffineTransform;
+@synthesize isNSDirectionalEdgeInsets = _isNSDirectionalEdgeInsets;
+@synthesize protocols = _protocols;
+
++ (void)initialize {
+    if(self != [ObjclingTypeEnc class]) return;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _cached_enc_prototype = [NSMutableDictionary dictionary];
+    });
+}
+
+- (instancetype)initWithEnc:(const char *)enc {
+    if(self = [super init]) {
+        self.prototype = [self.class getPrototypeWithEnc:enc];
+    }
+    return self;
+}
+
++ (instancetype)getPrototypeWithEnc:(const char *)enc {
+    NSString *k = [NSString.alloc initWithCString:enc encoding:(NSUTF8StringEncoding)];
+    ObjclingTypeEnc *prototype  =  _cached_enc_prototype[k];
+    if(prototype) {
+        return prototype;
+    } else {
+        prototype = [[self alloc] initPrototypeWithEnc:enc];
+    }
+    _cached_enc_prototype[k] = prototype;
+    return prototype;
+}
+
+- (instancetype)initPrototypeWithEnc:(const char *)enc {
+    if(self = [super init]) {
+        _enc        = enc;
+        _isObject   = false;
+        _isClass    = false;
+        _isIMP      = false;
+        _isSEL      = false;
+        _isPointer  = false;
+        _isCString  = false;
+        _isCNumber  = false;
+        _isFloatKind= false;
+        _isDouble   = false;
+        _isFloat    = false;
+        _isIntKind  = false;
+        _isUnsignedLong = false;
+        _isUnsignedLongLong  = false;
+        _isLong      = false;
+        _isLongLong  = false;
+        _isInt      = false;
+        _isUnsignedInt = false;
+        _isShort    = false;
+        _isBOOL      = false;
+        _isBool      = false;
+        _isChar      = false;
+        _isUnsignedChar  = false;
+        _isUnsignedShort = false;
+        _isStruct   = false;
+        _isCGRect   = false;
+        _isCGPoint  = false;
+        _isCGSize   = false;
+        _isNSRange  = false;
+        _isUIEdgeInsets = false;
+        _isCGVector  = false;
+        _isUIOffset  = false;
+        _isCATransform3D     = false;
+        _isCGAffineTransform = false;
+        _isNSDirectionalEdgeInsets = false;
+        [self deEnc];
+    }
+    return self;
+}
+
+/// 解析
+- (void)deEnc {
+    NSString *code  = nil;
+    NSString *ats   = [NSString.alloc initWithCString:_enc encoding:NSUTF8StringEncoding];
+    NSUInteger doc  = [ats rangeOfString:@","].location;
+    NSUInteger loc  = 1;
+    if (doc == NSNotFound) {
+        code = [ats substringFromIndex:loc];
+    } else {
+        code = [ats substringWithRange:NSMakeRange(loc, doc - loc)];
+    }
+    /// T@"UIView",
+    const char *objcType = [code UTF8String];
+    if(strcmp(objcType, @encode(void)) == 0){
+        _isVoid = true;
+        return;
+    }
+    //常量则位移到类型符
+    if (objcType[0] == _C_CONST) objcType++;
+    if (objcType[0] == _C_ID) { //id and block
+        _isObject = true;
+        NSString *clzzNam;
+        if (code.length > 3 && [code hasPrefix:@"@\""]) {
+            /// 截取引号内类型部分
+            code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
+            NSUInteger locPco = [code rangeOfString:@"<"].location;
+            if(locPco != NSNotFound) {
+                // 1. UIView<UITableViewDelegate><UITableViewDataSource>
+                // 2. <UITableViewDelegate><UITableViewDataSource>
+                if(locPco > 0) {
+                    clzzNam = [code substringToIndex:locPco];
+                }
+                NSString *pcostr = [code substringFromIndex:locPco];
+                NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"<>"];//切协议
+                NSMutableArray *pcoarr = [pcostr componentsSeparatedByCharactersInSet:cset].mutableCopy;
+                [pcoarr removeObject:@""];
+                for (NSInteger i = 0; i < pcoarr.count; i++) {
+                    pcoarr[i] = NSProtocolFromString(pcoarr[i]);
+                }
+                _protocols = [pcoarr copy];
+            } else {
+                clzzNam = code;
+            }
+        } /// else { /// @ 或 @? }
+        if(clzzNam) {
+            _clazz = NSClassFromString(clzzNam);
+            _typeName = clzzNam;
+        } else {
+            _typeName = @"id";
+        }
+    } else if (strcmp(objcType, @encode(Class)) == 0) {       //Class
+        _typeName   = @"Class";
+        _isClass    = true;
+    } else if (strcmp(objcType, @encode(IMP)) == 0 ) {         //IMP
+        _typeName   = @"IMP";
+        _isIMP      = true;
+    } else if (strcmp(objcType, @encode(SEL)) == 0) {         //SEL
+        _typeName   = @"SEL";
+        _isSEL      = true;
+    } else if (strcmp(objcType, @encode(double)) == 0) {       //double
+        _typeName   = @"double";
+        _isDouble   = true;
+        _isFloatKind= true;
+        _isCNumber  = true;
+    } else if (strcmp(objcType, @encode(float)) == 0) {       //float
+        _typeName   = @"float";
+        _isFloat    = true;
+        _isFloatKind= true;
+        _isCNumber  = true;
+    } else if (objcType[0] == '^') {                           //pointer ( and const pointer)
+        _typeName   = @"pointer";
+        _isPointer  = true;
+    } else if (strcmp(objcType, @encode(char *)) == 0) {      //char* (and const char*)
+        _typeName   = @"cstring";
+        _isCString  = true;
+    } else if (strcmp(objcType, @encode(unsigned long)) == 0) {
+        _typeName   = @"unsigned long";
+        _isUnsignedLong = true;
+        _isIntKind  = true;
+        _isCNumber  = true;
+    } else if (strcmp(objcType, @encode(unsigned long long)) == 0) {
+        _typeName   = @"unsigned long long";
+        _isUnsignedLongLong = true;
+        _isIntKind  = true;
+        _isCNumber  = true;
+    } else if (strcmp(objcType, @encode(long)) == 0) {
+        _typeName   = @"long";
+        _isLong     = true;
+        _isIntKind  = true;
+        _isCNumber  = true;
+    } else if (strcmp(objcType, @encode(long long)) == 0) {
+        _typeName   = @"long long";
+        _isLongLong = true;
+        _isIntKind  = true;
+        _isCNumber  = true;
+    } else if (strcmp(objcType, @encode(int)) == 0) {
+        _typeName   = @"int";
+        _isInt      = true;
+        _isIntKind  = true;
+        _isCNumber  = true;
+    } else if (strcmp(objcType, @encode(unsigned int)) == 0) {
+        _typeName       = @"unsigned int";
+        _isUnsignedInt  = true;
+        _isIntKind  = true;
+        _isCNumber  = true;
+    } else if ((strcmp(objcType, @encode(bool)) == 0          ||
+               strcmp(objcType, @encode(BOOL)) == 0           ||
+               strcmp(objcType, @encode(char)) == 0           ||
+               strcmp(objcType, @encode(short)) == 0          ||
+               strcmp(objcType, @encode(unsigned char)) == 0  ||
+               strcmp(objcType, @encode(unsigned short)) == 0)) {
+        _typeName   = @"short";
+        _isBOOL     = true;
+        _isBool     = true;
+        _isShort    = true;
+        _isChar     = true;
+        _isUnsignedChar = true;
+        _isUnsignedShort= true;
+        _isIntKind  = true;
+        _isCNumber  = true;
+    } else{
+        //struct union and array
+        if (strcmp(objcType, @encode(CGRect)) == 0) {
+            _typeName = @"CGRect";
+            _isStruct = true;
+            _isCGRect = true;
+        } else if (strcmp(objcType, @encode(CGPoint)) == 0) {
+            _typeName = @"CGPoint";
+            _isStruct = true;
+            _isCGPoint= true;
+        } else if (strcmp(objcType, @encode(CGSize)) == 0) {
+            _typeName = @"CGSize";
+            _isStruct = true;
+            _isCGSize = true;
+        } else if (strcmp(objcType, @encode(NSRange)) == 0) {
+            _typeName = @"NSRange";
+            _isStruct = true;
+            _isNSRange= true;
+        } else if (strcmp(objcType, @encode(UIEdgeInsets)) == 0) {
+            _typeName = @"UIEdgeInsets";
+            _isStruct = true;
+            _isUIEdgeInsets = true;
+        } else if (strcmp(objcType, @encode(CGVector)) == 0) {
+            _typeName = @"CGVector";
+            _isStruct = true;
+            _isCGVector = true;
+        } else if (strcmp(objcType, @encode(UIOffset)) == 0) {
+            _typeName = @"UIOffset";
+            _isStruct = true;
+            _isUIOffset = true;
+        } else if (strcmp(objcType, @encode(CATransform3D)) == 0) {
+            _typeName = @"CATransform3D";
+            _isStruct = true;
+            _isCATransform3D = true;
+        } else if (strcmp(objcType, @encode(CGAffineTransform)) == 0) {
+            _typeName = @"CGAffineTransform";
+            _isStruct = true;
+            _isCGAffineTransform = true;
+        }
+        if (@available(iOS 11.0, *)) {
+            if(strcmp(objcType, @encode(NSDirectionalEdgeInsets)) == 0) {
+                _typeName = @"NSDirectionalEdgeInsets";
+                _isStruct = true;
+                _isNSDirectionalEdgeInsets = true;
+            }
+        }
+    }
+}
+
+- (BOOL)isEqual:(ObjclingTypeEnc *)object {
+    return strcmp(object.enc, self.prototype.enc) == 0 ? true : false;
+}
+
+- (const char *)enc {
+    return self.prototype.enc;
+}
+
+- (Class)clazz {
+    return self.prototype.clazz;
+}
+
+- (bool)isObject {
+    return self.prototype.isObject;
+}
+
+- (bool)isClass {
+    return self.prototype.isClass;
+}
+
+- (bool)isIMP {
+    return self.prototype.isIMP;
+}
+
+- (bool)isSEL {
+    return self.prototype.isSEL;
+}
+
+- (bool)isPointer {
+    return self.prototype.isPointer;
+}
+
+- (bool)isCString {
+    return self.prototype.isCString;
+}
+
+- (bool)isCNumber {
+    return self.prototype.isCNumber;
+}
+
+- (bool)isFloatKind {
+    return self.prototype.isFloatKind;
+}
+
+- (bool)isDouble {
+    return self.prototype.isDouble;
+}
+
+- (bool)isFloat {
+    return self.prototype.isFloat;
+}
+
+- (bool)isIntKind {
+    return self.prototype.isIntKind;
+}
+
+- (bool)isUnsignedLong {
+    return self.prototype.isUnsignedLong;
+}
+
+- (bool)isUnsignedLongLong {
+    return self.prototype.isUnsignedLongLong;
+}
+
+- (bool)isLong {
+    return self.prototype.isLong;
+}
+
+- (bool)isLongLong {
+    return self.prototype.isLongLong;
+}
+
+- (bool)isInt {
+    return self.prototype.isInt;
+}
+
+- (bool)isUnsignedInt {
+    return self.prototype.isUnsignedInt;
+}
+
+- (bool)isShort {
+    return self.prototype.isShort;
+}
+
+- (bool)isBOOL {
+    return self.prototype.isBOOL;
+}
+
+- (bool)isBool {
+    return self.prototype.isBool;
+}
+
+- (bool)isChar {
+    return self.prototype.isChar;
+}
+
+- (bool)isUnsignedChar {
+    return self.prototype.isUnsignedChar;
+}
+
+- (bool)isUnsignedShort {
+    return self.prototype.isUnsignedShort;
+}
+
+- (bool)isStruct {
+    return self.prototype.isStruct;
+}
+
+- (bool)isCGRect {
+    return self.prototype.isCGRect;
+}
+
+- (bool)isCGPoint {
+    return self.prototype.isCGPoint;
+}
+
+- (bool)isCGSize {
+    return self.prototype.isCGSize;
+}
+
+- (bool)isNSRange {
+    return self.prototype.isNSRange;
+}
+
+- (bool)isUIEdgeInsets {
+    return self.prototype.isUIEdgeInsets;
+}
+
+- (bool)isCGVector {
+    return self.prototype.isCGVector;
+}
+
+- (bool)isUIOffset {
+    return self.prototype.isUIOffset;
+}
+
+- (bool)isCATransform3D {
+    return self.prototype.isCATransform3D;
+}
+
+- (bool)isCGAffineTransform {
+    return self.prototype.isCGAffineTransform;
+}
+
+- (bool)isNSDirectionalEdgeInsets {
+    return self.prototype.isNSDirectionalEdgeInsets;
+}
+
+- (void)switchedForCaseVoid:(void(^)(void))caseVoid
+                     caseId:(void(^)(void))caseId
+                  caseClass:(void(^)(void))caseClass
+                    caseIMP:(void(^)(void))caseIMP
+                    caseSEL:(void(^)(void))caseSEL
+                 caseDouble:(void(^)(void))caseDouble
+                  caseFloat:(void(^)(void))caseFloat
+                casePointer:(void(^)(void))casePointer
+                caseCString:(void(^)(void))caseCString
+           caseUnsignedLong:(void(^)(void))caseUnsignedLong
+       caseUnsignedLongLong:(void(^)(void))caseUnsignedLongLong
+                   caseLong:(void(^)(void))caseLong
+               caseLongLong:(void(^)(void))caseLongLong
+                    caseInt:(void(^)(void))caseInt
+            caseUnsignedInt:(void(^)(void))caseUnsignedInt
+          caseBOOLShortChar:(void(^)(void))caseBOOLShortChar
+                 caseCGRect:(void(^)(void))caseCGRect
+                caseNSRange:(void(^)(void))caseNSRange
+                 caseCGSize:(void(^)(void))caseCGSize
+                caseCGPoint:(void(^)(void))caseCGPoint
+               caseCGVector:(void(^)(void))caseCGVector
+           caseUIEdgeInsets:(void(^)(void))caseUIEdgeInsets
+               caseUIOffset:(void(^)(void))caseUIOffset
+          caseCATransform3D:(void(^)(void))caseCATransform3D
+      caseCGAffineTransform:(void(^)(void))caseCGAffineTransform
+caseNSDirectionalEdgeInsets:(void(^)(void))caseNSDirectionalEdgeInsets
+                    defaule:(void(^)(void))defaule {
+    ObjclingTypeEnc *pro = self.prototype;
+    if(caseId && pro.isObject)  { caseId();     return; }
+    
+    if(pro.isCNumber) {
+        if(pro.isFloatKind) {
+            if(caseDouble && pro.isDouble) { caseDouble();   return; }
+            if(caseFloat && pro.isFloat)   { caseFloat();    return; }
+        } else {
+            if(caseUnsignedLong && pro.isUnsignedLong) { caseUnsignedLong();   return; }
+            if(caseUnsignedLongLong && pro.isUnsignedLongLong) { caseUnsignedLongLong();   return; }
+            if(caseLong && pro.isLong)     { caseLong();   return; }
+            if(caseLongLong && pro.isLongLong) { caseLongLong();   return; }
+            if(caseInt && pro.isInt) { caseInt();   return; }
+            if(caseUnsignedInt && pro.isUnsignedInt) { caseUnsignedInt();   return; }
+            if(caseBOOLShortChar && pro.isShort) { caseBOOLShortChar();   return; }
+        }
+    }
+    
+    if(pro.isStruct) {
+        if(caseCGRect && pro.isCGRect) { caseCGRect();   return; }
+        if(caseNSRange && pro.isNSRange) { caseNSRange();   return; }
+        if(caseCGSize && pro.isNSRange) { caseCGSize();   return; }
+        if(caseCGPoint && pro.isCGPoint) { caseCGPoint();   return; }
+        if(caseCGVector && pro.isCGVector) { caseCGVector();   return; }
+        if(caseUIEdgeInsets && pro.isUIEdgeInsets) { caseUIEdgeInsets();   return; }
+        if(caseUIOffset && pro.isUIOffset) { caseUIOffset();   return; }
+        if(caseCATransform3D && pro.isCATransform3D) { caseCATransform3D();   return; }
+        if(caseCGAffineTransform && pro.isCGAffineTransform) { caseCGAffineTransform();   return; }
+        if(caseNSDirectionalEdgeInsets && pro.isNSDirectionalEdgeInsets) { caseNSDirectionalEdgeInsets();   return; }
+    }
+    
+    if(caseCString && pro.isCString) { caseCString();   return; }
+    if(caseClass && pro.isClass){ caseClass();  return; }
+    if(caseIMP && pro.isIMP)    { caseIMP();    return; }
+    if(caseSEL && pro.isSEL)    { caseSEL();    return; }
+    if(casePointer && pro.isPointer) { casePointer();   return; }
+    if(caseVoid && pro.isVoid)  { caseVoid();   return; }
+    if(defaule) defaule();
+}
+
+- (void)switchUsingBlocks {
+    ObjclingTypeEnc *pro = self.prototype;
+    if(_casedId && pro.isObject)  { _casedId();     return; }
+    
+    if(pro.isCNumber) {
+        if(_casedCNumber) _casedCNumber();
+        if(pro.isFloatKind) {
+            if(_casedFloatKind) _casedFloatKind();
+            if(_casedDouble && pro.isDouble) { _casedDouble();   return; }
+            if(_casedFloat && pro.isFloat)   { _casedFloat();    return; }
+        } else {
+            if(_casedIntKind) _casedIntKind();
+            if(_casedUnsignedLong && pro.isUnsignedLong) { _casedUnsignedLong();   return; }
+            if(_casedUnsignedLongLong && pro.isUnsignedLongLong) { _casedUnsignedLongLong();   return; }
+            if(_casedLong && pro.isLong)     { _casedLong();   return; }
+            if(_casedLongLong && pro.isLongLong) { _casedLongLong();   return; }
+            if(_casedInt && pro.isInt) { _casedInt();   return; }
+            if(_casedUnsignedInt && pro.isUnsignedInt) { _casedUnsignedInt();   return; }
+            if(_casedBOOLShortChar && pro.isShort) { _casedBOOLShortChar();   return; }
+        }
+    }
+    
+    if(pro.isStruct) {
+        if(_casedStruct) _casedStruct();
+        if(_casedCGRect && pro.isCGRect) { _casedCGRect();   return; }
+        if(_casedNSRange && pro.isNSRange) { _casedNSRange();   return; }
+        if(_casedCGSize && pro.isNSRange) { _casedCGSize();   return; }
+        if(_casedCGPoint && pro.isCGPoint) { _casedCGPoint();   return; }
+        if(_casedCGVector && pro.isCGVector) { _casedCGVector();   return; }
+        if(_casedUIEdgeInsets && pro.isUIEdgeInsets) { _casedUIEdgeInsets();   return; }
+        if(_casedUIOffset && pro.isUIOffset) { _casedUIOffset();   return; }
+        if(_casedCATransform3D && pro.isCATransform3D) { _casedCATransform3D();   return; }
+        if(_casedCGAffineTransform && pro.isCGAffineTransform) { _casedCGAffineTransform();   return; }
+        if(_casedNSDirectionalEdgeInsets && pro.isNSDirectionalEdgeInsets) { _casedNSDirectionalEdgeInsets();   return; }
+    }
+    
+    if(_casedCString && pro.isCString) { _casedCString();   return; }
+    if(_casedClass && pro.isClass){ _casedClass();  return; }
+    if(_casedIMP && pro.isIMP)    { _casedIMP();    return; }
+    if(_casedSEL && pro.isSEL)    { _casedSEL();    return; }
+    if(_casedPointer && pro.isPointer) { _casedPointer();   return; }
+    if(_casedVoid && pro.isVoid)  { _casedVoid();   return; }
+    if(_casedDefault) _casedDefault();
+}
+@end

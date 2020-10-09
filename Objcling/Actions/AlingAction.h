@@ -12,25 +12,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 支持参数的action
+/// 方法是支持参数的方法，即block形式的属性
 /// 用户实现属性 at0..at1..at3 可以传nil
 @protocol TActionParametric <NSObject>
 @optional
 + (const char *)encodeAt:(NSInteger)idx;
 @end
 
-/// 支持可变参数列表，要求用户提供一个数组
+/// 方法是支持可变参数列表的，要求实现者提供一个可变数组来容纳装箱类型的参数
 @protocol TActionVariableParametric <TActionParametric>
 @required
 - (NSMutableArray *)arrayForValist;
 @end
 
-/// 具有打断链式的返回值类型的方法
+/// 表该方法的返回值类型不是Aling的子类，这将打断链式语法
 @protocol TActionLingBroken <NSObject>
 
 @end
 
-/// 抽象的链的方法
+/// 链方法（抽象的）
 @interface AlingAction: NSObject {
     Class dependentClass;
 }

@@ -12,8 +12,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TlingNotifiedINAction : AlingAction
+<
+    TActionParametric
+>
 @property (nullable,nonatomic,copy) NSNotificationName nam;
+
 @property (nullable,nonatomic,copy) TlingNotifiedIN block;
+
 @end
 
 NS_ASSUME_NONNULL_END

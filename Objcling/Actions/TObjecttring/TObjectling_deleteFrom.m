@@ -28,13 +28,12 @@ void delfrom_string (TObjectling_deleteFrom* act, TlingErr **err) {
     [rt replaceOccurrencesOfString:act.target withString:@"" options:0 range:NSMakeRange(0, rt.length - 1)];
 }
 
-void delfrom_array (TObjectling_deleteFrom* act, TlingErr **err) {
-    if(!ocling_is_mutableobject(act.at0)) {
+void delfrom_col (TObjectling_deleteFrom* act, TlingErr **err) {
+    if(![act.at0 respondsToSelector:@selector(removeObject:)]) {
         // push error
         return;
     }
-    NSMutableArray *rt = act.at0;
-    [rt removeObject:act.target];
+    [act.at0 removeObject:act.target];
 }
 
 void delfrom_view (TObjectling_deleteFrom* act, TlingErr **err) {
@@ -55,12 +54,16 @@ void delfrom_view (TObjectling_deleteFrom* act, TlingErr **err) {
     Class c = object_getClass(self.at0);
     if([c isSubclassOfClass:NSString.class]) {
         delfrom_string(self, err);
-    } else if([c isSubclassOfClass:NSArray.class]) {
-        delfrom_array(self, err);
     } else if([c isSubclassOfClass:UIView.class]) {
         delfrom_view(self, err);
+    }else {
+        delfrom_col(self, err);
     }
     return nil;
+}
+
+- (NSUInteger)count {
+    return 1;
 }
 
 @end

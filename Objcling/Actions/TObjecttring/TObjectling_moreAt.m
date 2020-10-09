@@ -18,8 +18,12 @@ NSMutableString *moreAt_string (TObjectling_moreAt* act, TlingErr **err) {
     return rt;
 }
 
-NSMutableArray *moreAt_array (TObjectling_moreAt* act, TlingErr **err) {
-    NSMutableArray *rt = ocling_mutablecopy_ifneed(act.target);
+NSMutableArray *moreAt_col (TObjectling_moreAt* act, TlingErr **err) {
+    id rt = act.target;
+    if(![rt respondsToSelector:@selector(insertObject:atIndex:)]) {
+        // push error
+        return rt;
+    }
     [rt insertObject:act.at0 atIndex:act.at1];
     return rt;
 }
@@ -41,10 +45,10 @@ UIView *moreAt_view (TObjectling_moreAt* act, TlingErr **err) {
     id rt = nil;
     if([c isSubclassOfClass:NSString.class]) {
         rt = moreAt_string(self, err);
-    } else if([c isSubclassOfClass:NSArray.class]) {
-        rt = moreAt_array(self, err);
     } else if([c isSubclassOfClass:UIView.class]) {
         rt = moreAt_view(self, err);
+    } else {
+        rt = moreAt_col(self, err);
     }
     return self.target == rt ? nil : rt;
 }

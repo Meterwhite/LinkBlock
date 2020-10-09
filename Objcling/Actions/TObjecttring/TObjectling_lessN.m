@@ -15,7 +15,7 @@
 
 NSMutableString *less_string (TObjectling_lessN* ling, TlingErr **err);
 
-NSMutableArray  *less_array (TObjectling_lessN* ling, TlingErr **err);
+NSMutableArray  *less_col (TObjectling_lessN* ling, TlingErr **err);
 
 NSDecimalNumber *less_number (TObjectling_lessN* ling, TlingErr **err);
 
@@ -44,14 +44,14 @@ NSMutableDictionary *less_dic (TObjectling_lessN* act, TlingErr **err);
     id rt = nil;
     if([c isSubclassOfClass:NSString.class]) {
         rt = less_string(self, err);
-    } else if([c isSubclassOfClass:NSArray.class]) {
-        rt = less_array(self, err);
     } else if([c isSubclassOfClass:NSNumber.class]) {
         rt = less_number(self, err);
     } else if([c isSubclassOfClass:UIView.class]) {
         rt = less_view(self, err);
     } else if([c isSubclassOfClass:NSDictionary.class]) {
         rt = less_dic(self, err);
+    } else {
+        rt = less_col(self, err);
     }
     return self.target == rt ? nil : rt;
 }
@@ -78,9 +78,9 @@ NSMutableString *less_string (TObjectling_lessN* act, TlingErr **err) {
     return rt;
 }
 
-NSMutableArray *less_array (TObjectling_lessN* act, TlingErr **err) {
-    NSMutableArray *rt = ocling_mutablecopy_ifneed(act.target);
-    if(!act.at0) {
+NSMutableArray *less_col (TObjectling_lessN* act, TlingErr **err) {
+    id rt = act.target;
+    if(![rt respondsToSelector:@selector(removeObject:)]) {
         // push error
         return act.target;
     }

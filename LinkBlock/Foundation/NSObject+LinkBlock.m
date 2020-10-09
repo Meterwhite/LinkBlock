@@ -449,7 +449,7 @@
                         //Get class type
                         code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
                         if([code characterAtIndex:0] == '<'){
-                            //'id<AProtocol>'
+                            //'id<Protocol>'
                             stop = YES; break;
                         }
                         

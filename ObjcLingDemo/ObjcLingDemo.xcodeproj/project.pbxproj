@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1811EBF12524DA1400A19350 /* TObjectling_kvcClean.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811EBF02524DA1400A19350 /* TObjectling_kvcClean.m */; };
 		181DABC424FAC47400C21E42 /* TlingNotifiedINAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABC324FAC47400C21E42 /* TlingNotifiedINAction.m */; };
 		181DABC724FB45EA00C21E42 /* TlingTryingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABC624FB45EA00C21E42 /* TlingTryingAction.m */; };
 		181DABCA24FB460700C21E42 /* TlingThrowingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 181DABC924FB460700C21E42 /* TlingThrowingAction.m */; };
@@ -40,6 +41,7 @@
 		1826211524F79B130006DA86 /* TNumberling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1826210124F79B130006DA86 /* TNumberling.m */; };
 		1826211624F79B130006DA86 /* TValueling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1826210224F79B130006DA86 /* TValueling.m */; };
 		186500152509D88F0081FE8E /* TDynamiling.m in Sources */ = {isa = PBXBuildFile; fileRef = 186500142509D88F0081FE8E /* TDynamiling.m */; };
+		1877F72F2512530F004563D6 /* TObjectling_clean.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877F72E2512530F004563D6 /* TObjectling_clean.m */; };
 		1882290E24F89668007213D8 /* AlingStopAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882290D24F89668007213D8 /* AlingStopAction.m */; };
 		18A50EB2250BD96B00EDEF85 /* TObjectling_moreAt.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A50EB1250BD96B00EDEF85 /* TObjectling_moreAt.m */; };
 		18A50EB5250BDCC900EDEF85 /* TObjectling_appendto.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A50EB4250BDCC900EDEF85 /* TObjectling_appendto.m */; };
@@ -59,6 +61,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1811EBEF2524DA1400A19350 /* TObjectling_kvcClean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TObjectling_kvcClean.h; sourceTree = "<group>"; };
+		1811EBF02524DA1400A19350 /* TObjectling_kvcClean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_kvcClean.m; sourceTree = "<group>"; };
 		181DABC224FAC47400C21E42 /* TlingNotifiedINAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingNotifiedINAction.h; sourceTree = "<group>"; };
 		181DABC324FAC47400C21E42 /* TlingNotifiedINAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TlingNotifiedINAction.m; sourceTree = "<group>"; };
 		181DABC524FB45EA00C21E42 /* TlingTryingAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TlingTryingAction.h; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 		1826210224F79B130006DA86 /* TValueling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TValueling.m; sourceTree = "<group>"; };
 		186500132509D88F0081FE8E /* TDynamiling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDynamiling.h; sourceTree = "<group>"; };
 		186500142509D88F0081FE8E /* TDynamiling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDynamiling.m; sourceTree = "<group>"; };
+		1877F72D2512530F004563D6 /* TObjectling_clean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TObjectling_clean.h; sourceTree = "<group>"; };
+		1877F72E2512530F004563D6 /* TObjectling_clean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TObjectling_clean.m; sourceTree = "<group>"; };
 		1882290C24F89668007213D8 /* AlingStopAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlingStopAction.h; sourceTree = "<group>"; };
 		1882290D24F89668007213D8 /* AlingStopAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlingStopAction.m; sourceTree = "<group>"; };
 		18A50EB0250BD96B00EDEF85 /* TObjectling_moreAt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TObjectling_moreAt.h; sourceTree = "<group>"; };
@@ -332,6 +338,10 @@
 				18D01EDC251069EE00939945 /* TObjectling_lessAt.m */,
 				18A8DCD62511067F0057B4EB /* TObjectling_deleteFrom.h */,
 				18A8DCD72511067F0057B4EB /* TObjectling_deleteFrom.m */,
+				1877F72D2512530F004563D6 /* TObjectling_clean.h */,
+				1877F72E2512530F004563D6 /* TObjectling_clean.m */,
+				1811EBEF2524DA1400A19350 /* TObjectling_kvcClean.h */,
+				1811EBF02524DA1400A19350 /* TObjectling_kvcClean.m */,
 			);
 			path = TObjecttring;
 			sourceTree = "<group>";
@@ -467,6 +477,7 @@
 				18A50EB2250BD96B00EDEF85 /* TObjectling_moreAt.m in Sources */,
 				181DABD324FB469C00C21E42 /* TlingAsserttByAction.m in Sources */,
 				18B5D0F72507D7FC00B02BD3 /* TPredicateling.m in Sources */,
+				1877F72F2512530F004563D6 /* TObjectling_clean.m in Sources */,
 				182620B424F79AE50006DA86 /* AppDelegate.m in Sources */,
 				18D01EDA2510687300939945 /* TObjectling_less.m in Sources */,
 				1826211624F79B130006DA86 /* TValueling.m in Sources */,
@@ -478,6 +489,7 @@
 				18A8DCD82511067F0057B4EB /* TObjectling_deleteFrom.m in Sources */,
 				1826210824F79B130006DA86 /* NSObject+Objcling.m in Sources */,
 				18B5D0F42507D41300B02BD3 /* TColorling.m in Sources */,
+				1811EBF12524DA1400A19350 /* TObjectling_kvcClean.m in Sources */,
 				181DABCA24FB460700C21E42 /* TlingThrowingAction.m in Sources */,
 				182620C524F79AEA0006DA86 /* main.m in Sources */,
 				1826210324F79B130006DA86 /* TlingErr.m in Sources */,

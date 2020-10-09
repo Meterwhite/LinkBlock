@@ -12,7 +12,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TlingAsserttINAction : AlingAction
+<
+    TActionParametric
+>
 @property (nullable,nonatomic,copy) TlingConditionIN block;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -46,4 +46,8 @@
 - (instancetype)initForUserDescription:(NSString *)udes {
     return [self initWithName:NSObjectInaccessibleException reason:udes userInfo:self.info];
 }
+
+- (instancetype)initForParameterNonnull {
+    return [self initForUserDescription:@"Parameter cannot be null"];
+}
 @end

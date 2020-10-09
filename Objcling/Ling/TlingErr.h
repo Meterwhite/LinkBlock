@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initForUserDescription:(NSString *)udes;
 
+- (instancetype)initForParameterNonnull;
+
 - (instancetype)initForKind:(Class)clz sel:(SEL)sel;
 
 - (instancetype)initForMissingAct:(SEL)sel;

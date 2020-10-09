@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 增量功能的抽象
  * 拼接字符串，添加集合内容，数字的加法，子视图的增加，字典的拼接
- * 注：如果必要则会潜在的把target提升为可变类型
+ * 注：如有必要会将target提升为可变类型
  */
 @property (readonly) TArrayling *(^more)(id obj);
 /// more()的可变参数版本。
@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 增量功能的抽象
  * 拼接字符串，添加集合内容，数字的加法，子视图的增加
- * 注：如果必要则会潜在的把target提升为可变类型
+ * 注：如有必要会将target提升为可变类型
  */
 @property (readonly) TArrayling *(^moreAt)(id obj1, NSUInteger idx);
 /**
@@ -118,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 减量功能的抽象
  * 剪切字符串，减少集合内容，数字的减法，字典内容的移除（传key）
- * 注：如果必要则会潜在的把target提升为可变类型
+ * 注：如有必要会将target提升为可变类型
  */
 @property (readonly) TArrayling *(^less)(id obj);
 /// less()的可变参数版本。
@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 减量功能的抽象
  * 修改字符串，减少集合内容，视图的移除
- * 注：如果必要则会潜在的把target提升为可变类型
+ * 注：如有必要会将target提升为可变类型
  */
 @property (readonly) TArrayling *(^lessAt)(NSUInteger idx);
 /**
@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 减量功能的抽象
  * 集合的清空，字符串的清空
- * 注：如果必要则会潜在的把target提升为可变类型
+ * 注：如有必要会将target提升为可变类型
  */
 @property (readonly) TArrayling *clean;
 /**
@@ -149,7 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 改
 /**
  * 替换内容
- * 注：如果必要则会潜在的把target提升为可变类型
+ * 注：如有必要会将target提升为可变类型
  */
 @property (readonly) TArrayling *(^instead)(id neww, id old);
 

@@ -18,11 +18,11 @@ NSMutableString *lessAt_string (TObjectling_lessAt* act, TlingErr **err) {
     return rt;
 }
 
-NSMutableArray *lessAt_array (TObjectling_lessAt* act, TlingErr **err) {
-    NSMutableArray *rt = ocling_mutablecopy_ifneed(act.target);
-    if(!act.at0) {
+NSMutableArray *lessAt_col (TObjectling_lessAt* act, TlingErr **err) {
+    id rt = act.target;
+    if(![rt respondsToSelector:@selector(removeObjectAtIndex:)]) {
         // push error
-        return act.target;
+        return rt;
     }
     [rt removeObjectAtIndex:act.at0];
     return rt;
@@ -46,10 +46,10 @@ UIView *lessAt_view (TObjectling_lessAt* act, TlingErr **err) {
     id rt = nil;
     if([c isSubclassOfClass:NSString.class]) {
         rt = lessAt_string(self, err);
-    } else if([c isSubclassOfClass:NSArray.class]) {
-        rt = lessAt_array(self, err);
     } else if([c isSubclassOfClass:UIView.class]) {
         rt = lessAt_view(self, err);
+    } else {
+        rt = lessAt_col(self, err);
     }
     return self.target == rt ? nil : rt;
 }

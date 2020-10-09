@@ -21,12 +21,13 @@ void appendtoAt_string (TObjectling_appendtoAt* act, TlingErr **err) {
     [act.at0 insertObject:act.target atIndex:act.at1];
 }
 
-void appendtoAt_array (TObjectling_appendtoAt* act, TlingErr **err) {
-    if(!act.target) {
+void appendtoAt_col (TObjectling_appendtoAt* act, TlingErr **err) {
+    id rt = act.target;
+    if(![act.at0 respondsToSelector:@selector(insertObject:atIndex:)] || !rt) {
         /// push error
         return;
     }
-    [act.at0 insertObject:act.target atIndex:act.at1];
+    [act.at0 insertObject:rt atIndex:act.at1];
 }
 
 void appendtoAt_view (TObjectling_appendtoAt* act, TlingErr **err) {
@@ -47,10 +48,10 @@ void appendtoAt_view (TObjectling_appendtoAt* act, TlingErr **err) {
     Class c = object_getClass(self.at0);
     if([c isSubclassOfClass:NSString.class]) {
         appendtoAt_string(self, err);
-    } else if([c isSubclassOfClass:NSArray.class]) {
-        appendtoAt_array(self, err);
-    }else if([c isSubclassOfClass:UIView.class]) {
+    } else if([c isSubclassOfClass:UIView.class]) {
         appendtoAt_view(self, err);
+    } else {
+        appendtoAt_col(self, err);
     }
     return nil;
 }
