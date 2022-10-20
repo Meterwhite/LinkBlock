@@ -1,6 +1,7 @@
 # LinkBlock
-> [新的效率工具！](https://github.com/Meterwhite/Objc2020)
->> [Let XIB execute the command line!](https://github.com/Meterwhite/XICommand)
+> [新的ObjC语言效率工具！](https://github.com/Meterwhite/Objc2020)
+> 
+> [修改Cocoapods源代码!](https://github.com/Meterwhite/ObjcHook4pod)
 ## 【Introduction/介绍】
 * LinkBlock是objc`链式编程`语法糖扩展，可以压缩大量不需要阅读的代码
 * 低学习成本，因为它是Fundation API的搬运工
