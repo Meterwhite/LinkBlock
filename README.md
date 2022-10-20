@@ -1,5 +1,5 @@
 # LinkBlock
-> [XIB执行命令行！](https://github.com/Meterwhite/XICommand)
+> [新的效率工具！](https://github.com/Meterwhite/Objc2020)
 >> [Let XIB execute the command line!](https://github.com/Meterwhite/XICommand)
 ## 【Introduction/介绍】
 * LinkBlock是objc`链式编程`语法糖扩展，可以压缩大量不需要阅读的代码
